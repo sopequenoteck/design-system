@@ -15,8 +15,8 @@ describe('PrimitiveRadio', () => {
 
     fixture = TestBed.createComponent(PrimitiveRadio);
     component = fixture.componentInstance;
-    radioElement = fixture.debugElement.query(By.css('.primitive-radio'));
     fixture.detectChanges();
+    radioElement = fixture.debugElement.query(By.css('.primitive-radio'));
   });
 
   it('should create', () => {

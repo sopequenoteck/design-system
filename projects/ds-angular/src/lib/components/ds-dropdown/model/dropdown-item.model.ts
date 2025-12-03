@@ -1,5 +1,4 @@
 import {IconDefinition} from '@fortawesome/angular-fontawesome';
-import {SortCriteriaConfig} from '../../../../../core/constant/planner/planner-sort-criteria';
 
 // MODELS
 export interface DropdownItem {
@@ -14,11 +13,4 @@ export interface DropdownItemDTO {
   label: string;
   startIcon: string;
   endIcon: string;
-}
-export function mapSortCriteriaConfigToDropDownItem(dto: SortCriteriaConfig): DropdownItem {
-  return {
-    code: dto.key,
-    label: dto.label,
-    startIcon: dto.icon
-  };
 }
