@@ -1,0 +1,80 @@
+<div
+  class="ds-input-field"
+  [ngClass]="[
+    variant(),
+    inputState(),
+    isDisabled() ? 'is-disabled' : '',
+    readonly() ? 'is-readonly' : ''
+  ]">
+  @if (label()) {
+    <label [for]="id()" [attr.data-state]="inputState()">
+      {{ label() }}
+      @if (required()) {
+        <span class="required">*</span>
+      }
+    </label>
+  }
+
+  <div class="input-container">
+    <primitive-input
+      [id]="id()"
+      [name]="name()"
+      [autocomplete]="autocomplete()"
+      [ariaLabel]="ariaLabel()"
+      [ariaDescribedBy]="ariaDescribedBy()"
+      [maxlength]="maxlength()"
+      [placeholder]="placeholder()"
+      [type]="actualType()"
+      [disabled]="isDisabled()"
+      [readonly]="readonly()"
+      [required]="required()"
+      [state]="inputState()"
+      [size]="size()"
+      [appearance]="variant()"
+      [iconStart]="iconStart()"
+      [iconEnd]="iconEnd()"
+      [value]="internalValue()"
+      (valueChange)="onPrimitiveValueChange($event)"
+      (inputBlurred)="onInputBlur()"
+    >
+    </primitive-input>
+
+    @if (showClearButton()) {
+      <button
+        type="button"
+        class="icon-btn clear"
+        (click)="clearValue()"
+        aria-label="Clear input">
+        <fa-icon [icon]="faClose" />
+      </button>
+    }
+
+    @if (showTogglePassword()) {
+      <button
+        type="button"
+        class="icon-btn toggle"
+        (click)="togglePasswordVisibility()"
+        [attr.aria-label]="passwordVisible() ? 'Hide password' : 'Show password'">
+        <fa-icon [icon]="passwordVisible() ? faEyeSlash : faEye" />
+      </button>
+    }
+  </div>
+
+  @if (error()) {
+    <p class="error" [id]="errorId()" role="alert">
+      {{ error() }}
+    </p>
+  }
+
+  @if (!error() && helper()) {
+    <p class="helper" [id]="helperId()">
+      {{ helper() }}
+    </p>
+  }
+
+  @if (maxlength()) {
+    <p class="counter" [id]="counterId()">
+      {{ characterCount() }}/{{ maxlength() }}
+    </p>
+  }
+</div>

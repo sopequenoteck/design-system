@@ -1,0 +1,16 @@
+<div class="toast" [ngClass]="[type(), position()]" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+  <fa-icon class="icon" [icon]="currentIcon()"></fa-icon>
+  <span class="message">{{ message() }}</span>
+
+  @if (actionLabel()) {
+    <button class="action-btn" type="button" (click)="handleAction()">
+      {{ actionLabel() }}
+    </button>
+  }
+
+  @if (closable()) {
+    <button class="close-btn" (click)="close()" aria-label="Close toast">
+      <fa-icon [icon]="faClose" />
+    </button>
+  }
+</div>

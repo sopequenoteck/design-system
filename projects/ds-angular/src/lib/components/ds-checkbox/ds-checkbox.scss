@@ -1,0 +1,51 @@
+// ============================================================================
+// DS CHECKBOX — Design System Assist-AI
+// ============================================================================
+//
+// Composant checkbox avec ControlValueAccessor pour formulaires réactifs.
+// Encapsule primitive-checkbox avec label, helper, error.
+//
+// ============================================================================
+
+.ds-checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  position: relative;
+
+  // === REQUIRED INDICATOR ===
+
+  &__required {
+    color: var(--error);
+    font-size: var(--font-size-3);
+    margin-left: var(--space-1);
+  }
+
+  // === HELPER TEXT ===
+
+  &__helper {
+    font-size: var(--font-size-2);
+    color: var(--text-muted);
+    line-height: var(--line-height-normal);
+    margin-left: calc(var(--checkbox-size-md) + var(--space-2));
+    transition: color var(--duration-fast) var(--easing-default);
+  }
+
+  // === ERROR TEXT ===
+
+  &__error {
+    font-size: var(--font-size-2);
+    color: var(--error);
+    line-height: var(--line-height-normal);
+    margin-left: calc(var(--checkbox-size-md) + var(--space-2));
+    font-weight: var(--font-weight-medium);
+  }
+
+  // === ERROR STATE ===
+
+  &--error {
+    primitive-checkbox {
+      // Error styling is handled by error message below
+    }
+  }
+}

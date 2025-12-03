@@ -1,0 +1,43 @@
+:host {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: calc(var(--modal-overlay-z-index) + 1);
+}
+
+.toast-stack {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: var(--toast-gap);
+  padding: var(--space-4);
+  pointer-events: none;
+}
+
+.toast-stack ds-toast {
+  pointer-events: auto;
+}
+
+.toast-stack[data-position='top-right'] {
+  top: var(--space-4);
+  right: var(--space-4);
+  align-items: flex-end;
+}
+
+.toast-stack[data-position='top-left'] {
+  top: var(--space-4);
+  left: var(--space-4);
+  align-items: flex-start;
+}
+
+.toast-stack[data-position='bottom-right'] {
+  bottom: var(--space-4);
+  right: var(--space-4);
+  align-items: flex-end;
+}
+
+.toast-stack[data-position='bottom-left'] {
+  bottom: var(--space-4);
+  left: var(--space-4);
+  align-items: flex-start;
+}

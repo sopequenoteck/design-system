@@ -1,0 +1,140 @@
+/* ==========================================================================
+   DS-INPUT-FIELD — Input field du design system
+   ========================================================================== */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.ds-input-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+
+  &.error label {
+    color: var(--input-error-border, var(--error));
+  }
+
+  &.success label {
+    color: var(--input-success-border, var(--success));
+  }
+
+  &.warning label {
+    color: var(--input-warning-border, var(--warning));
+  }
+
+  &.is-disabled label,
+  &.is-readonly label {
+    color: var(--text-muted);
+  }
+}
+
+/* === LABEL === */
+
+label {
+  display: block;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--input-label-font-size, var(--font-size-2));
+  color: var(--input-label-color, var(--text-default));
+  margin-bottom: var(--space-1);
+
+  .required {
+    color: var(--input-error-border, var(--error));
+    margin-left: var(--space-1);
+  }
+}
+
+/* === INPUT CONTAINER === */
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  primitive-input {
+    flex: 1;
+  }
+}
+
+/* === ICON BUTTONS (Clear & Toggle Password) === */
+
+.icon-btn {
+  position: absolute;
+  right: var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--input-icon, var(--text-muted));
+  cursor: pointer;
+  border-radius: var(--radius-1);
+  transition: all var(--duration-fast) var(--easing-default);
+
+  &:hover {
+    background: var(--surface-hover);
+    color: var(--text-default);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  fa-icon {
+    font-size: var(--icon-size-md);
+  }
+}
+
+.ds-input-field.is-disabled .icon-btn,
+.ds-input-field.is-readonly .icon-btn {
+  cursor: not-allowed;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.icon-btn.clear {
+  right: calc(var(--space-2) + 40px); // Décalé si toggle présent
+}
+
+.icon-btn.toggle {
+  right: var(--space-2);
+}
+
+/* === HELPER TEXT === */
+
+.helper {
+  font-size: var(--font-size-1);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.ds-input-field.success .helper {
+  color: var(--input-success-border, var(--success));
+}
+
+.ds-input-field.warning .helper {
+  color: var(--input-warning-border, var(--warning));
+}
+
+/* === ERROR MESSAGE === */
+
+.error {
+  font-size: var(--font-size-1);
+  color: var(--input-error-border, var(--error));
+  margin: 0;
+}
+
+/* === COUNTER === */
+
+.counter {
+  font-size: var(--font-size-1);
+  color: var(--text-muted);
+  text-align: right;
+  margin: 0;
+}
+

@@ -1,0 +1,119 @@
+/* ==========================================================================
+   DS-INPUT-TEXTAREA — Wrapper autour de primitive-textarea
+   ========================================================================== */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.ds-input-textarea {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+
+  &.error label {
+    color: var(--input-error-border, var(--error));
+  }
+
+  &.success label {
+    color: var(--input-success-border, var(--success));
+  }
+
+  &.warning label {
+    color: var(--input-warning-border, var(--warning));
+  }
+
+  &.is-disabled label,
+  &.is-readonly label {
+    color: var(--text-muted);
+  }
+}
+
+label {
+  display: block;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--input-label-font-size, var(--font-size-2));
+  color: var(--input-label-color, var(--text-default));
+  margin-bottom: var(--space-1);
+
+  .required {
+    color: var(--input-error-border, var(--error));
+    margin-left: var(--space-1);
+  }
+}
+
+.textarea-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+
+  primitive-textarea {
+    flex: 1;
+  }
+}
+
+.icon-btn {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--input-icon, var(--text-muted));
+  cursor: pointer;
+  border-radius: var(--radius-1);
+  transition: all var(--duration-fast) var(--easing-default);
+
+  &:hover {
+    background: var(--surface-hover);
+    color: var(--text-default);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  fa-icon {
+    font-size: var(--icon-size-md);
+  }
+}
+
+.ds-input-textarea.is-disabled .icon-btn,
+.ds-input-textarea.is-readonly .icon-btn {
+  cursor: not-allowed;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.helper {
+  font-size: var(--font-size-1);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.ds-input-textarea.success .helper {
+  color: var(--input-success-border, var(--success));
+}
+
+.ds-input-textarea.warning .helper {
+  color: var(--input-warning-border, var(--warning));
+}
+
+.error {
+  font-size: var(--font-size-1);
+  color: var(--input-error-border, var(--error));
+  margin: 0;
+}
+
+.counter {
+  font-size: var(--font-size-1);
+  color: var(--text-muted);
+  text-align: right;
+  margin: 0;
+}

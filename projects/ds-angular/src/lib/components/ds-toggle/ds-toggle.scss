@@ -1,0 +1,23 @@
+// ============================================================================
+// DS TOGGLE — Design System Assist-AI
+// ============================================================================
+//
+// Composant toggle avec ControlValueAccessor pour formulaires réactifs.
+// Encapsule primitive-toggle avec helper text.
+//
+// ============================================================================
+
+.ds-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+
+  // === HELPER TEXT ===
+
+  &__helper {
+    font-size: var(--font-size-2);
+    color: var(--text-muted);
+    line-height: var(--line-height-normal);
+    transition: color var(--duration-fast) var(--easing-default);
+  }
+}

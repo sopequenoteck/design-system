@@ -1,0 +1,26 @@
+<div class="ds-button-wrapper" [class.block]="block()">
+  @if (loading()) {
+    <primitive-button
+      [type]="buttonType"
+      [variant]="variant()"
+      [appearance]="appearance()"
+      [size]="size()"
+      [block]="block()"
+      [disabled]="true">
+      <span class="spinner"></span>
+    </primitive-button>
+  } @else {
+    <primitive-button
+      [type]="buttonType"
+      [variant]="variant()"
+      [appearance]="appearance()"
+      [size]="size()"
+      [block]="block()"
+      [disabled]="isDisabled"
+      [iconStart]="iconStart()"
+      [iconEnd]="iconEnd()"
+      (clicked)="handleClick()">
+      <ng-content></ng-content>
+    </primitive-button>
+  }
+</div>

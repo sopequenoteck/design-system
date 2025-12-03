@@ -1,0 +1,76 @@
+<primitive-button
+  #triggerOrigin="cdkOverlayOrigin"
+  #triggerButton
+  cdkOverlayOrigin
+  [attr.id]="id()"
+  [type]="buttonType()"
+  [variant]="type()"
+  [appearance]="variant()"
+  [size]="size()"
+  [block]="block()"
+  [disabled]="isDisabled()"
+  [iconStart]="effectiveStartIcon()"
+  [iconEnd]="effectiveEndIcon()"
+  [attr.aria-haspopup]="'menu'"
+  [attr.aria-expanded]="isMenuOpen()"
+  [attr.aria-controls]="isMenuOpen() ? id() + '-menu' : null"
+  [attr.aria-label]="ariaLabel() ?? null"
+  [attr.aria-labelledby]="ariaLabelledBy() ?? null"
+  (clicked)="toggleMenu()"
+  (keydown)="onTriggerKeydown($event)"
+>
+  @if (loading()) {
+    <span class="spinner" aria-hidden="true"></span>
+  } @else {
+    <ng-content></ng-content>
+  }
+</primitive-button>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="triggerOrigin"
+  [cdkConnectedOverlayOpen]="isMenuOpen()"
+  [cdkConnectedOverlayPositions]="overlayPositions"
+  [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayBackdropClass]="'menu-overlay'"
+  [cdkConnectedOverlayPanelClass]="overlayPanelClasses()"
+  (backdropClick)="closeMenu()"
+  (detach)="onOverlayDetach()"
+>
+  <div
+    class="menu-sort-and-group"
+    role="menu"
+    [attr.id]="id() + '-menu'"
+    [attr.aria-activedescendant]="activeDescendantId()"
+  >
+    @for (item of dropdownItems(); track item.code; let index = $index) {
+      <button
+        #menuItemRef
+        type="button"
+        class="menu-item-content"
+        [class.active]="isItemActive(item.code)"
+        [attr.id]="id() + '-option-' + item.code"
+        [attr.aria-checked]="isItemActive(item.code)"
+        [attr.data-index]="index"
+        role="menuitemradio"
+        (click)="setSelectedItem(item.code)"
+        (keydown)="onMenuKeydown($event, index)"
+        (mouseenter)="onMenuMouseEnter(index)"
+      >
+        @if (item.startIcon) {
+          <fa-icon
+            [icon]="item.startIcon"
+            [style.color]="item.iconColor || null">
+          </fa-icon>
+        }
+        <span>{{ item.label }}</span>
+        @if (isItemActive(item.code) && item.endIcon) {
+          <fa-icon
+            [icon]="item.endIcon"
+            [style.color]="item.iconColor || null">
+          </fa-icon>
+        }
+      </button>
+    }
+  </div>
+</ng-template>

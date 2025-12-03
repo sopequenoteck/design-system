@@ -1,0 +1,23 @@
+<div class="ds-toggle">
+  <primitive-toggle
+    [toggleId]="id()"
+    [checked]="internalValue()"
+    [disabled]="isDisabled()"
+    [size]="size()"
+    [label]="label()"
+    [labelPosition]="labelPosition()"
+    [attr.aria-describedby]="helperId()"
+    [attr.name]="name()"
+    (checkedChange)="onCheckedChange($event)"
+  />
+
+  @if (helper()) {
+    <div
+      [id]="helperId()"
+      class="ds-toggle__helper"
+      [attr.aria-live]="'polite'"
+    >
+      {{ helper() }}
+    </div>
+  }
+</div>

@@ -1,0 +1,28 @@
+.ds-tooltip {
+  background: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  padding: var(--tooltip-padding-y) var(--tooltip-padding-x);
+  border-radius: var(--tooltip-radius);
+  font-size: var(--tooltip-font-size);
+  line-height: var(--line-height-normal);
+  max-width: var(--tooltip-max-width);
+  box-shadow: var(--tooltip-shadow);
+  word-wrap: break-word;
+  z-index: var(--z-index-full);
+  animation: tooltipFadeIn 150ms ease-out;
+
+  &__content {
+    white-space: normal;
+  }
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

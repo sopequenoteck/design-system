@@ -1,0 +1,34 @@
+<div class="ds-tabs">
+  <div class="ds-tabs__header" role="tablist">
+    @for (tab of tabs(); track trackByTabId($index, tab)) {
+      <button
+        type="button"
+        class="ds-tabs__tab"
+        [class.ds-tabs__tab--active]="isTabActive($index)"
+        [class.ds-tabs__tab--disabled]="tab.disabled"
+        [attr.role]="'tab'"
+        [attr.aria-selected]="isTabActive($index)"
+        [attr.aria-controls]="'panel-' + tab.id"
+        [attr.id]="'tab-' + tab.id"
+        [attr.tabindex]="isTabActive($index) ? 0 : -1"
+        [attr.data-index]="$index"
+        [disabled]="tab.disabled"
+        (click)="selectTab(tab, $index)"
+      >
+        @if (tab.icon) {
+          <i [class]="tab.icon" class="ds-tabs__icon"></i>
+        }
+        <span class="ds-tabs__label">{{ tab.label }}</span>
+      </button>
+    }
+    <div
+      class="ds-tabs__indicator"
+      [style.transform]="'translateX(' + activeIndex() * 100 + '%)'"
+      [style.width]="'calc(100% / ' + tabs().length + ')'"
+    ></div>
+  </div>
+
+  <div class="ds-tabs__content">
+    <ng-content></ng-content>
+  </div>
+</div>

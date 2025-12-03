@@ -1,0 +1,54 @@
+<div
+  class="ds-radio-group"
+  [class.ds-radio-group--error]="hasError()"
+  [class.ds-radio-group--horizontal]="layout() === 'horizontal'"
+  role="radiogroup"
+  [attr.aria-labelledby]="label() ? id() + '-label' : null"
+  [attr.aria-describedby]="ariaDescribedBy()"
+  [attr.aria-invalid]="hasError()"
+  [attr.aria-required]="required()"
+>
+  @if (label()) {
+    <div [id]="id() + '-label'" class="ds-radio-group__label">
+      {{ label() }}
+      @if (required()) {
+        <span class="ds-radio-group__required" aria-hidden="true">*</span>
+      }
+    </div>
+  }
+
+  <div class="ds-radio-group__options">
+    @for (option of options(); track trackByValue($index, option)) {
+      <primitive-radio
+        [name]="name()"
+        [value]="option.value"
+        [label]="option.label"
+        [checked]="isOptionSelected(option.value)"
+        [disabled]="isOptionDisabled(option)"
+        [size]="size()"
+        (checkedChange)="onRadioChange(option.value)"
+      />
+    }
+  </div>
+
+  @if (helper() && !error()) {
+    <div
+      [id]="helperId()"
+      class="ds-radio-group__helper"
+      [attr.aria-live]="'polite'"
+    >
+      {{ helper() }}
+    </div>
+  }
+
+  @if (error()) {
+    <div
+      [id]="errorId()"
+      class="ds-radio-group__error"
+      [attr.aria-live]="'assertive'"
+      role="alert"
+    >
+      {{ error() }}
+    </div>
+  }
+</div>

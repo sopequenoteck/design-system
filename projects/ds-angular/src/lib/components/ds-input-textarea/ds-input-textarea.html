@@ -1,0 +1,68 @@
+<div
+  class="ds-input-textarea"
+  [ngClass]="[
+    variant(),
+    inputState(),
+    isDisabled() ? 'is-disabled' : '',
+    readonly() ? 'is-readonly' : ''
+  ]">
+  @if (label()) {
+    <label [for]="id()" [attr.data-state]="inputState()">
+      {{ label() }}
+      @if (required()) {
+        <span class="required">*</span>
+      }
+    </label>
+  }
+
+  <div class="textarea-container">
+    <primitive-textarea
+      #textareaHost
+      [id]="id()"
+      [name]="name()"
+      [placeholder]="placeholder()"
+      [rows]="rows()"
+      [cols]="cols()"
+      [maxlength]="maxlength()"
+      [resize]="textareaResize()"
+      [state]="inputState()"
+      [size]="size()"
+      [appearance]="variant()"
+      [iconStart]="iconStart()"
+      [iconEnd]="iconEnd()"
+      [disabled]="isDisabled()"
+      [readonly]="readonly()"
+      [required]="required()"
+      [ariaLabel]="ariaLabel()"
+      [value]="internalValue()"
+      [ariaDescribedBy]="ariaDescribedBy()"
+      (valueChange)="onPrimitiveValueChange($event)"
+      (inputBlurred)="onInputBlur()"
+    >
+    </primitive-textarea>
+
+    @if (showClearButton()) {
+      <button
+        type="button"
+        class="icon-btn clear"
+        (click)="clearValue()"
+        aria-label="Clear textarea">
+        <fa-icon [icon]="faClose" />
+      </button>
+    }
+  </div>
+
+  @if (error()) {
+    <p class="error" [id]="arErrorId()" role="alert">{{ error() }}</p>
+  }
+
+  @if (!error() && helper()) {
+    <p class="helper" [id]="arHelperId()">{{ helper() }}</p>
+  }
+
+  @if (maxlength()) {
+    <p class="counter" [id]="arCounterId()">
+      {{ characterCount() }}/{{ maxlength() }}
+    </p>
+  }
+</div>

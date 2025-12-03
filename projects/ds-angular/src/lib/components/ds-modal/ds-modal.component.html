@@ -1,0 +1,42 @@
+@if (shouldRenderOverlay()) {
+  <div class="overlay" role="presentation" (click)="onBackdropClick()"></div>
+}
+@if (open()) {
+  <div #modalContainer
+       class="modal"
+       role="dialog"
+       aria-modal="true"
+       [attr.aria-labelledby]="modalTitleId"
+       [attr.aria-describedby]="modalDescId"
+       [ngClass]="modalClasses()"
+  >
+    <header class="modal-header">
+      @if (showIcon()) {
+        <div class="modal-icon">
+          <ng-content select="[icon]"></ng-content>
+          @if (shouldRenderDefaultIcon()) {
+            <fa-icon [icon]="resolvedIcon() ?? undefined"></fa-icon>
+          }
+        </div>
+      }
+      <h3 [id]="modalTitleId">{{ title() }}</h3>
+      @if (closable()) {
+        <primitive-button
+          #closeButton
+          class="close-btn"
+          variant="ghost"
+          appearance="outline"
+          size="sm"
+          (clicked)="close()"
+          aria-label="Fermer la fenêtre"
+        >✕</primitive-button>
+      }
+    </header>
+    <div class="modal-content" (scroll)="onScroll($event)">
+      <section [id]="modalDescId"><ng-content></ng-content></section>
+    </div>
+    <footer class="modal-footer" [class.with-shadow]="isScrolled()">
+      <ng-content select="[footer]"></ng-content>
+    </footer>
+  </div>
+}

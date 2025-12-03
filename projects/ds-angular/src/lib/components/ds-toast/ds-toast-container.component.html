@@ -1,0 +1,18 @@
+@for (position of positions; track position) {
+  @let stack = groupedToasts()[position];
+  <div class="toast-stack" [attr.data-position]="position">
+    @for (toast of stack; track toast.id) {
+      <ds-toast
+        [message]="toast.message"
+        [type]="toast.type"
+        [duration]="toast.duration"
+        [closable]="toast.closable"
+        [position]="toast.position"
+        [actionLabel]="toast.actionLabel"
+        [pauseOnHover]="toast.pauseOnHover"
+        (action)="handleAction(toast)"
+        (closed)="dismiss(toast.id)"
+      />
+    }
+  </div>
+}

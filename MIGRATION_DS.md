@@ -5,7 +5,7 @@
 Migration d'un design system Angular 20 (23 composants) depuis assist-ai vers une bibliothèque Angular standalone publiable sur npm avec Storybook.
 
 **Date de début :** 2025-12-03
-**Statut global :** 🟡 En cours (4/10 phases complétées)
+**Statut global :** 🟢 En cours (6/10 phases complétées)
 
 ---
 
@@ -15,14 +15,14 @@ Migration d'un design system Angular 20 (23 composants) depuis assist-ai vers un
 - ✅ **PHASE 2** : Migration Tokens & Styles (100%)
 - ✅ **PHASE 3** : Configuration Secondary Entry Points (100%)
 - ✅ **PHASE 4** : Migration Utils (100%)
-- ⬜ **PHASE 5** : Migration Primitives (0%)
-- ⬜ **PHASE 6** : Migration Composants DS (0%)
+- ✅ **PHASE 5** : Migration Primitives (100%)
+- ✅ **PHASE 6** : Migration Composants DS (100%)
 - ⬜ **PHASE 7** : Tests (0%)
 - ⬜ **PHASE 8** : Storybook (0%)
 - ⬜ **PHASE 9** : Build & Validation (0%)
 - ⬜ **PHASE 10** : Documentation (0%)
 
-**Progression totale : 40%**
+**Progression totale : 60%**
 
 ---
 
@@ -171,33 +171,33 @@ Migrer les utilitaires partagés (overlay positions CDK).
 
 ---
 
-## ⬜ PHASE 5 : Migration Primitives (En attente)
+## ✅ PHASE 5 : Migration Primitives (Complétée)
 
 ### Objectif
 Migrer les 7 composants primitives depuis assist-ai.
 
 ### Composants à Migrer
 
-#### Ordre de migration recommandé :
-1. ⬜ **PrimitiveBadge** (simple, sans dépendances)
-2. ⬜ **PrimitiveButton** (FontAwesome)
-3. ⬜ **PrimitiveCheckbox** (CVA)
-4. ⬜ **PrimitiveRadio** (CVA)
-5. ⬜ **PrimitiveToggle** (CVA)
-6. ⬜ **PrimitiveInput** (CVA + complexe)
-7. ⬜ **PrimitiveTextarea** (CVA + complexe)
+#### Ordre de migration :
+1. ✅ **PrimitiveBadge** (simple, sans dépendances)
+2. ✅ **PrimitiveButton** (FontAwesome)
+3. ✅ **PrimitiveCheckbox** (CVA)
+4. ✅ **PrimitiveRadio** (CVA)
+5. ✅ **PrimitiveToggle** (CVA)
+6. ✅ **PrimitiveInput** (CVA + complexe)
+7. ✅ **PrimitiveTextarea** (CVA + complexe)
 
-### Actions à Réaliser
+### Actions Réalisées
 
 Pour chaque composant :
-- [ ] Créer dossier `projects/ds-angular/src/lib/primitives/primitive-<name>/`
-- [ ] Copier `primitive-<name>.ts` depuis assist-ai
-- [ ] Copier `primitive-<name>.html`
-- [ ] Copier `primitive-<name>.scss`
-- [ ] Copier `primitive-<name>.spec.ts`
-- [ ] Vérifier imports (normalement inchangés)
-- [ ] Pour CVA : vérifier `FormsModule`, `NG_VALUE_ACCESSOR`, implémentation `ControlValueAccessor`
-- [ ] Ajouter export dans `lib/primitives/index.ts`
+- [x] Créé dossier `projects/ds-angular/src/lib/primitives/primitive-<name>/`
+- [x] Copié `primitive-<name>.ts` depuis assist-ai
+- [x] Copié `primitive-<name>.html`
+- [x] Copié `primitive-<name>.scss`
+- [x] Copié `primitive-<name>.spec.ts`
+- [x] Vérifié imports (inchangés, dépendances externes)
+- [x] Pour CVA : vérifié `FormsModule`, `NG_VALUE_ACCESSOR`, implémentation `ControlValueAccessor`
+- [x] Ajouté exports dans `lib/primitives/index.ts`
 
 ### Fichiers à Créer
 - 7 dossiers × 4 fichiers = 28 fichiers au total
@@ -210,7 +210,7 @@ Pour chaque composant :
 
 ---
 
-## ⬜ PHASE 6 : Migration Composants Design System (En attente)
+## ✅ PHASE 6 : Migration Composants Design System (Complétée)
 
 ### Objectif
 Migrer les 16 composants DS depuis assist-ai.
@@ -218,37 +218,37 @@ Migrer les 16 composants DS depuis assist-ai.
 ### Composants à Migrer
 
 #### Groupe 1 : Sans dépendances complexes
-1. ⬜ **DsBadge** (utilise PrimitiveBadge)
-2. ⬜ **DsButton** (utilise PrimitiveButton)
-3. ⬜ **DsTabs** (autonome)
-4. ⬜ **DsBreadcrumb** (autonome)
+1. ✅ **DsBadge** (utilise PrimitiveBadge)
+2. ✅ **DsButton** (utilise PrimitiveButton)
+3. ✅ **DsTabs** (autonome)
+4. ✅ **DsBreadcrumb** (autonome)
 
 #### Groupe 2 : CVA + primitives
-5. ⬜ **DsCheckbox** (utilise PrimitiveCheckbox + CVA)
-6. ⬜ **DsRadioGroup** (utilise PrimitiveRadio + CVA)
-7. ⬜ **DsToggle** (utilise PrimitiveToggle + CVA)
-8. ⬜ **DsInputField** (utilise PrimitiveInput + CVA)
-9. ⬜ **DsInputTextarea** (utilise PrimitiveTextarea + CVA)
+5. ✅ **DsCheckbox** (utilise PrimitiveCheckbox + CVA)
+6. ✅ **DsRadioGroup** (utilise PrimitiveRadio + CVA)
+7. ✅ **DsToggle** (utilise PrimitiveToggle + CVA)
+8. ✅ **DsInputField** (utilise PrimitiveInput + CVA)
+9. ✅ **DsInputTextarea** (utilise PrimitiveTextarea + CVA)
 
 #### Groupe 3 : CDK Overlay
-10. ⬜ **DsDropdown** (CDK Overlay + model)
-11. ⬜ **DsTooltip** (directive + component + CDK)
-12. ⬜ **DsPopover** (directive + component + CDK)
-13. ⬜ **DsModal** (CDK FocusTrap + Overlay)
+10. ✅ **DsDropdown** (CDK Overlay + model)
+11. ✅ **DsTooltip** (directive + component + CDK)
+12. ✅ **DsPopover** (directive + component + CDK)
+13. ✅ **DsModal** (CDK FocusTrap + Overlay)
 
 #### Groupe 4 : Services
-14. ⬜ **DsToast** (service + 2 composants)
+14. ✅ **DsToast** (service + 2 composants)
 
-### Actions à Réaliser
+### Actions Réalisées
 
 Pour chaque composant :
-- [ ] Créer dossier `projects/ds-angular/src/lib/components/ds-<name>/`
-- [ ] Copier tous les fichiers depuis assist-ai
-- [ ] Pour DsDropdown : copier aussi `model/dropdown-item.model.ts`
-- [ ] Pour DsTooltip/DsPopover : copier directive + component
-- [ ] Pour DsToast : copier service + ds-toast.component + ds-toast-container.component
-- [ ] Vérifier imports relatifs (doivent rester identiques)
-- [ ] Ajouter exports dans `lib/components/index.ts`
+- [x] Créé dossier `projects/ds-angular/src/lib/components/ds-<name>/`
+- [x] Copié tous les fichiers depuis assist-ai
+- [x] Pour DsDropdown : copié aussi `model/dropdown-item.model.ts`
+- [x] Pour DsTooltip/DsPopover : copié directive + component
+- [x] Pour DsToast : copié service + ds-toast.component + ds-toast-container.component
+- [x] Vérifié imports relatifs (restent identiques grâce à structure préservée)
+- [x] Ajouté exports dans `lib/components/index.ts`
 
 ### Fichiers à Créer
 - 14-16 dossiers × 3-5 fichiers = ~60 fichiers au total
@@ -538,5 +538,5 @@ import { PrimitiveButton } from '../../primitives/primitive-button/primitive-but
 
 ---
 
-**Dernière mise à jour :** 2025-12-03 17:15
-**Prochaine phase :** PHASE 5 - Migration Primitives
+**Dernière mise à jour :** 2025-12-03 17:30
+**Prochaine phase :** PHASE 7 - Tests

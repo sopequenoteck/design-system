@@ -1,0 +1,30 @@
+<nav class="ds-breadcrumb" aria-label="Breadcrumb">
+  <ol class="ds-breadcrumb__list">
+    @for (item of visibleItems; track trackByIndex($index)) {
+      <li class="ds-breadcrumb__item" [class.ds-breadcrumb__item--active]="isLastItem($index)">
+        @if (item.href && !item.disabled && !isLastItem($index)) {
+          <a
+            [routerLink]="item.href"
+            class="ds-breadcrumb__link"
+            (click)="onItemClick(item, $event)"
+            [attr.aria-current]="isLastItem($index) ? 'page' : null"
+          >
+            {{ item.label }}
+          </a>
+        } @else {
+          <span
+            class="ds-breadcrumb__text"
+            [class.ds-breadcrumb__text--disabled]="item.disabled"
+            [attr.aria-current]="isLastItem($index) ? 'page' : null"
+          >
+            {{ item.label }}
+          </span>
+        }
+
+        @if (!isLastItem($index)) {
+          <span class="ds-breadcrumb__separator" aria-hidden="true">{{ separator() }}</span>
+        }
+      </li>
+    }
+  </ol>
+</nav>

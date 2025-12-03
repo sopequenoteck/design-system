@@ -1,0 +1,40 @@
+<div class="ds-checkbox" [class.ds-checkbox--error]="hasError()">
+  <primitive-checkbox
+    [checkboxId]="id()"
+    [checked]="internalValue()"
+    [disabled]="isDisabled()"
+    [indeterminate]="indeterminate()"
+    [size]="size()"
+    [label]="label()"
+    [attr.aria-describedby]="ariaDescribedBy()"
+    [attr.aria-invalid]="hasError()"
+    [attr.aria-required]="required()"
+    [attr.name]="name()"
+    (checkedChange)="onCheckedChange($event)"
+  />
+
+  @if (required() && label()) {
+    <span class="ds-checkbox__required" aria-hidden="true">*</span>
+  }
+
+  @if (helper() && !error()) {
+    <div
+      [id]="helperId()"
+      class="ds-checkbox__helper"
+      [attr.aria-live]="'polite'"
+    >
+      {{ helper() }}
+    </div>
+  }
+
+  @if (error()) {
+    <div
+      [id]="errorId()"
+      class="ds-checkbox__error"
+      [attr.aria-live]="'assertive'"
+      role="alert"
+    >
+      {{ error() }}
+    </div>
+  }
+</div>
