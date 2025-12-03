@@ -3,5 +3,11 @@
   "dest": "../../dist/ds-angular",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "@fortawesome/angular-fontawesome"
+  ],
+  "assets": [
+    "src/styles/**/*.scss"
+  ]
 }

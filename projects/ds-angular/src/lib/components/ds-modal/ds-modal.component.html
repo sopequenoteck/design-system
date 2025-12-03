@@ -14,8 +14,8 @@
       @if (showIcon()) {
         <div class="modal-icon">
           <ng-content select="[icon]"></ng-content>
-          @if (shouldRenderDefaultIcon()) {
-            <fa-icon [icon]="resolvedIcon() ?? undefined"></fa-icon>
+          @if (shouldRenderDefaultIcon() && resolvedIcon()) {
+            <fa-icon [icon]="resolvedIcon()!"></fa-icon>
           }
         </div>
       }
