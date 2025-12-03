@@ -2,5 +2,11 @@
  * Public API Surface of ds-angular
  */
 
-export * from './lib/ds-angular.service';
-export * from './lib/ds-angular.component';
+// Primitives
+export * from './lib/primitives';
+
+// Components
+export * from './lib/components';
+
+// Utils
+export * from './lib/utils';

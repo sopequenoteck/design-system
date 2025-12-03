@@ -1,0 +1,138 @@
+// ============================================================================
+// TOKENS PRIMITIFS — Design System Assist-AI
+// ============================================================================
+//
+// Ce fichier contient les tokens primitifs globaux du design system.
+// Ces tokens représentent la couche la plus basse de l'architecture de design,
+// et doivent être utilisés pour construire les tokens sémantiques (_semantic.scss).
+//
+// CONTENU :
+// - Palette de couleurs (grays, feedback colors, brand colors)
+// - Échelle de spacing (espacement et marges)
+// - Border radius (arrondis)
+// - Shadows (ombres)
+// - Z-index (superposition)
+// - Animations (durées et easing)
+// - Typographie de base (font-family, font-sizes)
+//
+// RÈGLES D'USAGE :
+// - Ne PAS modifier ces valeurs sans validation design
+// - Ne PAS utiliser directement dans les composants (passer par _semantic.scss)
+// - Maintenir la cohérence avec le système de thème (light/dark)
+//
+// ============================================================================
+
+// === COLORS ===
+
+// Palette de gris
+$gray-50:  #fafafa;
+$gray-100: #f5f5f5;
+$gray-200: #e5e5e5;
+$gray-300: #d4d4d4;
+$gray-400: #a3a3a3;
+$gray-500: #737373;
+$gray-600: #525252;
+$gray-700: #404040;
+$gray-800: #262626;
+$gray-900: #171717;
+
+// Couleurs de feedback
+$success: #4caf50;
+$warning: #ff9800;
+$error:   #f44336;
+$info:    #2196f3;
+
+// Couleurs de marque
+$primary:   #7d4bc0;
+$secondary: #fbc224;
+$alt:       #2dd4bf;
+
+// === SPACING ===
+
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-6: 1.5rem;
+$space-8: 2rem;
+
+// === RADIUS ===
+
+$radius-1: 4px;
+$radius-1-5: 6px;
+$radius-2: 8px;
+$radius-3: 12px;
+$radius-4: 20px;
+$radius-round: 999px;
+
+// === SHADOWS ===
+
+$shadow-1: 0 1px 2px rgba(0,0,0,.14);
+$shadow-2: 0 6px 16px rgba(0,0,0,.18);
+$shadow-3: 0 15px 40px rgba(0,0,0,.24);
+
+// === Z-INDEX ===
+
+$z-index-1: 100;
+$z-index-2: 200;
+$z-index-3: 300;
+$z-index-4: 400;
+$z-index-full: 999;
+
+// === ANIMATIONS ===
+
+$duration-fast: 150ms;
+$duration-normal: 300ms;
+$duration-slow: 500ms;
+
+$easing-default: ease-in-out;
+$easing-in: ease-in;
+$easing-out: ease-out;
+
+// === TYPOGRAPHY ===
+
+$font-family-base: "Poppins, sans-serif";
+
+$font-size-small: 0.6rem;
+$font-size-1: 0.75rem;
+$font-size-2: 0.875rem;
+$font-size-3: 1rem;
+$font-size-4: 1.125rem;
+$font-size-5: 1.25rem;
+$font-size-6: 1.5rem;
+
+$line-height-tight: 1.2;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.75;
+$line-height-loose: 2;
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$letter-spacing-tight: -0.02em;
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.05em;
+
+// === LAYOUT & SIZES ===
+
+$container-xs: 320px;
+$container-sm: 640px;
+$container-md: 768px;
+$container-lg: 1024px;
+$container-xl: 1280px;
+
+$header-height: 60px;
+$footer-height: 50px;
+$sidebar-width: 260px;
+$layout-gap: 1rem;
+
+// === BREAKPOINTS ===
+
+$bp-xs: 480px;
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;

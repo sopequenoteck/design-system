@@ -6,6 +6,9 @@
     "paths": {
       "ds-angular": [
         "./dist/ds-angular"
+      ],
+      "ds-angular/*": [
+        "./dist/ds-angular/*"
       ]
     },
     "outDir": "./dist/out-tsc",

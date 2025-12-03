@@ -1,0 +1,158 @@
+// ============================================================================
+// PRIMITIVE TOGGLE (SWITCH) — Design System Assist-AI
+// ============================================================================
+//
+// Styles pour le composant primitive-toggle.
+// Utilise les tokens de design system pour cohérence et thématisation.
+//
+// TOKENS UTILISÉS :
+// - Sizing: --toggle-width-{sm,md,lg}, --toggle-height-{sm,md,lg}, --toggle-thumb-size-{sm,md,lg}
+// - Colors: --toggle-track-bg, --toggle-track-checked-bg, --toggle-thumb-bg
+// - States: hover, focus, disabled
+// - Effects: --toggle-focus-ring, --toggle-thumb-shadow
+//
+// ============================================================================
+
+.primitive-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  &--label-left {
+    flex-direction: row;
+  }
+
+  &--label-right {
+    flex-direction: row;
+  }
+
+  // === SWITCH CONTAINER ===
+
+  &__switch {
+    display: inline-flex;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+  }
+
+  &--disabled &__switch {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  // === TRACK (PISTE) ===
+
+  &__track {
+    position: relative;
+    border-radius: var(--toggle-track-radius);
+    background-color: var(--toggle-track-bg);
+    transition: background-color var(--duration-fast) var(--easing-default);
+
+    // Tailles
+    .primitive-toggle--sm & {
+      width: var(--toggle-width-sm);
+      height: var(--toggle-height-sm);
+    }
+
+    .primitive-toggle--md & {
+      width: var(--toggle-width-md);
+      height: var(--toggle-height-md);
+    }
+
+    .primitive-toggle--lg & {
+      width: var(--toggle-width-lg);
+      height: var(--toggle-height-lg);
+    }
+  }
+
+  // === THUMB (BOUTON) ===
+
+  &__thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    border-radius: 50%;
+    background-color: var(--toggle-thumb-bg);
+    box-shadow: var(--toggle-thumb-shadow);
+    transition: transform var(--duration-fast) var(--easing-default);
+
+    // Tailles
+    .primitive-toggle--sm & {
+      width: var(--toggle-thumb-size-sm);
+      height: var(--toggle-thumb-size-sm);
+    }
+
+    .primitive-toggle--md & {
+      width: var(--toggle-thumb-size-md);
+      height: var(--toggle-thumb-size-md);
+    }
+
+    .primitive-toggle--lg & {
+      width: var(--toggle-thumb-size-lg);
+      height: var(--toggle-thumb-size-lg);
+    }
+  }
+
+  // === LABEL ===
+
+  &__label {
+    font-size: var(--font-size-3);
+    color: var(--text-default);
+    line-height: var(--line-height-normal);
+    cursor: pointer;
+    user-select: none;
+    transition: color var(--duration-fast) var(--easing-default);
+
+    &--disabled {
+      color: var(--text-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  // === ÉTAT CHECKED ===
+
+  &--checked &__track {
+    background-color: var(--toggle-track-checked-bg);
+  }
+
+  &--checked &__thumb {
+    // Déplacement du thumb vers la droite
+    .primitive-toggle--sm & {
+      transform: translateX(calc(var(--toggle-width-sm) - var(--toggle-thumb-size-sm) - 4px));
+    }
+
+    .primitive-toggle--md & {
+      transform: translateX(calc(var(--toggle-width-md) - var(--toggle-thumb-size-md) - 4px));
+    }
+
+    .primitive-toggle--lg & {
+      transform: translateX(calc(var(--toggle-width-lg) - var(--toggle-thumb-size-lg) - 4px));
+    }
+  }
+
+  // === ÉTAT HOVER ===
+
+  &:hover:not(&--disabled) &__track {
+    background-color: var(--toggle-hover-track-bg);
+  }
+
+  &--checked:hover:not(&--disabled) &__track {
+    background-color: var(--toggle-hover-track-checked-bg);
+  }
+
+  // === ÉTAT FOCUS ===
+
+  &--focused &__track {
+    box-shadow: var(--toggle-focus-ring);
+  }
+
+  // === ÉTAT DISABLED ===
+
+  &--disabled &__track {
+    background-color: var(--toggle-disabled-track-bg);
+  }
+
+  &--disabled &__thumb {
+    background-color: var(--toggle-disabled-thumb-bg);
+  }
+}

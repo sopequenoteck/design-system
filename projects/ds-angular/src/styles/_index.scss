@@ -1,0 +1,22 @@
+// ============================================================================
+// DS-ANGULAR — Styles Exports
+// ============================================================================
+//
+// Point d'entrée principal pour importer tous les tokens et styles du DS.
+//
+// USAGE :
+// @use 'ds-angular/styles' as ds;
+//
+// Ou importer uniquement les tokens :
+// @use 'ds-angular/styles/tokens';
+//
+// ============================================================================
+
+// Export des tokens (variables SCSS + CSS custom properties)
+@forward './tokens/primitives';
+@forward './tokens/semantic';
+@forward './tokens/tokens';
+
+// Export des thèmes
+@forward './themes/light';
+@forward './themes/dark';

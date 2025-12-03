@@ -1,0 +1,29 @@
+<div class="input-wrapper" [class]="wrapperClasses">
+  @if (iconStart()) {
+    <fa-icon [icon]="iconStart()!" class="icon-start" />
+  }
+  <input
+    [attr.id]="id()"
+    [attr.name]="name()"
+    [attr.autocomplete]="autocomplete()"
+    [attr.maxLength]="maxlength()"
+    [type]="type()"
+    [placeholder]="placeholder()"
+    [disabled]="disabled()"
+    [readonly]="readonly()"
+    [required]="required()"
+    [value]="value()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.aria-describedby]="ariaDescribedBy()"
+    [attr.aria-invalid]="state() === 'error' ? 'true' : 'false'"
+    [attr.aria-readonly]="readonly() ? 'true' : 'false'"
+    [attr.aria-disabled]="disabled() ? 'true' : 'false'"
+    [attr.aria-required]="required() ? 'true' : 'false'"
+    (input)="handleInput($event)"
+    (blur)="handleBlur()"
+    (focus)="handleFocus()"
+  />
+  @if (iconEnd()) {
+    <fa-icon [icon]="iconEnd()!" class="icon-end" />
+  }
+</div>

@@ -1,0 +1,127 @@
+// ============================================================================
+// PRIMITIVE RADIO — Design System Assist-AI
+// ============================================================================
+//
+// Styles pour le composant primitive-radio.
+// Utilise les tokens de design system pour cohérence et thématisation.
+//
+// TOKENS UTILISÉS :
+// - Sizing: --radio-size-{sm,md,lg}, --radio-dot-size-{sm,md,lg}
+// - Colors: --radio-bg, --radio-border, --radio-checked-bg, --radio-dot-color
+// - States: hover, focus, disabled
+// - Effects: --radio-focus-ring
+//
+// ============================================================================
+
+.primitive-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  // === CIRCLE (CERCLE EXTÉRIEUR) ===
+
+  &__circle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: var(--radio-border-width) solid var(--radio-border);
+    background-color: var(--radio-bg);
+    transition: all var(--duration-fast) var(--easing-default);
+
+    // Tailles
+    .primitive-radio--sm & {
+      width: var(--radio-size-sm);
+      height: var(--radio-size-sm);
+    }
+
+    .primitive-radio--md & {
+      width: var(--radio-size-md);
+      height: var(--radio-size-md);
+    }
+
+    .primitive-radio--lg & {
+      width: var(--radio-size-lg);
+      height: var(--radio-size-lg);
+    }
+  }
+
+  // === DOT (POINT INTÉRIEUR) ===
+
+  &__dot {
+    border-radius: 50%;
+    background-color: var(--radio-dot-color);
+    transition: transform var(--duration-fast) var(--easing-default);
+
+    // Tailles
+    .primitive-radio--sm & {
+      width: var(--radio-dot-size-sm);
+      height: var(--radio-dot-size-sm);
+    }
+
+    .primitive-radio--md & {
+      width: var(--radio-dot-size-md);
+      height: var(--radio-dot-size-md);
+    }
+
+    .primitive-radio--lg & {
+      width: var(--radio-dot-size-lg);
+      height: var(--radio-dot-size-lg);
+    }
+  }
+
+  // === LABEL ===
+
+  &__label {
+    font-size: var(--font-size-3);
+    color: var(--text-default);
+    line-height: var(--line-height-normal);
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--easing-default);
+
+    &--disabled {
+      color: var(--text-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  // === ÉTAT CHECKED ===
+
+  &--checked &__circle {
+    background-color: var(--radio-checked-bg);
+    border-color: var(--radio-checked-border);
+  }
+
+  // === ÉTAT HOVER ===
+
+  &:hover:not(&--disabled) &__circle {
+    border-color: var(--radio-hover-border);
+  }
+
+  // === ÉTAT FOCUS ===
+
+  &--focused &__circle {
+    box-shadow: var(--radio-focus-ring);
+  }
+
+  // === ÉTAT DISABLED ===
+
+  &--disabled &__circle {
+    background-color: var(--radio-disabled-bg);
+    border-color: var(--radio-disabled-border);
+  }
+
+  &--disabled#{&}--checked &__dot {
+    background-color: var(--radio-disabled-dot);
+  }
+}

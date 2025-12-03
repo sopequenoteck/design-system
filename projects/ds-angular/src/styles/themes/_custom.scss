@@ -1,0 +1,259 @@
+:root.theme-custom {
+  /* ==========================================================================
+   * BACKGROUNDS
+   * ======================================================================== */
+  --background-main: var(--custom-bg, #ffffff);
+  --background-secondary: var(--custom-bg-secondary, #f5f5f5);
+  --background-header: var(--custom-bg-header, #e0e0e0);
+  --background-panel: var(--surface-default, var(--custom-bg-secondary, #f5f5f5));
+  --background-panel-hover: var(--surface-hover);
+
+  /* ==========================================================================
+   * TEXT
+   * ======================================================================== */
+  --text-default: var(--custom-text-default, #1a1c22);
+  --text-muted: var(--custom-text-muted, #2c2f36);
+  --text-disabled: var(--custom-text-disabled, #8e95a2);
+  --text-disabled-alt: var(--custom-text-disabled-alt, #b0b4bd);
+  --text-subtle: var(--custom-text-subtle, #4a4e5a);
+
+  /* ==========================================================================
+   * BORDERS
+   * ======================================================================== */
+  --border-color: var(--custom-border, #d0d0d0);
+  --border-subtle: var(--custom-border-subtle, #e0e0e0);
+  --border-strong: var(--custom-border-strong, #b6bac3);
+  --border-default: var(--border-color);
+  --border-success: var(--success);
+  --border-warning: var(--warning);
+  --border-error: var(--error);
+  --border-info: var(--info);
+
+  /* ==========================================================================
+   * ROLES (override custom)
+   * ======================================================================== */
+  --role-primary: var(--custom-accent-primary, #7d4bc0);
+  --role-secondary: var(--custom-accent-secondary, #fbc224);
+
+  /* ==========================================================================
+   * ACCENT & STATE
+   * ======================================================================== */
+  --accent: var(--role-primary);
+  --accent-alt: var(--role-secondary);
+  --accent-warn: var(--role-secondary);
+
+  /* ==========================================================================
+   * SURFACES
+   * ======================================================================== */
+  --surface-default: var(--background-secondary);
+  --surface-raised: var(--background-header);
+  --surface-hover: color-mix(in oklab, var(--accent) 10%, var(--background-secondary));
+  --surface-overlay: color-mix(in oklab, var(--background-main) 80%, transparent);
+
+  /* ==========================================================================
+   * FEEDBACK (bg + text)
+   * ======================================================================== */
+  --bg-success: color-mix(in oklab, var(--success) 12%, var(--background-main));
+  --bg-warning: color-mix(in oklab, var(--warning) 16%, var(--background-main));
+  --bg-error:   color-mix(in oklab, var(--error) 16%, var(--background-main));
+  --bg-info:    color-mix(in oklab, var(--info) 16%, var(--background-main));
+
+  --text-success: var(--success);
+  --text-warning: var(--warning);
+  --text-error:   var(--error);
+  --text-info:    var(--info);
+
+  /* ==========================================================================
+   * DISABLED
+   * ======================================================================== */
+  --bg-disabled: var(--background-secondary);
+  --border-disabled: var(--border-subtle);
+
+  /* ==========================================================================
+   * EFFECTS (scrollbar, hover, focus)
+   * ======================================================================== */
+  --scrollbar-thumb: var(--border-color);
+  --scrollbar-thumb-hover: var(--accent);
+  --hover-bg: color-mix(in oklab, var(--accent) 12%, transparent);
+  --focus-ring: 0 0 0 2px var(--focus-color);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS BUTTON
+   * ======================================================================== */
+  --btn-radius-sm: var(--radius-1);
+  --btn-radius: var(--radius-2);
+  --btn-radius-lg: var(--radius-3);
+
+  /* Primary */
+  --btn-primary-bg: var(--role-primary);
+  --btn-primary-text: var(--text-default);
+  --btn-primary-border: transparent;
+  --btn-primary-hover-bg: color-mix(in oklab, var(--role-primary) 90%, var(--background-main));
+  --btn-primary-hover-text: var(--text-default);
+  --btn-primary-hover-border: transparent;
+  --btn-primary-disabled-bg: var(--bg-disabled);
+  --btn-primary-disabled-text: var(--text-disabled);
+  --btn-primary-disabled-border: var(--border-disabled);
+
+  /* Secondary */
+  --btn-secondary-bg: var(--role-secondary);
+  --btn-secondary-text: var(--text-default);
+  --btn-secondary-border: var(--border-color);
+  --btn-secondary-hover-bg: color-mix(in oklab, var(--role-secondary) 85%, var(--background-main));
+  --btn-secondary-hover-text: var(--text-default);
+  --btn-secondary-hover-border: var(--border-color);
+  --btn-secondary-disabled-bg: var(--bg-disabled);
+  --btn-secondary-disabled-text: var(--text-disabled);
+  --btn-secondary-disabled-border: var(--border-disabled);
+
+  /* Ghost */
+  --btn-ghost-bg: transparent;
+  --btn-ghost-text: var(--text-default);
+  --btn-ghost-border: transparent;
+  --btn-ghost-hover-bg: var(--hover-bg);
+  --btn-ghost-hover-text: var(--text-default);
+  --btn-ghost-disabled-bg: transparent;
+  --btn-ghost-disabled-text: var(--text-disabled);
+
+  /* Success */
+  --btn-success-bg: var(--success);
+  --btn-success-text: var(--gray-50);
+  --btn-success-border: transparent;
+  --btn-success-hover-bg: color-mix(in oklab, var(--success) 85%, var(--background-main));
+  --btn-success-hover-text: var(--gray-50);
+  --btn-success-hover-border: transparent;
+  --btn-success-disabled-bg: var(--bg-disabled);
+  --btn-success-disabled-text: var(--text-disabled);
+  --btn-success-disabled-border: var(--border-disabled);
+
+  /* Warning */
+  --btn-warning-bg: var(--warning);
+  --btn-warning-text: var(--gray-900);
+  --btn-warning-border: transparent;
+  --btn-warning-hover-bg: color-mix(in oklab, var(--warning) 85%, var(--background-main));
+  --btn-warning-hover-text: var(--gray-900);
+  --btn-warning-hover-border: transparent;
+  --btn-warning-disabled-bg: var(--bg-disabled);
+  --btn-warning-disabled-text: var(--text-disabled);
+  --btn-warning-disabled-border: var(--border-disabled);
+
+  /* Error */
+  --btn-error-bg: var(--error);
+  --btn-error-text: var(--gray-50);
+  --btn-error-border: transparent;
+  --btn-error-hover-bg: color-mix(in oklab, var(--error) 85%, var(--background-main));
+  --btn-error-hover-text: var(--gray-50);
+  --btn-error-hover-border: transparent;
+  --btn-error-disabled-bg: var(--bg-disabled);
+  --btn-error-disabled-text: var(--text-disabled);
+  --btn-error-disabled-border: var(--border-disabled);
+
+  /* Info */
+  --btn-info-bg: var(--info);
+  --btn-info-text: var(--gray-50);
+  --btn-info-border: transparent;
+  --btn-info-hover-bg: color-mix(in oklab, var(--info) 85%, var(--background-main));
+  --btn-info-hover-text: var(--gray-50);
+  --btn-info-hover-border: transparent;
+  --btn-info-disabled-bg: var(--bg-disabled);
+  --btn-info-disabled-text: var(--text-disabled);
+  --btn-info-disabled-border: var(--border-disabled);
+
+  /* Focus */
+  --btn-focus-outline: var(--accent);
+
+  /* Sizes */
+  --btn-font-size-sm: var(--font-size-2);
+  --btn-font-size-md: var(--font-size-3);
+  --btn-font-size-lg: var(--font-size-4);
+  --btn-padding-vertical-sm: var(--space-1);
+  --btn-padding-horizontal-sm: var(--space-3);
+  --btn-padding-vertical-md: var(--space-2);
+  --btn-padding-horizontal-md: var(--space-4);
+  --btn-padding-vertical-lg: var(--space-3);
+  --btn-padding-horizontal-lg: var(--space-6);
+
+  /* Spinner */
+  --spinner-size: 1em;
+  --spinner-border: color-mix(in oklab, var(--text-default) 20%, transparent);
+  --spinner-border-active: currentColor;
+
+
+  /* ==========================================================================
+  * SÉMANTIQUES DS INPUT FIELDS
+  * ======================================================================== */
+  --input-bg: var(--surface-default);
+  --input-text: var(--text-default);
+  --input-placeholder: var(--text-subtle);
+  --input-border: var(--border-color);
+  --input-hover-border: color-mix(in oklab, var(--border-color) 80%, var(--background-main));
+  --input-focus-border: var(--accent);
+  --input-focus-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 25%, transparent);
+  --input-icon: var(--text-muted);
+  --input-disabled-bg: var(--bg-disabled);
+  --input-disabled-text: var(--text-disabled);
+  --input-success-border: var(--success);
+  --input-warning-border: var(--warning);
+  --input-error-border: var(--error);
+  --input-label-color: var(--text-default);
+  --input-label-text-color: var(--input-label-color);
+  --input-label-font-size: var(--font-size-2);
+  --input-label-margin-bottom: var(--space-1);
+  --input-padding-default: var(--space-2);
+
+  /* ==========================================================================
+  * SÉMANTIQUES DS MODALS
+  * ======================================================================== */
+  --modal-bg: var(--surface-overlay);
+  --modal-text: var(--text-default);
+  --modal-border: var(--border-strong);
+  --modal-backdrop: color-mix(in oklab, var(--gray-900) 40%, transparent);
+
+  /* ==========================================================================
+  * SÉMANTIQUES DS BADGES
+  * ======================================================================== */
+  --badge-bg: var(--accent);
+  --badge-text: var(--text-default);
+  --badge-bg-secondary: var(--accent-alt);
+  --badge-text-secondary: var(--text-default);
+  --badge-bg-muted: var(--surface-raised);
+  --badge-text-muted: var(--text-muted);
+  --badge-default-bg: var(--border-color);
+  --badge-default-text: var(--text-default);
+  --badge-primary-bg: var(--role-primary);
+  --badge-primary-text: var(--text-default);
+  --badge-secondary-bg: var(--role-secondary);
+  --badge-secondary-text: var(--text-default);
+  --badge-success-bg: var(--success);
+  --badge-success-text: var(--gray-50);
+  --badge-warning-bg: var(--warning);
+  --badge-warning-text: var(--gray-900);
+  --badge-error-bg: var(--error);
+  --badge-error-text: var(--gray-50);
+  --badge-info-bg: var(--info);
+  --badge-info-text: var(--gray-50);
+  --badge-neutral-bg: var(--border-strong);
+  --badge-neutral-text: var(--text-default);
+  --badge-accent-bg: var(--color-alt);
+  --badge-accent-text: var(--gray-900);
+  --badge-radius-default: var(--badge-radius);
+  --badge-radius-pill: var(--badge-pill-radius);
+  --badge-radius-square: 0;
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS TOASTS
+   * ======================================================================== */
+  --toast-bg: var(--surface-default);
+  --toast-text: var(--text-default);
+  --toast-border: var(--border-color);
+
+  --toast-success-bg: var(--bg-success);
+  --toast-success-text: var(--text-success);
+  --toast-warning-bg: var(--bg-warning);
+  --toast-warning-text: var(--text-warning);
+  --toast-error-bg: var(--bg-error);
+  --toast-error-text: var(--text-error);
+  --toast-info-bg: var(--bg-info);
+  --toast-info-text: var(--text-info);
+}
+

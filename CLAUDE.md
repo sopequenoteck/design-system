@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Projet
 
-Projet Angular 19.2 contenant une bibliothèque de design system (`ds-angular`) destinée à être publiée sur npm.
+Projet Angular 20.3 contenant une bibliothèque de design system (`ds-angular`) destinée à être publiée sur npm.
 
 ## Structure
 
@@ -53,10 +53,13 @@ cd dist/ds-angular && npm publish    # Publie sur npm
 
 ## Dépendances Angular
 
-- Angular 19.2.x
+- Angular 20.3.x
+- @angular/cdk 20.x
+- @fortawesome/angular-fontawesome 0.15.x
 - RxJS ~7.8.0
-- Zone.js ~0.15.0
+- Zone.js ~0.16.0
 - TypeScript ~5.7.2
+- Storybook 8.5.x
 
 ## Points d'attention
 

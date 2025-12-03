@@ -1,0 +1,13 @@
+<button
+  [type]="type()"
+  [class]="buttonClasses"
+  [disabled]="disabled()"
+  (click)="handleClick()">
+  @if (iconStart()) {
+    <fa-icon [icon]="iconStart()!" class="icon-start" />
+  }
+  <ng-content></ng-content>
+  @if (iconEnd()) {
+    <fa-icon [icon]="iconEnd()!" class="icon-end" />
+  }
+</button>

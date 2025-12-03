@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/ds-angular",
       "sourceRoot": "projects/ds-angular/src",
-      "prefix": "lib",
+      "prefix": "ds",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",

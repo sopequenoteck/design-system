@@ -1,0 +1,174 @@
+/* ==========================================================================
+   PRIMITIVE TEXTAREA — Composant de base textarea
+   ========================================================================== */
+
+:host {
+  display: inline-flex;
+  width: 100%;
+}
+
+.textarea-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--input-padding-horizontal-md);
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--input-radius);
+  transition: all var(--duration-fast) var(--easing-default);
+}
+
+.textarea-wrapper:hover:not(.disabled):not(.readonly) {
+  border-color: var(--input-hover-border);
+}
+
+.textarea-wrapper:focus-within {
+  border-color: var(--input-focus-border);
+  box-shadow: var(--input-focus-shadow);
+}
+
+.textarea-wrapper.disabled {
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.textarea-wrapper.readonly {
+  background-color: var(--input-disabled-bg);
+}
+
+.textarea-wrapper.readonly textarea {
+  color: var(--input-placeholder);
+}
+
+.textarea-wrapper.disabled textarea {
+  color: var(--input-disabled-text);
+}
+
+textarea {
+  flex: 1;
+  width: 100%;
+  min-height: var(--input-height-lg);
+  border: none;
+  background: transparent;
+  font-size: var(--input-font-size-md);
+  font-weight: var(--font-weight-normal);
+  color: var(--input-text);
+  line-height: var(--line-height-normal);
+  resize: none;
+  outline: none;
+  padding: 0;
+
+  &::placeholder {
+    color: var(--input-placeholder);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+/* === APPEARANCE === */
+
+.textarea-wrapper.outline {
+  background: transparent;
+  border-width: 2px;
+}
+
+.textarea-wrapper.ghost {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--input-border);
+  border-radius: 0;
+  padding-right: 0;
+  padding-left: 0;
+
+  &:focus-within {
+    border-bottom-color: var(--input-focus-border);
+    box-shadow: none;
+  }
+}
+
+/* === SIZES === */
+
+.textarea-wrapper.sm {
+  padding: var(--space-1) var(--input-padding-horizontal-sm);
+
+  textarea {
+    min-height: var(--input-height-sm);
+    font-size: var(--input-font-size-sm);
+  }
+}
+
+.textarea-wrapper.md {
+  padding: var(--space-2) var(--input-padding-horizontal-md);
+
+  textarea {
+    min-height: var(--input-height-md);
+    font-size: var(--input-font-size-md);
+  }
+}
+
+.textarea-wrapper.lg {
+  padding: var(--space-3) var(--input-padding-horizontal-lg);
+
+  textarea {
+    min-height: var(--input-height-lg);
+    font-size: var(--input-font-size-lg);
+  }
+}
+
+/* === STATES === */
+
+.textarea-wrapper.success {
+  border-color: var(--input-success-border);
+}
+
+.textarea-wrapper.warning {
+  border-color: var(--input-warning-border);
+}
+
+.textarea-wrapper.error {
+  border-color: var(--input-error-border);
+}
+
+.textarea-wrapper.ghost.success {
+  border-bottom-color: var(--input-success-border);
+}
+
+.textarea-wrapper.ghost.warning {
+  border-bottom-color: var(--input-warning-border);
+}
+
+.textarea-wrapper.ghost.error {
+  border-bottom-color: var(--input-error-border);
+}
+
+/* === ICONS === */
+
+.icon-start,
+.icon-end {
+  color: var(--input-icon);
+  font-size: var(--input-icon-size-md);
+  margin-top: var(--space-1);
+}
+
+.textarea-wrapper.sm .icon-start,
+.textarea-wrapper.sm .icon-end {
+  font-size: var(--input-icon-size-sm);
+}
+
+.textarea-wrapper.lg .icon-start,
+.textarea-wrapper.lg .icon-end {
+  font-size: var(--input-icon-size-lg);
+}
+
+.textarea-wrapper.has-icon-start textarea {
+  margin-left: var(--space-1);
+}
+
+.textarea-wrapper.has-icon-end textarea {
+  margin-right: var(--space-1);
+}

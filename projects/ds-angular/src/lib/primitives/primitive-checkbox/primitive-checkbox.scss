@@ -1,0 +1,136 @@
+// ============================================================================
+// PRIMITIVE CHECKBOX — Design System Assist-AI
+// ============================================================================
+//
+// Styles pour le composant primitive-checkbox.
+// Utilise les tokens de design system pour cohérence et thématisation.
+//
+// TOKENS UTILISÉS :
+// - Sizing: --checkbox-size-{sm,md,lg}
+// - Colors: --checkbox-bg, --checkbox-border, --checkbox-checked-bg, etc.
+// - States: hover, focus, disabled, indeterminate
+// - Effects: --checkbox-focus-ring
+//
+// ============================================================================
+
+.primitive-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  // === BOX (CARREAU) ===
+
+  &__box {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: var(--checkbox-radius);
+    border: var(--checkbox-border-width) solid var(--checkbox-border);
+    background-color: var(--checkbox-bg);
+    transition: all var(--duration-fast) var(--easing-default);
+
+    // Tailles
+    .primitive-checkbox--sm & {
+      width: var(--checkbox-size-sm);
+      height: var(--checkbox-size-sm);
+    }
+
+    .primitive-checkbox--md & {
+      width: var(--checkbox-size-md);
+      height: var(--checkbox-size-md);
+    }
+
+    .primitive-checkbox--lg & {
+      width: var(--checkbox-size-lg);
+      height: var(--checkbox-size-lg);
+    }
+  }
+
+  // === ICON (CHECKMARK / INDETERMINATE) ===
+
+  &__icon {
+    width: 100%;
+    height: 100%;
+    color: var(--checkbox-check-color);
+    transition: opacity var(--duration-fast) var(--easing-default);
+
+    // Tailles spécifiques pour l'icône
+    .primitive-checkbox--sm & {
+      width: var(--checkbox-check-size-sm);
+      height: var(--checkbox-check-size-sm);
+    }
+
+    .primitive-checkbox--md & {
+      width: var(--checkbox-check-size-md);
+      height: var(--checkbox-check-size-md);
+    }
+
+    .primitive-checkbox--lg & {
+      width: var(--checkbox-check-size-lg);
+      height: var(--checkbox-check-size-lg);
+    }
+  }
+
+  // === LABEL ===
+
+  &__label {
+    font-size: var(--font-size-3);
+    color: var(--text-default);
+    line-height: var(--line-height-normal);
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--easing-default);
+
+    &--disabled {
+      color: var(--text-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  // === ÉTAT CHECKED ===
+
+  &--checked &__box {
+    background-color: var(--checkbox-checked-bg);
+    border-color: var(--checkbox-checked-border);
+  }
+
+  // === ÉTAT INDETERMINATE ===
+
+  &--indeterminate &__box {
+    background-color: var(--checkbox-indeterminate-bg);
+    border-color: var(--checkbox-indeterminate-border);
+  }
+
+  // === ÉTAT HOVER ===
+
+  &:hover:not(&--disabled) &__box {
+    border-color: var(--checkbox-hover-border);
+  }
+
+  // === ÉTAT FOCUS ===
+
+  &--focused &__box {
+    box-shadow: var(--checkbox-focus-ring);
+  }
+
+  // === ÉTAT DISABLED ===
+
+  &--disabled &__box {
+    background-color: var(--checkbox-disabled-bg);
+    border-color: var(--checkbox-disabled-border);
+  }
+
+  &--disabled#{&}--checked &__icon,
+  &--disabled#{&}--indeterminate &__icon {
+    color: var(--checkbox-disabled-check);
+  }
+}

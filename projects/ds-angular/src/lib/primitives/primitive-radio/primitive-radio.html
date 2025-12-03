@@ -1,0 +1,27 @@
+<div
+  [ngClass]="cssClasses()"
+  (click)="onSelect()"
+  (keydown)="onKeyDown($event)"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+  [attr.role]="'radio'"
+  [attr.aria-checked]="checked()"
+  [attr.aria-disabled]="disabled()"
+  [attr.aria-labelledby]="label() ? radioId() + '-label' : null"
+  [attr.tabindex]="disabled() ? -1 : 0"
+>
+  <div class="primitive-radio__circle">
+    @if (checked()) {
+      <div class="primitive-radio__dot"></div>
+    }
+  </div>
+  @if (label()) {
+    <label
+      [id]="radioId() + '-label'"
+      class="primitive-radio__label"
+      [class.primitive-radio__label--disabled]="disabled()"
+    >
+      {{ label() }}
+    </label>
+  }
+</div>

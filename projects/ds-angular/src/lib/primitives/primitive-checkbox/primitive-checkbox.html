@@ -1,0 +1,57 @@
+<div
+  [ngClass]="cssClasses()"
+  (click)="onToggle()"
+  (keydown)="onKeyDown($event)"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+  [attr.role]="'checkbox'"
+  [attr.aria-checked]="checkboxState()"
+  [attr.aria-disabled]="disabled()"
+  [attr.aria-labelledby]="label() ? checkboxId() + '-label' : null"
+  [attr.tabindex]="disabled() ? -1 : 0"
+>
+  <div class="primitive-checkbox__box">
+    @if (checkboxState() === 'checked') {
+      <svg
+        class="primitive-checkbox__icon"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M13.5 4L6 11.5L2.5 8"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    }
+    @if (checkboxState() === 'indeterminate') {
+      <svg
+        class="primitive-checkbox__icon"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M4 8H12"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    }
+  </div>
+  @if (label()) {
+    <label
+      [id]="checkboxId() + '-label'"
+      class="primitive-checkbox__label"
+      [class.primitive-checkbox__label--disabled]="disabled()"
+    >
+      {{ label() }}
+    </label>
+  }
+</div>

@@ -1,0 +1,30 @@
+<div class="textarea-wrapper" [class]="wrapperClasses">
+  @if (iconStart()) {
+    <fa-icon [icon]="iconStart()!" class="icon-start" />
+  }
+  <textarea
+    [id]="id()"
+    [name]="name()"
+    [placeholder]="placeholder()"
+    [disabled]="disabled()"
+    [readonly]="readonly()"
+    [required]="required()"
+    [attr.rows]="rows()"
+    [attr.cols]="cols()"
+    [attr.maxLength]="maxlength()"
+    [value]="value()"
+    (input)="handleInput($event)"
+    (blur)="handleBlur()"
+    (focus)="handleFocus()"
+    [style.resize]="resize()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.aria-invalid]="state() === 'error' ? 'true' : 'false'"
+    [attr.aria-readonly]="readonly() ? 'true' : 'false'"
+    [attr.aria-disabled]="disabled() ? 'true' : 'false'"
+    [attr.aria-required]="required() ? 'true' : 'false'"
+    [attr.aria-describedby]="ariaDescribedBy()"
+  ></textarea>
+  @if (iconEnd()) {
+    <fa-icon [icon]="iconEnd()!" class="icon-end" />
+  }
+</div>

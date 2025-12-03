@@ -1,0 +1,9 @@
+<span [ngClass]="badgeClasses" [ngStyle]="styleOverrides" [attr.data-type]="type()">
+  @if (iconStart()) {
+    <fa-icon [icon]="iconStart()!" class="icon-start" />
+  }
+  <ng-content></ng-content>
+  @if (iconEnd()) {
+    <fa-icon [icon]="iconEnd()!" class="icon-end" />
+  }
+</span>

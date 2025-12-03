@@ -1,0 +1,298 @@
+@use './primitives' as *;
+@use './semantic' as *;
+
+:root {
+  /* === BRAND (palette source-of-truth, fixe) === */
+  --brand-primary: #{$primary};
+  --brand-secondary: #{$secondary};
+  --brand-alt: #{$alt};
+
+  /* === ROLES (mappés sur la marque, surchargés par thème) === */
+  --role-primary: var(--brand-primary);
+  --role-secondary: var(--brand-secondary);
+  --role-accent: var(--role-secondary);
+
+  /* === EXPOSITION COMPOSANTS (API) === */
+  --color-primary: var(--role-primary);
+  --color-secondary: var(--role-secondary);
+  --color-alt: var(--brand-alt);
+
+  /* === CUSTOM THEME PLACEHOLDERS === */
+  --custom-bg: #ffffff;
+  --custom-bg-secondary: #f5f5f5;
+  --custom-bg-header: #e0e0e0;
+  --custom-text-default: #1a1c22;
+  --custom-text-muted: #2c2f36;
+  --custom-text-disabled: #8e95a2;
+  --custom-text-disabled-alt: #b0b4bd;
+  --custom-text-subtle: #4a4e5a;
+  --custom-border: #d0d0d0;
+  --custom-border-subtle: #e0e0e0;
+  --custom-border-strong: #b6bac3;
+  --custom-accent-primary: #7d4bc0;
+  --custom-accent-secondary: #fbc224;
+
+  /* === TYPOGRAPHY === */
+  --font-family-base: #{$font-family-base};
+
+  --font-size-small: #{$font-size-small};
+  --font-size-1: #{$font-size-1};
+  --font-size-2: #{$font-size-2};
+  --font-size-3: #{$font-size-3};
+  --font-size-4: #{$font-size-4};
+  --font-size-5: #{$font-size-5};
+  --font-size-6: #{$font-size-6};
+
+  /* aliases (t-shirt) */
+  --font-size-s: var(--font-size-2);
+  --font-size-m: var(--font-size-5);   /* 1.25rem */
+  --font-size-l: var(--font-size-6);   /* 1.5rem  */
+  --font-size-xl: 2rem;
+  --font-size-xxl: 3rem;
+
+  /* === LINE-HEIGHT === */
+  --line-height-tight: #{$line-height-tight};
+  --line-height-normal: #{$line-height-normal};
+  --line-height-relaxed: #{$line-height-relaxed};
+  --line-height-loose: #{$line-height-loose};
+
+  /* === FONT-WEIGHT === */
+  --font-weight-light: #{$font-weight-light};
+  --font-weight-normal: #{$font-weight-normal};
+  --font-weight-medium: #{$font-weight-medium};
+  --font-weight-semibold: #{$font-weight-semibold};
+  --font-weight-bold: #{$font-weight-bold};
+
+  /* === LETTER-SPACING === */
+  --letter-spacing-tight: #{$letter-spacing-tight};
+  --letter-spacing-normal: #{$letter-spacing-normal};
+  --letter-spacing-wide: #{$letter-spacing-wide};
+
+  /* === SPACING === */
+  --space-1: #{$space-1};
+  --space-2: #{$space-2};
+  --space-3: #{$space-3};
+  --space-4: #{$space-4};
+  --space-6: #{$space-6};
+  --space-8: #{$space-8};
+  --space-s: var(--space-2);
+  --space-l: var(--space-6);
+
+  /* === Z-INDEX === */
+  --z-index-1: #{$z-index-1};
+  --z-index-2: #{$z-index-2};
+  --z-index-3: #{$z-index-3};
+  --z-index-4: #{$z-index-4};
+  --z-index-full: #{$z-index-full};
+
+  /* === RADIUS === */
+  --radius-1: #{$radius-1};
+  --radius-1-5: #{$radius-1-5};
+  --radius-2: #{$radius-2};
+  --radius-3: #{$radius-3};
+  --radius-4: #{$radius-4};
+  --radius-round: #{$radius-round};
+
+  /* === SHADOWS & ELEVATION === */
+  --shadow-1: #{$shadow-1};
+  --shadow-2: #{$shadow-2};
+  --shadow-3: #{$shadow-3};
+
+  /* === COLORS === */
+  --gray-50: #{$gray-50};
+  --gray-100: #{$gray-100};
+  --gray-200: #{$gray-200};
+  --gray-300: #{$gray-300};
+  --gray-400: #{$gray-400};
+  --gray-500: #{$gray-500};
+  --gray-600: #{$gray-600};
+  --gray-700: #{$gray-700};
+  --gray-800: #{$gray-800};
+  --gray-900: #{$gray-900};
+
+  --success: #{$success};
+  --warning: #{$warning};
+  --error: #{$error};
+  --info: #{$info};
+  --focus-color: var(--color-secondary);
+
+  /* === SIZES & LAYOUT === */
+  --container-xs: #{$container-xs};
+  --container-sm: #{$container-sm};
+  --container-md: #{$container-md};
+  --container-lg: #{$container-lg};
+  --container-xl: #{$container-xl};
+
+  --header-height: #{$header-height};
+  --footer-height: #{$footer-height};
+  --sidebar-width: #{$sidebar-width};
+  --layout-gap: #{$layout-gap};
+
+  /* === ANIMATIONS === */
+  --duration-fast: #{$duration-fast};
+  --duration-normal: #{$duration-normal};
+  --duration-slow: #{$duration-slow};
+  --easing-default: #{$easing-default};
+  --easing-in: #{$easing-in};
+  --easing-out: #{$easing-out};
+
+  /* === COMPONENT DIMENSIONS === */
+  --btn-height-sm: #{$btn-height-sm};
+  --btn-height-md: #{$btn-height-md};
+  --btn-height-lg: #{$btn-height-lg};
+  --btn-font-size-sm: #{$btn-font-size-sm};
+  --btn-font-size-md: #{$btn-font-size-md};
+  --btn-font-size-lg: #{$btn-font-size-lg};
+  --btn-padding-vertical-sm: #{$btn-padding-vertical-sm};
+  --btn-padding-horizontal-sm: #{$btn-padding-horizontal-sm};
+  --btn-padding-vertical-md: #{$btn-padding-vertical-md};
+  --btn-padding-horizontal-md: #{$btn-padding-horizontal-md};
+  --btn-padding-vertical-lg: #{$btn-padding-vertical-lg};
+  --btn-padding-horizontal-lg: #{$btn-padding-horizontal-lg};
+  --btn-radius-sm: #{$btn-radius-sm};
+  --btn-radius: #{$btn-radius-md};
+  --btn-radius-lg: #{$btn-radius-lg};
+
+  --input-height-sm: #{$input-height-sm};
+  --input-height-md: #{$input-height-md};
+  --input-height-lg: #{$input-height-lg};
+  --input-padding-horizontal-sm: #{$input-padding-horizontal-sm};
+  --input-padding-horizontal-md: #{$input-padding-horizontal-md};
+  --input-padding-horizontal-lg: #{$input-padding-horizontal-lg};
+  --input-font-size-sm: #{$input-font-size-sm};
+  --input-font-size-md: #{$input-font-size-md};
+  --input-font-size-lg: #{$input-font-size-lg};
+  --input-radius: #{$input-border-radius};
+  --input-focus-shadow: #{$input-focus-shadow};
+
+  --icon-size-sm: #{$icon-size-sm};
+  --icon-size-md: #{$icon-size-md};
+  --icon-size-lg: #{$icon-size-lg};
+  --input-icon-size-sm: #{$input-icon-sm};
+  --input-icon-size-md: #{$input-icon-md};
+  --input-icon-size-lg: #{$input-icon-lg};
+
+  --badge-height: #{$badge-height};
+  --badge-padding-horizontal-sm: #{$badge-padding-horizontal-sm};
+  --badge-padding-horizontal-md: #{$badge-padding-horizontal-md};
+  --badge-padding-horizontal-lg: #{$badge-padding-horizontal-lg};
+  --badge-padding-vertical-sm: #{$badge-padding-vertical-sm};
+  --badge-padding-vertical-md: #{$badge-padding-vertical-md};
+  --badge-padding-vertical-lg: #{$badge-padding-vertical-lg};
+  --badge-font-size-sm: #{$badge-font-size-sm};
+  --badge-font-size-md: #{$badge-font-size-md};
+  --badge-font-size-lg: #{$badge-font-size-lg};
+  --badge-radius: #{$badge-radius};
+  --badge-pill-radius: #{$badge-radius-pill};
+
+  /* ==========================================================================
+   * DÉPRÉCIATIONS - Badge Aliases
+   * Date d'expiration : 2025-06-01
+   * ========================================================================== */
+  /* @deprecated Utiliser --badge-bg à la place. Sera supprimé le 2025-06-01 */
+  --badge-bg-color: var(--badge-bg);
+  /* @deprecated Utiliser --badge-text à la place. Sera supprimé le 2025-06-01 */
+  --badge-text-color: var(--badge-text);
+  /* @deprecated Utiliser --badge-text à la place. Sera supprimé le 2025-06-01 */
+  --badge-fg: var(--badge-text);
+  /* Variables conservées pour compatibilité */
+  --badge-border-color: var(--badge-bg, transparent);
+  --badge-outline-text-color: var(--badge-text);
+
+  /* Modal structural tokens */
+  --modal-padding: #{$modal-padding};
+  --modal-section-gap: #{$modal-section-gap};
+  --modal-footer-padding: #{$modal-footer-padding};
+  --modal-radius: #{$modal-radius};
+  --modal-shadow-depth: #{$modal-shadow};
+  --modal-overlay-blur: #{$modal-overlay-blur};
+  --modal-overlay-z-index: var(--z-index-full);
+  --modal-size-sm: #{$modal-size-sm};
+  --modal-size-md: #{$modal-size-md};
+  --modal-size-lg: #{$modal-size-lg};
+  --modal-max-height: #{$modal-max-height};
+
+  /* Dropdown structural tokens */
+  --dropdown-min-width: #{$dropdown-min-width};
+  --dropdown-radius: #{$dropdown-radius};
+  --dropdown-shadow: #{$dropdown-shadow};
+  --dropdown-padding: #{$dropdown-padding};
+  --dropdown-gap: #{$dropdown-gap};
+  --dropdown-item-padding-y: #{$dropdown-item-padding-y};
+  --dropdown-item-padding-x: #{$dropdown-item-padding-x};
+  --dropdown-item-radius: #{$dropdown-item-radius};
+
+  /* Toast structural tokens */
+  --toast-padding: #{$toast-padding};
+  --toast-radius-base: #{$toast-radius};
+  --toast-shadow-depth: #{$toast-shadow};
+  --toast-border-width: #{$toast-border-width};
+  --toast-gap: #{$toast-gap};
+  --toast-icon-size: #{$toast-icon-size};
+
+  /* === CHECKBOX === */
+  --checkbox-size-sm: #{$checkbox-size-sm};
+  --checkbox-size-md: #{$checkbox-size-md};
+  --checkbox-size-lg: #{$checkbox-size-lg};
+  --checkbox-border-width: #{$checkbox-border-width};
+  --checkbox-radius: #{$checkbox-radius};
+  --checkbox-check-size-sm: #{$checkbox-check-size-sm};
+  --checkbox-check-size-md: #{$checkbox-check-size-md};
+  --checkbox-check-size-lg: #{$checkbox-check-size-lg};
+
+  /* === RADIO === */
+  --radio-size-sm: #{$radio-size-sm};
+  --radio-size-md: #{$radio-size-md};
+  --radio-size-lg: #{$radio-size-lg};
+  --radio-border-width: #{$radio-border-width};
+  --radio-dot-size-sm: #{$radio-dot-size-sm};
+  --radio-dot-size-md: #{$radio-dot-size-md};
+  --radio-dot-size-lg: #{$radio-dot-size-lg};
+
+  /* === TOGGLE === */
+  --toggle-width-sm: #{$toggle-width-sm};
+  --toggle-width-md: #{$toggle-width-md};
+  --toggle-width-lg: #{$toggle-width-lg};
+  --toggle-height-sm: #{$toggle-height-sm};
+  --toggle-height-md: #{$toggle-height-md};
+  --toggle-height-lg: #{$toggle-height-lg};
+  --toggle-thumb-size-sm: #{$toggle-thumb-size-sm};
+  --toggle-thumb-size-md: #{$toggle-thumb-size-md};
+  --toggle-thumb-size-lg: #{$toggle-thumb-size-lg};
+  --toggle-track-radius: #{$toggle-track-radius};
+
+  /* === BREADCRUMB === */
+  --breadcrumb-separator: #{$breadcrumb-separator};
+  --breadcrumb-font-size: #{$breadcrumb-font-size};
+  --breadcrumb-spacing: #{$breadcrumb-spacing};
+  --breadcrumb-item-padding: #{$breadcrumb-item-padding};
+
+  /* === TABS === */
+  --tab-height: #{$tab-height};
+  --tab-padding-x: #{$tab-padding-x};
+  --tab-padding-y: #{$tab-padding-y};
+  --tab-border-width: #{$tab-border-width};
+  --tab-font-size: #{$tab-font-size};
+  --tab-gap: #{$tab-gap};
+  --tab-indicator-height: #{$tab-indicator-height};
+
+  /* === TOOLTIP === */
+  --tooltip-padding-y: #{$tooltip-padding-y};
+  --tooltip-padding-x: #{$tooltip-padding-x};
+  --tooltip-radius: #{$tooltip-radius};
+  --tooltip-max-width: #{$tooltip-max-width};
+  --tooltip-offset: #{$tooltip-offset};
+  --tooltip-font-size: #{$tooltip-font-size};
+  --tooltip-arrow-size: #{$tooltip-arrow-size};
+
+  /* === POPOVER === */
+  --popover-padding: #{$popover-padding};
+  --popover-radius: #{$popover-radius};
+  --popover-shadow: #{$popover-shadow};
+  --popover-max-width: #{$popover-max-width};
+  --popover-arrow-size: #{$popover-arrow-size};
+  --popover-border-width: #{$popover-border-width};
+  --popover-header-padding: #{$popover-header-padding};
+  --popover-body-padding: #{$popover-body-padding};
+  --popover-footer-padding: #{$popover-footer-padding};
+}

@@ -1,0 +1,40 @@
+<div [ngClass]="cssClasses()">
+  @if (label() && labelPosition() === 'left') {
+    <label
+      [id]="toggleId() + '-label'"
+      class="primitive-toggle__label"
+      [class.primitive-toggle__label--disabled]="disabled()"
+      (click)="onToggle()"
+    >
+      {{ label() }}
+    </label>
+  }
+
+  <div
+    class="primitive-toggle__switch"
+    (click)="onToggle()"
+    (keydown)="onKeyDown($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    [attr.role]="'switch'"
+    [attr.aria-checked]="checked()"
+    [attr.aria-disabled]="disabled()"
+    [attr.aria-labelledby]="label() ? toggleId() + '-label' : null"
+    [attr.tabindex]="disabled() ? -1 : 0"
+  >
+    <div class="primitive-toggle__track">
+      <div class="primitive-toggle__thumb"></div>
+    </div>
+  </div>
+
+  @if (label() && labelPosition() === 'right') {
+    <label
+      [id]="toggleId() + '-label'"
+      class="primitive-toggle__label"
+      [class.primitive-toggle__label--disabled]="disabled()"
+      (click)="onToggle()"
+    >
+      {{ label() }}
+    </label>
+  }
+</div>

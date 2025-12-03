@@ -1,0 +1,211 @@
+// ============================================================================
+// TOKENS SÉMANTIQUES — Design System Assist-AI
+// ============================================================================
+//
+// Ce fichier contient les tokens sémantiques de composants du design system.
+// Ces tokens sont construits à partir des tokens primitifs (_primitives.scss)
+// et définissent les valeurs spécifiques pour chaque composant applicatif.
+//
+// CONTENU :
+// - Tokens button (couleurs, tailles, états)
+// - Tokens input (bordures, focus, états)
+// - Tokens icon (tailles)
+// - Tokens badge (couleurs, tailles)
+// - Tokens modal (overlays, tailles)
+// - Tokens toast (couleurs par type)
+//
+// RÈGLES D'USAGE :
+// - Utiliser UNIQUEMENT des tokens primitifs comme valeurs de base
+// - Ces tokens sont destinés aux composants DS (shared/ui/design-system/)
+// - Ne PAS créer de tokens sémantiques dans les composants métier
+// - Maintenir la cohérence avec les tokens primitifs
+//
+// ============================================================================
+
+@use './primitives' as *;
+
+// === BUTTON ===
+
+$btn-height-sm: 32px;
+$btn-height-md: 40px;
+$btn-height-lg: 48px;
+
+$btn-font-size-sm: $font-size-2;
+$btn-font-size-md: $font-size-3;
+$btn-font-size-lg: $font-size-4;
+
+$btn-padding-vertical-sm: $space-1;
+$btn-padding-horizontal-sm: $space-3;
+$btn-padding-vertical-md: $space-2;
+$btn-padding-horizontal-md: $space-4;
+$btn-padding-vertical-lg: $space-3;
+$btn-padding-horizontal-lg: $space-6;
+
+$btn-radius-sm: $radius-1;
+$btn-radius-md: $radius-2;
+$btn-radius-lg: $radius-3;
+
+$btn-primary-border: transparent;
+$btn-secondary-border: transparent;
+$btn-ghost-border: transparent;
+
+// === INPUT ===
+
+$input-height-sm: 32px;
+$input-height-md: 40px;
+$input-height-lg: 48px;
+
+$input-padding-horizontal-sm: $space-2;
+$input-padding-horizontal-md: $space-3;
+$input-padding-horizontal-lg: $space-4;
+
+$input-font-size-sm: $font-size-2;
+$input-font-size-md: $font-size-3;
+$input-font-size-lg: $font-size-4;
+
+$input-border-radius: $radius-2;
+$input-focus-shadow: 0 0 0 3px rgba($primary, 0.25);
+
+// === ICON ===
+
+$icon-size-sm: $font-size-2;
+$icon-size-md: $font-size-3;
+$icon-size-lg: $font-size-5;
+
+$input-icon-sm: 10px;
+$input-icon-md: 12px;
+$input-icon-lg: 16px;
+
+// === BADGE ===
+
+$badge-height: 20px;
+$badge-padding-x: $space-2;
+$badge-padding-y: $space-1;
+
+$badge-padding-horizontal-sm: $badge-padding-x * 0.75;
+$badge-padding-horizontal-md: $badge-padding-x;
+$badge-padding-horizontal-lg: $badge-padding-x * 1.5;
+
+$badge-padding-vertical-sm: $badge-padding-y * 0.75;
+$badge-padding-vertical-md: $badge-padding-y;
+$badge-padding-vertical-lg: $badge-padding-y * 1.5;
+
+$badge-font-size-sm: $font-size-1;
+$badge-font-size-md: $font-size-2;
+$badge-font-size-lg: $font-size-3;
+
+$badge-radius: $radius-1-5;
+$badge-radius-pill: $radius-round;
+
+// === MODAL ===
+
+$modal-padding: $space-4;
+$modal-section-gap: $space-3;
+$modal-footer-padding: $space-4;
+$modal-radius: $radius-3;
+$modal-shadow: $shadow-3;
+$modal-overlay-blur: 6px;
+$modal-size-sm: 360px;
+$modal-size-md: 560px;
+$modal-size-lg: 860px;
+$modal-max-height: 80vh;
+
+// === DROPDOWN ===
+
+$dropdown-min-width: 208px;
+$dropdown-radius: $radius-2;
+$dropdown-shadow: $shadow-2;
+$dropdown-padding: $space-2;
+$dropdown-gap: $space-1;
+$dropdown-item-padding-y: $space-2;
+$dropdown-item-padding-x: $space-3;
+$dropdown-item-radius: $radius-1-5;
+
+// === TOAST ===
+
+$toast-padding: $space-3;
+$toast-radius: $radius-2;
+$toast-shadow: $shadow-2;
+$toast-border-width: 1px;
+$toast-gap: $space-2;
+$toast-icon-size: $icon-size-md;
+
+// === CHECKBOX ===
+
+$checkbox-size-sm: 16px;
+$checkbox-size-md: 18px;
+$checkbox-size-lg: 20px;
+
+$checkbox-border-width: 2px;
+$checkbox-radius: $radius-1;
+
+$checkbox-check-size-sm: 10px;
+$checkbox-check-size-md: 12px;
+$checkbox-check-size-lg: 14px;
+
+// === RADIO ===
+
+$radio-size-sm: 16px;
+$radio-size-md: 18px;
+$radio-size-lg: 20px;
+
+$radio-border-width: 2px;
+
+$radio-dot-size-sm: 8px;
+$radio-dot-size-md: 10px;
+$radio-dot-size-lg: 12px;
+
+// === TOGGLE (SWITCH) ===
+
+$toggle-width-sm: 32px;
+$toggle-width-md: 40px;
+$toggle-width-lg: 48px;
+
+$toggle-height-sm: 18px;
+$toggle-height-md: 22px;
+$toggle-height-lg: 26px;
+
+$toggle-thumb-size-sm: 14px;
+$toggle-thumb-size-md: 18px;
+$toggle-thumb-size-lg: 22px;
+
+$toggle-track-radius: $radius-round;
+
+// === BREADCRUMB ===
+
+$breadcrumb-separator: '/';
+$breadcrumb-font-size: $font-size-2;
+$breadcrumb-spacing: $space-2;
+$breadcrumb-item-padding: $space-1;
+
+// === TABS ===
+
+$tab-height: 44px;
+$tab-padding-x: $space-4;
+$tab-padding-y: $space-2;
+$tab-border-width: 2px;
+$tab-font-size: $font-size-3;
+$tab-gap: $space-2;
+$tab-indicator-height: 2px;
+
+// === TOOLTIP ===
+
+$tooltip-padding-y: $space-1;
+$tooltip-padding-x: $space-2;
+$tooltip-radius: $radius-1;
+$tooltip-max-width: 240px;
+$tooltip-offset: 8px;
+$tooltip-font-size: $font-size-2;
+$tooltip-arrow-size: 6px;
+
+// === POPOVER ===
+
+$popover-padding: $space-3;
+$popover-radius: $radius-2;
+$popover-shadow: $shadow-2;
+$popover-max-width: 320px;
+$popover-arrow-size: 8px;
+$popover-border-width: 1px;
+$popover-header-padding: $space-3;
+$popover-body-padding: $space-3;
+$popover-footer-padding: $space-3;
