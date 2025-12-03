@@ -52,18 +52,18 @@ describe('DsToastComponent', () => {
     const timers = new Map<number, () => void>();
     let nextId = 1;
     const timeoutSpy = spyOn(window, 'setTimeout').and.callFake(
-      (handler: TimerHandler, timeout?: number, ...args: any[]) => {
+      ((handler: TimerHandler, timeout?: number, ...args: unknown[]) => {
         const id = nextId++;
         const callback = typeof handler === 'function' ? handler : () => {};
         timers.set(id, () => callback(...args));
-        return id as unknown as number;
-      },
+        return id;
+      }) as typeof setTimeout,
     );
-    const clearTimeoutSpy = spyOn(window, 'clearTimeout').and.callFake((id?: number) => {
+    const clearTimeoutSpy = spyOn(window, 'clearTimeout').and.callFake(((id?: number | string) => {
       if (typeof id === 'number') {
-        timers.delete(id as unknown as number);
+        timers.delete(id);
       }
-    });
+    }) as typeof clearTimeout);
 
     fixture.componentRef.setInput('duration', 20);
     fixture.componentRef.setInput('pauseOnHover', true);

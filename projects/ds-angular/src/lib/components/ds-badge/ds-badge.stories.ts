@@ -1,0 +1,135 @@
+import type { Meta, StoryObj } from '@storybook/angular';
+import { DsBadge } from './ds-badge';
+import { faCheck, faStar, faCircle } from '@fortawesome/free-solid-svg-icons';
+
+const meta: Meta<DsBadge> = {
+  title: 'Components/Badge',
+  component: DsBadge,
+  tags: ['autodocs'],
+  argTypes: {
+    type: {
+      control: 'select',
+      options: ['default', 'primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral', 'accent'],
+      description: 'Type/Variante',
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Taille',
+    },
+    variant: {
+      control: 'select',
+      options: ['solid', 'outline'],
+      description: 'Apparence',
+    },
+    shape: {
+      control: 'select',
+      options: ['default', 'pill', 'square'],
+      description: 'Forme',
+    },
+    color: {
+      control: 'color',
+      description: 'Couleur personnalisée',
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<DsBadge>;
+
+export const Default: Story = {
+  args: {
+    type: 'default',
+    size: 'md',
+    variant: 'solid',
+    shape: 'default',
+  },
+  render: (args) => ({
+    props: args,
+    template: `<ds-badge [type]="type" [size]="size" [variant]="variant" [shape]="shape">Badge</ds-badge>`,
+  }),
+};
+
+export const AllTypes: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <ds-badge type="default">Default</ds-badge>
+        <ds-badge type="primary">Primary</ds-badge>
+        <ds-badge type="secondary">Secondary</ds-badge>
+        <ds-badge type="success">Success</ds-badge>
+        <ds-badge type="warning">Warning</ds-badge>
+        <ds-badge type="error">Error</ds-badge>
+        <ds-badge type="info">Info</ds-badge>
+        <ds-badge type="accent">Accent</ds-badge>
+      </div>
+    `,
+  }),
+};
+
+export const Outline: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <ds-badge type="primary" variant="outline">Primary</ds-badge>
+        <ds-badge type="success" variant="outline">Success</ds-badge>
+        <ds-badge type="warning" variant="outline">Warning</ds-badge>
+        <ds-badge type="error" variant="outline">Error</ds-badge>
+        <ds-badge type="info" variant="outline">Info</ds-badge>
+      </div>
+    `,
+  }),
+};
+
+export const Shapes: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <ds-badge shape="default">Default</ds-badge>
+        <ds-badge shape="pill">Pill</ds-badge>
+        <ds-badge shape="square">Square</ds-badge>
+      </div>
+    `,
+  }),
+};
+
+export const Sizes: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <ds-badge size="sm">Small</ds-badge>
+        <ds-badge size="md">Medium</ds-badge>
+        <ds-badge size="lg">Large</ds-badge>
+      </div>
+    `,
+  }),
+};
+
+export const WithIcons: Story = {
+  render: () => ({
+    props: {
+      faCheck,
+      faStar,
+      faCircle,
+    },
+    template: `
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <ds-badge [iconStart]="faCheck" type="success">Validé</ds-badge>
+        <ds-badge [iconStart]="faStar" type="warning">Favori</ds-badge>
+        <ds-badge [iconStart]="faCircle" type="info">Status</ds-badge>
+      </div>
+    `,
+  }),
+};
+
+export const CustomColor: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <ds-badge color="#9333ea">Violet</ds-badge>
+        <ds-badge color="#f97316" variant="outline">Orange</ds-badge>
+        <ds-badge color="rgb(14, 165, 233)">Cyan</ds-badge>
+      </div>
+    `,
+  }),
+};
