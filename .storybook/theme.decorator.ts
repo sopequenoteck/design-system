@@ -1,5 +1,5 @@
 import type { AngularRenderer } from '@storybook/angular';
-import type { DecoratorFunction, Globals } from '@storybook/types';
+import type { DecoratorFunction, Globals } from '@storybook/csf';
 
 const SUPPORTED_THEMES = ['light', 'dark', 'custom'] as const;
 type ThemeName = (typeof SUPPORTED_THEMES)[number];
