@@ -3,10 +3,12 @@
   "compilerOptions": {
     "types": ["node"]
   },
-  "include": [
-    "../projects/ds-angular/src/**/*.ts",
+    "include": [
     "../projects/ds-angular/src/**/*.stories.ts",
-    "./*.ts"
+    "../projects/ds-angular/src/**/*.stories.tsx",
+    "../projects/ds-angular/src/**/*.stories.mdx",
+    "./preview.ts",
+    "./theme.decorator.ts"
   ],
   "exclude": [
     "../projects/ds-angular/src/**/*.spec.ts"

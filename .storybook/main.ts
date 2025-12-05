@@ -14,19 +14,13 @@ const config: StorybookConfig = {
   framework: {
     name: '@storybook/angular',
     options: {
-      enableIvy: true,
+      enableIvy: true
     }
   },
-  docs: {
-    autodocs: 'tag'
-  },
   core: {
-    disableTelemetry: true,
+    disableTelemetry: true
   },
-  previewAnnotations: (entries = []) => [
-    ...entries,
-    require.resolve('./preview-styles')
-  ],
+
 };
 
 export default config;
