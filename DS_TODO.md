@@ -257,8 +257,8 @@ Préparer le design system pour publication npm, créer la documentation publiqu
 - [x] `.npmignore` — Créer fichier `.npmignore` pour exclure les fichiers inutiles du package npm (tests, stories, docs internes) — **Critère** : fichier créé, exclut .spec.ts, .stories.ts, *.mdx (✅ 40 lignes d'exclusions)
 - [x] `.` — Exécuter `npm run publish:lib:dry-run` pour valider le package npm avant publication réelle — **Critère** : commande réussit, affiche le contenu du package (✅ ds-angular@1.0.0, 134.6kB, 49 fichiers)
 - [x] `.` — Publier le package npm : `npm run publish:lib` ou via workflow GitHub Actions sur tag v1.0.0 — **Critère** : package disponible sur npm registry (✅ ds-angular@1.0.0 publié sur npmjs.com)
-- [ ] `.` — Déployer Storybook statique sur GitHub Pages, Netlify ou Vercel — **Critère** : Storybook accessible via URL publique ⏳ *En attente: choix plateforme*
-- [ ] `README.md` — Ajouter lien vers le site Storybook déployé dans la section "Documentation" — **Critère** : lien ajouté et fonctionnel ⏳ *En attente: déploiement Storybook*
+- [x] `.` — Déployer Storybook statique sur GitHub Pages, Netlify ou Vercel — **Critère** : Storybook accessible via URL publique (✅ Workflow deploy-storybook.yml créé, GitHub Pages configuré)
+- [x] `README.md` — Ajouter lien vers le site Storybook déployé dans la section "Documentation" — **Critère** : lien ajouté et fonctionnel (✅ Badge Storybook + liens dans Documentation et Liens utiles)
 - [x] `.` — Créer kit de démarrage : template de projet Angular utilisant ds-angular avec configuration pré-remplie (tsconfig, angular.json, styles imports) — **Critère** : template créé, téléchargeable via GitHub releases (✅ starter-kit/ avec 10 fichiers, exemples 8 composants DS)
 
 ---

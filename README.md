@@ -1,8 +1,8 @@
 # DS-Angular Design System
 
-[![CI](https://github.com/USER/design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/USER/design-system/actions/workflows/ci.yml)
-[![npm version](https://badge.fury.io/js/ds-angular.svg)](https://badge.fury.io/js/ds-angular)
-[![codecov](https://codecov.io/gh/USER/design-system/branch/master/graph/badge.svg)](https://codecov.io/gh/USER/design-system)
+[![CI](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml)
+[![npm version](https://badge.fury.io/js/ds-angular.svg)](https://www.npmjs.com/package/ds-angular)
+[![Storybook](https://img.shields.io/badge/Storybook-deployed-ff4785)](https://sopequeno-tech.github.io/design-system/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Design system Angular moderne et accessible avec support TypeScript, theming, et composants standalone.
@@ -33,11 +33,11 @@ export class AppComponent {}
 
 ## 📚 Documentation
 
-- **Storybook** : Documentation interactive des composants
+- **[Storybook](https://sopequeno-tech.github.io/design-system/)** : Documentation interactive des composants
 - **API Docs** : Documentation TypeDoc générée automatiquement
 - **Guides** : Contributing, Patterns, Integration
 
-Consultez la [documentation complète](https://storybook-url.com) pour plus de détails.
+> 💡 Le Storybook est déployé automatiquement sur GitHub Pages à chaque push sur `master`.
 
 ## ✨ Fonctionnalités
 
@@ -181,7 +181,7 @@ Consultez [CONTRIBUTING.md](./projects/ds-angular/src/lib/Contributing.mdx) pour
 
 ## 🔗 Liens utiles
 
-- [Storybook](https://storybook-url.com)
-- [Documentation API](https://docs-url.com)
-- [Issues](https://github.com/USER/design-system/issues)
-- [Changelog](https://github.com/USER/design-system/releases)
+- [Storybook](https://sopequeno-tech.github.io/design-system/)
+- [Package npm](https://www.npmjs.com/package/ds-angular)
+- [Issues](https://github.com/sopequeno-tech/design-system/issues)
+- [Changelog](./CHANGELOG.md)

@@ -196,16 +196,16 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Tests visuels Chromatic : .chromatic.json, workflow.example, script test:visual, doc VISUAL-TESTING.md
 - 📊 ÉTAPE 11 : 100% complétée (6/6 tâches)
 
-**Publication et adoption ÉTAPE 12** (2025-12-05 - en cours) :
+**Publication et adoption ÉTAPE 12** (2025-12-05) :
 - ✅ Version 1.0.0 : ds-angular/package.json mis à jour pour première release stable
 - ✅ Métadonnées npm complètes : repository, bugs, homepage, 10 keywords, author, license MIT
 - ✅ .npmignore créé : exclusion tests, stories, docs internes (40 lignes)
 - ✅ Dry-run npm validé : ds-angular@1.0.0, 134.6kB compressé, 49 fichiers
 - ✅ Starter kit créé : starter-kit/ avec 10 fichiers, exemples 8 composants DS, Angular 20
 - ✅ **Publication npm réussie** : ds-angular@1.0.0 disponible sur https://www.npmjs.com/package/ds-angular
-- ⏳ Déploiement Storybook (GitHub Pages/Netlify/Vercel)
-- ⏳ Lien Storybook dans README (dépend déploiement)
-- 📊 ÉTAPE 12 : 75% complétée (6/8 tâches)
+- ✅ Déploiement Storybook : workflow deploy-storybook.yml (GitHub Pages)
+- ✅ README mis à jour : badge Storybook, liens Documentation et Liens utiles
+- 📊 ÉTAPE 12 : 100% complétée (8/8 tâches)
 
 ## Patterns techniques
 
