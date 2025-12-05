@@ -50,26 +50,45 @@ import { DROPDOWN_POSITIONS } from '../../utils/overlay-positions';
 })
 export class DsDropdown implements ControlValueAccessor, AfterViewInit, OnDestroy {
   // Inputs
+  /** Identifiant du menu déroulant pour l'accessibilité. */
   readonly id = input<string>(crypto.randomUUID());
+  /** Variante du bouton déclencheur. */
   readonly type = input<ButtonVariant>('primary');
+  /** Apparence du bouton déclencheur (plein ou outline). */
   readonly variant = input<ButtonAppearance>('solid');
+  /** Taille du bouton déclencheur. */
   readonly size = input<ButtonSize>('md');
+  /** Utilise le bouton comme submit dans un formulaire. */
   readonly submit = input<boolean>(false);
+  /** Désactive l'interaction du dropdown. */
   readonly disabled = input<boolean>(false);
+  /** Affiche l'état de chargement et bloque l'ouverture. */
   readonly loading = input<boolean>(false);
+  /** Étend le bouton sur toute la largeur disponible. */
   readonly block = input<boolean>(false);
+  /** Icône affichée avant le libellé du bouton. */
   readonly dropdownStartIcon = input<IconDefinition | null>(null);
+  /** Icône affichée après le libellé du bouton. */
   readonly dropdownEndIcon = input<IconDefinition | null>(null);
+  /** Liste des options proposées dans le menu. */
   readonly dropdownItems = input<DropdownItem[]>([]);
+  /** Code de l'option actuellement sélectionnée. */
   readonly selectedItem = input<string | null | undefined>(undefined);
+  /** Libellé ARIA alternatif pour le bouton. */
   readonly ariaLabel = input<string | null | undefined>(undefined);
+  /** Référence ARIA vers un élément existant décrivant le bouton. */
   readonly ariaLabelledBy = input<string | null | undefined>(undefined);
+  /** Ferme le menu automatiquement lors de la sélection. */
   readonly closeOnSelect = input<boolean>(true);
+  /** Classes CSS supplémentaires appliquées au panneau. */
   readonly overlayPanelClass = input<string | string[] | undefined>(undefined);
 
   // Outputs
+  /** Émis lorsqu'un élément est sélectionné. */
   readonly selectedItemChanged = output<string>();
+  /** Émis lors de l'ouverture du menu. */
   readonly opened = output<void>();
+  /** Émis lors de la fermeture du menu. */
   readonly closed = output<void>();
 
   // Template refs
