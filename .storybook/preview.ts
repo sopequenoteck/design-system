@@ -26,6 +26,11 @@ const preview: Preview = {
         { name: 'Feedback / Info', value: 'var(--info)' }
       ]
     },
+    options: {
+      storySort: {
+        order: ['Introduction', 'Tokens', 'Components', 'Primitives']
+      }
+    },
     docs: {
       toc: {
         headingSelector: 'h2, h3',

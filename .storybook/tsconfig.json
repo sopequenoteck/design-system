@@ -3,7 +3,7 @@
   "compilerOptions": {
     "types": ["node"]
   },
-    "include": [
+  "include": [
     "../projects/ds-angular/src/**/*.stories.ts",
     "../projects/ds-angular/src/**/*.stories.tsx",
     "../projects/ds-angular/src/**/*.stories.mdx",
