@@ -1,0 +1,13 @@
+{
+  "projectId": "CHROMATIC_PROJECT_ID",
+  "buildScriptName": "build-storybook",
+  "storybookBuildDir": "storybook-static",
+  "autoAcceptChanges": "master",
+  "exitZeroOnChanges": false,
+  "exitOnceUploaded": false,
+  "onlyChanged": true,
+  "externals": [
+    "projects/ds-angular/src/styles/**/*.scss"
+  ],
+  "skip": "dependabot/**"
+}

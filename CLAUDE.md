@@ -193,8 +193,8 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
   - tabs.spec.ts : 12 tests (sélection, navigation clavier, indicateur visuel, ARIA)
   - toast.spec.ts : 14 tests (apparition/disparition, types, stack, positions, animations, ARIA)
 - ✅ CI benchmark performance : step `perf:benchmark` + commentaire PR (Component Load Time, Tree-Shaking Score, First Paint)
-- 🔄 Tests visuels régression : Chromatic/Percy (en attente)
-- 📊 ÉTAPE 11 : 83% complétée (5/6 tâches)
+- ✅ Tests visuels Chromatic : .chromatic.json, workflow.example, script test:visual, doc VISUAL-TESTING.md
+- 📊 ÉTAPE 11 : 100% complétée (6/6 tâches)
 
 ## Patterns techniques
 

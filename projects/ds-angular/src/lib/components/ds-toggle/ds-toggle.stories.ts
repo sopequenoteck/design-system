@@ -167,7 +167,7 @@ export const InReactiveForm: Story = {
         betaFeatures: false,
       },
       onSubmit: function() {
-        console.log('Form submitted:', this.formValue);
+        console.log('Form submitted:', this["formValue"]);
         alert('Formulaire soumis ! Vérifiez la console.');
       },
     },

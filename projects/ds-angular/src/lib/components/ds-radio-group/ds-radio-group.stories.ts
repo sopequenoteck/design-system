@@ -121,11 +121,11 @@ export const WithDynamicOptions: Story = {
       options: ['Rouge', 'Vert', 'Bleu'],
       addOption: function() {
         const colors = ['Jaune', 'Orange', 'Violet', 'Rose'];
-        const newColor = colors[this.options.length - 3];
-        if (newColor) this.options.push(newColor);
+        const newColor = colors[this["options"].length - 3];
+        if (newColor) this["options"].push(newColor);
       },
       removeOption: function() {
-        if (this.options.length > 1) this.options.pop();
+        if (this["options"].length > 1) this["options"].pop();
       },
     },
     template: `

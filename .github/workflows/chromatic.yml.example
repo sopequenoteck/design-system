@@ -1,0 +1,71 @@
+# Workflow Chromatic pour tests visuels de régression
+#
+# ⚠️ Ce workflow est désactivé par défaut (fichier .example)
+#
+# Pour l'activer :
+# 1. Créer un compte sur https://www.chromatic.com/
+# 2. Obtenir le PROJECT_TOKEN depuis Chromatic
+# 3. Ajouter le secret CHROMATIC_PROJECT_TOKEN dans GitHub Settings > Secrets
+# 4. Renommer ce fichier en chromatic.yml (retirer .example)
+# 5. Mettre à jour CHROMATIC_PROJECT_ID dans .chromatic.json
+#
+# Coût : Chromatic offre 5000 snapshots/mois gratuits pour les projets open-source
+#
+name: Visual Regression Tests (Chromatic)
+
+on:
+  pull_request:
+    branches: [master, main]
+  push:
+    branches: [master, main]
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Nécessaire pour Chromatic
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: 'build-storybook'
+          exitZeroOnChanges: true
+          exitOnceUploaded: true
+          onlyChanged: true
+          autoAcceptChanges: 'master'
+
+      - name: Comment PR with Chromatic link
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `## 🎨 Visual Regression Tests
+
+Your Storybook has been published to Chromatic.
+
+[View build and review changes →](https://www.chromatic.com/builds?appId=PROJECT_ID)
+
+**Status**: ${process.env.CHROMATIC_STATUS || 'Pending'}
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+        continue-on-error: true
