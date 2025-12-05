@@ -1,40 +1,21 @@
 # AGENTS.md
 
-## Commandes essentielles
+## Scripts
+- `npm run build:lib` : build ds-angular library
+- `npm test` : run all tests
+- `npm run test:headless` : headless Chrome tests
+- `npm run test:coverage` : tests with coverage report
+- `ng test ds-angular --include="**/my.component.spec.ts"` : run single test file
+- `npm run storybook` : start Storybook (port 6006)
+- `npm run build-storybook` : build static Storybook
+- `npx tsc --noEmit` : TypeScript type check
+- `npm run lint` : run linter (if configured)
 
-### Build
-- `npm run build:lib` - Build la bibliothèque ds-angular
-- `npm run build:lib:watch` - Build en mode watch
-
-### Tests
-- `npm test` - Lance tous les tests
-- `npm run test:headless` - Tests sans interface (ChromeHeadless)
-- `npm run test:coverage` - Tests avec couverture de code
-- `ng test ds-angular --include="**/ds-button.spec.ts"` - Test spécifique
-
-### Storybook
-- `npm run storybook` - Démarre Storybook (port 6006)
-- `npm run build-storybook` - Build Storybook statique
-
-## Style de code
-
-### Conventions Angular
-- Préfixe composants : `ds` (ex: `ds-button`)
-- Utiliser `input()` et `output()` (Angular 20+)
-- Imports groupés : Angular → bibliothèques → composants locaux
-- TypeScript strict mode activé
-
-### Tests
-- Structure : describe → beforeEach → it
-- Utiliser `fixture.componentRef.setInput()` pour les inputs
-- Tests couvrant inputs, états, events et rendu DOM
-
-### Nommage
-- Composants : `DsComponentName`
-- Fichiers : kebab-case (`ds-button.component.ts`)
-- Classes CSS : BEM avec préfixe `ds-`
-
-### Erreurs
-- Types stricts requis
-- Pas de `any` autorisé
-- Gestion des états disabled/loading dans les getters
+## Code Style
+- Imports order: Angular → third-party → local modules
+- TypeScript strict mode, no `any`, explicit types everywhere
+- Components prefix `ds`, class/file PascalCase ↔ kebab-case filenames
+- CSS BEM naming with `ds-` prefix
+- Use `@Input()`/`@Output()` Angular decorators
+- Format code via Prettier/EditorConfig settings
+- Handle errors explicitly, avoid silent failures
