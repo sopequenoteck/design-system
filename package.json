@@ -11,8 +11,10 @@
     "test": "ng test",
     "test:headless": "ng test ds-angular --watch=false --browsers=ChromeHeadless",
     "test:coverage": "ng test ds-angular --code-coverage --watch=false --browsers=ChromeHeadless",
+    "test:a11y": "node scripts/test-a11y.js",
     "storybook": "ng run ds-angular:storybook",
     "build-storybook": "ng run ds-angular:build-storybook",
+    "validate:tokens": "node scripts/validate-tokens.js",
     "prepublishOnly": "npm run test:headless && npm run build:lib",
     "publish:lib": "cd dist/ds-angular && npm publish",
     "publish:lib:dry-run": "cd dist/ds-angular && npm publish --dry-run"
