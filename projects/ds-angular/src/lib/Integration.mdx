@@ -574,6 +574,516 @@ export class RegisterComponent {
 
 ---
 
+## 4. Application complète avec routing et lazy-loading
+
+Exemple d'une application Angular 20 standalone complète utilisant le design system avec routing, lazy-loading, et gestion de l'état via signals.
+
+### Structure de l'application
+
+```
+src/app/
+├── core/
+│   ├── services/
+│   │   ├── theme.service.ts       # Gestion du thème
+│   │   └── auth.service.ts        # Authentification
+│   └── guards/
+│       └── auth.guard.ts          # Guard pour routes protégées
+├── shared/
+│   ├── components/
+│   │   ├── header.component.ts   # Header avec navigation
+│   │   └── footer.component.ts   # Footer
+│   └── layouts/
+│       └── main-layout.component.ts
+├── features/
+│   ├── home/
+│   │   └── home.component.ts
+│   ├── dashboard/
+│   │   └── dashboard.component.ts (lazy-loaded)
+│   └── settings/
+│       └── settings.component.ts (lazy-loaded)
+├── app.component.ts
+├── app.config.ts
+└── app.routes.ts
+```
+
+### Configuration de l'application (app.config.ts)
+
+```typescript
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes, withComponentInputBinding()),
+    provideAnimations(),
+  ],
+};
+```
+
+### Routes avec lazy-loading (app.routes.ts)
+
+```typescript
+import { Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
+
+export const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () =>
+      import('./features/home/home.component').then(m => m.HomeComponent),
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./features/dashboard/dashboard.component').then(
+        m => m.DashboardComponent
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('./features/settings/settings.component').then(
+        m => m.SettingsComponent
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/auth/login.component').then(m => m.LoginComponent),
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
+];
+```
+
+### Service de thème avec signals (theme.service.ts)
+
+```typescript
+import { Injectable, signal, effect } from '@angular/core';
+
+export type Theme = 'light' | 'dark' | 'custom';
+
+@Injectable({ providedIn: 'root' })
+export class ThemeService {
+  private readonly STORAGE_KEY = 'ds-theme';
+
+  // Signal réactif pour le thème
+  currentTheme = signal<Theme>(this.loadThemeFromStorage());
+
+  constructor() {
+    // Effect pour persister le thème et l'appliquer au DOM
+    effect(() => {
+      const theme = this.currentTheme();
+      document.documentElement.className = `theme-${theme}`;
+      localStorage.setItem(this.STORAGE_KEY, theme);
+    });
+  }
+
+  setTheme(theme: Theme) {
+    this.currentTheme.set(theme);
+  }
+
+  toggleTheme() {
+    const current = this.currentTheme();
+    const next = current === 'light' ? 'dark' : 'light';
+    this.setTheme(next);
+  }
+
+  private loadThemeFromStorage(): Theme {
+    const stored = localStorage.getItem(this.STORAGE_KEY);
+    return (stored as Theme) || 'light';
+  }
+}
+```
+
+### Service d'authentification avec signals (auth.service.ts)
+
+```typescript
+import { Injectable, signal, computed } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, of, delay } from 'rxjs';
+
+interface User {
+  id: number;
+  username: string;
+  email: string;
+}
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  private userSignal = signal<User | null>(null);
+
+  // Exposer le user en lecture seule
+  user = this.userSignal.asReadonly();
+
+  // Computed pour savoir si l'utilisateur est connecté
+  isAuthenticated = computed(() => this.user() !== null);
+
+  constructor(private router: Router) {
+    // Charger l'utilisateur depuis le localStorage au démarrage
+    this.loadUserFromStorage();
+  }
+
+  login(username: string, password: string): Observable<boolean> {
+    // Simulation d'appel API
+    return of(true).pipe(
+      delay(1000),
+      map(() => {
+        const mockUser: User = {
+          id: 1,
+          username,
+          email: `${username}@example.com`,
+        };
+        this.userSignal.set(mockUser);
+        localStorage.setItem('user', JSON.stringify(mockUser));
+        return true;
+      })
+    );
+  }
+
+  logout() {
+    this.userSignal.set(null);
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
+  }
+
+  private loadUserFromStorage() {
+    const stored = localStorage.getItem('user');
+    if (stored) {
+      try {
+        this.userSignal.set(JSON.parse(stored));
+      } catch {
+        localStorage.removeItem('user');
+      }
+    }
+  }
+}
+```
+
+### Guard d'authentification (auth.guard.ts)
+
+```typescript
+import { inject } from '@angular/core';
+import { Router, CanActivateFn } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
+export const AuthGuard: CanActivateFn = () => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  if (authService.isAuthenticated()) {
+    return true;
+  }
+
+  // Rediriger vers la page de login
+  router.navigate(['/login']);
+  return false;
+};
+```
+
+### Header avec navigation (header.component.ts)
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { DsButton, DsBadge, DsDropdown, DropdownItem } from 'ds-angular';
+import { AuthService } from '../../core/services/auth.service';
+import { ThemeService } from '../../core/services/theme.service';
+
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive, DsButton, DsBadge, DsDropdown],
+  template: `
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>DS App</h1>
+          <ds-badge variant="info" size="sm">v1.0</ds-badge>
+        </div>
+
+        <nav class="nav">
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            Accueil
+          </a>
+          @if (authService.isAuthenticated()) {
+            <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+            <a routerLink="/settings" routerLinkActive="active">Paramètres</a>
+          }
+        </nav>
+
+        <div class="header-actions">
+          <!-- Theme switcher -->
+          <ds-dropdown
+            [items]="themeOptions"
+            [value]="themeService.currentTheme()"
+            (selectionChange)="changeTheme($event)">
+          </ds-dropdown>
+
+          <!-- User menu ou login -->
+          @if (authService.isAuthenticated()) {
+            <ds-dropdown
+              [items]="userMenuItems"
+              (selectionChange)="onUserMenuAction($event)">
+            </ds-dropdown>
+          } @else {
+            <ds-button
+              variant="primary"
+              size="sm"
+              (clicked)="navigateToLogin()">
+              Connexion
+            </ds-button>
+          }
+        </div>
+      </div>
+    </header>
+  `,
+  styles: [`
+    .header {
+      background: var(--surface-default);
+      border-bottom: 1px solid var(--border-default);
+      padding: var(--space-4);
+    }
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .logo h1 {
+      margin: 0;
+      font-size: var(--font-size-5);
+    }
+    .nav {
+      display: flex;
+      gap: var(--space-4);
+      margin-left: var(--space-6);
+    }
+    .nav a {
+      color: var(--text-default);
+      text-decoration: none;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-1);
+      transition: background 0.2s;
+    }
+    .nav a:hover {
+      background: var(--surface-hover);
+    }
+    .nav a.active {
+      background: var(--surface-selected);
+      font-weight: var(--font-weight-semibold);
+    }
+    .header-actions {
+      margin-left: auto;
+      display: flex;
+      gap: var(--space-3);
+      align-items: center;
+    }
+  `],
+})
+export class HeaderComponent {
+  authService = inject(AuthService);
+  themeService = inject(ThemeService);
+  private router = inject(Router);
+
+  themeOptions: DropdownItem[] = [
+    { id: 'light', label: 'Clair', value: 'light' },
+    { id: 'dark', label: 'Sombre', value: 'dark' },
+    { id: 'custom', label: 'Personnalisé', value: 'custom' },
+  ];
+
+  userMenuItems: DropdownItem[] = [
+    { id: 'profile', label: 'Profil' },
+    { id: 'settings', label: 'Paramètres' },
+    { id: 'logout', label: 'Déconnexion' },
+  ];
+
+  changeTheme(themeId: string) {
+    this.themeService.setTheme(themeId as 'light' | 'dark' | 'custom');
+  }
+
+  onUserMenuAction(actionId: string) {
+    if (actionId === 'logout') {
+      this.authService.logout();
+    } else if (actionId === 'settings') {
+      this.router.navigate(['/settings']);
+    }
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
+}
+```
+
+### Layout principal (main-layout.component.ts)
+
+```typescript
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from '../components/header.component';
+import { FooterComponent } from '../components/footer.component';
+import { DsToastContainerComponent } from 'ds-angular';
+
+@Component({
+  selector: 'app-main-layout',
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, DsToastContainerComponent],
+  template: `
+    <div class="layout">
+      <app-header></app-header>
+      <main class="content">
+        <router-outlet></router-outlet>
+      </main>
+      <app-footer></app-footer>
+      <ds-toast-container position="top-right"></ds-toast-container>
+    </div>
+  `,
+  styles: [`
+    .layout {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .content {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: var(--space-6);
+    }
+  `],
+})
+export class MainLayoutComponent {}
+```
+
+### Composant racine (app.component.ts)
+
+```typescript
+import { Component } from '@angular/core';
+import { MainLayoutComponent } from './shared/layouts/main-layout.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [MainLayoutComponent],
+  template: `<app-main-layout></app-main-layout>`,
+})
+export class AppComponent {}
+```
+
+### Exemple de feature module lazy-loaded (dashboard.component.ts)
+
+```typescript
+import { Component, inject, signal, computed } from '@angular/core';
+import { DsCard, DsBadge, DsButton, DsAlert } from 'ds-angular';
+import { AuthService } from '../../core/services/auth.service';
+
+interface Metric {
+  label: string;
+  value: number;
+  trend: number;
+  unit?: string;
+}
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [DsCard, DsBadge, DsButton, DsAlert],
+  template: `
+    <div class="dashboard">
+      <ds-alert type="success" [showIcon]="true" [closable]="true">
+        Bienvenue {{ authService.user()?.username }} !
+      </ds-alert>
+
+      <h1>Dashboard</h1>
+
+      <div class="metrics-grid">
+        @for (metric of metrics(); track metric.label) {
+          <ds-card variant="elevated" size="sm">
+            <div header>
+              <h3>{{ metric.label }}</h3>
+            </div>
+            <div body>
+              <div class="metric-value">
+                {{ metric.value }}{{ metric.unit || '' }}
+                <ds-badge
+                  [variant]="metric.trend >= 0 ? 'success' : 'error'"
+                  size="sm">
+                  {{ metric.trend >= 0 ? '+' : '' }}{{ metric.trend }}%
+                </ds-badge>
+              </div>
+            </div>
+          </ds-card>
+        }
+      </div>
+
+      <ds-card variant="default" size="md">
+        <div header>
+          <h2>Activité récente</h2>
+        </div>
+        <div body>
+          <p>Contenu du dashboard (graphiques, tableaux, etc.)</p>
+          <ds-button variant="primary">Actualiser</ds-button>
+        </div>
+      </ds-card>
+    </div>
+  `,
+  styles: [`
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-4);
+    }
+    .metric-value {
+      font-size: var(--font-size-6);
+      font-weight: var(--font-weight-bold);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+  `],
+})
+export class DashboardComponent {
+  authService = inject(AuthService);
+
+  metrics = signal<Metric[]>([
+    { label: 'Utilisateurs', value: 1234, trend: 12 },
+    { label: 'Ventes', value: 56.7, trend: -3, unit: 'k€' },
+    { label: 'Commandes', value: 432, trend: 8 },
+    { label: 'Taux conversion', value: 3.2, trend: 5, unit: '%' },
+  ]);
+}
+```
+
+Cette architecture complète démontre :
+- ✅ **Routing** avec lazy-loading des features
+- ✅ **Guards** pour protéger les routes
+- ✅ **Signals** pour la gestion d'état réactive
+- ✅ **Services** avec injection de dépendances
+- ✅ **Layout** réutilisable avec header/footer
+- ✅ **Intégration complète** du design system
+
+---
+
 ## Ressources
 
 - [Introduction](./Introduction) — Installation et Quick Start

@@ -56,9 +56,10 @@ Consultez la [documentation complète](https://storybook-url.com) pour plus de d
 - `primitive-checkbox`, `primitive-radio`, `primitive-toggle`
 - `primitive-textarea`
 
-### Components
-- **Forms** : `ds-input-field`, `ds-checkbox`, `ds-radio-group`, `ds-toggle`
-- **Display** : `ds-button`, `ds-badge`, `ds-breadcrumb`, `ds-tabs`
+### Components (17 composants DS)
+- **Forms** : `ds-input-field`, `ds-input-textarea`, `ds-checkbox`, `ds-radio-group`, `ds-toggle`
+- **Display** : `ds-button`, `ds-badge`, `ds-card`, `ds-alert`, `ds-divider`
+- **Navigation** : `ds-breadcrumb`, `ds-tabs`
 - **Overlays** : `ds-modal`, `ds-dropdown`, `ds-tooltip`, `ds-popover`, `ds-toast`
 
 ## 🛠️ Développement
@@ -111,6 +112,31 @@ Les tokens sont exposés via CSS custom properties et peuvent être surchargés 
   --btn-height-md: 40px;
 }
 ```
+
+## 💡 Examples
+
+Le dossier `examples/` contient des applications de démonstration complètes utilisant le design system :
+
+### Demo App
+
+Application Angular 20 standalone illustrant l'utilisation de 15+ composants du design system :
+
+```bash
+# Depuis la racine du projet
+npm run build:lib        # Build du design system
+cd examples/demo-app     # Naviguer vers la demo
+npm start                # Lancer l'application
+```
+
+Fonctionnalités démontrées :
+- ✅ Formulaires réactifs avec validation (input, checkbox, radio, toggle, textarea)
+- ✅ Modal dynamique avec focus trap
+- ✅ Notifications toast (success, error, info, warning)
+- ✅ Navigation par onglets
+- ✅ Thèmes dynamiques (light, dark, custom)
+- ✅ Composants utilitaires (card, alert, divider, badge, breadcrumb)
+
+Consultez [examples/demo-app/README.md](./examples/demo-app/README.md) pour plus de détails.
 
 ## 🧪 Tests
 
