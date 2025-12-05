@@ -116,6 +116,10 @@ jobs:
         run: npm run test:a11y --if-present || echo "A11y audit skipped"
         continue-on-error: true
 
+      - name: Run performance benchmark
+        run: npm run perf:benchmark
+        continue-on-error: true
+
       - name: Comment PR with coverage and bundle size
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
@@ -168,6 +172,25 @@ ${passed ? '✅' : '❌'} **Status**: ${passed ? 'PASSED' : 'EXCEEDED'}
 `;
             } catch (error) {
               console.log('Bundle stats file not found or invalid');
+            }
+
+            // Performance benchmark report
+            try {
+              const perfBenchmark = JSON.parse(fs.readFileSync('perf-benchmark.json', 'utf-8'));
+              const metrics = perfBenchmark.metrics;
+
+              comment += `## ⚡ Performance Benchmark
+
+| Metric | Value | Status |
+|--------|-------|--------|
+| Component Load Time | ${metrics.componentLoadTime}ms | ${metrics.componentLoadTime < 100 ? '✅' : '⚠️'} |
+| Tree-Shaking Score | ${metrics.treeshakingScore}% | ${metrics.treeshakingScore >= 90 ? '✅' : '⚠️'} |
+| First Paint | ${metrics.firstPaint}ms | ${metrics.firstPaint < 200 ? '✅' : '⚠️'} |
+
+**Recommendations**: ${perfBenchmark.recommendations.join(', ')}
+`;
+            } catch (error) {
+              console.log('Performance benchmark file not found or invalid');
             }
 
             if (comment) {

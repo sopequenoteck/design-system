@@ -223,7 +223,7 @@ Renforcer la qualité et la robustesse du design system avec des tests d'intégr
 - [x] `.github/workflows/ci.yml` — Ajouter étape de test Storybook : exécuter `npm run test:storybook` après build Storybook — **Critère** : step ajoutée, bloque le merge si échec (✅ 2 steps: install Playwright, serve & test Storybook)
 - [x] `package.json` — Ajouter dépendance Playwright et créer script `test:e2e` pour tests d'intégration end-to-end — **Critère** : script créé, au moins 5 scénarios e2e (formulaire, modal, dropdown, tabs, toast) (✅ @playwright/test@1.49.0, scripts test:e2e et test:e2e:ui)
 - [x] `tests/e2e/` — Créer tests Playwright pour les composants critiques : ds-modal (ouverture/fermeture, focus trap), ds-dropdown (navigation clavier), ds-tabs (sélection), ds-toast (apparition/disparition) — **Critère** : 5+ tests e2e créés et passent (✅ 52 tests : modal 12, dropdown 14, tabs 12, toast 14)
-- [ ] `.github/workflows/ci.yml` — Ajouter étape de benchmark de performance : exécuter `npm run perf:benchmark`, publier résultats en commentaire de PR — **Critère** : step ajoutée, commentaire PR avec métriques
+- [x] `.github/workflows/ci.yml` — Ajouter étape de benchmark de performance : exécuter `npm run perf:benchmark`, publier résultats en commentaire de PR — **Critère** : step ajoutée, commentaire PR avec métriques (✅ Step + commentaire PR avec Component Load Time, Tree-Shaking Score, First Paint)
 - [ ] `.storybook/main.ts` — Intégrer Chromatic ou Percy pour tests visuels de régression (si budget disponible) — **Critère** : configuration ajoutée, tests visuels s'exécutent sur PR
 
 ---
