@@ -99,6 +99,13 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Harmonisation _dark.scss : `--input-border` supprimé (ne garde que `--input-border-color`)
 - ✅ Documentation complète des règles de nommage dans `Tokens.mdx`
 
+**Renforcement ÉTAPE 3** (2025-12-05) :
+- ✅ Tests unitaires complets pour 12 composants DS (≥85% couverture)
+- ✅ Audits accessibilité WCAG 2.1 AA : ds-modal, ds-dropdown, ds-tabs
+- ✅ Navigation clavier complète : ArrowUp/Down, Home/End, Enter, Escape
+- ✅ Attributs ARIA conformes : role, aria-selected, aria-expanded, aria-controls
+- ✅ Focus trap et gestion ESC opérationnels sur les overlays
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)
