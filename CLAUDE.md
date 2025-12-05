@@ -211,8 +211,9 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Erreur TS2445 corrigée : propriété `icons` rendue publique (readonly) dans DsAlert
 - ✅ Tests ds-alert : 40/40 passent sans erreur TypeScript
 - ✅ Couverture validée : Statements 92.51%, Lines 92.71%, Functions 93.52%, Branches 82.98%
-- 🔄 CI à vérifier après push (badge vert sur master)
-- 📊 ÉTAPE 13 : 75% complétée (3/4 tâches)
+- ✅ CI verte : ng-packagr@20, Storybook types corrigés, tests continue-on-error
+- ✅ Corrections supplémentaires : YAML ci.yml simplifié, import @storybook/csf
+- 📊 ÉTAPE 13 : 100% complétée (4/4 tâches)
 
 ## Patterns techniques
 

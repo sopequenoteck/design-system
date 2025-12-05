@@ -45,7 +45,7 @@ Publication v1.0.0 terminée.
 - [x] `projects/ds-angular/src/lib/components/ds-alert/ds-alert.ts` — Rendre la propriété `icons` publique (readonly) ou créer méthode publique `getIconForType(type: AlertType)` — **Critère** : tests ds-alert.spec.ts compilent sans erreur TS2445 ✅ (2025-12-05)
 - [x] `projects/ds-angular/src/lib/components/ds-alert/ds-alert.spec.ts` — Adapter les tests pour utiliser la méthode publique au lieu d'accéder directement à `icons` — **Critère** : 40/40 tests passent ✅ (2025-12-05)
 - [x] `.` — Exécuter `npm run test:coverage` pour valider couverture ≥80% — **Critère** : Statements 92.51%, Lines 92.71%, Functions 93.52%, Branches 82.98% ✅ (2025-12-05)
-- [ ] `.github/workflows/ci.yml` — Vérifier que la CI passe en vert après corrections — **Critère** : badge CI vert sur master
+- [x] `.github/workflows/ci.yml` — Vérifier que la CI passe en vert après corrections — **Critère** : CI success (run #19977860629) ✅ (2025-12-05)
 
 ---
 
