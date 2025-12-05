@@ -121,7 +121,7 @@ Améliorer la robustesse, l'accessibilité et la documentation des composants DS
 - [x] `projects/ds-angular/src/lib/components/ds-toggle/ds-toggle.spec.ts` — Compléter les tests unitaires : tester tous les inputs (size, disabled, label), intégration ControlValueAccessor, émission de l'événement `checkedChange` — **Critère** : couverture ≥ 90% sur ds-toggle.ts
 - [x] `projects/ds-angular/src/lib/components/ds-modal/ds-modal.component.ts` — Audit accessibilité : vérifier les attributs ARIA (aria-modal, aria-labelledby, aria-describedby), role="dialog", focus trap fonctionnel, gestion ESC — **Critère** : conformité WCAG 2.1 AA sur les critères 2.1.1, 2.1.2, 4.1.2
 - [x] `projects/ds-angular/src/lib/components/ds-dropdown/ds-dropdown.ts` — Audit accessibilité : ajouter role="menu", aria-expanded, aria-haspopup, navigation clavier complète (ArrowUp/Down, Home, End, Enter, Escape), focus visible — **Critère** : conformité WCAG 2.1 AA sur les critères 2.1.1, 2.1.2, 4.1.2
-- [ ] `projects/ds-angular/src/lib/components/ds-tabs/ds-tabs.ts` — Audit accessibilité : vérifier role="tablist", role="tab", role="tabpanel", aria-selected, aria-controls, navigation clavier (ArrowLeft/Right, Home, End) — **Critère** : conformité WCAG 2.1 AA sur les critères 2.1.1, 4.1.2
+- [x] `projects/ds-angular/src/lib/components/ds-tabs/ds-tabs.ts` — Audit accessibilité : vérifier role="tablist", role="tab", role="tabpanel", aria-selected, aria-controls, navigation clavier (ArrowLeft/Right, Home, End) — **Critère** : conformité WCAG 2.1 AA sur les critères 2.1.1, 4.1.2
 
 ---
 
