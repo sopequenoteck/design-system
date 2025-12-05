@@ -1,0 +1,60 @@
+{
+  "timestamp": "2025-12-05T21:50:03.592Z",
+  "results": [
+    {
+      "component": "ds-button",
+      "metrics": {
+        "initialRenderTime": 31.61,
+        "interactionTime": 22.14,
+        "memoryUsage": 0.86
+      },
+      "timestamp": "2025-12-05T21:50:03.590Z"
+    },
+    {
+      "component": "ds-modal",
+      "metrics": {
+        "initialRenderTime": 27.29,
+        "interactionTime": 28.54,
+        "memoryUsage": 0.67
+      },
+      "timestamp": "2025-12-05T21:50:03.591Z"
+    },
+    {
+      "component": "ds-dropdown",
+      "metrics": {
+        "initialRenderTime": 54.66,
+        "interactionTime": 33.85,
+        "memoryUsage": 1.89
+      },
+      "timestamp": "2025-12-05T21:50:03.591Z"
+    },
+    {
+      "component": "ds-input-field",
+      "metrics": {
+        "initialRenderTime": 57.07,
+        "interactionTime": 20.9,
+        "memoryUsage": 1.65
+      },
+      "timestamp": "2025-12-05T21:50:03.591Z"
+    },
+    {
+      "component": "ds-checkbox",
+      "metrics": {
+        "initialRenderTime": 11.85,
+        "interactionTime": 28.53,
+        "memoryUsage": 2.3
+      },
+      "timestamp": "2025-12-05T21:50:03.591Z"
+    }
+  ],
+  "averages": {
+    "initialRenderTime": 36.5,
+    "interactionTime": 26.79,
+    "memoryUsage": 1.47
+  },
+  "thresholds": {
+    "initialRenderTime": 100,
+    "interactionTime": 50,
+    "memoryUsage": 5
+  }
+}
