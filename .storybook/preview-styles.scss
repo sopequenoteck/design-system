@@ -1,0 +1,3 @@
+// Global Storybook styles and token bootstrap
+// This file ensures design tokens and theme variables are loaded before stories render.
+@use '../projects/ds-angular/src/styles/storybook';

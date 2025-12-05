@@ -23,6 +23,10 @@ const config: StorybookConfig = {
   core: {
     disableTelemetry: true,
   },
+  previewAnnotations: (entries = []) => [
+    ...entries,
+    require.resolve('./preview-styles')
+  ],
 };
 
 export default config;
