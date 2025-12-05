@@ -163,6 +163,12 @@ export const NotClosable: Story = {
 };
 
 export const FormModal: Story = {
+  args: {
+    title: "bonjour",
+    type: "success",
+    size: "sm"
+  },
+
   render: () => ({
     props: {
       isOpen: false,
@@ -190,5 +196,5 @@ export const FormModal: Story = {
         </div>
       </ds-modal>
     `,
-  }),
+  })
 };

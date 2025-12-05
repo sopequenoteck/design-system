@@ -1,0 +1,106 @@
+{/* Introduction.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction" />
+
+# DS-Angular - Design System
+
+Bienvenue dans la documentation du Design System **ds-angular**, une bibliothèque de composants Angular moderne et accessible.
+
+## Installation
+
+```bash
+npm install ds-angular
+```
+
+## Import des styles
+
+Importez les styles globaux dans votre application :
+
+```scss
+// Dans styles.scss
+@use 'ds-angular/styles';
+```
+
+Puis appliquez le thème sur `:root` :
+
+```typescript
+// Dans app.component.ts
+document.documentElement.className = 'theme-light'; // ou 'theme-dark'
+```
+
+---
+
+## Architecture
+
+Le design system est organisé en deux niveaux :
+
+### Primitives
+
+Composants atomiques de base, sans logique métier :
+- `primitive-button`, `primitive-badge`, `primitive-input`
+- `primitive-checkbox`, `primitive-radio`, `primitive-toggle`
+- `primitive-textarea`
+
+### Components
+
+Composants haut niveau avec logique intégrée :
+- **Forms** : `ds-input-field`, `ds-checkbox`, `ds-radio-group`, `ds-toggle`
+- **Display** : `ds-badge`, `ds-button`, `ds-breadcrumb`, `ds-tabs`
+- **Overlays** : `ds-modal`, `ds-dropdown`, `ds-tooltip`, `ds-popover`, `ds-toast`
+
+---
+
+## Tokens & Thèmes
+
+### Couleurs de marque
+
+| Token | Valeur | Usage |
+|-------|--------|-------|
+| `--color-primary` | <span style={{background: '#7d4bc0', padding: '2px 12px', color: 'white', borderRadius: '4px'}}>#7d4bc0</span> | Action principale |
+| `--color-secondary` | <span style={{background: '#fbc224', padding: '2px 12px', color: 'black', borderRadius: '4px'}}>#fbc224</span> | Accent secondaire |
+| `--color-alt` | <span style={{background: '#2dd4bf', padding: '2px 12px', color: 'black', borderRadius: '4px'}}>#2dd4bf</span> | Alternative |
+
+### Couleurs de feedback
+
+| Token | Usage |
+|-------|-------|
+| `--success` | Validation réussie |
+| `--warning` | Attention requise |
+| `--error` | Erreur, action destructive |
+| `--info` | Information neutre |
+
+### Thèmes
+
+Le système supporte deux thèmes : **Light** et **Dark**.
+
+Utilisez le sélecteur de thème dans la toolbar Storybook pour prévisualiser les composants dans chaque mode.
+
+---
+
+## Conventions
+
+### Nommage
+
+- Prefix des composants : `ds-` (ex: `ds-button`)
+- Prefix des primitives : `primitive-` (ex: `primitive-input`)
+
+### Formulaires
+
+Les composants de formulaire implémentent `ControlValueAccessor` et sont compatibles avec :
+- Template-driven forms (`ngModel`)
+- Reactive forms (`formControl`, `formControlName`)
+
+### Accessibilité
+
+Tous les composants sont conçus pour être accessibles :
+- Labels et ARIA attributes
+- Navigation clavier
+- Contraste suffisant
+
+---
+
+## Ressources
+
+- [Angular CDK](https://material.angular.io/cdk/categories) - Utilisé pour les overlays
+- [FontAwesome](https://fontawesome.com/icons) - Icônes via `@fortawesome/angular-fontawesome`

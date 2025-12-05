@@ -41,6 +41,13 @@ export default meta;
 type Story = StoryObj<DsButton>;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Bouton par défaut avec toutes les options configurables via les controls.',
+      },
+    },
+  },
   args: {
     variant: 'primary',
     appearance: 'solid',
@@ -56,6 +63,13 @@ export const Default: Story = {
 };
 
 export const AllVariants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Toutes les variantes disponibles : primary, secondary, ghost et les variantes sémantiques (success, warning, error, info).',
+      },
+    },
+  },
   render: () => ({
     template: `
       <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
@@ -72,6 +86,13 @@ export const AllVariants: Story = {
 };
 
 export const Loading: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'État de chargement avec spinner. Le bouton est automatiquement désactivé pendant le chargement.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <div style="display: flex; gap: 8px; align-items: center;">
@@ -84,6 +105,13 @@ export const Loading: Story = {
 };
 
 export const WithIcons: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Boutons avec icônes FontAwesome. Utilisez iconStart pour une icône à gauche, iconEnd pour une icône à droite.',
+      },
+    },
+  },
   render: () => ({
     props: {
       faPlus,
@@ -101,6 +129,13 @@ export const WithIcons: Story = {
 };
 
 export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Trois tailles disponibles : sm (32px), md (40px) et lg (48px).',
+      },
+    },
+  },
   render: () => ({
     template: `
       <div style="display: flex; gap: 8px; align-items: center;">
@@ -113,10 +148,46 @@ export const Sizes: Story = {
 };
 
 export const Block: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Bouton en mode block : occupe 100% de la largeur du conteneur parent.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <div style="width: 300px;">
         <ds-button [block]="true">Bouton pleine largeur</ds-button>
+      </div>
+    `,
+  }),
+};
+
+export const Accessibility: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Démonstration des fonctionnalités d\'accessibilité : focus visible, navigation clavier (Tab/Enter/Space), états désactivés.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="margin: 0; color: #6b7280; font-size: 14px;">
+          Utilisez Tab pour naviguer, Enter ou Space pour activer.
+        </p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <ds-button>Focus visible</ds-button>
+          <ds-button variant="secondary">Deuxième</ds-button>
+          <ds-button variant="ghost">Troisième</ds-button>
+          <ds-button [disabled]="true">Désactivé (ignoré)</ds-button>
+          <ds-button variant="success">Dernier</ds-button>
+        </div>
+        <p style="margin: 0; color: #6b7280; font-size: 12px;">
+          Les boutons désactivés sont exclus de la navigation clavier.
+        </p>
       </div>
     `,
   }),

@@ -61,6 +61,13 @@ export default meta;
 type Story = StoryObj<DsInputField>;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Champ de saisie par défaut avec label et placeholder. Compatible avec les formulaires réactifs et template-driven.',
+      },
+    },
+  },
   args: {
     label: 'Nom',
     placeholder: 'Entrez votre nom',
@@ -77,6 +84,13 @@ export const Default: Story = {
 };
 
 export const WithHelper: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Texte d\'aide affiché sous le champ pour guider l\'utilisateur.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <ds-input-field
@@ -91,6 +105,13 @@ export const WithHelper: Story = {
 };
 
 export const WithError: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Message d\'erreur affiché sous le champ. Utilisé pour la validation de formulaire.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <ds-input-field
@@ -105,6 +126,13 @@ export const WithError: Story = {
 };
 
 export const States: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Les quatre états visuels de validation : default, success, warning et error.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
@@ -135,6 +163,13 @@ export const WithIcons: Story = {
 };
 
 export const Password: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Champ mot de passe avec toggle de visibilité. L\'icône œil permet d\'afficher/masquer le contenu.',
+      },
+    },
+  },
   render: () => ({
     props: {
       faLock,
@@ -195,6 +230,13 @@ export const Required: Story = {
 };
 
 export const Disabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'État désactivé : le champ n\'est pas modifiable et est exclu de la navigation clavier.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <ds-input-field
@@ -204,6 +246,45 @@ export const Disabled: Story = {
         externalValue="Valeur fixe"
         style="max-width: 300px; display: block;">
       </ds-input-field>
+    `,
+  }),
+};
+
+export const Accessibility: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Fonctionnalités d\'accessibilité : labels associés, focus visible, messages d\'erreur annoncés aux lecteurs d\'écran.',
+      },
+    },
+  },
+  render: () => ({
+    props: { faUser, faEnvelope },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 350px;">
+        <p style="margin: 0; color: #6b7280; font-size: 14px;">
+          Testez la navigation avec Tab. Les labels sont liés aux inputs via aria-labelledby.
+        </p>
+        <ds-input-field
+          [iconStart]="faUser"
+          label="Nom complet"
+          placeholder="Jean Dupont"
+          [required]="true">
+        </ds-input-field>
+        <ds-input-field
+          [iconStart]="faEnvelope"
+          label="Email"
+          type="email"
+          placeholder="email@exemple.com"
+          error="Format d'email invalide"
+          helper="Les erreurs sont annoncées via aria-describedby">
+        </ds-input-field>
+        <ds-input-field
+          label="Champ désactivé"
+          [disabled]="true"
+          externalValue="Ignoré par Tab">
+        </ds-input-field>
+      </div>
     `,
   }),
 };

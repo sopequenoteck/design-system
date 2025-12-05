@@ -4,66 +4,92 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Projet
 
-Projet Angular 20.3 contenant une bibliothèque de design system (`ds-angular`) destinée à être publiée sur npm.
-
-## Structure
-
-- **Workspace root** : Configuration du workspace Angular
-- **projects/ds-angular/** : Bibliothèque Angular publishable contenant les composants du design system
-  - `src/public-api.ts` : Point d'entrée public de la bibliothèque
-  - `src/lib/` : Code source des composants, services et directives
+Projet Angular 20.x contenant une bibliothèque de design system (`ds-angular`) destinée à être publiée sur npm.
 
 ## Commandes principales
 
-### Développement
 ```bash
-ng serve                    # Démarre le serveur de développement (port 4200)
-ng build                    # Build du projet par défaut
-ng build ds-angular         # Build de la bibliothèque ds-angular
-ng build --watch            # Build en mode watch (développement)
+# Build
+npm run build:lib              # Build de la bibliothèque ds-angular
+npm run build:lib:watch        # Build en mode watch
+
+# Tests
+ng test ds-angular             # Tests interactifs
+npm run test:headless          # Tests headless (CI)
+npm run test:coverage          # Tests avec couverture
+
+# Storybook
+npm run storybook              # Lance Storybook (port 6006)
+npm run build-storybook        # Build Storybook statique
+
+# Publication
+npm run publish:lib:dry-run    # Simulation de publication
+npm run publish:lib            # Publication sur npm
 ```
 
-### Tests
-```bash
-ng test                     # Lance tous les tests Karma/Jasmine
-ng test ds-angular          # Lance les tests de la bibliothèque
+## Architecture
+
+### Organisation à deux niveaux
+
+```
+projects/ds-angular/src/lib/
+├── primitives/      # Composants bas niveau (briques de base)
+│   ├── primitive-button/
+│   ├── primitive-badge/
+│   ├── primitive-input/
+│   ├── primitive-checkbox/
+│   ├── primitive-radio/
+│   ├── primitive-textarea/
+│   └── primitive-toggle/
+├── components/      # Composants haut niveau (utilisent les primitives)
+│   ├── ds-button/
+│   ├── ds-badge/
+│   ├── ds-input-field/
+│   ├── ds-checkbox/
+│   ├── ds-modal/
+│   ├── ds-dropdown/
+│   ├── ds-toast/
+│   ├── ds-tooltip/
+│   ├── ds-popover/
+│   └── ...
+└── utils/           # Utilitaires partagés (overlay-positions, etc.)
 ```
 
-### Génération de code
-```bash
-ng generate component <name>         # Génère un composant
-ng generate directive <name>         # Génère une directive
-ng generate service <name>           # Génère un service
-ng generate --help                   # Liste tous les schematics disponibles
+**Primitives** : Composants atomiques sans logique métier, stylisés par CSS custom properties.
+
+**Components** : Composants DS complets, souvent avec `ControlValueAccessor` pour les formulaires, utilisant `@angular/cdk` pour les overlays.
+
+### Système de styles
+
+```
+projects/ds-angular/src/styles/
+├── tokens/
+│   ├── _primitives.scss   # Variables SCSS de base ($primary, $gray-50, etc.)
+│   ├── _semantic.scss     # Variables sémantiques
+│   └── _tokens.scss       # CSS custom properties sur :root
+└── themes/
+    ├── _light.scss        # Thème light (:root.theme-light)
+    └── _dark.scss         # Thème dark (:root.theme-dark)
 ```
 
-### Publication
-```bash
-ng build ds-angular                  # Build la bibliothèque
-cd dist/ds-angular && npm publish    # Publie sur npm
-```
+Les thèmes s'activent via la classe sur `:root` : `document.documentElement.className = 'theme-light'`
+
+## Patterns techniques
+
+- **Standalone components** : Tous les composants sont standalone (Angular 20)
+- **Signals** : Utilisation des signals Angular (`input()`, `output()`, `computed()`)
+- **ControlValueAccessor** : Pour les composants de formulaire (input, checkbox, radio, etc.)
+- **CDK Overlay** : Pour les composants flottants (modal, dropdown, tooltip, popover, toast)
+- **FontAwesome** : Icônes via `@fortawesome/angular-fontawesome`
 
 ## Configuration TypeScript
 
-- **Mode strict activé** : `strict`, `noImplicitOverride`, `noPropertyAccessFromIndexSignature`, `noImplicitReturns`, `noFallthroughCasesInSwitch`
-- **Angular strict mode** : Templates stricts, injection stricte
-- **Target** : ES2022
-- **Module** : ES2022
-- **Decorators** : Activés (`experimentalDecorators`)
-
-## Dépendances Angular
-
-- Angular 20.3.x
-- @angular/cdk 20.x
-- @fortawesome/angular-fontawesome 0.15.x
-- RxJS ~7.8.0
-- Zone.js ~0.16.0
-- TypeScript ~5.7.2
-- Storybook 8.5.x
+- Mode strict activé
+- Target/Module : ES2022
+- Path alias `ds-angular` pointe vers `./dist/ds-angular`
 
 ## Points d'attention
 
-- La bibliothèque `ds-angular` est construite avec `ng-packagr`
-- Le path alias `ds-angular` pointe vers `./dist/ds-angular` dans tsconfig
-- Utiliser le prefix `lib` pour les composants de la bibliothèque
-- La bibliothèque est marquée `sideEffects: false` pour optimisation tree-shaking
+- Le prefix des composants est `ds` (ex: `ds-button`, `ds-modal`)
+- Build avec `ng-packagr` (sideEffects: false pour tree-shaking)
+- Stories Storybook colocalisées avec les composants (*.stories.ts)
