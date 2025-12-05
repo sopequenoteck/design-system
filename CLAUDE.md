@@ -181,7 +181,7 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Patterns avancés : guards, services, layouts, ThemeService, AuthService
 - 📚 Documentation complète : migration, changelog, exemples exécutables, patterns production
 
-**Tests automatisés avancés ÉTAPE 11** (2025-12-05 - en cours) :
+**Tests automatisés avancés ÉTAPE 11** (2025-12-05) :
 - ✅ @storybook/test-runner@0.21.0 ajouté : tests automatisés sur toutes les stories
 - ✅ Script test:storybook : exécute test-runner avec Storybook statique
 - ✅ CI workflow enrichi : étapes Storybook test runner avec http-server
@@ -195,6 +195,14 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ CI benchmark performance : step `perf:benchmark` + commentaire PR (Component Load Time, Tree-Shaking Score, First Paint)
 - ✅ Tests visuels Chromatic : .chromatic.json, workflow.example, script test:visual, doc VISUAL-TESTING.md
 - 📊 ÉTAPE 11 : 100% complétée (6/6 tâches)
+
+**Publication et adoption ÉTAPE 12** (2025-12-05 - en cours) :
+- ✅ Version 1.0.0 : ds-angular/package.json mis à jour pour première release stable
+- ✅ Métadonnées npm complètes : repository, bugs, homepage, 10 keywords, author, license MIT
+- ✅ .npmignore créé : exclusion tests, stories, docs internes (40 lignes)
+- 🔄 Dry-run publication npm (en attente validation)
+- 🔄 Déploiement Storybook (en attente)
+- 📊 ÉTAPE 12 : 37% complétée (3/8 tâches)
 
 ## Patterns techniques
 

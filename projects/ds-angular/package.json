@@ -1,10 +1,29 @@
 {
   "name": "ds-angular",
-  "version": "0.1.0",
-  "description": "Angular standalone component library for Assist-AI Design System",
-  "keywords": ["angular", "design-system", "components", "ui", "standalone", "angular20"],
-  "author": "Your Name <your.email@example.com>",
+  "version": "1.0.0",
+  "description": "Angular 20 standalone component library - Design System with 17 components, 7 primitives, 3 themes",
+  "keywords": [
+    "angular",
+    "angular20",
+    "design-system",
+    "components",
+    "ui",
+    "standalone",
+    "signals",
+    "accessibility",
+    "wcag",
+    "storybook"
+  ],
+  "author": "KKSDEV Team",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/assist-ai/design-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/assist-ai/design-system/issues"
+  },
+  "homepage": "https://github.com/assist-ai/design-system#readme",
   "peerDependencies": {
     "@angular/common": "^20.0.0",
     "@angular/core": "^20.0.0",

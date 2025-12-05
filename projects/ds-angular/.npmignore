@@ -1,0 +1,50 @@
+# Tests
+*.spec.ts
+**/*.spec.ts
+karma.conf.js
+test.ts
+
+# Storybook
+*.stories.ts
+**/*.stories.ts
+*.mdx
+**/*.mdx
+.storybook/
+
+# Documentation interne
+docs/
+*.md
+!README.md
+
+# Source maps
+*.map
+
+# TypeScript source (only publish compiled)
+*.ts
+!*.d.ts
+
+# Config files
+tsconfig*.json
+ng-package.json
+.eslintrc*
+.prettierrc*
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Coverage
+coverage/
+
+# Temp files
+tmp/
+temp/

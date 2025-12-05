@@ -252,9 +252,9 @@ Préparer le design system pour publication npm, créer la documentation publiqu
 
 ### Tâches
 
-- [ ] `package.json` — Vérifier que le champ `version` suit semantic versioning (1.0.0 pour la première release stable) — **Critère** : version définie à 1.0.0
-- [ ] `projects/ds-angular/package.json` — Compléter les métadonnées npm : `repository`, `bugs`, `homepage`, `keywords`, `author`, `license` — **Critère** : tous les champs remplis
-- [ ] `.npmignore` — Créer fichier `.npmignore` pour exclure les fichiers inutiles du package npm (tests, stories, docs internes) — **Critère** : fichier créé, exclut .spec.ts, .stories.ts, *.mdx
+- [x] `package.json` — Vérifier que le champ `version` suit semantic versioning (1.0.0 pour la première release stable) — **Critère** : version définie à 1.0.0 (✅ ds-angular/package.json version 1.0.0)
+- [x] `projects/ds-angular/package.json` — Compléter les métadonnées npm : `repository`, `bugs`, `homepage`, `keywords`, `author`, `license` — **Critère** : tous les champs remplis (✅ repository, bugs, homepage, 10 keywords, author, license MIT)
+- [x] `.npmignore` — Créer fichier `.npmignore` pour exclure les fichiers inutiles du package npm (tests, stories, docs internes) — **Critère** : fichier créé, exclut .spec.ts, .stories.ts, *.mdx (✅ 40 lignes d'exclusions)
 - [ ] `.` — Exécuter `npm run publish:lib:dry-run` pour valider le package npm avant publication réelle — **Critère** : commande réussit, affiche le contenu du package
 - [ ] `.` — Publier le package npm : `npm run publish:lib` ou via workflow GitHub Actions sur tag v1.0.0 — **Critère** : package disponible sur npm registry
 - [ ] `.` — Déployer Storybook statique sur GitHub Pages, Netlify ou Vercel — **Critère** : Storybook accessible via URL publique (https://design-system.example.com)
