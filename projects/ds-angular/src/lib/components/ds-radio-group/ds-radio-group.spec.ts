@@ -329,5 +329,226 @@ describe('DsRadioGroup', () => {
         expect(radio.nativeElement.getAttribute('ng-reflect-size')).toBe('lg');
       });
     });
+
+    it('should apply size sm', () => {
+      fixture.componentRef.setInput('size', 'sm');
+      fixture.detectChanges();
+
+      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
+      radios.forEach((radio) => {
+        expect(radio.nativeElement.getAttribute('ng-reflect-size')).toBe('sm');
+      });
+    });
+
+    it('should apply default size md', () => {
+      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
+      radios.forEach((radio) => {
+        expect(radio.nativeElement.getAttribute('ng-reflect-size')).toBe('md');
+      });
+    });
+  });
+
+  describe('Computed properties', () => {
+    it('should compute isDisabled from disabled input', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+      expect(component['isDisabled']()).toBe(true);
+    });
+
+    it('should compute isDisabled from disabledState', () => {
+      component['disabledState'].set(true);
+      fixture.detectChanges();
+      expect(component['isDisabled']()).toBe(true);
+    });
+
+    it('should compute errorId when error is present', () => {
+      fixture.componentRef.setInput('id', 'test-id');
+      fixture.componentRef.setInput('error', 'Error');
+      fixture.detectChanges();
+      expect(component['errorId']()).toBe('test-id-error');
+    });
+
+    it('should compute helperId when helper is present', () => {
+      fixture.componentRef.setInput('id', 'test-id');
+      fixture.componentRef.setInput('helper', 'Helper');
+      fixture.detectChanges();
+      expect(component['helperId']()).toBe('test-id-helper');
+    });
+
+    it('should compute ariaDescribedBy with error and helper', () => {
+      fixture.componentRef.setInput('id', 'test-id');
+      fixture.componentRef.setInput('error', 'Error');
+      fixture.componentRef.setInput('helper', 'Helper');
+      fixture.detectChanges();
+
+      const describedBy = component['ariaDescribedBy']();
+      expect(describedBy).toContain('test-id-error');
+      // Helper is not included when error is present
+    });
+
+    it('should compute hasError correctly', () => {
+      fixture.componentRef.setInput('error', 'Error');
+      fixture.detectChanges();
+      expect(component['hasError']()).toBe(true);
+
+      fixture.componentRef.setInput('error', undefined);
+      fixture.detectChanges();
+      expect(component['hasError']()).toBe(false);
+    });
+  });
+
+  describe('Helper methods', () => {
+    it('should check if option is selected', () => {
+      component['internalValue'].set('option2');
+      fixture.detectChanges();
+
+      expect(component['isOptionSelected']('option2')).toBe(true);
+      expect(component['isOptionSelected']('option1')).toBe(false);
+    });
+
+    it('should check if option is disabled', () => {
+      const optionWithDisabled: RadioOption = { label: 'Test', value: 'test', disabled: true };
+      expect(component['isOptionDisabled'](optionWithDisabled)).toBe(true);
+
+      const optionWithoutDisabled: RadioOption = { label: 'Test', value: 'test' };
+      expect(component['isOptionDisabled'](optionWithoutDisabled)).toBe(false);
+    });
+
+    it('should check if option is disabled when group is disabled', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      const option: RadioOption = { label: 'Test', value: 'test' };
+      expect(component['isOptionDisabled'](option)).toBe(true);
+    });
+
+    it('should track by value', () => {
+      const option: RadioOption = { label: 'Test', value: 'test-value' };
+      const result = component['trackByValue'](0, option);
+      expect(result).toBe('test-value');
+    });
+  });
+
+  describe('Event handling', () => {
+    it('should not change value when disabled via input', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      const onChangeSpy = jasmine.createSpy('onChange');
+      component.registerOnChange(onChangeSpy);
+
+      component['onRadioChange']('option2');
+
+      expect(component['internalValue']()).toBe(null);
+      expect(onChangeSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not change value when disabled via setDisabledState', () => {
+      component.setDisabledState(true);
+      fixture.detectChanges();
+
+      const onChangeSpy = jasmine.createSpy('onChange');
+      component.registerOnChange(onChangeSpy);
+
+      component['onRadioChange']('option2');
+
+      expect(component['internalValue']()).toBe(null);
+      expect(onChangeSpy).not.toHaveBeenCalled();
+    });
+
+    it('should update internal value on radio change', () => {
+      component['onRadioChange']('option2');
+      expect(component['internalValue']()).toBe('option2');
+    });
+
+    it('should call onChange and onTouched on radio change', () => {
+      const onChangeSpy = jasmine.createSpy('onChange');
+      const onTouchedSpy = jasmine.createSpy('onTouched');
+      component.registerOnChange(onChangeSpy);
+      component.registerOnTouched(onTouchedSpy);
+
+      component['onRadioChange']('option2');
+
+      expect(onChangeSpy).toHaveBeenCalledWith('option2');
+      expect(onTouchedSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('Edge cases', () => {
+    it('should handle empty options array', () => {
+      fixture.componentRef.setInput('options', []);
+      fixture.detectChanges();
+
+      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
+      expect(radios.length).toBe(0);
+    });
+
+    it('should handle options with same value', () => {
+      const duplicateOptions: RadioOption[] = [
+        { label: 'Option 1', value: 'same' },
+        { label: 'Option 2', value: 'same' },
+      ];
+      fixture.componentRef.setInput('options', duplicateOptions);
+      fixture.detectChanges();
+
+      component['onRadioChange']('same');
+      expect(component['internalValue']()).toBe('same');
+    });
+
+    it('should generate unique IDs', () => {
+      const id1 = component.id();
+      const newFixture = TestBed.createComponent(DsRadioGroup);
+      const id2 = newFixture.componentInstance.id();
+
+      expect(id1).not.toBe(id2);
+    });
+
+    it('should generate unique names', () => {
+      const name1 = component.name();
+      const newFixture = TestBed.createComponent(DsRadioGroup);
+      const name2 = newFixture.componentInstance.name();
+
+      expect(name1).not.toBe(name2);
+    });
+  });
+
+  describe('Name attribute', () => {
+    it('should pass same name to all radios', () => {
+      fixture.componentRef.setInput('name', 'custom-name');
+      fixture.detectChanges();
+
+      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
+      radios.forEach((radio) => {
+        expect(radio.nativeElement.getAttribute('ng-reflect-name')).toBe('custom-name');
+      });
+    });
+
+    it('should use generated name by default', () => {
+      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
+      const name = radios[0].nativeElement.getAttribute('ng-reflect-name');
+      expect(name).toContain('radio-group-');
+
+      radios.forEach((radio) => {
+        expect(radio.nativeElement.getAttribute('ng-reflect-name')).toBe(name);
+      });
+    });
+  });
+
+  describe('ARIA live regions', () => {
+    it('should set aria-live on helper text', () => {
+      fixture.componentRef.setInput('helper', 'Helper text');
+      fixture.detectChanges();
+
+      const helper = fixture.debugElement.query(By.css('.ds-radio-group__helper'));
+      expect(helper.nativeElement.getAttribute('aria-live')).toBe('polite');
+    });
+
+    it('should set aria-live on error message', () => {
+      fixture.componentRef.setInput('error', 'Error message');
+      fixture.detectChanges();
+
+      const error = fixture.debugElement.query(By.css('.ds-radio-group__error'));
+      expect(error.nativeElement.getAttribute('aria-live')).toBe('assertive');
+    });
   });
 });
