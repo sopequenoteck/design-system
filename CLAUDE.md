@@ -170,6 +170,17 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Exports : DsCard, DsAlert, DsDivider avec types exportés dans components/index.ts
 - 📊 Design system : 17 composants DS (14 existants + 3 nouveaux utilitaires)
 
+**Documentation et guides d'adoption ÉTAPE 10** (2025-12-05) :
+- ✅ MIGRATION.md créé : guide complet de migration vers v1.0.0, breaking changes, politique de versioning
+- ✅ Script changelog:generate : parser Conventional Commits, génération automatique CHANGELOG.md
+- ✅ CHANGELOG.md généré : 76 commits analysés, historique 9 étapes, roadmap v1.0.0
+- ✅ Demo App Angular 20 : application complète utilisant 15+ composants DS
+- ✅ Demo App features : formulaires réactifs, thèmes dynamiques, navigation tabs, toasts
+- ✅ README.md enrichi : section Examples avec instructions d'exécution
+- ✅ Integration.mdx section 4 : application complète avec routing, lazy-loading, signals (500+ lignes)
+- ✅ Patterns avancés : guards, services, layouts, ThemeService, AuthService
+- 📚 Documentation complète : migration, changelog, exemples exécutables, patterns production
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)

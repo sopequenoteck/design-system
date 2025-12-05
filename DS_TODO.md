@@ -186,12 +186,12 @@ Compléter la documentation avec un guide de migration, un changelog automatique
 
 ### Tâches
 
-- [ ] `.` — Créer `MIGRATION.md` documentant les breaking changes entre versions, les étapes de migration, et les deprecated APIs — **Critère** : fichier créé avec sections par version (v1 → v2, etc.)
-- [ ] `package.json` — Ajouter script `changelog:generate` utilisant `conventional-changelog` ou équivalent pour générer CHANGELOG.md automatiquement depuis les commits — **Critère** : script créé, génère CHANGELOG.md à partir des commits conventionnels
-- [ ] `.` — Créer `CHANGELOG.md` initial avec l'historique des 6 étapes de consolidation déjà réalisées — **Critère** : fichier créé avec entrées pour chaque étape (v0.1.0 → v0.6.0)
-- [ ] `examples/` — Créer dossier `examples/` avec une mini-application Angular 20 utilisant ds-angular : formulaire complet (input, checkbox, radio, button), modal avec validation, toast notifications — **Critère** : application exécutable via `ng serve`, utilise 10+ composants ds-angular
-- [ ] `README.md` — Ajouter section "Examples" avec lien vers le dossier `examples/` et instructions d'exécution — **Critère** : section ajoutée avec 3 étapes (installation, build, run)
-- [ ] `projects/ds-angular/src/lib/Integration.mdx` — Enrichir avec exemple complet d'application Angular standalone components utilisant ds-angular avec routing, lazy-loading et signals — **Critère** : exemple ajouté avec code exécutable (100+ lignes)
+- [x] `.` — Créer `MIGRATION.md` documentant les breaking changes entre versions, les étapes de migration, et les deprecated APIs — **Critère** : fichier créé avec sections par version (v1 → v2, etc.) (✅ 8 sections : migration v1.0.0, depuis pré-1.0, versioning, dépréciations)
+- [x] `package.json` — Ajouter script `changelog:generate` utilisant `conventional-changelog` ou équivalent pour générer CHANGELOG.md automatiquement depuis les commits — **Critère** : script créé, génère CHANGELOG.md à partir des commits conventionnels (✅ Parser Conventional Commits, 76 commits analysés)
+- [x] `.` — Créer `CHANGELOG.md` initial avec l'historique des 6 étapes de consolidation déjà réalisées — **Critère** : fichier créé avec entrées pour chaque étape (v0.1.0 → v0.6.0) (✅ Historique complet ÉTAPE 1-9, roadmap v1.0.0)
+- [x] `examples/` — Créer dossier `examples/` avec une mini-application Angular 20 utilisant ds-angular : formulaire complet (input, checkbox, radio, button), modal avec validation, toast notifications — **Critère** : application exécutable via `ng serve`, utilise 10+ composants ds-angular (✅ Demo app avec 15+ composants, 6 fichiers)
+- [x] `README.md` — Ajouter section "Examples" avec lien vers le dossier `examples/` et instructions d'exécution — **Critère** : section ajoutée avec 3 étapes (installation, build, run) (✅ Section complète avec fonctionnalités démontrées)
+- [x] `projects/ds-angular/src/lib/Integration.mdx` — Enrichir avec exemple complet d'application Angular standalone components utilisant ds-angular avec routing, lazy-loading et signals — **Critère** : exemple ajouté avec code exécutable (100+ lignes) (✅ Section 4 ajoutée : 500+ lignes, routing, guards, services, signals)
 
 ---
 
