@@ -13,13 +13,123 @@ Ce guide décrit comment ajouter des composants, des tokens ou de la documentati
 - Dépendances installées : `npm install` à la racine du repo.
 - Storybook accessible via `npm run storybook` (mode preview) ou `npm run build-storybook` (build statique).
 
-## Workflow recommandé
+## Structure du projet
 
-1. **Créer une branche** claire (ex: `feat/tokens-typo`).
-2. **Développer** en ouvrant Storybook : `npm run storybook -- --ci --smoke-test` pour vérifier rapidement que les stories restent stables.
-3. **Couverture minimale** : exécuter `npm test` ou les tests ciblés (`npm run test:headless`).
-4. **Lint visuel** : vérifier les couleurs/contrastes avec le thème **Light** et **Dark** depuis la toolbar Storybook.
-5. **Commit + PR** en décrivant les tokens ajoutés ou les composants impactés.
+Le projet est organisé comme suit :
+
+```
+design-system/
+├── projects/ds-angular/          # Bibliothèque ds-angular
+│   ├── src/
+│   │   ├── lib/
+│   │   │   ├── primitives/       # Composants atomiques (primitive-button, primitive-input, etc.)
+│   │   │   ├── components/       # Composants DS (ds-button, ds-modal, etc.)
+│   │   │   └── utils/            # Utilitaires (overlay-positions, etc.)
+│   │   ├── styles/
+│   │   │   ├── tokens/           # _primitives.scss, _semantic.scss, _tokens.scss
+│   │   │   └── themes/           # _light.scss, _dark.scss
+│   │   └── public/               # Assets statiques (fonts, icons)
+├── .storybook/                   # Configuration Storybook
+└── package.json                  # Scripts npm
+```
+
+### Primitives vs Components
+
+- **Primitives** (`primitives/`) : Composants atomiques sans logique métier
+  - Pas de `ControlValueAccessor`
+  - Stylisés uniquement via CSS custom properties
+  - Exemples : `primitive-button`, `primitive-badge`, `primitive-input`
+
+- **Components** (`components/`) : Composants haut niveau avec logique intégrée
+  - Implémentent `ControlValueAccessor` pour les formulaires
+  - Utilisent `@angular/cdk` pour les overlays
+  - Exemples : `ds-button`, `ds-modal`, `ds-input-field`
+
+## Conventions de nommage
+
+### Composants
+
+- **Prefix** : `ds-` pour les components, `primitive-` pour les primitives
+- **Structure fichier** :
+  ```
+  ds-button/
+  ├── ds-button.ts              # Composant principal
+  ├── ds-button.scss            # Styles spécifiques
+  ├── ds-button.spec.ts         # Tests unitaires
+  └── ds-button.stories.ts      # Stories Storybook
+  ```
+
+### Tokens
+
+Suivre l'architecture à 3 couches :
+
+1. **Primitifs** (`_primitives.scss`) : `$gray-700`, `$space-4`, `$radius-2`
+2. **Sémantiques** (`_semantic.scss`) : `$btn-height-md`, `$input-border-radius`
+3. **Globaux** (`_tokens.scss`) : `--color-primary`, `--btn-height-md`
+4. **Thématiques** (`themes/*.scss`) : `--background-main`, `--text-default`
+
+### Git
+
+- **Branches** : `feat/nom-feature`, `fix/nom-bug`, `docs/nom-doc`
+- **Commits** : Format conventionnel
+  ```
+  type(scope): description courte
+
+  Corps du commit explicatif si nécessaire
+  ```
+  Types : `feat`, `fix`, `test`, `docs`, `refactor`, `style`, `chore`, `a11y`
+
+## Workflow de développement
+
+### 1. Créer une branche
+
+```bash
+git checkout -b feat/ds-accordion
+```
+
+### 2. Développer avec Storybook
+
+```bash
+npm run storybook
+```
+
+Storybook se lance sur `http://localhost:6006` avec hot-reload.
+
+### 3. Écrire les tests
+
+```bash
+# Tests en mode watch
+ng test ds-angular
+
+# Tests headless (CI)
+npm run test:headless
+
+# Couverture de code
+npm run test:coverage
+```
+
+**Objectif** : ≥ 85% de couverture pour les components, ≥ 90% pour les primitives.
+
+### 4. Vérifier le build
+
+```bash
+npm run build:lib
+```
+
+La bibliothèque doit se compiler sans erreurs TypeScript.
+
+### 5. Créer une Pull Request
+
+```bash
+git add .
+git commit -m "feat(ds-accordion): ajout composant accordion avec tests et stories"
+git push origin feat/ds-accordion
+```
+
+Puis ouvrir une PR sur GitHub en décrivant :
+- Les composants/tokens ajoutés ou modifiés
+- Les screenshots Storybook si le rendu change
+- Les éventuelles breaking changes
 
 ## Configuration Storybook
 
@@ -42,8 +152,99 @@ Ce guide décrit comment ajouter des composants, des tokens ou de la documentati
 | Écrire la story | Documenter les inputs/outputs, ajouter des `controls` Storybook, vérifier l'accessibilité | `npm run storybook` |
 | Tester | Couvrir les états (disabled, loading, focus) | `npm test` ou `npm run test:headless` |
 
+## Bonnes pratiques
+
+### Accessibilité (WCAG 2.1 niveau AA)
+
+Tous les composants doivent respecter les critères d'accessibilité :
+
+**1. Attributs ARIA**
+```typescript
+// Exemple : modal
+@Component({
+  template: `
+    <div role="dialog"
+         [attr.aria-modal]="true"
+         [attr.aria-labelledby]="titleId"
+         [attr.aria-describedby]="descId">
+      <!-- Contenu -->
+    </div>
+  `
+})
+```
+
+**2. Navigation clavier**
+- Tab/Shift+Tab : navigation entre éléments focusables
+- Espace/Enter : activation des boutons
+- Escape : fermeture des overlays
+- Arrow keys : navigation dans les listes/dropdowns/tabs
+
+**3. Contraste des couleurs**
+- Ratio minimum 4.5:1 pour le texte standard
+- Ratio minimum 3:1 pour le texte large (≥18pt)
+- Tester avec le thème Dark ET Light
+
+**4. Focus visible**
+```scss
+// Utiliser le token --focus-ring
+button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+```
+
+### Performance
+
+**1. Signals Angular**
+```typescript
+// Préférer les signals aux getters classiques
+readonly variant = input<ButtonVariant>('primary');
+readonly isDisabled = computed(() => this.disabled() || this.loading());
+```
+
+**2. OnPush Change Detection**
+```typescript
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+```
+
+**3. Tree-shaking**
+- Utiliser des imports nommés : `import { DsButton } from 'ds-angular'`
+- Éviter les `export *` dans les barrel files
+
+**4. Lazy-loading des icônes**
+```typescript
+// Importer uniquement les icônes nécessaires
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+```
+
+### Tests
+
+**Checklist complète pour chaque composant** :
+
+- [ ] Création du composant
+- [ ] Render des inputs (variant, size, disabled, etc.)
+- [ ] Émission des outputs (clicked, valueChange, etc.)
+- [ ] États calculés (computed signals)
+- [ ] Navigation clavier
+- [ ] Attributs ARIA
+- [ ] ControlValueAccessor (pour les formulaires)
+- [ ] Couverture ≥ 85% (components) ou ≥ 90% (primitives)
+
+Exemple de test :
+```typescript
+it('should emit clicked event when button is clicked', () => {
+  spyOn(component.clicked, 'emit');
+  buttonElement.nativeElement.click();
+  expect(component.clicked.emit).toHaveBeenCalled();
+});
+```
+
 ## Revue de code
 
 - Préférez des PRs courtes et atomiques (1 fonctionnalité = 1 PR).
 - Mettez en avant les tokens touchés et les screenshots Storybook si le rendu change.
 - Vérifiez l'impact sur les primitives (`styles/tokens/_primitives.scss`) avant de modifier des valeurs partagées.
+- Assurez-vous que tous les tests passent : `npm run test:headless`
+- Vérifiez la conformité accessibilité avec l'addon a11y de Storybook

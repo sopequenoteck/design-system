@@ -13,20 +13,107 @@ Bienvenue dans la documentation du Design System **ds-angular**, une bibliothèq
 npm install ds-angular
 ```
 
-## Import des styles
+## Quick Start
 
-Importez les styles globaux dans votre application :
+Voici 3 exemples pour démarrer rapidement avec ds-angular.
+
+### 1. Installation et import des tokens
+
+Installez la bibliothèque et importez les styles globaux dans votre application :
 
 ```scss
-// Dans styles.scss
+// Dans src/styles.scss
 @use 'ds-angular/styles';
 ```
 
-Puis appliquez le thème sur `:root` :
+Activez le thème souhaité dans votre composant racine :
 
 ```typescript
-// Dans app.component.ts
-document.documentElement.className = 'theme-light'; // ou 'theme-dark'
+// Dans src/app/app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  template: `<router-outlet />`
+})
+export class AppComponent {
+  constructor() {
+    // Activer le thème light (ou 'theme-dark')
+    document.documentElement.className = 'theme-light';
+  }
+}
+```
+
+### 2. Utiliser un composant basique (ds-button)
+
+Importez et utilisez le composant `DsButton` :
+
+```typescript
+// Dans src/app/home/home.component.ts
+import { Component } from '@angular/core';
+import { DsButton } from 'ds-angular';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [DsButton],
+  template: `
+    <ds-button
+      variant="primary"
+      size="md"
+      (clicked)="handleClick()">
+      Cliquez-moi
+    </ds-button>
+  `
+})
+export class HomeComponent {
+  handleClick() {
+    console.log('Bouton cliqué !');
+  }
+}
+```
+
+### 3. Utiliser un composant de formulaire (ds-input-field)
+
+Les composants de formulaire sont compatibles avec `ngModel` et reactive forms :
+
+```typescript
+// Dans src/app/login/login.component.ts
+import { Component, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DsInputField } from 'ds-angular';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [FormsModule, DsInputField],
+  template: `
+    <ds-input-field
+      name="email"
+      type="email"
+      label="Adresse email"
+      placeholder="exemple@domaine.com"
+      [iconStart]="emailIcon"
+      [(ngModel)]="email"
+      [error]="emailError()">
+    </ds-input-field>
+
+    <p>Valeur : {{ email() }}</p>
+  `
+})
+export class LoginComponent {
+  email = signal('');
+  emailIcon = faEnvelope;
+
+  emailError() {
+    const value = this.email();
+    if (!value) return 'Email requis';
+    if (!value.includes('@')) return 'Email invalide';
+    return '';
+  }
+}
 ```
 
 ---
