@@ -139,6 +139,17 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - 🔍 Tests ds-tabs : 25/28 passent (89%) - 3 tests navigation clavier à corriger
 - 🔍 Tests globaux : 739/845 passent (87%) - échecs fonctionnels non bloquants
 
+**Enrichissement Storybook ÉTAPE 8** (2025-12-05) :
+- ✅ Stories ds-breadcrumb : 5→8 stories (ajout 3: AllItemsClickable, WithNavigationAction, LongLabels)
+- ✅ Stories ds-radio-group : 5→10 stories (ajout 5: WithDynamicOptions, WithValidation, WithError, WithHelperText, ComplexLayout)
+- ✅ Stories ds-toggle : 6→8 stories (ajout 2: CheckedUnchecked, InReactiveForm)
+- ✅ Stories ds-checkbox : déjà 8 stories (aucune modification nécessaire)
+- ✅ Stories ds-input-textarea : 5→10 stories (ajout 5: Sizes, WithMaxLength, Readonly, WithWarning, WithSuccess)
+- ✅ Tokens.mdx : section "Thème Custom" avec 3 exemples de personnalisation (couleurs, backgrounds, composants)
+- ✅ Storybook toolbar : contrôle thème "Custom" déjà opérationnel (theme.decorator.ts, preview.ts)
+- ✅ Documentation complète : activation, fallbacks `--custom-*`, bonnes pratiques WCAG 2.1 AA
+- 📊 Total stories enrichies : 41+ stories interactives avec contrôles et états multiples
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)
