@@ -23,7 +23,11 @@ export class DsTabs {
 
   protected readonly internalActiveIndex = signal<number>(0);
 
-  protected readonly activeIndex = computed<number>(() => {
+  /**
+   * Index de l'onglet actif (computed signal basé sur activeTabId ou internalActiveIndex)
+   * Exposé en public pour permettre la vérification dans les tests et pour les consommateurs
+   */
+  readonly activeIndex = computed<number>(() => {
     const activeId = this.activeTabId();
     if (activeId) {
       const index = this.tabs().findIndex((tab) => tab.id === activeId);

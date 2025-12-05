@@ -101,7 +101,7 @@ describe('DsTabs', () => {
     const firstTab = fixture.debugElement.query(By.css('.ds-tabs__tab')).nativeElement;
     firstTab.focus();
 
-    const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+    const event = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true });
     firstTab.dispatchEvent(event);
     fixture.detectChanges();
 
@@ -117,7 +117,7 @@ describe('DsTabs', () => {
     const secondTab = fixture.debugElement.queryAll(By.css('.ds-tabs__tab'))[1].nativeElement;
     secondTab.focus();
 
-    const event = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+    const event = new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true });
     secondTab.dispatchEvent(event);
     fixture.detectChanges();
 
@@ -133,7 +133,7 @@ describe('DsTabs', () => {
     const secondTab = fixture.debugElement.queryAll(By.css('.ds-tabs__tab'))[1].nativeElement;
     secondTab.focus();
 
-    const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+    const event = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true });
     secondTab.dispatchEvent(event);
     fixture.detectChanges();
 
@@ -150,7 +150,7 @@ describe('DsTabs', () => {
     const fourthTab = fixture.debugElement.queryAll(By.css('.ds-tabs__tab'))[3].nativeElement;
     fourthTab.focus();
 
-    const event = new KeyboardEvent('keydown', { key: 'Home' });
+    const event = new KeyboardEvent('keydown', { key: 'Home', bubbles: true });
     fourthTab.dispatchEvent(event);
     fixture.detectChanges();
 
@@ -165,7 +165,7 @@ describe('DsTabs', () => {
     const firstTab = fixture.debugElement.query(By.css('.ds-tabs__tab')).nativeElement;
     firstTab.focus();
 
-    const event = new KeyboardEvent('keydown', { key: 'End' });
+    const event = new KeyboardEvent('keydown', { key: 'End', bubbles: true });
     firstTab.dispatchEvent(event);
     fixture.detectChanges();
 
@@ -234,7 +234,7 @@ describe('DsTabs', () => {
       const firstTab = fixture.debugElement.query(By.css('.ds-tabs__tab')).nativeElement;
       firstTab.focus();
 
-      const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+      const event = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true });
       firstTab.dispatchEvent(event);
       fixture.detectChanges();
 
@@ -246,7 +246,7 @@ describe('DsTabs', () => {
       fixture.detectChanges();
 
       const initialIndex = component.activeIndex();
-      const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+      const event = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true });
       document.body.dispatchEvent(event);
       fixture.detectChanges();
 
@@ -260,7 +260,7 @@ describe('DsTabs', () => {
       const firstTab = fixture.debugElement.query(By.css('.ds-tabs__tab')).nativeElement;
       firstTab.focus();
 
-      const event = new KeyboardEvent('keydown', { key: 'Enter' });
+      const event = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
       firstTab.dispatchEvent(event);
       fixture.detectChanges();
 
@@ -305,7 +305,7 @@ describe('DsTabs', () => {
       fixture.componentRef.setInput('tabs', mockTabs);
       fixture.detectChanges();
 
-      const tablist = fixture.debugElement.query(By.css('.ds-tabs__list')).nativeElement;
+      const tablist = fixture.debugElement.query(By.css('.ds-tabs__header')).nativeElement;
       expect(tablist.getAttribute('role')).toBe('tablist');
     });
   });
