@@ -253,5 +253,158 @@ describe('DsToggle', () => {
       fixture.detectChanges();
       expect(component['internalValue']()).toBe(false);
     });
+
+    it('should update internal value when checked changes', () => {
+      component['onCheckedChange'](true);
+      expect(component['internalValue']()).toBe(true);
+
+      component['onCheckedChange'](false);
+      expect(component['internalValue']()).toBe(false);
+    });
+
+    it('should call onChange with correct value', () => {
+      const onChangeSpy = jasmine.createSpy('onChange');
+      component.registerOnChange(onChangeSpy);
+
+      component['onCheckedChange'](true);
+      expect(onChangeSpy).toHaveBeenCalledWith(true);
+
+      component['onCheckedChange'](false);
+      expect(onChangeSpy).toHaveBeenCalledWith(false);
+    });
+  });
+
+  describe('Computed properties', () => {
+    it('should compute isDisabled from disabled input', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+      expect(component['isDisabled']()).toBe(true);
+    });
+
+    it('should compute isDisabled from disabledState', () => {
+      component['disabledState'].set(true);
+      fixture.detectChanges();
+      expect(component['isDisabled']()).toBe(true);
+    });
+
+    it('should compute isDisabled from both sources', () => {
+      fixture.componentRef.setInput('disabled', true);
+      component['disabledState'].set(true);
+      fixture.detectChanges();
+      expect(component['isDisabled']()).toBe(true);
+    });
+
+    it('should compute helperId when helper is present', () => {
+      fixture.componentRef.setInput('id', 'test-id');
+      fixture.componentRef.setInput('helper', 'Helper');
+      fixture.detectChanges();
+      expect(component['helperId']()).toBe('test-id-helper');
+    });
+
+    it('should return undefined for helperId when helper is not present', () => {
+      fixture.componentRef.setInput('id', 'test-id');
+      fixture.detectChanges();
+      expect(component['helperId']()).toBeUndefined();
+    });
+  });
+
+  describe('Name attribute', () => {
+    it('should pass name to primitive when provided', () => {
+      fixture.componentRef.setInput('name', 'toggle-name');
+      fixture.detectChanges();
+
+      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-name')).toBe('toggle-name');
+    });
+
+    it('should handle undefined name', () => {
+      fixture.componentRef.setInput('name', undefined);
+      fixture.detectChanges();
+
+      const name = primitiveToggle.nativeElement.getAttribute('ng-reflect-name');
+      expect(name === 'undefined' || name === null).toBe(true);
+    });
+  });
+
+  describe('ID generation', () => {
+    it('should generate unique IDs', () => {
+      const id1 = component.id();
+      const newFixture = TestBed.createComponent(DsToggle);
+      const id2 = newFixture.componentInstance.id();
+
+      expect(id1).not.toBe(id2);
+      expect(id1).toContain('ds-toggle-');
+      expect(id2).toContain('ds-toggle-');
+    });
+
+    it('should use provided ID', () => {
+      fixture.componentRef.setInput('id', 'custom-id');
+      fixture.detectChanges();
+
+      expect(component.id()).toBe('custom-id');
+    });
+  });
+
+  describe('Event handler edge cases', () => {
+    it('should not change value when onCheckedChange is called while disabled', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      const initialValue = component['internalValue']();
+      component['onCheckedChange'](true);
+
+      expect(component['internalValue']()).toBe(initialValue);
+    });
+
+    it('should call both onChange and onTouched on checked change', () => {
+      const onChangeSpy = jasmine.createSpy('onChange');
+      const onTouchedSpy = jasmine.createSpy('onTouched');
+      component.registerOnChange(onChangeSpy);
+      component.registerOnTouched(onTouchedSpy);
+
+      component['onCheckedChange'](true);
+
+      expect(onChangeSpy).toHaveBeenCalledTimes(1);
+      expect(onTouchedSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('Value propagation', () => {
+    it('should propagate checked state to primitive', () => {
+      component.writeValue(true);
+      fixture.detectChanges();
+
+      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-checked')).toBe('true');
+    });
+
+    it('should propagate unchecked state to primitive', () => {
+      component.writeValue(false);
+      fixture.detectChanges();
+
+      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-checked')).toBe('false');
+    });
+
+    it('should handle null as false', () => {
+      component.writeValue(null);
+      fixture.detectChanges();
+
+      expect(component['internalValue']()).toBe(false);
+      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-checked')).toBe('false');
+    });
+  });
+
+  describe('Multiple toggles', () => {
+    it('should work with multiple instances', () => {
+      const fixture2 = TestBed.createComponent(DsToggle);
+      const component2 = fixture2.componentInstance;
+      fixture2.detectChanges();
+
+      component.writeValue(true);
+      component2.writeValue(false);
+      fixture.detectChanges();
+      fixture2.detectChanges();
+
+      expect(component['internalValue']()).toBe(true);
+      expect(component2['internalValue']()).toBe(false);
+    });
   });
 });
