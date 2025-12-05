@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PrimitiveBadge } from './primitive-badge';
+import { PrimitiveBadge, BadgeVariant, BadgeSize, BadgeShape, BadgeAppearance } from './primitive-badge';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';

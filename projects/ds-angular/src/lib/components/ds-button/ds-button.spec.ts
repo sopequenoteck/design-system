@@ -134,4 +134,71 @@ describe('DsButton', () => {
     const primitiveButton = fixture.debugElement.query(By.css('primitive-button button'));
     expect(primitiveButton.nativeElement.classList.contains('outline')).toBe(true);
   });
+
+  // Tests pour toutes les variantes
+  it('should apply ghost variant', () => {
+    fixture.componentRef.setInput('variant', 'ghost');
+    fixture.detectChanges();
+    expect(component.variant()).toBe('ghost');
+  });
+
+  it('should apply success variant', () => {
+    fixture.componentRef.setInput('variant', 'success');
+    fixture.detectChanges();
+    expect(component.variant()).toBe('success');
+  });
+
+  it('should apply warning variant', () => {
+    fixture.componentRef.setInput('variant', 'warning');
+    fixture.detectChanges();
+    expect(component.variant()).toBe('warning');
+  });
+
+  it('should apply error variant', () => {
+    fixture.componentRef.setInput('variant', 'error');
+    fixture.detectChanges();
+    expect(component.variant()).toBe('error');
+  });
+
+  it('should apply info variant', () => {
+    fixture.componentRef.setInput('variant', 'info');
+    fixture.detectChanges();
+    expect(component.variant()).toBe('info');
+  });
+
+  // Tests pour toutes les tailles
+  it('should apply small size', () => {
+    fixture.componentRef.setInput('size', 'sm');
+    fixture.detectChanges();
+    expect(component.size()).toBe('sm');
+  });
+
+  it('should apply large size', () => {
+    fixture.componentRef.setInput('size', 'lg');
+    fixture.detectChanges();
+    expect(component.size()).toBe('lg');
+  });
+
+  // Test pour iconEnd
+  it('should pass iconEnd to primitive-button', () => {
+    fixture.componentRef.setInput('iconEnd', faCheck);
+    fixture.detectChanges();
+
+    const iconEnd = fixture.debugElement.query(By.css('.icon-end'));
+    expect(iconEnd).toBeTruthy();
+  });
+
+  // Tests supplémentaires pour isDisabled
+  it('should return true for isDisabled when both disabled and loading are false', () => {
+    fixture.componentRef.setInput('disabled', false);
+    fixture.componentRef.setInput('loading', false);
+    fixture.detectChanges();
+    expect(component.isDisabled).toBe(false);
+  });
+
+  it('should return true for isDisabled when loading is true', () => {
+    fixture.componentRef.setInput('loading', true);
+    fixture.detectChanges();
+    expect(component.isDisabled).toBe(true);
+  });
 });
