@@ -1,0 +1,581 @@
+{/* Integration.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Integration" />
+
+# Intégration avec Angular
+
+Ce guide documente l'intégration des composants ds-angular avec les fonctionnalités Angular modernes : reactive forms, signals, validation et gestion d'erreurs.
+
+---
+
+## 1. Reactive Forms (FormControl, FormGroup)
+
+Les composants ds-angular implémentent `ControlValueAccessor` et s'intègrent parfaitement avec les reactive forms.
+
+### Exemple complet avec validation
+
+```typescript
+// src/app/contact/contact.component.ts
+import { Component, signal } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DsInputField, DsInputTextarea, DsCheckbox, DsButton } from 'ds-angular';
+import { faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+
+@Component({
+  selector: 'app-contact',
+  standalone: true,
+  imports: [ReactiveFormsModule, DsInputField, DsInputTextarea, DsCheckbox, DsButton],
+  template: `
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+      <h2>Formulaire de contact</h2>
+
+      <!-- Nom -->
+      <ds-input-field
+        formControlName="name"
+        name="name"
+        label="Nom complet"
+        placeholder="Jean Dupont"
+        [iconStart]="userIcon"
+        [error]="getFieldError('name')"
+        required>
+      </ds-input-field>
+
+      <!-- Email -->
+      <ds-input-field
+        formControlName="email"
+        name="email"
+        type="email"
+        label="Adresse email"
+        placeholder="jean.dupont@exemple.com"
+        [iconStart]="emailIcon"
+        [error]="getFieldError('email')"
+        required>
+      </ds-input-field>
+
+      <!-- Sujet -->
+      <ds-input-field
+        formControlName="subject"
+        name="subject"
+        label="Sujet"
+        placeholder="Comment pouvons-nous vous aider ?"
+        [error]="getFieldError('subject')"
+        required>
+      </ds-input-field>
+
+      <!-- Message -->
+      <ds-input-textarea
+        formControlName="message"
+        name="message"
+        label="Message"
+        placeholder="Décrivez votre demande..."
+        [rows]="6"
+        [maxlength]="500"
+        [error]="getFieldError('message')"
+        required>
+      </ds-input-textarea>
+
+      <!-- Newsletter -->
+      <ds-checkbox
+        formControlName="newsletter"
+        name="newsletter"
+        label="Recevoir notre newsletter hebdomadaire">
+      </ds-checkbox>
+
+      <!-- État du formulaire (debug) -->
+      <div class="form-status">
+        <p>Valid: {{ contactForm.valid }}</p>
+        <p>Dirty: {{ contactForm.dirty }}</p>
+        <p>Touched: {{ contactForm.touched }}</p>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <ds-button
+          variant="ghost"
+          (clicked)="resetForm()">
+          Réinitialiser
+        </ds-button>
+        <ds-button
+          variant="primary"
+          submit
+          [disabled]="!contactForm.valid"
+          [loading]="isSubmitting()">
+          Envoyer
+        </ds-button>
+      </div>
+    </form>
+  `,
+  styles: [`
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .form-status {
+      padding: var(--space-3);
+      background: var(--background-secondary);
+      border-radius: var(--radius-2);
+      font-size: 0.875rem;
+    }
+    .form-actions {
+      display: flex;
+      gap: var(--space-3);
+      justify-content: flex-end;
+    }
+  `]
+})
+export class ContactComponent {
+  private fb = inject(FormBuilder);
+
+  userIcon = faUser;
+  emailIcon = faEnvelope;
+
+  isSubmitting = signal(false);
+
+  contactForm: FormGroup = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    email: ['', [Validators.required, Validators.email]],
+    subject: ['', [Validators.required, Validators.minLength(5)]],
+    message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
+    newsletter: [false]
+  });
+
+  /**
+   * Récupère le message d'erreur d'un champ
+   */
+  getFieldError(fieldName: string): string {
+    const field = this.contactForm.get(fieldName);
+
+    if (!field || !field.errors || !field.touched) {
+      return '';
+    }
+
+    if (field.errors['required']) {
+      return 'Ce champ est requis';
+    }
+    if (field.errors['email']) {
+      return 'Email invalide';
+    }
+    if (field.errors['minlength']) {
+      const min = field.errors['minlength'].requiredLength;
+      return `Minimum ${min} caractères`;
+    }
+    if (field.errors['maxlength']) {
+      const max = field.errors['maxlength'].requiredLength;
+      return `Maximum ${max} caractères`;
+    }
+
+    return 'Erreur de validation';
+  }
+
+  /**
+   * Soumission du formulaire
+   */
+  onSubmit() {
+    if (!this.contactForm.valid) {
+      // Marquer tous les champs comme touched pour afficher les erreurs
+      Object.keys(this.contactForm.controls).forEach(key => {
+        this.contactForm.get(key)?.markAsTouched();
+      });
+      return;
+    }
+
+    this.isSubmitting.set(true);
+
+    // Simulation d'appel API
+    setTimeout(() => {
+      console.log('Formulaire soumis:', this.contactForm.value);
+      this.isSubmitting.set(false);
+      this.contactForm.reset();
+    }, 2000);
+  }
+
+  /**
+   * Réinitialiser le formulaire
+   */
+  resetForm() {
+    this.contactForm.reset();
+  }
+}
+```
+
+### Validators personnalisés
+
+```typescript
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
+/**
+ * Validator pour vérifier que le mot de passe contient au moins une majuscule
+ */
+export function passwordStrengthValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    if (!value) return null;
+
+    const hasUpperCase = /[A-Z]/.test(value);
+    const hasNumber = /[0-9]/.test(value);
+    const hasSpecialChar = /[!@#$%^&*]/.test(value);
+
+    const errors: any = {};
+
+    if (!hasUpperCase) errors['noUpperCase'] = true;
+    if (!hasNumber) errors['noNumber'] = true;
+    if (!hasSpecialChar) errors['noSpecialChar'] = true;
+
+    return Object.keys(errors).length > 0 ? errors : null;
+  };
+}
+
+/**
+ * Validator pour vérifier que deux champs sont identiques
+ */
+export function matchFieldsValidator(field1: string, field2: string): ValidatorFn {
+  return (formGroup: AbstractControl): ValidationErrors | null => {
+    const control1 = formGroup.get(field1);
+    const control2 = formGroup.get(field2);
+
+    if (!control1 || !control2) return null;
+
+    return control1.value === control2.value ? null : { fieldsDoNotMatch: true };
+  };
+}
+```
+
+---
+
+## 2. Signals (input(), computed())
+
+Les composants ds-angular utilisent les signals Angular pour une meilleure réactivité et performance.
+
+### Exemple avec computed signals et effects
+
+```typescript
+// src/app/cart/cart.component.ts
+import { Component, signal, computed, effect } from '@angular/core';
+import { DsButton, DsBadge, DsInputField, DsToastService } from 'ds-angular';
+import { faShoppingCart, faTrash, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+@Component({
+  selector: 'app-cart',
+  standalone: true,
+  imports: [DsButton, DsBadge, DsInputField],
+  template: `
+    <div class="cart">
+      <div class="cart-header">
+        <h2>Panier</h2>
+        <ds-badge [variant]="cartBadgeVariant()" size="md">
+          {{ totalItems() }} article{{ totalItems() > 1 ? 's' : '' }}
+        </ds-badge>
+      </div>
+
+      @if (items().length === 0) {
+        <p class="empty-cart">Votre panier est vide</p>
+      } @else {
+        <div class="cart-items">
+          @for (item of items(); track item.id) {
+            <div class="cart-item">
+              <div class="item-info">
+                <h4>{{ item.name }}</h4>
+                <p>{{ item.price }}€</p>
+              </div>
+
+              <div class="item-quantity">
+                <ds-button
+                  variant="ghost"
+                  size="sm"
+                  [iconStart]="minusIcon"
+                  (clicked)="decrementQuantity(item.id)">
+                </ds-button>
+                <span>{{ item.quantity }}</span>
+                <ds-button
+                  variant="ghost"
+                  size="sm"
+                  [iconStart]="plusIcon"
+                  (clicked)="incrementQuantity(item.id)">
+                </ds-button>
+              </div>
+
+              <ds-button
+                variant="error"
+                size="sm"
+                [iconStart]="trashIcon"
+                (clicked)="removeItem(item.id)">
+              </ds-button>
+            </div>
+          }
+        </div>
+
+        <div class="cart-footer">
+          <div class="totals">
+            <p>Sous-total: <strong>{{ subtotal() }}€</strong></p>
+            <p>TVA (20%): <strong>{{ vat() }}€</strong></p>
+            <p class="total">Total: <strong>{{ total() }}€</strong></p>
+          </div>
+
+          <div class="actions">
+            <ds-button
+              variant="ghost"
+              (clicked)="clearCart()">
+              Vider le panier
+            </ds-button>
+            <ds-button
+              variant="primary"
+              [disabled]="items().length === 0"
+              (clicked)="checkout()">
+              Commander ({{ total() }}€)
+            </ds-button>
+          </div>
+        </div>
+      }
+    </div>
+  `,
+  styles: [`
+    .cart {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    }
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-4);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-2);
+      margin-bottom: var(--space-3);
+    }
+    .item-quantity {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .cart-footer {
+      margin-top: var(--space-6);
+      padding-top: var(--space-4);
+      border-top: 2px solid var(--border-default);
+    }
+    .totals p { margin: var(--space-2) 0; }
+    .total { font-size: 1.25rem; margin-top: var(--space-3); }
+    .actions {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+  `]
+})
+export class CartComponent {
+  private toastService = inject(DsToastService);
+
+  plusIcon = faPlus;
+  minusIcon = faMinus;
+  trashIcon = faTrash;
+
+  // State avec signals
+  items = signal<CartItem[]>([
+    { id: 1, name: 'Produit A', price: 29.99, quantity: 2 },
+    { id: 2, name: 'Produit B', price: 49.99, quantity: 1 }
+  ]);
+
+  // Computed signals
+  totalItems = computed(() => {
+    return this.items().reduce((sum, item) => sum + item.quantity, 0);
+  });
+
+  subtotal = computed(() => {
+    return this.items()
+      .reduce((sum, item) => sum + (item.price * item.quantity), 0)
+      .toFixed(2);
+  });
+
+  vat = computed(() => {
+    return (parseFloat(this.subtotal()) * 0.2).toFixed(2);
+  });
+
+  total = computed(() => {
+    return (parseFloat(this.subtotal()) + parseFloat(this.vat())).toFixed(2);
+  });
+
+  cartBadgeVariant = computed(() => {
+    const count = this.totalItems();
+    if (count === 0) return 'neutral';
+    if (count > 5) return 'warning';
+    return 'info';
+  });
+
+  // Effect pour logger les changements
+  logEffect = effect(() => {
+    console.log('Cart updated:', {
+      items: this.items().length,
+      total: this.total()
+    });
+  });
+
+  incrementQuantity(id: number) {
+    this.items.update(items =>
+      items.map(item =>
+        item.id === id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    );
+  }
+
+  decrementQuantity(id: number) {
+    this.items.update(items =>
+      items.map(item =>
+        item.id === id && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  }
+
+  removeItem(id: number) {
+    const item = this.items().find(i => i.id === id);
+    this.items.update(items => items.filter(item => item.id !== id));
+    this.toastService.success('Retiré du panier', `${item?.name} a été retiré`);
+  }
+
+  clearCart() {
+    this.items.set([]);
+    this.toastService.info('Panier vidé', 'Tous les articles ont été retirés');
+  }
+
+  checkout() {
+    this.toastService.success('Commande validée', `Total: ${this.total()}€`);
+    this.items.set([]);
+  }
+}
+```
+
+---
+
+## 3. Validation et gestion d'erreurs
+
+Stratégies avancées pour la validation et l'affichage des erreurs.
+
+### Validation asynchrone (API)
+
+```typescript
+// src/app/validators/async-validators.ts
+import { Injectable } from '@angular/core';
+import { AbstractControl, AsyncValidator, ValidationErrors } from '@angular/forms';
+import { Observable, of, delay, map } from 'rxjs';
+
+@Injectable({ providedIn: 'root' })
+export class UsernameValidator implements AsyncValidator {
+  validate(control: AbstractControl): Observable<ValidationErrors | null> {
+    if (!control.value) {
+      return of(null);
+    }
+
+    // Simulation d'appel API pour vérifier la disponibilité
+    return of(control.value).pipe(
+      delay(1000), // Simule latence réseau
+      map(username => {
+        const existingUsernames = ['admin', 'user', 'test'];
+        return existingUsernames.includes(username.toLowerCase())
+          ? { usernameTaken: true }
+          : null;
+      })
+    );
+  }
+}
+```
+
+### Composant avec validation asynchrone
+
+```typescript
+// src/app/register/register.component.ts
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { DsInputField, DsButton } from 'ds-angular';
+import { UsernameValidator } from '../validators/async-validators';
+
+@Component({
+  selector: 'app-register',
+  standalone: true,
+  imports: [ReactiveFormsModule, DsInputField, DsButton],
+  template: `
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <ds-input-field
+        formControlName="username"
+        name="username"
+        label="Nom d'utilisateur"
+        [error]="getUsernameError()"
+        [state]="getUsernameState()"
+        helper="Vérification de disponibilité...">
+      </ds-input-field>
+
+      <ds-button
+        variant="primary"
+        submit
+        [disabled]="!registerForm.valid || registerForm.pending">
+        S'inscrire
+      </ds-button>
+    </form>
+  `
+})
+export class RegisterComponent {
+  private fb = inject(FormBuilder);
+  private usernameValidator = inject(UsernameValidator);
+
+  registerForm = this.fb.group({
+    username: [
+      '',
+      [Validators.required, Validators.minLength(3)],
+      [this.usernameValidator.validate.bind(this.usernameValidator)]
+    ]
+  });
+
+  getUsernameError(): string {
+    const field = this.registerForm.get('username');
+    if (!field || !field.touched) return '';
+
+    if (field.errors?.['required']) return 'Nom d'utilisateur requis';
+    if (field.errors?.['minlength']) return 'Minimum 3 caractères';
+    if (field.errors?.['usernameTaken']) return 'Ce nom est déjà pris';
+
+    return '';
+  }
+
+  getUsernameState(): 'default' | 'success' | 'error' {
+    const field = this.registerForm.get('username');
+    if (!field || !field.touched) return 'default';
+    if (field.pending) return 'default';
+    if (field.valid) return 'success';
+    return 'error';
+  }
+
+  onSubmit() {
+    if (this.registerForm.valid) {
+      console.log('Inscription:', this.registerForm.value);
+    }
+  }
+}
+```
+
+---
+
+## Ressources
+
+- [Introduction](./Introduction) — Installation et Quick Start
+- [Patterns](./Patterns) — Patterns de composition courants
+- [Contributing](./Contributing) — Guide de contribution

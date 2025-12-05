@@ -1,0 +1,477 @@
+{/* Patterns.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Patterns" />
+
+# Patterns de composition
+
+Ce guide documente les patterns de composition courants pour faciliter l'utilisation combinée des composants du design system.
+
+---
+
+## 1. Formulaire complet (input + checkbox + button)
+
+Pattern classique de formulaire avec validation, champs multiples et soumission.
+
+```typescript
+// src/app/signup/signup.component.ts
+import { Component, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DsInputField, DsCheckbox, DsButton } from 'ds-angular';
+import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+
+@Component({
+  selector: 'app-signup',
+  standalone: true,
+  imports: [FormsModule, DsInputField, DsCheckbox, DsButton],
+  template: `
+    <form (ngSubmit)="handleSubmit()" class="signup-form">
+      <h2>Créer un compte</h2>
+
+      <!-- Nom d'utilisateur -->
+      <ds-input-field
+        name="username"
+        label="Nom d'utilisateur"
+        placeholder="Choisissez un nom d'utilisateur"
+        [iconStart]="userIcon"
+        [(ngModel)]="username"
+        [error]="usernameError()"
+        required>
+      </ds-input-field>
+
+      <!-- Email -->
+      <ds-input-field
+        name="email"
+        type="email"
+        label="Adresse email"
+        placeholder="exemple@domaine.com"
+        [iconStart]="emailIcon"
+        [(ngModel)]="email"
+        [error]="emailError()"
+        required>
+      </ds-input-field>
+
+      <!-- Mot de passe -->
+      <ds-input-field
+        name="password"
+        type="password"
+        label="Mot de passe"
+        [togglePassword]="true"
+        [iconStart]="lockIcon"
+        [(ngModel)]="password"
+        [error]="passwordError()"
+        helper="Minimum 8 caractères"
+        required>
+      </ds-input-field>
+
+      <!-- Conditions d'utilisation -->
+      <ds-checkbox
+        name="terms"
+        label="J'accepte les conditions d'utilisation"
+        [(checked)]="acceptTerms"
+        [error]="termsError()">
+      </ds-checkbox>
+
+      <!-- Bouton de soumission -->
+      <ds-button
+        variant="primary"
+        submit
+        block
+        [loading]="isSubmitting()"
+        [disabled]="!isFormValid()">
+        Créer mon compte
+      </ds-button>
+    </form>
+  `,
+  styles: [`
+    .signup-form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+  `]
+})
+export class SignupComponent {
+  username = signal('');
+  email = signal('');
+  password = signal('');
+  acceptTerms = signal(false);
+  isSubmitting = signal(false);
+
+  userIcon = faUser;
+  emailIcon = faEnvelope;
+  lockIcon = faLock;
+
+  usernameError() {
+    const value = this.username();
+    if (!value) return 'Nom d'utilisateur requis';
+    if (value.length < 3) return 'Minimum 3 caractères';
+    return '';
+  }
+
+  emailError() {
+    const value = this.email();
+    if (!value) return 'Email requis';
+    if (!value.includes('@')) return 'Email invalide';
+    return '';
+  }
+
+  passwordError() {
+    const value = this.password();
+    if (!value) return 'Mot de passe requis';
+    if (value.length < 8) return 'Minimum 8 caractères';
+    return '';
+  }
+
+  termsError() {
+    return this.acceptTerms() ? '' : 'Vous devez accepter les conditions';
+  }
+
+  isFormValid() {
+    return !this.usernameError() &&
+           !this.emailError() &&
+           !this.passwordError() &&
+           this.acceptTerms();
+  }
+
+  handleSubmit() {
+    if (!this.isFormValid()) return;
+
+    this.isSubmitting.set(true);
+    // Simulation appel API
+    setTimeout(() => {
+      console.log('Compte créé:', {
+        username: this.username(),
+        email: this.email()
+      });
+      this.isSubmitting.set(false);
+    }, 2000);
+  }
+}
+```
+
+---
+
+## 2. Modal avec formulaire
+
+Pattern de modal contenant un formulaire de confirmation ou d'édition.
+
+```typescript
+// src/app/edit-profile/edit-profile.component.ts
+import { Component, signal, viewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DsModal, DsInputField, DsButton, DsInputTextarea } from 'ds-angular';
+
+@Component({
+  selector: 'app-edit-profile',
+  standalone: true,
+  imports: [FormsModule, DsModal, DsInputField, DsInputTextarea, DsButton],
+  template: `
+    <ds-button variant="primary" (clicked)="openModal()">
+      Éditer le profil
+    </ds-button>
+
+    <ds-modal
+      title="Modifier votre profil"
+      size="md"
+      [closable]="true"
+      [closeOnBackdrop]="false"
+      (closed)="handleModalClose()">
+
+      <form (ngSubmit)="handleSave()" class="profile-form">
+        <ds-input-field
+          name="displayName"
+          label="Nom d'affichage"
+          [(ngModel)]="displayName"
+          required>
+        </ds-input-field>
+
+        <ds-input-textarea
+          name="bio"
+          label="Biographie"
+          placeholder="Parlez-nous de vous..."
+          [rows]="4"
+          [maxlength]="200"
+          [(ngModel)]="bio">
+        </ds-input-textarea>
+
+        <ds-input-field
+          name="location"
+          label="Localisation"
+          placeholder="Ville, Pays"
+          [(ngModel)]="location">
+        </ds-input-field>
+
+        <div class="modal-actions">
+          <ds-button
+            variant="ghost"
+            (clicked)="closeModal()">
+            Annuler
+          </ds-button>
+          <ds-button
+            variant="primary"
+            submit
+            [loading]="isSaving()">
+            Enregistrer
+          </ds-button>
+        </div>
+      </form>
+    </ds-modal>
+  `,
+  styles: [`
+    .profile-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .modal-actions {
+      display: flex;
+      gap: var(--space-3);
+      justify-content: flex-end;
+      margin-top: var(--space-4);
+    }
+  `]
+})
+export class EditProfileComponent {
+  modal = viewChild.required(DsModal);
+
+  displayName = signal('John Doe');
+  bio = signal('');
+  location = signal('');
+  isSaving = signal(false);
+
+  openModal() {
+    this.modal().open();
+  }
+
+  closeModal() {
+    this.modal().close();
+  }
+
+  handleModalClose() {
+    console.log('Modal fermée');
+  }
+
+  handleSave() {
+    this.isSaving.set(true);
+    // Simulation sauvegarde
+    setTimeout(() => {
+      console.log('Profil sauvegardé:', {
+        displayName: this.displayName(),
+        bio: this.bio(),
+        location: this.location()
+      });
+      this.isSaving.set(false);
+      this.closeModal();
+    }, 1500);
+  }
+}
+```
+
+---
+
+## 3. Dropdown dans toolbar
+
+Pattern de barre d'outils avec actions via dropdown.
+
+```typescript
+// src/app/toolbar/toolbar.component.ts
+import { Component } from '@angular/core';
+import { DsDropdown, DsButton, DsBadge } from 'ds-angular';
+import { faEllipsisV, faEdit, faTrash, faShare, faDownload } from '@fortawesome/free-solid-svg-icons';
+
+@Component({
+  selector: 'app-toolbar',
+  standalone: true,
+  imports: [DsDropdown, DsButton, DsBadge],
+  template: `
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <h3>Mon Document</h3>
+        <ds-badge variant="info" size="sm">Brouillon</ds-badge>
+      </div>
+
+      <div class="toolbar-right">
+        <ds-button variant="primary" size="sm">
+          Enregistrer
+        </ds-button>
+
+        <ds-dropdown
+          [items]="menuItems"
+          position="bottom-end"
+          (itemSelected)="handleAction($event)">
+          <ds-button
+            variant="ghost"
+            size="sm"
+            [iconStart]="menuIcon"
+            dropdownTrigger>
+          </ds-button>
+        </ds-dropdown>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-3) var(--space-4);
+      background: var(--background-secondary);
+      border-bottom: 1px solid var(--border-default);
+    }
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .toolbar-right {
+      display: flex;
+      gap: var(--space-2);
+    }
+  `]
+})
+export class ToolbarComponent {
+  menuIcon = faEllipsisV;
+
+  menuItems = [
+    { id: 'edit', label: 'Éditer', icon: faEdit },
+    { id: 'share', label: 'Partager', icon: faShare },
+    { id: 'download', label: 'Télécharger', icon: faDownload },
+    { id: 'separator', label: '', disabled: true },
+    { id: 'delete', label: 'Supprimer', icon: faTrash }
+  ];
+
+  handleAction(item: any) {
+    console.log('Action sélectionnée:', item.id);
+
+    switch (item.id) {
+      case 'edit':
+        // Logique d'édition
+        break;
+      case 'share':
+        // Logique de partage
+        break;
+      case 'download':
+        // Logique de téléchargement
+        break;
+      case 'delete':
+        // Logique de suppression
+        break;
+    }
+  }
+}
+```
+
+---
+
+## 4. Toast notifications système
+
+Pattern de notifications système avec différents types et gestion de la pile.
+
+```typescript
+// src/app/notifications/notifications.component.ts
+import { Component, inject } from '@angular/core';
+import { DsButton, DsToastService } from 'ds-angular';
+
+@Component({
+  selector: 'app-notifications',
+  standalone: true,
+  imports: [DsButton],
+  template: `
+    <div class="notification-demo">
+      <h2>Système de notifications</h2>
+
+      <div class="actions">
+        <ds-button
+          variant="success"
+          (clicked)="showSuccess()">
+          Succès
+        </ds-button>
+
+        <ds-button
+          variant="warning"
+          (clicked)="showWarning()">
+          Avertissement
+        </ds-button>
+
+        <ds-button
+          variant="error"
+          (clicked)="showError()">
+          Erreur
+        </ds-button>
+
+        <ds-button
+          variant="info"
+          (clicked)="showInfo()">
+          Information
+        </ds-button>
+
+        <ds-button
+          variant="ghost"
+          (clicked)="showMultiple()">
+          Notifications multiples
+        </ds-button>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .notification-demo {
+      padding: var(--space-6);
+    }
+    .actions {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      margin-top: var(--space-4);
+    }
+  `]
+})
+export class NotificationsComponent {
+  private toastService = inject(DsToastService);
+
+  showSuccess() {
+    this.toastService.success('Opération réussie', 'Vos modifications ont été enregistrées');
+  }
+
+  showWarning() {
+    this.toastService.warning('Attention requise', 'Certains champs nécessitent votre attention');
+  }
+
+  showError() {
+    this.toastService.error('Erreur', 'Impossible de se connecter au serveur');
+  }
+
+  showInfo() {
+    this.toastService.info('Information', 'Une mise à jour est disponible');
+  }
+
+  showMultiple() {
+    this.toastService.success('Premier message', 'Opération 1/3');
+    setTimeout(() => {
+      this.toastService.info('Deuxième message', 'Opération 2/3');
+    }, 500);
+    setTimeout(() => {
+      this.toastService.success('Terminé', 'Toutes les opérations sont complétées');
+    }, 1000);
+  }
+}
+```
+
+**Bonnes pratiques pour les toasts** :
+
+- Limiter la durée d'affichage (3-5 secondes pour success/info, 7-10 secondes pour warning/error)
+- Éviter plus de 3 toasts simultanés
+- Utiliser des messages courts et actionables
+- Positionner en top-right pour ne pas bloquer le contenu principal
+- Permettre la fermeture manuelle pour les messages importants
+
+---
+
+## Ressources complémentaires
+
+- [Introduction](./Introduction) — Installation et Quick Start
+- [Integration](./Integration) — Exemples d'intégration Angular avancés
+- [Contributing](./Contributing) — Guide de contribution
