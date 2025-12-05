@@ -99,6 +99,19 @@ jobs:
         run: npm run build-storybook
         continue-on-error: true
 
+      - name: Install Storybook test runner dependencies
+        run: npx playwright install --with-deps chromium
+        continue-on-error: true
+
+      - name: Serve Storybook and run tests
+        run: |
+          npx http-server storybook-static --port 6006 --silent &
+          HTTP_SERVER_PID=$!
+          sleep 5
+          npm run test:storybook
+          kill $HTTP_SERVER_PID
+        continue-on-error: true
+
       - name: Run accessibility audit
         run: npm run test:a11y --if-present || echo "A11y audit skipped"
         continue-on-error: true
