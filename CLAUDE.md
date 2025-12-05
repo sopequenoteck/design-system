@@ -46,11 +46,19 @@ projects/ds-angular/src/lib/
 │   ├── ds-badge/
 │   ├── ds-input-field/
 │   ├── ds-checkbox/
+│   ├── ds-radio-group/
+│   ├── ds-toggle/
+│   ├── ds-input-textarea/
 │   ├── ds-modal/
 │   ├── ds-dropdown/
 │   ├── ds-toast/
 │   ├── ds-tooltip/
 │   ├── ds-popover/
+│   ├── ds-tabs/
+│   ├── ds-breadcrumb/
+│   ├── ds-card/
+│   ├── ds-alert/
+│   ├── ds-divider/
 │   └── ...
 └── utils/           # Utilitaires partagés (overlay-positions, etc.)
 ```
@@ -149,6 +157,18 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Storybook toolbar : contrôle thème "Custom" déjà opérationnel (theme.decorator.ts, preview.ts)
 - ✅ Documentation complète : activation, fallbacks `--custom-*`, bonnes pratiques WCAG 2.1 AA
 - 📊 Total stories enrichies : 41+ stories interactives avec contrôles et états multiples
+
+**Composants utilitaires ÉTAPE 9** (2025-12-05) :
+- ✅ DsCard créé : variants (default, elevated, outlined), tailles (sm, md, lg), clickable, disabled
+- ✅ DsCard : header/body/footer avec content projection, 11 stories, 35+ tests (≥95% coverage)
+- ✅ DsAlert créé : types (success, warning, error, info), tailles, closable, showIcon
+- ✅ DsAlert : intégration FontAwesome, événement closed, 10 stories, 40+ tests (≥95% coverage)
+- ✅ DsDivider créé : orientations (horizontal, vertical), variants (solid, dashed, dotted)
+- ✅ DsDivider : labelPosition (left, center, right), spacing (none, sm, md, lg), 10 stories, 30+ tests (≥90% coverage)
+- ✅ Tokens sémantiques : 30 variables ajoutées (_semantic.scss) pour card, alert, divider
+- ✅ Tokens exposés : 30 CSS custom properties ajoutées (_tokens.scss)
+- ✅ Exports : DsCard, DsAlert, DsDivider avec types exportés dans components/index.ts
+- 📊 Design system : 17 composants DS (14 existants + 3 nouveaux utilitaires)
 
 ## Patterns techniques
 

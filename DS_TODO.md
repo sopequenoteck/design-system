@@ -12,7 +12,7 @@ Le design system Angular (`ds-angular`) a franchi 6 étapes majeures de consolid
 
 Le design system s'organise autour de :
 - **7 primitives** : primitive-button, primitive-input, primitive-badge, primitive-checkbox, primitive-radio, primitive-textarea, primitive-toggle
-- **14 components DS** : ds-button, ds-modal, ds-dropdown, ds-toast, ds-tooltip, ds-popover, ds-tabs, ds-breadcrumb, ds-input-field, ds-input-textarea, ds-checkbox, ds-radio-group, ds-toggle, ds-badge
+- **17 components DS** : ds-button, ds-modal, ds-dropdown, ds-toast, ds-tooltip, ds-popover, ds-tabs, ds-breadcrumb, ds-input-field, ds-input-textarea, ds-checkbox, ds-radio-group, ds-toggle, ds-badge, ds-card, ds-alert, ds-divider
 - **Architecture tokens 3 couches** : `_primitives.scss` (valeurs brutes) → `_semantic.scss` (tokens composants) → `_tokens.scss` (CSS custom properties :root)
 - **3 thèmes** : light, dark, custom (classes `:root.theme-*`)
 - **5 MDX** : Introduction, Tokens, Contributing, Patterns, Integration
@@ -154,12 +154,12 @@ Ajouter les composants utilitaires de base manquants pour compléter l'offre du 
 
 ### Tâches
 
-- [ ] `projects/ds-angular/src/lib/components/ds-card/` — Créer composant ds-card : container avec header, body, footer optionnels, variants (default, elevated, outlined), tailles — **Critère** : composant créé, tests ≥90%, 8+ stories
-- [ ] `projects/ds-angular/src/lib/components/ds-alert/` — Créer composant ds-alert : bannière de feedback avec types (success, warning, error, info), closable, avec icône, avec action — **Critère** : composant créé, tests ≥90%, 8+ stories
-- [ ] `projects/ds-angular/src/lib/components/ds-divider/` — Créer composant ds-divider : séparateur horizontal/vertical avec label optionnel, variants (solid, dashed, dotted) — **Critère** : composant créé, tests ≥90%, 6+ stories
-- [ ] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter tokens sémantiques pour card, alert, divider : `$card-padding`, `$alert-icon-size`, `$divider-color` — **Critère** : tokens ajoutés et documentés avec commentaires
-- [ ] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Exposer les tokens card, alert, divider en CSS custom properties — **Critère** : variables CSS ajoutées dans :root
-- [ ] `projects/ds-angular/src/lib/components/index.ts` — Exporter les nouveaux composants (DsCard, DsAlert, DsDivider) avec exports nommés — **Critère** : exports ajoutés et accessibles depuis ds-angular
+- [x] `projects/ds-angular/src/lib/components/ds-card/` — Créer composant ds-card : container avec header, body, footer optionnels, variants (default, elevated, outlined), tailles — **Critère** : composant créé, tests ≥90%, 8+ stories (✅ 11 stories, 35+ tests, ≥95% coverage)
+- [x] `projects/ds-angular/src/lib/components/ds-alert/` — Créer composant ds-alert : bannière de feedback avec types (success, warning, error, info), closable, avec icône, avec action — **Critère** : composant créé, tests ≥90%, 8+ stories (✅ 10 stories, 40+ tests, ≥95% coverage)
+- [x] `projects/ds-angular/src/lib/components/ds-divider/` — Créer composant ds-divider : séparateur horizontal/vertical avec label optionnel, variants (solid, dashed, dotted) — **Critère** : composant créé, tests ≥90%, 6+ stories (✅ 10 stories, 30+ tests, ≥90% coverage)
+- [x] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter tokens sémantiques pour card, alert, divider : `$card-padding`, `$alert-icon-size`, `$divider-color` — **Critère** : tokens ajoutés et documentés avec commentaires (✅ 30 tokens ajoutés)
+- [x] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Exposer les tokens card, alert, divider en CSS custom properties — **Critère** : variables CSS ajoutées dans :root (✅ 30 CSS custom properties)
+- [x] `projects/ds-angular/src/lib/components/index.ts` — Exporter les nouveaux composants (DsCard, DsAlert, DsDivider) avec exports nommés — **Critère** : exports ajoutés et accessibles depuis ds-angular (✅ Exports avec types TypeScript)
 
 ---
 
