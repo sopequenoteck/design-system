@@ -231,6 +231,23 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Exports : DsProgressBar, DsSkeleton + 6 types exportés dans components/index.ts
 - 📊 ÉTAPE 15 : 100% complétée (4/4 tâches) — 19 composants DS au total
 
+**Corrections ÉTAPE 15.1** (2025-12-06) :
+- ✅ DsProgressBar : propriétés protected → readonly (normalizedValue, containerClasses, progressStyle, ariaLabelText)
+- ✅ DsSkeleton : propriétés protected → readonly (skeletonClasses, customStyle, textLines)
+- ✅ DsSkeleton : ajout classe `ds-skeleton--card` au template card pour cohérence
+- ✅ Tests ds-progress-bar + ds-skeleton : 68/68 passent sans erreur TS2445
+- 📊 Corrections post-ÉTAPE 15 : 100% complétée
+
+**Composants navigation avancés ÉTAPE 16** (2025-12-06) :
+- ✅ DsPagination créé : pages, prev/next, first/last, page size selector, total items, ARIA complet
+- ✅ DsPagination : 5 fichiers, 14 stories, 41 tests (navigation clavier, ellipsis, sizes)
+- ✅ DsStepper créé : horizontal/vertical, états (pending/active/completed/error), navigation linéaire
+- ✅ DsStepper : 5 fichiers, 16 stories, 39 tests (navigation clavier, optional steps)
+- ✅ DsAccordion créé : single/multi expand, variants (default/bordered/separated), animation
+- ✅ DsAccordion : 5 fichiers, 12 stories, 29 tests (expand/collapse, ARIA)
+- ✅ Exports : DsPagination, DsStepper, DsAccordion + 11 types exportés dans components/index.ts
+- 📊 ÉTAPE 16 : 100% complétée (4/4 tâches) — 22 composants DS au total
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)

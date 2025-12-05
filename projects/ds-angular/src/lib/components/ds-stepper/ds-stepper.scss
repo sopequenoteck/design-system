@@ -1,0 +1,237 @@
+// ds-stepper.scss
+// Styles pour le composant stepper
+
+.ds-stepper {
+  display: flex;
+  font-family: var(--font-family-base, system-ui, sans-serif);
+
+  // Orientation horizontale
+  &--horizontal {
+    flex-direction: row;
+    align-items: flex-start;
+
+    .ds-stepper__step {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .ds-stepper__connector {
+      flex: 1;
+      height: 2px;
+      min-width: 2rem;
+      margin-top: 1rem;
+      background-color: var(--border-color, #e5e7eb);
+
+      &--completed {
+        background-color: var(--color-primary, #3b82f6);
+      }
+    }
+
+    .ds-stepper__content {
+      margin-top: var(--space-2, 0.5rem);
+    }
+  }
+
+  // Orientation verticale
+  &--vertical {
+    flex-direction: column;
+
+    .ds-stepper__step {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .ds-stepper__connector {
+      width: 2px;
+      min-height: 2rem;
+      margin-left: 1rem;
+      margin-top: var(--space-1, 0.25rem);
+      margin-bottom: var(--space-1, 0.25rem);
+      background-color: var(--border-color, #e5e7eb);
+
+      &--completed {
+        background-color: var(--color-primary, #3b82f6);
+      }
+    }
+
+    .ds-stepper__content {
+      margin-left: var(--space-3, 0.75rem);
+    }
+  }
+
+  // Clickable
+  &--clickable {
+    .ds-stepper__step:not(.ds-stepper__step--disabled) {
+      cursor: pointer;
+
+      &:hover .ds-stepper__indicator {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  // Étape
+  &__step {
+    display: flex;
+    outline: none;
+    transition: opacity 0.2s ease;
+
+    &:focus-visible .ds-stepper__indicator {
+      box-shadow: 0 0 0 3px var(--color-primary-alpha, rgba(59, 130, 246, 0.25));
+    }
+
+    &--pending {
+      .ds-stepper__indicator {
+        background-color: var(--background-secondary, #f3f4f6);
+        color: var(--text-secondary, #6b7280);
+        border-color: var(--border-color, #e5e7eb);
+      }
+
+      .ds-stepper__label {
+        color: var(--text-secondary, #6b7280);
+      }
+    }
+
+    &--active {
+      .ds-stepper__indicator {
+        background-color: var(--color-primary, #3b82f6);
+        color: var(--color-white, #ffffff);
+        border-color: var(--color-primary, #3b82f6);
+      }
+
+      .ds-stepper__label {
+        color: var(--text-default, #111827);
+        font-weight: 600;
+      }
+    }
+
+    &--completed {
+      .ds-stepper__indicator {
+        background-color: var(--color-success, #10b981);
+        color: var(--color-white, #ffffff);
+        border-color: var(--color-success, #10b981);
+      }
+
+      .ds-stepper__label {
+        color: var(--text-default, #111827);
+      }
+    }
+
+    &--error {
+      .ds-stepper__indicator {
+        background-color: var(--color-error, #ef4444);
+        color: var(--color-white, #ffffff);
+        border-color: var(--color-error, #ef4444);
+      }
+
+      .ds-stepper__label {
+        color: var(--color-error, #ef4444);
+      }
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  // Indicateur (cercle avec numéro ou icône)
+  &__indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 2px solid;
+    font-weight: 600;
+    font-size: var(--font-size-sm, 0.875rem);
+    flex-shrink: 0;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  &__number {
+    line-height: 1;
+  }
+
+  // Contenu
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: 500;
+    color: var(--text-default, #111827);
+    transition: color 0.2s ease;
+  }
+
+  &__optional {
+    font-size: var(--font-size-xs, 0.75rem);
+    font-weight: 400;
+    color: var(--text-tertiary, #9ca3af);
+    margin-left: var(--space-1, 0.25rem);
+  }
+
+  &__description {
+    font-size: var(--font-size-xs, 0.75rem);
+    color: var(--text-secondary, #6b7280);
+    margin-top: var(--space-1, 0.25rem);
+  }
+
+  // Connecteur
+  &__connector {
+    transition: background-color 0.3s ease;
+  }
+
+  // Tailles
+  &--sm {
+    .ds-stepper__indicator {
+      width: 1.5rem;
+      height: 1.5rem;
+      font-size: var(--font-size-xs, 0.75rem);
+    }
+
+    .ds-stepper__label {
+      font-size: var(--font-size-xs, 0.75rem);
+    }
+
+    .ds-stepper__description {
+      font-size: 0.625rem;
+    }
+
+    &.ds-stepper--horizontal .ds-stepper__connector {
+      margin-top: 0.75rem;
+    }
+
+    &.ds-stepper--vertical .ds-stepper__connector {
+      margin-left: 0.75rem;
+    }
+  }
+
+  &--lg {
+    .ds-stepper__indicator {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: var(--font-size-base, 1rem);
+    }
+
+    .ds-stepper__label {
+      font-size: var(--font-size-base, 1rem);
+    }
+
+    .ds-stepper__description {
+      font-size: var(--font-size-sm, 0.875rem);
+    }
+
+    &.ds-stepper--horizontal .ds-stepper__connector {
+      margin-top: 1.25rem;
+    }
+
+    &.ds-stepper--vertical .ds-stepper__connector {
+      margin-left: 1.25rem;
+    }
+  }
+}

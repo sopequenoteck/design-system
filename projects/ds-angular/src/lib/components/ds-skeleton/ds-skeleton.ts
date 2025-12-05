@@ -88,9 +88,9 @@ export class DsSkeleton {
   ariaLabel = input<string>('Chargement en cours...');
 
   /**
-   * Classes CSS calculées pour le skeleton.
+   * Classes CSS calculées pour le skeleton (public pour tests).
    */
-  protected skeletonClasses = computed(() => {
+  readonly skeletonClasses = computed(() => {
     const classes = [
       'ds-skeleton',
       `ds-skeleton--${this.variant()}`,
@@ -108,9 +108,9 @@ export class DsSkeleton {
   });
 
   /**
-   * Style inline personnalisé.
+   * Style inline personnalisé (public pour tests).
    */
-  protected customStyle = computed(() => {
+  readonly customStyle = computed(() => {
     const style: any = {};
 
     if (this.width()) {
@@ -125,9 +125,9 @@ export class DsSkeleton {
   });
 
   /**
-   * Génère un tableau pour les lignes de texte.
+   * Génère un tableau pour les lignes de texte (public pour tests).
    */
-  protected textLines = computed(() => {
+  readonly textLines = computed(() => {
     return Array.from({ length: this.lines() }, (_, i) => i);
   });
 }

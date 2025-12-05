@@ -95,3 +95,27 @@ export { DsToggle } from './ds-toggle/ds-toggle';
 export { DsTooltipComponent } from './ds-tooltip/ds-tooltip.component';
 
 export { DsTooltip } from './ds-tooltip/ds-tooltip.directive';
+
+export {
+  DsAccordion,
+  type AccordionItem,
+  type AccordionSize,
+  type AccordionVariant,
+  type AccordionChangeEvent,
+} from './ds-accordion/ds-accordion';
+
+export {
+  DsPagination,
+  type PaginationSize,
+  type PageSizeOption,
+  type PageChangeEvent,
+} from './ds-pagination/ds-pagination';
+
+export {
+  DsStepper,
+  type Step,
+  type StepState,
+  type StepperOrientation,
+  type StepperSize,
+  type StepChangeEvent,
+} from './ds-stepper/ds-stepper';

@@ -128,10 +128,10 @@ Ajouter les composants de navigation complexes pour couvrir les patterns courant
 
 ### Tâches
 
-- [ ] `projects/ds-angular/src/lib/components/ds-pagination/` — Créer composant ds-pagination : pages, prev/next, first/last, page size selector, total items — **Critère** : composant créé, navigation clavier, ARIA, 10+ stories
-- [ ] `projects/ds-angular/src/lib/components/ds-stepper/` — Créer composant ds-stepper : horizontal/vertical, états (active, completed, error), navigation — **Critère** : composant créé, tests ≥90%, 8+ stories
-- [ ] `projects/ds-angular/src/lib/components/ds-accordion/` — Créer composant ds-accordion : single/multi expand, animation, header/content slots — **Critère** : composant créé, ARIA, 8+ stories
-- [ ] `projects/ds-angular/src/lib/components/index.ts` — Exporter DsPagination, DsStepper, DsAccordion avec types — **Critère** : exports accessibles
+- [x] `projects/ds-angular/src/lib/components/ds-pagination/` — Créer composant ds-pagination : pages, prev/next, first/last, page size selector, total items — **Critère** : composant créé (5 fichiers), 14 stories, 41 tests, navigation clavier, ARIA ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-stepper/` — Créer composant ds-stepper : horizontal/vertical, états (active, completed, error), navigation — **Critère** : composant créé (5 fichiers), 16 stories, 39 tests ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-accordion/` — Créer composant ds-accordion : single/multi expand, animation, header/content slots — **Critère** : composant créé (5 fichiers), 12 stories, 29 tests, ARIA ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/index.ts` — Exporter DsPagination, DsStepper, DsAccordion avec types — **Critère** : 11 types exportés ✅ (2025-12-06)
 
 ---
 

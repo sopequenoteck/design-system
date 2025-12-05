@@ -1,0 +1,55 @@
+<div
+  [ngClass]="containerClasses()"
+  role="tablist"
+  [attr.aria-orientation]="orientation()">
+
+  @for (step of steps(); track step.label; let i = $index; let last = $last) {
+    <!-- Étape -->
+    <div
+      [ngClass]="getStepClasses(step, i)"
+      role="tab"
+      [attr.aria-selected]="i === normalizedActiveStep()"
+      [attr.aria-label]="getStepAriaLabel(step, i)"
+      [attr.tabindex]="i === normalizedActiveStep() ? 0 : -1"
+      (click)="goToStep(i)"
+      (keydown)="onKeydown($event, i)">
+
+      <!-- Indicateur -->
+      <div class="ds-stepper__indicator">
+        @switch (getStepState(step, i)) {
+          @case ('completed') {
+            <fa-icon [icon]="faCheck" aria-hidden="true"></fa-icon>
+          }
+          @case ('error') {
+            <fa-icon [icon]="faExclamationTriangle" aria-hidden="true"></fa-icon>
+          }
+          @default {
+            <span class="ds-stepper__number">{{ i + 1 }}</span>
+          }
+        }
+      </div>
+
+      <!-- Contenu -->
+      <div class="ds-stepper__content">
+        <span class="ds-stepper__label">
+          {{ step.label }}
+          @if (step.optional) {
+            <span class="ds-stepper__optional">(Optionnel)</span>
+          }
+        </span>
+        @if (showDescriptions() && step.description) {
+          <span class="ds-stepper__description">{{ step.description }}</span>
+        }
+      </div>
+    </div>
+
+    <!-- Connecteur -->
+    @if (showConnector() && !last) {
+      <div
+        class="ds-stepper__connector"
+        [class.ds-stepper__connector--completed]="i < normalizedActiveStep()"
+        aria-hidden="true">
+      </div>
+    }
+  }
+</div>

@@ -89,17 +89,17 @@ export class DsProgressBar {
   ariaLabel = input<string>('');
 
   /**
-   * Valeur normalisée (0-100).
+   * Valeur normalisée (0-100) (public pour tests).
    */
-  protected normalizedValue = computed(() => {
+  readonly normalizedValue = computed(() => {
     const val = this.value();
     return Math.max(0, Math.min(100, val));
   });
 
   /**
-   * Classes CSS calculées pour le conteneur.
+   * Classes CSS calculées pour le conteneur (public pour tests).
    */
-  protected containerClasses = computed(() => {
+  readonly containerClasses = computed(() => {
     return [
       'ds-progress-bar',
       `ds-progress-bar--${this.variant()}`,
@@ -109,9 +109,9 @@ export class DsProgressBar {
   });
 
   /**
-   * Style inline pour la progression.
+   * Style inline pour la progression (public pour tests).
    */
-  protected progressStyle = computed(() => {
+  readonly progressStyle = computed(() => {
     if (this.mode() === 'indeterminate') {
       return {};
     }
@@ -121,9 +121,9 @@ export class DsProgressBar {
   });
 
   /**
-   * Label ARIA dynamique.
+   * Label ARIA dynamique (public pour tests).
    */
-  protected ariaLabelText = computed(() => {
+  readonly ariaLabelText = computed(() => {
     if (this.ariaLabel()) {
       return this.ariaLabel();
     }

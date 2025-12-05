@@ -1,0 +1,103 @@
+<nav
+  [ngClass]="containerClasses()"
+  [attr.aria-label]="ariaLabel()"
+  role="navigation">
+
+  <!-- Info: X - Y sur Z -->
+  @if (showInfo()) {
+    <span class="ds-pagination__info">
+      {{ startItem() }} - {{ endItem() }} sur {{ totalItems() }}
+    </span>
+  }
+
+  <!-- Sélecteur de taille de page -->
+  @if (showPageSizeSelector()) {
+    <div class="ds-pagination__size-selector">
+      <label class="ds-pagination__size-label" for="page-size">
+        Par page:
+      </label>
+      <select
+        id="page-size"
+        class="ds-pagination__size-select"
+        [value]="pageSize()"
+        [disabled]="disabled()"
+        (change)="onPageSizeChange($event)">
+        @for (option of pageSizeOptions(); track option) {
+          <option [value]="option">{{ option }}</option>
+        }
+      </select>
+    </div>
+  }
+
+  <!-- Navigation -->
+  <div class="ds-pagination__nav">
+    <!-- Première page -->
+    @if (showFirstLast()) {
+      <button
+        type="button"
+        class="ds-pagination__btn ds-pagination__btn--first"
+        [disabled]="!canGoPrevious()"
+        [attr.aria-label]="'Aller à la première page'"
+        (click)="goToFirst()">
+        <fa-icon [icon]="faAnglesLeft" aria-hidden="true"></fa-icon>
+      </button>
+    }
+
+    <!-- Page précédente -->
+    <button
+      type="button"
+      class="ds-pagination__btn ds-pagination__btn--prev"
+      [disabled]="!canGoPrevious()"
+      [attr.aria-label]="'Aller à la page précédente'"
+      (click)="goToPrevious()">
+      <fa-icon [icon]="faChevronLeft" aria-hidden="true"></fa-icon>
+    </button>
+
+    <!-- Ellipsis début -->
+    @if (showStartEllipsis()) {
+      <span class="ds-pagination__ellipsis" aria-hidden="true">...</span>
+    }
+
+    <!-- Pages -->
+    @for (page of visiblePages(); track page) {
+      <button
+        type="button"
+        class="ds-pagination__btn ds-pagination__btn--page"
+        [class.ds-pagination__btn--active]="page === normalizedCurrentPage()"
+        [disabled]="disabled()"
+        [attr.aria-label]="'Page ' + page"
+        [attr.aria-current]="page === normalizedCurrentPage() ? 'page' : null"
+        (click)="goToPage(page)"
+        (keydown)="onPageKeydown($event, page)">
+        {{ page }}
+      </button>
+    }
+
+    <!-- Ellipsis fin -->
+    @if (showEndEllipsis()) {
+      <span class="ds-pagination__ellipsis" aria-hidden="true">...</span>
+    }
+
+    <!-- Page suivante -->
+    <button
+      type="button"
+      class="ds-pagination__btn ds-pagination__btn--next"
+      [disabled]="!canGoNext()"
+      [attr.aria-label]="'Aller à la page suivante'"
+      (click)="goToNext()">
+      <fa-icon [icon]="faChevronRight" aria-hidden="true"></fa-icon>
+    </button>
+
+    <!-- Dernière page -->
+    @if (showFirstLast()) {
+      <button
+        type="button"
+        class="ds-pagination__btn ds-pagination__btn--last"
+        [disabled]="!canGoNext()"
+        [attr.aria-label]="'Aller à la dernière page'"
+        (click)="goToLast()">
+        <fa-icon [icon]="faAnglesRight" aria-hidden="true"></fa-icon>
+      </button>
+    }
+  </div>
+</nav>
