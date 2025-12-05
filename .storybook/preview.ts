@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/angular';
 import { withThemeFromTokens } from './theme.decorator';
+import '../projects/ds-angular/src/styles/storybook.scss';
 
 const preview: Preview = {
   parameters: {
@@ -11,8 +12,17 @@ const preview: Preview = {
       }
     },
     backgrounds: {
-      default: 'light',
-      values: []
+      default: 'Background / Main (light)',
+      values: [
+        { name: 'Background / Main (light)', value: 'var(--background-main)' },
+        { name: 'Brand / Primary', value: 'var(--brand-primary)' },
+        { name: 'Brand / Secondary', value: 'var(--brand-secondary)' },
+        { name: 'Brand / Alt', value: 'var(--brand-alt)' },
+        { name: 'Feedback / Success', value: 'var(--success)' },
+        { name: 'Feedback / Warning', value: 'var(--warning)' },
+        { name: 'Feedback / Error', value: 'var(--error)' },
+        { name: 'Feedback / Info', value: 'var(--info)' }
+      ]
     },
     docs: {
       toc: {
