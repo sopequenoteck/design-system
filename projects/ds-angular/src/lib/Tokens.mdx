@@ -224,6 +224,143 @@ background-color: var(--new-token, var(--old-token));
 
 ---
 
+## Thème Custom
+
+Le design system offre un **thème personnalisable** (`theme-custom`) permettant de surcharger les tokens sans modifier les fichiers source.
+
+### Configuration
+
+Le fichier `projects/ds-angular/src/styles/themes/_custom.scss` expose des CSS custom properties sur `:root.theme-custom` avec des **fallbacks** vers des variables `--custom-*` :
+
+```css
+:root.theme-custom {
+  --background-main: var(--custom-bg, #ffffff);
+  --role-primary: var(--custom-accent-primary, #7d4bc0);
+  --text-default: var(--custom-text-default, #1a1c22);
+}
+```
+
+### Activation
+
+Ajoutez la classe `theme-custom` à l'élément racine HTML :
+
+```typescript
+// app.component.ts
+document.documentElement.className = 'theme-custom';
+```
+
+Ou en Angular :
+
+```html
+<div class="theme-custom">
+  <ds-button variant="primary">Bouton avec thème custom</ds-button>
+</div>
+```
+
+### Exemples de personnalisation
+
+#### 1. Surcharger les couleurs d'accent
+
+Définissez vos propres couleurs primaires et secondaires :
+
+```css
+:root {
+  --custom-accent-primary: #e63946;    /* Rouge moderne */
+  --custom-accent-secondary: #06ffa5;  /* Vert néon */
+}
+```
+
+<div style={{padding: '16px', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-2)', marginTop: '12px'}}>
+  <div style={{display: 'flex', gap: '12px', alignItems: 'center'}}>
+    <div style={{width: '60px', height: '40px', background: '#e63946', borderRadius: 'var(--radius-1)'}}></div>
+    <span style={{fontSize: '14px'}}>Accent primaire custom (#e63946)</span>
+  </div>
+  <div style={{display: 'flex', gap: '12px', alignItems: 'center', marginTop: '8px'}}>
+    <div style={{width: '60px', height: '40px', background: '#06ffa5', borderRadius: 'var(--radius-1)'}}></div>
+    <span style={{fontSize: '14px'}}>Accent secondaire custom (#06ffa5)</span>
+  </div>
+</div>
+
+#### 2. Personnaliser arrière-plans et textes
+
+Créez une identité visuelle propre à votre marque :
+
+```css
+:root {
+  --custom-bg: #0a0e27;               /* Fond bleu nuit */
+  --custom-bg-secondary: #1a1f3a;     /* Panneau secondaire */
+  --custom-text-default: #e0e6ed;     /* Texte clair */
+  --custom-text-muted: #8b92a8;       /* Texte atténué */
+  --custom-border: #2d3451;           /* Bordures discrètes */
+}
+```
+
+<div style={{padding: '16px', background: '#0a0e27', border: '1px solid #2d3451', borderRadius: 'var(--radius-2)', marginTop: '12px'}}>
+  <div style={{color: '#e0e6ed', fontSize: '16px', fontWeight: 500}}>Titre avec thème nuit</div>
+  <div style={{color: '#8b92a8', fontSize: '14px', marginTop: '8px'}}>Texte secondaire atténué pour une ambiance sombre.</div>
+  <div style={{marginTop: '12px', padding: '12px', background: '#1a1f3a', border: '1px solid #2d3451', borderRadius: 'var(--radius-1)'}}>
+    <span style={{color: '#e0e6ed', fontSize: '14px'}}>Panneau secondaire</span>
+  </div>
+</div>
+
+#### 3. Adapter les composants (boutons, inputs)
+
+Surchargez les tokens sémantiques des composants pour un rendu cohérent :
+
+```css
+:root.theme-custom {
+  /* Boutons primary avec gradient */
+  --btn-primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover-bg: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+
+  /* Inputs avec bordure accentuée */
+  --input-focus-border: #667eea;
+  --input-focus-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+
+  /* Radius uniformes arrondis */
+  --radius-1: 8px;
+  --radius-2: 12px;
+  --radius-3: 16px;
+}
+```
+
+<div style={{padding: '16px', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-2)', marginTop: '12px'}}>
+  <button style={{
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    color: '#ffffff',
+    border: 'none',
+    padding: '8px 16px',
+    borderRadius: '8px',
+    fontWeight: 500,
+    cursor: 'pointer'
+  }}>
+    Bouton gradient custom
+  </button>
+  <input
+    type="text"
+    placeholder="Input avec focus custom"
+    style={{
+      marginTop: '12px',
+      display: 'block',
+      width: '100%',
+      padding: '8px 12px',
+      border: '1px solid var(--border-color)',
+      borderRadius: '12px',
+      fontFamily: 'inherit'
+    }}
+  />
+</div>
+
+### Bonnes pratiques
+
+- **Utilisez les tokens `--custom-*`** pour définir vos valeurs de marque au lieu de surcharger directement `--background-main` ou `--role-primary`.
+- **Respectez les contrastes WCAG 2.1 AA** : vérifiez que vos couleurs de texte/fond garantissent un ratio ≥ 4.5:1.
+- **Testez avec Storybook** : utilisez le sélecteur de thème pour prévisualiser votre thème custom sur tous les composants.
+- **Documentez vos tokens custom** : créez un fichier `custom-tokens.md` listant vos valeurs de marque pour faciliter la maintenance.
+
+---
+
 ## Thèmes & Storybook
 
-Activez le sélecteur de thème dans la toolbar Storybook pour visualiser les tokens en **Light** et **Dark**. Les tokens exposés via `:root` sont automatiquement recalculés selon le thème courant.
+Activez le sélecteur de thème dans la toolbar Storybook pour visualiser les tokens en **Light**, **Dark** et **Custom**. Les tokens exposés via `:root` sont automatiquement recalculés selon le thème courant.
