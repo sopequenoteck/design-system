@@ -1,5 +1,4 @@
 import type { Preview } from '@storybook/angular';
-import '../projects/ds-angular/src/styles/storybook.scss';
 import { withThemeFromTokens } from './theme.decorator';
 
 const preview: Preview = {

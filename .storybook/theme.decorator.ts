@@ -29,12 +29,12 @@ const applyGlobalsToDocument = (
   rootElement.classList.add(`theme-${theme}`);
   bodyElement.classList.add(`theme-${theme}`);
 
-  rootElement.dataset.theme = theme;
-  bodyElement.dataset.theme = theme;
-  rootElement.dataset.density = density;
-  bodyElement.dataset.density = density;
-  rootElement.dataset.typography = typography;
-  bodyElement.dataset.typography = typography;
+  rootElement.dataset['theme'] = theme;
+  bodyElement.dataset['theme'] = theme;
+  rootElement.dataset['density'] = density;
+  bodyElement.dataset['density'] = density;
+  rootElement.dataset['typography'] = typography;
+  bodyElement.dataset['typography'] = typography;
 };
 
 const applyGlobalsToIframe = (
@@ -77,5 +77,5 @@ export const withThemeFromTokens: DecoratorFunction<AngularRenderer, ThemeGlobal
     typography
   );
 
-  return storyFn({}, context);
+  return storyFn(context);
 };
