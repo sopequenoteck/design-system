@@ -299,4 +299,261 @@ describe('PrimitiveToggle', () => {
       expect(toggleElement.nativeElement.classList.contains('primitive-toggle--disabled')).toBe(true);
     });
   });
+
+  // === TESTS ADDITIONNELS POUR COUVERTURE COMPLÈTE ===
+
+  describe('Model Two-Way Binding', () => {
+    it('should support two-way binding with model', () => {
+      component.checked.set(true);
+      fixture.detectChanges();
+
+      expect(switchElement.nativeElement.getAttribute('aria-checked')).toBe('true');
+
+      switchElement.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(component.checked()).toBe(false);
+    });
+
+    it('should update checked state programmatically', () => {
+      expect(component.checked()).toBe(false);
+
+      component.checked.set(true);
+      fixture.detectChanges();
+
+      expect(component.checked()).toBe(true);
+      expect(toggleElement.nativeElement.classList.contains('primitive-toggle--checked')).toBe(true);
+    });
+  });
+
+  describe('ToggleId Input', () => {
+    it('should generate random toggleId by default', () => {
+      expect(component.toggleId()).toContain('toggle-');
+      expect(component.toggleId().length).toBeGreaterThan(7);
+    });
+
+    it('should accept custom toggleId', () => {
+      fixture.componentRef.setInput('toggleId', 'custom-toggle-id');
+      fixture.detectChanges();
+
+      expect(component.toggleId()).toBe('custom-toggle-id');
+    });
+  });
+
+  describe('Keyboard Navigation Edge Cases', () => {
+    it('should not toggle on Space when disabled', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      const event = new KeyboardEvent('keydown', { key: ' ' });
+      switchElement.nativeElement.dispatchEvent(event);
+      fixture.detectChanges();
+
+      expect(component.checked()).toBe(false);
+    });
+
+    it('should not toggle on Enter when disabled', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      const event = new KeyboardEvent('keydown', { key: 'Enter' });
+      switchElement.nativeElement.dispatchEvent(event);
+      fixture.detectChanges();
+
+      expect(component.checked()).toBe(false);
+    });
+
+    it('should prevent default behavior on Space key', () => {
+      const event = new KeyboardEvent('keydown', { key: ' ' });
+      spyOn(event, 'preventDefault');
+
+      switchElement.nativeElement.dispatchEvent(event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+    });
+
+    it('should prevent default behavior on Enter key', () => {
+      const event = new KeyboardEvent('keydown', { key: 'Enter' });
+      spyOn(event, 'preventDefault');
+
+      switchElement.nativeElement.dispatchEvent(event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+    });
+  });
+
+  describe('CSS Classes Computed Signal', () => {
+    it('should compute correct classes for all states', () => {
+      fixture.componentRef.setInput('label', 'Test Label');
+      fixture.componentRef.setInput('size', 'lg');
+      fixture.componentRef.setInput('checked', true);
+      fixture.componentRef.setInput('disabled', true);
+      fixture.componentRef.setInput('labelPosition', 'left');
+      fixture.detectChanges();
+
+      const classes = component['cssClasses']();
+
+      expect(classes['primitive-toggle']).toBe(true);
+      expect(classes['primitive-toggle--lg']).toBe(true);
+      expect(classes['primitive-toggle--checked']).toBe(true);
+      expect(classes['primitive-toggle--disabled']).toBe(true);
+      expect(classes['primitive-toggle--label-left']).toBe(true);
+    });
+
+    it('should compute focused class when focused', () => {
+      switchElement.nativeElement.dispatchEvent(new FocusEvent('focus'));
+      fixture.detectChanges();
+
+      const classes = component['cssClasses']();
+      expect(classes['primitive-toggle--focused']).toBe(true);
+    });
+
+    it('should not add label position class when no label', () => {
+      const classes = component['cssClasses']();
+      expect(classes['primitive-toggle--label-right']).toBe(false);
+      expect(classes['primitive-toggle--label-left']).toBe(false);
+    });
+
+    it('should add label position class when label is present', () => {
+      fixture.componentRef.setInput('label', 'Test');
+      fixture.componentRef.setInput('labelPosition', 'right');
+      fixture.detectChanges();
+
+      const classes = component['cssClasses']();
+      expect(classes['primitive-toggle--label-right']).toBe(true);
+    });
+  });
+
+  describe('Focus State Management', () => {
+    it('should set focused signal to true on focus', () => {
+      expect(component['focused']()).toBe(false);
+
+      switchElement.nativeElement.dispatchEvent(new FocusEvent('focus'));
+      fixture.detectChanges();
+
+      expect(component['focused']()).toBe(true);
+    });
+
+    it('should set focused signal to false on blur', () => {
+      switchElement.nativeElement.dispatchEvent(new FocusEvent('focus'));
+      fixture.detectChanges();
+      expect(component['focused']()).toBe(true);
+
+      switchElement.nativeElement.dispatchEvent(new FocusEvent('blur'));
+      fixture.detectChanges();
+
+      expect(component['focused']()).toBe(false);
+    });
+  });
+
+  describe('Event Emission', () => {
+    it('should not emit checkedChange when toggle is disabled', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      const checkedChangeSpy = jasmine.createSpy('checkedChange');
+      component.checkedChange.subscribe(checkedChangeSpy);
+
+      switchElement.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(checkedChangeSpy).not.toHaveBeenCalled();
+    });
+
+    it('should emit correct value when toggling from unchecked to checked', () => {
+      const checkedChangeSpy = jasmine.createSpy('checkedChange');
+      component.checkedChange.subscribe(checkedChangeSpy);
+
+      switchElement.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(checkedChangeSpy).toHaveBeenCalledWith(true);
+      expect(checkedChangeSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should emit correct value when toggling from checked to unchecked', () => {
+      fixture.componentRef.setInput('checked', true);
+      fixture.detectChanges();
+
+      const checkedChangeSpy = jasmine.createSpy('checkedChange');
+      component.checkedChange.subscribe(checkedChangeSpy);
+
+      switchElement.nativeElement.click();
+      fixture.detectChanges();
+
+      expect(checkedChangeSpy).toHaveBeenCalledWith(false);
+      expect(checkedChangeSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('Combination Tests', () => {
+    it('should handle all size variants correctly', () => {
+      const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
+
+      sizes.forEach((size) => {
+        fixture.componentRef.setInput('size', size);
+        fixture.detectChanges();
+
+        expect(toggleElement.nativeElement.classList.contains(`primitive-toggle--${size}`)).toBe(true);
+      });
+    });
+
+    it('should handle label with different sizes', () => {
+      fixture.componentRef.setInput('label', 'Test Label');
+      fixture.componentRef.setInput('size', 'sm');
+      fixture.detectChanges();
+
+      const label = fixture.debugElement.query(By.css('.primitive-toggle__label'));
+      expect(label).toBeTruthy();
+      expect(toggleElement.nativeElement.classList.contains('primitive-toggle--sm')).toBe(true);
+    });
+
+    it('should handle both label positions', () => {
+      fixture.componentRef.setInput('label', 'Test Label');
+      fixture.componentRef.setInput('labelPosition', 'left');
+      fixture.detectChanges();
+
+      expect(toggleElement.nativeElement.classList.contains('primitive-toggle--label-left')).toBe(true);
+
+      fixture.componentRef.setInput('labelPosition', 'right');
+      fixture.detectChanges();
+
+      expect(toggleElement.nativeElement.classList.contains('primitive-toggle--label-right')).toBe(true);
+    });
+
+    it('should handle checked with disabled state', () => {
+      fixture.componentRef.setInput('checked', true);
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      expect(toggleElement.nativeElement.classList.contains('primitive-toggle--checked')).toBe(true);
+      expect(toggleElement.nativeElement.classList.contains('primitive-toggle--disabled')).toBe(true);
+    });
+
+    it('should have track and thumb elements', () => {
+      const track = fixture.debugElement.query(By.css('.primitive-toggle__track'));
+      const thumb = fixture.debugElement.query(By.css('.primitive-toggle__thumb'));
+
+      expect(track).toBeTruthy();
+      expect(thumb).toBeTruthy();
+    });
+  });
+
+  describe('Label Position Behavior', () => {
+    it('should not apply label position class when label is empty', () => {
+      fixture.componentRef.setInput('label', '');
+      fixture.componentRef.setInput('labelPosition', 'left');
+      fixture.detectChanges();
+
+      expect(toggleElement.nativeElement.classList.contains('primitive-toggle--label-left')).toBe(false);
+    });
+
+    it('should apply label position class only when label has value', () => {
+      fixture.componentRef.setInput('label', 'Test');
+      fixture.componentRef.setInput('labelPosition', 'left');
+      fixture.detectChanges();
+
+      expect(toggleElement.nativeElement.classList.contains('primitive-toggle--label-left')).toBe(true);
+    });
+  });
 });

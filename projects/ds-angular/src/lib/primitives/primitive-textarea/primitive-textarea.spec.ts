@@ -163,4 +163,255 @@ describe('PrimitiveTextarea', () => {
 
     expect(textareaEl.nativeElement.style.resize).toBe('none');
   });
+
+  // === TESTS ADDITIONNELS POUR COUVERTURE COMPLÈTE ===
+
+  describe('State Variants', () => {
+    it('should apply success state class', () => {
+      fixture.componentRef.setInput('state', 'success');
+      fixture.detectChanges();
+
+      expect(wrapperEl.nativeElement.classList.contains('success')).toBeTrue();
+    });
+
+    it('should apply warning state class', () => {
+      fixture.componentRef.setInput('state', 'warning');
+      fixture.detectChanges();
+
+      expect(wrapperEl.nativeElement.classList.contains('warning')).toBeTrue();
+    });
+
+    it('should have default state by default', () => {
+      expect(wrapperEl.nativeElement.classList.contains('default')).toBeTrue();
+    });
+  });
+
+  describe('Size Variants', () => {
+    it('should apply sm size class', () => {
+      fixture.componentRef.setInput('size', 'sm');
+      fixture.detectChanges();
+
+      expect(wrapperEl.nativeElement.classList.contains('sm')).toBeTrue();
+    });
+
+    it('should have md size by default', () => {
+      expect(wrapperEl.nativeElement.classList.contains('md')).toBeTrue();
+    });
+  });
+
+  describe('Appearance Variants', () => {
+    it('should apply ghost appearance class', () => {
+      fixture.componentRef.setInput('appearance', 'ghost');
+      fixture.detectChanges();
+
+      expect(wrapperEl.nativeElement.classList.contains('ghost')).toBeTrue();
+    });
+
+    it('should not add appearance class when default', () => {
+      expect(wrapperEl.nativeElement.classList.contains('default')).toBeTrue();
+      expect(wrapperEl.nativeElement.classList.contains('outline')).toBeFalse();
+      expect(wrapperEl.nativeElement.classList.contains('ghost')).toBeFalse();
+    });
+  });
+
+  describe('Resize Modes', () => {
+    it('should apply vertical resize by default', () => {
+      expect(textareaEl.nativeElement.style.resize).toBe('vertical');
+    });
+
+    it('should apply horizontal resize', () => {
+      fixture.componentRef.setInput('resize', 'horizontal');
+      fixture.detectChanges();
+
+      expect(textareaEl.nativeElement.style.resize).toBe('horizontal');
+    });
+
+    it('should apply both resize', () => {
+      fixture.componentRef.setInput('resize', 'both');
+      fixture.detectChanges();
+
+      expect(textareaEl.nativeElement.style.resize).toBe('both');
+    });
+  });
+
+  describe('Model Two-Way Binding', () => {
+    it('should support two-way binding with model', () => {
+      component.value.set('initial value');
+      fixture.detectChanges();
+
+      expect(textareaEl.nativeElement.value).toBe('initial value');
+
+      textareaEl.nativeElement.value = 'changed value';
+      textareaEl.nativeElement.dispatchEvent(new Event('input'));
+
+      expect(component.value()).toBe('changed value');
+    });
+
+    it('should update value model programmatically', () => {
+      component.value.set('programmatic value');
+      fixture.detectChanges();
+
+      expect(textareaEl.nativeElement.value).toBe('programmatic value');
+    });
+  });
+
+  describe('Wrapper Classes Computed', () => {
+    it('should compute correct wrapper classes', () => {
+      fixture.componentRef.setInput('state', 'error');
+      fixture.componentRef.setInput('size', 'lg');
+      fixture.componentRef.setInput('appearance', 'outline');
+      fixture.componentRef.setInput('disabled', true);
+      fixture.componentRef.setInput('iconStart', faFeather);
+      fixture.componentRef.setInput('iconEnd', faPenNib);
+      fixture.detectChanges();
+
+      const classes = component.wrapperClasses;
+      expect(classes).toContain('error');
+      expect(classes).toContain('lg');
+      expect(classes).toContain('outline');
+      expect(classes).toContain('disabled');
+      expect(classes).toContain('has-icon-start');
+      expect(classes).toContain('has-icon-end');
+    });
+
+    it('should add has-icon-start class when iconStart is provided', () => {
+      fixture.componentRef.setInput('iconStart', faFeather);
+      fixture.detectChanges();
+
+      expect(wrapperEl.nativeElement.classList.contains('has-icon-start')).toBeTrue();
+    });
+
+    it('should add has-icon-end class when iconEnd is provided', () => {
+      fixture.componentRef.setInput('iconEnd', faPenNib);
+      fixture.detectChanges();
+
+      expect(wrapperEl.nativeElement.classList.contains('has-icon-end')).toBeTrue();
+    });
+  });
+
+  describe('Attribute Bindings', () => {
+    it('should bind id attribute', () => {
+      fixture.componentRef.setInput('id', 'test-textarea');
+      fixture.detectChanges();
+
+      expect(textareaEl.nativeElement.id).toBe('test-textarea');
+    });
+
+    it('should bind name attribute', () => {
+      fixture.componentRef.setInput('name', 'comment');
+      fixture.detectChanges();
+
+      expect(textareaEl.nativeElement.name).toBe('comment');
+    });
+
+    it('should bind aria-describedby attribute', () => {
+      fixture.componentRef.setInput('ariaDescribedBy', 'help-text');
+      fixture.detectChanges();
+
+      expect(textareaEl.nativeElement.getAttribute('aria-describedby')).toBe('help-text');
+    });
+  });
+
+  describe('Event Handlers', () => {
+    it('should call handleInput method on input event', () => {
+      spyOn(component, 'handleInput');
+
+      textareaEl.nativeElement.dispatchEvent(new Event('input'));
+
+      expect(component.handleInput).toHaveBeenCalled();
+    });
+
+    it('should call handleBlur method on blur event', () => {
+      spyOn(component, 'handleBlur');
+
+      textareaEl.nativeElement.dispatchEvent(new Event('blur'));
+
+      expect(component.handleBlur).toHaveBeenCalled();
+    });
+
+    it('should call handleFocus method on focus event', () => {
+      spyOn(component, 'handleFocus');
+
+      textareaEl.nativeElement.dispatchEvent(new Event('focus'));
+
+      expect(component.handleFocus).toHaveBeenCalled();
+    });
+  });
+
+  describe('Combination Tests', () => {
+    it('should handle all props together', () => {
+      fixture.componentRef.setInput('id', 'comment-textarea');
+      fixture.componentRef.setInput('name', 'comment');
+      fixture.componentRef.setInput('placeholder', 'Enter comment');
+      fixture.componentRef.setInput('state', 'warning');
+      fixture.componentRef.setInput('size', 'lg');
+      fixture.componentRef.setInput('appearance', 'outline');
+      fixture.componentRef.setInput('disabled', false);
+      fixture.componentRef.setInput('readonly', true);
+      fixture.componentRef.setInput('required', true);
+      fixture.componentRef.setInput('rows', 6);
+      fixture.componentRef.setInput('cols', 50);
+      fixture.componentRef.setInput('maxlength', 300);
+      fixture.componentRef.setInput('resize', 'both');
+      fixture.componentRef.setInput('iconStart', faFeather);
+      fixture.componentRef.setInput('iconEnd', faPenNib);
+      fixture.componentRef.setInput('ariaLabel', 'Comment field');
+      fixture.detectChanges();
+
+      expect(textareaEl.nativeElement.id).toBe('comment-textarea');
+      expect(textareaEl.nativeElement.name).toBe('comment');
+      expect(textareaEl.nativeElement.placeholder).toBe('Enter comment');
+      expect(wrapperEl.nativeElement.classList.contains('warning')).toBeTrue();
+      expect(wrapperEl.nativeElement.classList.contains('lg')).toBeTrue();
+      expect(wrapperEl.nativeElement.classList.contains('outline')).toBeTrue();
+      expect(wrapperEl.nativeElement.classList.contains('readonly')).toBeTrue();
+      expect(textareaEl.nativeElement.readOnly).toBeTrue();
+      expect(textareaEl.nativeElement.required).toBeTrue();
+      expect(textareaEl.nativeElement.getAttribute('rows')).toBe('6');
+      expect(textareaEl.nativeElement.getAttribute('cols')).toBe('50');
+      expect(textareaEl.nativeElement.getAttribute('maxlength')).toBe('300');
+      expect(textareaEl.nativeElement.style.resize).toBe('both');
+      expect(textareaEl.nativeElement.getAttribute('aria-label')).toBe('Comment field');
+
+      const iconStart = fixture.debugElement.query(By.css('.icon-start'));
+      const iconEnd = fixture.debugElement.query(By.css('.icon-end'));
+      expect(iconStart).toBeTruthy();
+      expect(iconEnd).toBeTruthy();
+    });
+
+    it('should handle all size variants', () => {
+      const sizes: Array<'sm' | 'md' | 'lg'> = ['sm', 'md', 'lg'];
+
+      sizes.forEach((size) => {
+        fixture.componentRef.setInput('size', size);
+        fixture.detectChanges();
+
+        expect(wrapperEl.nativeElement.classList.contains(size)).toBeTrue();
+      });
+    });
+
+    it('should handle all state variants', () => {
+      const states: Array<'default' | 'success' | 'warning' | 'error'> = ['default', 'success', 'warning', 'error'];
+
+      states.forEach((state) => {
+        fixture.componentRef.setInput('state', state);
+        fixture.detectChanges();
+
+        expect(wrapperEl.nativeElement.classList.contains(state)).toBeTrue();
+      });
+    });
+
+    it('should handle all appearance variants', () => {
+      const appearances: Array<'default' | 'outline' | 'ghost'> = ['default', 'outline', 'ghost'];
+
+      appearances.forEach((appearance) => {
+        fixture.componentRef.setInput('appearance', appearance);
+        fixture.detectChanges();
+
+        if (appearance !== 'default') {
+          expect(wrapperEl.nativeElement.classList.contains(appearance)).toBeTrue();
+        }
+      });
+    });
+  });
 });
