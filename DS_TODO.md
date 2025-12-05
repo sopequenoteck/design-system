@@ -42,12 +42,12 @@ Aucun.
 
 ### Tâches
 
-- [ ] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Supprimer les variables dépréciées de badge expirées au 2025-06-01 (lignes 188-200) : `--badge-bg-color`, `--badge-text-color`, `--badge-fg` — **Critère** : aucune variable dépréciée présente dans le fichier
-- [ ] `projects/ds-angular/src/styles/tokens/_primitives.scss` — Vérifier l'absence d'usages de tokens dépréciés dans Storybook et composants via recherche globale — **Critère** : aucune occurrence de `--badge-bg-color`, `--badge-text-color`, `--badge-fg` dans les fichiers `.ts`, `.scss`, `.html`
-- [ ] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter un commentaire de section pour `// === POPOVER ===` manquant (ligne 201) pour cohérence avec les autres sections — **Critère** : toutes les sections de composants ont un commentaire `// === NOM ===`
-- [ ] `projects/ds-angular/src/styles/themes/_light.scss` — Harmoniser le nommage des variables `--modal-border-color` et `--modal-border` (actuellement les deux existent) en conservant uniquement `--modal-border-color` — **Critère** : une seule variable de bordure modale existe
-- [ ] `projects/ds-angular/src/styles/themes/_dark.scss` — Harmoniser le nommage des variables `--modal-border-color` et `--input-border-color` / `--input-border` (duplications) en conservant uniquement les versions `-color` — **Critère** : aucune duplication de variable de bordure
-- [ ] `projects/ds-angular/src/lib/Tokens.mdx` — Documenter les règles de nommage des tokens (primitifs, sémantiques, thématiques) avec des exemples concrets et la hiérarchie des couches — **Critère** : section "Règles de nommage" présente avec au moins 3 exemples
+- [x] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Supprimer les variables dépréciées de badge expirées au 2025-06-01 (lignes 188-200) : `--badge-bg-color`, `--badge-text-color`, `--badge-fg` — **Critère** : aucune variable dépréciée présente dans le fichier
+- [x] `projects/ds-angular/src/styles/tokens/_primitives.scss` — Vérifier l'absence d'usages de tokens dépréciés dans Storybook et composants via recherche globale — **Critère** : aucune occurrence de `--badge-bg-color`, `--badge-text-color`, `--badge-fg` dans les fichiers `.ts`, `.scss`, `.html`
+- [x] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter un commentaire de section pour `// === POPOVER ===` manquant (ligne 201) pour cohérence avec les autres sections — **Critère** : toutes les sections de composants ont un commentaire `// === NOM ===`
+- [x] `projects/ds-angular/src/styles/themes/_light.scss` — Harmoniser le nommage des variables `--modal-border-color` et `--modal-border` (actuellement les deux existent) en conservant uniquement `--modal-border-color` — **Critère** : une seule variable de bordure modale existe
+- [x] `projects/ds-angular/src/styles/themes/_dark.scss` — Harmoniser le nommage des variables `--modal-border-color` et `--input-border-color` / `--input-border` (duplications) en conservant uniquement les versions `-color` — **Critère** : aucune duplication de variable de bordure
+- [x] `projects/ds-angular/src/lib/Tokens.mdx` — Documenter les règles de nommage des tokens (primitifs, sémantiques, thématiques) avec des exemples concrets et la hiérarchie des couches — **Critère** : section "Règles de nommage" présente avec au moins 3 exemples
 
 ---
 

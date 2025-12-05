@@ -74,6 +74,31 @@ projects/ds-angular/src/styles/
 
 Les thèmes s'activent via la classe sur `:root` : `document.documentElement.className = 'theme-light'`
 
+### Tokens et dépréciations
+
+**Architecture à 3 couches** :
+1. `_primitives.scss` : Variables SCSS brutes (valeurs absolues)
+2. `_semantic.scss` : Variables SCSS sémantiques (usages composants)
+3. `_tokens.scss` : CSS custom properties `:root` (exposition runtime)
+4. `themes/*.scss` : CSS custom properties `:root.theme-*` (surcharges thématiques)
+
+**Conventions de nommage** :
+- Primitifs : `$gray-700`, `$space-4`, `$radius-2`
+- Sémantiques : `$btn-height-md`, `$input-border-radius`
+- Globaux : `--color-primary`, `--btn-height-md`
+- Thématiques : `--background-main`, `--text-default`
+
+**Politique de dépréciation** :
+- Tokens marqués `@deprecated` avec date d'expiration
+- Fallbacks CSS pour transitions sans casse : `var(--new-token, var(--old-token))`
+
+**Nettoyage ÉTAPE 1** (2025-12-05) :
+- ✅ Tokens badge dépréciés supprimés : `--badge-bg-color`, `--badge-text-color`, `--badge-fg`
+- ✅ Primitive-badge.scss nettoyé : utilise `--badge-bg` et `--badge-text`
+- ✅ Harmonisation _light.scss : `--modal-border` supprimé (ne garde que `--modal-border-color`)
+- ✅ Harmonisation _dark.scss : `--input-border` supprimé (ne garde que `--input-border-color`)
+- ✅ Documentation complète des règles de nommage dans `Tokens.mdx`
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)

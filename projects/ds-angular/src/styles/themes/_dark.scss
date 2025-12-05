@@ -184,8 +184,7 @@
   --input-disabled-text: var(--gray-500);
 
   /* Borders */
-  --input-border: var(--gray-700);
-  --input-border-color: var(--input-border);
+  --input-border-color: var(--gray-700);
   --input-hover-border: color-mix(in oklab, var(--gray-600) 65%, var(--background-main));
   --input-focus-border: var(--focus-color);
   --input-focus-shadow: 0 0 0 3px color-mix(in oklab, var(--focus-color) 35%, transparent);

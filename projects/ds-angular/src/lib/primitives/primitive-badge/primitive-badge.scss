@@ -19,8 +19,8 @@ span {
   border-radius: var(--badge-radius);
   white-space: nowrap;
   border: 1px solid transparent;
-  background-color: var(--badge-bg-color, var(--badge-bg));
-  color: var(--badge-text-color, var(--badge-text));
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
   border-color: var(--badge-border-color, transparent);
   transition: background-color var(--duration-fast) var(--easing-out),
     color var(--duration-fast) var(--easing-out),
@@ -36,51 +36,51 @@ span.outline {
 /* === VARIANTS === */
 
 span.primary {
-  --badge-bg-color: var(--badge-primary-bg);
-  --badge-text-color: var(--badge-primary-text);
+  --badge-bg: var(--badge-primary-bg);
+  --badge-text: var(--badge-primary-text);
   --badge-border-color: var(--badge-primary-bg);
 }
 
 span.secondary {
-  --badge-bg-color: var(--badge-secondary-bg);
-  --badge-text-color: var(--badge-secondary-text);
+  --badge-bg: var(--badge-secondary-bg);
+  --badge-text: var(--badge-secondary-text);
   --badge-border-color: var(--badge-secondary-bg);
 }
 
 span.success {
-  --badge-bg-color: var(--badge-success-bg);
-  --badge-text-color: var(--badge-success-text);
+  --badge-bg: var(--badge-success-bg);
+  --badge-text: var(--badge-success-text);
   --badge-border-color: var(--badge-success-bg);
 }
 
 span.warning {
-  --badge-bg-color: var(--badge-warning-bg);
-  --badge-text-color: var(--badge-warning-text);
+  --badge-bg: var(--badge-warning-bg);
+  --badge-text: var(--badge-warning-text);
   --badge-border-color: var(--badge-warning-bg);
   --badge-outline-text-color: var(--badge-warning-outline-text, var(--badge-warning-bg));
 }
 
 span.error {
-  --badge-bg-color: var(--badge-error-bg);
-  --badge-text-color: var(--badge-error-text);
+  --badge-bg: var(--badge-error-bg);
+  --badge-text: var(--badge-error-text);
   --badge-border-color: var(--badge-error-bg);
 }
 
 span.info {
-  --badge-bg-color: var(--badge-info-bg);
-  --badge-text-color: var(--badge-info-text);
+  --badge-bg: var(--badge-info-bg);
+  --badge-text: var(--badge-info-text);
   --badge-border-color: var(--badge-info-bg);
 }
 
 span.neutral {
-  --badge-bg-color: var(--badge-neutral-bg);
-  --badge-text-color: var(--badge-neutral-text);
+  --badge-bg: var(--badge-neutral-bg);
+  --badge-text: var(--badge-neutral-text);
   --badge-border-color: var(--badge-neutral-bg);
 }
 
 span.accent {
-  --badge-bg-color: var(--badge-accent-bg);
-  --badge-text-color: var(--badge-accent-text);
+  --badge-bg: var(--badge-accent-bg);
+  --badge-text: var(--badge-accent-text);
   --badge-border-color: var(--badge-accent-bg);
 }
 

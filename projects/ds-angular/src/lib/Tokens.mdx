@@ -90,6 +90,117 @@ L'échelle d'espacement repose sur `--space-1` (4px). Combinez-les pour rythmer 
 
 ---
 
+## Règles de nommage
+
+Le design system utilise une architecture de tokens à **trois couches** pour garantir cohérence, maintenabilité et flexibilité thématique.
+
+### Hiérarchie des couches
+
+```
+_primitives.scss (SCSS variables)
+    ↓
+_semantic.scss (SCSS variables)
+    ↓
+_tokens.scss (CSS custom properties sur :root)
+    ↓
+themes/ (CSS custom properties sur :root.theme-*)
+```
+
+### 1. Tokens primitifs (`_primitives.scss`)
+
+**Convention** : Variables SCSS brutes définissant les valeurs source (couleurs hex, tailles px/rem, durées ms).
+
+**Exemples** :
+```scss
+$primary: #7d4bc0;
+$gray-500: #737373;
+$space-2: 8px;
+$font-size-3: 1rem;
+$duration-fast: 150ms;
+```
+
+**Règle** : Pas de référence à d'autres variables. Valeurs absolues uniquement.
+
+### 2. Tokens sémantiques (`_semantic.scss`)
+
+**Convention** : Variables SCSS mappant les primitifs vers des usages composant (tailles, dimensions, rayons).
+
+**Exemples** :
+```scss
+$btn-height-md: 40px;
+$input-border-radius: $radius-2;
+$modal-padding: $space-4;
+$badge-font-size-sm: $font-size-2;
+```
+
+**Règle** : Référencent `_primitives.scss`. Nommage `composant-propriété-variant`.
+
+### 3. Tokens globaux (`_tokens.scss`)
+
+**Convention** : CSS custom properties sur `:root` exposant les tokens SCSS au runtime. Consommés par tous les composants.
+
+**Exemples** :
+```css
+:root {
+  --color-primary: var(--role-primary);
+  --btn-height-md: 40px;
+  --space-2: 8px;
+  --radius-2: 8px;
+}
+```
+
+**Règle** : Interpolation SCSS `#{$variable}` ou référence à d'autres CSS vars `var(--token)`.
+
+### 4. Tokens thématiques (`themes/_light.scss`, `_dark.scss`)
+
+**Convention** : CSS custom properties sur `:root.theme-*` redéfinissant les tokens sémantiques par thème (couleurs, contrastes, backgrounds).
+
+**Exemples** :
+```css
+:root.theme-light {
+  --background-main: var(--gray-50);
+  --text-default: var(--gray-900);
+  --modal-bg: var(--surface-overlay);
+  --btn-primary-bg: var(--color-primary);
+}
+
+:root.theme-dark {
+  --background-main: var(--gray-900);
+  --text-default: var(--gray-50);
+  --modal-bg: var(--background-main);
+  --btn-primary-bg: var(--color-primary);
+}
+```
+
+**Règle** : Nommage sémantique cohérent entre thèmes. Utilise `color-mix()` pour variations dynamiques.
+
+### Conventions de nommage
+
+| Type | Pattern | Exemple |
+|------|---------|---------|
+| Primitif couleur | `$nom-valeur` | `$gray-700`, `$primary` |
+| Primitif dimension | `$propriété-valeur` | `$space-4`, `$radius-2` |
+| Sémantique composant | `$composant-propriété-variant` | `$btn-height-md`, `$input-border-radius` |
+| Token global | `--propriété` ou `--composant-propriété` | `--color-primary`, `--btn-height-md` |
+| Token thématique | `--contexte-propriété` | `--background-main`, `--text-default` |
+
+### Politique de dépréciation
+
+Les tokens obsolètes sont marqués avec `@deprecated`, une date d'expiration, et un fallback CSS :
+
+```scss
+/* @deprecated Utiliser --badge-bg à la place. Sera supprimé le 2025-06-01 */
+--badge-bg-color: var(--badge-bg);
+```
+
+Après expiration, les tokens dépréciés sont supprimés. Les composants utilisent des **fallbacks CSS** pour éviter les régressions :
+
+```css
+background-color: var(--new-token, var(--old-token));
+```
+
+---
+
 ## Thèmes & Storybook
 
 Activez le sélecteur de thème dans la toolbar Storybook pour visualiser les tokens en **Light** et **Dark**. Les tokens exposés via `:root` sont automatiquement recalculés selon le thème courant.

@@ -185,16 +185,6 @@
   --badge-radius: #{$badge-radius};
   --badge-pill-radius: #{$badge-radius-pill};
 
-  /* ==========================================================================
-   * DÉPRÉCIATIONS - Badge Aliases
-   * Date d'expiration : 2025-06-01
-   * ========================================================================== */
-  /* @deprecated Utiliser --badge-bg à la place. Sera supprimé le 2025-06-01 */
-  --badge-bg-color: var(--badge-bg);
-  /* @deprecated Utiliser --badge-text à la place. Sera supprimé le 2025-06-01 */
-  --badge-text-color: var(--badge-text);
-  /* @deprecated Utiliser --badge-text à la place. Sera supprimé le 2025-06-01 */
-  --badge-fg: var(--badge-text);
   /* Variables conservées pour compatibilité */
   --badge-border-color: var(--badge-bg, transparent);
   --badge-outline-text-color: var(--badge-text);
