@@ -157,10 +157,10 @@ Préparer le design system pour l'internationalisation et améliorer le support 
 
 ### Tâches
 
-- [ ] `projects/ds-angular/src/styles/tokens/_primitives.scss` — Ajouter tokens breakpoints : `$breakpoint-xs`, `$breakpoint-sm`, `$breakpoint-md`, `$breakpoint-lg`, `$breakpoint-xl` — **Critère** : 5 tokens avec valeurs standard (320, 576, 768, 992, 1200)
-- [ ] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Exposer breakpoints en CSS custom properties — **Critère** : `--breakpoint-*` disponibles
-- [ ] `projects/ds-angular/src/lib/utils/i18n.service.ts` — Créer service i18n minimal pour labels par défaut (close, loading, error, etc.) — **Critère** : service créé, 10+ labels, méthode `setLocale()`
-- [ ] `projects/ds-angular/src/lib/Patterns.mdx` — Ajouter section "Responsive patterns" avec exemples media queries et container queries — **Critère** : 3 exemples responsives documentés
+- [x] `projects/ds-angular/src/styles/tokens/_primitives.scss` — Ajouter tokens breakpoints : `$breakpoint-xs`, `$breakpoint-sm`, `$breakpoint-md`, `$breakpoint-lg`, `$breakpoint-xl`, `$breakpoint-2xl` — **Critère** : 6 tokens standard (320, 576, 768, 992, 1200, 1400) ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Exposer breakpoints en CSS custom properties — **Critère** : `--breakpoint-*` disponibles ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/utils/i18n.service.ts` — Créer service i18n minimal pour labels par défaut — **Critère** : 40+ labels, 4 locales (fr/en/es/de), 25 tests ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/Patterns.mdx` — Ajouter section "Responsive patterns" avec exemples — **Critère** : 3 exemples (grid responsive, navigation adaptive, container queries) ✅ (2025-12-06)
 
 ---
 

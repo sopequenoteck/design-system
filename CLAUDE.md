@@ -248,6 +248,14 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Exports : DsPagination, DsStepper, DsAccordion + 11 types exportés dans components/index.ts
 - 📊 ÉTAPE 16 : 100% complétée (4/4 tâches) — 22 composants DS au total
 
+**Internationalisation et responsive ÉTAPE 17** (2025-12-06) :
+- ✅ Tokens breakpoints ajoutés : $breakpoint-xs/sm/md/lg/xl/2xl (320, 576, 768, 992, 1200, 1400)
+- ✅ CSS custom properties : --breakpoint-* exposés dans _tokens.scss
+- ✅ DsI18nService créé : 40+ labels, 4 locales (fr/en/es/de), setLocale(), format(), initFromBrowser()
+- ✅ Tests i18n : 25/25 (labels complets, detection navigateur, custom labels)
+- ✅ Patterns.mdx section 7 : Responsive patterns (grid, navigation adaptive, container queries)
+- 📊 ÉTAPE 17 : 100% complétée (4/4 tâches)
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)

@@ -331,4 +331,12 @@
   --progress-radius: #{$progress-radius};
   --progress-track-bg: #{$progress-track-bg};
   --progress-fill-bg: #{$progress-fill-bg};
+
+  /* === BREAKPOINTS === */
+  --breakpoint-xs: #{$breakpoint-xs};
+  --breakpoint-sm: #{$breakpoint-sm};
+  --breakpoint-md: #{$breakpoint-md};
+  --breakpoint-lg: #{$breakpoint-lg};
+  --breakpoint-xl: #{$breakpoint-xl};
+  --breakpoint-2xl: #{$breakpoint-2xl};
 }

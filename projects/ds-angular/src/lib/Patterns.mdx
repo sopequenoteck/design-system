@@ -741,6 +741,213 @@ export class SettingsListComponent {
 
 ---
 
+## 7. Responsive patterns
+
+Le design system fournit des tokens breakpoints pour créer des layouts responsives.
+
+### Breakpoints disponibles
+
+| Token | Valeur | Usage |
+|-------|--------|-------|
+| `--breakpoint-xs` | 320px | Mobile small |
+| `--breakpoint-sm` | 576px | Mobile large |
+| `--breakpoint-md` | 768px | Tablet |
+| `--breakpoint-lg` | 992px | Desktop |
+| `--breakpoint-xl` | 1200px | Large desktop |
+| `--breakpoint-2xl` | 1400px | Extra large |
+
+### Exemple 1 : Grid responsive
+
+```typescript
+@Component({
+  selector: 'app-responsive-grid',
+  standalone: true,
+  imports: [DsCard],
+  template: `
+    <div class="grid">
+      @for (item of items; track item.id) {
+        <ds-card variant="outlined">
+          <ng-container card-header>{{ item.title }}</ng-container>
+          <ng-container card-body>{{ item.description }}</ng-container>
+        </ds-card>
+      }
+    </div>
+  `,
+  styles: [`
+    .grid {
+      display: grid;
+      gap: var(--space-4);
+      grid-template-columns: 1fr;
+    }
+
+    /* Tablet : 2 colonnes */
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Desktop : 3 colonnes */
+    @media (min-width: 992px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Large : 4 colonnes */
+    @media (min-width: 1200px) {
+      .grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  `]
+})
+export class ResponsiveGridComponent {
+  items = [
+    { id: 1, title: 'Item 1', description: 'Description 1' },
+    { id: 2, title: 'Item 2', description: 'Description 2' },
+    { id: 3, title: 'Item 3', description: 'Description 3' },
+    { id: 4, title: 'Item 4', description: 'Description 4' },
+  ];
+}
+```
+
+### Exemple 2 : Navigation adaptive
+
+```typescript
+@Component({
+  selector: 'app-adaptive-nav',
+  standalone: true,
+  imports: [DsTabs, DsDropdown],
+  template: `
+    <!-- Navigation desktop : Tabs -->
+    <div class="nav-desktop">
+      <ds-tabs [tabs]="navItems" (tabChange)="onNavigate($event)"></ds-tabs>
+    </div>
+
+    <!-- Navigation mobile : Dropdown -->
+    <div class="nav-mobile">
+      <ds-dropdown
+        [items]="dropdownItems"
+        [selectedValue]="selectedNav"
+        (selectionChange)="onNavigate($event)">
+      </ds-dropdown>
+    </div>
+  `,
+  styles: [`
+    .nav-desktop {
+      display: none;
+    }
+    .nav-mobile {
+      display: block;
+    }
+
+    /* Tablet et plus : afficher tabs */
+    @media (min-width: 768px) {
+      .nav-desktop {
+        display: block;
+      }
+      .nav-mobile {
+        display: none;
+      }
+    }
+  `]
+})
+export class AdaptiveNavComponent {
+  navItems = [
+    { id: 'home', label: 'Accueil' },
+    { id: 'products', label: 'Produits' },
+    { id: 'contact', label: 'Contact' },
+  ];
+
+  dropdownItems = this.navItems.map(item => ({
+    id: item.id,
+    label: item.label,
+    value: item.id,
+  }));
+
+  selectedNav = 'home';
+
+  onNavigate(item: any) {
+    this.selectedNav = item.id || item;
+    console.log('Navigate to:', this.selectedNav);
+  }
+}
+```
+
+### Exemple 3 : Container queries
+
+Les Container Queries permettent des layouts réactifs basés sur la taille du conteneur.
+
+```typescript
+@Component({
+  selector: 'app-container-query',
+  standalone: true,
+  imports: [DsCard, DsButton],
+  template: `
+    <div class="card-container">
+      <ds-card>
+        <ng-container card-body>
+          <div class="card-layout">
+            <div class="card-image">
+              <div class="placeholder"></div>
+            </div>
+            <div class="card-content">
+              <h3>Titre du produit</h3>
+              <p>Description du produit avec détails.</p>
+              <ds-button variant="primary">Acheter</ds-button>
+            </div>
+          </div>
+        </ng-container>
+      </ds-card>
+    </div>
+  `,
+  styles: [`
+    .card-container {
+      container-type: inline-size;
+      container-name: card;
+    }
+
+    .card-layout {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .card-image .placeholder {
+      background: var(--background-secondary);
+      aspect-ratio: 16/9;
+      border-radius: var(--radius-2);
+    }
+
+    /* Layout horizontal si conteneur > 400px */
+    @container card (min-width: 400px) {
+      .card-layout {
+        flex-direction: row;
+      }
+      .card-image {
+        width: 40%;
+        flex-shrink: 0;
+      }
+      .card-content {
+        flex: 1;
+      }
+    }
+  `]
+})
+export class ContainerQueryComponent {}
+```
+
+### Bonnes pratiques responsive
+
+1. **Mobile-first** : Commencer par les styles mobile, ajouter les breakpoints pour les écrans plus grands
+2. **Tokens** : Utiliser les tokens CSS custom properties pour la cohérence
+3. **Container queries** : Préférer aux media queries pour les composants réutilisables
+4. **Flexbox/Grid** : Utiliser CSS Grid pour les layouts 2D, Flexbox pour les layouts 1D
+5. **Tailles relatives** : Utiliser `rem` et `%` plutôt que `px` pour les tailles
+
+---
+
 ## Ressources complémentaires
 
 - [Introduction](./Introduction) — Installation et Quick Start
