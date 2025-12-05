@@ -15,8 +15,8 @@ export const withThemeFromTokens = (storyFn: StoryFn, context: any) => {
 
   root.classList.add(`theme-${theme}`);
   document.body.classList.add(`theme-${theme}`);
-  root.dataset.theme = theme;
-  document.body.dataset.theme = theme;
+  (root.dataset as any)['theme'] = theme;
+  (document.body.dataset as any)['theme'] = theme;
 
   return storyFn({}, context);
 };
