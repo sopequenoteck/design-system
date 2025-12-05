@@ -12,12 +12,19 @@
     "dist"
   ],
   "compilerOptions": {
+    "baseUrl": "./",
     "paths": {
       "ds-angular": [
         "./dist/ds-angular"
       ],
       "ds-angular/*": [
         "./dist/ds-angular/*"
+      ],
+      "@ds/utils": [
+        "./projects/ds-angular/src/lib/utils"
+      ],
+      "@ds/themes": [
+        "./projects/ds-angular/src/styles/themes"
       ]
     },
     "outDir": "./dist/out-tsc",

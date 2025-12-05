@@ -21,6 +21,13 @@ Ce guide décrit comment ajouter des composants, des tokens ou de la documentati
 4. **Lint visuel** : vérifier les couleurs/contrastes avec le thème **Light** et **Dark** depuis la toolbar Storybook.
 5. **Commit + PR** en décrivant les tokens ajoutés ou les composants impactés.
 
+## Configuration Storybook
+
+- La génération de docs automatiques est activée (`docs.autodocs = true`) et l'addon `storybook/experimental-addon-test` est chargé pour exploiter `@storybook/test`.
+- Les aliases TypeScript `@ds/utils` et `@ds/themes` pointent respectivement vers `projects/ds-angular/src/lib/utils` et `projects/ds-angular/src/styles/themes` (définis dans `tsconfig.json` et repris dans `webpackFinal`).
+- Les assets statiques (polices/icônes) sont servis depuis `projects/ds-angular/src/public/fonts` et `projects/ds-angular/src/public/icons` via `staticDirs`.
+- L'arborescence des stories est ordonnée pour afficher `Introduction → Tokens → Components → Primitives`.
+
 ## Ajouter une page MDX
 
 - Créez un fichier dans `projects/ds-angular/src/lib/*.mdx` avec un titre Storybook via `<Meta title="Ma page" />`.
