@@ -109,3 +109,75 @@ export const WithDisabledItem: Story = {
     template: `<ds-breadcrumb [items]="items"></ds-breadcrumb>`,
   }),
 };
+
+export const AllItemsClickable: Story = {
+  render: () => ({
+    props: {
+      items: [
+        { label: 'Accueil', href: '/' },
+        { label: 'Produits', href: '/products' },
+        { label: 'Électronique', href: '/products/electronics' },
+        { label: 'Ordinateurs', href: '/products/electronics/computers' },
+      ] as BreadcrumbItem[],
+    },
+    template: `
+      <div>
+        <p style="margin: 0 0 8px; font-size: 14px; color: #666;">
+          Tous les items sont cliquables (avec href)
+        </p>
+        <ds-breadcrumb [items]="items"></ds-breadcrumb>
+      </div>
+    `,
+  }),
+};
+
+export const WithNavigationAction: Story = {
+  render: () => {
+    let lastClicked = '';
+    return {
+      props: {
+        items: basicItems,
+        onItemClicked: (item: BreadcrumbItem) => {
+          lastClicked = item.label;
+          console.log('Item clicked:', item);
+        },
+        getLastClicked: () => lastClicked,
+      },
+      template: `
+        <div>
+          <p style="margin: 0 0 8px; font-size: 14px; color: #666;">
+            Cliquez sur un item pour déclencher l'événement itemClicked
+          </p>
+          <ds-breadcrumb
+            [items]="items"
+            (itemClicked)="onItemClicked($event)">
+          </ds-breadcrumb>
+          <p style="margin: 8px 0 0; font-size: 12px; color: #999;">
+            Dernier item cliqué : <strong>{{ getLastClicked() || 'aucun' }}</strong>
+          </p>
+        </div>
+      `,
+    };
+  },
+};
+
+export const LongLabels: Story = {
+  render: () => ({
+    props: {
+      items: [
+        { label: 'Accueil de l\'application principale', href: '/' },
+        { label: 'Gestion des produits et services', href: '/products' },
+        { label: 'Catégorie électronique et informatique', href: '/products/electronics' },
+        { label: 'Article avec un nom très long qui pourrait causer des problèmes d\'affichage' },
+      ] as BreadcrumbItem[],
+    },
+    template: `
+      <div style="max-width: 600px;">
+        <p style="margin: 0 0 8px; font-size: 14px; color: #666;">
+          Test avec des labels longs (max-width: 600px)
+        </p>
+        <ds-breadcrumb [items]="items"></ds-breadcrumb>
+      </div>
+    `,
+  }),
+};

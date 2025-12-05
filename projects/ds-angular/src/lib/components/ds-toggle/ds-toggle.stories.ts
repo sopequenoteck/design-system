@@ -119,3 +119,97 @@ export const SettingsPanel: Story = {
     `,
   }),
 };
+
+export const CheckedUnchecked: Story = {
+  render: () => ({
+    props: {
+      isChecked: true,
+      toggle: function() {
+        this["isChecked"] = !this["isChecked"];
+      },
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <p style="margin: 0 0 8px; font-size: 14px; color: #666;">État contrôlé programmatiquement :</p>
+          <ds-toggle
+            label="Mode sombre"
+            [(ngModel)]="isChecked">
+          </ds-toggle>
+          <p style="margin: 8px 0 0; font-size: 12px; color: #999;">
+            Valeur actuelle : <strong>{{ isChecked ? 'Activé' : 'Désactivé' }}</strong>
+          </p>
+          <button
+            (click)="toggle()"
+            style="margin-top: 8px; padding: 6px 12px; border: 1px solid #d1d5db; border-radius: 4px; background: white; cursor: pointer;">
+            Basculer l'état
+          </button>
+        </div>
+        <div style="border-top: 1px solid #e5e7eb; padding-top: 16px;">
+          <p style="margin: 0 0 8px; font-size: 14px; color: #666;">États par défaut :</p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <ds-toggle label="Toggle coché par défaut" [checked]="true"></ds-toggle>
+            <ds-toggle label="Toggle décoché par défaut"></ds-toggle>
+          </div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+export const InReactiveForm: Story = {
+  render: () => ({
+    props: {
+      formValue: {
+        notifications: false,
+        autoSave: true,
+        darkMode: false,
+        betaFeatures: false,
+      },
+      onSubmit: function() {
+        console.log('Form submitted:', this.formValue);
+        alert('Formulaire soumis ! Vérifiez la console.');
+      },
+    },
+    template: `
+      <form (submit)="onSubmit(); $event.preventDefault()" style="max-width: 500px;">
+        <h3 style="margin: 0 0 16px;">Préférences utilisateur</h3>
+        <div style="display: flex; flex-direction: column; gap: 16px; padding: 16px; background: #f9fafb; border-radius: 8px;">
+          <ds-toggle
+            label="Notifications"
+            [(ngModel)]="formValue.notifications"
+            name="notifications"
+            helper="Recevoir des notifications par email">
+          </ds-toggle>
+          <ds-toggle
+            label="Sauvegarde automatique"
+            [(ngModel)]="formValue.autoSave"
+            name="autoSave"
+            helper="Sauvegarder automatiquement vos modifications">
+          </ds-toggle>
+          <ds-toggle
+            label="Mode sombre"
+            [(ngModel)]="formValue.darkMode"
+            name="darkMode"
+            helper="Activer le thème sombre">
+          </ds-toggle>
+          <ds-toggle
+            label="Fonctionnalités bêta"
+            [(ngModel)]="formValue.betaFeatures"
+            name="betaFeatures"
+            helper="Accéder aux nouvelles fonctionnalités (peut être instable)">
+          </ds-toggle>
+        </div>
+        <div style="margin-top: 16px; padding: 12px; background: #f3f4f6; border-radius: 6px; font-size: 12px; font-family: monospace;">
+          <strong>Valeurs du formulaire :</strong>
+          <pre style="margin: 4px 0 0;">{{ formValue | json }}</pre>
+        </div>
+        <button
+          type="submit"
+          style="margin-top: 16px; padding: 8px 16px; border: none; border-radius: 4px; background: #7d4bc0; color: white; cursor: pointer;">
+          Enregistrer les préférences
+        </button>
+      </form>
+    `,
+  }),
+};
