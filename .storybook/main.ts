@@ -13,12 +13,16 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: '@storybook/angular',
-    options: {}
+    options: {
+      enableIvy: true,
+    }
   },
   docs: {
     autodocs: 'tag'
   },
-  staticDirs: ['../projects/ds-angular/src/styles']
+  core: {
+    disableTelemetry: true,
+  },
 };
 
 export default config;

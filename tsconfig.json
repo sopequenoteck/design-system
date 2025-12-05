@@ -2,6 +2,16 @@
 /* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
+  "include": [
+    "src/**/*",
+    ".storybook/**/*",
+    "projects/ds-angular/src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts"
+  ],
   "compilerOptions": {
     "paths": {
       "ds-angular": [

@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": [
+    "../projects/ds-angular/src/**/*.ts",
+    "../projects/ds-angular/src/**/*.stories.ts",
+    "./*.ts"
+  ],
+  "exclude": [
+    "../projects/ds-angular/src/**/*.spec.ts"
+  ]
+}

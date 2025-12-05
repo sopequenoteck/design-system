@@ -1,0 +1,15 @@
+// ============================================================================
+// DS-ANGULAR — Storybook Global Styles
+// ============================================================================
+//
+// Ce fichier importe tous les styles nécessaires pour Storybook.
+// Il est référencé dans angular.json pour les targets storybook.
+//
+// ============================================================================
+
+// Import des tokens (variables CSS sur :root)
+@use './tokens/tokens';
+
+// Import des thèmes (variables sur :root.theme-light et :root.theme-dark)
+@use './themes/light';
+@use './themes/dark';

@@ -35,9 +35,11 @@ const preview: Preview = {
   },
   decorators: [
     (story, context) => {
-      const theme = context.globals.theme || 'light';
-      document.documentElement.setAttribute('data-theme', theme);
-      document.body.className = `theme-${theme}`;
+      const theme = context.globals['theme'] || 'light';
+
+      // Appliquer la classe theme-X sur :root (documentElement)
+      // Les thèmes utilisent le sélecteur :root.theme-light / :root.theme-dark
+      document.documentElement.className = `theme-${theme}`;
       return story();
     }
   ]
