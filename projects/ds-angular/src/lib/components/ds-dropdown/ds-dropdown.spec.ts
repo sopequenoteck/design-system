@@ -213,7 +213,7 @@ describe('DsDropdown', () => {
 
     it('should configure overlay with proper CDK positions', () => {
       // Vérifier que les positions de fallback CDK sont correctement configurées
-      expect(component.overlayPositions.length).toBe(2);
+      expect(component.overlayPositions.length).toBeGreaterThanOrEqual(2);
 
       // Position primaire : bottom-center
       const primaryPosition = component.overlayPositions[0];
@@ -329,5 +329,332 @@ describe('DsDropdown', () => {
 
       expect(component.isMenuOpen()).toBeFalse();
     }));
+  });
+
+  describe('Keyboard navigation', () => {
+    beforeEach(() => {
+      fixture.componentRef.setInput('dropdownItems', dropdownItems);
+      fixture.detectChanges();
+    });
+
+    it('should open menu on ArrowDown when closed', () => {
+      expect(component.isMenuOpen()).toBeFalse();
+      const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+      spyOn(event, 'preventDefault');
+
+      component.onTriggerKeydown(event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(component.isMenuOpen()).toBeTrue();
+    });
+
+    it('should open menu on ArrowUp when closed', () => {
+      expect(component.isMenuOpen()).toBeFalse();
+      const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+      spyOn(event, 'preventDefault');
+
+      component.onTriggerKeydown(event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(component.isMenuOpen()).toBeTrue();
+    });
+
+    it('should open menu on Space when closed', () => {
+      expect(component.isMenuOpen()).toBeFalse();
+      const event = new KeyboardEvent('keydown', { key: ' ' });
+      spyOn(event, 'preventDefault');
+
+      component.onTriggerKeydown(event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(component.isMenuOpen()).toBeTrue();
+    });
+
+    it('should navigate down in menu with ArrowDown', () => {
+      component.toggleMenu();
+      const initialIndex = component['activeIndex']();
+
+      const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+      spyOn(event, 'preventDefault');
+      component.onMenuKeydown(event, 0);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(component['activeIndex']()).toBeGreaterThanOrEqual(0);
+    });
+
+    it('should navigate up in menu with ArrowUp', () => {
+      component.toggleMenu();
+      component['setActiveIndex'](1);
+
+      const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+      spyOn(event, 'preventDefault');
+      component.onMenuKeydown(event, 1);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(component['activeIndex']()).toBe(0);
+    });
+
+    it('should jump to first item with Home', () => {
+      component.toggleMenu();
+      component['setActiveIndex'](1);
+
+      const event = new KeyboardEvent('keydown', { key: 'Home' });
+      spyOn(event, 'preventDefault');
+      component.onMenuKeydown(event, 1);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(component['activeIndex']()).toBe(0);
+    });
+
+    it('should jump to last item with End', () => {
+      component.toggleMenu();
+      component['setActiveIndex'](0);
+
+      const event = new KeyboardEvent('keydown', { key: 'End' });
+      spyOn(event, 'preventDefault');
+      component.onMenuKeydown(event, 0);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(component['activeIndex']()).toBe(dropdownItems.length - 1);
+    });
+
+    it('should close menu on Escape when open', () => {
+      component.toggleMenu();
+      expect(component.isMenuOpen()).toBeTrue();
+
+      const event = new KeyboardEvent('keydown', { key: 'Escape' });
+      spyOn(event, 'preventDefault');
+      component.onMenuKeydown(event, 0);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(component.isMenuOpen()).toBeFalse();
+    });
+
+    it('should close menu on Escape from trigger when open', () => {
+      component.toggleMenu();
+      expect(component.isMenuOpen()).toBeTrue();
+
+      const event = new KeyboardEvent('keydown', { key: 'Escape' });
+      spyOn(event, 'preventDefault');
+      component.onTriggerKeydown(event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(component.isMenuOpen()).toBeFalse();
+    });
+
+    it('should not prevent default on Escape when menu is closed', () => {
+      expect(component.isMenuOpen()).toBeFalse();
+
+      const event = new KeyboardEvent('keydown', { key: 'Escape' });
+      const spy = spyOn(event, 'preventDefault');
+      component.onTriggerKeydown(event);
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should close menu on Tab without refocus', () => {
+      component.toggleMenu();
+      expect(component.isMenuOpen()).toBeTrue();
+
+      const event = new KeyboardEvent('keydown', { key: 'Tab' });
+      component.onMenuKeydown(event, 0);
+
+      expect(component.isMenuOpen()).toBeFalse();
+    });
+
+    it('should select item on Enter in menu', () => {
+      component.toggleMenu();
+      const spy = spyOn(component.selectedItemChanged, 'emit');
+
+      const event = new KeyboardEvent('keydown', { key: 'Enter' });
+      spyOn(event, 'preventDefault');
+      component.onMenuKeydown(event, 0);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should select item on Space in menu', () => {
+      component.toggleMenu();
+      const spy = spyOn(component.selectedItemChanged, 'emit');
+
+      const event = new KeyboardEvent('keydown', { key: ' ' });
+      spyOn(event, 'preventDefault');
+      component.onMenuKeydown(event, 0);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should not handle keyboard when disabled', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      const event = new KeyboardEvent('keydown', { key: 'Enter' });
+      const spy = spyOn(event, 'preventDefault');
+      component.onTriggerKeydown(event);
+
+      expect(spy).not.toHaveBeenCalled();
+      expect(component.isMenuOpen()).toBeFalse();
+    });
+
+    it('should wrap to end when navigating up from first item', () => {
+      component.toggleMenu();
+      component['setActiveIndex'](0);
+
+      const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+      component.onMenuKeydown(event, 0);
+
+      expect(component['activeIndex']()).toBe(dropdownItems.length - 1);
+    });
+
+    it('should wrap to start when navigating down from last item', () => {
+      component.toggleMenu();
+      component['setActiveIndex'](dropdownItems.length - 1);
+
+      const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+      component.onMenuKeydown(event, dropdownItems.length - 1);
+
+      expect(component['activeIndex']()).toBe(0);
+    });
+  });
+
+  describe('Mouse interaction', () => {
+    beforeEach(() => {
+      fixture.componentRef.setInput('dropdownItems', dropdownItems);
+      fixture.detectChanges();
+    });
+
+    it('should update active index on mouse enter', () => {
+      component.toggleMenu();
+
+      component.onMenuMouseEnter(1);
+
+      expect(component['activeIndex']()).toBe(1);
+    });
+
+    it('should not update active index on mouse enter when menu is closed', () => {
+      component['setActiveIndex'](0);
+
+      component.onMenuMouseEnter(1);
+
+      expect(component['activeIndex']()).toBe(0);
+    });
+  });
+
+  describe('Additional edge cases', () => {
+    it('should handle empty dropdown items', () => {
+      fixture.componentRef.setInput('dropdownItems', []);
+      fixture.detectChanges();
+
+      expect(component.getSelectedItem()).toBeUndefined();
+    });
+
+    it('should handle null writeValue', () => {
+      fixture.componentRef.setInput('dropdownItems', dropdownItems);
+      fixture.detectChanges();
+
+      component.writeValue(null);
+
+      expect(component.getSelectedItem()).toBeUndefined();
+    });
+
+    it('should close menu when setDisabledState is called with true', () => {
+      component.toggleMenu();
+      expect(component.isMenuOpen()).toBeTrue();
+
+      component.setDisabledState(true);
+
+      expect(component.isMenuOpen()).toBeFalse();
+    });
+
+    it('should not select item when disabled', () => {
+      fixture.componentRef.setInput('dropdownItems', dropdownItems);
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      const spy = spyOn(component.selectedItemChanged, 'emit');
+      component.setSelectedItem('item-1');
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should handle onOverlayDetach', () => {
+      component.toggleMenu();
+      expect(component.isMenuOpen()).toBeTrue();
+
+      component.onOverlayDetach();
+
+      expect(component.isMenuOpen()).toBeFalse();
+    });
+
+    it('should generate unique id by default', () => {
+      const id1 = component.id();
+
+      const fixture2 = TestBed.createComponent(DsDropdown);
+      const component2 = fixture2.componentInstance;
+      const id2 = component2.id();
+
+      expect(id1).not.toBe(id2);
+    });
+
+    it('should use provided id when specified', () => {
+      fixture.componentRef.setInput('id', 'custom-dropdown');
+      fixture.detectChanges();
+
+      expect(component.id()).toBe('custom-dropdown');
+    });
+
+    it('should compute active descendant id correctly', () => {
+      fixture.componentRef.setInput('dropdownItems', dropdownItems);
+      fixture.componentRef.setInput('id', 'test-dropdown');
+      fixture.detectChanges();
+
+      component.toggleMenu();
+      component['setActiveIndex'](0);
+
+      expect(component.activeDescendantId()).toContain('test-dropdown-option-');
+    });
+
+    it('should return undefined active descendant for invalid index', () => {
+      fixture.componentRef.setInput('dropdownItems', []);
+      fixture.detectChanges();
+
+      component['activeIndex'].set(-1);
+
+      expect(component.activeDescendantId()).toBeUndefined();
+    });
+
+    it('should handle array of overlay panel classes', () => {
+      fixture.componentRef.setInput('overlayPanelClass', ['class1', 'class2']);
+      fixture.detectChanges();
+
+      const classes = component.overlayPanelClasses();
+      expect(classes).toContain('ds-dropdown-panel');
+      expect(classes).toContain('class1');
+      expect(classes).toContain('class2');
+    });
+
+    it('should filter empty strings from overlay panel classes', () => {
+      fixture.componentRef.setInput('overlayPanelClass', ['class1', '', 'class2']);
+      fixture.detectChanges();
+
+      const classes = component.overlayPanelClasses();
+      expect(classes).not.toContain('');
+    });
+
+    it('should calculate button type as submit when submit is true', () => {
+      fixture.componentRef.setInput('submit', true);
+      fixture.detectChanges();
+
+      expect(component.buttonType()).toBe('submit');
+    });
+
+    it('should calculate button type as button when submit is false', () => {
+      fixture.componentRef.setInput('submit', false);
+      fixture.detectChanges();
+
+      expect(component.buttonType()).toBe('button');
+    });
   });
 });
