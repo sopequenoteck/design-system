@@ -114,6 +114,13 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Integration.mdx créé : 3 exemples Angular (reactive forms, signals, validation async)
 - ✅ Stories Storybook enrichies : ds-button (14), ds-modal (15), ds-input-field (24)
 
+**Outillage ÉTAPE 5** (2025-12-05) :
+- ✅ Workflow CI (.github/workflows/ci.yml) : tests, build, couverture ≥80%
+- ✅ Workflow Publish (.github/workflows/publish.yml) : publication npm sur tags v*
+- ✅ Scripts validation : test:a11y (WCAG 2.1 AA), validate:tokens (cohérence)
+- ✅ TypeDoc configuré : génération documentation API dans dist/ds-angular/docs/
+- ✅ README.md refondu : 4 badges CI/CD, documentation complète
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)

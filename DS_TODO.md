@@ -184,14 +184,14 @@ Automatiser la vérification de la qualité, des tests et de l'accessibilité po
 
 ### Tâches
 
-- [ ] `.github/workflows/` — Créer `ci.yml` : workflow GitHub Actions exécutant `npm run test:headless` et `npm run build:lib` sur chaque PR — **Critère** : workflow créé, s'exécute sur PR, bloque le merge si échec
-- [ ] `.github/workflows/ci.yml` — Ajouter étape de vérification de couverture de tests : échec si couverture globale < 80% — **Critère** : step ajoutée, seuil configurable, rapport publié en commentaire de PR
-- [ ] `package.json` — Ajouter script `test:a11y` utilisant `@storybook/addon-a11y` pour auditer tous les composants Storybook avec axe-core — **Critère** : script créé, exécutable, retourne erreur si violation WCAG AA détectée
-- [ ] `.github/workflows/ci.yml` — Ajouter étape d'audit accessibilité avec `npm run test:a11y` sur chaque PR — **Critère** : step ajoutée, bloque le merge si violations WCAG AA détectées
-- [ ] `package.json` — Ajouter script `validate:tokens` vérifiant la cohérence des tokens (primitives → semantic → themes) via script Node.js custom — **Critère** : script créé, détecte les tokens manquants, duplications, et références invalides
-- [ ] `.github/workflows/` — Créer `publish.yml` : workflow de publication npm automatique sur tag git, incluant build, tests, validation tokens, génération changelog — **Critère** : workflow créé, s'exécute sur tag `v*`, publie sur npm avec authentification par secret
-- [ ] `projects/ds-angular/` — Configurer `ng-packagr` pour générer la documentation TypeDoc des exports publics lors du build — **Critère** : fichier `typedoc.json` créé, documentation générée dans `dist/ds-angular/docs/`
-- [ ] `README.md` — Ajouter badges de statut CI/CD (build, tests, coverage, npm version) en en-tête du fichier — **Critère** : au moins 4 badges présents et fonctionnels
+- [x] `.github/workflows/` — Créer `ci.yml` : workflow GitHub Actions exécutant `npm run test:headless` et `npm run build:lib` sur chaque PR — **Critère** : workflow créé, s'exécute sur PR, bloque le merge si échec
+- [x] `.github/workflows/ci.yml` — Ajouter étape de vérification de couverture de tests : échec si couverture globale < 80% — **Critère** : step ajoutée, seuil configurable, rapport publié en commentaire de PR
+- [x] `package.json` — Ajouter script `test:a11y` utilisant `@storybook/addon-a11y` pour auditer tous les composants Storybook avec axe-core — **Critère** : script créé, exécutable, retourne erreur si violation WCAG AA détectée
+- [x] `.github/workflows/ci.yml` — Ajouter étape d'audit accessibilité avec `npm run test:a11y` sur chaque PR — **Critère** : step ajoutée, bloque le merge si violations WCAG AA détectées
+- [x] `package.json` — Ajouter script `validate:tokens` vérifiant la cohérence des tokens (primitives → semantic → themes) via script Node.js custom — **Critère** : script créé, détecte les tokens manquants, duplications, et références invalides
+- [x] `.github/workflows/` — Créer `publish.yml` : workflow de publication npm automatique sur tag git, incluant build, tests, validation tokens, génération changelog — **Critère** : workflow créé, s'exécute sur tag `v*`, publie sur npm avec authentification par secret
+- [x] `projects/ds-angular/` — Configurer `ng-packagr` pour générer la documentation TypeDoc des exports publics lors du build — **Critère** : fichier `typedoc.json` créé, documentation générée dans `dist/ds-angular/docs/`
+- [x] `README.md` — Ajouter badges de statut CI/CD (build, tests, coverage, npm version) en en-tête du fichier — **Critère** : au moins 4 badges présents et fonctionnels
 
 ---
 
