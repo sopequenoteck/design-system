@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/angular';
+import { withThemeFromTokens } from './theme.decorator';
 
 const preview: Preview = {
   parameters: {
@@ -11,10 +12,7 @@ const preview: Preview = {
     },
     backgrounds: {
       default: 'light',
-      values: [
-        { name: 'light', value: '#ffffff' },
-        { name: 'dark', value: '#1a1a1a' }
-      ]
+      values: []
     },
     docs: {
       toc: {
@@ -62,16 +60,7 @@ const preview: Preview = {
       }
     }
   },
-  decorators: [
-    (story, context) => {
-      const theme = context.globals['theme'] || 'light';
-
-      // Appliquer la classe theme-X sur :root (documentElement)
-      // Les thèmes utilisent le sélecteur :root.theme-light / :root.theme-dark
-      document.documentElement.className = `theme-${theme}`;
-      return story();
-    }
-  ]
+  decorators: [withThemeFromTokens]
 };
 
 export default preview;
