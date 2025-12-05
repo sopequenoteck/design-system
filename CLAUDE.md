@@ -200,9 +200,10 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Version 1.0.0 : ds-angular/package.json mis à jour pour première release stable
 - ✅ Métadonnées npm complètes : repository, bugs, homepage, 10 keywords, author, license MIT
 - ✅ .npmignore créé : exclusion tests, stories, docs internes (40 lignes)
-- 🔄 Dry-run publication npm (en attente validation)
-- 🔄 Déploiement Storybook (en attente)
-- 📊 ÉTAPE 12 : 37% complétée (3/8 tâches)
+- ✅ Dry-run npm validé : ds-angular@1.0.0, 134.6kB compressé, 49 fichiers
+- 🔄 Publication npm (nécessite `npm login`)
+- 🔄 Déploiement Storybook (GitHub Pages/Netlify/Vercel)
+- 📊 ÉTAPE 12 : 50% complétée (4/8 tâches)
 
 ## Patterns techniques
 
