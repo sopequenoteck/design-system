@@ -16,13 +16,21 @@ export type ButtonAppearance = 'solid' | 'outline';
 })
 export class PrimitiveButton {
   // Props
+  /** Type HTML du bouton (button, submit ou reset). */
   type = input<ButtonType>('button');
+  /** Variante visuelle appliquée au bouton. */
   variant = input<ButtonVariant>('primary');
+  /** Taille du bouton. */
   size = input<ButtonSize>('md');
+  /** Indique si le bouton est désactivé. */
   disabled = input<boolean>(false);
+  /** Icône affichée avant le texte. */
   iconStart = input<IconDefinition | null>(null);
+  /** Icône affichée après le texte. */
   iconEnd = input<IconDefinition | null>(null);
+  /** Apparence du bouton (plein ou outline). */
   appearance = input<ButtonAppearance>('solid');
+  /** Affiche le bouton sur toute la largeur disponible. */
   block = input<boolean>(false);
 
   @HostBinding('class.block')
@@ -31,6 +39,7 @@ export class PrimitiveButton {
   }
 
   // Events
+  /** Émis lorsqu'un clic est effectué sur le bouton actif. */
   clicked = output<void>();
 
   get buttonClasses(): string {

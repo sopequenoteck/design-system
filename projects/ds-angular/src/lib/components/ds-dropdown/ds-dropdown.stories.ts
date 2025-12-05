@@ -2,40 +2,30 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsDropdown } from './ds-dropdown';
 import { DropdownItem } from './model/dropdown-item.model';
 import { faChevronDown, faUser, faCog, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import {
+  buildButtonArgTypes,
+  buildButtonArgs,
+  createVariantRender,
+  createSizeRender,
+} from '../../utils/storybook-controls';
+
+const baseButtonArgs = buildButtonArgs();
 
 const meta: Meta<DsDropdown> = {
   title: 'Components/Dropdown',
   component: DsDropdown,
   tags: ['autodocs'],
-  argTypes: {
-    type: {
-      control: 'select',
-      options: ['primary', 'secondary', 'ghost', 'success', 'warning', 'error', 'info'],
-      description: 'Variante du bouton',
-    },
-    variant: {
-      control: 'select',
-      options: ['solid', 'outline'],
-      description: 'Apparence',
-    },
-    size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg'],
-      description: 'Taille',
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Désactivé',
-    },
-    loading: {
-      control: 'boolean',
-      description: 'En chargement',
-    },
-    block: {
-      control: 'boolean',
-      description: 'Pleine largeur',
-    },
-  },
+  argTypes: (() => {
+    const buttonControls = buildButtonArgTypes();
+    return {
+      type: { ...buttonControls.variant, description: 'Variante du bouton' },
+      variant: { ...buttonControls.appearance, description: 'Apparence' },
+      size: buttonControls.size,
+      disabled: buttonControls.disabled,
+      loading: buttonControls.loading,
+      block: buttonControls.block,
+    };
+  })(),
 };
 
 export default meta;
@@ -50,13 +40,16 @@ const basicItems: DropdownItem[] = [
 export const Default: Story = {
   args: {
     dropdownItems: basicItems,
-    type: 'primary',
-    variant: 'solid',
-    size: 'md',
-    disabled: false,
+    type: baseButtonArgs.variant,
+    variant: baseButtonArgs.appearance,
+    size: baseButtonArgs.size,
+    disabled: baseButtonArgs.disabled,
+    loading: baseButtonArgs.loading,
+    block: baseButtonArgs.block,
+    dropdownEndIcon: faChevronDown,
   },
   render: (args) => ({
-    props: { ...args, faChevronDown },
+    props: args,
     template: `
       <ds-dropdown
         [dropdownItems]="dropdownItems"
@@ -64,7 +57,7 @@ export const Default: Story = {
         [variant]="variant"
         [size]="size"
         [disabled]="disabled"
-        [dropdownEndIcon]="faChevronDown">
+        [dropdownEndIcon]="dropdownEndIcon">
         Sélectionner
       </ds-dropdown>
     `,
@@ -89,36 +82,27 @@ export const WithSelectedItem: Story = {
 };
 
 export const Variants: Story = {
-  render: () => ({
-    props: {
-      items: basicItems,
-      faChevronDown,
-    },
-    template: `
-      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <ds-dropdown [dropdownItems]="items" type="primary" [dropdownEndIcon]="faChevronDown">Primary</ds-dropdown>
-        <ds-dropdown [dropdownItems]="items" type="secondary" [dropdownEndIcon]="faChevronDown">Secondary</ds-dropdown>
-        <ds-dropdown [dropdownItems]="items" type="ghost" [dropdownEndIcon]="faChevronDown">Ghost</ds-dropdown>
-        <ds-dropdown [dropdownItems]="items" variant="outline" [dropdownEndIcon]="faChevronDown">Outline</ds-dropdown>
-      </div>
-    `,
-  }),
+  args: { ...buildButtonArgs(), dropdownItems: basicItems, dropdownEndIcon: faChevronDown },
+  render: createVariantRender('ds-dropdown', {
+    variant: 'type',
+    appearance: 'variant',
+    size: 'size',
+    disabled: 'disabled',
+    loading: 'loading',
+    block: 'block',
+  }, '[dropdownItems]="dropdownItems" [dropdownEndIcon]="dropdownEndIcon"'),
 };
 
 export const Sizes: Story = {
-  render: () => ({
-    props: {
-      items: basicItems,
-      faChevronDown,
-    },
-    template: `
-      <div style="display: flex; gap: 8px; align-items: center;">
-        <ds-dropdown [dropdownItems]="items" size="sm" [dropdownEndIcon]="faChevronDown">Small</ds-dropdown>
-        <ds-dropdown [dropdownItems]="items" size="md" [dropdownEndIcon]="faChevronDown">Medium</ds-dropdown>
-        <ds-dropdown [dropdownItems]="items" size="lg" [dropdownEndIcon]="faChevronDown">Large</ds-dropdown>
-      </div>
-    `,
-  }),
+  args: { ...buildButtonArgs(), dropdownItems: basicItems, dropdownEndIcon: faChevronDown },
+  render: createSizeRender('ds-dropdown', {
+    variant: 'type',
+    appearance: 'variant',
+    size: 'size',
+    disabled: 'disabled',
+    loading: 'loading',
+    block: 'block',
+  }, '[dropdownItems]="dropdownItems" [dropdownEndIcon]="dropdownEndIcon"'),
 };
 
 export const WithIcons: Story = {
