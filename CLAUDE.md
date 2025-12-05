@@ -181,6 +181,16 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Patterns avancés : guards, services, layouts, ThemeService, AuthService
 - 📚 Documentation complète : migration, changelog, exemples exécutables, patterns production
 
+**Tests automatisés avancés ÉTAPE 11** (2025-12-05 - en cours) :
+- ✅ @storybook/test-runner@0.21.0 ajouté : tests automatisés sur toutes les stories
+- ✅ Script test:storybook : exécute test-runner avec Storybook statique
+- ✅ CI workflow enrichi : étapes Storybook test runner avec http-server
+- ✅ @playwright/test@1.49.0 ajouté : framework e2e tests
+- ✅ Scripts test:e2e et test:e2e:ui : tests Playwright en mode headless et UI
+- 🔄 Tests e2e à créer : modal, dropdown, tabs, toast (en attente)
+- 🔄 Tests visuels régression : Chromatic/Percy (en attente)
+- 📊 ÉTAPE 11 : 50% complétée (3/6 tâches)
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)
