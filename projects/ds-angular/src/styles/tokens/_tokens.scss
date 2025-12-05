@@ -323,4 +323,12 @@
   --divider-spacing-sm-horizontal: #{$divider-spacing-sm-horizontal};
   --divider-spacing-md-horizontal: #{$divider-spacing-md-horizontal};
   --divider-spacing-lg-horizontal: #{$divider-spacing-lg-horizontal};
+
+  /* === PROGRESS BAR === */
+  --progress-height-sm: #{$progress-height-sm};
+  --progress-height-md: #{$progress-height-md};
+  --progress-height-lg: #{$progress-height-lg};
+  --progress-radius: #{$progress-radius};
+  --progress-track-bg: #{$progress-track-bg};
+  --progress-fill-bg: #{$progress-fill-bg};
 }

@@ -1,0 +1,113 @@
+.ds-skeleton {
+  background-color: var(--skeleton-bg, var(--background-tertiary));
+  border-radius: var(--skeleton-radius, var(--radius-2));
+  display: block;
+
+  &--animated {
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+  }
+
+  // === VARIANTS ===
+
+  &--text {
+    height: 1rem;
+    margin-bottom: var(--space-2);
+    width: 100%;
+
+    &:last-child {
+      width: 80%;
+      margin-bottom: 0;
+    }
+  }
+
+  &--circle {
+    border-radius: 50%;
+  }
+
+  &--rectangle {
+    width: 100%;
+    height: 100px;
+  }
+
+  // === SIZES (for circle and rectangle) ===
+
+  &--sm.ds-skeleton--circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  &--md.ds-skeleton--circle {
+    width: 60px;
+    height: 60px;
+  }
+
+  &--lg.ds-skeleton--circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  &--sm.ds-skeleton--rectangle {
+    height: 80px;
+  }
+
+  &--md.ds-skeleton--rectangle {
+    height: 120px;
+  }
+
+  &--lg.ds-skeleton--rectangle {
+    height: 180px;
+  }
+}
+
+// === TEXT CONTAINER ===
+
+.ds-skeleton-text-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+// === CARD SKELETON ===
+
+.ds-skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background-color: var(--background-main);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-2);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  &__header-lines {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}
+
+// === ANIMATION ===
+
+@keyframes skeleton-pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}

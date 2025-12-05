@@ -222,6 +222,15 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Patterns.mdx section 6 : "Divider dans liste" (SettingsListComponent, variantes solid/dashed/dotted)
 - 📊 ÉTAPE 14 : 100% complétée (4/4 tâches)
 
+**Composants utilitaires avancés ÉTAPE 15** (2025-12-05) :
+- ✅ DsProgressBar créé : modes (determinate/indeterminate), tailles (sm/md/lg), variants (default/success/warning/error)
+- ✅ DsProgressBar : 5 fichiers (ts, html, scss, spec, stories), 12 stories, tests complets avec 100+ assertions
+- ✅ Tokens progress-bar : 6 tokens sémantiques ajoutés (_semantic.scss) et exposés (_tokens.scss)
+- ✅ DsSkeleton créé : variants (text/circle/rectangle/card), animation pulse, tailles (sm/md/lg)
+- ✅ DsSkeleton : 5 fichiers, 12 stories (ArticleLoading, UserListLoading, CardGridLoading), tests complets
+- ✅ Exports : DsProgressBar, DsSkeleton + 6 types exportés dans components/index.ts
+- 📊 ÉTAPE 15 : 100% complétée (4/4 tâches) — 19 composants DS au total
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)

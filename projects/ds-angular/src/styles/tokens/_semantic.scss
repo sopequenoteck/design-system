@@ -248,3 +248,12 @@ $divider-spacing-lg-vertical: $space-6;
 $divider-spacing-sm-horizontal: $space-2;
 $divider-spacing-md-horizontal: $space-4;
 $divider-spacing-lg-horizontal: $space-6;
+
+// === PROGRESS BAR ===
+
+$progress-height-sm: 4px;
+$progress-height-md: 8px;
+$progress-height-lg: 12px;
+$progress-radius: $radius-3;
+$progress-track-bg: $gray-200;
+$progress-fill-bg: $primary;

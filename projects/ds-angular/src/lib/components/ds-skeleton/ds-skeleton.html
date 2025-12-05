@@ -1,0 +1,47 @@
+@if (variant() === 'text') {
+  <div
+    class="ds-skeleton-text-container"
+    [attr.aria-label]="ariaLabel()"
+    [attr.aria-busy]="true"
+    role="status">
+    @for (line of textLines(); track line) {
+      <div
+        [ngClass]="skeletonClasses()"
+        [ngStyle]="customStyle()">
+      </div>
+    }
+  </div>
+} @else if (variant() === 'card') {
+  <div
+    class="ds-skeleton-card"
+    [attr.aria-label]="ariaLabel()"
+    [attr.aria-busy]="true"
+    role="status">
+    <!-- Header avec avatar et lignes -->
+    <div class="ds-skeleton-card__header">
+      <div class="ds-skeleton ds-skeleton--circle ds-skeleton--sm" [class.ds-skeleton--animated]="!noAnimation()"></div>
+      <div class="ds-skeleton-card__header-lines">
+        <div class="ds-skeleton ds-skeleton--text" [class.ds-skeleton--animated]="!noAnimation()" style="width: 60%;"></div>
+        <div class="ds-skeleton ds-skeleton--text" [class.ds-skeleton--animated]="!noAnimation()" style="width: 40%;"></div>
+      </div>
+    </div>
+
+    <!-- Image principale -->
+    <div class="ds-skeleton ds-skeleton--rectangle" [class.ds-skeleton--animated]="!noAnimation()" style="height: 200px; width: 100%;"></div>
+
+    <!-- Lignes de contenu -->
+    <div class="ds-skeleton-card__content">
+      <div class="ds-skeleton ds-skeleton--text" [class.ds-skeleton--animated]="!noAnimation()"></div>
+      <div class="ds-skeleton ds-skeleton--text" [class.ds-skeleton--animated]="!noAnimation()" style="width: 90%;"></div>
+      <div class="ds-skeleton ds-skeleton--text" [class.ds-skeleton--animated]="!noAnimation()" style="width: 70%;"></div>
+    </div>
+  </div>
+} @else {
+  <div
+    [ngClass]="skeletonClasses()"
+    [ngStyle]="customStyle()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.aria-busy]="true"
+    role="status">
+  </div>
+}

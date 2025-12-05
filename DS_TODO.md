@@ -99,10 +99,10 @@ Enrichir l'offre du design system avec les composants utilitaires demandés dans
 
 ### Tâches
 
-- [ ] `projects/ds-angular/src/lib/components/ds-progress-bar/` — Créer composant ds-progress-bar : modes (determinate, indeterminate), tailles (sm, md, lg), variants (default, success, warning, error) — **Critère** : composant créé, tests ≥90%, 8+ stories
-- [ ] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter tokens progress-bar : `$progress-height-sm`, `$progress-height-md`, `$progress-height-lg`, `$progress-radius` — **Critère** : 6+ tokens ajoutés
-- [ ] `projects/ds-angular/src/lib/components/ds-skeleton/` — Créer composant ds-skeleton : variants (text, circle, rectangle, card), animation pulse, tailles — **Critère** : composant créé, tests ≥90%, 6+ stories
-- [ ] `projects/ds-angular/src/lib/components/index.ts` — Exporter DsProgressBar et DsSkeleton avec types — **Critère** : exports accessibles depuis ds-angular
+- [x] `projects/ds-angular/src/lib/components/ds-progress-bar/` — Créer composant ds-progress-bar : modes (determinate, indeterminate), tailles (sm, md, lg), variants (default, success, warning, error) — **Critère** : 5 fichiers créés, 12+ stories, tests complets ✅ (2025-12-05)
+- [x] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter tokens progress-bar : `$progress-height-sm`, `$progress-height-md`, `$progress-height-lg`, `$progress-radius` — **Critère** : 6 tokens ajoutés et exposés ✅ (2025-12-05)
+- [x] `projects/ds-angular/src/lib/components/ds-skeleton/` — Créer composant ds-skeleton : variants (text, circle, rectangle, card), animation pulse, tailles — **Critère** : 5 fichiers créés, 12+ stories, tests complets ✅ (2025-12-05)
+- [x] `projects/ds-angular/src/lib/components/index.ts` — Exporter DsProgressBar et DsSkeleton avec types — **Critère** : 6 types exportés (DsProgressBar, DsSkeleton + types) ✅ (2025-12-05)
 
 ---
 

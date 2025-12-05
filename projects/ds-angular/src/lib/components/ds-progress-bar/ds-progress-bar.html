@@ -1,0 +1,19 @@
+<div
+  [ngClass]="containerClasses()"
+  role="progressbar"
+  [attr.aria-label]="ariaLabelText()"
+  [attr.aria-valuenow]="mode() === 'determinate' ? normalizedValue() : null"
+  [attr.aria-valuemin]="mode() === 'determinate' ? 0 : null"
+  [attr.aria-valuemax]="mode() === 'determinate' ? 100 : null">
+
+  <div class="ds-progress-bar__track">
+    <div
+      class="ds-progress-bar__fill"
+      [ngStyle]="progressStyle()">
+    </div>
+  </div>
+
+  @if (showLabel() && mode() === 'determinate') {
+    <span class="ds-progress-bar__label">{{ normalizedValue() }}%</span>
+  }
+</div>

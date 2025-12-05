@@ -55,10 +55,23 @@ export {
 } from './ds-popover/ds-popover.directive';
 
 export {
+  DsProgressBar,
+  type ProgressBarVariant,
+  type ProgressBarSize,
+  type ProgressBarMode,
+} from './ds-progress-bar/ds-progress-bar';
+
+export {
   DsRadioGroup,
   type RadioOption,
   type RadioGroupLayout,
 } from './ds-radio-group/ds-radio-group';
+
+export {
+  DsSkeleton,
+  type SkeletonVariant,
+  type SkeletonSize,
+} from './ds-skeleton/ds-skeleton';
 
 export {
   DsTabs,
