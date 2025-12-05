@@ -1,0 +1,32 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src/public-api.ts"],
+  "out": "../../dist/ds-angular/docs",
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.stories.ts",
+    "**/test-setup.ts",
+    "**/*.d.ts"
+  ],
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeInternal": true,
+  "readme": "README.md",
+  "theme": "default",
+  "name": "DS-Angular Documentation",
+  "includeVersion": true,
+  "categorizeByGroup": true,
+  "categoryOrder": [
+    "Components",
+    "Primitives",
+    "Utils",
+    "*"
+  ],
+  "sort": ["source-order"],
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  },
+  "plugin": [],
+  "logLevel": "Info"
+}
