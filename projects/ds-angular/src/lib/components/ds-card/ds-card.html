@@ -1,0 +1,13 @@
+<article [class]="cardClasses.join(' ')" [attr.aria-disabled]="disabled() ? 'true' : null">
+  <header class="ds-card__header" #header>
+    <ng-content select="[header]"></ng-content>
+  </header>
+
+  <div class="ds-card__body">
+    <ng-content></ng-content>
+  </div>
+
+  <footer class="ds-card__footer" #footer>
+    <ng-content select="[footer]"></ng-content>
+  </footer>
+</article>

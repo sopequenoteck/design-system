@@ -1,0 +1,158 @@
+/**
+ * DS Alert — Composant de bannière de feedback
+ *
+ * Utilise les tokens CSS custom properties pour garantir la cohérence thématique.
+ */
+
+.ds-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--alert-gap, var(--space-3));
+  border-radius: var(--alert-radius, var(--radius-2));
+  border-width: 1px;
+  border-style: solid;
+  transition: all var(--duration-fast, 150ms) ease;
+
+  // Types
+  &--success {
+    background-color: var(--alert-success-bg, var(--bg-success));
+    border-color: var(--alert-success-border, var(--success));
+    color: var(--alert-success-text, var(--text-success));
+
+    .ds-alert__icon {
+      color: var(--alert-success-icon, var(--success));
+    }
+  }
+
+  &--warning {
+    background-color: var(--alert-warning-bg, var(--bg-warning));
+    border-color: var(--alert-warning-border, var(--warning));
+    color: var(--alert-warning-text, var(--text-warning));
+
+    .ds-alert__icon {
+      color: var(--alert-warning-icon, var(--warning));
+    }
+  }
+
+  &--error {
+    background-color: var(--alert-error-bg, var(--bg-error));
+    border-color: var(--alert-error-border, var(--error));
+    color: var(--alert-error-text, var(--text-error));
+
+    .ds-alert__icon {
+      color: var(--alert-error-icon, var(--error));
+    }
+  }
+
+  &--info {
+    background-color: var(--alert-info-bg, var(--bg-info));
+    border-color: var(--alert-info-border, var(--info));
+    color: var(--alert-info-text, var(--text-info));
+
+    .ds-alert__icon {
+      color: var(--alert-info-icon, var(--info));
+    }
+  }
+
+  // Tailles
+  &--sm {
+    padding: var(--alert-padding-sm, var(--space-2));
+    font-size: var(--alert-font-size-sm, var(--font-size-2));
+
+    .ds-alert__icon {
+      font-size: var(--alert-icon-size-sm, 16px);
+    }
+
+    .ds-alert__close {
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+    }
+  }
+
+  &--md {
+    padding: var(--alert-padding-md, var(--space-3));
+    font-size: var(--alert-font-size-md, var(--font-size-3));
+
+    .ds-alert__icon {
+      font-size: var(--alert-icon-size-md, 20px);
+    }
+
+    .ds-alert__close {
+      width: 24px;
+      height: 24px;
+      font-size: 14px;
+    }
+  }
+
+  &--lg {
+    padding: var(--alert-padding-lg, var(--space-4));
+    font-size: var(--alert-font-size-lg, var(--font-size-4));
+
+    .ds-alert__icon {
+      font-size: var(--alert-icon-size-lg, 24px);
+    }
+
+    .ds-alert__close {
+      width: 28px;
+      height: 28px;
+      font-size: 16px;
+    }
+  }
+
+  // États
+  &--hidden {
+    display: none;
+  }
+
+  // Sous-composants
+  &__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+
+    // Reset margins pour les éléments enfants
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-1, 4px);
+    cursor: pointer;
+    transition: all var(--duration-fast, 150ms) ease;
+    color: currentColor;
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+      background-color: var(--hover-bg, rgba(0, 0, 0, 0.05));
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+  }
+}

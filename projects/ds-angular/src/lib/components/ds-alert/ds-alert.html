@@ -1,0 +1,26 @@
+<div
+  [class]="alertClasses.join(' ')"
+  role="alert"
+  [attr.aria-hidden]="hidden() ? 'true' : null"
+>
+  @if (showIcon()) {
+    <div class="ds-alert__icon" aria-hidden="true">
+      <fa-icon [icon]="currentIcon"></fa-icon>
+    </div>
+  }
+
+  <div class="ds-alert__content">
+    <ng-content></ng-content>
+  </div>
+
+  @if (closable()) {
+    <button
+      class="ds-alert__close"
+      type="button"
+      aria-label="Fermer l'alerte"
+      (click)="handleClose()"
+    >
+      <fa-icon [icon]="closeIcon"></fa-icon>
+    </button>
+  }
+</div>
