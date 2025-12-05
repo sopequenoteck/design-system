@@ -288,3 +288,426 @@ export const Accessibility: Story = {
     `,
   }),
 };
+
+export const AllStates: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparaison visuelle des quatre états : default, success, warning et error avec leurs messages correspondants.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 20px; max-width: 400px;">
+        <ds-input-field
+          label="État par défaut"
+          placeholder="Saisie normale"
+          state="default"
+          helper="Texte d'aide standard">
+        </ds-input-field>
+        <ds-input-field
+          label="État succès"
+          placeholder="Validation réussie"
+          state="success"
+          helper="Les données sont valides"
+          externalValue="donnees@valides.com">
+        </ds-input-field>
+        <ds-input-field
+          label="État avertissement"
+          placeholder="Attention requise"
+          state="warning"
+          helper="Ce champ peut nécessiter votre attention"
+          externalValue="attention">
+        </ds-input-field>
+        <ds-input-field
+          label="État erreur"
+          placeholder="Erreur de validation"
+          state="error"
+          error="Ce champ contient une erreur"
+          externalValue="erreur">
+        </ds-input-field>
+      </div>
+    `,
+  }),
+};
+
+export const Readonly: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Champ en lecture seule. L\'utilisateur peut voir et sélectionner le contenu mais ne peut pas le modifier.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <ds-input-field
+        label="Champ en lecture seule"
+        placeholder="Non modifiable"
+        [readonly]="true"
+        externalValue="Valeur en lecture seule"
+        helper="Ce champ peut être copié mais pas modifié"
+        style="max-width: 300px; display: block;">
+      </ds-input-field>
+    `,
+  }),
+};
+
+export const WithoutLabel: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Champs sans label visible. Utilisé dans les barres de recherche ou interfaces compactes. Le placeholder agit comme guide.',
+      },
+    },
+  },
+  render: () => ({
+    props: { faSearch },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
+        <ds-input-field
+          placeholder="Rechercher dans les documents..."
+          [iconStart]="faSearch"
+          [clearable]="true">
+        </ds-input-field>
+        <ds-input-field
+          placeholder="Nom d'utilisateur"
+          type="text">
+        </ds-input-field>
+      </div>
+    `,
+  }),
+};
+
+export const EmailType: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input de type email avec validation HTML5 native et icône appropriée.',
+      },
+    },
+  },
+  render: () => ({
+    props: { faEnvelope },
+    template: `
+      <ds-input-field
+        [iconStart]="faEnvelope"
+        label="Adresse email"
+        type="email"
+        placeholder="utilisateur@exemple.com"
+        helper="Format: nom@domaine.com"
+        [required]="true"
+        style="max-width: 350px; display: block;">
+      </ds-input-field>
+    `,
+  }),
+};
+
+export const NumberType: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input de type number pour la saisie de valeurs numériques. Affiche les contrôles +/- sur navigateurs compatibles.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
+        <ds-input-field
+          label="Quantité"
+          type="number"
+          placeholder="0"
+          helper="Entrez un nombre">
+        </ds-input-field>
+        <ds-input-field
+          label="Prix"
+          type="number"
+          placeholder="0.00"
+          helper="Montant en euros">
+        </ds-input-field>
+      </div>
+    `,
+  }),
+};
+
+export const TelType: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input de type tel pour numéros de téléphone. Optimise le clavier sur mobiles.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <ds-input-field
+        label="Numéro de téléphone"
+        type="tel"
+        placeholder="+33 6 12 34 56 78"
+        helper="Format international recommandé"
+        style="max-width: 350px; display: block;">
+      </ds-input-field>
+    `,
+  }),
+};
+
+export const UrlType: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input de type url avec validation HTML5 pour les adresses web.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <ds-input-field
+        label="Site web"
+        type="url"
+        placeholder="https://exemple.com"
+        helper="L'URL doit commencer par http:// ou https://"
+        style="max-width: 350px; display: block;">
+      </ds-input-field>
+    `,
+  }),
+};
+
+export const BothIcons: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Champs avec icônes à gauche et à droite. Utilisé pour des actions contextuelles comme la recherche avec filtres.',
+      },
+    },
+  },
+  render: () => ({
+    props: {
+      faUser,
+      faEnvelope,
+      faSearch,
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 350px;">
+        <ds-input-field
+          [iconStart]="faUser"
+          [iconEnd]="faSearch"
+          label="Rechercher un utilisateur"
+          placeholder="Nom ou email">
+        </ds-input-field>
+        <ds-input-field
+          [iconStart]="faEnvelope"
+          [iconEnd]="faSearch"
+          label="Rechercher par email"
+          placeholder="Filtrer les emails"
+          [clearable]="true">
+        </ds-input-field>
+      </div>
+    `,
+  }),
+};
+
+export const PasswordToggle: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Champ mot de passe avec toggle de visibilité interactif. L\'icône œil permet de basculer entre texte masqué et visible.',
+      },
+    },
+  },
+  render: () => ({
+    props: { faLock },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 350px;">
+        <ds-input-field
+          [iconStart]="faLock"
+          label="Mot de passe actuel"
+          type="password"
+          placeholder="••••••••"
+          [togglePassword]="true">
+        </ds-input-field>
+        <ds-input-field
+          [iconStart]="faLock"
+          label="Nouveau mot de passe"
+          type="password"
+          placeholder="••••••••"
+          [togglePassword]="true"
+          helper="Minimum 8 caractères, 1 majuscule, 1 chiffre">
+        </ds-input-field>
+      </div>
+    `,
+  }),
+};
+
+export const ClearableInput: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input avec bouton de suppression. Le bouton X apparaît lorsque le champ contient du texte et permet d\'effacer rapidement.',
+      },
+    },
+  },
+  render: () => ({
+    props: { faSearch },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 350px;">
+        <ds-input-field
+          [iconStart]="faSearch"
+          label="Recherche"
+          placeholder="Rechercher..."
+          [clearable]="true"
+          externalValue="Texte à effacer"
+          helper="Cliquez sur X pour effacer">
+        </ds-input-field>
+        <ds-input-field
+          label="Filtre rapide"
+          placeholder="Filtrer les résultats"
+          [clearable]="true"
+          externalValue="filtre"
+          state="success">
+        </ds-input-field>
+      </div>
+    `,
+  }),
+};
+
+export const WithCharacterCounter: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Champs avec compteur de caractères. Affiche le nombre de caractères saisis et la limite maximale.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
+        <ds-input-field
+          label="Titre de l'article"
+          placeholder="Maximum 60 caractères"
+          [maxlength]="60"
+          helper="Optimisé pour le référencement">
+        </ds-input-field>
+        <ds-input-field
+          label="Nom d'utilisateur"
+          placeholder="3 à 20 caractères"
+          [maxlength]="20"
+          helper="Lettres, chiffres et tirets uniquement"
+          externalValue="username">
+        </ds-input-field>
+        <ds-input-field
+          label="Code promo"
+          placeholder="Maximum 10 caractères"
+          [maxlength]="10"
+          state="success"
+          externalValue="PROMO2024"
+          helper="Code valide">
+        </ds-input-field>
+      </div>
+    `,
+  }),
+};
+
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Les trois tailles disponibles : small, medium (par défaut) et large. Adaptées à différents contextes d\'interface.',
+      },
+    },
+  },
+  render: () => ({
+    props: { faUser },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 20px; max-width: 350px;">
+        <ds-input-field
+          [iconStart]="faUser"
+          label="Small (sm)"
+          size="sm"
+          placeholder="Taille compacte"
+          helper="Pour interfaces denses">
+        </ds-input-field>
+        <ds-input-field
+          [iconStart]="faUser"
+          label="Medium (md)"
+          size="md"
+          placeholder="Taille standard"
+          helper="Taille par défaut">
+        </ds-input-field>
+        <ds-input-field
+          [iconStart]="faUser"
+          label="Large (lg)"
+          size="lg"
+          placeholder="Taille confortable"
+          helper="Pour formulaires principaux">
+        </ds-input-field>
+      </div>
+    `,
+  }),
+};
+
+export const FormExample: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Exemple de formulaire complet utilisant différents types d\'inputs et états de validation.',
+      },
+    },
+  },
+  render: () => ({
+    props: {
+      faUser,
+      faEnvelope,
+      faLock,
+    },
+    template: `
+      <div style="max-width: 450px; padding: 24px; border: 1px solid #e5e7eb; border-radius: 8px;">
+        <h3 style="margin-top: 0; margin-bottom: 24px;">Créer un compte</h3>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <ds-input-field
+            [iconStart]="faUser"
+            label="Nom complet"
+            placeholder="Jean Dupont"
+            [required]="true"
+            state="success"
+            externalValue="Jean Dupont"
+            helper="Nom valide">
+          </ds-input-field>
+          <ds-input-field
+            [iconStart]="faEnvelope"
+            label="Email"
+            type="email"
+            placeholder="jean.dupont@exemple.com"
+            [required]="true"
+            state="error"
+            error="Cet email est déjà utilisé"
+            externalValue="jean@test.com">
+          </ds-input-field>
+          <ds-input-field
+            [iconStart]="faLock"
+            label="Mot de passe"
+            type="password"
+            placeholder="••••••••"
+            [togglePassword]="true"
+            [required]="true"
+            helper="Minimum 8 caractères, 1 majuscule, 1 chiffre">
+          </ds-input-field>
+          <ds-input-field
+            [iconStart]="faLock"
+            label="Confirmer le mot de passe"
+            type="password"
+            placeholder="••••••••"
+            [togglePassword]="true"
+            [required]="true">
+          </ds-input-field>
+          <div style="margin-top: 8px;">
+            <button style="width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-weight: 500; cursor: pointer;">
+              Créer mon compte
+            </button>
+          </div>
+        </div>
+      </div>
+    `,
+  }),
+};
