@@ -207,6 +207,13 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ README mis à jour : badge Storybook, liens Documentation et Liens utiles
 - 📊 ÉTAPE 12 : 100% complétée (8/8 tâches)
 
+**Corrections post-publication ÉTAPE 13** (2025-12-05) :
+- ✅ Erreur TS2445 corrigée : propriété `icons` rendue publique (readonly) dans DsAlert
+- ✅ Tests ds-alert : 40/40 passent sans erreur TypeScript
+- ✅ Couverture validée : Statements 92.51%, Lines 92.71%, Functions 93.52%, Branches 82.98%
+- 🔄 CI à vérifier après push (badge vert sur master)
+- 📊 ÉTAPE 13 : 75% complétée (3/4 tâches)
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)

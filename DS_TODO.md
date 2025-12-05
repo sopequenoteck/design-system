@@ -42,9 +42,9 @@ Publication v1.0.0 terminée.
 
 ### Tâches
 
-- [ ] `projects/ds-angular/src/lib/components/ds-alert/ds-alert.ts` — Rendre la propriété `icons` publique (readonly) ou créer méthode publique `getIconForType(type: AlertType)` — **Critère** : tests ds-alert.spec.ts compilent sans erreur TS2445
-- [ ] `projects/ds-angular/src/lib/components/ds-alert/ds-alert.spec.ts` — Adapter les tests pour utiliser la méthode publique au lieu d'accéder directement à `icons` — **Critère** : 3 tests lignes 162, 168, 174 passent
-- [ ] `.` — Exécuter `npm run test:coverage` pour valider couverture ≥80% — **Critère** : commande réussit, génère rapport coverage
+- [x] `projects/ds-angular/src/lib/components/ds-alert/ds-alert.ts` — Rendre la propriété `icons` publique (readonly) ou créer méthode publique `getIconForType(type: AlertType)` — **Critère** : tests ds-alert.spec.ts compilent sans erreur TS2445 ✅ (2025-12-05)
+- [x] `projects/ds-angular/src/lib/components/ds-alert/ds-alert.spec.ts` — Adapter les tests pour utiliser la méthode publique au lieu d'accéder directement à `icons` — **Critère** : 40/40 tests passent ✅ (2025-12-05)
+- [x] `.` — Exécuter `npm run test:coverage` pour valider couverture ≥80% — **Critère** : Statements 92.51%, Lines 92.71%, Functions 93.52%, Branches 82.98% ✅ (2025-12-05)
 - [ ] `.github/workflows/ci.yml` — Vérifier que la CI passe en vert après corrections — **Critère** : badge CI vert sur master
 
 ---

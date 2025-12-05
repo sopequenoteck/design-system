@@ -88,8 +88,11 @@ export class DsAlert {
    */
   closed = output<void>();
 
-  // Icônes FontAwesome
-  protected readonly icons: Record<AlertType, IconDefinition> = {
+  /**
+   * Mapping des icônes FontAwesome par type d'alerte.
+   * Exposé en readonly pour les tests et l'introspection.
+   */
+  readonly icons: Record<AlertType, IconDefinition> = {
     success: faCheckCircle,
     warning: faExclamationTriangle,
     error: faTimesCircle,
