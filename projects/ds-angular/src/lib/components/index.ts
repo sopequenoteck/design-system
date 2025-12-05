@@ -3,6 +3,12 @@
  */
 
 // Design System components exports
+export {
+  DsAlert,
+  type AlertType,
+  type AlertSize,
+} from './ds-alert/ds-alert';
+
 export { DsBadge } from './ds-badge/ds-badge';
 
 export {
@@ -12,7 +18,21 @@ export {
 
 export { DsButton } from './ds-button/ds-button';
 
+export {
+  DsCard,
+  type CardVariant,
+  type CardSize,
+} from './ds-card/ds-card';
+
 export { DsCheckbox } from './ds-checkbox/ds-checkbox';
+
+export {
+  DsDivider,
+  type DividerOrientation,
+  type DividerVariant,
+  type DividerSize,
+  type DividerLabelPosition,
+} from './ds-divider/ds-divider';
 
 export { DsDropdown } from './ds-dropdown/ds-dropdown';
 

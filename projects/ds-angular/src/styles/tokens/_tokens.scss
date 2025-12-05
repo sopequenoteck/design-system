@@ -285,4 +285,40 @@
   --popover-header-padding: #{$popover-header-padding};
   --popover-body-padding: #{$popover-body-padding};
   --popover-footer-padding: #{$popover-footer-padding};
+
+  /* === CARD === */
+  --card-padding-sm: #{$card-padding-sm};
+  --card-padding-md: #{$card-padding-md};
+  --card-padding-lg: #{$card-padding-lg};
+  --card-radius: #{$card-radius};
+  --card-shadow: #{$card-shadow};
+  --card-shadow-hover: #{$card-shadow-hover};
+  --card-header-font-size: #{$card-header-font-size};
+  --card-body-font-size: #{$card-body-font-size};
+  --card-footer-font-size: #{$card-footer-font-size};
+
+  /* === ALERT === */
+  --alert-padding-sm: #{$alert-padding-sm};
+  --alert-padding-md: #{$alert-padding-md};
+  --alert-padding-lg: #{$alert-padding-lg};
+  --alert-gap: #{$alert-gap};
+  --alert-radius: #{$alert-radius};
+  --alert-font-size-sm: #{$alert-font-size-sm};
+  --alert-font-size-md: #{$alert-font-size-md};
+  --alert-font-size-lg: #{$alert-font-size-lg};
+  --alert-icon-size-sm: #{$alert-icon-size-sm};
+  --alert-icon-size-md: #{$alert-icon-size-md};
+  --alert-icon-size-lg: #{$alert-icon-size-lg};
+
+  /* === DIVIDER === */
+  --divider-thickness-sm: #{$divider-thickness-sm};
+  --divider-thickness-md: #{$divider-thickness-md};
+  --divider-thickness-lg: #{$divider-thickness-lg};
+  --divider-font-size: #{$divider-font-size};
+  --divider-spacing-sm-vertical: #{$divider-spacing-sm-vertical};
+  --divider-spacing-md-vertical: #{$divider-spacing-md-vertical};
+  --divider-spacing-lg-vertical: #{$divider-spacing-lg-vertical};
+  --divider-spacing-sm-horizontal: #{$divider-spacing-sm-horizontal};
+  --divider-spacing-md-horizontal: #{$divider-spacing-md-horizontal};
+  --divider-spacing-lg-horizontal: #{$divider-spacing-lg-horizontal};
 }

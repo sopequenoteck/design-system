@@ -209,3 +209,42 @@ $popover-border-width: 1px;
 $popover-header-padding: $space-3;
 $popover-body-padding: $space-3;
 $popover-footer-padding: $space-3;
+
+// === CARD ===
+
+$card-padding-sm: $space-3;
+$card-padding-md: $space-4;
+$card-padding-lg: $space-6;
+$card-radius: $radius-2;
+$card-shadow: $shadow-2;
+$card-shadow-hover: $shadow-3;
+$card-header-font-size: $font-size-4;
+$card-body-font-size: $font-size-3;
+$card-footer-font-size: $font-size-2;
+
+// === ALERT ===
+
+$alert-padding-sm: $space-2;
+$alert-padding-md: $space-3;
+$alert-padding-lg: $space-4;
+$alert-gap: $space-3;
+$alert-radius: $radius-2;
+$alert-font-size-sm: $font-size-2;
+$alert-font-size-md: $font-size-3;
+$alert-font-size-lg: $font-size-4;
+$alert-icon-size-sm: 16px;
+$alert-icon-size-md: 20px;
+$alert-icon-size-lg: 24px;
+
+// === DIVIDER ===
+
+$divider-thickness-sm: 1px;
+$divider-thickness-md: 2px;
+$divider-thickness-lg: 3px;
+$divider-font-size: $font-size-2;
+$divider-spacing-sm-vertical: $space-2;
+$divider-spacing-md-vertical: $space-4;
+$divider-spacing-lg-vertical: $space-6;
+$divider-spacing-sm-horizontal: $space-2;
+$divider-spacing-md-horizontal: $space-4;
+$divider-spacing-lg-horizontal: $space-6;
