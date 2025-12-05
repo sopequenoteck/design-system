@@ -1,0 +1,9 @@
+<div
+  [class]="dividerClasses.join(' ')"
+  role="separator"
+  [attr.aria-orientation]="orientation()"
+>
+  @if (orientation() === 'horizontal') {
+    <ng-content #content></ng-content>
+  }
+</div>
