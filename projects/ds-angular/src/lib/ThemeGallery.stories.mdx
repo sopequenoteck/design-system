@@ -1,0 +1,218 @@
+import React, { useEffect, useState } from 'react';
+import { Canvas, Meta, Story, Subtitle, Title } from '@storybook/blocks';
+import { useGlobals } from '@storybook/preview-api';
+
+const SNAPSHOT_TOKENS = [
+  '--background-main',
+  '--background-panel',
+  '--text-default',
+  '--text-muted',
+  '--color-primary',
+  '--color-secondary',
+  '--border-color'
+];
+
+const readThemeSnapshot = (theme) => {
+  const root = document.documentElement;
+  const currentClassName = root.className;
+  root.classList.remove('theme-light', 'theme-dark');
+  root.classList.add(`theme-${theme}`);
+
+  const styles = getComputedStyle(root);
+  const vars = SNAPSHOT_TOKENS.reduce((acc, token) => {
+    acc[token] = styles.getPropertyValue(token).trim();
+    return acc;
+  }, {});
+
+  root.className = currentClassName;
+
+  return { theme, vars };
+};
+
+const useSnapshots = () => {
+  const [globals] = useGlobals();
+  const activeTheme = typeof globals.theme === 'string' ? globals.theme : 'light';
+  const [snapshots, setSnapshots] = useState([]);
+
+  useEffect(() => {
+    setSnapshots(['light', 'dark'].map((name) => readThemeSnapshot(name)));
+  }, [activeTheme]);
+
+  return snapshots;
+};
+
+const ThemeGallery = () => {
+  const snapshots = useSnapshots();
+
+  return (
+    <div className="theme-gallery">
+      {snapshots.map(({ theme, vars }) => (
+        <div key={theme} className="theme-gallery__panel" style={buildPanelVariables(vars)}>
+          <header className="theme-gallery__header">
+            <div>
+              <p className="theme-gallery__eyebrow">Theme</p>
+              <h3 className="theme-gallery__title">{theme}</h3>
+            </div>
+            <div className="theme-gallery__badge" aria-label={`Fond principal ${vars['--background-main']}`}>
+              {vars['--background-main']}
+            </div>
+          </header>
+          <div className="theme-gallery__body">
+            <section className="theme-gallery__card">
+              <p className="theme-gallery__card-title">Surface</p>
+              <p className="theme-gallery__text">Texte par défaut sur la surface principale.</p>
+              <p className="theme-gallery__muted">Texte atténué pour le contexte.</p>
+            </section>
+            <section className="theme-gallery__card theme-gallery__card--accent">
+              <p className="theme-gallery__card-title">Accent</p>
+              <div className="theme-gallery__pills">
+                <span className="theme-gallery__pill theme-gallery__pill--primary">Primary</span>
+                <span className="theme-gallery__pill theme-gallery__pill--secondary">Secondary</span>
+              </div>
+              <button className="theme-gallery__button" type="button">Bouton</button>
+            </section>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const buildPanelVariables = (vars) =>
+  Object.entries(vars).reduce((styles, [token, value]) => {
+    styles[token] = value;
+    return styles;
+  }, {});
+
+<Meta title="Visual Regression/Theme Gallery" />
+
+<Title>Theme Gallery</Title>
+<Subtitle>Visualiser plusieurs thèmes en parallèle pour les tests de régression</Subtitle>
+
+Comparaison côte à côte des thèmes Light et Dark. Chaque panneau clone les variables CSS du thème correspondant, ce qui permet de valider les contrastes et fonds sans devoir changer de thème manuellement.
+
+<Canvas>
+  <Story name="ThemeGallery">
+    <ThemeGallery />
+  </Story>
+</Canvas>
+
+<style>{`
+  .theme-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-4, 1.25rem);
+    margin-top: var(--space-4, 1.25rem);
+  }
+
+  .theme-gallery__panel {
+    background: var(--background-main, #ffffff);
+    color: var(--text-default, #0f172a);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: var(--radius-3, 12px);
+    padding: var(--space-4, 1.25rem);
+    box-shadow: var(--shadow-1, 0 1px 2px rgba(0, 0, 0, 0.05));
+  }
+
+  .theme-gallery__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3, 1rem);
+    margin-bottom: var(--space-3, 1rem);
+  }
+
+  .theme-gallery__eyebrow {
+    font-size: var(--font-size-2, 0.875rem);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+    color: var(--text-muted, #475569);
+  }
+
+  .theme-gallery__title {
+    margin: 0;
+    font-size: var(--font-size-6, 1.5rem);
+  }
+
+  .theme-gallery__badge {
+    padding: 6px 10px;
+    border-radius: var(--radius-2, 8px);
+    background: var(--background-panel, #f8fafc);
+    border: 1px solid var(--border-color, #e2e8f0);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    color: var(--text-muted, #475569);
+    white-space: nowrap;
+  }
+
+  .theme-gallery__body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-3, 1rem);
+  }
+
+  .theme-gallery__card {
+    background: var(--background-panel, #f8fafc);
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: var(--radius-2, 8px);
+    padding: var(--space-3, 1rem);
+  }
+
+  .theme-gallery__card--accent {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary, #7d4bc0) 18%, transparent), var(--background-panel, #f8fafc));
+  }
+
+  .theme-gallery__card-title {
+    margin: 0 0 8px;
+    font-weight: var(--font-weight-semibold, 600);
+  }
+
+  .theme-gallery__text {
+    margin: 0 0 4px;
+  }
+
+  .theme-gallery__muted {
+    margin: 0;
+    color: var(--text-muted, #475569);
+  }
+
+  .theme-gallery__pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .theme-gallery__pill {
+    padding: 6px 10px;
+    border-radius: var(--radius-1-5, 6px);
+    color: var(--text-default, #0f172a);
+    font-weight: var(--font-weight-medium, 500);
+    border: 1px solid transparent;
+  }
+
+  .theme-gallery__pill--primary {
+    background: var(--color-primary, #7d4bc0);
+    color: var(--text-default, #0f172a);
+  }
+
+  .theme-gallery__pill--secondary {
+    background: var(--color-secondary, #fbc224);
+    color: var(--text-default, #0f172a);
+  }
+
+  .theme-gallery__button {
+    border: none;
+    background: var(--color-primary, #7d4bc0);
+    color: var(--text-default, #0f172a);
+    padding: 10px 14px;
+    border-radius: var(--radius-2, 8px);
+    font-weight: var(--font-weight-semibold, 600);
+    cursor: pointer;
+    box-shadow: var(--shadow-1, 0 1px 2px rgba(0, 0, 0, 0.05));
+  }
+
+  .theme-gallery__button:hover {
+    opacity: 0.95;
+  }
+`}</style>
