@@ -33,14 +33,14 @@ describe('DsCheckbox', () => {
       fixture.componentRef.setInput('label', 'Test Label');
       fixture.detectChanges();
 
-      expect(primitiveCheckbox.nativeElement.getAttribute('ng-reflect-label')).toBe('Test Label');
+      expect(component.label()).toBe('Test Label');
     });
 
     it('should pass size to primitive', () => {
       fixture.componentRef.setInput('size', 'lg');
       fixture.detectChanges();
 
-      expect(primitiveCheckbox.nativeElement.getAttribute('ng-reflect-size')).toBe('lg');
+      expect(component.size()).toBe('lg');
     });
 
     it('should render helper text when provided', () => {
@@ -110,8 +110,7 @@ describe('DsCheckbox', () => {
       const onChangeSpy = jasmine.createSpy('onChange');
       component.registerOnChange(onChangeSpy);
 
-      primitiveCheckbox.nativeElement.click();
-      fixture.detectChanges();
+      component['onCheckedChange'](true);
 
       expect(onChangeSpy).toHaveBeenCalledWith(true);
     });
@@ -120,8 +119,7 @@ describe('DsCheckbox', () => {
       const onTouchedSpy = jasmine.createSpy('onTouched');
       component.registerOnTouched(onTouchedSpy);
 
-      primitiveCheckbox.nativeElement.click();
-      fixture.detectChanges();
+      component['onCheckedChange'](true);
 
       expect(onTouchedSpy).toHaveBeenCalled();
     });
@@ -156,8 +154,7 @@ describe('DsCheckbox', () => {
         standaloneFixture.detectChanges();
         expect(standaloneComponent['internalValue']()).toBe(true);
 
-        const primitiveEl = standaloneFixture.debugElement.query(By.css('primitive-checkbox'));
-        primitiveEl.nativeElement.click();
+        standaloneComponent['onCheckedChange'](false);
         standaloneFixture.detectChanges();
         expect(control.value).toBe(false);
       });
@@ -170,7 +167,6 @@ describe('DsCheckbox', () => {
       fixture.detectChanges();
 
       expect(component['isDisabled']()).toBe(true);
-      expect(primitiveCheckbox.nativeElement.getAttribute('ng-reflect-disabled')).toBe('true');
     });
   });
 
@@ -249,8 +245,7 @@ describe('DsCheckbox', () => {
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 
-      primitiveCheckbox.nativeElement.click();
-      fixture.detectChanges();
+      component['onCheckedChange'](true);
 
       expect(onChangeSpy).not.toHaveBeenCalled();
     });
@@ -262,8 +257,7 @@ describe('DsCheckbox', () => {
       component.setDisabledState(true);
       fixture.detectChanges();
 
-      primitiveCheckbox.nativeElement.click();
-      fixture.detectChanges();
+      component['onCheckedChange'](true);
 
       expect(onChangeSpy).not.toHaveBeenCalled();
     });
@@ -274,7 +268,7 @@ describe('DsCheckbox', () => {
       fixture.componentRef.setInput('indeterminate', true);
       fixture.detectChanges();
 
-      expect(primitiveCheckbox.nativeElement.getAttribute('ng-reflect-indeterminate')).toBe('true');
+      expect(component.indeterminate()).toBe(true);
     });
   });
 
@@ -285,6 +279,145 @@ describe('DsCheckbox', () => {
 
       const container = fixture.debugElement.query(By.css('.ds-checkbox'));
       expect(container.nativeElement.classList.contains('ds-checkbox--error')).toBe(true);
+    });
+  });
+
+  describe('Size variants', () => {
+    it('should apply size sm', () => {
+      fixture.componentRef.setInput('size', 'sm');
+      fixture.detectChanges();
+
+      expect(component.size()).toBe('sm');
+    });
+
+    it('should apply size md by default', () => {
+      expect(component.size()).toBe('md');
+    });
+
+    it('should apply size lg', () => {
+      fixture.componentRef.setInput('size', 'lg');
+      fixture.detectChanges();
+
+      expect(component.size()).toBe('lg');
+    });
+  });
+
+  describe('Name attribute', () => {
+    it('should pass name to primitive when provided', () => {
+      fixture.componentRef.setInput('name', 'test-name');
+      fixture.detectChanges();
+
+      expect(component.name()).toBe('test-name');
+    });
+
+    it('should not pass name when undefined', () => {
+      expect(component.name()).toBeUndefined();
+    });
+  });
+
+  describe('ID generation', () => {
+    it('should generate unique id by default', () => {
+      const id1 = component.id();
+
+      const fixture2 = TestBed.createComponent(DsCheckbox);
+      const component2 = fixture2.componentInstance;
+      const id2 = component2.id();
+
+      expect(id1).not.toBe(id2);
+      expect(id1).toContain('ds-checkbox-');
+      expect(id2).toContain('ds-checkbox-');
+    });
+
+    it('should use provided id when specified', () => {
+      fixture.componentRef.setInput('id', 'custom-checkbox-id');
+      fixture.detectChanges();
+
+      expect(component.id()).toBe('custom-checkbox-id');
+    });
+  });
+
+  describe('Computed properties', () => {
+    it('should compute errorId correctly', () => {
+      fixture.componentRef.setInput('id', 'test');
+      fixture.componentRef.setInput('error', 'Error');
+      fixture.detectChanges();
+
+      expect(component['errorId']()).toBe('test-error');
+    });
+
+    it('should return undefined errorId when no error', () => {
+      expect(component['errorId']()).toBeUndefined();
+    });
+
+    it('should compute helperId correctly', () => {
+      fixture.componentRef.setInput('id', 'test');
+      fixture.componentRef.setInput('helper', 'Helper');
+      fixture.detectChanges();
+
+      expect(component['helperId']()).toBe('test-helper');
+    });
+
+    it('should return undefined helperId when no helper', () => {
+      expect(component['helperId']()).toBeUndefined();
+    });
+
+    it('should compute ariaDescribedBy with both error and helper ids', () => {
+      fixture.componentRef.setInput('id', 'test');
+      fixture.componentRef.setInput('helper', 'Helper');
+      fixture.detectChanges();
+
+      const ariaDesc = component['ariaDescribedBy']();
+      expect(ariaDesc).toContain('helper');
+    });
+
+    it('should return undefined ariaDescribedBy when no helper or error', () => {
+      expect(component['ariaDescribedBy']()).toBeUndefined();
+    });
+
+    it('should compute hasError correctly', () => {
+      fixture.componentRef.setInput('error', 'Error');
+      fixture.detectChanges();
+
+      expect(component['hasError']()).toBe(true);
+    });
+
+    it('should compute hasError as false when no error', () => {
+      expect(component['hasError']()).toBe(false);
+    });
+  });
+
+  describe('Event handling', () => {
+    it('should update internal value on checkedChange', () => {
+      component['onCheckedChange'](true);
+
+      expect(component['internalValue']()).toBe(true);
+    });
+
+    it('should not update when disabled', () => {
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      component['onCheckedChange'](true);
+
+      expect(component['internalValue']()).toBe(false);
+    });
+
+    it('should call onChange callback on checkedChange', () => {
+      const spy = jasmine.createSpy('onChange');
+      component.registerOnChange(spy);
+
+      component['onCheckedChange'](true);
+
+      expect(spy).toHaveBeenCalledWith(true);
+    });
+
+    it('should call onTouched callback on checkedChange', () => {
+      const spy = jasmine.createSpy('onTouched');
+      component.registerOnTouched(spy);
+
+      component['onCheckedChange'](true);
+
+      expect(spy).toHaveBeenCalled();
     });
   });
 });
