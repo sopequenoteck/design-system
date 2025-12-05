@@ -201,9 +201,11 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Métadonnées npm complètes : repository, bugs, homepage, 10 keywords, author, license MIT
 - ✅ .npmignore créé : exclusion tests, stories, docs internes (40 lignes)
 - ✅ Dry-run npm validé : ds-angular@1.0.0, 134.6kB compressé, 49 fichiers
-- 🔄 Publication npm (nécessite `npm login`)
-- 🔄 Déploiement Storybook (GitHub Pages/Netlify/Vercel)
-- 📊 ÉTAPE 12 : 50% complétée (4/8 tâches)
+- ✅ Starter kit créé : starter-kit/ avec 10 fichiers, exemples 8 composants DS, Angular 20
+- ⏳ Publication npm (nécessite `npm login`)
+- ⏳ Déploiement Storybook (GitHub Pages/Netlify/Vercel)
+- ⏳ Lien Storybook dans README (dépend déploiement)
+- 📊 ÉTAPE 12 : 62% complétée (5/8 tâches)
 
 ## Patterns techniques
 
