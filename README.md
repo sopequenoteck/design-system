@@ -1,59 +1,161 @@
-# DesignSystem
+# DS-Angular Design System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.19.
+[![CI](https://github.com/USER/design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/USER/design-system/actions/workflows/ci.yml)
+[![npm version](https://badge.fury.io/js/ds-angular.svg)](https://badge.fury.io/js/ds-angular)
+[![codecov](https://codecov.io/gh/USER/design-system/branch/master/graph/badge.svg)](https://codecov.io/gh/USER/design-system)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Development server
+Design system Angular moderne et accessible avec support TypeScript, theming, et composants standalone.
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🚀 Quick Start
 
 ```bash
-ng generate component component-name
+npm install ds-angular
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+```typescript
+// app.component.ts
+import { Component } from '@angular/core';
+import { DsButton } from 'ds-angular';
+
+@Component({
+  standalone: true,
+  imports: [DsButton],
+  template: `<ds-button variant="primary">Hello World</ds-button>`
+})
+export class AppComponent {}
+```
+
+```scss
+// styles.scss
+@use 'ds-angular/styles';
+```
+
+## 📚 Documentation
+
+- **Storybook** : Documentation interactive des composants
+- **API Docs** : Documentation TypeDoc générée automatiquement
+- **Guides** : Contributing, Patterns, Integration
+
+Consultez la [documentation complète](https://storybook-url.com) pour plus de détails.
+
+## ✨ Fonctionnalités
+
+- ✅ **Composants Angular 20** : Standalone components avec signals
+- ✅ **Accessibilité WCAG 2.1 AA** : Navigation clavier, ARIA, contraste
+- ✅ **Theming** : Light, Dark, et thèmes personnalisés
+- ✅ **TypeScript strict** : Types complets et inférés
+- ✅ **Tree-shakable** : Optimisé pour les bundles de production
+- ✅ **Reactive Forms** : Intégration ControlValueAccessor
+- ✅ **Storybook** : 50+ stories documentées
+
+## 🧩 Composants
+
+### Primitives
+- `primitive-button`, `primitive-badge`, `primitive-input`
+- `primitive-checkbox`, `primitive-radio`, `primitive-toggle`
+- `primitive-textarea`
+
+### Components
+- **Forms** : `ds-input-field`, `ds-checkbox`, `ds-radio-group`, `ds-toggle`
+- **Display** : `ds-button`, `ds-badge`, `ds-breadcrumb`, `ds-tabs`
+- **Overlays** : `ds-modal`, `ds-dropdown`, `ds-tooltip`, `ds-popover`, `ds-toast`
+
+## 🛠️ Développement
 
 ```bash
-ng generate --help
+# Installation
+npm install
+
+# Storybook (développement)
+npm run storybook
+
+# Tests
+npm test                    # Tests interactifs
+npm run test:headless       # Tests headless (CI)
+npm run test:coverage       # Avec couverture
+
+# Build
+npm run build:lib           # Build de la bibliothèque
+npm run build:lib:watch     # Build en mode watch
+
+# Validation
+npm run validate:tokens     # Cohérence des tokens
+npm run test:a11y           # Audit accessibilité
 ```
 
-## Building
+## 📦 Scripts disponibles
 
-To build the project run:
+| Script | Description |
+|--------|-------------|
+| `npm run storybook` | Lance Storybook sur http://localhost:6006 |
+| `npm run build:lib` | Build de la bibliothèque ds-angular |
+| `npm run test:headless` | Tests unitaires headless |
+| `npm run test:coverage` | Tests avec rapport de couverture |
+| `npm run validate:tokens` | Validation de la cohérence des tokens |
+| `npm run test:a11y` | Audit d'accessibilité WCAG 2.1 AA |
+
+## 🎨 Theming
+
+```typescript
+// Activer un thème
+document.documentElement.className = 'theme-light'; // ou 'theme-dark'
+```
+
+Les tokens sont exposés via CSS custom properties et peuvent être surchargés :
+
+```css
+:root {
+  --color-primary: #7d4bc0;
+  --color-secondary: #fbc224;
+  --btn-height-md: 40px;
+}
+```
+
+## 🧪 Tests
+
+Le projet maintient une couverture de tests ≥ 80% :
 
 ```bash
-ng build
+npm run test:coverage
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Les tests vérifient :
+- Rendu des composants
+- États et variantes
+- Événements et interactions
+- ControlValueAccessor (formulaires)
+- Accessibilité (ARIA, navigation clavier)
 
-## Running unit tests
+## 🌍 Accessibilité
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Tous les composants sont conformes WCAG 2.1 niveau AA :
 
-```bash
-ng test
-```
+- ✅ Navigation clavier complète (Tab, Arrow keys, Enter, Escape)
+- ✅ Attributs ARIA appropriés
+- ✅ Contraste de couleurs ≥ 4.5:1
+- ✅ Focus visible
+- ✅ Labels et descriptions
 
-## Running end-to-end tests
+Audit automatique via `npm run test:a11y`.
 
-For end-to-end (e2e) testing, run:
+## 📄 Licence
 
-```bash
-ng e2e
-```
+MIT © 2025
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🤝 Contribution
 
-## Additional Resources
+Consultez [CONTRIBUTING.md](./projects/ds-angular/src/lib/Contributing.mdx) pour les guidelines de contribution.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Fork le projet
+2. Créez une branche (`git checkout -b feat/amazing-feature`)
+3. Commit vos changements (`git commit -m 'feat: add amazing feature'`)
+4. Push vers la branche (`git push origin feat/amazing-feature`)
+5. Ouvrez une Pull Request
+
+## 🔗 Liens utiles
+
+- [Storybook](https://storybook-url.com)
+- [Documentation API](https://docs-url.com)
+- [Issues](https://github.com/USER/design-system/issues)
+- [Changelog](https://github.com/USER/design-system/releases)
