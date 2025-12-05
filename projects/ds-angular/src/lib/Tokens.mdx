@@ -1,0 +1,95 @@
+{/* Tokens.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Tokens" />
+
+# Tokens du design system
+
+Les tokens sont la source de vérité pour la couleur, la typographie et l'espacement. Ils sont exposés sous forme de variables CSS et utilisés par les composants comme par vos applications Angular.
+
+## Palette principale
+
+| Token | Valeur | Usage | Aperçu |
+|-------|--------|-------|--------|
+| `--color-primary` | `#7d4bc0` | Actions principales, liens | <span style={{background: 'var(--color-primary)', padding: '4px 12px', color: 'white', borderRadius: '6px'}}>Primary</span> |
+| `--color-secondary` | `#fbc224` | Accentuation, surlignage | <span style={{background: 'var(--color-secondary)', padding: '4px 12px', color: '#1a1c22', borderRadius: '6px'}}>Secondary</span> |
+| `--color-alt` | `#2dd4bf` | Alternative, succès léger | <span style={{background: 'var(--color-alt)', padding: '4px 12px', color: '#0f172a', borderRadius: '6px'}}>Alt</span> |
+| `--success` | `#4caf50` | Statuts positifs | <span style={{background: 'var(--success)', padding: '4px 12px', color: 'white', borderRadius: '6px'}}>Success</span> |
+| `--warning` | `#ff9800` | Alerte/attention | <span style={{background: 'var(--warning)', padding: '4px 12px', color: '#1a1c22', borderRadius: '6px'}}>Warning</span> |
+| `--error` | `#f44336` | Erreur ou action destructive | <span style={{background: 'var(--error)', padding: '4px 12px', color: 'white', borderRadius: '6px'}}>Error</span> |
+| `--info` | `#2196f3` | Informations neutres | <span style={{background: 'var(--info)', padding: '4px 12px', color: 'white', borderRadius: '6px'}}>Info</span> |
+
+### Nuances de gris
+
+| Token | Valeur | Aperçu |
+|-------|--------|--------|
+| `--gray-50` | `#fafafa` | <span style={{background: 'var(--gray-50)', padding: '4px 18px', border: '1px solid #e5e7eb', borderRadius: '4px'}}>UI subtle</span> |
+| `--gray-200` | `#e5e5e5` | <span style={{background: 'var(--gray-200)', padding: '4px 18px', border: '1px solid #d1d5db', borderRadius: '4px'}}>Neutral borders</span> |
+| `--gray-400` | `#a3a3a3` | <span style={{background: 'var(--gray-400)', padding: '4px 18px', color: '#0f172a', borderRadius: '4px'}}>Muted text</span> |
+| `--gray-700` | `#404040` | <span style={{background: 'var(--gray-700)', padding: '4px 18px', color: 'white', borderRadius: '4px'}}>Body text</span> |
+| `--gray-900` | `#171717` | <span style={{background: 'var(--gray-900)', padding: '4px 18px', color: 'white', borderRadius: '4px'}}>Inverse</span> |
+
+---
+
+## Typographie
+
+La police par défaut est `var(--font-family-base)` (Poppins). Les tailles sont exposées en rem pour être responsives.
+
+| Style | Token | Rendu |
+|-------|-------|-------|
+| Affichage | `--font-size-xxl` / `--font-weight-bold` | <span style={{fontFamily: 'var(--font-family-base)', fontSize: 'var(--font-size-xxl)', fontWeight: 'var(--font-weight-bold)', letterSpacing: 'var(--letter-spacing-tight)'}}>Heading XXL</span> |
+| Titre | `--font-size-l` / `--font-weight-semibold` | <span style={{fontFamily: 'var(--font-family-base)', fontSize: 'var(--font-size-l)', fontWeight: 'var(--font-weight-semibold)', lineHeight: 'var(--line-height-tight)'}}>Titre section</span> |
+| Corps | `--font-size-3` / `--font-weight-normal` | <span style={{fontFamily: 'var(--font-family-base)', fontSize: 'var(--font-size-3)', fontWeight: 'var(--font-weight-normal)', lineHeight: 'var(--line-height-normal)'}}>Texte par défaut</span> |
+| Légende | `--font-size-2` / `--font-weight-medium` | <span style={{fontFamily: 'var(--font-family-base)', fontSize: 'var(--font-size-2)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing-wide)'}}>Légende / label</span> |
+
+---
+
+## Espacements
+
+L'échelle d'espacement repose sur `--space-1` (4px). Combinez-les pour rythmer les interfaces et aligner les composants entre eux.
+
+<div style={{display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap'}}>
+  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+    <div style={{width: '32px', height: '8px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
+    <span style={{fontSize: '14px'}}>--space-1 (4px)</span>
+  </div>
+  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+    <div style={{width: '48px', height: '12px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
+    <span style={{fontSize: '14px'}}>--space-2 (8px)</span>
+  </div>
+  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+    <div style={{width: '64px', height: '16px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
+    <span style={{fontSize: '14px'}}>--space-3 (12px)</span>
+  </div>
+  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+    <div style={{width: '88px', height: '20px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
+    <span style={{fontSize: '14px'}}>--space-4 (16px)</span>
+  </div>
+  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+    <div style={{width: '120px', height: '24px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
+    <span style={{fontSize: '14px'}}>--space-6 (24px)</span>
+  </div>
+  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+    <div style={{width: '160px', height: '28px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
+    <span style={{fontSize: '14px'}}>--space-8 (32px)</span>
+  </div>
+</div>
+
+---
+
+## Ombres et rayons
+
+| Token | Valeur | Usage |
+|-------|--------|-------|
+| `--radius-1` / `--radius-2` | `4px` / `8px` | Boutons, champs simples |
+| `--radius-3` | `12px` | Cartes, panneaux |
+| `--radius-round` | `999px` | Badges pills, toggles |
+| `--shadow-1` | `0 1px 2px rgba(0,0,0,.14)` | Hover léger |
+| `--shadow-2` | `0 6px 16px rgba(0,0,0,.18)` | Éléments flottants |
+| `--shadow-3` | `0 15px 40px rgba(0,0,0,.24)` | Dialogues modaux |
+
+---
+
+## Thèmes & Storybook
+
+Activez le sélecteur de thème dans la toolbar Storybook pour visualiser les tokens en **Light** et **Dark**. Les tokens exposés via `:root` sont automatiquement recalculés selon le thème courant.

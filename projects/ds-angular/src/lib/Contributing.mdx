@@ -1,0 +1,42 @@
+{/* Contributing.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Contributing" />
+
+# Contribuer à ds-angular
+
+Ce guide décrit comment ajouter des composants, des tokens ou de la documentation dans Storybook.
+
+## Prérequis
+
+- Node 20+ et npm installés.
+- Dépendances installées : `npm install` à la racine du repo.
+- Storybook accessible via `npm run storybook` (mode preview) ou `npm run build-storybook` (build statique).
+
+## Workflow recommandé
+
+1. **Créer une branche** claire (ex: `feat/tokens-typo`).
+2. **Développer** en ouvrant Storybook : `npm run storybook -- --ci --smoke-test` pour vérifier rapidement que les stories restent stables.
+3. **Couverture minimale** : exécuter `npm test` ou les tests ciblés (`npm run test:headless`).
+4. **Lint visuel** : vérifier les couleurs/contrastes avec le thème **Light** et **Dark** depuis la toolbar Storybook.
+5. **Commit + PR** en décrivant les tokens ajoutés ou les composants impactés.
+
+## Ajouter une page MDX
+
+- Créez un fichier dans `projects/ds-angular/src/lib/*.mdx` avec un titre Storybook via `<Meta title="Ma page" />`.
+- Utilisez le format Markdown standard, et préférez des aperçus visuels (swatches, exemples de texte) pour illustrer les tokens.
+- Pour les liens internes, utilisez des liens relatifs (ex: `[Tokens](./Tokens)`).
+
+## Ajouter un composant ou une story
+
+| Étape | Checklist | Commandes utiles |
+|-------|-----------|------------------|
+| Créer le composant | Respecter le préfixe `ds-`, utiliser `input()`/`output()` et les tokens sémantiques | `npm run build:lib -- --watch` |
+| Écrire la story | Documenter les inputs/outputs, ajouter des `controls` Storybook, vérifier l'accessibilité | `npm run storybook` |
+| Tester | Couvrir les états (disabled, loading, focus) | `npm test` ou `npm run test:headless` |
+
+## Revue de code
+
+- Préférez des PRs courtes et atomiques (1 fonctionnalité = 1 PR).
+- Mettez en avant les tokens touchés et les screenshots Storybook si le rendu change.
+- Vérifiez l'impact sur les primitives (`styles/tokens/_primitives.scss`) avant de modifier des valeurs partagées.
