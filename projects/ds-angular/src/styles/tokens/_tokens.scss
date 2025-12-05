@@ -73,6 +73,7 @@
   --space-2: #{$space-2};
   --space-3: #{$space-3};
   --space-4: #{$space-4};
+  --space-5: #{$space-5};
   --space-6: #{$space-6};
   --space-8: #{$space-8};
   --space-s: var(--space-2);
@@ -151,6 +152,7 @@
   --btn-padding-horizontal-lg: #{$btn-padding-horizontal-lg};
   --btn-radius-sm: #{$btn-radius-sm};
   --btn-radius: #{$btn-radius-md};
+  --btn-radius-md: var(--btn-radius);
   --btn-radius-lg: #{$btn-radius-lg};
 
   --input-height-sm: #{$input-height-sm};

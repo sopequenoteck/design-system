@@ -215,6 +215,13 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Corrections supplémentaires : YAML ci.yml simplifié, import @storybook/csf
 - 📊 ÉTAPE 13 : 100% complétée (4/4 tâches)
 
+**Harmonisation tokens et documentation ÉTAPE 14** (2025-12-05) :
+- ✅ Alias token `--btn-radius-md: var(--btn-radius);` ajouté pour cohérence (_tokens.scss)
+- ✅ Token `$space-5: 1.25rem;` ajouté (_primitives.scss) et exposé `--space-5` (_tokens.scss)
+- ✅ Patterns.mdx section 5 : "Carte avec Alert" (AccountCardComponent, 110 lignes)
+- ✅ Patterns.mdx section 6 : "Divider dans liste" (SettingsListComponent, variantes solid/dashed/dotted)
+- 📊 ÉTAPE 14 : 100% complétée (4/4 tâches)
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)

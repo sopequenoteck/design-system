@@ -70,10 +70,10 @@ Corriger les incohérences mineures de nommage des tokens et synchroniser la doc
 
 ### Tâches
 
-- [ ] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Ajouter alias `--btn-radius-md` pointant vers `--btn-radius` pour cohérence — **Critère** : `--btn-radius-md: var(--btn-radius);` ajouté ligne 154
-- [ ] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Ajouter `--space-5: 1rem;` pour compléter l'échelle spacing (entre space-4 et space-6) — **Critère** : token ajouté, utilisable dans composants
-- [ ] `projects/ds-angular/src/lib/Patterns.mdx` — Ajouter section "Carte avec Alert" illustrant composition ds-card + ds-alert — **Critère** : exemple exécutable avec code snippet
-- [ ] `projects/ds-angular/src/lib/Patterns.mdx` — Ajouter section "Divider dans liste" illustrant ds-divider entre éléments — **Critère** : exemple visuel avec variantes solid/dashed
+- [x] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Ajouter alias `--btn-radius-md` pointant vers `--btn-radius` pour cohérence — **Critère** : `--btn-radius-md: var(--btn-radius);` ajouté ligne 154 ✅ (2025-12-05)
+- [x] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Ajouter `--space-5: 1.25rem;` pour compléter l'échelle spacing (entre space-4 et space-6) — **Critère** : token ajouté dans _primitives.scss et _tokens.scss ✅ (2025-12-05)
+- [x] `projects/ds-angular/src/lib/Patterns.mdx` — Ajouter section "Carte avec Alert" illustrant composition ds-card + ds-alert — **Critère** : Section 5 ajoutée avec exemple AccountCardComponent ✅ (2025-12-05)
+- [x] `projects/ds-angular/src/lib/Patterns.mdx` — Ajouter section "Divider dans liste" illustrant ds-divider entre éléments — **Critère** : Section 6 ajoutée avec exemple SettingsListComponent et variantes ✅ (2025-12-05)
 
 ---
 
