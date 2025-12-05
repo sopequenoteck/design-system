@@ -187,9 +187,14 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ CI workflow enrichi : étapes Storybook test runner avec http-server
 - ✅ @playwright/test@1.49.0 ajouté : framework e2e tests
 - ✅ Scripts test:e2e et test:e2e:ui : tests Playwright en mode headless et UI
-- 🔄 Tests e2e à créer : modal, dropdown, tabs, toast (en attente)
+- ✅ Tests e2e Playwright : 52 tests sur 4 composants critiques (modal, dropdown, tabs, toast)
+  - modal.spec.ts : 12 tests (ouverture/fermeture, focus trap, ESC, tailles, ARIA, types sémantiques)
+  - dropdown.spec.ts : 14 tests (ouverture/fermeture, sélection, navigation clavier, états, ARIA)
+  - tabs.spec.ts : 12 tests (sélection, navigation clavier, indicateur visuel, ARIA)
+  - toast.spec.ts : 14 tests (apparition/disparition, types, stack, positions, animations, ARIA)
 - 🔄 Tests visuels régression : Chromatic/Percy (en attente)
-- 📊 ÉTAPE 11 : 50% complétée (3/6 tâches)
+- 🔄 CI benchmark performance : publication métriques en commentaire PR (en attente)
+- 📊 ÉTAPE 11 : 67% complétée (4/6 tâches)
 
 ## Patterns techniques
 
