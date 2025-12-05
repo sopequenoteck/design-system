@@ -14,6 +14,9 @@ const preview: Preview = {
       default: 'Background / Main (light)',
       values: [
         { name: 'Background / Main (light)', value: 'var(--background-main)' },
+        { name: 'Background / Secondary', value: 'var(--background-secondary)' },
+        { name: 'Background / Panel', value: 'var(--background-panel)' },
+        { name: 'Surface / Raised', value: 'var(--surface-raised)' },
         { name: 'Brand / Primary', value: 'var(--brand-primary)' },
         { name: 'Brand / Secondary', value: 'var(--brand-secondary)' },
         { name: 'Brand / Alt', value: 'var(--brand-alt)' },
