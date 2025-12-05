@@ -106,6 +106,14 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Attributs ARIA conformes : role, aria-selected, aria-expanded, aria-controls
 - ✅ Focus trap et gestion ESC opérationnels sur les overlays
 
+**Documentation ÉTAPE 4** (2025-12-05) :
+- ✅ Contributing.mdx enrichi : 9 sections (structure, conventions, workflow, bonnes pratiques)
+- ✅ Introduction.mdx : section Quick Start avec 3 exemples exécutables
+- ✅ Tokens.mdx : exemples visuels pour tous les groupes de tokens (shadows, radius)
+- ✅ Patterns.mdx créé : 4 patterns de composition illustrés (formulaire, modal, toolbar, toasts)
+- ✅ Integration.mdx créé : 3 exemples Angular (reactive forms, signals, validation async)
+- ✅ Stories Storybook enrichies : ds-button (14), ds-modal (15), ds-input-field (24)
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)
