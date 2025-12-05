@@ -131,4 +131,146 @@ describe('PrimitiveButton', () => {
 
     expect(buttonEl.nativeElement.type).toBe('submit');
   });
+
+  // === TESTS DES VARIANTES ===
+
+  it('should apply ghost variant class', () => {
+    fixture.componentRef.setInput('variant', 'ghost');
+    fixture.detectChanges();
+
+    expect(buttonEl.nativeElement.classList.contains('ghost')).toBe(true);
+  });
+
+  it('should apply success variant class', () => {
+    fixture.componentRef.setInput('variant', 'success');
+    fixture.detectChanges();
+
+    expect(buttonEl.nativeElement.classList.contains('success')).toBe(true);
+  });
+
+  it('should apply warning variant class', () => {
+    fixture.componentRef.setInput('variant', 'warning');
+    fixture.detectChanges();
+
+    expect(buttonEl.nativeElement.classList.contains('warning')).toBe(true);
+  });
+
+  it('should apply error variant class', () => {
+    fixture.componentRef.setInput('variant', 'error');
+    fixture.detectChanges();
+
+    expect(buttonEl.nativeElement.classList.contains('error')).toBe(true);
+  });
+
+  it('should apply info variant class', () => {
+    fixture.componentRef.setInput('variant', 'info');
+    fixture.detectChanges();
+
+    expect(buttonEl.nativeElement.classList.contains('info')).toBe(true);
+  });
+
+  // === TESTS DES TAILLES ===
+
+  it('should apply sm size class', () => {
+    fixture.componentRef.setInput('size', 'sm');
+    fixture.detectChanges();
+
+    expect(buttonEl.nativeElement.classList.contains('sm')).toBe(true);
+  });
+
+  // === TESTS DES APPARENCES ===
+
+  it('should apply solid appearance by default', () => {
+    // appearance='solid' is default, outline class should not be present
+    expect(buttonEl.nativeElement.classList.contains('outline')).toBe(false);
+  });
+
+  it('should combine variant and outline appearance', () => {
+    fixture.componentRef.setInput('variant', 'success');
+    fixture.componentRef.setInput('appearance', 'outline');
+    fixture.detectChanges();
+
+    expect(buttonEl.nativeElement.classList.contains('success')).toBe(true);
+    expect(buttonEl.nativeElement.classList.contains('outline')).toBe(true);
+  });
+
+  // === TESTS DES TYPES ===
+
+  it('should set button type to reset', () => {
+    fixture.componentRef.setInput('type', 'reset');
+    fixture.detectChanges();
+
+    expect(buttonEl.nativeElement.type).toBe('reset');
+  });
+
+  it('should have button type by default', () => {
+    expect(buttonEl.nativeElement.type).toBe('button');
+  });
+
+  // === TESTS DE LA MÉTHODE buttonClasses ===
+
+  it('should generate correct button classes', () => {
+    fixture.componentRef.setInput('variant', 'error');
+    fixture.componentRef.setInput('size', 'lg');
+    fixture.componentRef.setInput('appearance', 'outline');
+    fixture.componentRef.setInput('block', true);
+    fixture.detectChanges();
+
+    const classes = component.buttonClasses;
+    expect(classes).toContain('error');
+    expect(classes).toContain('lg');
+    expect(classes).toContain('outline');
+    expect(classes).toContain('block');
+  });
+
+  it('should generate correct button classes without outline', () => {
+    fixture.componentRef.setInput('variant', 'primary');
+    fixture.componentRef.setInput('size', 'sm');
+    fixture.componentRef.setInput('appearance', 'solid');
+    fixture.detectChanges();
+
+    const classes = component.buttonClasses;
+    expect(classes).toContain('primary');
+    expect(classes).toContain('sm');
+    expect(classes).not.toContain('outline');
+  });
+
+  // === TESTS DE COMBINAISONS ===
+
+  it('should handle all props together', () => {
+    fixture.componentRef.setInput('type', 'submit');
+    fixture.componentRef.setInput('variant', 'warning');
+    fixture.componentRef.setInput('size', 'lg');
+    fixture.componentRef.setInput('appearance', 'outline');
+    fixture.componentRef.setInput('disabled', true);
+    fixture.componentRef.setInput('block', true);
+    fixture.componentRef.setInput('iconStart', faCheck);
+    fixture.componentRef.setInput('iconEnd', faArrowRight);
+    fixture.detectChanges();
+
+    expect(buttonEl.nativeElement.type).toBe('submit');
+    expect(buttonEl.nativeElement.classList.contains('warning')).toBe(true);
+    expect(buttonEl.nativeElement.classList.contains('lg')).toBe(true);
+    expect(buttonEl.nativeElement.classList.contains('outline')).toBe(true);
+    expect(buttonEl.nativeElement.disabled).toBe(true);
+    expect(fixture.nativeElement.classList.contains('block')).toBe(true);
+
+    const iconStart = fixture.debugElement.query(By.css('.icon-start'));
+    const iconEnd = fixture.debugElement.query(By.css('.icon-end'));
+    expect(iconStart).toBeTruthy();
+    expect(iconEnd).toBeTruthy();
+  });
+
+  // === TESTS DU HOST BINDING ===
+
+  it('should have hostBlock getter returning false by default', () => {
+    expect(component.hostBlock).toBe(false);
+  });
+
+  it('should have hostBlock getter returning true when block is set', () => {
+    fixture.componentRef.setInput('block', true);
+    fixture.detectChanges();
+
+    expect(component.hostBlock).toBe(true);
+  });
 });
