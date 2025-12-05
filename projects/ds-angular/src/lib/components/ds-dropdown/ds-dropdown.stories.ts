@@ -18,12 +18,12 @@ const meta: Meta<DsDropdown> = {
   argTypes: (() => {
     const buttonControls = buildButtonArgTypes();
     return {
-      type: { ...buttonControls.variant, description: 'Variante du bouton' },
-      variant: { ...buttonControls.appearance, description: 'Apparence' },
-      size: buttonControls.size,
-      disabled: buttonControls.disabled,
-      loading: buttonControls.loading,
-      block: buttonControls.block,
+      type: { ...buttonControls['variant'], description: 'Variante du bouton' },
+      variant: { ...buttonControls['appearance'], description: 'Apparence' },
+      size: buttonControls['size'],
+      disabled: buttonControls['disabled'],
+      loading: buttonControls['loading'],
+      block: buttonControls['block'],
     };
   })(),
 };
@@ -40,9 +40,9 @@ const basicItems: DropdownItem[] = [
 export const Default: Story = {
   args: {
     dropdownItems: basicItems,
-    type: baseButtonArgs.variant,
-    variant: baseButtonArgs.appearance,
-    size: baseButtonArgs.size,
+    type: baseButtonArgs.variant as any,
+    variant: baseButtonArgs.appearance as any,
+    size: baseButtonArgs.size as any,
     disabled: baseButtonArgs.disabled,
     loading: baseButtonArgs.loading,
     block: baseButtonArgs.block,
@@ -82,7 +82,7 @@ export const WithSelectedItem: Story = {
 };
 
 export const Variants: Story = {
-  args: { ...buildButtonArgs(), dropdownItems: basicItems, dropdownEndIcon: faChevronDown },
+  args: { ...buildButtonArgs(), dropdownItems: basicItems, dropdownEndIcon: faChevronDown } as any,
   render: createVariantRender('ds-dropdown', {
     variant: 'type',
     appearance: 'variant',
@@ -94,7 +94,7 @@ export const Variants: Story = {
 };
 
 export const Sizes: Story = {
-  args: { ...buildButtonArgs(), dropdownItems: basicItems, dropdownEndIcon: faChevronDown },
+  args: { ...buildButtonArgs(), dropdownItems: basicItems, dropdownEndIcon: faChevronDown } as any,
   render: createSizeRender('ds-dropdown', {
     variant: 'type',
     appearance: 'variant',

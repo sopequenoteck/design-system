@@ -1,4 +1,5 @@
 import type { Args, ArgTypes } from '@storybook/angular';
+import type { ButtonVariant, ButtonAppearance, ButtonSize } from '../primitives/primitive-button/primitive-button';
 
 export const BUTTON_VARIANT_OPTIONS = ['primary', 'secondary', 'ghost', 'success', 'warning', 'error', 'info'] as const;
 export const BUTTON_APPEARANCE_OPTIONS = ['solid', 'outline'] as const;
@@ -68,9 +69,9 @@ interface ArgOptions {
 }
 
 export const buildButtonArgs = ({ includeLoading = true, includeBlock = true }: ArgOptions = {}) => ({
-  variant: 'primary',
-  appearance: 'solid',
-  size: 'md',
+  variant: 'primary' as ButtonVariant,
+  appearance: 'solid' as ButtonAppearance,
+  size: 'md' as ButtonSize,
   disabled: false,
   ...(includeLoading ? { loading: false } : {}),
   ...(includeBlock ? { block: false } : {}),
