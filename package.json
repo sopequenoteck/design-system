@@ -15,6 +15,8 @@
     "storybook": "ng run ds-angular:storybook",
     "build-storybook": "ng run ds-angular:build-storybook",
     "validate:tokens": "node scripts/validate-tokens.js",
+    "analyze:bundle": "node scripts/analyze-bundle.js",
+    "perf:benchmark": "node scripts/perf-benchmark.js",
     "prepublishOnly": "npm run test:headless && npm run build:lib",
     "publish:lib": "cd dist/ds-angular && npm publish",
     "publish:lib:dry-run": "cd dist/ds-angular && npm publish --dry-run"

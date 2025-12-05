@@ -3,22 +3,62 @@
  */
 
 // Design System components exports
-export * from './ds-badge/ds-badge';
-export * from './ds-breadcrumb/ds-breadcrumb';
-export * from './ds-button/ds-button';
-export * from './ds-checkbox/ds-checkbox';
-export * from './ds-dropdown/ds-dropdown';
-export * from './ds-dropdown/model/dropdown-item.model';
-export * from './ds-input-field/ds-input-field';
-export * from './ds-input-textarea/ds-input-textarea';
-export * from './ds-modal/ds-modal.component';
-export * from './ds-popover/ds-popover.component';
-export * from './ds-popover/ds-popover.directive';
-export * from './ds-radio-group/ds-radio-group';
-export * from './ds-tabs/ds-tabs';
-export * from './ds-toast/ds-toast-container.component';
-export * from './ds-toast/ds-toast.component';
-export * from './ds-toast/ds-toast.service';
-export * from './ds-toggle/ds-toggle';
-export * from './ds-tooltip/ds-tooltip.component';
-export * from './ds-tooltip/ds-tooltip.directive';
+export { DsBadge } from './ds-badge/ds-badge';
+
+export {
+  DsBreadcrumb,
+  type BreadcrumbItem,
+} from './ds-breadcrumb/ds-breadcrumb';
+
+export { DsButton } from './ds-button/ds-button';
+
+export { DsCheckbox } from './ds-checkbox/ds-checkbox';
+
+export { DsDropdown } from './ds-dropdown/ds-dropdown';
+
+export {
+  type DropdownItem,
+  type DropdownItemDTO,
+} from './ds-dropdown/model/dropdown-item.model';
+
+export { DsInputField } from './ds-input-field/ds-input-field';
+
+export { DsInputTextarea } from './ds-input-textarea/ds-input-textarea';
+
+export { DsModalComponent } from './ds-modal/ds-modal.component';
+
+export { DsPopoverComponent } from './ds-popover/ds-popover.component';
+
+export {
+  DsPopover,
+  type PopoverTrigger,
+} from './ds-popover/ds-popover.directive';
+
+export {
+  DsRadioGroup,
+  type RadioOption,
+  type RadioGroupLayout,
+} from './ds-radio-group/ds-radio-group';
+
+export {
+  DsTabs,
+  type TabItem,
+} from './ds-tabs/ds-tabs';
+
+export { DsToastContainerComponent } from './ds-toast/ds-toast-container.component';
+
+export { DsToastComponent } from './ds-toast/ds-toast.component';
+
+export {
+  DsToastService,
+  type ToastType,
+  type ToastPosition,
+  type ToastOptions,
+  type ToastInstance,
+} from './ds-toast/ds-toast.service';
+
+export { DsToggle } from './ds-toggle/ds-toggle';
+
+export { DsTooltipComponent } from './ds-tooltip/ds-tooltip.component';
+
+export { DsTooltip } from './ds-tooltip/ds-tooltip.directive';
