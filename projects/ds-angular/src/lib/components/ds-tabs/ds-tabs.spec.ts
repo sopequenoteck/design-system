@@ -205,4 +205,144 @@ describe('DsTabs', () => {
     const indicator = fixture.debugElement.query(By.css('.ds-tabs__indicator')).nativeElement;
     expect(indicator.style.transform).toContain('translateX(100%)');
   });
+
+  describe('Edge cases', () => {
+    it('should handle invalid activeTabId gracefully', () => {
+      fixture.componentRef.setInput('tabs', mockTabs);
+      fixture.componentRef.setInput('activeTabId', 'invalid-id');
+      fixture.detectChanges();
+
+      expect(component.activeIndex()).toBe(0);
+    });
+
+    it('should handle empty tabs array without crashing', () => {
+      fixture.componentRef.setInput('tabs', []);
+      fixture.detectChanges();
+
+      expect(component).toBeTruthy();
+    });
+
+    it('should not navigate when all remaining tabs are disabled', () => {
+      const allDisabledExceptFirst: TabItem[] = [
+        { id: 'tab1', label: 'Tab 1' },
+        { id: 'tab2', label: 'Tab 2', disabled: true },
+        { id: 'tab3', label: 'Tab 3', disabled: true },
+      ];
+      fixture.componentRef.setInput('tabs', allDisabledExceptFirst);
+      fixture.detectChanges();
+
+      const firstTab = fixture.debugElement.query(By.css('.ds-tabs__tab')).nativeElement;
+      firstTab.focus();
+
+      const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+      firstTab.dispatchEvent(event);
+      fixture.detectChanges();
+
+      expect(component.activeIndex()).toBe(0);
+    });
+
+    it('should ignore keydown when target is not a tab', () => {
+      fixture.componentRef.setInput('tabs', mockTabs);
+      fixture.detectChanges();
+
+      const initialIndex = component.activeIndex();
+      const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+      document.body.dispatchEvent(event);
+      fixture.detectChanges();
+
+      expect(component.activeIndex()).toBe(initialIndex);
+    });
+
+    it('should ignore non-navigation keys', () => {
+      fixture.componentRef.setInput('tabs', mockTabs);
+      fixture.detectChanges();
+
+      const firstTab = fixture.debugElement.query(By.css('.ds-tabs__tab')).nativeElement;
+      firstTab.focus();
+
+      const event = new KeyboardEvent('keydown', { key: 'Enter' });
+      firstTab.dispatchEvent(event);
+      fixture.detectChanges();
+
+      expect(component.activeIndex()).toBe(0);
+    });
+  });
+
+  describe('selectedChange output', () => {
+    it('should emit selectedChange with correct tab on selection', () => {
+      fixture.componentRef.setInput('tabs', mockTabs);
+      fixture.detectChanges();
+
+      let emittedTab: TabItem | undefined;
+      component.tabChanged.subscribe((tab) => {
+        emittedTab = tab;
+      });
+
+      component['selectTab'](mockTabs[1], 1);
+
+      expect(emittedTab).toEqual(mockTabs[1]);
+    });
+  });
+
+  describe('ARIA attributes', () => {
+    it('should set aria-selected false for inactive tabs', () => {
+      fixture.componentRef.setInput('tabs', mockTabs);
+      fixture.detectChanges();
+
+      const secondTab = fixture.debugElement.queryAll(By.css('.ds-tabs__tab'))[1].nativeElement;
+      expect(secondTab.getAttribute('aria-selected')).toBe('false');
+    });
+
+    it('should set tabindex -1 for inactive tabs', () => {
+      fixture.componentRef.setInput('tabs', mockTabs);
+      fixture.detectChanges();
+
+      const secondTab = fixture.debugElement.queryAll(By.css('.ds-tabs__tab'))[1].nativeElement;
+      expect(secondTab.getAttribute('tabindex')).toBe('-1');
+    });
+
+    it('should have role tablist on container', () => {
+      fixture.componentRef.setInput('tabs', mockTabs);
+      fixture.detectChanges();
+
+      const tablist = fixture.debugElement.query(By.css('.ds-tabs__list')).nativeElement;
+      expect(tablist.getAttribute('role')).toBe('tablist');
+    });
+  });
+
+  describe('TrackBy function', () => {
+    it('should track tabs by id', () => {
+      fixture.componentRef.setInput('tabs', mockTabs);
+      fixture.detectChanges();
+
+      const trackByResult = component['trackByTabId'](0, mockTabs[0]);
+      expect(trackByResult).toBe('tab1');
+    });
+  });
+
+  describe('Internal state management', () => {
+    it('should update internal active index when tab is selected', () => {
+      fixture.componentRef.setInput('tabs', mockTabs);
+      fixture.detectChanges();
+
+      component['selectTab'](mockTabs[1], 1);
+      expect(component['internalActiveIndex']()).toBe(1);
+    });
+
+    it('should compute activeTab correctly', () => {
+      fixture.componentRef.setInput('tabs', mockTabs);
+      fixture.detectChanges();
+
+      expect(component['activeTab']()).toEqual(mockTabs[0]);
+    });
+
+    it('should fallback to first tab when activeTab computation fails', () => {
+      fixture.componentRef.setInput('tabs', mockTabs);
+      fixture.detectChanges();
+
+      // Force invalid state
+      component['internalActiveIndex'].set(999);
+      expect(component['activeTab']()).toEqual(mockTabs[0]);
+    });
+  });
 });
