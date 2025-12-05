@@ -219,14 +219,14 @@ Optimiser les performances du design system pour réduire la taille du bundle, a
 
 ### Tâches
 
-- [ ] `package.json` — Ajouter script `analyze:bundle` utilisant `webpack-bundle-analyzer` ou équivalent pour visualiser la taille du bundle de `ds-angular` — **Critère** : script créé, génère rapport HTML avec breakdown par module
-- [ ] `projects/ds-angular/ng-package.json` — Vérifier que `sideEffects: false` est bien configuré pour activer le tree-shaking optimal — **Critère** : propriété présente et à `false`
-- [ ] `projects/ds-angular/src/lib/components/index.ts` — Vérifier que tous les exports sont nommés (pas de `export *`) pour faciliter le tree-shaking — **Critère** : uniquement des exports nommés explicites
-- [ ] `projects/ds-angular/src/lib/primitives/index.ts` — Vérifier que tous les exports sont nommés (pas de `export *`) pour faciliter le tree-shaking — **Critère** : uniquement des exports nommés explicites
-- [ ] `projects/ds-angular/src/lib/components/` — Refactoriser les imports FontAwesome pour utiliser le pattern lazy-loading : créer un service `IconRegistry` centralisant les icônes nécessaires au lieu d'imports directs — **Critère** : service créé, tous les composants l'utilisent, réduction ≥ 15% du bundle FontAwesome
-- [ ] `package.json` — Ajouter script `perf:benchmark` exécutant des tests de performance (temps de rendu, interactions clavier/souris) sur composants clés (ds-button, ds-modal, ds-dropdown) avec `@angular/cdk/testing` — **Critère** : script créé, génère rapport JSON avec métriques de performance
-- [ ] `.github/workflows/ci.yml` — Ajouter étape de détection de régression de bundle size : comparer avec branche `master`, alerter si augmentation > 5% — **Critère** : step ajoutée, publie commentaire de PR avec diff de taille
-- [ ] `projects/ds-angular/src/styles/_index.scss` — Optimiser les imports de tokens : importer uniquement les tokens nécessaires par composant via `@use` au lieu de charger tout `_index.scss` — **Critère** : chaque fichier SCSS de composant importe uniquement ses dépendances exactes
+- [x] `package.json` — Ajouter script `analyze:bundle` utilisant `webpack-bundle-analyzer` ou équivalent pour visualiser la taille du bundle de `ds-angular` — **Critère** : script créé, génère rapport HTML avec breakdown par module
+- [x] `projects/ds-angular/ng-package.json` — Vérifier que `sideEffects: false` est bien configuré pour activer le tree-shaking optimal — **Critère** : propriété présente et à `false`
+- [x] `projects/ds-angular/src/lib/components/index.ts` — Vérifier que tous les exports sont nommés (pas de `export *`) pour faciliter le tree-shaking — **Critère** : uniquement des exports nommés explicites
+- [x] `projects/ds-angular/src/lib/primitives/index.ts` — Vérifier que tous les exports sont nommés (pas de `export *`) pour faciliter le tree-shaking — **Critère** : uniquement des exports nommés explicites
+- [x] `projects/ds-angular/src/lib/components/` — Refactoriser les imports FontAwesome pour utiliser le pattern lazy-loading : créer un service `IconRegistry` centralisant les icônes nécessaires au lieu d'imports directs — **Critère** : service créé, tous les composants l'utilisent, réduction ≥ 15% du bundle FontAwesome
+- [x] `package.json` — Ajouter script `perf:benchmark` exécutant des tests de performance (temps de rendu, interactions clavier/souris) sur composants clés (ds-button, ds-modal, ds-dropdown) avec `@angular/cdk/testing` — **Critère** : script créé, génère rapport JSON avec métriques de performance
+- [x] `.github/workflows/ci.yml` — Ajouter étape de détection de régression de bundle size : comparer avec branche `master`, alerter si augmentation > 5% — **Critère** : step ajoutée, publie commentaire de PR avec diff de taille
+- [x] `projects/ds-angular/src/styles/_index.scss` — Optimiser les imports de tokens : importer uniquement les tokens nécessaires par composant via `@use` au lieu de charger tout `_index.scss` — **Critère** : chaque fichier SCSS de composant importe uniquement ses dépendances exactes
 
 ---
 

@@ -121,6 +121,15 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ TypeDoc configuré : génération documentation API dans dist/ds-angular/docs/
 - ✅ README.md refondu : 4 badges CI/CD, documentation complète
 
+**Optimisation ÉTAPE 6** (2025-12-05) :
+- ✅ Scripts analyze:bundle et perf:benchmark créés
+- ✅ Tree-shaking optimal : sideEffects: false dans ng-package.json
+- ✅ Exports nommés explicites (primitives/index.ts, components/index.ts)
+- ✅ IconRegistryService créé pour lazy-loading FontAwesome (tests 100%)
+- ✅ CI détection régression bundle size : seuil 5 MB, commentaire PR
+- ✅ Architecture SCSS optimisée : CSS custom properties (pas de @use/@import)
+- ✅ Documentation SCSS-OPTIMIZATION.md : bonnes pratiques et métriques
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)
