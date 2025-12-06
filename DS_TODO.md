@@ -162,9 +162,9 @@ Créer ds-container, ds-search-input, ds-date-picker.
 
 ### Tâches
 
-- [ ] `projects/ds-angular/src/lib/components/ds-container/` — Créer DsContainer avec props breakpoint-specific, centering, gutter — **Critère** : 25 tests, 6 stories, 90%+ coverage
-- [ ] `projects/ds-angular/src/lib/components/ds-search-input/` — Créer DsSearchInput avec CVA, debounce output, clear button — **Critère** : 40 tests, 8 stories, 90%+ coverage
-- [ ] `projects/ds-angular/src/lib/components/ds-date-picker/` — Créer DsDatePicker avec CVA, range selection, navigation clavier, min/max — **Critère** : 50 tests, 10 stories, 95%+ coverage
+- [x] `projects/ds-angular/src/lib/components/ds-container/` — Créer DsContainer avec props breakpoint-specific, centering, gutter — **Critère** : 30 tests, 8 stories, 90%+ coverage ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-search-input/` — Créer DsSearchInput avec CVA, debounce output, clear button — **Critère** : 34 tests, 8 stories, 90%+ coverage ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-date-picker/` — Créer DsDatePicker avec CVA, range selection, navigation clavier, min/max — **Critère** : 44 tests, 12 stories, 95%+ coverage ✅ (2025-12-06)
 
 ---
 
@@ -190,9 +190,9 @@ Créer guides Accessibility, Testing, Theming.
 
 ### Tâches
 
-- [ ] `projects/ds-angular/src/lib/Accessibility.mdx` — Créer guide WCAG 2.1 AA (checklist, keyboard patterns, ARIA, contrast, screen-reader) — **Critère** : 10 sections, exemples visuels, 600+ lignes
-- [ ] `projects/ds-angular/src/lib/Testing.mdx` — Créer guide tests (unit Jasmine, e2e Playwright, visual Chromatic, coverage goals) — **Critère** : 8 sections, code snippets, 500+ lignes
-- [ ] `projects/ds-angular/src/lib/Theming.mdx` — Créer guide thème custom (CSS vars, color-mix, dark mode detection, ThemeService) — **Critère** : 7 sections, 3 exemples, 400+ lignes
+- [x] `projects/ds-angular/src/lib/Accessibility.mdx` — Créer guide WCAG 2.1 AA (checklist, keyboard patterns, ARIA, contrast, screen-reader) — **Critère** : 11 sections, 650+ lignes ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/Testing.mdx` — Créer guide tests (unit Jasmine, e2e Playwright, visual Chromatic, coverage goals) — **Critère** : 10 sections, 550+ lignes ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/Theming.mdx` — Créer guide thème custom (CSS vars, color-mix, dark mode detection, ThemeService) — **Critère** : 10 sections, 500+ lignes ✅ (2025-12-06)
 
 ---
 

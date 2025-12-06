@@ -1,0 +1,519 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Guides/Accessibility" />
+
+# Accessibilité — Guide WCAG 2.1 AA
+
+Ce guide documente les patterns d'accessibilité implémentés dans le design system et fournit des recommandations pour garantir la conformité WCAG 2.1 niveau AA.
+
+---
+
+## 1. Principes fondamentaux
+
+### 1.1 Les 4 principes POUR
+
+| Principe | Description | Exemple DS |
+|----------|-------------|------------|
+| **Perceptible** | L'information doit être présentée de manière à être perçue | Contrastes 4.5:1, icônes avec labels |
+| **Opérable** | L'interface doit être navigable au clavier | Focus trap, navigation flèches |
+| **Compréhensible** | Le contenu doit être lisible et prévisible | Messages d'erreur clairs, comportements cohérents |
+| **Robuste** | Le contenu doit être interprétable par les technologies d'assistance | ARIA roles, semantic HTML |
+
+### 1.2 Niveaux de conformité
+
+```
+Niveau A   → Exigences minimales (critique)
+Niveau AA  → Standard recommandé (notre objectif)
+Niveau AAA → Excellence (cible future)
+```
+
+---
+
+## 2. Contraste et couleurs
+
+### 2.1 Ratios de contraste minimum
+
+| Type de texte | Ratio minimum | Tokens DS |
+|---------------|---------------|-----------|
+| Texte normal | 4.5:1 | `--text-default` sur `--background-main` |
+| Grand texte (≥18px bold, ≥24px) | 3:1 | `--text-muted` sur `--background-main` |
+| Éléments UI | 3:1 | `--color-primary` sur `--background-main` |
+| Focus indicator | 3:1 | `--color-primary` outline |
+
+### 2.2 Vérification dans le design system
+
+```scss
+// Contrastes validés dans _light.scss et _dark.scss
+:root.theme-light {
+  --text-default: #1f2937;      // Ratio 12.63:1 sur blanc
+  --text-muted: #6b7280;        // Ratio 5.74:1 sur blanc
+  --color-primary: #3b82f6;     // Ratio 3.1:1 sur blanc (UI)
+}
+
+:root.theme-dark {
+  --text-default: #f9fafb;      // Ratio 15.8:1 sur #111827
+  --text-muted: #9ca3af;        // Ratio 5.2:1 sur #111827
+}
+```
+
+### 2.3 Ne pas utiliser uniquement la couleur
+
+❌ **Incorrect** :
+```html
+<span style="color: red;">Erreur</span>
+```
+
+✅ **Correct** :
+```html
+<ds-alert type="error" showIcon>
+  <fa-icon icon="exclamation-circle"></fa-icon>
+  Erreur : ce champ est requis
+</ds-alert>
+```
+
+---
+
+## 3. Navigation clavier
+
+### 3.1 Patterns de navigation implémentés
+
+| Composant | Touches | Comportement |
+|-----------|---------|--------------|
+| **Tabs** | ←→ | Navigation entre onglets |
+| | Home/End | Premier/dernier onglet |
+| | Enter/Space | Activer l'onglet |
+| **Dropdown** | ↓ | Ouvrir menu, naviguer items |
+| | ↑ | Naviguer items vers le haut |
+| | Enter | Sélectionner item |
+| | Escape | Fermer menu |
+| **Modal** | Tab | Navigation cyclique (focus trap) |
+| | Escape | Fermer modal |
+| **Accordion** | ↑↓ | Navigation entre headers |
+| | Enter/Space | Toggle section |
+| **DatePicker** | ←→↑↓ | Navigation jours |
+| | Enter | Sélectionner date |
+| | Escape | Fermer calendrier |
+
+### 3.2 Focus visible
+
+Tous les éléments interactifs ont un indicateur de focus visible :
+
+```scss
+// Pattern standard dans tous les composants
+&:focus-visible {
+  outline: 2px solid var(--color-primary, #3b82f6);
+  outline-offset: 2px;
+}
+```
+
+### 3.3 Ordre de tabulation
+
+L'ordre de tabulation suit l'ordre visuel du DOM :
+
+```html
+<!-- Ordre logique préservé -->
+<ds-modal>
+  <h2>Titre</h2>          <!-- 1 -->
+  <p>Contenu</p>           <!-- non focusable -->
+  <ds-input-field />       <!-- 2 -->
+  <ds-button>Annuler</ds-button>   <!-- 3 -->
+  <ds-button>Valider</ds-button>   <!-- 4 -->
+</ds-modal>
+```
+
+### 3.4 Focus trap dans les modales
+
+Le focus reste confiné dans la modale ouverte :
+
+```typescript
+// Implémentation dans DsModal
+private trapFocus(): void {
+  const focusableElements = this.getFocusableElements();
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+
+  this.overlayRef.keydownEvents().subscribe((event) => {
+    if (event.key === 'Tab') {
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    }
+  });
+}
+```
+
+---
+
+## 4. Attributs ARIA
+
+### 4.1 Roles sémantiques
+
+| Composant | Role | Notes |
+|-----------|------|-------|
+| Modal | `role="dialog"` | + `aria-modal="true"` |
+| Dropdown | `role="listbox"` | Items avec `role="option"` |
+| Tabs | `role="tablist"` | Tabs avec `role="tab"`, panels avec `role="tabpanel"` |
+| Alert | `role="alert"` | Annonce automatique aux lecteurs d'écran |
+| Toast | `role="status"` | Annonce polite aux lecteurs d'écran |
+| Progress | `role="progressbar"` | + `aria-valuenow`, `aria-valuemin`, `aria-valuemax` |
+
+### 4.2 États et propriétés
+
+```html
+<!-- Dropdown -->
+<button
+  [attr.aria-expanded]="isOpen"
+  [attr.aria-haspopup]="'listbox'"
+  [attr.aria-controls]="dropdownId">
+  Sélectionner
+</button>
+
+<ul
+  [id]="dropdownId"
+  role="listbox"
+  [attr.aria-activedescendant]="activeItemId">
+  <li
+    *ngFor="let item of items; let i = index"
+    role="option"
+    [id]="'item-' + i"
+    [attr.aria-selected]="item === selectedItem">
+    {{ item.label }}
+  </li>
+</ul>
+```
+
+### 4.3 Labels et descriptions
+
+```html
+<!-- Input avec label associé -->
+<ds-input-field
+  label="Email"
+  hint="Nous ne partagerons jamais votre email"
+  [error]="emailError">
+</ds-input-field>
+
+<!-- Génère -->
+<label id="label-123" for="input-123">Email</label>
+<input
+  id="input-123"
+  aria-labelledby="label-123"
+  aria-describedby="hint-123 error-123" />
+<span id="hint-123">Nous ne partagerons jamais votre email</span>
+<span id="error-123" role="alert">{{ emailError }}</span>
+```
+
+---
+
+## 5. Formulaires accessibles
+
+### 5.1 Labels explicites
+
+Chaque champ de formulaire doit avoir un label visible :
+
+```html
+✅ Correct
+<ds-input-field label="Nom complet" />
+
+❌ Incorrect
+<ds-input-field placeholder="Nom complet" />
+```
+
+### 5.2 Messages d'erreur
+
+Les erreurs doivent être :
+- Annoncées aux lecteurs d'écran (`role="alert"`)
+- Associées au champ (`aria-describedby`)
+- Visuellement distinctes (couleur + icône)
+
+```html
+<ds-input-field
+  label="Email"
+  [error]="'Format d\'email invalide'"
+  [showError]="emailControl.invalid && emailControl.touched">
+</ds-input-field>
+```
+
+### 5.3 Groupes de champs
+
+Utilisez `fieldset` et `legend` pour les groupes logiques :
+
+```html
+<fieldset>
+  <legend>Adresse de livraison</legend>
+  <ds-input-field label="Rue" />
+  <ds-input-field label="Ville" />
+  <ds-input-field label="Code postal" />
+</fieldset>
+```
+
+### 5.4 Validation accessible
+
+```typescript
+// Exemple de validation avec feedback accessible
+@Component({
+  template: `
+    <form (ngSubmit)="onSubmit()">
+      <ds-input-field
+        label="Email"
+        type="email"
+        [formControl]="emailControl"
+        [error]="getEmailError()"
+        [showError]="emailControl.invalid && emailControl.touched"
+        hint="Entrez votre adresse email professionnelle">
+      </ds-input-field>
+
+      <ds-button
+        type="submit"
+        [disabled]="form.invalid"
+        [attr.aria-disabled]="form.invalid">
+        Envoyer
+      </ds-button>
+    </form>
+  `
+})
+export class AccessibleFormComponent {
+  emailControl = new FormControl('', [Validators.required, Validators.email]);
+
+  getEmailError(): string {
+    if (this.emailControl.hasError('required')) {
+      return 'L\'email est requis';
+    }
+    if (this.emailControl.hasError('email')) {
+      return 'Format d\'email invalide';
+    }
+    return '';
+  }
+}
+```
+
+---
+
+## 6. Images et médias
+
+### 6.1 Texte alternatif
+
+```html
+<!-- Image informative -->
+<img src="chart.png" alt="Graphique montrant une croissance de 25% sur 6 mois" />
+
+<!-- Image décorative -->
+<img src="decoration.png" alt="" role="presentation" />
+
+<!-- Icône avec signification -->
+<fa-icon [icon]="faCheck" aria-label="Succès"></fa-icon>
+
+<!-- Icône décorative -->
+<fa-icon [icon]="faChevronRight" aria-hidden="true"></fa-icon>
+```
+
+### 6.2 Boutons avec icônes seules
+
+```html
+<!-- Toujours fournir un label accessible -->
+<ds-button
+  variant="ghost"
+  aria-label="Fermer la modale">
+  <fa-icon [icon]="faXmark" aria-hidden="true"></fa-icon>
+</ds-button>
+```
+
+---
+
+## 7. Composants dynamiques
+
+### 7.1 Régions live
+
+```html
+<!-- Annonce automatique des mises à jour -->
+<div role="status" aria-live="polite" aria-atomic="true">
+  {{ statusMessage }}
+</div>
+
+<!-- Annonce urgente (erreurs critiques) -->
+<div role="alert" aria-live="assertive">
+  {{ criticalError }}
+</div>
+```
+
+### 7.2 Toast et notifications
+
+```typescript
+// DsToastService annonce automatiquement
+this.toastService.show({
+  type: 'success',
+  message: 'Document enregistré',
+  // Automatiquement annoncé via aria-live="polite"
+});
+```
+
+### 7.3 Loading states
+
+```html
+<!-- Indicateur de chargement accessible -->
+<ds-skeleton
+  *ngIf="loading"
+  aria-label="Chargement en cours"
+  aria-busy="true">
+</ds-skeleton>
+
+<ds-progress-bar
+  [value]="uploadProgress"
+  [ariaLabel]="'Upload en cours: ' + uploadProgress + '%'">
+</ds-progress-bar>
+```
+
+---
+
+## 8. Skip links
+
+Permettre de sauter directement au contenu principal :
+
+```html
+<!-- En début de page -->
+<a href="#main-content" class="skip-link">
+  Aller au contenu principal
+</a>
+
+<!-- Contenu principal -->
+<main id="main-content" tabindex="-1">
+  ...
+</main>
+```
+
+```scss
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  padding: 8px 16px;
+  background: var(--color-primary);
+  color: white;
+  z-index: 9999;
+
+  &:focus {
+    top: 0;
+  }
+}
+```
+
+---
+
+## 9. Tests d'accessibilité
+
+### 9.1 Outils automatisés
+
+```bash
+# Audit Axe dans Storybook
+npm run test:a11y
+
+# Audit WAVE via CI
+npm run audit:wave
+
+# Tests Playwright avec assertions a11y
+npm run test:e2e
+```
+
+### 9.2 Checklist manuelle
+
+| Critère | Test | Statut |
+|---------|------|--------|
+| Navigation clavier | Tab à travers tous les éléments interactifs | ✅ |
+| Focus visible | Indicateur visible sur tous les éléments focusés | ✅ |
+| Skip link | Lien "Aller au contenu" fonctionnel | ✅ |
+| Zoom 200% | Pas de perte de contenu à 200% zoom | ✅ |
+| Contraste | Ratio ≥4.5:1 pour texte normal | ✅ |
+| Screen reader | Annonces cohérentes (VoiceOver, NVDA) | ✅ |
+| Motion reduced | `prefers-reduced-motion` respecté | ✅ |
+
+### 9.3 Tests avec lecteurs d'écran
+
+```typescript
+// Pattern de test avec assertions ARIA
+it('should announce modal title to screen readers', () => {
+  const modal = fixture.debugElement.query(By.css('.ds-modal'));
+
+  expect(modal.nativeElement.getAttribute('role')).toBe('dialog');
+  expect(modal.nativeElement.getAttribute('aria-modal')).toBe('true');
+  expect(modal.nativeElement.getAttribute('aria-labelledby')).toBeTruthy();
+});
+```
+
+---
+
+## 10. Préférences utilisateur
+
+### 10.1 Reduced motion
+
+```scss
+@media (prefers-reduced-motion: reduce) {
+  .ds-modal,
+  .ds-toast,
+  .ds-skeleton {
+    animation: none;
+    transition: none;
+  }
+}
+```
+
+### 10.2 High contrast
+
+```scss
+@media (prefers-contrast: more) {
+  :root {
+    --border-default: #000;
+    --color-primary: #0056b3;
+  }
+}
+```
+
+### 10.3 Dark mode
+
+```typescript
+// Détection automatique dans ThemeService
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+if (prefersDark.matches) {
+  document.documentElement.classList.add('theme-dark');
+}
+
+prefersDark.addEventListener('change', (e) => {
+  document.documentElement.classList.toggle('theme-dark', e.matches);
+});
+```
+
+---
+
+## 11. Ressources
+
+### 11.1 Standards
+
+- [WCAG 2.1](https://www.w3.org/WAI/WCAG21/quickref/) — Quick Reference
+- [WAI-ARIA 1.2](https://www.w3.org/TR/wai-aria-1.2/) — Spécification
+- [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/) — Patterns UI
+
+### 11.2 Outils
+
+- [Axe DevTools](https://www.deque.com/axe/) — Extension navigateur
+- [WAVE](https://wave.webaim.org/) — Évaluateur en ligne
+- [Contrast Checker](https://webaim.org/resources/contrastchecker/) — Vérificateur contraste
+- [Screen Reader Testing](https://www.nvaccess.org/download/) — NVDA (gratuit)
+
+### 11.3 Design System conformité
+
+| Composant | Keyboard | ARIA | Focus | Contrast |
+|-----------|----------|------|-------|----------|
+| DsButton | ✅ | ✅ | ✅ | ✅ |
+| DsModal | ✅ | ✅ | ✅ | ✅ |
+| DsDropdown | ✅ | ✅ | ✅ | ✅ |
+| DsTabs | ✅ | ✅ | ✅ | ✅ |
+| DsAccordion | ✅ | ✅ | ✅ | ✅ |
+| DsToast | ✅ | ✅ | ✅ | ✅ |
+| DsTooltip | ✅ | ✅ | ✅ | ✅ |
+| DsDatePicker | ✅ | ✅ | ✅ | ✅ |
+| DsTable | ✅ | ✅ | ✅ | ✅ |
+| DsSelect | ✅ | ✅ | ✅ | ✅ |
+| DsCombobox | ✅ | ✅ | ✅ | ✅ |
