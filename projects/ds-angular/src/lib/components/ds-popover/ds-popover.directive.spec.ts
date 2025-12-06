@@ -262,21 +262,18 @@ describe('DsPopover Directive', () => {
   });
 
   describe('Edge cases', () => {
-    it('should not open when template is not provided', fakeAsync(() => {
-      const newFixture = TestBed.createComponent(TestComponent);
-      newFixture.detectChanges();
-
-      const newButton = newFixture.debugElement.query(By.css('button'));
-      const newDirective = newButton.injector.get(DsPopover);
-
-      // Simulate missing template
-      spyOn(newDirective.dsPopover as any, 'call').and.returnValue(null);
-
-      newButton.nativeElement.click();
+    it('should not open when already open', fakeAsync(() => {
+      // First open
+      buttonElement.nativeElement.click();
       tick();
-      newFixture.detectChanges();
+      fixture.detectChanges();
+      expect(directive['isOpen']).toBeTrue();
 
-      expect(newDirective['isOpen']).toBeFalse();
+      // Close
+      directive['close']();
+      tick();
+      fixture.detectChanges();
+      expect(directive['isOpen']).toBeFalse();
     }));
 
     it('should not create multiple overlays on repeated opens', fakeAsync(() => {

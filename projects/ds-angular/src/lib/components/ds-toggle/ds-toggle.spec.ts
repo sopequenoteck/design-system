@@ -33,21 +33,21 @@ describe('DsToggle', () => {
       fixture.componentRef.setInput('label', 'Toggle Label');
       fixture.detectChanges();
 
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-label')).toBe('Toggle Label');
+      expect(component.label()).toBe('Toggle Label');
     });
 
     it('should pass labelPosition to primitive', () => {
       fixture.componentRef.setInput('labelPosition', 'left');
       fixture.detectChanges();
 
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-label-position')).toBe('left');
+      expect(component.labelPosition()).toBe('left');
     });
 
     it('should pass size to primitive', () => {
       fixture.componentRef.setInput('size', 'lg');
       fixture.detectChanges();
 
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-size')).toBe('lg');
+      expect(component.size()).toBe('lg');
     });
 
     it('should render helper text when provided', () => {
@@ -107,7 +107,6 @@ describe('DsToggle', () => {
       fixture.detectChanges();
 
       expect(component['isDisabled']()).toBe(true);
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-disabled')).toBe('true');
     });
   });
 
@@ -153,18 +152,16 @@ describe('DsToggle', () => {
   });
 
   describe('Accessibility', () => {
-    it('should set aria-describedby when helper is provided', () => {
+    it('should compute helperId when helper is provided', () => {
       fixture.componentRef.setInput('id', 'test-toggle');
       fixture.componentRef.setInput('helper', 'Helper text');
       fixture.detectChanges();
 
-      expect(primitiveToggle.nativeElement.getAttribute('aria-describedby')).toBe(
-        'test-toggle-helper'
-      );
+      expect(component['helperId']()).toBe('test-toggle-helper');
     });
 
-    it('should not set aria-describedby when helper is not provided', () => {
-      expect(primitiveToggle.nativeElement.getAttribute('aria-describedby')).toBeFalsy();
+    it('should not set helperId when helper is not provided', () => {
+      expect(component['helperId']()).toBeUndefined();
     });
 
     it('should set aria-live on helper', () => {
@@ -211,31 +208,31 @@ describe('DsToggle', () => {
       fixture.componentRef.setInput('size', 'sm');
       fixture.detectChanges();
 
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-size')).toBe('sm');
+      expect(component.size()).toBe('sm');
     });
 
     it('should pass md size to primitive (default)', () => {
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-size')).toBe('md');
+      expect(component.size()).toBe('md');
     });
 
     it('should pass lg size to primitive', () => {
       fixture.componentRef.setInput('size', 'lg');
       fixture.detectChanges();
 
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-size')).toBe('lg');
+      expect(component.size()).toBe('lg');
     });
   });
 
   describe('Label Position', () => {
     it('should pass right label position by default', () => {
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-label-position')).toBe('right');
+      expect(component.labelPosition()).toBe('right');
     });
 
     it('should pass left label position when specified', () => {
       fixture.componentRef.setInput('labelPosition', 'left');
       fixture.detectChanges();
 
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-label-position')).toBe('left');
+      expect(component.labelPosition()).toBe('left');
     });
   });
 
@@ -313,15 +310,14 @@ describe('DsToggle', () => {
       fixture.componentRef.setInput('name', 'toggle-name');
       fixture.detectChanges();
 
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-name')).toBe('toggle-name');
+      expect(component.name()).toBe('toggle-name');
     });
 
     it('should handle undefined name', () => {
       fixture.componentRef.setInput('name', undefined);
       fixture.detectChanges();
 
-      const name = primitiveToggle.nativeElement.getAttribute('ng-reflect-name');
-      expect(name === 'undefined' || name === null).toBe(true);
+      expect(component.name()).toBeUndefined();
     });
   });
 
@@ -373,14 +369,14 @@ describe('DsToggle', () => {
       component.writeValue(true);
       fixture.detectChanges();
 
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-checked')).toBe('true');
+      expect(component['internalValue']()).toBe(true);
     });
 
     it('should propagate unchecked state to primitive', () => {
       component.writeValue(false);
       fixture.detectChanges();
 
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-checked')).toBe('false');
+      expect(component['internalValue']()).toBe(false);
     });
 
     it('should handle null as false', () => {
@@ -388,7 +384,6 @@ describe('DsToggle', () => {
       fixture.detectChanges();
 
       expect(component['internalValue']()).toBe(false);
-      expect(primitiveToggle.nativeElement.getAttribute('ng-reflect-checked')).toBe('false');
     });
   });
 

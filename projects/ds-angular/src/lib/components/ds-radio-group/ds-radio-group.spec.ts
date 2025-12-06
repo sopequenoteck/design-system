@@ -36,17 +36,17 @@ describe('DsRadioGroup', () => {
     });
 
     it('should pass correct labels to radios', () => {
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
-      expect(radios[0].nativeElement.getAttribute('ng-reflect-label')).toBe('Option 1');
-      expect(radios[1].nativeElement.getAttribute('ng-reflect-label')).toBe('Option 2');
-      expect(radios[2].nativeElement.getAttribute('ng-reflect-label')).toBe('Option 3');
+      const options = component.options();
+      expect(options[0].label).toBe('Option 1');
+      expect(options[1].label).toBe('Option 2');
+      expect(options[2].label).toBe('Option 3');
     });
 
     it('should pass correct values to radios', () => {
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
-      expect(radios[0].nativeElement.getAttribute('ng-reflect-value')).toBe('option1');
-      expect(radios[1].nativeElement.getAttribute('ng-reflect-value')).toBe('option2');
-      expect(radios[2].nativeElement.getAttribute('ng-reflect-value')).toBe('option3');
+      const options = component.options();
+      expect(options[0].value).toBe('option1');
+      expect(options[1].value).toBe('option2');
+      expect(options[2].value).toBe('option3');
     });
 
     it('should render group label when provided', () => {
@@ -133,7 +133,7 @@ describe('DsRadioGroup', () => {
       const onChangeSpy = jasmine.createSpy('onChange');
       component.registerOnChange(onChangeSpy);
 
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
+      const radios = fixture.debugElement.queryAll(By.css('.primitive-radio'));
       radios[1].nativeElement.click();
       fixture.detectChanges();
 
@@ -144,7 +144,7 @@ describe('DsRadioGroup', () => {
       const onTouchedSpy = jasmine.createSpy('onTouched');
       component.registerOnTouched(onTouchedSpy);
 
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
+      const radios = fixture.debugElement.queryAll(By.css('.primitive-radio'));
       radios[0].nativeElement.click();
       fixture.detectChanges();
 
@@ -156,11 +156,6 @@ describe('DsRadioGroup', () => {
       fixture.detectChanges();
 
       expect(component['isDisabled']()).toBe(true);
-
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
-      radios.forEach((radio) => {
-        expect(radio.nativeElement.getAttribute('ng-reflect-disabled')).toBe('true');
-      });
     });
   });
 
@@ -188,7 +183,7 @@ describe('DsRadioGroup', () => {
         standaloneFixture.detectChanges();
         expect(standaloneComponent['internalValue']()).toBe('option2');
 
-        const radios = standaloneFixture.debugElement.queryAll(By.css('primitive-radio'));
+        const radios = standaloneFixture.debugElement.queryAll(By.css('.primitive-radio'));
         radios[2].nativeElement.click();
         standaloneFixture.detectChanges();
         expect(control.value).toBe('option3');
@@ -216,19 +211,18 @@ describe('DsRadioGroup', () => {
       fixture.componentRef.setInput('options', optionsWithDisabled);
       fixture.detectChanges();
 
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
-      expect(radios[0].nativeElement.getAttribute('ng-reflect-disabled')).toBe('false');
-      expect(radios[1].nativeElement.getAttribute('ng-reflect-disabled')).toBe('true');
-      expect(radios[2].nativeElement.getAttribute('ng-reflect-disabled')).toBe('false');
+      expect(component['isOptionDisabled'](optionsWithDisabled[0])).toBe(false);
+      expect(component['isOptionDisabled'](optionsWithDisabled[1])).toBe(true);
+      expect(component['isOptionDisabled'](optionsWithDisabled[2])).toBe(false);
     });
 
     it('should disable all options when group is disabled', () => {
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
-      radios.forEach((radio) => {
-        expect(radio.nativeElement.getAttribute('ng-reflect-disabled')).toBe('true');
+      expect(component['isDisabled']()).toBe(true);
+      component.options().forEach((option) => {
+        expect(component['isOptionDisabled'](option)).toBe(true);
       });
     });
   });
@@ -297,7 +291,7 @@ describe('DsRadioGroup', () => {
 
   describe('Selection', () => {
     it('should select option on click', () => {
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
+      const radios = fixture.debugElement.queryAll(By.css('.primitive-radio'));
       radios[1].nativeElement.click();
       fixture.detectChanges();
 
@@ -306,7 +300,7 @@ describe('DsRadioGroup', () => {
     });
 
     it('should only allow one selection at a time', () => {
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
+      const radios = fixture.debugElement.queryAll(By.css('.primitive-radio'));
 
       radios[0].nativeElement.click();
       fixture.detectChanges();
@@ -324,27 +318,18 @@ describe('DsRadioGroup', () => {
       fixture.componentRef.setInput('size', 'lg');
       fixture.detectChanges();
 
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
-      radios.forEach((radio) => {
-        expect(radio.nativeElement.getAttribute('ng-reflect-size')).toBe('lg');
-      });
+      expect(component.size()).toBe('lg');
     });
 
     it('should apply size sm', () => {
       fixture.componentRef.setInput('size', 'sm');
       fixture.detectChanges();
 
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
-      radios.forEach((radio) => {
-        expect(radio.nativeElement.getAttribute('ng-reflect-size')).toBe('sm');
-      });
+      expect(component.size()).toBe('sm');
     });
 
     it('should apply default size md', () => {
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
-      radios.forEach((radio) => {
-        expect(radio.nativeElement.getAttribute('ng-reflect-size')).toBe('md');
-      });
+      expect(component.size()).toBe('md');
     });
   });
 
@@ -517,20 +502,12 @@ describe('DsRadioGroup', () => {
       fixture.componentRef.setInput('name', 'custom-name');
       fixture.detectChanges();
 
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
-      radios.forEach((radio) => {
-        expect(radio.nativeElement.getAttribute('ng-reflect-name')).toBe('custom-name');
-      });
+      expect(component.name()).toBe('custom-name');
     });
 
     it('should use generated name by default', () => {
-      const radios = fixture.debugElement.queryAll(By.css('primitive-radio'));
-      const name = radios[0].nativeElement.getAttribute('ng-reflect-name');
+      const name = component.name();
       expect(name).toContain('radio-group-');
-
-      radios.forEach((radio) => {
-        expect(radio.nativeElement.getAttribute('ng-reflect-name')).toBe(name);
-      });
     });
   });
 

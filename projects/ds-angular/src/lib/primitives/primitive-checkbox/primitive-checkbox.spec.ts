@@ -15,8 +15,8 @@ describe('PrimitiveCheckbox', () => {
 
     fixture = TestBed.createComponent(PrimitiveCheckbox);
     component = fixture.componentInstance;
-    checkboxElement = fixture.debugElement.query(By.css('.primitive-checkbox'));
     fixture.detectChanges();
+    checkboxElement = fixture.debugElement.query(By.css('.primitive-checkbox'));
   });
 
   it('should create', () => {
@@ -30,7 +30,7 @@ describe('PrimitiveCheckbox', () => {
     });
 
     it('should render checked state when checked is true', () => {
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.detectChanges();
 
       expect(component.checked()).toBe(true);
@@ -197,11 +197,11 @@ describe('PrimitiveCheckbox', () => {
     it('should update aria-checked based on state', () => {
       expect(checkboxElement.nativeElement.getAttribute('aria-checked')).toBe('unchecked');
 
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.detectChanges();
       expect(checkboxElement.nativeElement.getAttribute('aria-checked')).toBe('checked');
 
-      fixture.componentRef.setInput('checked', false);
+      component.checked.set(false);
       fixture.componentRef.setInput('indeterminate', true);
       fixture.detectChanges();
       expect(checkboxElement.nativeElement.getAttribute('aria-checked')).toBe('indeterminate');
@@ -228,7 +228,7 @@ describe('PrimitiveCheckbox', () => {
     });
 
     it('should apply checked class when checked', () => {
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.detectChanges();
 
       expect(checkboxElement.nativeElement.classList.contains('primitive-checkbox--checked')).toBe(true);
@@ -255,14 +255,14 @@ describe('PrimitiveCheckbox', () => {
     });
 
     it('should compute state as checked when checked is true', () => {
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.detectChanges();
 
       expect(component['checkboxState']()).toBe('checked');
     });
 
     it('should compute state as indeterminate when indeterminate is true (priority over checked)', () => {
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.componentRef.setInput('indeterminate', true);
       fixture.detectChanges();
 
@@ -370,7 +370,7 @@ describe('PrimitiveCheckbox', () => {
   describe('CSS Classes Computed Signal', () => {
     it('should compute correct classes for all states', () => {
       fixture.componentRef.setInput('size', 'lg');
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 
@@ -401,7 +401,7 @@ describe('PrimitiveCheckbox', () => {
 
   describe('Indeterminate State Priority', () => {
     it('should show indeterminate icon even when checked is true', () => {
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.componentRef.setInput('indeterminate', true);
       fixture.detectChanges();
 
@@ -410,7 +410,7 @@ describe('PrimitiveCheckbox', () => {
     });
 
     it('should show indeterminate class even when checked is true', () => {
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.componentRef.setInput('indeterminate', true);
       fixture.detectChanges();
 
@@ -467,7 +467,7 @@ describe('PrimitiveCheckbox', () => {
     });
 
     it('should emit correct value when toggling from checked to unchecked', () => {
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.detectChanges();
 
       const checkedChangeSpy = jasmine.createSpy('checkedChange');

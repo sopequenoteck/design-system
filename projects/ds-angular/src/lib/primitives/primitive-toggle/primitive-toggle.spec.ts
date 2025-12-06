@@ -16,9 +16,9 @@ describe('PrimitiveToggle', () => {
 
     fixture = TestBed.createComponent(PrimitiveToggle);
     component = fixture.componentInstance;
+    fixture.detectChanges();
     toggleElement = fixture.debugElement.query(By.css('.primitive-toggle'));
     switchElement = fixture.debugElement.query(By.css('.primitive-toggle__switch'));
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -32,7 +32,7 @@ describe('PrimitiveToggle', () => {
     });
 
     it('should render checked state when checked is true', () => {
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.detectChanges();
 
       expect(component.checked()).toBe(true);
@@ -260,7 +260,7 @@ describe('PrimitiveToggle', () => {
     it('should update aria-checked based on state', () => {
       expect(switchElement.nativeElement.getAttribute('aria-checked')).toBe('false');
 
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.detectChanges();
       expect(switchElement.nativeElement.getAttribute('aria-checked')).toBe('true');
     });
@@ -286,7 +286,7 @@ describe('PrimitiveToggle', () => {
     });
 
     it('should apply checked class when checked', () => {
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.detectChanges();
 
       expect(toggleElement.nativeElement.classList.contains('primitive-toggle--checked')).toBe(true);
@@ -386,7 +386,7 @@ describe('PrimitiveToggle', () => {
     it('should compute correct classes for all states', () => {
       fixture.componentRef.setInput('label', 'Test Label');
       fixture.componentRef.setInput('size', 'lg');
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.componentRef.setInput('disabled', true);
       fixture.componentRef.setInput('labelPosition', 'left');
       fixture.detectChanges();
@@ -410,8 +410,8 @@ describe('PrimitiveToggle', () => {
 
     it('should not add label position class when no label', () => {
       const classes = component['cssClasses']();
-      expect(classes['primitive-toggle--label-right']).toBe(false);
-      expect(classes['primitive-toggle--label-left']).toBe(false);
+      expect(classes['primitive-toggle--label-right']).toBeFalsy();
+      expect(classes['primitive-toggle--label-left']).toBeFalsy();
     });
 
     it('should add label position class when label is present', () => {
@@ -472,7 +472,7 @@ describe('PrimitiveToggle', () => {
     });
 
     it('should emit correct value when toggling from checked to unchecked', () => {
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.detectChanges();
 
       const checkedChangeSpy = jasmine.createSpy('checkedChange');
@@ -522,7 +522,7 @@ describe('PrimitiveToggle', () => {
     });
 
     it('should handle checked with disabled state', () => {
-      fixture.componentRef.setInput('checked', true);
+      component.checked.set(true);
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 

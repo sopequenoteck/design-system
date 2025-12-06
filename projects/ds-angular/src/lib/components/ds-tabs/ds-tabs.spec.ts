@@ -111,10 +111,12 @@ describe('DsTabs', () => {
 
   it('should navigate with ArrowLeft key', () => {
     fixture.componentRef.setInput('tabs', mockTabs);
-    fixture.componentRef.setInput('activeTabId', 'tab2');
     fixture.detectChanges();
 
+    // First navigate to tab2 by clicking
     const secondTab = fixture.debugElement.queryAll(By.css('.ds-tabs__tab'))[1].nativeElement;
+    secondTab.click();
+    fixture.detectChanges();
     secondTab.focus();
 
     const event = new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true });
@@ -127,10 +129,12 @@ describe('DsTabs', () => {
 
   it('should skip disabled tabs when navigating with keyboard', () => {
     fixture.componentRef.setInput('tabs', mockTabs);
-    fixture.componentRef.setInput('activeTabId', 'tab2');
     fixture.detectChanges();
 
+    // First navigate to tab2 by clicking
     const secondTab = fixture.debugElement.queryAll(By.css('.ds-tabs__tab'))[1].nativeElement;
+    secondTab.click();
+    fixture.detectChanges();
     secondTab.focus();
 
     const event = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true });
@@ -144,10 +148,12 @@ describe('DsTabs', () => {
 
   it('should navigate to first tab with Home key', () => {
     fixture.componentRef.setInput('tabs', mockTabs);
-    fixture.componentRef.setInput('activeTabId', 'tab4');
     fixture.detectChanges();
 
+    // First navigate to tab4 by clicking
     const fourthTab = fixture.debugElement.queryAll(By.css('.ds-tabs__tab'))[3].nativeElement;
+    fourthTab.click();
+    fixture.detectChanges();
     fourthTab.focus();
 
     const event = new KeyboardEvent('keydown', { key: 'Home', bubbles: true });

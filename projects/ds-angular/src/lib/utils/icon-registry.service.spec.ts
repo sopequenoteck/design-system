@@ -50,7 +50,8 @@ describe('IconRegistryService', () => {
       service.registerIcons([faCheck, faTimes]);
 
       expect(service.isIconRegistered('fas-check')).toBe(true);
-      expect(service.isIconRegistered('fas-times')).toBe(true);
+      // FontAwesome 6 renamed 'times' to 'xmark'
+      expect(service.isIconRegistered('fas-xmark')).toBe(true);
       expect(service.isIconRegistered('fas-unknown')).toBe(false);
     });
   });
@@ -100,7 +101,8 @@ describe('IconRegistryService', () => {
 
       const icons = service.getRegisteredIcons();
       expect(icons).toContain('fas-check');
-      expect(icons).toContain('fas-times');
+      // FontAwesome 6 renamed 'times' to 'xmark'
+      expect(icons).toContain('fas-xmark');
       expect(icons.length).toBe(2);
     });
   });
