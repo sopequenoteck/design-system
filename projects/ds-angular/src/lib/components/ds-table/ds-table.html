@@ -1,0 +1,107 @@
+<div [ngClass]="containerClasses()">
+  <div class="ds-table__wrapper">
+    <table class="ds-table__element" role="grid">
+      <!-- Header -->
+      @if (showHeader()) {
+        <thead class="ds-table__header">
+          <tr class="ds-table__row ds-table__row--header">
+            @if (selectable()) {
+              <th class="ds-table__cell ds-table__cell--checkbox" scope="col">
+                <input
+                  type="checkbox"
+                  class="ds-table__checkbox"
+                  [checked]="isAllSelected()"
+                  [indeterminate]="isPartiallySelected()"
+                  (change)="toggleAllSelection($event)"
+                  aria-label="Sélectionner tout" />
+              </th>
+            }
+            @for (column of columns(); track column.key) {
+              <th
+                class="ds-table__cell ds-table__cell--header"
+                [class]="column.headerClass || ''"
+                [class.ds-table__cell--sortable]="column.sortable"
+                [class.ds-table__cell--sorted]="sortColumn() === column.key"
+                [style]="getColumnStyle(column)"
+                [attr.aria-sort]="sortColumn() === column.key ? (sortDirection() === 'asc' ? 'ascending' : 'descending') : null"
+                scope="col"
+                (click)="onSort(column)">
+                <span class="ds-table__header-content">
+                  <span class="ds-table__header-label">{{ column.label }}</span>
+                  @if (column.sortable) {
+                    <span class="ds-table__sort-icon" [class.ds-table__sort-icon--active]="sortColumn() === column.key">
+                      @if (sortColumn() === column.key && sortDirection() === 'asc') {
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                      } @else if (sortColumn() === column.key && sortDirection() === 'desc') {
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      } @else {
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4">
+                          <polyline points="7 15 12 20 17 15"></polyline>
+                          <polyline points="17 9 12 4 7 9"></polyline>
+                        </svg>
+                      }
+                    </span>
+                  }
+                </span>
+              </th>
+            }
+          </tr>
+        </thead>
+      }
+
+      <!-- Body -->
+      <tbody class="ds-table__body">
+        @if (loading()) {
+          <tr class="ds-table__row ds-table__row--loading">
+            <td class="ds-table__cell ds-table__cell--loading" [attr.colspan]="columns().length + (selectable() ? 1 : 0)">
+              <div class="ds-table__loading">
+                <span class="ds-table__loading-spinner"></span>
+                <span class="ds-table__loading-text">Chargement...</span>
+              </div>
+            </td>
+          </tr>
+        } @else if (processedData().length === 0) {
+          <tr class="ds-table__row ds-table__row--empty">
+            <td class="ds-table__cell ds-table__cell--empty" [attr.colspan]="columns().length + (selectable() ? 1 : 0)">
+              <div class="ds-table__empty">
+                {{ emptyText() }}
+              </div>
+            </td>
+          </tr>
+        } @else {
+          @for (row of processedData(); track trackByFn($index, row); let i = $index) {
+            <tr
+              class="ds-table__row ds-table__row--body"
+              [class.ds-table__row--selected]="isRowSelected(i)"
+              role="row"
+              (click)="onRowClick(row, i)">
+              @if (selectable()) {
+                <td class="ds-table__cell ds-table__cell--checkbox">
+                  <input
+                    type="checkbox"
+                    class="ds-table__checkbox"
+                    [checked]="isRowSelected(i)"
+                    (change)="toggleRowSelection(i, $event)"
+                    [attr.aria-label]="'Sélectionner ligne ' + (i + 1)" />
+                </td>
+              }
+              @for (column of columns(); track column.key) {
+                <td
+                  class="ds-table__cell"
+                  [class]="column.cellClass || ''"
+                  [style]="getColumnStyle(column)"
+                  role="gridcell">
+                  {{ formatCellValue(row, column) }}
+                </td>
+              }
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

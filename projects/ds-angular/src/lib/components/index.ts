@@ -125,3 +125,19 @@ export {
   type DsSelectOption,
   type DsSelectSize,
 } from './ds-select/ds-select';
+
+export {
+  DsTable,
+  type DsTableColumn,
+  type DsTableSize,
+  type DsTableVariant,
+  type SortDirection,
+  type SortEvent,
+  type TableState,
+} from './ds-table/ds-table';
+
+export {
+  DsCombobox,
+  type DsComboboxOption,
+  type DsComboboxSize,
+} from './ds-combobox/ds-combobox';

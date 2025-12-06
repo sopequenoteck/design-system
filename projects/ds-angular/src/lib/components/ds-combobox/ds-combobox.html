@@ -1,0 +1,115 @@
+<div [ngClass]="containerClasses()">
+  <!-- Label -->
+  @if (label()) {
+    <label class="ds-combobox__label" [attr.for]="inputId()">
+      {{ label() }}
+      @if (required()) {
+        <span class="ds-combobox__required">*</span>
+      }
+    </label>
+  }
+
+  <!-- Input wrapper -->
+  <div class="ds-combobox__input-wrapper">
+    <input
+      #inputElement
+      type="text"
+      [id]="inputId()"
+      [ngClass]="inputClasses()"
+      [placeholder]="placeholder()"
+      [disabled]="isDisabled()"
+      [value]="inputValue()"
+      [attr.aria-expanded]="isOpen()"
+      [attr.aria-autocomplete]="'list'"
+      [attr.aria-controls]="listboxId()"
+      [attr.aria-activedescendant]="focusedIndex() >= 0 ? getOptionId(focusedIndex()) : null"
+      role="combobox"
+      autocomplete="off"
+      (focus)="onInputFocus()"
+      (blur)="onInputBlur()"
+      (input)="onInput($event)" />
+
+    <span class="ds-combobox__icons">
+      @if (clearable() && inputValue()) {
+        <button
+          type="button"
+          class="ds-combobox__clear"
+          aria-label="Effacer"
+          tabindex="-1"
+          (mousedown)="clear($event)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      }
+      <span class="ds-combobox__arrow" [class.ds-combobox__arrow--open]="isOpen()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </span>
+    </span>
+  </div>
+
+  <!-- Dropdown -->
+  @if (shouldShowDropdown()) {
+    <div class="ds-combobox__dropdown" role="presentation">
+      @if (loading()) {
+        <div class="ds-combobox__loading">
+          <span class="ds-combobox__loading-spinner"></span>
+          <span>{{ loadingText() }}</span>
+        </div>
+      } @else {
+        <ul
+          #listbox
+          [id]="listboxId()"
+          class="ds-combobox__listbox"
+          role="listbox"
+          [attr.aria-label]="label() || 'Options'">
+          @for (option of filteredOptions(); track option.value; let i = $index) {
+            <li
+              [id]="getOptionId(i)"
+              class="ds-combobox__option"
+              [class.ds-combobox__option--focused]="isOptionFocused(i)"
+              [class.ds-combobox__option--selected]="isOptionSelected(option)"
+              [class.ds-combobox__option--disabled]="option.disabled"
+              role="option"
+              [attr.aria-selected]="isOptionSelected(option)"
+              [attr.aria-disabled]="option.disabled"
+              (mousedown)="selectOption(option)">
+              <span class="ds-combobox__option-content">
+                <span class="ds-combobox__option-label">{{ option.label }}</span>
+                @if (option.description) {
+                  <span class="ds-combobox__option-description">{{ option.description }}</span>
+                }
+              </span>
+              @if (isOptionSelected(option)) {
+                <svg
+                  class="ds-combobox__check"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              }
+            </li>
+          } @empty {
+            <li class="ds-combobox__empty" role="option" aria-disabled="true">
+              {{ noResultsText() }}
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+
+  <!-- Helper / Error -->
+  @if (error()) {
+    <span class="ds-combobox__error" role="alert">{{ error() }}</span>
+  } @else if (helper()) {
+    <span class="ds-combobox__helper">{{ helper() }}</span>
+  }
+</div>

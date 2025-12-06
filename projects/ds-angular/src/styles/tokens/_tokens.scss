@@ -401,6 +401,28 @@
   --select-option-padding: #{$select-option-padding};
   --select-option-gap: #{$select-option-gap};
 
+  /* === TABLE === */
+  --table-cell-padding-sm: #{$table-cell-padding-sm};
+  --table-cell-padding-md: #{$table-cell-padding-md};
+  --table-cell-padding-lg: #{$table-cell-padding-lg};
+  --table-radius: #{$table-radius};
+  --table-header-font-size: #{$table-header-font-size};
+  --table-body-font-size: #{$table-body-font-size};
+
+  /* === COMBOBOX === */
+  --combobox-height-sm: #{$combobox-height-sm};
+  --combobox-height-md: #{$combobox-height-md};
+  --combobox-height-lg: #{$combobox-height-lg};
+  --combobox-padding-sm: #{$combobox-padding-sm};
+  --combobox-padding-md: #{$combobox-padding-md};
+  --combobox-padding-lg: #{$combobox-padding-lg};
+  --combobox-font-size-sm: #{$combobox-font-size-sm};
+  --combobox-font-size-md: #{$combobox-font-size-md};
+  --combobox-font-size-lg: #{$combobox-font-size-lg};
+  --combobox-radius: #{$combobox-radius};
+  --combobox-dropdown-shadow: #{$combobox-dropdown-shadow};
+  --combobox-max-height: #{$combobox-max-height};
+
   /* === BREAKPOINTS === */
   --breakpoint-xs: #{$breakpoint-xs};
   --breakpoint-sm: #{$breakpoint-sm};

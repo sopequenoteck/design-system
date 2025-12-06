@@ -334,3 +334,30 @@ $select-dropdown-max-height: 200px;
 
 $select-option-padding: $space-2 $space-3;
 $select-option-gap: $space-1;
+
+// === TABLE ===
+
+$table-cell-padding-sm: $space-2;
+$table-cell-padding-md: $space-3;
+$table-cell-padding-lg: $space-4;
+$table-radius: $radius-2;
+$table-header-font-size: $font-size-2;
+$table-body-font-size: $font-size-3;
+
+// === COMBOBOX ===
+
+$combobox-height-sm: 32px;
+$combobox-height-md: 40px;
+$combobox-height-lg: 48px;
+
+$combobox-padding-sm: $space-1 $space-2;
+$combobox-padding-md: $space-2 $space-3;
+$combobox-padding-lg: $space-3 $space-4;
+
+$combobox-font-size-sm: $font-size-2;
+$combobox-font-size-md: $font-size-3;
+$combobox-font-size-lg: $font-size-4;
+
+$combobox-radius: $radius-2;
+$combobox-dropdown-shadow: $shadow-2;
+$combobox-max-height: 250px;
