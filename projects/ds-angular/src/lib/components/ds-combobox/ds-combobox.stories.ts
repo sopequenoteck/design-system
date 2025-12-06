@@ -27,7 +27,7 @@ const countryOptions: DsComboboxOption[] = [
 ];
 
 const meta: Meta<DsCombobox> = {
-  title: 'Components/DsCombobox',
+  title: 'Components/Forms/DsCombobox',
   component: DsCombobox,
   decorators: [
     moduleMetadata({

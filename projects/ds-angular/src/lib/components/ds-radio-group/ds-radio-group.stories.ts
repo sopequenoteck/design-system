@@ -3,7 +3,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { PrimitiveRadio } from '../../primitives/primitive-radio/primitive-radio';
 
 const meta: Meta = {
-  title: 'Components/RadioGroup',
+  title: 'Components/Forms/DsRadioGroup',
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({

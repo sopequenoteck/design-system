@@ -29,7 +29,7 @@ const manyOptions: DsSelectOption[] = [
 ];
 
 const meta: Meta<DsSelect> = {
-  title: 'Components/DsSelect',
+  title: 'Components/Forms/DsSelect',
   component: DsSelect,
   decorators: [
     moduleMetadata({

@@ -27,7 +27,7 @@ const defaultColumns: DsTableColumn<User>[] = [
 ];
 
 const meta: Meta<DsTable<User>> = {
-  title: 'Components/DsTable',
+  title: 'Components/Data Display/DsTable',
   component: DsTable,
   tags: ['autodocs'],
   argTypes: {

@@ -9,7 +9,7 @@ const defaultSteps: Step[] = [
 ];
 
 const meta: Meta<DsStepper> = {
-  title: 'Components/DsStepper',
+  title: 'Components/Navigation/DsStepper',
   component: DsStepper,
   decorators: [
     moduleMetadata({

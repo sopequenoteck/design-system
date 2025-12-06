@@ -12,7 +12,7 @@ import {
 const baseButtonArgs = buildButtonArgs();
 
 const meta: Meta<DsDropdown> = {
-  title: 'Components/Dropdown',
+  title: 'Components/Overlays/DsDropdown',
   component: DsDropdown,
   tags: ['autodocs'],
   argTypes: (() => {

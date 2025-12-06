@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsToggle } from './ds-toggle';
 
 const meta: Meta<DsToggle> = {
-  title: 'Components/Toggle',
+  title: 'Components/Forms/DsToggle',
   component: DsToggle,
   tags: ['autodocs'],
   argTypes: {

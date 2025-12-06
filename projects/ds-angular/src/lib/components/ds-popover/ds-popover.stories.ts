@@ -4,7 +4,7 @@ import { DsPopover } from './ds-popover.directive';
 import { DsButton } from '../ds-button/ds-button';
 
 const meta: Meta = {
-  title: 'Components/Popover',
+  title: 'Components/Overlays/DsPopover',
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({

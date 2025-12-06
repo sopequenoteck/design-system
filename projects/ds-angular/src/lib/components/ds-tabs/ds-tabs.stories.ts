@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsTabs, TabItem } from './ds-tabs';
 
 const meta: Meta<DsTabs> = {
-  title: 'Components/Tabs',
+  title: 'Components/Navigation/DsTabs',
   component: DsTabs,
   tags: ['autodocs'],
 };

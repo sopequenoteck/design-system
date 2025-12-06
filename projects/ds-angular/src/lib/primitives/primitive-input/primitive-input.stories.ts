@@ -3,7 +3,7 @@ import { PrimitiveInput, InputType, InputState, InputSize, InputAppearance } fro
 import { faSearch, faEye, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 const meta: Meta<PrimitiveInput> = {
-  title: 'Primitives/Input',
+  title: 'Primitives/PrimitiveInput',
   component: PrimitiveInput,
   tags: ['autodocs'],
   argTypes: {

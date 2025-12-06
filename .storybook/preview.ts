@@ -29,7 +29,31 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['Introduction', 'Tokens', 'Components', 'Primitives']
+        order: [
+          'Getting Started',
+          ['Introduction'],
+          'Foundations',
+          ['Tokens', 'Theming', 'Accessibility'],
+          'Components',
+          [
+            'Forms',
+            ['DsButton', 'DsInputField', 'DsInputTextarea', 'DsCheckbox', 'DsRadioGroup', 'DsToggle', 'DsSelect', 'DsCombobox', 'DsSearchInput', 'DsDatePicker'],
+            'Navigation',
+            ['DsTabs', 'DsBreadcrumb', 'DsPagination', 'DsStepper', 'DsAccordion'],
+            'Feedback',
+            ['DsAlert', 'DsToast', 'DsProgressBar', 'DsSkeleton'],
+            'Overlays',
+            ['DsModal', 'DsDropdown', 'DsTooltip', 'DsPopover'],
+            'Layout',
+            ['DsCard', 'DsDivider', 'DsContainer'],
+            'Data Display',
+            ['DsBadge', 'DsTable']
+          ],
+          'Primitives',
+          ['PrimitiveButton', 'PrimitiveInput', 'PrimitiveTextarea', 'PrimitiveCheckbox', 'PrimitiveRadio', 'PrimitiveToggle', 'PrimitiveBadge'],
+          'Guides',
+          ['Integration', 'Patterns', 'Testing', 'Contributing']
+        ]
       }
     },
     docs: {

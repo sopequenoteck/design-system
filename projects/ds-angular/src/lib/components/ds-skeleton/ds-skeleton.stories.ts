@@ -2,7 +2,7 @@ import { Meta, StoryObj, argsToTemplate } from '@storybook/angular';
 import { DsSkeleton } from './ds-skeleton';
 
 const meta: Meta<DsSkeleton> = {
-  title: 'Components/DsSkeleton',
+  title: 'Components/Feedback/DsSkeleton',
   component: DsSkeleton,
   tags: ['autodocs'],
   argTypes: {

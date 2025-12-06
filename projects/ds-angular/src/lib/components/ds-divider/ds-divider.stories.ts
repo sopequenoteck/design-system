@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsDivider } from './ds-divider';
 
 const meta: Meta<DsDivider> = {
-  title: 'Components/Divider',
+  title: 'Components/Layout/DsDivider',
   component: DsDivider,
   tags: ['autodocs'],
   argTypes: {

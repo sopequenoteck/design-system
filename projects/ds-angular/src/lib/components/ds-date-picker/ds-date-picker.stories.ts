@@ -3,7 +3,7 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { DsDatePicker } from './ds-date-picker';
 
 const meta: Meta<DsDatePicker> = {
-  title: 'Components/DsDatePicker',
+  title: 'Components/Forms/DsDatePicker',
   component: DsDatePicker,
   decorators: [
     moduleMetadata({

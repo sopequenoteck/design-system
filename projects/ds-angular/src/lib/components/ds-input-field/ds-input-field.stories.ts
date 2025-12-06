@@ -3,7 +3,7 @@ import { DsInputField } from './ds-input-field';
 import { faUser, faEnvelope, faLock, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const meta: Meta<DsInputField> = {
-  title: 'Components/InputField',
+  title: 'Components/Forms/DsInputField',
   component: DsInputField,
   tags: ['autodocs'],
   argTypes: {

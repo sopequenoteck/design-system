@@ -4,7 +4,7 @@ import { DsModalComponent } from './ds-modal.component';
 import { DsButton } from '../ds-button/ds-button';
 
 const meta: Meta<DsModalComponent> = {
-  title: 'Components/Modal',
+  title: 'Components/Overlays/DsModal',
   component: DsModalComponent,
   tags: ['autodocs'],
   decorators: [

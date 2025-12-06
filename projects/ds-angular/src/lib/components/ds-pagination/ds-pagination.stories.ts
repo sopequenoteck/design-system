@@ -2,7 +2,7 @@ import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { DsPagination } from './ds-pagination';
 
 const meta: Meta<DsPagination> = {
-  title: 'Components/DsPagination',
+  title: 'Components/Navigation/DsPagination',
   component: DsPagination,
   decorators: [
     moduleMetadata({

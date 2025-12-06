@@ -2,7 +2,7 @@ import { Meta, StoryObj, argsToTemplate } from '@storybook/angular';
 import { DsProgressBar } from './ds-progress-bar';
 
 const meta: Meta<DsProgressBar> = {
-  title: 'Components/DsProgressBar',
+  title: 'Components/Feedback/DsProgressBar',
   component: DsProgressBar,
   tags: ['autodocs'],
   argTypes: {
