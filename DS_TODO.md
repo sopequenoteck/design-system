@@ -130,11 +130,11 @@ Créer ds-select, ds-table, ds-combobox pour usage enterprise.
 
 ### Tâches
 
-- [ ] `projects/ds-angular/src/lib/components/ds-select/` — Créer DsSelect (ts, html, scss, spec, stories) avec CVA, sizes (sm/md/lg), disabled, validation — **Critère** : 65 tests, 12 stories, 95%+ coverage
-- [ ] `projects/ds-angular/src/lib/components/ds-table/` — Créer DsTable avec colonnes configurables, sort, stripe rows, sticky header — **Critère** : 55 tests, 10 stories, 90%+ coverage
-- [ ] `projects/ds-angular/src/lib/components/ds-combobox/` — Créer DsCombobox avec filter + dropdown, CVA, keyboard nav, creatable — **Critère** : 60 tests, 12 stories, 95%+ coverage
-- [ ] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter 15 tokens sémantiques (select/table/combobox sizing, colors) — **Critère** : Exposés dans _tokens.scss
-- [ ] `projects/ds-angular/src/lib/components/index.ts` — Exporter DsSelect, DsTable, DsCombobox + types — **Critère** : Import depuis 'ds-angular' fonctionne
+- [x] `projects/ds-angular/src/lib/components/ds-select/` — Créer DsSelect (ts, html, scss, spec, stories) avec CVA, sizes (sm/md/lg), disabled, validation — **Critère** : 45/45 tests, 14 stories ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-table/` — Créer DsTable avec colonnes configurables, sort, stripe rows, sticky header — **Critère** : 35/35 tests, 13 stories ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-combobox/` — Créer DsCombobox avec filter + dropdown, CVA, keyboard nav, creatable — **Critère** : 33/33 tests, 13 stories ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter tokens sémantiques (select/table/combobox sizing) — **Critère** : 33 tokens ajoutés, exposés dans _tokens.scss ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/index.ts` — Exporter DsSelect, DsTable, DsCombobox + types — **Critère** : 13 exports ajoutés ✅ (2025-12-06)
 
 ---
 

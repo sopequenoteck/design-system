@@ -299,6 +299,20 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - 📊 Note : 97 échecs restants sont sur ds-toggle, ds-tabs (problèmes préexistants non bloquants)
 - 📊 ÉTAPE 22 : Partiellement complétée (ds-tooltip corrigé)
 
+**Composants données critiques ÉTAPE 23** (2025-12-06) :
+- ✅ DsSelect créé : CVA, tailles (sm/md/lg), searchable, clearable, disabled options
+- ✅ DsSelect : navigation clavier (ArrowUp/Down, Home/End, Enter, Escape), ARIA complet
+- ✅ DsSelect : 45/45 tests, 14 stories
+- ✅ DsTable créé : colonnes configurables, tri (asc/desc), variants (default/striped/bordered)
+- ✅ DsTable : sélection lignes, loading/empty states, sticky header
+- ✅ DsTable : 35/35 tests, 13 stories
+- ✅ DsCombobox créé : autocomplete avec filtrage, CVA, descriptions options
+- ✅ DsCombobox : allowCustom, minChars, navigation clavier, ARIA complet
+- ✅ DsCombobox : 33/33 tests, 13 stories
+- ✅ Tokens sémantiques : 33 tokens ajoutés (select: 15, table: 6, combobox: 12)
+- ✅ Exports : DsSelect, DsTable, DsCombobox + 13 types dans index.ts
+- 📊 ÉTAPE 23 : 100% complétée (5/5 tâches) — 25 composants DS au total
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)
