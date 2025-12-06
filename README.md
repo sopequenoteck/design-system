@@ -1,7 +1,7 @@
 # DS-Angular Design System
 
 [![CI](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml)
-[![npm version](https://badge.fury.io/js/ds-angular.svg)](https://www.npmjs.com/package/ds-angular)
+[![npm version](https://badge.fury.io/js/@kksdev/ds-angular.svg)](https://www.npmjs.com/package/@kksdev/ds-angular)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Design system Angular moderne et accessible avec support TypeScript, theming, et composants standalone.
@@ -9,13 +9,13 @@ Design system Angular moderne et accessible avec support TypeScript, theming, et
 ## 🚀 Quick Start
 
 ```bash
-npm install ds-angular
+npm install @kksdev/ds-angular
 ```
 
 ```typescript
 // app.component.ts
 import { Component } from '@angular/core';
-import { DsButton } from 'ds-angular';
+import { DsButton } from '@kksdev/ds-angular';
 
 @Component({
   standalone: true,
@@ -27,7 +27,7 @@ export class AppComponent {}
 
 ```scss
 // styles.scss
-@use 'ds-angular/styles';
+@use '@kksdev/ds-angular/styles';
 ```
 
 ## 📚 Documentation
@@ -178,6 +178,6 @@ Consultez [CONTRIBUTING.md](./projects/ds-angular/src/lib/Contributing.mdx) pour
 
 ## 🔗 Liens utiles
 
-- [Package npm](https://www.npmjs.com/package/ds-angular)
+- [Package npm](https://www.npmjs.com/package/@kksdev/ds-angular)
 - [Issues](https://github.com/sopequeno-tech/design-system/issues)
 - [Changelog](./CHANGELOG.md)

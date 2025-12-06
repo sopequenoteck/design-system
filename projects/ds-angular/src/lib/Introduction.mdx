@@ -10,12 +10,12 @@ Bienvenue dans la documentation du Design System **ds-angular**, une bibliothèq
 ## Installation
 
 ```bash
-npm install ds-angular
+npm install @kksdev/ds-angular
 ```
 
 ### Peer dependencies
 
-ds-angular nécessite les dépendances suivantes dans votre projet :
+@kksdev/ds-angular nécessite les dépendances suivantes dans votre projet :
 
 <table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '16px'}}>
   <thead>
@@ -76,7 +76,7 @@ document.documentElement.className = 'theme-light'; // ou 'theme-dark'
 **Solution** : Importez les styles globaux dans votre fichier `styles.scss` :
 
 ```scss
-@use 'ds-angular/styles';
+@use '@kksdev/ds-angular/styles';
 ```
 
 ### Icônes FontAwesome manquantes
@@ -109,7 +109,7 @@ Installez la bibliothèque et importez les styles globaux dans votre application
 
 ```scss
 // Dans src/styles.scss
-@use 'ds-angular/styles';
+@use '@kksdev/ds-angular/styles';
 ```
 
 Activez le thème souhaité dans votre composant racine :
@@ -138,7 +138,7 @@ Importez et utilisez le composant `DsButton` :
 ```typescript
 // Dans src/app/home/home.component.ts
 import { Component } from '@angular/core';
-import { DsButton } from 'ds-angular';
+import { DsButton } from '@kksdev/ds-angular';
 
 @Component({
   selector: 'app-home',
@@ -168,7 +168,7 @@ Les composants de formulaire sont compatibles avec `ngModel` et reactive forms :
 // Dans src/app/login/login.component.ts
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DsInputField } from 'ds-angular';
+import { DsInputField } from '@kksdev/ds-angular';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

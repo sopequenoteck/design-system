@@ -66,7 +66,7 @@ jobs:
             ## Installation
 
             ```bash
-            npm install ds-angular@${{ steps.get_version.outputs.VERSION }}
+            npm install @kksdev/ds-angular@${{ steps.get_version.outputs.VERSION }}
             ```
           draft: false
           prerelease: false
@@ -74,7 +74,7 @@ jobs:
       - name: Publish to npm
         run: |
           cd dist/ds-angular
-          npm publish
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
