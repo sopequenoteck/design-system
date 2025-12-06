@@ -7,8 +7,6 @@ import {
   ComponentRef,
   ViewContainerRef,
   Injector,
-  EnvironmentInjector,
-  createComponent,
 } from '@angular/core';
 import { Overlay, OverlayRef, ConnectedPosition } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -30,8 +28,7 @@ export class DsTooltip implements OnDestroy {
     private elementRef: ElementRef,
     private overlay: Overlay,
     private viewContainerRef: ViewContainerRef,
-    private injector: Injector,
-    private environmentInjector: EnvironmentInjector
+    private injector: Injector
   ) {}
 
   @HostListener('mouseenter')
@@ -66,14 +63,15 @@ export class DsTooltip implements OnDestroy {
 
     this.overlayRef = this.createOverlay();
 
-    this.tooltipComponentRef = createComponent(DsTooltipComponent, {
-      environmentInjector: this.environmentInjector,
-      elementInjector: this.injector,
-    });
+    // Utiliser ComponentPortal avec attach() - pattern CDK standard
+    const portal = new ComponentPortal(
+      DsTooltipComponent,
+      this.viewContainerRef,
+      this.injector
+    );
 
+    this.tooltipComponentRef = this.overlayRef.attach(portal);
     this.tooltipComponentRef.setInput('text', tooltipText);
-
-    this.overlayRef.overlayElement.appendChild(this.tooltipComponentRef.location.nativeElement);
     this.tooltipComponentRef.changeDetectorRef.detectChanges();
 
     // Set aria-describedby on host element

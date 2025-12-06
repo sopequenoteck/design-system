@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
       <div class="ds-tooltip__content">{{ text() }}</div>
     </div>
   `,
-  styleUrl: './ds-tooltip.component.scss',
+  styleUrls: ['./ds-tooltip.component.scss'],
 })
 export class DsTooltipComponent {
   text = input.required<string>();

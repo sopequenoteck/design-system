@@ -291,6 +291,14 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Tous les seuils ≥80% respectés
 - 📊 ÉTAPE 21 : 100% complétée (5/5 tâches)
 
+**Correction tests ds-tooltip ÉTAPE 22** (2025-12-06) :
+- ✅ DsTooltip.directive.ts refactorisé : ComponentPortal + overlayRef.attach() au lieu de createComponent() + appendChild()
+- ✅ ds-tooltip.component.ts : styleUrl → styleUrls (correction syntaxe Angular)
+- ✅ Tests ds-tooltip : 20/20 passants (0 échec sur tooltip)
+- ✅ Réduction échecs globaux : 106 → 97 (9 tests corrigés)
+- 📊 Note : 97 échecs restants sont sur ds-toggle, ds-tabs (problèmes préexistants non bloquants)
+- 📊 ÉTAPE 22 : Partiellement complétée (ds-tooltip corrigé)
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)
