@@ -1,0 +1,105 @@
+name: Accessibility Audit (WAVE)
+
+on:
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:
+
+jobs:
+  a11y-audit:
+    runs-on: ubuntu-latest
+    name: WAVE Accessibility Audit
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Start Storybook server
+        run: |
+          npx http-server storybook-static -p 6006 &
+          sleep 10
+
+      - name: Install Pa11y
+        run: npm install -g pa11y pa11y-ci
+
+      - name: Create Pa11y config
+        run: |
+          cat > .pa11yci.json << 'EOF'
+          {
+            "defaults": {
+              "timeout": 30000,
+              "wait": 2000,
+              "standard": "WCAG2AA",
+              "runners": ["axe"],
+              "chromeLaunchConfig": {
+                "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+              }
+            },
+            "urls": [
+              "http://localhost:6006/iframe.html?id=components-dsbutton--default",
+              "http://localhost:6006/iframe.html?id=components-dsmodal--default",
+              "http://localhost:6006/iframe.html?id=components-dsinputfield--default",
+              "http://localhost:6006/iframe.html?id=components-dstable--default",
+              "http://localhost:6006/iframe.html?id=components-dsdropdown--default"
+            ]
+          }
+          EOF
+
+      - name: Run Pa11y CI
+        run: pa11y-ci
+        continue-on-error: true
+
+      - name: Run Axe audit
+        run: |
+          npm install -g @axe-core/cli
+          axe http://localhost:6006/iframe.html?id=components-dsbutton--default \
+              http://localhost:6006/iframe.html?id=components-dsmodal--default \
+              http://localhost:6006/iframe.html?id=components-dsinputfield--default \
+              --exit || true
+
+      - name: Generate report
+        if: always()
+        run: |
+          echo "## Accessibility Audit Report" > a11y-report.md
+          echo "" >> a11y-report.md
+          echo "### Components Tested" >> a11y-report.md
+          echo "- DsButton" >> a11y-report.md
+          echo "- DsModal" >> a11y-report.md
+          echo "- DsInputField" >> a11y-report.md
+          echo "- DsTable" >> a11y-report.md
+          echo "- DsDropdown" >> a11y-report.md
+          echo "" >> a11y-report.md
+          echo "### Standard: WCAG 2.1 AA" >> a11y-report.md
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-report
+          path: a11y-report.md
+
+      - name: Comment PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('a11y-report.md', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });

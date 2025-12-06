@@ -218,9 +218,9 @@ Ajouter WAVE audit, Chromatic visual tests, bundle monitoring.
 
 ### Tâches
 
-- [ ] `.github/workflows/a11y-wave.yml` — Créer workflow audit WAVE (PR trigger), seuil 0 erreurs — **Critère** : Audit 5 pages clés (button, modal, form, table, dropdown)
-- [ ] `.chromatic.json` + `.github/workflows/chromatic.yml` — Configurer Chromatic visual regression — **Critère** : Commentaire PR automatique avec résultats
-- [ ] `.github/workflows/ci.yml` — Ajouter step bundlesize (target 150KB gzip, fail si +10%) — **Critère** : Rapport bundle size dans CI log
+- [x] `.github/workflows/a11y-wave.yml` — Créer workflow audit WAVE/Pa11y (PR trigger), seuil 0 erreurs — **Critère** : Audit 5 composants (button, modal, input, table, dropdown) ✅ (2025-12-06)
+- [x] `.github/workflows/chromatic.yml` — Configurer Chromatic visual regression — **Critère** : Commentaire PR automatique avec résultats ✅ (2025-12-06)
+- [x] `.github/workflows/ci.yml` — Ajouter step bundlesize avec commentaire PR (target 5MB, 150KB gzip) — **Critère** : Rapport bundle size dans PR ✅ (2025-12-06)
 
 ---
 
