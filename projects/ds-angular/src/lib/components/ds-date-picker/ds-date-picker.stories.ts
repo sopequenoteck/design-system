@@ -76,7 +76,7 @@ export const SingleSelection: Story = {
     props: {
       selectedDate: null as Date | null,
       onDateChange: function (date: Date | null) {
-        this.selectedDate = date;
+        this["selectedDate"] = date;
       },
     },
     template: `
@@ -98,7 +98,7 @@ export const RangeSelection: Story = {
     props: {
       range: { start: null, end: null },
       onRangeChange: function (range: { start: Date | null; end: Date | null }) {
-        this.range = range;
+        this["range"] = range;
       },
     },
     template: `
@@ -257,17 +257,17 @@ export const BookingExample: Story = {
       step: 'checkin',
       minDate: new Date(),
       onDateChange: function (date: Date | null) {
-        if (this.step === 'checkin') {
-          this.checkIn = date;
-          this.step = 'checkout';
+        if (this["step"] === 'checkin') {
+          this["checkIn"] = date;
+          this["step"] = 'checkout';
           if (date) {
             const nextDay = new Date(date);
             nextDay.setDate(nextDay.getDate() + 1);
-            this.minDate = nextDay;
+            this["minDate"] = nextDay;
           }
         } else {
-          this.checkOut = date;
-          this.step = 'done';
+          this["checkOut"] = date;
+          this["step"] = 'done';
         }
       },
     },
@@ -317,9 +317,9 @@ export const EventCalendar: Story = {
         selectedDate: null as Date | null,
         selectedEvent: null as typeof events[0] | null,
         onDateChange: function (date: Date | null) {
-          this.selectedDate = date;
-          this.selectedEvent = date
-            ? this.events.find((e: typeof events[0]) =>
+          this["selectedDate"] = date;
+          this["selectedEvent"] = date
+            ? this["events"].find((e: typeof events[0]) =>
                 e.date.getDate() === date.getDate() &&
                 e.date.getMonth() === date.getMonth()
               ) || null

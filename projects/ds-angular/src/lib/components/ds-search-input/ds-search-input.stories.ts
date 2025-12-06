@@ -196,14 +196,14 @@ export const SearchWithResults: Story = {
       results: [] as string[],
       allItems: ['Angular', 'React', 'Vue', 'Svelte', 'Solid', 'Ember', 'Backbone'],
       onSearch: function (value: string) {
-        this.loading = true;
+        this["loading"] = true;
         setTimeout(() => {
-          this.results = value
-            ? this.allItems.filter((item: string) =>
+          this["results"] = value
+            ? this["allItems"].filter((item: string) =>
                 item.toLowerCase().includes(value.toLowerCase())
               )
             : [];
-          this.loading = false;
+          this["loading"] = false;
         }, 500);
       },
     },
