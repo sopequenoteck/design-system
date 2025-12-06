@@ -134,24 +134,52 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Toasts avec les 4 types de feedback : success (action réussie), warning (attention requise), error (échec), info (information neutre).',
+      },
+    },
+  },
   render: () => ({
     template: `<toast-demo></toast-demo>`,
   }),
 };
 
 export const Positions: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Les 4 positions disponibles : top-left, top-right, bottom-left, bottom-right. Choisissez selon votre layout.',
+      },
+    },
+  },
   render: () => ({
     template: `<toast-positions-demo></toast-positions-demo>`,
   }),
 };
 
 export const WithAction: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Toast avec bouton d\'action. Idéal pour les actions réversibles (ex: "Annuler" après suppression).',
+      },
+    },
+  },
   render: () => ({
     template: `<toast-action-demo></toast-action-demo>`,
   }),
 };
 
 export const Persistent: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Toast persistant (duration: 0) qui reste affiché jusqu\'à fermeture manuelle. Pour les messages critiques.',
+      },
+    },
+  },
   render: () => ({
     template: `<toast-persistent-demo></toast-persistent-demo>`,
   }),

@@ -585,15 +585,72 @@ export const decorators = [
 
 ### 10.3 Liste complète des tokens
 
-| Catégorie | Token | Valeur Light | Valeur Dark |
-|-----------|-------|--------------|-------------|
-| **Primary** | `--color-primary` | #3b82f6 | #60a5fa |
-| | `--color-primary-hover` | #2563eb | #93c5fd |
-| **Background** | `--background-main` | #ffffff | #111827 |
-| | `--background-subtle` | #f9fafb | #1f2937 |
-| **Text** | `--text-default` | #1f2937 | #f9fafb |
-| | `--text-muted` | #6b7280 | #9ca3af |
-| **Border** | `--border-default` | #d1d5db | #374151 |
-| **Success** | `--color-success` | #10b981 | #34d399 |
-| **Warning** | `--color-warning` | #f59e0b | #fbbf24 |
-| **Error** | `--color-error` | #ef4444 | #f87171 |
+<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '16px'}}>
+  <thead>
+    <tr style={{borderBottom: '2px solid var(--border-color, #e5e5e5)'}}>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600, width: '120px'}}>Catégorie</th>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Token</th>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600, width: '120px'}}>Valeur Light</th>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600, width: '120px'}}>Valeur Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)', background: 'var(--surface-subtle, #fafafa)'}}>
+      <td style={{padding: '12px 16px', fontWeight: 600}} rowSpan={2}>Primary</td>
+      <td style={{padding: '12px 16px'}}><code>--color-primary</code></td>
+      <td style={{padding: '12px 16px'}}>#3b82f6</td>
+      <td style={{padding: '12px 16px'}}>#60a5fa</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>--color-primary-hover</code></td>
+      <td style={{padding: '12px 16px'}}>#2563eb</td>
+      <td style={{padding: '12px 16px'}}>#93c5fd</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)', background: 'var(--surface-subtle, #fafafa)'}}>
+      <td style={{padding: '12px 16px', fontWeight: 600}} rowSpan={2}>Background</td>
+      <td style={{padding: '12px 16px'}}><code>--background-main</code></td>
+      <td style={{padding: '12px 16px'}}>#ffffff</td>
+      <td style={{padding: '12px 16px'}}>#111827</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>--background-subtle</code></td>
+      <td style={{padding: '12px 16px'}}>#f9fafb</td>
+      <td style={{padding: '12px 16px'}}>#1f2937</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)', background: 'var(--surface-subtle, #fafafa)'}}>
+      <td style={{padding: '12px 16px', fontWeight: 600}} rowSpan={2}>Text</td>
+      <td style={{padding: '12px 16px'}}><code>--text-default</code></td>
+      <td style={{padding: '12px 16px'}}>#1f2937</td>
+      <td style={{padding: '12px 16px'}}>#f9fafb</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>--text-muted</code></td>
+      <td style={{padding: '12px 16px'}}>#6b7280</td>
+      <td style={{padding: '12px 16px'}}>#9ca3af</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px', fontWeight: 600}}>Border</td>
+      <td style={{padding: '12px 16px'}}><code>--border-default</code></td>
+      <td style={{padding: '12px 16px'}}>#d1d5db</td>
+      <td style={{padding: '12px 16px'}}>#374151</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px', fontWeight: 600}}>Success</td>
+      <td style={{padding: '12px 16px'}}><code>--color-success</code></td>
+      <td style={{padding: '12px 16px'}}>#10b981</td>
+      <td style={{padding: '12px 16px'}}>#34d399</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px', fontWeight: 600}}>Warning</td>
+      <td style={{padding: '12px 16px'}}><code>--color-warning</code></td>
+      <td style={{padding: '12px 16px'}}>#f59e0b</td>
+      <td style={{padding: '12px 16px'}}>#fbbf24</td>
+    </tr>
+    <tr>
+      <td style={{padding: '12px 16px', fontWeight: 600}}>Error</td>
+      <td style={{padding: '12px 16px'}}><code>--color-error</code></td>
+      <td style={{padding: '12px 16px'}}>#ef4444</td>
+      <td style={{padding: '12px 16px'}}>#f87171</td>
+    </tr>
+  </tbody>
+</table>

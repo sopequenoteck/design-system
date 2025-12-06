@@ -13,6 +13,92 @@ Bienvenue dans la documentation du Design System **ds-angular**, une bibliothèq
 npm install ds-angular
 ```
 
+### Peer dependencies
+
+ds-angular nécessite les dépendances suivantes dans votre projet :
+
+<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '16px'}}>
+  <thead>
+    <tr style={{borderBottom: '2px solid var(--border-color, #e5e5e5)'}}>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Package</th>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>@angular/core</code></td>
+      <td style={{padding: '12px 16px'}}><code>^20.0.0</code></td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>@angular/common</code></td>
+      <td style={{padding: '12px 16px'}}><code>^20.0.0</code></td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>@angular/forms</code></td>
+      <td style={{padding: '12px 16px'}}><code>^20.0.0</code></td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>@angular/cdk</code></td>
+      <td style={{padding: '12px 16px'}}><code>^20.0.0</code></td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>@fortawesome/angular-fontawesome</code></td>
+      <td style={{padding: '12px 16px'}}><code>^0.16.0</code></td>
+    </tr>
+    <tr>
+      <td style={{padding: '12px 16px'}}><code>@fortawesome/free-solid-svg-icons</code></td>
+      <td style={{padding: '12px 16px'}}><code>^6.5.0</code></td>
+    </tr>
+  </tbody>
+</table>
+
+```bash
+npm install @angular/cdk @fortawesome/angular-fontawesome @fortawesome/free-solid-svg-icons
+```
+
+## Erreurs courantes
+
+### Thème non appliqué
+
+**Symptôme** : Les composants s'affichent sans couleurs ou avec des styles par défaut.
+
+**Solution** : Assurez-vous d'activer un thème sur `:root` :
+
+```typescript
+// Dans app.component.ts
+document.documentElement.className = 'theme-light'; // ou 'theme-dark'
+```
+
+### Styles non chargés
+
+**Symptôme** : Les composants n'ont aucun style CSS.
+
+**Solution** : Importez les styles globaux dans votre fichier `styles.scss` :
+
+```scss
+@use 'ds-angular/styles';
+```
+
+### Icônes FontAwesome manquantes
+
+**Symptôme** : Les icônes n'apparaissent pas dans les composants.
+
+**Solution** : Vérifiez que `@fortawesome/angular-fontawesome` est installé et que vous importez les icônes nécessaires :
+
+```typescript
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+```
+
+### Erreur CDK Overlay
+
+**Symptôme** : `NullInjectorError: No provider for Overlay`.
+
+**Solution** : Importez `OverlayModule` dans votre composant ou module :
+
+```typescript
+import { OverlayModule } from '@angular/cdk/overlay';
+```
+
 ## Quick Start
 
 Voici 3 exemples pour démarrer rapidement avec ds-angular.
@@ -147,20 +233,61 @@ Composants haut niveau avec logique intégrée :
 
 ### Couleurs de marque
 
-| Token               | Valeur                                                                                                         | Usage             |
-|---------------------|----------------------------------------------------------------------------------------------------------------|-------------------|
-| `--color-primary`   | <span style={{background: '#7d4bc0', padding: '2px 12px', color: 'white', borderRadius: '4px'}}>#7d4bc0</span> | Action principale |
-| `--color-secondary` | <span style={{background: '#fbc224', padding: '2px 12px', color: 'black', borderRadius: '4px'}}>#fbc224</span> | Accent secondaire |
-| `--color-alt`       | <span style={{background: '#2dd4bf', padding: '2px 12px', color: 'black', borderRadius: '4px'}}>#2dd4bf</span> | Alternative       |
+<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '16px'}}>
+  <thead>
+    <tr style={{borderBottom: '2px solid var(--border-color, #e5e5e5)'}}>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Token</th>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Valeur</th>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>--color-primary</code></td>
+      <td style={{padding: '12px 16px'}}><span style={{background: '#7d4bc0', padding: '2px 12px', color: 'white', borderRadius: '4px'}}>#7d4bc0</span></td>
+      <td style={{padding: '12px 16px'}}>Action principale</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>--color-secondary</code></td>
+      <td style={{padding: '12px 16px'}}><span style={{background: '#fbc224', padding: '2px 12px', color: 'black', borderRadius: '4px'}}>#fbc224</span></td>
+      <td style={{padding: '12px 16px'}}>Accent secondaire</td>
+    </tr>
+    <tr>
+      <td style={{padding: '12px 16px'}}><code>--color-alt</code></td>
+      <td style={{padding: '12px 16px'}}><span style={{background: '#2dd4bf', padding: '2px 12px', color: 'black', borderRadius: '4px'}}>#2dd4bf</span></td>
+      <td style={{padding: '12px 16px'}}>Alternative</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Couleurs de feedback
 
-| Token       | Usage                      |
-|-------------|----------------------------|
-| `--success` | Validation réussie         |
-| `--warning` | Attention requise          |
-| `--error`   | Erreur, action destructive |
-| `--info`    | Information neutre         |
+<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '16px'}}>
+  <thead>
+    <tr style={{borderBottom: '2px solid var(--border-color, #e5e5e5)'}}>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Token</th>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>--success</code></td>
+      <td style={{padding: '12px 16px'}}>Validation réussie</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>--warning</code></td>
+      <td style={{padding: '12px 16px'}}>Attention requise</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>--error</code></td>
+      <td style={{padding: '12px 16px'}}>Erreur, action destructive</td>
+    </tr>
+    <tr>
+      <td style={{padding: '12px 16px'}}><code>--info</code></td>
+      <td style={{padding: '12px 16px'}}>Information neutre</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Thèmes
 

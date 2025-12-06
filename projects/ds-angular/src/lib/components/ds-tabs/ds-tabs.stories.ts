@@ -5,6 +5,16 @@ const meta: Meta<DsTabs> = {
   title: 'Components/Navigation/DsTabs',
   component: DsTabs,
   tags: ['autodocs'],
+  argTypes: {
+    tabs: {
+      control: 'object',
+      description: 'Liste des onglets. Chaque onglet a un id (unique), un label, et optionnellement disabled.',
+    },
+    activeTabId: {
+      control: 'text',
+      description: 'ID de l\'onglet actif. Si non fourni, le premier onglet est sélectionné.',
+    },
+  },
 };
 
 export default meta;
@@ -20,6 +30,13 @@ export const Default: Story = {
   args: {
     tabs: basicTabs,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tabs standard avec 3 onglets. Navigation clavier supportée (flèches, Home, End).',
+      },
+    },
+  },
   render: (args) => ({
     props: args,
     template: `<ds-tabs [tabs]="tabs"></ds-tabs>`,
@@ -27,6 +44,13 @@ export const Default: Story = {
 };
 
 export const WithActiveTab: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tabs avec un onglet spécifique sélectionné par défaut via activeTabId.',
+      },
+    },
+  },
   render: () => ({
     props: {
       tabs: basicTabs,
@@ -36,13 +60,20 @@ export const WithActiveTab: Story = {
 };
 
 export const WithDisabledTab: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tabs avec un onglet désactivé. L\'onglet reste visible mais non cliquable.',
+      },
+    },
+  },
   render: () => ({
     props: {
       tabs: [
-        { id: 'tab1', label: 'Actif' },
-        { id: 'tab2', label: 'Disponible' },
-        { id: 'tab3', label: 'Désactivé', disabled: true },
-        { id: 'tab4', label: 'Autre' },
+        { id: 'tab1', label: 'Tableau de bord' },
+        { id: 'tab2', label: 'Statistiques' },
+        { id: 'tab3', label: 'Export (bientôt)', disabled: true },
+        { id: 'tab4', label: 'Paramètres' },
       ] as TabItem[],
     },
     template: `<ds-tabs [tabs]="tabs"></ds-tabs>`,
@@ -50,6 +81,13 @@ export const WithDisabledTab: Story = {
 };
 
 export const ManyTabs: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tabs avec de nombreux onglets. Le composant gère le dépassement avec un scroll horizontal si nécessaire.',
+      },
+    },
+  },
   render: () => ({
     props: {
       tabs: [
@@ -66,6 +104,13 @@ export const ManyTabs: Story = {
 };
 
 export const TabsWithContent: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tabs avec contenu dynamique. L\'événement tabChanged permet de réagir aux changements d\'onglet.',
+      },
+    },
+  },
   render: () => ({
     props: {
       tabs: basicTabs,
@@ -76,13 +121,13 @@ export const TabsWithContent: Story = {
         <ds-tabs [tabs]="tabs" [activeTabId]="activeTab" (tabChanged)="activeTab = $event.id"></ds-tabs>
         <div style="padding: 16px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px;">
           @if (activeTab === 'tab1') {
-            <p>Contenu de l'aperçu. Vue d'ensemble des informations principales.</p>
+            <p>Vue d'ensemble du projet : 3 tâches en cours, 12 terminées cette semaine.</p>
           }
           @if (activeTab === 'tab2') {
-            <p>Contenu des détails. Informations approfondies sur l'élément sélectionné.</p>
+            <p>Détails du projet : créé le 1er janvier 2025, dernière mise à jour il y a 2 heures.</p>
           }
           @if (activeTab === 'tab3') {
-            <p>Contenu des paramètres. Configuration et personnalisation.</p>
+            <p>Paramètres : notifications activées, thème clair, langue française.</p>
           }
         </div>
       </div>
@@ -91,6 +136,13 @@ export const TabsWithContent: Story = {
 };
 
 export const FormTabs: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tabs intégrés dans un formulaire de compte utilisateur. Pattern courant pour les pages de paramètres.',
+      },
+    },
+  },
   render: () => ({
     props: {
       tabs: [
@@ -104,7 +156,7 @@ export const FormTabs: Story = {
         <h2 style="margin: 0 0 16px;">Mon compte</h2>
         <ds-tabs [tabs]="tabs"></ds-tabs>
         <div style="padding: 16px 0;">
-          <p style="color: #6b7280;">Sélectionnez un onglet pour voir son contenu.</p>
+          <p style="color: #6b7280;">Gérez vos informations personnelles, paramètres de sécurité et préférences.</p>
         </div>
       </div>
     `,

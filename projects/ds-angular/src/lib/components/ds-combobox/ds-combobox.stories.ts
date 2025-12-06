@@ -88,6 +88,13 @@ export default meta;
 type Story = StoryObj<DsCombobox>;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Combobox standard avec recherche et sélection. Tapez pour filtrer les options disponibles.',
+      },
+    },
+  },
   args: {
     options: fruitOptions,
     placeholder: 'Rechercher un fruit...',
@@ -101,6 +108,13 @@ export const Default: Story = {
 };
 
 export const WithLabel: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Combobox avec label associé pour l\'accessibilité.',
+      },
+    },
+  },
   args: {
     ...Default.args,
     label: 'Fruit préféré',
@@ -108,6 +122,13 @@ export const WithLabel: Story = {
 };
 
 export const WithHelper: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Combobox avec texte d\'aide pour guider l\'utilisateur.',
+      },
+    },
+  },
   args: {
     ...Default.args,
     label: 'Fruit',
@@ -116,6 +137,13 @@ export const WithHelper: Story = {
 };
 
 export const WithError: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Combobox en état d\'erreur avec message de validation.',
+      },
+    },
+  },
   args: {
     ...Default.args,
     label: 'Fruit',
@@ -124,6 +152,13 @@ export const WithError: Story = {
 };
 
 export const WithDescriptions: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Options avec descriptions secondaires pour plus de contexte sur chaque choix.',
+      },
+    },
+  },
   args: {
     options: countryOptions,
     placeholder: 'Rechercher un pays...',
@@ -134,6 +169,13 @@ export const WithDescriptions: Story = {
 };
 
 export const MinimumCharacters: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Recherche activée après un nombre minimum de caractères. Réduit les appels serveur.',
+      },
+    },
+  },
   args: {
     options: countryOptions,
     placeholder: 'Tapez au moins 2 caractères...',
@@ -144,6 +186,13 @@ export const MinimumCharacters: Story = {
 };
 
 export const AllowCustomValues: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Autorise l\'entrée de valeurs personnalisées non présentes dans la liste.',
+      },
+    },
+  },
   args: {
     options: fruitOptions,
     placeholder: 'Rechercher ou créer...',
@@ -154,6 +203,13 @@ export const AllowCustomValues: Story = {
 };
 
 export const SmallSize: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Taille compacte pour les interfaces denses.',
+      },
+    },
+  },
   args: {
     ...Default.args,
     label: 'Fruit',
@@ -162,6 +218,13 @@ export const SmallSize: Story = {
 };
 
 export const LargeSize: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Taille large pour les formulaires principaux ou écrans tactiles.',
+      },
+    },
+  },
   args: {
     ...Default.args,
     label: 'Fruit',
@@ -170,6 +233,13 @@ export const LargeSize: Story = {
 };
 
 export const Disabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'État désactivé. Le composant est visible mais non interactif.',
+      },
+    },
+  },
   args: {
     ...Default.args,
     label: 'Fruit',
@@ -178,6 +248,13 @@ export const Disabled: Story = {
 };
 
 export const PreSelected: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Combobox avec valeur pré-sélectionnée via ngModel.',
+      },
+    },
+  },
   render: (args) => ({
     props: { ...args, selectedValue: '3' },
     template: `
@@ -201,6 +278,13 @@ export const PreSelected: Story = {
 };
 
 export const InForm: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Intégration dans un formulaire avec plusieurs combobox et ngModel.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <form style="max-width: 400px; display: flex; flex-direction: column; gap: 16px;">
@@ -237,6 +321,13 @@ export const InForm: Story = {
 };
 
 export const Themed: StoryObj = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Démonstration du composant dans les thèmes light et dark. S\'adapte automatiquement aux CSS custom properties.',
+      },
+    },
+  },
   render: () => ({
     props: {
       options: fruitOptions,

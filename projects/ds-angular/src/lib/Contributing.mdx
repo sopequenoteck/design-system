@@ -126,10 +126,92 @@ git commit -m "feat(ds-accordion): ajout composant accordion avec tests et stori
 git push origin feat/ds-accordion
 ```
 
-Puis ouvrir une PR sur GitHub en décrivant :
-- Les composants/tokens ajoutés ou modifiés
-- Les screenshots Storybook si le rendu change
-- Les éventuelles breaking changes
+Puis ouvrir une PR sur GitHub en utilisant le template ci-dessous.
+
+### Template de Pull Request
+
+```markdown
+## Description
+
+[Décrivez brièvement les changements apportés]
+
+## Type de changement
+
+- [ ] Nouveau composant
+- [ ] Amélioration d'un composant existant
+- [ ] Correction de bug
+- [ ] Documentation
+- [ ] Tokens/Thèmes
+- [ ] Breaking change
+
+## Checklist
+
+- [ ] Tests unitaires ajoutés/mis à jour
+- [ ] Stories Storybook ajoutées/mises à jour
+- [ ] Documentation mise à jour (si applicable)
+- [ ] Accessibilité vérifiée (WCAG 2.1 AA)
+- [ ] Build réussi (`npm run build:lib`)
+- [ ] Tous les tests passent (`npm run test:headless`)
+
+## Screenshots
+
+[Captures d'écran Storybook si le rendu change]
+
+## Breaking Changes
+
+[Listez les breaking changes, ou "Aucun"]
+```
+
+---
+
+## Definition of Done
+
+Un composant est considéré comme "terminé" lorsque **tous** les critères suivants sont remplis :
+
+<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '16px'}}>
+  <thead>
+    <tr style={{borderBottom: '2px solid var(--border-color, #e5e5e5)'}}>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600, width: '180px'}}>Critère</th>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}>✅ <strong>Fonctionnel</strong></td>
+      <td style={{padding: '12px 16px'}}>Le composant fonctionne correctement dans tous les états (default, hover, focus, disabled, loading)</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}>✅ <strong>Typé</strong></td>
+      <td style={{padding: '12px 16px'}}>Tous les inputs/outputs sont typés avec des interfaces/types explicites</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}>✅ <strong>Testé</strong></td>
+      <td style={{padding: '12px 16px'}}>Couverture ≥ 85% (components) ou ≥ 90% (primitives), tests navigation clavier inclus</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}>✅ <strong>Documenté</strong></td>
+      <td style={{padding: '12px 16px'}}>Story Storybook avec tous les contrôles, descriptions argTypes et exemples d'usage</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}>✅ <strong>Accessible</strong></td>
+      <td style={{padding: '12px 16px'}}>Attributs ARIA, navigation clavier, contrastes WCAG 2.1 AA</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}>✅ <strong>Thématisé</strong></td>
+      <td style={{padding: '12px 16px'}}>Fonctionne correctement en theme-light, theme-dark et theme-custom</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}>✅ <strong>Exporté</strong></td>
+      <td style={{padding: '12px 16px'}}>Composant et types exportés dans <code>components/index.ts</code> ou <code>primitives/index.ts</code></td>
+    </tr>
+    <tr>
+      <td style={{padding: '12px 16px'}}>✅ <strong>Build</strong></td>
+      <td style={{padding: '12px 16px'}}>Compilation sans erreurs ni warnings</td>
+    </tr>
+  </tbody>
+</table>
+
+---
 
 ## Configuration Storybook
 
@@ -146,11 +228,32 @@ Puis ouvrir une PR sur GitHub en décrivant :
 
 ## Ajouter un composant ou une story
 
-| Étape | Checklist | Commandes utiles |
-|-------|-----------|------------------|
-| Créer le composant | Respecter le préfixe `ds-`, utiliser `input()`/`output()` et les tokens sémantiques | `npm run build:lib -- --watch` |
-| Écrire la story | Documenter les inputs/outputs, ajouter des `controls` Storybook, vérifier l'accessibilité | `npm run storybook` |
-| Tester | Couvrir les états (disabled, loading, focus) | `npm test` ou `npm run test:headless` |
+<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '16px'}}>
+  <thead>
+    <tr style={{borderBottom: '2px solid var(--border-color, #e5e5e5)'}}>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600, width: '140px'}}>Étape</th>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Checklist</th>
+      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600, width: '220px'}}>Commandes utiles</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px', fontWeight: 500}}>Créer le composant</td>
+      <td style={{padding: '12px 16px'}}>Respecter le préfixe <code>ds-</code>, utiliser <code>input()</code>/<code>output()</code> et les tokens sémantiques</td>
+      <td style={{padding: '12px 16px'}}><code>npm run build:lib -- --watch</code></td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px', fontWeight: 500}}>Écrire la story</td>
+      <td style={{padding: '12px 16px'}}>Documenter les inputs/outputs, ajouter des <code>controls</code> Storybook, vérifier l'accessibilité</td>
+      <td style={{padding: '12px 16px'}}><code>npm run storybook</code></td>
+    </tr>
+    <tr>
+      <td style={{padding: '12px 16px', fontWeight: 500}}>Tester</td>
+      <td style={{padding: '12px 16px'}}>Couvrir les états (disabled, loading, focus)</td>
+      <td style={{padding: '12px 16px'}}><code>npm test</code> ou <code>npm run test:headless</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Bonnes pratiques
 

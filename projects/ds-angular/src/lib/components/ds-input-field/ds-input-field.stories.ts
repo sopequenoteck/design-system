@@ -146,6 +146,13 @@ export const States: Story = {
 };
 
 export const WithIcons: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Champs avec icônes FontAwesome. Les icônes aident à identifier visuellement le type de contenu attendu.',
+      },
+    },
+  },
   render: () => ({
     props: {
       faUser,
@@ -154,9 +161,9 @@ export const WithIcons: Story = {
     },
     template: `
       <div style="display: flex; flex-direction: column; gap: 16px; max-width: 300px;">
-        <ds-input-field [iconStart]="faUser" label="Nom" placeholder="John Doe"></ds-input-field>
-        <ds-input-field [iconStart]="faEnvelope" label="Email" placeholder="email@exemple.com"></ds-input-field>
-        <ds-input-field [iconStart]="faSearch" placeholder="Rechercher..."></ds-input-field>
+        <ds-input-field [iconStart]="faUser" label="Nom" placeholder="Jean Dupont"></ds-input-field>
+        <ds-input-field [iconStart]="faEnvelope" label="Email" placeholder="jean.dupont@exemple.com"></ds-input-field>
+        <ds-input-field [iconStart]="faSearch" placeholder="Rechercher dans les documents..."></ds-input-field>
       </div>
     `,
   }),
@@ -189,13 +196,20 @@ export const Password: Story = {
 };
 
 export const Clearable: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Champ avec bouton de suppression. Le bouton X apparaît lorsque le champ contient du texte.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <ds-input-field
         label="Recherche"
         placeholder="Tapez pour rechercher..."
         [clearable]="true"
-        externalValue="Texte à effacer"
+        externalValue="Rapport annuel 2025"
         style="max-width: 300px; display: block;">
       </ds-input-field>
     `,
@@ -203,13 +217,20 @@ export const Clearable: Story = {
 };
 
 export const WithMaxLength: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Champ avec limite de caractères et compteur intégré. Affiche X/Max pour guider la saisie.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <ds-input-field
-        label="Description courte"
+        label="Titre de l'article"
         placeholder="Maximum 50 caractères"
         [maxlength]="50"
-        helper="Compteur de caractères affiché"
+        helper="Optimisé pour le référencement"
         style="max-width: 300px; display: block;">
       </ds-input-field>
     `,
@@ -217,10 +238,17 @@ export const WithMaxLength: Story = {
 };
 
 export const Required: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Champ obligatoire avec indicateur visuel (*). L\'attribut required est propagé pour la validation HTML5.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <ds-input-field
-        label="Champ obligatoire"
+        label="Nom complet"
         placeholder="Ce champ est requis"
         [required]="true"
         style="max-width: 300px; display: block;">

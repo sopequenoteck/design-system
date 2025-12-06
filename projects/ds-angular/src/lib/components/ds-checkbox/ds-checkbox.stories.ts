@@ -8,32 +8,32 @@ const meta: Meta<DsCheckbox> = {
   argTypes: {
     label: {
       control: 'text',
-      description: 'Label',
+      description: 'Label accompagnant la case à cocher. Requis pour l\'accessibilité.',
     },
     helper: {
       control: 'text',
-      description: 'Texte d\'aide',
+      description: 'Texte d\'aide affiché sous le composant pour guider l\'utilisateur.',
     },
     error: {
       control: 'text',
-      description: 'Message d\'erreur',
+      description: 'Message d\'erreur affiché lorsque la validation échoue. Active l\'état erreur.',
     },
     required: {
       control: 'boolean',
-      description: 'Requis',
+      description: 'Marque le champ comme obligatoire. Ajoute un indicateur visuel (*).',
     },
     disabled: {
       control: 'boolean',
-      description: 'Désactivé',
+      description: 'Désactive le composant. L\'utilisateur ne peut plus interagir avec.',
     },
     indeterminate: {
       control: 'boolean',
-      description: 'Indéterminé',
+      description: 'État indéterminé (-). Utile pour une checkbox parent avec enfants partiellement sélectionnés.',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      description: 'Taille',
+      description: 'Taille du composant (sm: compact, md: standard, lg: large).',
     },
   },
 };
@@ -48,6 +48,13 @@ export const Default: Story = {
     required: false,
     size: 'md',
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Checkbox standard avec label. Utilisez les contrôles pour modifier les propriétés.',
+      },
+    },
+  },
   render: (args) => ({
     props: args,
     template: `<ds-checkbox [label]="label" [disabled]="disabled" [required]="required" [size]="size"></ds-checkbox>`,
@@ -55,6 +62,13 @@ export const Default: Story = {
 };
 
 export const WithHelper: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Checkbox avec texte d\'aide sous le label pour guider l\'utilisateur.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <ds-checkbox
@@ -66,6 +80,13 @@ export const WithHelper: Story = {
 };
 
 export const WithError: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Checkbox en état d\'erreur avec message de validation. Utilisé quand l\'utilisateur doit accepter des conditions obligatoires.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <ds-checkbox
@@ -78,6 +99,13 @@ export const WithError: Story = {
 };
 
 export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Les trois tailles disponibles : `sm` pour les interfaces denses, `md` par défaut, `lg` pour les écrans tactiles.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -90,6 +118,13 @@ export const Sizes: Story = {
 };
 
 export const States: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'États visuels : non coché (par défaut) et indéterminé. L\'état indéterminé est utilisé pour les sélections partielles.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -101,6 +136,13 @@ export const States: Story = {
 };
 
 export const Disabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Checkbox désactivée. Empêche toute interaction utilisateur tout en restant visible.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -111,6 +153,13 @@ export const Disabled: Story = {
 };
 
 export const Required: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Checkbox obligatoire avec indicateur visuel (*). Doit être cochée pour soumettre le formulaire.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <ds-checkbox
@@ -122,6 +171,13 @@ export const Required: Story = {
 };
 
 export const FormExample: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Exemple de formulaire de préférences avec plusieurs checkboxes. Montre l\'utilisation combinée de helpers et de l\'état désactivé.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <div style="max-width: 400px; padding: 16px; border: 1px solid #e5e7eb; border-radius: 8px;">
