@@ -159,3 +159,16 @@ export {
   type DatePickerMode,
   type DateRange,
 } from './ds-date-picker/ds-date-picker';
+
+export {
+  DsAvatar,
+  type AvatarShape,
+  type AvatarSize,
+} from './ds-avatar/ds-avatar';
+
+export {
+  DsMenu,
+  type MenuItem,
+  type MenuTrigger,
+  type MenuSize,
+} from './ds-menu/ds-menu';

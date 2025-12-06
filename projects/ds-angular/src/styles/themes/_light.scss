@@ -402,4 +402,30 @@
   --accordion-icon-color: var(--text-muted);
   --accordion-focus-color: var(--color-primary);
   --accordion-expanded-border-color: var(--color-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS AVATAR
+   * ======================================================================== */
+  --avatar-bg: var(--gray-200);
+  --avatar-text: var(--gray-700);
+  --avatar-border: var(--gray-300);
+  --avatar-placeholder-bg: var(--color-primary);
+  --avatar-placeholder-text: var(--gray-50);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS MENU
+   * ======================================================================== */
+  --menu-bg: var(--surface-default);
+  --menu-border: var(--border-color);
+  --menu-shadow: var(--shadow-2);
+  --menu-item-text: var(--text-default);
+  --menu-item-icon: var(--text-muted);
+  --menu-item-hover-bg: var(--surface-hover);
+  --menu-item-hover-text: var(--text-default);
+  --menu-item-active-bg: color-mix(in oklab, var(--color-primary) 15%, transparent);
+  --menu-item-active-text: var(--color-primary);
+  --menu-item-disabled-text: var(--text-disabled);
+  --menu-item-disabled-icon: var(--text-disabled-alt);
+  --menu-divider: var(--border-subtle);
+  --menu-backdrop: transparent;
 }

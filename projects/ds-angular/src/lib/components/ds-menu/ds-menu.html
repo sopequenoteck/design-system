@@ -1,0 +1,56 @@
+<div
+  #menuTrigger
+  cdkOverlayOrigin
+  #trigger="cdkOverlayOrigin"
+  (click)="onTriggerClick($event)"
+  (contextmenu)="onTriggerContextMenu($event)"
+  (keydown)="onTriggerKeydown($event)"
+  [attr.aria-haspopup]="'menu'"
+  [attr.aria-expanded]="isOpen()"
+  class="ds-menu__trigger"
+>
+  <ng-content select="[dsMenuTrigger]"></ng-content>
+</div>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isOpen()"
+  [cdkConnectedOverlayPositions]="overlayPositions"
+  [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayBackdropClass]="'ds-menu-backdrop'"
+  (backdropClick)="onBackdropClick()"
+  (detach)="close(false)"
+>
+  <div
+    [ngClass]="menuClasses()"
+    role="menu"
+    [attr.aria-label]="ariaLabel()"
+    [attr.aria-activedescendant]="activeDescendantId()"
+    (keydown)="onMenuKeydown($event)"
+  >
+    @for (item of items(); track item.id; let index = $index) {
+      @if (item.dividerBefore) {
+        <div class="ds-menu__divider" role="separator"></div>
+      }
+      <button
+        #menuItemRef
+        type="button"
+        class="ds-menu__item"
+        [class.ds-menu__item--disabled]="item.disabled"
+        [class.ds-menu__item--active]="activeIndex() === index"
+        [attr.id]="'menu-item-' + item.id"
+        [attr.aria-disabled]="item.disabled || null"
+        [disabled]="item.disabled"
+        role="menuitem"
+        (click)="selectItem(item)"
+        (mouseenter)="onItemMouseEnter(index)"
+      >
+        @if (item.icon) {
+          <fa-icon [icon]="item.icon" class="ds-menu__item-icon"></fa-icon>
+        }
+        <span class="ds-menu__item-label">{{ item.label }}</span>
+      </button>
+    }
+  </div>
+</ng-template>

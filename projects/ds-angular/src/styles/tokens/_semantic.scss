@@ -361,3 +361,43 @@ $combobox-font-size-lg: $font-size-4;
 $combobox-radius: $radius-2;
 $combobox-dropdown-shadow: $shadow-2;
 $combobox-max-height: 250px;
+
+// === AVATAR ===
+
+$avatar-size-sm: 32px;
+$avatar-size-md: 40px;
+$avatar-size-lg: 48px;
+$avatar-size-xl: 56px;
+
+$avatar-font-size-sm: $font-size-1;
+$avatar-font-size-md: $font-size-2;
+$avatar-font-size-lg: $font-size-3;
+$avatar-font-size-xl: $font-size-4;
+
+$avatar-radius-circle: $radius-round;
+$avatar-radius-rounded: $radius-2;
+$avatar-radius-square: 0;
+
+$avatar-border-width: 2px;
+
+// === MENU ===
+
+$menu-min-width: 160px;
+$menu-max-width: 280px;
+$menu-padding: $space-2;
+$menu-radius: $radius-2;
+
+$menu-item-height-sm: 28px;
+$menu-item-height-md: 36px;
+$menu-item-height-lg: 44px;
+
+$menu-item-padding-x: $space-3;
+$menu-item-padding-y: $space-2;
+$menu-item-radius: $radius-1-5;
+$menu-item-gap: $space-2;
+
+$menu-font-size-sm: $font-size-1;
+$menu-font-size-md: $font-size-2;
+$menu-font-size-lg: $font-size-3;
+
+$menu-divider-margin: $space-2;

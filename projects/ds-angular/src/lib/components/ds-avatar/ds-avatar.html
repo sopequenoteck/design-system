@@ -1,0 +1,20 @@
+<div
+  [ngClass]="containerClasses()"
+  [style.background-color]="generatedBgColor()"
+  [attr.role]="showImage() ? null : 'img'"
+  [attr.aria-label]="showImage() ? null : ariaLabel()"
+>
+  @if (showImage()) {
+    <img
+      [src]="src()"
+      [alt]="ariaLabel()"
+      class="ds-avatar__image"
+      (error)="onImageError()"
+      (load)="onImageLoad()"
+    />
+  } @else {
+    <span class="ds-avatar__initials" aria-hidden="true">
+      {{ displayInitials() }}
+    </span>
+  }
+</div>

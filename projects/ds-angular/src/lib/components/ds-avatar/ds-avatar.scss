@@ -1,0 +1,84 @@
+/* ==========================================================================
+   DS-AVATAR — Avatar du design system
+   ========================================================================== */
+
+:host {
+  display: inline-block;
+}
+
+.ds-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--avatar-bg);
+  color: var(--avatar-text);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  user-select: none;
+
+  // === SIZES ===
+
+  &--sm {
+    width: var(--avatar-size-sm);
+    height: var(--avatar-size-sm);
+    font-size: var(--avatar-font-size-sm);
+  }
+
+  &--md {
+    width: var(--avatar-size-md);
+    height: var(--avatar-size-md);
+    font-size: var(--avatar-font-size-md);
+  }
+
+  &--lg {
+    width: var(--avatar-size-lg);
+    height: var(--avatar-size-lg);
+    font-size: var(--avatar-font-size-lg);
+  }
+
+  &--xl {
+    width: var(--avatar-size-xl);
+    height: var(--avatar-size-xl);
+    font-size: var(--avatar-font-size-xl);
+  }
+
+  // === SHAPES ===
+
+  &--circle {
+    border-radius: var(--avatar-radius-circle);
+  }
+
+  &--rounded {
+    border-radius: var(--avatar-radius-rounded);
+  }
+
+  &--square {
+    border-radius: var(--avatar-radius-square);
+  }
+
+  // === STATES ===
+
+  &--initials {
+    background-color: var(--avatar-placeholder-bg);
+    color: var(--avatar-placeholder-text);
+  }
+
+  &--has-image {
+    background-color: transparent;
+  }
+
+  // === ELEMENTS ===
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__initials {
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-tight);
+  }
+}
