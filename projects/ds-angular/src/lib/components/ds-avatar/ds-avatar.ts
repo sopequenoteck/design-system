@@ -67,6 +67,8 @@ export class DsAvatar {
 
   /** Couleur de fond auto-générée */
   readonly generatedBgColor = computed(() => {
+    // Ne pas appliquer de couleur si une image est affichée
+    if (this.showImage()) return null;
     if (!this.autoColor()) return null;
     const initials = this.displayInitials();
     if (!initials) return null;
