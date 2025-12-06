@@ -1,0 +1,64 @@
+# =============================================================================
+# DOCKERIGNORE - Optimisation du contexte de build
+# =============================================================================
+
+# Dépendances (réinstallées dans le container)
+node_modules/
+.npm/
+.pnpm-store/
+
+# Builds locaux
+dist/
+storybook-static/
+coverage/
+.angular/
+
+# Git
+.git/
+.gitignore
+
+# IDE et OS
+.vscode/
+.idea/
+*.sublime-*
+.DS_Store
+Thumbs.db
+
+# Logs et fichiers temporaires
+*.log
+npm-debug.log*
+tmp/
+temp/
+
+# Tests et E2E
+e2e/
+tests/
+*.spec.ts
+
+# Documentation non nécessaire au build
+*.md
+!README.md
+CLAUDE.md
+AGENTS.md
+DS_TODO.md
+MIGRATION.md
+VISUAL-TESTING.md
+
+# Scripts non nécessaires
+scripts/
+
+# Exemples et starter-kit
+examples/
+starter-kit/
+
+# Fichiers de configuration CI/CD
+.github/
+.chromatic.json
+playwright.config.ts
+
+# Fichiers d'analyse
+bundle-analysis.html
+bundle-stats.json
+perf-benchmark.json
+storybook.log
+migration-storybook.log
