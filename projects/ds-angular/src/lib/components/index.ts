@@ -119,3 +119,9 @@ export {
   type StepperSize,
   type StepChangeEvent,
 } from './ds-stepper/ds-stepper';
+
+export {
+  DsSelect,
+  type DsSelectOption,
+  type DsSelectSize,
+} from './ds-select/ds-select';

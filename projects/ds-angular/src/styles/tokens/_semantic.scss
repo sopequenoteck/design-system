@@ -312,3 +312,25 @@ $accordion-radius: $radius-2;
 $accordion-border-width: 1px;
 $accordion-content-max-height: 500px;
 $accordion-item-gap: $space-2;
+
+// === SELECT ===
+
+$select-height-sm: 32px;
+$select-height-md: 40px;
+$select-height-lg: 48px;
+
+$select-padding-sm: $space-1 $space-2;
+$select-padding-md: $space-2 $space-3;
+$select-padding-lg: $space-3 $space-4;
+
+$select-font-size-sm: $font-size-2;
+$select-font-size-md: $font-size-3;
+$select-font-size-lg: $font-size-4;
+
+$select-radius: $radius-2;
+$select-dropdown-radius: $radius-2;
+$select-dropdown-shadow: $shadow-2;
+$select-dropdown-max-height: 200px;
+
+$select-option-padding: $space-2 $space-3;
+$select-option-gap: $space-1;

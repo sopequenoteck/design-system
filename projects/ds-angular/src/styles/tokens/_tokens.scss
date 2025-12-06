@@ -384,6 +384,23 @@
   --accordion-content-max-height: #{$accordion-content-max-height};
   --accordion-item-gap: #{$accordion-item-gap};
 
+  /* === SELECT === */
+  --select-height-sm: #{$select-height-sm};
+  --select-height-md: #{$select-height-md};
+  --select-height-lg: #{$select-height-lg};
+  --select-padding-sm: #{$select-padding-sm};
+  --select-padding-md: #{$select-padding-md};
+  --select-padding-lg: #{$select-padding-lg};
+  --select-font-size-sm: #{$select-font-size-sm};
+  --select-font-size-md: #{$select-font-size-md};
+  --select-font-size-lg: #{$select-font-size-lg};
+  --select-radius: #{$select-radius};
+  --select-dropdown-radius: #{$select-dropdown-radius};
+  --select-dropdown-shadow: #{$select-dropdown-shadow};
+  --select-max-height: #{$select-dropdown-max-height};
+  --select-option-padding: #{$select-option-padding};
+  --select-option-gap: #{$select-option-gap};
+
   /* === BREAKPOINTS === */
   --breakpoint-xs: #{$breakpoint-xs};
   --breakpoint-sm: #{$breakpoint-sm};
