@@ -141,3 +141,21 @@ export {
   type DsComboboxOption,
   type DsComboboxSize,
 } from './ds-combobox/ds-combobox';
+
+export {
+  DsContainer,
+  type ContainerMaxWidth,
+  type ContainerGutter,
+} from './ds-container/ds-container';
+
+export {
+  DsSearchInput,
+  type SearchInputSize,
+} from './ds-search-input/ds-search-input';
+
+export {
+  DsDatePicker,
+  type DatePickerSize,
+  type DatePickerMode,
+  type DateRange,
+} from './ds-date-picker/ds-date-picker';

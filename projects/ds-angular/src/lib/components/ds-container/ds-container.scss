@@ -1,0 +1,109 @@
+// ============================================================================
+// DS-CONTAINER — Composant layout responsive
+// ============================================================================
+
+.ds-container {
+  width: 100%;
+  max-width: var(--container-max-width, 960px);
+  box-sizing: border-box;
+
+  // === CENTERING ===
+  &--center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // === MAX-WIDTH VARIANTS ===
+  &--fluid {
+    max-width: 100%;
+  }
+
+  &--sm {
+    max-width: 540px;
+  }
+
+  &--md {
+    max-width: 720px;
+  }
+
+  &--lg {
+    max-width: 960px;
+  }
+
+  &--xl {
+    max-width: 1140px;
+  }
+
+  &--2xl {
+    max-width: 1320px;
+  }
+
+  // === GUTTER (HORIZONTAL PADDING) ===
+  &--gutter-none {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &--gutter-sm {
+    padding-left: var(--space-4, 1rem);
+    padding-right: var(--space-4, 1rem);
+  }
+
+  &--gutter-md {
+    padding-left: var(--space-6, 1.5rem);
+    padding-right: var(--space-6, 1.5rem);
+  }
+
+  &--gutter-lg {
+    padding-left: var(--space-8, 2rem);
+    padding-right: var(--space-8, 2rem);
+  }
+
+  // === VERTICAL PADDING ===
+  &--padding-y-none {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  &--padding-y-sm {
+    padding-top: var(--space-4, 1rem);
+    padding-bottom: var(--space-4, 1rem);
+  }
+
+  &--padding-y-md {
+    padding-top: var(--space-6, 1.5rem);
+    padding-bottom: var(--space-6, 1.5rem);
+  }
+
+  &--padding-y-lg {
+    padding-top: var(--space-8, 2rem);
+    padding-bottom: var(--space-8, 2rem);
+  }
+}
+
+// === RESPONSIVE BREAKPOINTS ===
+// Le conteneur s'adapte automatiquement aux breakpoints
+
+@media (max-width: 575.98px) {
+  .ds-container {
+    // Sur mobile, réduire les gutters
+    &--gutter-lg {
+      padding-left: var(--space-4, 1rem);
+      padding-right: var(--space-4, 1rem);
+    }
+
+    &--gutter-md {
+      padding-left: var(--space-3, 0.75rem);
+      padding-right: var(--space-3, 0.75rem);
+    }
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .ds-container {
+    &--gutter-lg {
+      padding-left: var(--space-5, 1.25rem);
+      padding-right: var(--space-5, 1.25rem);
+    }
+  }
+}
