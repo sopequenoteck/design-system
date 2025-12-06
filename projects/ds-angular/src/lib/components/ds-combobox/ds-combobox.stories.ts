@@ -236,9 +236,13 @@ export const InForm: Story = {
   }),
 };
 
-export const Themed: Story = {
-  render: (args) => ({
-    props: args,
+export const Themed: StoryObj = {
+  render: () => ({
+    props: {
+      options: fruitOptions,
+      value1: '1',
+      value2: '2',
+    },
     template: `
       <div style="display: flex; flex-direction: column; gap: 32px;">
         <div class="theme-light" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
@@ -262,9 +266,4 @@ export const Themed: Story = {
       </div>
     `,
   }),
-  args: {
-    options: fruitOptions,
-    value1: '1',
-    value2: '2',
-  } as unknown as Partial<DsCombobox>,
 };
