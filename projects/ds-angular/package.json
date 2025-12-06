@@ -1,6 +1,6 @@
 {
   "name": "@kksdev/ds-angular",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Angular 20 standalone component library - Design System with 30 components, 7 primitives, 3 themes, i18n support",
   "keywords": [
     "angular",
@@ -29,9 +29,9 @@
     "@angular/core": "^20.0.0",
     "@angular/cdk": "^20.0.0",
     "@angular/forms": "^20.0.0",
-    "@fortawesome/angular-fontawesome": "^0.15.0",
-    "@fortawesome/fontawesome-svg-core": "^6.0.0",
-    "@fortawesome/free-solid-svg-icons": "^6.0.0"
+    "@fortawesome/angular-fontawesome": ">=0.15.0",
+    "@fortawesome/fontawesome-svg-core": ">=6.0.0",
+    "@fortawesome/free-solid-svg-icons": ">=6.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
