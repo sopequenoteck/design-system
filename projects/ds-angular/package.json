@@ -1,7 +1,7 @@
 {
   "name": "ds-angular",
-  "version": "1.0.0",
-  "description": "Angular 20 standalone component library - Design System with 17 components, 7 primitives, 3 themes",
+  "version": "1.1.0",
+  "description": "Angular 20 standalone component library - Design System with 28 components, 7 primitives, 3 themes, i18n support",
   "keywords": [
     "angular",
     "angular20",

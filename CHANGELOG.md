@@ -7,7 +7,79 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 
 ---
 
-## [En cours] - 2025-12-05
+## [1.1.0] - 2025-12-06
+
+### ✨ Nouvelles fonctionnalités
+
+#### Composants données (ÉTAPE 23)
+- **ds-select**: Composant select avec CVA, tailles (sm/md/lg), disabled, validation, 45 tests, 14 stories
+- **ds-table**: Table configurable avec colonnes, tri, stripe rows, sticky header, 35 tests, 13 stories
+- **ds-combobox**: Input filtrable + dropdown, CVA, navigation clavier, creatable, 33 tests, 13 stories
+
+#### Composants layout (ÉTAPE 24)
+- **ds-container**: Responsive max-width avec breakpoints, centering, gutter, 30 tests, 8 stories
+- **ds-search-input**: Input recherche avec CVA, debounce output, clear button, 34 tests, 8 stories
+- **ds-date-picker**: Calendrier inline/popover, mode range, navigation clavier, min/max, 44 tests, 12 stories
+
+#### Navigation (ÉTAPE 16)
+- **ds-pagination**: Pages, prev/next, first/last, page size selector, total items, 41 tests, 14 stories
+- **ds-stepper**: Horizontal/vertical, états (pending/active/completed/error), 39 tests, 16 stories
+- **ds-accordion**: Single/multi expand, variants (default/bordered/separated), 29 tests, 12 stories
+
+#### Utilitaires (ÉTAPE 15)
+- **ds-progress-bar**: Modes (determinate/indeterminate), variants (default/success/warning/error), 12 stories
+- **ds-skeleton**: Variants (text/circle/rectangle/card), animation pulse, 12 stories
+
+#### Internationalisation (ÉTAPE 17)
+- **DsI18nService**: 40+ labels, 4 locales (fr/en/es/de), setLocale(), format(), initFromBrowser()
+- **Tokens breakpoints**: $breakpoint-xs/sm/md/lg/xl/2xl (320-1400px) exposés en CSS vars
+
+### 📝 Documentation (ÉTAPE 25)
+
+- **Accessibility.mdx**: Guide WCAG 2.1 AA complet (11 sections, 650+ lignes)
+- **Testing.mdx**: Guide tests Jasmine/Playwright/Chromatic (10 sections, 550+ lignes)
+- **Theming.mdx**: Guide thème custom (10 sections, 500+ lignes)
+
+### 🔧 CI/CD (ÉTAPE 26)
+
+- **a11y-wave.yml**: Workflow audit Pa11y/Axe sur PR, seuil 0 erreurs
+- **chromatic.yml**: Visual regression testing avec commentaire PR automatique
+- **ci.yml**: Bundle size monitoring avec commentaire PR (target 150KB gzip)
+
+### ✅ Tests (ÉTAPE 27)
+
+- **90+ tests E2E Playwright** ajoutés :
+  - select.spec.ts: 16 tests (ouverture, navigation clavier, ARIA)
+  - table.spec.ts: 20 tests (tri, striped, hover, accessibility)
+  - combobox.spec.ts: 22 tests (filtrage, création, disabled)
+  - date-picker.spec.ts: 32 tests (navigation, range, constraints)
+
+### 🐛 Corrections (ÉTAPE 22)
+
+- **ds-tooltip**: Refactorisation avec ComponentPortal + overlayRef.attach()
+- **ds-tooltip**: Correction styleUrl → styleUrls
+- **Tests**: 1257/1257 tests passants (100%)
+
+### 📊 Métriques
+
+- **28 composants DS** (11 nouveaux)
+- **7 primitives** (inchangé)
+- **3 thèmes** complets (light, dark, custom)
+- **91.87% coverage** (lines), 82.61% branches
+- **Bundle**: 87 KB gzip (< 150 KB target)
+- **1257 tests unitaires** + **142 tests E2E**
+
+---
+
+## [1.0.0] - 2025-12-05
+
+### ✨ Première release stable
+
+Publication initiale sur npm avec architecture consolidée.
+
+---
+
+## [En cours - Historique] - 2025-12-05
 
 ### ✨ Nouvelles fonctionnalités
 
