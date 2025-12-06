@@ -86,7 +86,7 @@ const preview: Preview = {
       }
     }
   },
-  globals: {
+  initialGlobals: {
     theme: 'light',
     backgrounds: { value: 'Background / Main (light)' },
     viewport: 'desktop',
