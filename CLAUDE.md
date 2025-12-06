@@ -256,6 +256,41 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Patterns.mdx section 7 : Responsive patterns (grid, navigation adaptive, container queries)
 - 📊 ÉTAPE 17 : 100% complétée (4/4 tâches)
 
+**Harmonisation tokens composants navigation ÉTAPE 18** (2025-12-06) :
+- ✅ Tokens sémantiques PAGINATION : 12 tokens ($pagination-btn-size-*, $pagination-font-size-*, etc.)
+- ✅ Tokens sémantiques STEPPER : 18 tokens ($stepper-indicator-size-*, $stepper-connector-*, etc.)
+- ✅ Tokens sémantiques ACCORDION : 16 tokens ($accordion-header-padding-*, $accordion-body-*, etc.)
+- ✅ Exposition CSS : 46 tokens + 4 aliases font-size (--font-size-xs/sm/base/lg)
+- ✅ ds-pagination.scss refactorisé : zéro couleur hex, 100% tokens avec fallbacks
+- ✅ ds-stepper.scss refactorisé : utilise var(--success), var(--error), var(--color-primary)
+- ✅ ds-accordion.scss refactorisé : pattern identique à ds-card.scss
+- 📊 ÉTAPE 18 : 100% complétée (7/7 tâches)
+
+**Complétion thèmes light/dark/custom ÉTAPE 19** (2025-12-06) :
+- ✅ _light.scss : 28 tokens pagination/stepper/accordion ajoutés
+- ✅ _dark.scss : 28 tokens pagination/stepper/accordion ajoutés (dark mode)
+- ✅ Bug --gray-750 corrigé → --gray-700 dans _dark.scss
+- ✅ _custom.scss complété : 100+ tokens (checkbox, radio, toggle, tabs, tooltip, popover, dropdown, pagination, stepper, accordion)
+- ✅ Parité complète entre les 3 thèmes pour les 22 composants DS
+- 📊 ÉTAPE 19 : 100% complétée (6/6 tâches)
+
+**Nettoyage tokens obsolètes et documentation ÉTAPE 20** (2025-12-06) :
+- ✅ Breakpoints legacy supprimés : $bp-xs, $bp-sm, $bp-md, $bp-lg, $bp-xl retirés de _primitives.scss
+- ✅ Aliases font-size confirmés : --font-size-xs/sm/base/lg (déjà ajoutés ÉTAPE 18)
+- ✅ Tokens.mdx enrichi : section "Tokens composants navigation" avec 3 sous-sections (Pagination, Stepper, Accordion)
+- ✅ Tokens.mdx : tables des tokens + exemples visuels interactifs + aliases font-size documentés
+- ✅ Patterns.mdx section 8 : "Wizard multi-étapes" (CheckoutWizardComponent, 290+ lignes)
+- ✅ Patterns.mdx section 9 : "Liste paginée" (UserListComponent, 250+ lignes avec skeleton loading)
+- 📊 ÉTAPE 20 : 100% complétée (5/5 tâches)
+
+**Validation et tests visuels ÉTAPE 21** (2025-12-06) :
+- ✅ Story "Themed" ajoutée pour ds-pagination : affichage sur Light/Dark/Custom côte à côte
+- ✅ Story "Themed" ajoutée pour ds-stepper : 4 étapes avec états completed/active/pending
+- ✅ Story "Themed" ajoutée pour ds-accordion : variant bordered avec section étendue
+- ✅ Couverture tests validée : Statements 91.56%, Lines 91.87%, Functions 94.39%, Branches 82.61%
+- ✅ Tous les seuils ≥80% respectés
+- 📊 ÉTAPE 21 : 100% complétée (5/5 tâches)
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)

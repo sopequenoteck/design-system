@@ -255,5 +255,139 @@
   --toast-error-text: var(--text-error);
   --toast-info-bg: var(--bg-info);
   --toast-info-text: var(--text-info);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS CHECKBOX
+   * ======================================================================== */
+  --checkbox-bg: var(--surface-default);
+  --checkbox-border: var(--border-color);
+  --checkbox-checked-bg: var(--role-primary);
+  --checkbox-checked-border: var(--role-primary);
+  --checkbox-check-color: var(--gray-50);
+  --checkbox-hover-border: color-mix(in oklab, var(--border-color) 85%, var(--background-main));
+  --checkbox-focus-ring: 0 0 0 3px color-mix(in oklab, var(--role-primary) 25%, transparent);
+  --checkbox-disabled-bg: var(--bg-disabled);
+  --checkbox-disabled-border: var(--border-disabled);
+  --checkbox-disabled-check: var(--text-disabled);
+  --checkbox-indeterminate-bg: var(--role-primary);
+  --checkbox-indeterminate-border: var(--role-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS RADIO
+   * ======================================================================== */
+  --radio-bg: var(--surface-default);
+  --radio-border: var(--border-color);
+  --radio-checked-bg: var(--surface-default);
+  --radio-checked-border: var(--role-primary);
+  --radio-dot-color: var(--role-primary);
+  --radio-hover-border: color-mix(in oklab, var(--border-color) 85%, var(--background-main));
+  --radio-focus-ring: 0 0 0 3px color-mix(in oklab, var(--role-primary) 25%, transparent);
+  --radio-disabled-bg: var(--bg-disabled);
+  --radio-disabled-border: var(--border-disabled);
+  --radio-disabled-dot: var(--text-disabled);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS TOGGLE
+   * ======================================================================== */
+  --toggle-track-bg: var(--border-strong);
+  --toggle-track-checked-bg: var(--role-primary);
+  --toggle-thumb-bg: var(--gray-50);
+  --toggle-thumb-shadow: var(--shadow-1);
+  --toggle-hover-track-bg: color-mix(in oklab, var(--border-strong) 85%, var(--background-main));
+  --toggle-hover-track-checked-bg: color-mix(in oklab, var(--role-primary) 90%, var(--background-main));
+  --toggle-focus-ring: 0 0 0 3px color-mix(in oklab, var(--role-primary) 25%, transparent);
+  --toggle-disabled-track-bg: var(--bg-disabled);
+  --toggle-disabled-thumb-bg: var(--border-subtle);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS BREADCRUMB
+   * ======================================================================== */
+  --breadcrumb-link: var(--text-muted);
+  --breadcrumb-link-hover: var(--text-default);
+  --breadcrumb-active: var(--text-default);
+  --breadcrumb-separator-color: var(--text-subtle);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS TABS
+   * ======================================================================== */
+  --tab-bg: transparent;
+  --tab-text: var(--text-muted);
+  --tab-hover-bg: var(--surface-hover);
+  --tab-hover-text: var(--text-default);
+  --tab-active-bg: transparent;
+  --tab-active-text: var(--text-default);
+  --tab-active-border: var(--role-primary);
+  --tab-border: var(--border-subtle);
+  --tab-disabled-text: var(--text-disabled);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS TOOLTIP
+   * ======================================================================== */
+  --tooltip-bg: var(--background-header);
+  --tooltip-text: var(--text-default);
+  --tooltip-shadow: var(--shadow-2);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS POPOVER
+   * ======================================================================== */
+  --popover-bg: var(--surface-default);
+  --popover-text: var(--text-default);
+  --popover-border: var(--border-color);
+  --popover-header-bg: var(--surface-raised);
+  --popover-header-border: var(--border-subtle);
+  --popover-backdrop: color-mix(in oklab, var(--gray-900) 20%, transparent);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS DROPDOWN
+   * ======================================================================== */
+  --dropdown-bg: var(--surface-default);
+  --dropdown-border-color: var(--border-color);
+  --dropdown-backdrop: color-mix(in oklab, var(--gray-900) 20%, transparent);
+  --dropdown-item-color: var(--text-muted);
+  --dropdown-item-hover-bg: var(--surface-hover);
+  --dropdown-item-hover-color: var(--text-default);
+  --dropdown-item-active-bg: var(--role-primary);
+  --dropdown-item-active-color: var(--gray-50);
+  --dropdown-separator: var(--border-subtle);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS PAGINATION
+   * ======================================================================== */
+  --pagination-btn-bg: var(--surface-default);
+  --pagination-btn-text: var(--text-default);
+  --pagination-btn-border: var(--border-color);
+  --pagination-btn-hover-bg: var(--surface-hover);
+  --pagination-btn-hover-border: var(--role-primary);
+  --pagination-btn-focus-border: var(--role-primary);
+  --pagination-active-bg: var(--role-primary);
+  --pagination-active-text: var(--gray-50);
+  --pagination-active-hover-bg: color-mix(in oklab, var(--role-primary) 85%, var(--background-main));
+  --pagination-info-color: var(--text-muted);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS STEPPER
+   * ======================================================================== */
+  --stepper-pending-bg: var(--background-secondary);
+  --stepper-pending-text: var(--text-muted);
+  --stepper-pending-border: var(--border-color);
+  --stepper-active-bg: var(--role-primary);
+  --stepper-active-text: var(--gray-50);
+  --stepper-completed-bg: var(--success);
+  --stepper-completed-text: var(--gray-50);
+  --stepper-error-bg: var(--error);
+  --stepper-error-text: var(--gray-50);
+  --stepper-connector-color: var(--border-color);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS ACCORDION
+   * ======================================================================== */
+  --accordion-header-bg: var(--surface-default);
+  --accordion-header-hover-bg: var(--surface-hover);
+  --accordion-header-text: var(--text-default);
+  --accordion-body-text: var(--text-muted);
+  --accordion-border-color: var(--border-color);
+  --accordion-icon-color: var(--text-muted);
+  --accordion-focus-color: var(--role-primary);
+  --accordion-expanded-border-color: var(--role-primary);
 }
 

@@ -948,6 +948,581 @@ export class ContainerQueryComponent {}
 
 ---
 
+## 8. Wizard multi-étapes
+
+Pattern de formulaire multi-étapes avec stepper, validation et navigation.
+
+```typescript
+// src/app/checkout-wizard/checkout-wizard.component.ts
+import { Component, signal, computed } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DsStepper, DsCard, DsInputField, DsButton, DsRadioGroup, DsAlert } from 'ds-angular';
+import { faUser, faShoppingCart, faCreditCard, faCheck } from '@fortawesome/free-solid-svg-icons';
+
+interface WizardStep {
+  id: string;
+  label: string;
+  description?: string;
+  icon?: any;
+  optional?: boolean;
+}
+
+@Component({
+  selector: 'app-checkout-wizard',
+  standalone: true,
+  imports: [FormsModule, DsStepper, DsCard, DsInputField, DsButton, DsRadioGroup, DsAlert],
+  template: `
+    <div class="wizard-container">
+      <ds-stepper
+        [steps]="steps"
+        [currentStep]="currentStep()"
+        [linear]="true"
+        orientation="horizontal"
+        size="md"
+        (stepChange)="onStepChange($event)">
+      </ds-stepper>
+
+      <ds-card variant="elevated" size="lg" class="wizard-content">
+        <!-- Étape 1 : Informations personnelles -->
+        @if (currentStep() === 0) {
+          <div class="step-content">
+            <h3>Informations personnelles</h3>
+            <ds-input-field
+              name="fullName"
+              label="Nom complet"
+              placeholder="Jean Dupont"
+              [(ngModel)]="formData.fullName"
+              [error]="errors().fullName"
+              required>
+            </ds-input-field>
+            <ds-input-field
+              name="email"
+              label="Email"
+              type="email"
+              placeholder="jean@exemple.com"
+              [(ngModel)]="formData.email"
+              [error]="errors().email"
+              required>
+            </ds-input-field>
+            <ds-input-field
+              name="phone"
+              label="Téléphone"
+              type="tel"
+              placeholder="+33 6 12 34 56 78"
+              [(ngModel)]="formData.phone">
+            </ds-input-field>
+          </div>
+        }
+
+        <!-- Étape 2 : Livraison -->
+        @if (currentStep() === 1) {
+          <div class="step-content">
+            <h3>Adresse de livraison</h3>
+            <ds-input-field
+              name="address"
+              label="Adresse"
+              placeholder="123 rue de la Paix"
+              [(ngModel)]="formData.address"
+              [error]="errors().address"
+              required>
+            </ds-input-field>
+            <div class="row">
+              <ds-input-field
+                name="zipCode"
+                label="Code postal"
+                placeholder="75001"
+                [(ngModel)]="formData.zipCode"
+                required>
+              </ds-input-field>
+              <ds-input-field
+                name="city"
+                label="Ville"
+                placeholder="Paris"
+                [(ngModel)]="formData.city"
+                required>
+              </ds-input-field>
+            </div>
+            <ds-radio-group
+              name="deliveryOption"
+              label="Mode de livraison"
+              [options]="deliveryOptions"
+              [(ngModel)]="formData.deliveryOption">
+            </ds-radio-group>
+          </div>
+        }
+
+        <!-- Étape 3 : Paiement -->
+        @if (currentStep() === 2) {
+          <div class="step-content">
+            <h3>Paiement</h3>
+            <ds-alert type="info" [closable]="false">
+              Vos données bancaires sont sécurisées par chiffrement SSL.
+            </ds-alert>
+            <ds-input-field
+              name="cardNumber"
+              label="Numéro de carte"
+              placeholder="4242 4242 4242 4242"
+              [(ngModel)]="formData.cardNumber"
+              [error]="errors().cardNumber"
+              required>
+            </ds-input-field>
+            <div class="row">
+              <ds-input-field
+                name="expiry"
+                label="Date d'expiration"
+                placeholder="MM/AA"
+                [(ngModel)]="formData.expiry"
+                required>
+              </ds-input-field>
+              <ds-input-field
+                name="cvv"
+                label="CVV"
+                placeholder="123"
+                [(ngModel)]="formData.cvv"
+                required>
+              </ds-input-field>
+            </div>
+          </div>
+        }
+
+        <!-- Étape 4 : Confirmation -->
+        @if (currentStep() === 3) {
+          <div class="step-content">
+            <ds-alert type="success" [closable]="false">
+              Commande validée avec succès !
+            </ds-alert>
+            <h3>Récapitulatif</h3>
+            <dl class="summary">
+              <div class="summary-item">
+                <dt>Nom</dt>
+                <dd>{{ formData.fullName }}</dd>
+              </div>
+              <div class="summary-item">
+                <dt>Email</dt>
+                <dd>{{ formData.email }}</dd>
+              </div>
+              <div class="summary-item">
+                <dt>Adresse</dt>
+                <dd>{{ formData.address }}, {{ formData.zipCode }} {{ formData.city }}</dd>
+              </div>
+              <div class="summary-item">
+                <dt>Livraison</dt>
+                <dd>{{ getDeliveryLabel() }}</dd>
+              </div>
+            </dl>
+          </div>
+        }
+
+        <!-- Navigation -->
+        <div class="wizard-actions">
+          <ds-button
+            variant="ghost"
+            [disabled]="currentStep() === 0"
+            (clicked)="previousStep()">
+            Précédent
+          </ds-button>
+          <ds-button
+            variant="primary"
+            [loading]="isProcessing()"
+            (clicked)="nextStep()">
+            {{ currentStep() === steps.length - 1 ? 'Terminer' : 'Suivant' }}
+          </ds-button>
+        </div>
+      </ds-card>
+    </div>
+  `,
+  styles: [`
+    .wizard-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    }
+    .wizard-content {
+      margin-top: var(--space-6);
+    }
+    .step-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      min-height: 300px;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+    .wizard-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--space-6);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--border-color);
+    }
+    .summary {
+      background: var(--background-secondary);
+      padding: var(--space-4);
+      border-radius: var(--radius-2);
+    }
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+    .summary-item dt {
+      color: var(--text-muted);
+    }
+    .summary-item dd {
+      font-weight: 600;
+      margin: 0;
+    }
+  `]
+})
+export class CheckoutWizardComponent {
+  steps: WizardStep[] = [
+    { id: 'info', label: 'Informations', description: 'Vos coordonnées', icon: faUser },
+    { id: 'shipping', label: 'Livraison', description: 'Adresse et mode', icon: faShoppingCart },
+    { id: 'payment', label: 'Paiement', description: 'Carte bancaire', icon: faCreditCard },
+    { id: 'confirm', label: 'Confirmation', description: 'Récapitulatif', icon: faCheck },
+  ];
+
+  currentStep = signal(0);
+  isProcessing = signal(false);
+
+  formData = {
+    fullName: '',
+    email: '',
+    phone: '',
+    address: '',
+    zipCode: '',
+    city: '',
+    deliveryOption: 'standard',
+    cardNumber: '',
+    expiry: '',
+    cvv: '',
+  };
+
+  deliveryOptions = [
+    { value: 'standard', label: 'Standard (3-5 jours)', description: 'Gratuit' },
+    { value: 'express', label: 'Express (1-2 jours)', description: '9,99 €' },
+    { value: 'premium', label: 'Premium (24h)', description: '19,99 €' },
+  ];
+
+  errors = computed(() => ({
+    fullName: !this.formData.fullName ? 'Nom requis' : '',
+    email: !this.formData.email ? 'Email requis' : '',
+    address: !this.formData.address ? 'Adresse requise' : '',
+    cardNumber: !this.formData.cardNumber ? 'Numéro de carte requis' : '',
+  }));
+
+  onStepChange(step: number) {
+    if (step < this.currentStep()) {
+      this.currentStep.set(step);
+    }
+  }
+
+  previousStep() {
+    if (this.currentStep() > 0) {
+      this.currentStep.update(s => s - 1);
+    }
+  }
+
+  nextStep() {
+    if (this.currentStep() < this.steps.length - 1) {
+      this.isProcessing.set(true);
+      setTimeout(() => {
+        this.currentStep.update(s => s + 1);
+        this.isProcessing.set(false);
+      }, 500);
+    }
+  }
+
+  getDeliveryLabel() {
+    return this.deliveryOptions.find(o => o.value === this.formData.deliveryOption)?.label || '';
+  }
+}
+```
+
+**Bonnes pratiques Wizard** :
+
+- Limiter à 4-5 étapes maximum
+- Afficher la progression clairement avec le stepper
+- Permettre la navigation arrière sans perte de données
+- Valider chaque étape avant de passer à la suivante
+- Afficher un récapitulatif final avant confirmation
+
+---
+
+## 9. Liste paginée
+
+Pattern de liste avec pagination, état de chargement et gestion des données.
+
+```typescript
+// src/app/user-list/user-list.component.ts
+import { Component, signal, computed, effect } from '@angular/core';
+import { DsPagination, DsCard, DsSkeleton, DsBadge, DsInputField } from 'ds-angular';
+import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: 'admin' | 'user' | 'guest';
+  status: 'active' | 'inactive';
+}
+
+@Component({
+  selector: 'app-user-list',
+  standalone: true,
+  imports: [DsPagination, DsCard, DsSkeleton, DsBadge, DsInputField],
+  template: `
+    <div class="list-container">
+      <div class="list-header">
+        <h2>Utilisateurs</h2>
+        <ds-input-field
+          name="search"
+          placeholder="Rechercher..."
+          [iconStart]="searchIcon"
+          [(ngModel)]="searchQuery"
+          size="sm">
+        </ds-input-field>
+      </div>
+
+      <!-- État de chargement avec Skeleton -->
+      @if (isLoading()) {
+        <div class="skeleton-list">
+          @for (item of [1,2,3,4,5]; track item) {
+            <ds-card variant="outlined">
+              <ng-container card-body>
+                <div class="user-skeleton">
+                  <ds-skeleton variant="circle" width="48px" height="48px"></ds-skeleton>
+                  <div class="user-skeleton-content">
+                    <ds-skeleton variant="text" width="60%"></ds-skeleton>
+                    <ds-skeleton variant="text" width="40%" height="14px"></ds-skeleton>
+                  </div>
+                  <ds-skeleton variant="rectangle" width="80px" height="24px"></ds-skeleton>
+                </div>
+              </ng-container>
+            </ds-card>
+          }
+        </div>
+      }
+
+      <!-- Liste des utilisateurs -->
+      @if (!isLoading()) {
+        <div class="user-list">
+          @for (user of paginatedUsers(); track user.id) {
+            <ds-card variant="outlined" [clickable]="true" (click)="selectUser(user)">
+              <ng-container card-body>
+                <div class="user-item">
+                  <div class="user-avatar">
+                    <fa-icon [icon]="userIcon"></fa-icon>
+                  </div>
+                  <div class="user-info">
+                    <h4>{{ user.name }}</h4>
+                    <p>{{ user.email }}</p>
+                  </div>
+                  <div class="user-meta">
+                    <ds-badge
+                      [variant]="user.status === 'active' ? 'success' : 'secondary'"
+                      size="sm">
+                      {{ user.status === 'active' ? 'Actif' : 'Inactif' }}
+                    </ds-badge>
+                    <ds-badge
+                      [variant]="getRoleBadgeVariant(user.role)"
+                      size="sm">
+                      {{ getRoleLabel(user.role) }}
+                    </ds-badge>
+                  </div>
+                </div>
+              </ng-container>
+            </ds-card>
+          } @empty {
+            <ds-card variant="outlined">
+              <ng-container card-body>
+                <p class="empty-state">Aucun utilisateur trouvé</p>
+              </ng-container>
+            </ds-card>
+          }
+        </div>
+
+        <!-- Pagination -->
+        <ds-pagination
+          [totalItems]="filteredUsers().length"
+          [pageSize]="pageSize()"
+          [currentPage]="currentPage()"
+          [pageSizeOptions]="[5, 10, 20, 50]"
+          [showPageSizeSelector]="true"
+          [showTotalItems]="true"
+          [showFirstLast]="true"
+          size="md"
+          (pageChange)="onPageChange($event)"
+          (pageSizeChange)="onPageSizeChange($event)">
+        </ds-pagination>
+      }
+    </div>
+  `,
+  styles: [`
+    .list-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    }
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+    }
+    .list-header h2 {
+      margin: 0;
+    }
+    .user-list, .skeleton-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+    .user-item, .user-skeleton {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .user-avatar {
+      width: 48px;
+      height: 48px;
+      background: var(--background-secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .user-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .user-info h4 {
+      margin: 0 0 var(--space-1) 0;
+      font-size: var(--font-size-base);
+    }
+    .user-info p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: var(--font-size-sm);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .user-meta {
+      display: flex;
+      gap: var(--space-2);
+      flex-shrink: 0;
+    }
+    .user-skeleton-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .empty-state {
+      text-align: center;
+      color: var(--text-muted);
+      padding: var(--space-6);
+    }
+  `]
+})
+export class UserListComponent {
+  searchIcon = faSearch;
+  userIcon = faUser;
+
+  // Données simulées
+  allUsers: User[] = Array.from({ length: 47 }, (_, i) => ({
+    id: i + 1,
+    name: `Utilisateur ${i + 1}`,
+    email: `user${i + 1}@example.com`,
+    role: ['admin', 'user', 'guest'][i % 3] as User['role'],
+    status: i % 4 === 0 ? 'inactive' : 'active' as User['status'],
+  }));
+
+  isLoading = signal(true);
+  searchQuery = signal('');
+  currentPage = signal(1);
+  pageSize = signal(10);
+
+  filteredUsers = computed(() => {
+    const query = this.searchQuery().toLowerCase();
+    if (!query) return this.allUsers;
+    return this.allUsers.filter(u =>
+      u.name.toLowerCase().includes(query) ||
+      u.email.toLowerCase().includes(query)
+    );
+  });
+
+  paginatedUsers = computed(() => {
+    const start = (this.currentPage() - 1) * this.pageSize();
+    const end = start + this.pageSize();
+    return this.filteredUsers().slice(start, end);
+  });
+
+  constructor() {
+    // Simuler le chargement initial
+    setTimeout(() => this.isLoading.set(false), 1500);
+
+    // Reset page quand la recherche change
+    effect(() => {
+      this.searchQuery();
+      this.currentPage.set(1);
+    });
+  }
+
+  onPageChange(page: number) {
+    this.currentPage.set(page);
+  }
+
+  onPageSizeChange(size: number) {
+    this.pageSize.set(size);
+    this.currentPage.set(1);
+  }
+
+  selectUser(user: User) {
+    console.log('User selected:', user);
+  }
+
+  getRoleBadgeVariant(role: string) {
+    switch (role) {
+      case 'admin': return 'error';
+      case 'user': return 'info';
+      default: return 'secondary';
+    }
+  }
+
+  getRoleLabel(role: string) {
+    switch (role) {
+      case 'admin': return 'Admin';
+      case 'user': return 'Utilisateur';
+      default: return 'Invité';
+    }
+  }
+}
+```
+
+**Bonnes pratiques Liste paginée** :
+
+- Afficher un skeleton pendant le chargement
+- Permettre le choix de la taille de page
+- Afficher le nombre total d'éléments
+- Reset la pagination lors d'un changement de filtre
+- Gérer l'état vide avec un message explicite
+- Optimiser les performances avec `track` dans les boucles
+
+---
+
 ## Ressources complémentaires
 
 - [Introduction](./Introduction) — Installation et Quick Start

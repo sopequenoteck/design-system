@@ -1,8 +1,11 @@
-// ds-accordion.scss
-// Styles pour le composant accordion
+/**
+ * DS Accordion — Composant de contenu repliable
+ *
+ * Utilise les tokens CSS custom properties pour garantir la cohérence thématique.
+ */
 
 .ds-accordion {
-  font-family: var(--font-family-base, system-ui, sans-serif);
+  font-family: var(--font-family-base);
 
   // Item
   &__item {
@@ -18,24 +21,24 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: var(--space-4, 1rem);
-    background-color: var(--background-main, #ffffff);
+    padding: var(--accordion-header-padding-md, var(--space-4));
+    background-color: var(--accordion-header-bg, var(--background-main));
     border: none;
     cursor: pointer;
     text-align: left;
     font-family: inherit;
-    font-size: var(--font-size-base, 1rem);
-    font-weight: 500;
-    color: var(--text-default, #111827);
-    transition: background-color 0.2s ease;
+    font-size: var(--accordion-header-font-size-md, var(--font-size-3));
+    font-weight: var(--font-weight-medium);
+    color: var(--accordion-header-text, var(--text-default));
+    transition: background-color var(--duration-fast) ease;
 
     &:hover:not(:disabled) {
-      background-color: var(--background-hover, #f3f4f6);
+      background-color: var(--accordion-header-hover-bg, var(--surface-hover));
     }
 
     &:focus {
       outline: none;
-      box-shadow: inset 0 0 0 2px var(--color-primary, #3b82f6);
+      box-shadow: inset 0 0 0 2px var(--accordion-focus-color, var(--color-primary));
     }
 
     &:disabled {
@@ -49,8 +52,8 @@
 
   &__icon {
     flex-shrink: 0;
-    transition: transform 0.3s ease;
-    color: var(--text-secondary, #6b7280);
+    transition: transform var(--duration-normal) ease;
+    color: var(--accordion-icon-color, var(--text-muted));
 
     &--rotated {
       transform: rotate(180deg);
@@ -61,24 +64,24 @@
   &__content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out;
+    transition: max-height var(--duration-normal) ease-out;
 
     &--expanded {
-      max-height: 500px; // Valeur suffisante pour la plupart des contenus
+      max-height: var(--accordion-content-max-height);
     }
   }
 
   &__body {
-    padding: var(--space-4, 1rem);
-    color: var(--text-secondary, #6b7280);
-    font-size: var(--font-size-sm, 0.875rem);
-    line-height: 1.6;
+    padding: var(--accordion-body-padding-md, var(--space-4));
+    color: var(--accordion-body-text, var(--text-muted));
+    font-size: var(--accordion-body-font-size-md, var(--font-size-2));
+    line-height: var(--line-height-relaxed);
   }
 
-  // Variants
+  // Variant: default
   &--default {
     .ds-accordion__item {
-      border-bottom: 1px solid var(--border-color, #e5e7eb);
+      border-bottom: var(--accordion-border-width) solid var(--accordion-border-color, var(--border-color));
 
       &:last-child {
         border-bottom: none;
@@ -86,13 +89,14 @@
     }
   }
 
+  // Variant: bordered
   &--bordered {
-    border: 1px solid var(--border-color, #e5e7eb);
-    border-radius: var(--radius-2, 0.375rem);
+    border: var(--accordion-border-width) solid var(--accordion-border-color, var(--border-color));
+    border-radius: var(--accordion-radius, var(--radius-2));
     overflow: hidden;
 
     .ds-accordion__item {
-      border-bottom: 1px solid var(--border-color, #e5e7eb);
+      border-bottom: var(--accordion-border-width) solid var(--accordion-border-color, var(--border-color));
 
       &:last-child {
         border-bottom: none;
@@ -100,11 +104,12 @@
     }
   }
 
+  // Variant: separated
   &--separated {
     .ds-accordion__item {
-      margin-bottom: var(--space-2, 0.5rem);
-      border: 1px solid var(--border-color, #e5e7eb);
-      border-radius: var(--radius-2, 0.375rem);
+      margin-bottom: var(--accordion-item-gap, var(--space-2));
+      border: var(--accordion-border-width) solid var(--accordion-border-color, var(--border-color));
+      border-radius: var(--accordion-radius, var(--radius-2));
       overflow: hidden;
 
       &:last-child {
@@ -112,33 +117,34 @@
       }
 
       &--expanded {
-        border-color: var(--color-primary, #3b82f6);
+        border-color: var(--accordion-expanded-border-color, var(--color-primary));
       }
     }
   }
 
-  // Tailles
+  // Taille SM
   &--sm {
     .ds-accordion__header {
-      padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-      font-size: var(--font-size-sm, 0.875rem);
+      padding: var(--accordion-header-padding-sm, var(--space-2) var(--space-3));
+      font-size: var(--accordion-header-font-size-sm, var(--font-size-2));
     }
 
     .ds-accordion__body {
-      padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
-      font-size: var(--font-size-xs, 0.75rem);
+      padding: var(--accordion-body-padding-sm, var(--space-2) var(--space-3));
+      font-size: var(--accordion-body-font-size-sm, var(--font-size-1));
     }
   }
 
+  // Taille LG
   &--lg {
     .ds-accordion__header {
-      padding: var(--space-5, 1.25rem) var(--space-6, 1.5rem);
-      font-size: var(--font-size-lg, 1.125rem);
+      padding: var(--accordion-header-padding-lg, var(--space-5) var(--space-6));
+      font-size: var(--accordion-header-font-size-lg, var(--font-size-4));
     }
 
     .ds-accordion__body {
-      padding: var(--space-5, 1.25rem) var(--space-6, 1.5rem);
-      font-size: var(--font-size-base, 1rem);
+      padding: var(--accordion-body-padding-lg, var(--space-5) var(--space-6));
+      font-size: var(--accordion-body-font-size-lg, var(--font-size-3));
     }
   }
 

@@ -1,9 +1,12 @@
-// ds-stepper.scss
-// Styles pour le composant stepper
+/**
+ * DS Stepper — Composant de navigation par étapes
+ *
+ * Utilise les tokens CSS custom properties pour garantir la cohérence thématique.
+ */
 
 .ds-stepper {
   display: flex;
-  font-family: var(--font-family-base, system-ui, sans-serif);
+  font-family: var(--font-family-base);
 
   // Orientation horizontale
   &--horizontal {
@@ -18,18 +21,18 @@
 
     .ds-stepper__connector {
       flex: 1;
-      height: 2px;
-      min-width: 2rem;
-      margin-top: 1rem;
-      background-color: var(--border-color, #e5e7eb);
+      height: var(--stepper-connector-width);
+      min-width: var(--stepper-connector-min-length);
+      margin-top: calc(var(--stepper-indicator-size-md) / 2);
+      background-color: var(--stepper-connector-color, var(--border-color));
 
       &--completed {
-        background-color: var(--color-primary, #3b82f6);
+        background-color: var(--stepper-completed-bg, var(--success));
       }
     }
 
     .ds-stepper__content {
-      margin-top: var(--space-2, 0.5rem);
+      margin-top: var(--stepper-gap-horizontal, var(--space-2));
     }
   }
 
@@ -43,20 +46,20 @@
     }
 
     .ds-stepper__connector {
-      width: 2px;
-      min-height: 2rem;
-      margin-left: 1rem;
-      margin-top: var(--space-1, 0.25rem);
-      margin-bottom: var(--space-1, 0.25rem);
-      background-color: var(--border-color, #e5e7eb);
+      width: var(--stepper-connector-width);
+      min-height: var(--stepper-connector-min-length);
+      margin-left: calc(var(--stepper-indicator-size-md) / 2);
+      margin-top: var(--space-1);
+      margin-bottom: var(--space-1);
+      background-color: var(--stepper-connector-color, var(--border-color));
 
       &--completed {
-        background-color: var(--color-primary, #3b82f6);
+        background-color: var(--stepper-completed-bg, var(--success));
       }
     }
 
     .ds-stepper__content {
-      margin-left: var(--space-3, 0.75rem);
+      margin-left: var(--stepper-gap-vertical, var(--space-3));
     }
   }
 
@@ -75,58 +78,58 @@
   &__step {
     display: flex;
     outline: none;
-    transition: opacity 0.2s ease;
+    transition: opacity var(--duration-fast) ease;
 
     &:focus-visible .ds-stepper__indicator {
-      box-shadow: 0 0 0 3px var(--color-primary-alpha, rgba(59, 130, 246, 0.25));
+      box-shadow: var(--input-focus-shadow);
     }
 
     &--pending {
       .ds-stepper__indicator {
-        background-color: var(--background-secondary, #f3f4f6);
-        color: var(--text-secondary, #6b7280);
-        border-color: var(--border-color, #e5e7eb);
+        background-color: var(--stepper-pending-bg, var(--background-secondary));
+        color: var(--stepper-pending-text, var(--text-muted));
+        border-color: var(--stepper-pending-border, var(--border-color));
       }
 
       .ds-stepper__label {
-        color: var(--text-secondary, #6b7280);
+        color: var(--stepper-pending-text, var(--text-muted));
       }
     }
 
     &--active {
       .ds-stepper__indicator {
-        background-color: var(--color-primary, #3b82f6);
-        color: var(--color-white, #ffffff);
-        border-color: var(--color-primary, #3b82f6);
+        background-color: var(--stepper-active-bg, var(--color-primary));
+        color: var(--stepper-active-text, var(--gray-50));
+        border-color: var(--stepper-active-bg, var(--color-primary));
       }
 
       .ds-stepper__label {
-        color: var(--text-default, #111827);
-        font-weight: 600;
+        color: var(--text-default);
+        font-weight: var(--font-weight-semibold);
       }
     }
 
     &--completed {
       .ds-stepper__indicator {
-        background-color: var(--color-success, #10b981);
-        color: var(--color-white, #ffffff);
-        border-color: var(--color-success, #10b981);
+        background-color: var(--stepper-completed-bg, var(--success));
+        color: var(--stepper-completed-text, var(--gray-50));
+        border-color: var(--stepper-completed-bg, var(--success));
       }
 
       .ds-stepper__label {
-        color: var(--text-default, #111827);
+        color: var(--text-default);
       }
     }
 
     &--error {
       .ds-stepper__indicator {
-        background-color: var(--color-error, #ef4444);
-        color: var(--color-white, #ffffff);
-        border-color: var(--color-error, #ef4444);
+        background-color: var(--stepper-error-bg, var(--error));
+        color: var(--stepper-error-text, var(--gray-50));
+        border-color: var(--stepper-error-bg, var(--error));
       }
 
       .ds-stepper__label {
-        color: var(--color-error, #ef4444);
+        color: var(--stepper-error-bg, var(--error));
       }
     }
 
@@ -141,14 +144,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2rem;
-    height: 2rem;
+    width: var(--stepper-indicator-size-md);
+    height: var(--stepper-indicator-size-md);
     border-radius: 50%;
-    border: 2px solid;
-    font-weight: 600;
-    font-size: var(--font-size-sm, 0.875rem);
+    border: var(--stepper-indicator-border-width) solid;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--stepper-indicator-font-size-md, var(--font-size-2));
     flex-shrink: 0;
-    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    transition: transform var(--duration-fast) ease,
+                background-color var(--duration-fast) ease,
+                border-color var(--duration-fast) ease;
   }
 
   &__number {
@@ -162,76 +167,77 @@
   }
 
   &__label {
-    font-size: var(--font-size-sm, 0.875rem);
-    font-weight: 500;
-    color: var(--text-default, #111827);
-    transition: color 0.2s ease;
+    font-size: var(--stepper-label-font-size-md, var(--font-size-2));
+    font-weight: var(--font-weight-medium);
+    color: var(--text-default);
+    transition: color var(--duration-fast) ease;
   }
 
   &__optional {
-    font-size: var(--font-size-xs, 0.75rem);
-    font-weight: 400;
-    color: var(--text-tertiary, #9ca3af);
-    margin-left: var(--space-1, 0.25rem);
+    font-size: var(--stepper-description-font-size-md, var(--font-size-1));
+    font-weight: var(--font-weight-normal);
+    color: var(--text-subtle);
+    margin-left: var(--space-1);
   }
 
   &__description {
-    font-size: var(--font-size-xs, 0.75rem);
-    color: var(--text-secondary, #6b7280);
-    margin-top: var(--space-1, 0.25rem);
+    font-size: var(--stepper-description-font-size-md, var(--font-size-1));
+    color: var(--text-muted);
+    margin-top: var(--space-1);
   }
 
   // Connecteur
   &__connector {
-    transition: background-color 0.3s ease;
+    transition: background-color var(--duration-normal) ease;
   }
 
-  // Tailles
+  // Taille SM
   &--sm {
     .ds-stepper__indicator {
-      width: 1.5rem;
-      height: 1.5rem;
-      font-size: var(--font-size-xs, 0.75rem);
+      width: var(--stepper-indicator-size-sm);
+      height: var(--stepper-indicator-size-sm);
+      font-size: var(--stepper-indicator-font-size-sm, var(--font-size-1));
     }
 
     .ds-stepper__label {
-      font-size: var(--font-size-xs, 0.75rem);
+      font-size: var(--stepper-label-font-size-sm, var(--font-size-1));
     }
 
     .ds-stepper__description {
-      font-size: 0.625rem;
+      font-size: var(--stepper-description-font-size-sm, var(--font-size-small));
     }
 
     &.ds-stepper--horizontal .ds-stepper__connector {
-      margin-top: 0.75rem;
+      margin-top: calc(var(--stepper-indicator-size-sm) / 2);
     }
 
     &.ds-stepper--vertical .ds-stepper__connector {
-      margin-left: 0.75rem;
+      margin-left: calc(var(--stepper-indicator-size-sm) / 2);
     }
   }
 
+  // Taille LG
   &--lg {
     .ds-stepper__indicator {
-      width: 2.5rem;
-      height: 2.5rem;
-      font-size: var(--font-size-base, 1rem);
+      width: var(--stepper-indicator-size-lg);
+      height: var(--stepper-indicator-size-lg);
+      font-size: var(--stepper-indicator-font-size-lg, var(--font-size-3));
     }
 
     .ds-stepper__label {
-      font-size: var(--font-size-base, 1rem);
+      font-size: var(--stepper-label-font-size-lg, var(--font-size-3));
     }
 
     .ds-stepper__description {
-      font-size: var(--font-size-sm, 0.875rem);
+      font-size: var(--stepper-description-font-size-lg, var(--font-size-2));
     }
 
     &.ds-stepper--horizontal .ds-stepper__connector {
-      margin-top: 1.25rem;
+      margin-top: calc(var(--stepper-indicator-size-lg) / 2);
     }
 
     &.ds-stepper--vertical .ds-stepper__connector {
-      margin-left: 1.25rem;
+      margin-left: calc(var(--stepper-indicator-size-lg) / 2);
     }
   }
 }

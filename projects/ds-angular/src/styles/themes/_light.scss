@@ -362,4 +362,44 @@
   --popover-header-bg: var(--surface-raised);
   --popover-header-border: var(--border-subtle);
   --popover-backdrop: color-mix(in oklab, var(--gray-900) 20%, transparent);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS PAGINATION
+   * ======================================================================== */
+  --pagination-btn-bg: var(--surface-default);
+  --pagination-btn-text: var(--text-default);
+  --pagination-btn-border: var(--border-color);
+  --pagination-btn-hover-bg: var(--surface-hover);
+  --pagination-btn-hover-border: var(--color-primary);
+  --pagination-btn-focus-border: var(--color-primary);
+  --pagination-active-bg: var(--color-primary);
+  --pagination-active-text: var(--gray-50);
+  --pagination-active-hover-bg: color-mix(in oklab, var(--color-primary) 85%, var(--background-main));
+  --pagination-info-color: var(--text-muted);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS STEPPER
+   * ======================================================================== */
+  --stepper-pending-bg: var(--background-secondary);
+  --stepper-pending-text: var(--text-muted);
+  --stepper-pending-border: var(--border-color);
+  --stepper-active-bg: var(--color-primary);
+  --stepper-active-text: var(--gray-50);
+  --stepper-completed-bg: var(--success);
+  --stepper-completed-text: var(--gray-50);
+  --stepper-error-bg: var(--error);
+  --stepper-error-text: var(--gray-50);
+  --stepper-connector-color: var(--border-color);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS ACCORDION
+   * ======================================================================== */
+  --accordion-header-bg: var(--surface-default);
+  --accordion-header-hover-bg: var(--surface-hover);
+  --accordion-header-text: var(--text-default);
+  --accordion-body-text: var(--text-muted);
+  --accordion-border-color: var(--border-color);
+  --accordion-icon-color: var(--text-muted);
+  --accordion-focus-color: var(--color-primary);
+  --accordion-expanded-border-color: var(--color-primary);
 }

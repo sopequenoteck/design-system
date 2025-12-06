@@ -332,6 +332,58 @@
   --progress-track-bg: #{$progress-track-bg};
   --progress-fill-bg: #{$progress-fill-bg};
 
+  /* === PAGINATION === */
+  --pagination-btn-size-sm: #{$pagination-btn-size-sm};
+  --pagination-btn-size-md: #{$pagination-btn-size-md};
+  --pagination-btn-size-lg: #{$pagination-btn-size-lg};
+  --pagination-btn-padding-sm: #{$pagination-btn-padding-sm};
+  --pagination-btn-padding-md: #{$pagination-btn-padding-md};
+  --pagination-btn-padding-lg: #{$pagination-btn-padding-lg};
+  --pagination-btn-radius: #{$pagination-btn-radius};
+  --pagination-font-size-sm: #{$pagination-font-size-sm};
+  --pagination-font-size-md: #{$pagination-font-size-md};
+  --pagination-font-size-lg: #{$pagination-font-size-lg};
+  --pagination-gap-sm: #{$pagination-gap-sm};
+  --pagination-gap-md: #{$pagination-gap-md};
+  --pagination-gap-lg: #{$pagination-gap-lg};
+
+  /* === STEPPER === */
+  --stepper-indicator-size-sm: #{$stepper-indicator-size-sm};
+  --stepper-indicator-size-md: #{$stepper-indicator-size-md};
+  --stepper-indicator-size-lg: #{$stepper-indicator-size-lg};
+  --stepper-indicator-border-width: #{$stepper-indicator-border-width};
+  --stepper-indicator-font-size-sm: #{$stepper-indicator-font-size-sm};
+  --stepper-indicator-font-size-md: #{$stepper-indicator-font-size-md};
+  --stepper-indicator-font-size-lg: #{$stepper-indicator-font-size-lg};
+  --stepper-connector-width: #{$stepper-connector-width};
+  --stepper-connector-min-length: #{$stepper-connector-min-length};
+  --stepper-label-font-size-sm: #{$stepper-label-font-size-sm};
+  --stepper-label-font-size-md: #{$stepper-label-font-size-md};
+  --stepper-label-font-size-lg: #{$stepper-label-font-size-lg};
+  --stepper-description-font-size-sm: #{$stepper-description-font-size-sm};
+  --stepper-description-font-size-md: #{$stepper-description-font-size-md};
+  --stepper-description-font-size-lg: #{$stepper-description-font-size-lg};
+  --stepper-gap-horizontal: #{$stepper-gap-horizontal};
+  --stepper-gap-vertical: #{$stepper-gap-vertical};
+
+  /* === ACCORDION === */
+  --accordion-header-padding-sm: #{$accordion-header-padding-sm};
+  --accordion-header-padding-md: #{$accordion-header-padding-md};
+  --accordion-header-padding-lg: #{$accordion-header-padding-lg};
+  --accordion-body-padding-sm: #{$accordion-body-padding-sm};
+  --accordion-body-padding-md: #{$accordion-body-padding-md};
+  --accordion-body-padding-lg: #{$accordion-body-padding-lg};
+  --accordion-header-font-size-sm: #{$accordion-header-font-size-sm};
+  --accordion-header-font-size-md: #{$accordion-header-font-size-md};
+  --accordion-header-font-size-lg: #{$accordion-header-font-size-lg};
+  --accordion-body-font-size-sm: #{$accordion-body-font-size-sm};
+  --accordion-body-font-size-md: #{$accordion-body-font-size-md};
+  --accordion-body-font-size-lg: #{$accordion-body-font-size-lg};
+  --accordion-radius: #{$accordion-radius};
+  --accordion-border-width: #{$accordion-border-width};
+  --accordion-content-max-height: #{$accordion-content-max-height};
+  --accordion-item-gap: #{$accordion-item-gap};
+
   /* === BREAKPOINTS === */
   --breakpoint-xs: #{$breakpoint-xs};
   --breakpoint-sm: #{$breakpoint-sm};
@@ -339,4 +391,10 @@
   --breakpoint-lg: #{$breakpoint-lg};
   --breakpoint-xl: #{$breakpoint-xl};
   --breakpoint-2xl: #{$breakpoint-2xl};
+
+  /* === FONT SIZE ALIASES (t-shirt sizes) === */
+  --font-size-xs: var(--font-size-1);
+  --font-size-sm: var(--font-size-2);
+  --font-size-base: var(--font-size-3);
+  --font-size-lg: var(--font-size-4);
 }

@@ -369,7 +369,47 @@
   --popover-bg: var(--gray-800);
   --popover-text: var(--gray-100);
   --popover-border: var(--gray-600);
-  --popover-header-bg: var(--gray-750);
+  --popover-header-bg: var(--gray-700);
   --popover-header-border: var(--gray-700);
-  --popover-backdrop: color-mix(in oklab, var(--gray-950) 40%, transparent);
+  --popover-backdrop: color-mix(in oklab, var(--gray-900) 40%, transparent);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS PAGINATION
+   * ======================================================================== */
+  --pagination-btn-bg: var(--gray-800);
+  --pagination-btn-text: var(--gray-100);
+  --pagination-btn-border: var(--gray-600);
+  --pagination-btn-hover-bg: var(--gray-700);
+  --pagination-btn-hover-border: var(--color-primary);
+  --pagination-btn-focus-border: var(--color-primary);
+  --pagination-active-bg: var(--color-primary);
+  --pagination-active-text: var(--gray-900);
+  --pagination-active-hover-bg: color-mix(in oklab, var(--color-primary) 85%, var(--background-main));
+  --pagination-info-color: var(--gray-400);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS STEPPER
+   * ======================================================================== */
+  --stepper-pending-bg: var(--gray-700);
+  --stepper-pending-text: var(--gray-400);
+  --stepper-pending-border: var(--gray-600);
+  --stepper-active-bg: var(--color-primary);
+  --stepper-active-text: var(--gray-900);
+  --stepper-completed-bg: var(--success);
+  --stepper-completed-text: var(--gray-900);
+  --stepper-error-bg: var(--error);
+  --stepper-error-text: var(--gray-50);
+  --stepper-connector-color: var(--gray-600);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS ACCORDION
+   * ======================================================================== */
+  --accordion-header-bg: var(--gray-800);
+  --accordion-header-hover-bg: var(--gray-700);
+  --accordion-header-text: var(--gray-100);
+  --accordion-body-text: var(--gray-300);
+  --accordion-border-color: var(--gray-600);
+  --accordion-icon-color: var(--gray-400);
+  --accordion-focus-color: var(--color-primary);
+  --accordion-expanded-border-color: var(--color-primary);
 }

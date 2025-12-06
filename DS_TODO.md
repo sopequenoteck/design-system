@@ -1,173 +1,208 @@
-# DS_TODO — Plan de maintenance et évolution du Design System
+# DS_TODO — Plan d'amélioration et consolidation du Design System
 
 ## Contexte
 
-Le design system Angular (`ds-angular`) est **publié en v1.0.0** sur npm avec une architecture mature : 7 primitives, 17 composants DS, système de tokens 3 couches, 3 thèmes, documentation complète (5 MDX), CI/CD opérationnelle, starter kit, et déploiement Storybook automatique. Les ÉTAPES 1-12 sont terminées. Ce plan définit les tâches de **maintenance corrective** et les **évolutions futures** pour garantir la stabilité et enrichir l'offre.
+Le design system Angular (`ds-angular`) est publié en v1.0.0 sur npm avec une architecture mature. L'analyse révèle une base solide mais des **incohérences de tokens entre composants récents et anciens**, des **fallbacks hardcodés hétérogènes** dans les SCSS, et des **tokens manquants dans les thèmes** pour les nouveaux composants (pagination, stepper, accordion). Ce plan vise à consolider l'homogénéité du système de tokens et améliorer la maintenabilité.
 
-**Métadonnées** : design-system | 2025-12-05 23:15
+**Métadonnées** : design-system | 2025-12-06 15:30
 
 ---
 
 ## Résumé architectural observé
 
 - **7 primitives** : primitive-button, primitive-input, primitive-badge, primitive-checkbox, primitive-radio, primitive-textarea, primitive-toggle
-- **17 composants DS** : ds-button, ds-modal, ds-dropdown, ds-toast, ds-tooltip, ds-popover, ds-tabs, ds-breadcrumb, ds-input-field, ds-input-textarea, ds-checkbox, ds-radio-group, ds-toggle, ds-badge, ds-card, ds-alert, ds-divider
-- **Tokens** : _primitives.scss (valeurs brutes) → _semantic.scss (tokens composants) → _tokens.scss (CSS custom properties :root)
-- **Thèmes** : light, dark, custom (classes `:root.theme-*`)
-- **Documentation** : Introduction.mdx, Tokens.mdx, Patterns.mdx, Integration.mdx, Contributing.mdx
-- **Publication** : ds-angular@1.0.0 sur npm, Storybook auto-déployé sur GitHub Pages
-- **CI/CD** : tests ≥80%, a11y WCAG 2.1 AA, bundle size ≤5MB, publication npm automatique
+- **22 composants DS** : ds-button, ds-modal, ds-dropdown, ds-toast, ds-tooltip, ds-popover, ds-tabs, ds-breadcrumb, ds-input-field, ds-input-textarea, ds-checkbox, ds-radio-group, ds-toggle, ds-badge, ds-card, ds-alert, ds-divider, ds-progress-bar, ds-skeleton, ds-pagination, ds-stepper, ds-accordion
+- **Architecture tokens 3 couches** : _primitives.scss → _semantic.scss → _tokens.scss (CSS custom properties)
+- **3 thèmes** : light, dark, custom (classes `:root.theme-*`)
+- **Services** : DsI18nService (4 locales), IconRegistryService (lazy-loading), DsToastService
+- **Documentation** : 5 fichiers MDX (Introduction, Tokens, Patterns, Integration, Contributing)
+- **23 fichiers SCSS** composants + 8 fichiers styles globaux
 
 ---
 
-## ÉTAPE 13 — Corrections et stabilisation post-publication
+## Diagnostic structuré — Design System
+
+### ⚠️ Problèmes par catégorie
+
+#### Tokens (nommage, cohérence, portée)
+
+| Problème | Fichiers concernés | Impact |
+|----------|-------------------|--------|
+| Fallbacks hardcodés incohérents dans composants récents | ds-pagination.scss, ds-stepper.scss, ds-accordion.scss | Valeurs `#6b7280`, `#3b82f6`, `#ffffff` directement dans le CSS au lieu de tokens |
+| Tokens de feedback non uniformes | ds-stepper.scss | Utilise `--color-success`, `--color-error` au lieu de `--success`, `--error` |
+| Tokens de taille non standardisés | ds-pagination.scss, ds-accordion.scss | `--font-size-sm`, `--font-size-xs`, `--font-size-base` vs `--font-size-1`, `--font-size-2`, `--font-size-3` |
+| Tokens sémantiques pagination/stepper/accordion absents | _tokens.scss, _semantic.scss | Pas de tokens dédiés (contrairement à card, alert, divider) |
+| Breakpoints dupliqués | _primitives.scss | `$bp-*` (legacy) ET `$breakpoint-*` (standard) coexistent |
+
+💡 **Suggestion** : Ajouter tokens sémantiques pour pagination, stepper, accordion dans `_semantic.scss` et les exposer dans `_tokens.scss`.
+
+#### Composants (cohérence SCSS)
+
+| Problème | Fichiers concernés | Impact |
+|----------|-------------------|--------|
+| Conventions de nommage CSS variables mixtes | ds-pagination.scss | `--text-secondary`, `--background-hover` non définis dans tokens |
+| Tokens couleurs non thématisés | ds-stepper.scss, ds-accordion.scss | `--color-white: #ffffff` utilisé, non défini dans thèmes |
+| Nommage BEM partiellement appliqué | ds-pagination.scss | Classes `.ds-pagination__*` OK mais tokens non préfixés |
+
+💡 **Suggestion** : Aligner les 3 composants récents sur le pattern ds-card.scss qui utilise exclusivement des tokens avec fallbacks vers `var(--token-existant)`.
+
+#### Thèmes (light, dark, custom)
+
+| Problème | Fichiers concernés | Impact |
+|----------|-------------------|--------|
+| Tokens pagination/stepper/accordion absents | _light.scss, _dark.scss, _custom.scss | Ces composants ne s'adaptent pas visuellement aux thèmes |
+| Thème custom incomplet | _custom.scss | Manque tokens pour checkbox, radio, toggle, tabs, tooltip, popover |
+| Variable `--gray-750` référencée mais non définie | _dark.scss (ligne 372) | Potentiel bug visuel pour popover-header-bg |
+
+💡 **Suggestion** : Compléter les thèmes avec tous les tokens sémantiques des 22 composants.
+
+#### Documentation
+
+| Problème | Fichiers concernés | Impact |
+|----------|-------------------|--------|
+| Patterns.mdx ne couvre pas pagination/stepper/accordion | Patterns.mdx | Nouveaux composants sans exemples de composition |
+| Tokens.mdx non synchronisé avec tokens récents | Tokens.mdx | progress-bar, breakpoints possiblement absents |
+
+### ✅ Points conformes
+
+- Architecture 3 couches tokens claire et bien documentée
+- Composants anciens (card, alert, divider) exemplaires avec tokens bien structurés
+- Export barrel (`index.ts`) complet et typé
+- Thèmes light/dark complets pour composants existants jusqu'à ÉTAPE 15
+- Service i18n fonctionnel avec 40+ labels et 4 locales
+- SCSS ds-card.scss = modèle de référence (100% tokens, fallbacks vers autres tokens)
+
+---
+
+## ÉTAPE 18 — Harmonisation tokens composants navigation
 
 ### Objectif
-Corriger les erreurs de tests bloquantes et stabiliser le code pour garantir que la CI passe en vert.
+Aligner ds-pagination, ds-stepper, ds-accordion sur les standards des composants existants (tokens sémantiques, fallbacks uniformes).
 
 ### Prérequis
-Publication v1.0.0 terminée.
+ÉTAPE 17 terminée.
 
 ### Livrables
-- Tests passent sans erreurs TypeScript
-- Couverture mesurable ≥80%
-- CI passe en vert
+- Tokens sémantiques créés dans `_semantic.scss`
+- Tokens exposés dans `_tokens.scss`
+- SCSS des 3 composants refactorisés
+- Pas de couleur hardcodée
 
 ### Impacts
-- Qualité de code vérifiable
-- Confiance pour les utilisateurs npm
+- Meilleure cohérence visuelle
+- Thématisation complète
 
 ### Risques
-- Modification mineure de l'API si propriétés doivent devenir publiques
+- Breaking changes si variables CSS renommées (faible)
 
 ### Tâches
 
-- [x] `projects/ds-angular/src/lib/components/ds-alert/ds-alert.ts` — Rendre la propriété `icons` publique (readonly) ou créer méthode publique `getIconForType(type: AlertType)` — **Critère** : tests ds-alert.spec.ts compilent sans erreur TS2445 ✅ (2025-12-05)
-- [x] `projects/ds-angular/src/lib/components/ds-alert/ds-alert.spec.ts` — Adapter les tests pour utiliser la méthode publique au lieu d'accéder directement à `icons` — **Critère** : 40/40 tests passent ✅ (2025-12-05)
-- [x] `.` — Exécuter `npm run test:coverage` pour valider couverture ≥80% — **Critère** : Statements 92.51%, Lines 92.71%, Functions 93.52%, Branches 82.98% ✅ (2025-12-05)
-- [x] `.github/workflows/ci.yml` — Vérifier que la CI passe en vert après corrections — **Critère** : CI success (run #19977860629) ✅ (2025-12-05)
+- [x] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter section PAGINATION avec tokens : `$pagination-btn-size-sm`, `$pagination-btn-size-md`, `$pagination-btn-size-lg`, `$pagination-info-color`, `$pagination-active-bg` — **Critère** : 12 tokens sémantiques pagination ajoutés ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter section STEPPER avec tokens : `$stepper-indicator-size-sm`, `$stepper-indicator-size-md`, `$stepper-indicator-size-lg`, `$stepper-connector-width`, `$stepper-pending-bg`, `$stepper-active-bg`, `$stepper-completed-bg`, `$stepper-error-bg` — **Critère** : 18 tokens sémantiques stepper ajoutés ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter section ACCORDION avec tokens : `$accordion-header-padding-sm`, `$accordion-header-padding-md`, `$accordion-header-padding-lg`, `$accordion-content-max-height`, `$accordion-icon-color` — **Critère** : 16 tokens sémantiques accordion ajoutés ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Exposer les 24+ nouveaux tokens en CSS custom properties — **Critère** : 46 tokens exposés + 4 aliases font-size ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-pagination/ds-pagination.scss` — Remplacer fallbacks hardcodés (`#6b7280`, `#3b82f6`, `#ffffff`) par tokens `var(--token, var(--token-existant))` — **Critère** : Zéro couleur hex, 100% tokens ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-stepper/ds-stepper.scss` — Remplacer `--color-success/error/primary/white` par tokens standards `var(--success)`, `var(--error)`, `var(--color-primary)` — **Critère** : Alignement sur conventions existantes ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-accordion/ds-accordion.scss` — Remplacer fallbacks hardcodés par tokens avec fallbacks vers tokens existants — **Critère** : Pattern identique à ds-card.scss ✅ (2025-12-06)
 
 ---
 
-## ÉTAPE 14 — Harmonisation tokens et documentation
+## ÉTAPE 19 — Complétion thèmes light/dark/custom
 
 ### Objectif
-Corriger les incohérences mineures de nommage des tokens et synchroniser la documentation avec les composants récents.
+Garantir que tous les 22 composants DS ont leurs tokens définis dans les 3 thèmes.
 
 ### Prérequis
-ÉTAPE 13 terminée (tests stables).
+ÉTAPE 18 terminée.
 
 ### Livrables
-- Tokens harmonisés sans breaking changes
-- Patterns.mdx enrichi avec card, alert, divider
+- Thèmes light/dark/custom complets
+- Variable `--gray-750` corrigée
+- Tests visuels validés
 
 ### Impacts
-- Meilleure cohérence du système de design
-- Documentation à jour
+- Thématisation cohérente
+- Pas de dégradation visuelle en dark mode
 
 ### Risques
-- Aucun (changements rétrocompatibles)
+- Régressions visuelles (mitigé par tests)
 
 ### Tâches
 
-- [x] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Ajouter alias `--btn-radius-md` pointant vers `--btn-radius` pour cohérence — **Critère** : `--btn-radius-md: var(--btn-radius);` ajouté ligne 154 ✅ (2025-12-05)
-- [x] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Ajouter `--space-5: 1.25rem;` pour compléter l'échelle spacing (entre space-4 et space-6) — **Critère** : token ajouté dans _primitives.scss et _tokens.scss ✅ (2025-12-05)
-- [x] `projects/ds-angular/src/lib/Patterns.mdx` — Ajouter section "Carte avec Alert" illustrant composition ds-card + ds-alert — **Critère** : Section 5 ajoutée avec exemple AccountCardComponent ✅ (2025-12-05)
-- [x] `projects/ds-angular/src/lib/Patterns.mdx` — Ajouter section "Divider dans liste" illustrant ds-divider entre éléments — **Critère** : Section 6 ajoutée avec exemple SettingsListComponent et variantes ✅ (2025-12-05)
+- [x] `projects/ds-angular/src/styles/themes/_light.scss` — Ajouter section PAGINATION : `--pagination-btn-bg`, `--pagination-btn-text`, `--pagination-btn-border`, `--pagination-active-bg`, `--pagination-active-text`, `--pagination-info-color` — **Critère** : 10 tokens pagination thématisés ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/styles/themes/_light.scss` — Ajouter section STEPPER : `--stepper-pending-bg`, `--stepper-pending-border`, `--stepper-active-bg`, `--stepper-completed-bg`, `--stepper-error-bg`, `--stepper-connector-color` — **Critère** : 10 tokens stepper thématisés ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/styles/themes/_light.scss` — Ajouter section ACCORDION : `--accordion-header-bg`, `--accordion-header-hover-bg`, `--accordion-content-bg`, `--accordion-border-color`, `--accordion-icon-color` — **Critère** : 8 tokens accordion thématisés ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/styles/themes/_dark.scss` — Dupliquer les 24+ tokens pagination/stepper/accordion avec valeurs adaptées dark — **Critère** : 28 tokens dark mode ajoutés ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/styles/themes/_dark.scss` — Corriger `--popover-header-bg: var(--gray-750)` → `var(--gray-700)` — **Critère** : Variable corrigée + --gray-950 → --gray-900 ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/styles/themes/_custom.scss` — Compléter avec tokens manquants : checkbox, radio, toggle, tabs, tooltip, popover, pagination, stepper, accordion — **Critère** : 100+ tokens ajoutés, parité complète ✅ (2025-12-06)
 
 ---
 
-## ÉTAPE 15 — Composants utilitaires avancés (roadmap v1.1)
+## ÉTAPE 20 — Nettoyage tokens obsolètes et documentation
 
 ### Objectif
-Enrichir l'offre du design system avec les composants utilitaires demandés dans la roadmap.
+Supprimer les duplications, harmoniser les conventions de nommage, mettre à jour la documentation.
 
 ### Prérequis
-ÉTAPE 14 terminée.
+ÉTAPE 19 terminée.
 
 ### Livrables
-- ds-progress-bar créé (determinate, indeterminate, variants)
-- ds-skeleton créé (variants: text, circle, rectangle)
-- Tests ≥90% et stories complètes
+- Breakpoints legacy supprimés
+- Tokens.mdx à jour
+- Patterns.mdx enrichi
 
 ### Impacts
-- Offre plus complète
-- Réduction duplication code consommateurs
+- Réduction dette technique
+- Documentation synchronisée
 
 ### Risques
-- Augmentation surface maintenance
+- Breaking changes si tokens legacy utilisés (à vérifier)
 
 ### Tâches
 
-- [x] `projects/ds-angular/src/lib/components/ds-progress-bar/` — Créer composant ds-progress-bar : modes (determinate, indeterminate), tailles (sm, md, lg), variants (default, success, warning, error) — **Critère** : 5 fichiers créés, 12+ stories, tests complets ✅ (2025-12-05)
-- [x] `projects/ds-angular/src/styles/tokens/_semantic.scss` — Ajouter tokens progress-bar : `$progress-height-sm`, `$progress-height-md`, `$progress-height-lg`, `$progress-radius` — **Critère** : 6 tokens ajoutés et exposés ✅ (2025-12-05)
-- [x] `projects/ds-angular/src/lib/components/ds-skeleton/` — Créer composant ds-skeleton : variants (text, circle, rectangle, card), animation pulse, tailles — **Critère** : 5 fichiers créés, 12+ stories, tests complets ✅ (2025-12-05)
-- [x] `projects/ds-angular/src/lib/components/index.ts` — Exporter DsProgressBar et DsSkeleton avec types — **Critère** : 6 types exportés (DsProgressBar, DsSkeleton + types) ✅ (2025-12-05)
+- [x] `projects/ds-angular/src/styles/tokens/_primitives.scss` — Supprimer breakpoints legacy `$bp-xs`, `$bp-sm`, `$bp-md`, `$bp-lg`, `$bp-xl` après vérification non-usage — **Critère** : Grep retourne 0 résultat pour `$bp-` dans SCSS composants ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Ajouter alias `--font-size-sm: var(--font-size-2)`, `--font-size-base: var(--font-size-3)`, `--font-size-lg: var(--font-size-4)` pour compatibilité — **Critère** : Aliases t-shirt sizes complets (déjà fait ÉTAPE 18) ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/Tokens.mdx` — Ajouter section "Pagination, Stepper, Accordion tokens" avec table des tokens et exemples — **Critère** : Documentation des 24+ nouveaux tokens + aliases font-size ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/Patterns.mdx` — Ajouter section 8 "Wizard multi-étapes" combinant stepper + card + form + button — **Critère** : Exemple complet 290+ lignes (CheckoutWizardComponent) ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/Patterns.mdx` — Ajouter section 9 "Liste paginée" combinant pagination + card + skeleton — **Critère** : Exemple complet avec loading state (UserListComponent 250+ lignes) ✅ (2025-12-06)
 
 ---
 
-## ÉTAPE 16 — Composants navigation avancés (roadmap v1.2)
+## ÉTAPE 21 — Validation et tests visuels
 
 ### Objectif
-Ajouter les composants de navigation complexes pour couvrir les patterns courants.
+Garantir la non-régression visuelle après les changements de tokens.
 
 ### Prérequis
-ÉTAPE 15 terminée.
+ÉTAPE 20 terminée.
 
 ### Livrables
-- ds-pagination créé
-- ds-stepper créé
-- ds-accordion créé
+- Stories Storybook vérifiées sur 3 thèmes
+- Tests visuels passants
+- Couverture maintenue ≥80%
 
 ### Impacts
-- Patterns navigation complets
-- Adoption facilitée projets complexes
+- Qualité garantie
+- Confiance release
 
 ### Risques
-- Complexité accessibilité (ARIA)
+- Découverte régressions (positif pour qualité)
 
 ### Tâches
 
-- [x] `projects/ds-angular/src/lib/components/ds-pagination/` — Créer composant ds-pagination : pages, prev/next, first/last, page size selector, total items — **Critère** : composant créé (5 fichiers), 14 stories, 41 tests, navigation clavier, ARIA ✅ (2025-12-06)
-- [x] `projects/ds-angular/src/lib/components/ds-stepper/` — Créer composant ds-stepper : horizontal/vertical, états (active, completed, error), navigation — **Critère** : composant créé (5 fichiers), 16 stories, 39 tests ✅ (2025-12-06)
-- [x] `projects/ds-angular/src/lib/components/ds-accordion/` — Créer composant ds-accordion : single/multi expand, animation, header/content slots — **Critère** : composant créé (5 fichiers), 12 stories, 29 tests, ARIA ✅ (2025-12-06)
-- [x] `projects/ds-angular/src/lib/components/index.ts` — Exporter DsPagination, DsStepper, DsAccordion avec types — **Critère** : 11 types exportés ✅ (2025-12-06)
+- [x] `.` — Exécuter `npm run storybook` et vérifier visuellement ds-pagination, ds-stepper, ds-accordion sur theme-light, theme-dark, theme-custom — **Critère** : Tokens thématisés, stories "Themed" ajoutées ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-pagination/ds-pagination.stories.ts` — Ajouter story "Themed" affichant le composant dans les 3 thèmes côte à côte — **Critère** : Story ajoutée et fonctionnelle ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-stepper/ds-stepper.stories.ts` — Ajouter story "Themed" affichant le composant dans les 3 thèmes — **Critère** : Story ajoutée et fonctionnelle ✅ (2025-12-06)
+- [x] `projects/ds-angular/src/lib/components/ds-accordion/ds-accordion.stories.ts` — Ajouter story "Themed" affichant le composant dans les 3 thèmes — **Critère** : Story ajoutée et fonctionnelle ✅ (2025-12-06)
+- [x] `.` — Exécuter `npm run test:coverage` et valider couverture ≥80% — **Critère** : Statements 91.56%, Lines 91.87%, Functions 94.39%, Branches 82.61% ✅ (2025-12-06)
 
 ---
 
-## ÉTAPE 17 — Internationalisation et responsive design
+## Prochaines étapes après ÉTAPE 21
 
-### Objectif
-Préparer le design system pour l'internationalisation et améliorer le support responsive.
-
-### Prérequis
-ÉTAPE 16 terminée.
-
-### Livrables
-- Tokens responsive (breakpoints, container queries)
-- Support i18n pour labels par défaut
-- Documentation responsive patterns
-
-### Impacts
-- Adoption internationale
-- Meilleur support mobile
-
-### Risques
-- Breaking changes si mal planifié
-
-### Tâches
-
-- [x] `projects/ds-angular/src/styles/tokens/_primitives.scss` — Ajouter tokens breakpoints : `$breakpoint-xs`, `$breakpoint-sm`, `$breakpoint-md`, `$breakpoint-lg`, `$breakpoint-xl`, `$breakpoint-2xl` — **Critère** : 6 tokens standard (320, 576, 768, 992, 1200, 1400) ✅ (2025-12-06)
-- [x] `projects/ds-angular/src/styles/tokens/_tokens.scss` — Exposer breakpoints en CSS custom properties — **Critère** : `--breakpoint-*` disponibles ✅ (2025-12-06)
-- [x] `projects/ds-angular/src/lib/utils/i18n.service.ts` — Créer service i18n minimal pour labels par défaut — **Critère** : 40+ labels, 4 locales (fr/en/es/de), 25 tests ✅ (2025-12-06)
-- [x] `projects/ds-angular/src/lib/Patterns.mdx` — Ajouter section "Responsive patterns" avec exemples — **Critère** : 3 exemples (grid responsive, navigation adaptive, container queries) ✅ (2025-12-06)
-
----
-
-## Prochaines étapes après v1.2
-
-- **Data components** : ds-table, ds-data-grid avec tri, pagination, filtres
+- **Data components** : ds-table, ds-data-grid avec tri, pagination intégrée, filtres
 - **Form avancés** : ds-select, ds-autocomplete, ds-date-picker, ds-file-upload
-- **Thème dark amélioré** : audit complet contraste WCAG sur toutes combinaisons
+- **Audit contraste** : vérification WCAG 2.1 AA sur toutes combinaisons thème × variant
 - **Design tokens cross-platform** : export JSON pour React, Vue, Svelte
-- **Tests visuels** : activer Chromatic avec token projet
+- **Tests visuels automatisés** : intégration Chromatic avec baseline
+

@@ -257,3 +257,58 @@ $progress-height-lg: 12px;
 $progress-radius: $radius-3;
 $progress-track-bg: $gray-200;
 $progress-fill-bg: $primary;
+
+// === PAGINATION ===
+
+$pagination-btn-size-sm: 24px;
+$pagination-btn-size-md: 32px;
+$pagination-btn-size-lg: 40px;
+$pagination-btn-padding-sm: $space-1;
+$pagination-btn-padding-md: $space-2;
+$pagination-btn-padding-lg: $space-3;
+$pagination-btn-radius: $radius-2;
+$pagination-font-size-sm: $font-size-1;
+$pagination-font-size-md: $font-size-2;
+$pagination-font-size-lg: $font-size-3;
+$pagination-gap-sm: $space-1;
+$pagination-gap-md: $space-2;
+$pagination-gap-lg: $space-4;
+
+// === STEPPER ===
+
+$stepper-indicator-size-sm: 24px;
+$stepper-indicator-size-md: 32px;
+$stepper-indicator-size-lg: 40px;
+$stepper-indicator-border-width: 2px;
+$stepper-indicator-font-size-sm: $font-size-1;
+$stepper-indicator-font-size-md: $font-size-2;
+$stepper-indicator-font-size-lg: $font-size-3;
+$stepper-connector-width: 2px;
+$stepper-connector-min-length: 32px;
+$stepper-label-font-size-sm: $font-size-1;
+$stepper-label-font-size-md: $font-size-2;
+$stepper-label-font-size-lg: $font-size-3;
+$stepper-description-font-size-sm: $font-size-small;
+$stepper-description-font-size-md: $font-size-1;
+$stepper-description-font-size-lg: $font-size-2;
+$stepper-gap-horizontal: $space-2;
+$stepper-gap-vertical: $space-3;
+
+// === ACCORDION ===
+
+$accordion-header-padding-sm: $space-2 $space-3;
+$accordion-header-padding-md: $space-4;
+$accordion-header-padding-lg: $space-5 $space-6;
+$accordion-body-padding-sm: $space-2 $space-3;
+$accordion-body-padding-md: $space-4;
+$accordion-body-padding-lg: $space-5 $space-6;
+$accordion-header-font-size-sm: $font-size-2;
+$accordion-header-font-size-md: $font-size-3;
+$accordion-header-font-size-lg: $font-size-4;
+$accordion-body-font-size-sm: $font-size-1;
+$accordion-body-font-size-md: $font-size-2;
+$accordion-body-font-size-lg: $font-size-3;
+$accordion-radius: $radius-2;
+$accordion-border-width: 1px;
+$accordion-content-max-height: 500px;
+$accordion-item-gap: $space-2;
