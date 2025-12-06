@@ -2,7 +2,6 @@
 
 [![CI](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/ds-angular.svg)](https://www.npmjs.com/package/ds-angular)
-[![Storybook](https://img.shields.io/badge/Storybook-deployed-ff4785)](https://sopequeno-tech.github.io/design-system/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Design system Angular moderne et accessible avec support TypeScript, theming, et composants standalone.
@@ -33,11 +32,9 @@ export class AppComponent {}
 
 ## 📚 Documentation
 
-- **[Storybook](https://sopequeno-tech.github.io/design-system/)** : Documentation interactive des composants
+- **Storybook** : `npm run storybook` pour lancer la documentation interactive
 - **API Docs** : Documentation TypeDoc générée automatiquement
 - **Guides** : Contributing, Patterns, Integration
-
-> 💡 Le Storybook est déployé automatiquement sur GitHub Pages à chaque push sur `master`.
 
 ## ✨ Fonctionnalités
 
@@ -181,7 +178,6 @@ Consultez [CONTRIBUTING.md](./projects/ds-angular/src/lib/Contributing.mdx) pour
 
 ## 🔗 Liens utiles
 
-- [Storybook](https://sopequeno-tech.github.io/design-system/)
 - [Package npm](https://www.npmjs.com/package/ds-angular)
 - [Issues](https://github.com/sopequeno-tech/design-system/issues)
 - [Changelog](./CHANGELOG.md)
