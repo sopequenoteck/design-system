@@ -26,7 +26,21 @@ const countryOptions: DsComboboxOption[] = [
   { value: 'at', label: 'Autriche', description: 'Europe centrale' },
 ];
 
-const meta: Meta<DsCombobox> = {
+interface DsComboboxArgs {
+  options: DsComboboxOption[];
+  placeholder: string;
+  size: 'sm' | 'md' | 'lg';
+  disabled: boolean;
+  error: string;
+  helper: string;
+  label: string;
+  clearable: boolean;
+  allowCustom: boolean;
+  minChars: number;
+  maxResults: number;
+}
+
+const meta: Meta<DsComboboxArgs> = {
   title: 'Components/Forms/DsCombobox',
   component: DsCombobox,
   decorators: [
@@ -85,7 +99,7 @@ const meta: Meta<DsCombobox> = {
 };
 
 export default meta;
-type Story = StoryObj<DsCombobox>;
+type Story = StoryObj<DsComboboxArgs>;
 
 export const Default: Story = {
   parameters: {

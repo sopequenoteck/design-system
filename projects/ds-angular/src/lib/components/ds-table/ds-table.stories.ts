@@ -1,14 +1,15 @@
 import { Meta, StoryObj } from '@storybook/angular';
 import { DsTable, DsTableColumn } from './ds-table';
 
-interface User extends Record<string, unknown> {
+type User = {
   id: number;
   name: string;
   email: string;
   role: string;
   status: 'active' | 'inactive';
   age: number;
-}
+  [key: string]: unknown;
+};
 
 const mockUsers: User[] = [
   { id: 1, name: 'Alice Martin', email: 'alice@example.com', role: 'Admin', status: 'active', age: 28 },

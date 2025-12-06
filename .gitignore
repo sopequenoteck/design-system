@@ -44,3 +44,4 @@ Thumbs.db
 # Bundle analysis
 bundle-analysis.html
 bundle-stats.json
+storybook-static/
