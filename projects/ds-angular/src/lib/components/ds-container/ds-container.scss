@@ -4,7 +4,7 @@
 
 .ds-container {
   width: 100%;
-  max-width: var(--container-max-width, 960px);
+  max-width: var(--ds-container-lg, 960px);
   box-sizing: border-box;
 
   // === CENTERING ===
@@ -19,23 +19,23 @@
   }
 
   &--sm {
-    max-width: 540px;
+    max-width: var(--ds-container-sm, 540px);
   }
 
   &--md {
-    max-width: 720px;
+    max-width: var(--ds-container-md, 720px);
   }
 
   &--lg {
-    max-width: 960px;
+    max-width: var(--ds-container-lg, 960px);
   }
 
   &--xl {
-    max-width: 1140px;
+    max-width: var(--ds-container-xl, 1140px);
   }
 
   &--2xl {
-    max-width: 1320px;
+    max-width: var(--ds-container-2xl, 1320px);
   }
 
   // === GUTTER (HORIZONTAL PADDING) ===
@@ -45,18 +45,18 @@
   }
 
   &--gutter-sm {
-    padding-left: var(--space-4, 1rem);
-    padding-right: var(--space-4, 1rem);
+    padding-left: var(--ds-container-gutter-sm, var(--space-4));
+    padding-right: var(--ds-container-gutter-sm, var(--space-4));
   }
 
   &--gutter-md {
-    padding-left: var(--space-6, 1.5rem);
-    padding-right: var(--space-6, 1.5rem);
+    padding-left: var(--ds-container-gutter-md, var(--space-6));
+    padding-right: var(--ds-container-gutter-md, var(--space-6));
   }
 
   &--gutter-lg {
-    padding-left: var(--space-8, 2rem);
-    padding-right: var(--space-8, 2rem);
+    padding-left: var(--ds-container-gutter-lg, var(--space-8));
+    padding-right: var(--ds-container-gutter-lg, var(--space-8));
   }
 
   // === VERTICAL PADDING ===
@@ -66,44 +66,44 @@
   }
 
   &--padding-y-sm {
-    padding-top: var(--space-4, 1rem);
-    padding-bottom: var(--space-4, 1rem);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
   }
 
   &--padding-y-md {
-    padding-top: var(--space-6, 1.5rem);
-    padding-bottom: var(--space-6, 1.5rem);
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-6);
   }
 
   &--padding-y-lg {
-    padding-top: var(--space-8, 2rem);
-    padding-bottom: var(--space-8, 2rem);
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
   }
 }
 
 // === RESPONSIVE BREAKPOINTS ===
 // Le conteneur s'adapte automatiquement aux breakpoints
 
-@media (max-width: 575.98px) {
+@media (max-width: var(--breakpoint-sm, 575.98px)) {
   .ds-container {
     // Sur mobile, réduire les gutters
     &--gutter-lg {
-      padding-left: var(--space-4, 1rem);
-      padding-right: var(--space-4, 1rem);
+      padding-left: var(--space-4);
+      padding-right: var(--space-4);
     }
 
     &--gutter-md {
-      padding-left: var(--space-3, 0.75rem);
-      padding-right: var(--space-3, 0.75rem);
+      padding-left: var(--space-3);
+      padding-right: var(--space-3);
     }
   }
 }
 
-@media (min-width: 576px) and (max-width: 767.98px) {
+@media (min-width: var(--breakpoint-sm, 576px)) and (max-width: var(--breakpoint-md, 767.98px)) {
   .ds-container {
     &--gutter-lg {
-      padding-left: var(--space-5, 1.25rem);
-      padding-right: var(--space-5, 1.25rem);
+      padding-left: var(--space-5);
+      padding-right: var(--space-5);
     }
   }
 }

@@ -389,5 +389,47 @@
   --accordion-icon-color: var(--text-muted);
   --accordion-focus-color: var(--role-primary);
   --accordion-expanded-border-color: var(--role-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS SEARCH INPUT
+   * ======================================================================== */
+  --search-input-bg: var(--input-bg);
+  --search-input-text: var(--text-default);
+  --search-input-placeholder: var(--text-muted);
+  --search-input-border: var(--input-border-color);
+  --search-input-focus-border: var(--role-primary);
+  --search-input-focus-shadow: 0 0 0 3px color-mix(in oklab, var(--role-primary) 25%, transparent);
+  --search-input-icon-color: var(--text-muted);
+  --search-input-clear-color: var(--text-muted);
+  --search-input-clear-hover-bg: var(--surface-hover);
+  --search-input-clear-hover-color: var(--text-default);
+  --search-input-clear-active-bg: var(--surface-raised);
+  --search-input-disabled-bg: var(--bg-disabled);
+  --search-input-disabled-text: var(--text-disabled);
+  --search-input-loading-color: var(--role-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS DATE PICKER
+   * ======================================================================== */
+  --datepicker-bg: var(--surface-default);
+  --datepicker-border: var(--border-color);
+  --datepicker-header-bg: var(--surface-raised);
+  --datepicker-footer-bg: var(--surface-raised);
+  --datepicker-title-color: var(--text-default);
+  --datepicker-nav-color: var(--text-muted);
+  --datepicker-btn-hover-bg: var(--surface-hover);
+  --datepicker-weekday-color: var(--text-muted);
+  --datepicker-day-color: var(--text-default);
+  --datepicker-day-hover-bg: var(--surface-hover);
+  --datepicker-day-other-color: var(--text-subtle);
+  --datepicker-today-border: var(--role-primary);
+  --datepicker-selected-bg: var(--role-primary);
+  --datepicker-selected-text: var(--gray-50);
+  --datepicker-selected-hover-bg: color-mix(in oklab, var(--role-primary) 85%, var(--background-main));
+  --datepicker-range-bg: color-mix(in oklab, var(--role-primary) 15%, transparent);
+  --datepicker-option-color: var(--text-default);
+  --datepicker-option-hover-bg: var(--surface-hover);
+  --datepicker-action-color: var(--text-default);
+  --datepicker-action-hover-bg: var(--surface-hover);
 }
 

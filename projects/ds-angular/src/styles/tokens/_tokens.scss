@@ -467,4 +467,56 @@
   --menu-font-size-md: #{$menu-font-size-md};
   --menu-font-size-lg: #{$menu-font-size-lg};
   --menu-divider-margin: #{$menu-divider-margin};
+
+  /* === SEARCH INPUT === */
+  --search-input-height-sm: #{$search-input-height-sm};
+  --search-input-height-md: #{$search-input-height-md};
+  --search-input-height-lg: #{$search-input-height-lg};
+  --search-input-padding-sm: #{$search-input-padding-sm};
+  --search-input-padding-md: #{$search-input-padding-md};
+  --search-input-padding-lg: #{$search-input-padding-lg};
+  --search-input-font-size-sm: #{$search-input-font-size-sm};
+  --search-input-font-size-md: #{$search-input-font-size-md};
+  --search-input-font-size-lg: #{$search-input-font-size-lg};
+  --search-input-icon-size-sm: #{$search-input-icon-size-sm};
+  --search-input-icon-size-md: #{$search-input-icon-size-md};
+  --search-input-icon-size-lg: #{$search-input-icon-size-lg};
+  --search-input-clear-size-sm: #{$search-input-clear-size-sm};
+  --search-input-clear-size-md: #{$search-input-clear-size-md};
+  --search-input-clear-size-lg: #{$search-input-clear-size-lg};
+  --search-input-radius: #{$search-input-radius};
+
+  /* === DATE PICKER === */
+  --datepicker-width-sm: #{$datepicker-width-sm};
+  --datepicker-width-md: #{$datepicker-width-md};
+  --datepicker-width-lg: #{$datepicker-width-lg};
+  --datepicker-header-padding-sm: #{$datepicker-header-padding-sm};
+  --datepicker-header-padding-md: #{$datepicker-header-padding-md};
+  --datepicker-header-padding-lg: #{$datepicker-header-padding-lg};
+  --datepicker-day-size-sm: #{$datepicker-day-size-sm};
+  --datepicker-day-size-md: #{$datepicker-day-size-md};
+  --datepicker-day-size-lg: #{$datepicker-day-size-lg};
+  --datepicker-weekday-height-sm: #{$datepicker-weekday-height-sm};
+  --datepicker-weekday-height-md: #{$datepicker-weekday-height-md};
+  --datepicker-weekday-height-lg: #{$datepicker-weekday-height-lg};
+  --datepicker-nav-size-sm: #{$datepicker-nav-size-sm};
+  --datepicker-nav-size-md: #{$datepicker-nav-size-md};
+  --datepicker-nav-size-lg: #{$datepicker-nav-size-lg};
+  --datepicker-font-size-sm: #{$datepicker-font-size-sm};
+  --datepicker-font-size-md: #{$datepicker-font-size-md};
+  --datepicker-font-size-lg: #{$datepicker-font-size-lg};
+  --datepicker-radius: #{$datepicker-radius};
+  --datepicker-shadow: #{$datepicker-shadow};
+  --datepicker-calendar-padding: #{$datepicker-calendar-padding};
+  --datepicker-calendar-gap: #{$datepicker-calendar-gap};
+
+  /* === CONTAINER (DS) === */
+  --ds-container-sm: #{$ds-container-sm};
+  --ds-container-md: #{$ds-container-md};
+  --ds-container-lg: #{$ds-container-lg};
+  --ds-container-xl: #{$ds-container-xl};
+  --ds-container-2xl: #{$ds-container-2xl};
+  --ds-container-gutter-sm: #{$ds-container-gutter-sm};
+  --ds-container-gutter-md: #{$ds-container-gutter-md};
+  --ds-container-gutter-lg: #{$ds-container-gutter-lg};
 }

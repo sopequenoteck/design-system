@@ -42,24 +42,36 @@ projects/ds-angular/src/lib/
 │   ├── primitive-textarea/
 │   └── primitive-toggle/
 ├── components/      # Composants haut niveau (utilisent les primitives)
-│   ├── ds-button/
-│   ├── ds-badge/
-│   ├── ds-input-field/
-│   ├── ds-checkbox/
-│   ├── ds-radio-group/
-│   ├── ds-toggle/
-│   ├── ds-input-textarea/
-│   ├── ds-modal/
-│   ├── ds-dropdown/
-│   ├── ds-toast/
-│   ├── ds-tooltip/
-│   ├── ds-popover/
-│   ├── ds-tabs/
-│   ├── ds-breadcrumb/
-│   ├── ds-card/
+│   ├── ds-accordion/
 │   ├── ds-alert/
+│   ├── ds-avatar/
+│   ├── ds-badge/
+│   ├── ds-breadcrumb/
+│   ├── ds-button/
+│   ├── ds-card/
+│   ├── ds-checkbox/
+│   ├── ds-combobox/
+│   ├── ds-container/
+│   ├── ds-date-picker/
 │   ├── ds-divider/
-│   └── ...
+│   ├── ds-dropdown/
+│   ├── ds-input-field/
+│   ├── ds-input-textarea/
+│   ├── ds-menu/
+│   ├── ds-modal/
+│   ├── ds-pagination/
+│   ├── ds-popover/
+│   ├── ds-progress-bar/
+│   ├── ds-radio-group/
+│   ├── ds-search-input/
+│   ├── ds-select/
+│   ├── ds-skeleton/
+│   ├── ds-stepper/
+│   ├── ds-table/
+│   ├── ds-tabs/
+│   ├── ds-toast/
+│   ├── ds-toggle/
+│   └── ds-tooltip/
 └── utils/           # Utilitaires partagés (overlay-positions, etc.)
 ```
 
@@ -317,6 +329,19 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Tokens sémantiques : 33 tokens ajoutés (select: 15, table: 6, combobox: 12)
 - ✅ Exports : DsSelect, DsTable, DsCombobox + 13 types dans index.ts
 - 📊 ÉTAPE 23 : 100% complétée (5/5 tâches) — 25 composants DS au total
+
+**Composants complémentaires ÉTAPE 24** (2025-12-06) :
+- ✅ DsAvatar créé : shapes (circle/rounded/square), tailles (sm/md/lg/xl), image/initials/placeholder
+- ✅ DsAvatar : status indicator, border, fallback image, tests complets, stories
+- ✅ DsMenu créé : trigger (click/hover/context), tailles (sm/md/lg), navigation clavier
+- ✅ DsMenu : items disabled, dividers, icons, ARIA complet, tests + stories
+- ✅ DsContainer créé : maxWidth (xs/sm/md/lg/xl/full), gutter (none/sm/md/lg), centered
+- ✅ DsSearchInput créé : CVA, debounce, clear button, loading state, tailles (sm/md/lg)
+- ✅ DsDatePicker créé : modes (single/range), calendar view, keyboard navigation, i18n
+- ✅ Tokens sémantiques : 30 tokens ajoutés (avatar: 12, menu: 18)
+- ✅ Thèmes light/dark : tokens avatar et menu ajoutés
+- ✅ Exports : DsAvatar, DsMenu, DsContainer, DsSearchInput, DsDatePicker + types
+- 📊 ÉTAPE 24 : 100% complétée — 30 composants DS au total
 
 ## Patterns techniques
 

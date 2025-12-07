@@ -401,3 +401,70 @@ $menu-font-size-md: $font-size-2;
 $menu-font-size-lg: $font-size-3;
 
 $menu-divider-margin: $space-2;
+
+// === SEARCH INPUT ===
+
+$search-input-height-sm: 32px;
+$search-input-height-md: 40px;
+$search-input-height-lg: 48px;
+
+$search-input-padding-sm: $space-2;
+$search-input-padding-md: $space-3;
+$search-input-padding-lg: $space-4;
+
+$search-input-font-size-sm: $font-size-2;
+$search-input-font-size-md: $font-size-3;
+$search-input-font-size-lg: $font-size-4;
+
+$search-input-icon-size-sm: 12px;
+$search-input-icon-size-md: 14px;
+$search-input-icon-size-lg: 16px;
+
+$search-input-clear-size-sm: 20px;
+$search-input-clear-size-md: 24px;
+$search-input-clear-size-lg: 28px;
+
+$search-input-radius: $radius-2;
+
+// === DATE PICKER ===
+
+$datepicker-width-sm: 260px;
+$datepicker-width-md: 300px;
+$datepicker-width-lg: 360px;
+
+$datepicker-header-padding-sm: $space-2;
+$datepicker-header-padding-md: $space-3;
+$datepicker-header-padding-lg: $space-4;
+
+$datepicker-day-size-sm: 28px;
+$datepicker-day-size-md: 36px;
+$datepicker-day-size-lg: 44px;
+
+$datepicker-weekday-height-sm: 24px;
+$datepicker-weekday-height-md: 28px;
+$datepicker-weekday-height-lg: 32px;
+
+$datepicker-nav-size-sm: 24px;
+$datepicker-nav-size-md: 32px;
+$datepicker-nav-size-lg: 40px;
+
+$datepicker-font-size-sm: $font-size-2;
+$datepicker-font-size-md: $font-size-3;
+$datepicker-font-size-lg: $font-size-4;
+
+$datepicker-radius: $radius-2;
+$datepicker-shadow: $shadow-2;
+$datepicker-calendar-padding: $space-2;
+$datepicker-calendar-gap: $space-1;
+
+// === CONTAINER ===
+
+$ds-container-sm: 540px;
+$ds-container-md: 720px;
+$ds-container-lg: 960px;
+$ds-container-xl: 1140px;
+$ds-container-2xl: 1320px;
+
+$ds-container-gutter-sm: $space-4;
+$ds-container-gutter-md: $space-6;
+$ds-container-gutter-lg: $space-8;

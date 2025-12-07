@@ -438,4 +438,46 @@
   --menu-item-disabled-icon: var(--gray-600);
   --menu-divider: var(--gray-700);
   --menu-backdrop: transparent;
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS SEARCH INPUT
+   * ======================================================================== */
+  --search-input-bg: var(--input-bg);
+  --search-input-text: var(--text-default);
+  --search-input-placeholder: var(--text-muted);
+  --search-input-border: var(--input-border-color);
+  --search-input-focus-border: var(--color-primary);
+  --search-input-focus-shadow: var(--input-focus-shadow);
+  --search-input-icon-color: var(--gray-400);
+  --search-input-clear-color: var(--gray-400);
+  --search-input-clear-hover-bg: var(--gray-700);
+  --search-input-clear-hover-color: var(--gray-100);
+  --search-input-clear-active-bg: var(--gray-600);
+  --search-input-disabled-bg: var(--gray-900);
+  --search-input-disabled-text: var(--gray-500);
+  --search-input-loading-color: var(--color-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS DATE PICKER
+   * ======================================================================== */
+  --datepicker-bg: var(--gray-800);
+  --datepicker-border: var(--gray-700);
+  --datepicker-header-bg: var(--gray-700);
+  --datepicker-footer-bg: var(--gray-700);
+  --datepicker-title-color: var(--gray-100);
+  --datepicker-nav-color: var(--gray-400);
+  --datepicker-btn-hover-bg: var(--gray-600);
+  --datepicker-weekday-color: var(--gray-400);
+  --datepicker-day-color: var(--gray-100);
+  --datepicker-day-hover-bg: var(--gray-700);
+  --datepicker-day-other-color: var(--gray-500);
+  --datepicker-today-border: var(--color-primary);
+  --datepicker-selected-bg: var(--color-primary);
+  --datepicker-selected-text: var(--gray-900);
+  --datepicker-selected-hover-bg: color-mix(in oklab, var(--color-primary) 85%, var(--background-main));
+  --datepicker-range-bg: color-mix(in oklab, var(--color-primary) 20%, transparent);
+  --datepicker-option-color: var(--gray-100);
+  --datepicker-option-hover-bg: var(--gray-700);
+  --datepicker-action-color: var(--gray-100);
+  --datepicker-action-hover-bg: var(--gray-600);
 }

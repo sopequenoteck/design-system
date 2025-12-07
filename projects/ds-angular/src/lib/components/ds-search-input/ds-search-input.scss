@@ -7,83 +7,83 @@
   align-items: center;
   position: relative;
   width: 100%;
-  background: var(--input-bg, var(--background-main, #fff));
-  border: 1px solid var(--input-border-color, var(--border-default, #d1d5db));
-  border-radius: var(--input-border-radius, var(--radius-2, 6px));
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: var(--search-input-bg, var(--input-bg, var(--background-main)));
+  border: 1px solid var(--search-input-border, var(--input-border-color, var(--border-default)));
+  border-radius: var(--search-input-radius, var(--radius-2));
+  transition: border-color var(--duration-fast, 0.2s) ease, box-shadow var(--duration-fast, 0.2s) ease;
 
   &:focus-within {
-    border-color: var(--input-focus-border, var(--color-primary, #3b82f6));
-    box-shadow: 0 0 0 3px var(--input-focus-shadow, rgba(59, 130, 246, 0.25));
+    border-color: var(--search-input-focus-border, var(--input-focus-border, var(--color-primary)));
+    box-shadow: var(--search-input-focus-shadow, var(--input-focus-shadow));
   }
 
   // === SIZES ===
   &--sm {
-    height: var(--input-height-sm, 32px);
+    height: var(--search-input-height-sm, 32px);
 
     .ds-search-input__input {
-      font-size: var(--font-size-2, 0.875rem);
-      padding: 0 var(--space-2, 0.5rem);
+      font-size: var(--search-input-font-size-sm, var(--font-size-2));
+      padding: 0 var(--search-input-padding-sm, var(--space-2));
     }
 
     .ds-search-input__icon {
-      font-size: 12px;
+      font-size: var(--search-input-icon-size-sm, 12px);
     }
 
     .ds-search-input__icon--search {
-      margin-left: var(--space-2, 0.5rem);
+      margin-left: var(--search-input-padding-sm, var(--space-2));
     }
 
     .ds-search-input__clear {
-      margin-right: var(--space-1, 0.25rem);
-      width: 20px;
-      height: 20px;
+      margin-right: var(--space-1);
+      width: var(--search-input-clear-size-sm, 20px);
+      height: var(--search-input-clear-size-sm, 20px);
     }
   }
 
   &--md {
-    height: var(--input-height-md, 40px);
+    height: var(--search-input-height-md, 40px);
 
     .ds-search-input__input {
-      font-size: var(--font-size-3, 1rem);
-      padding: 0 var(--space-3, 0.75rem);
+      font-size: var(--search-input-font-size-md, var(--font-size-3));
+      padding: 0 var(--search-input-padding-md, var(--space-3));
     }
 
     .ds-search-input__icon {
-      font-size: 14px;
+      font-size: var(--search-input-icon-size-md, 14px);
     }
 
     .ds-search-input__icon--search {
-      margin-left: var(--space-3, 0.75rem);
+      margin-left: var(--search-input-padding-md, var(--space-3));
     }
 
     .ds-search-input__clear {
-      margin-right: var(--space-2, 0.5rem);
-      width: 24px;
-      height: 24px;
+      margin-right: var(--space-2);
+      width: var(--search-input-clear-size-md, 24px);
+      height: var(--search-input-clear-size-md, 24px);
     }
   }
 
   &--lg {
-    height: var(--input-height-lg, 48px);
+    height: var(--search-input-height-lg, 48px);
 
     .ds-search-input__input {
-      font-size: var(--font-size-4, 1.125rem);
-      padding: 0 var(--space-4, 1rem);
+      font-size: var(--search-input-font-size-lg, var(--font-size-4));
+      padding: 0 var(--search-input-padding-lg, var(--space-4));
     }
 
     .ds-search-input__icon {
-      font-size: 16px;
+      font-size: var(--search-input-icon-size-lg, 16px);
     }
 
     .ds-search-input__icon--search {
-      margin-left: var(--space-4, 1rem);
+      margin-left: var(--search-input-padding-lg, var(--space-4));
     }
 
     .ds-search-input__clear {
-      margin-right: var(--space-3, 0.75rem);
-      width: 28px;
-      height: 28px;
+      margin-right: var(--space-3);
+      width: var(--search-input-clear-size-lg, 28px);
+      height: var(--search-input-clear-size-lg, 28px);
     }
   }
 
@@ -91,7 +91,7 @@
   &--disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    background: var(--input-disabled-bg, var(--background-subtle, #f9fafb));
+    background: var(--search-input-disabled-bg, var(--input-disabled-bg, var(--bg-disabled)));
 
     .ds-search-input__input {
       cursor: not-allowed;
@@ -100,21 +100,21 @@
 
   &--loading {
     .ds-search-input__icon--loading {
-      color: var(--color-primary, #3b82f6);
+      color: var(--search-input-loading-color, var(--color-primary));
     }
   }
 }
 
 .ds-search-input__icon {
   flex-shrink: 0;
-  color: var(--text-muted, #6b7280);
+  color: var(--search-input-icon-color, var(--text-muted));
 
   &--search {
     pointer-events: none;
   }
 
   &--loading {
-    margin-right: var(--space-2, 0.5rem);
+    margin-right: var(--space-2);
   }
 
   &--spin {
@@ -135,16 +135,16 @@
   flex: 1;
   border: none;
   background: transparent;
-  color: var(--text-default, #1f2937);
+  color: var(--search-input-text, var(--text-default));
   outline: none;
   min-width: 0;
 
   &::placeholder {
-    color: var(--text-muted, #9ca3af);
+    color: var(--search-input-placeholder, var(--text-muted));
   }
 
   &:disabled {
-    color: var(--text-muted, #9ca3af);
+    color: var(--search-input-disabled-text, var(--text-disabled));
   }
 }
 
@@ -155,22 +155,22 @@
   flex-shrink: 0;
   border: none;
   background: transparent;
-  color: var(--text-muted, #6b7280);
+  color: var(--search-input-clear-color, var(--text-muted));
   cursor: pointer;
-  border-radius: var(--radius-1, 4px);
-  transition: background-color 0.15s ease, color 0.15s ease;
+  border-radius: var(--radius-1);
+  transition: background-color var(--duration-fast, 0.15s) ease, color var(--duration-fast, 0.15s) ease;
 
   &:hover {
-    background: var(--background-subtle, #f3f4f6);
-    color: var(--text-default, #1f2937);
+    background: var(--search-input-clear-hover-bg, var(--surface-hover));
+    color: var(--search-input-clear-hover-color, var(--text-default));
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary, #3b82f6);
+    outline: 2px solid var(--color-primary);
     outline-offset: 1px;
   }
 
   &:active {
-    background: var(--background-muted, #e5e7eb);
+    background: var(--search-input-clear-active-bg, var(--surface-raised));
   }
 }

@@ -1556,6 +1556,362 @@ export class UserListComponent {
 
 ---
 
+## 10. Formulaire de filtrage avec DatePicker et SearchInput
+
+Exemple complet d'un formulaire de filtrage combinant recherche textuelle et sélection de dates.
+
+```typescript
+import { Component, signal, computed, effect } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { DsSearchInput } from 'ds-angular/components/ds-search-input';
+import { DsDatePicker } from 'ds-angular/components/ds-date-picker';
+import { DsButton } from 'ds-angular/components/ds-button';
+import { DsCard } from 'ds-angular/components/ds-card';
+import { DsBadge } from 'ds-angular/components/ds-badge';
+import { DsToast, DsToastService } from 'ds-angular/components/ds-toast';
+import { DsTable } from 'ds-angular/components/ds-table';
+
+interface Event {
+  id: number;
+  title: string;
+  date: Date;
+  category: string;
+  status: 'upcoming' | 'ongoing' | 'completed';
+}
+
+@Component({
+  selector: 'app-event-filter',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DsSearchInput,
+    DsDatePicker,
+    DsButton,
+    DsCard,
+    DsBadge,
+    DsToast,
+    DsTable,
+  ],
+  template: `
+    <div class="filter-container">
+      <ds-card variant="elevated">
+        <ng-container dsCardHeader>
+          <h3>Filtrer les événements</h3>
+        </ng-container>
+
+        <ng-container dsCardBody>
+          <form [formGroup]="filterForm" class="filter-form">
+            <!-- Recherche textuelle -->
+            <div class="filter-field">
+              <label>Rechercher un événement</label>
+              <ds-search-input
+                formControlName="search"
+                placeholder="Titre, catégorie..."
+                size="md"
+                [debounceTime]="300"
+                (searchChange)="onSearchChange($event)"
+              />
+            </div>
+
+            <!-- Sélection de dates -->
+            <div class="filter-dates">
+              <div class="filter-field">
+                <label>Date de début</label>
+                <ds-date-picker
+                  formControlName="startDate"
+                  size="md"
+                  [minDate]="minDate"
+                  placeholder="Sélectionner..."
+                />
+              </div>
+
+              <div class="filter-field">
+                <label>Date de fin</label>
+                <ds-date-picker
+                  formControlName="endDate"
+                  size="md"
+                  [minDate]="filterForm.get('startDate')?.value"
+                  placeholder="Sélectionner..."
+                />
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="filter-actions">
+              <ds-button
+                variant="secondary"
+                (click)="resetFilters()"
+                [disabled]="!hasActiveFilters()"
+              >
+                Réinitialiser
+              </ds-button>
+              <ds-button
+                variant="primary"
+                (click)="applyFilters()"
+              >
+                Appliquer ({{ filteredCount() }} résultats)
+              </ds-button>
+            </div>
+          </form>
+        </ng-container>
+      </ds-card>
+
+      <!-- Filtres actifs -->
+      @if (hasActiveFilters()) {
+        <div class="active-filters">
+          <span class="active-filters-label">Filtres actifs :</span>
+          @if (filterForm.get('search')?.value) {
+            <ds-badge variant="info" size="sm">
+              Recherche : {{ filterForm.get('search')?.value }}
+              <button class="badge-close" (click)="clearSearch()">×</button>
+            </ds-badge>
+          }
+          @if (filterForm.get('startDate')?.value) {
+            <ds-badge variant="info" size="sm">
+              Depuis : {{ filterForm.get('startDate')?.value | date:'dd/MM/yyyy' }}
+              <button class="badge-close" (click)="clearStartDate()">×</button>
+            </ds-badge>
+          }
+          @if (filterForm.get('endDate')?.value) {
+            <ds-badge variant="info" size="sm">
+              Jusqu'au : {{ filterForm.get('endDate')?.value | date:'dd/MM/yyyy' }}
+              <button class="badge-close" (click)="clearEndDate()">×</button>
+            </ds-badge>
+          }
+        </div>
+      }
+
+      <!-- Résultats -->
+      <ds-card class="results-card">
+        <ng-container dsCardBody>
+          <ds-table
+            [data]="filteredEvents()"
+            [columns]="columns"
+            [striped]="true"
+            [hoverable]="true"
+            emptyMessage="Aucun événement ne correspond à vos critères"
+          >
+            <ng-template #cellTemplate let-row let-column="column">
+              @switch (column.key) {
+                @case ('date') {
+                  {{ row.date | date:'dd MMM yyyy' }}
+                }
+                @case ('status') {
+                  <ds-badge [variant]="getStatusVariant(row.status)" size="sm">
+                    {{ getStatusLabel(row.status) }}
+                  </ds-badge>
+                }
+                @default {
+                  {{ row[column.key] }}
+                }
+              }
+            </ng-template>
+          </ds-table>
+        </ng-container>
+      </ds-card>
+    </div>
+
+    <ds-toast />
+  `,
+  styles: [`
+    .filter-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .filter-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .filter-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .filter-field label {
+      font-weight: 500;
+      font-size: var(--font-size-sm);
+      color: var(--text-muted);
+    }
+    .filter-dates {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+    .filter-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-3);
+      padding-top: var(--space-2);
+    }
+    .active-filters {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .active-filters-label {
+      font-size: var(--font-size-sm);
+      color: var(--text-muted);
+    }
+    .badge-close {
+      margin-left: var(--space-1);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: inherit;
+      font-size: 1.1em;
+      opacity: 0.7;
+    }
+    .badge-close:hover {
+      opacity: 1;
+    }
+    .results-card {
+      margin-top: var(--space-2);
+    }
+    @media (max-width: 600px) {
+      .filter-dates {
+        grid-template-columns: 1fr;
+      }
+    }
+  `]
+})
+export class EventFilterComponent {
+  minDate = new Date();
+
+  filterForm = new FormGroup({
+    search: new FormControl(''),
+    startDate: new FormControl<Date | null>(null),
+    endDate: new FormControl<Date | null>(null),
+  });
+
+  columns = [
+    { key: 'title', label: 'Titre', sortable: true },
+    { key: 'category', label: 'Catégorie', sortable: true },
+    { key: 'date', label: 'Date', sortable: true },
+    { key: 'status', label: 'Statut' },
+  ];
+
+  // Données simulées
+  allEvents: Event[] = [
+    { id: 1, title: 'Conférence Angular', date: new Date('2025-01-15'), category: 'Tech', status: 'upcoming' },
+    { id: 2, title: 'Workshop Design System', date: new Date('2025-01-20'), category: 'Design', status: 'upcoming' },
+    { id: 3, title: 'Meetup TypeScript', date: new Date('2025-02-01'), category: 'Tech', status: 'upcoming' },
+    { id: 4, title: 'Formation A11y', date: new Date('2024-12-01'), category: 'UX', status: 'completed' },
+    { id: 5, title: 'Hackathon Innovation', date: new Date('2025-01-10'), category: 'Tech', status: 'ongoing' },
+  ];
+
+  filteredEvents = signal<Event[]>(this.allEvents);
+  filteredCount = computed(() => this.filteredEvents().length);
+
+  constructor(private toastService: DsToastService) {
+    // Filtrage réactif
+    effect(() => {
+      this.applyFiltersInternal();
+    });
+  }
+
+  hasActiveFilters(): boolean {
+    const { search, startDate, endDate } = this.filterForm.value;
+    return !!(search || startDate || endDate);
+  }
+
+  onSearchChange(value: string) {
+    this.applyFiltersInternal();
+  }
+
+  applyFilters() {
+    this.applyFiltersInternal();
+    this.toastService.show({
+      type: 'success',
+      message: `${this.filteredCount()} événements trouvés`,
+      duration: 3000,
+    });
+  }
+
+  private applyFiltersInternal() {
+    const { search, startDate, endDate } = this.filterForm.value;
+    let results = [...this.allEvents];
+
+    if (search) {
+      const query = search.toLowerCase();
+      results = results.filter(e =>
+        e.title.toLowerCase().includes(query) ||
+        e.category.toLowerCase().includes(query)
+      );
+    }
+
+    if (startDate) {
+      results = results.filter(e => e.date >= startDate);
+    }
+
+    if (endDate) {
+      results = results.filter(e => e.date <= endDate);
+    }
+
+    this.filteredEvents.set(results);
+  }
+
+  resetFilters() {
+    this.filterForm.reset();
+    this.filteredEvents.set(this.allEvents);
+    this.toastService.show({
+      type: 'info',
+      message: 'Filtres réinitialisés',
+      duration: 2000,
+    });
+  }
+
+  clearSearch() {
+    this.filterForm.patchValue({ search: '' });
+  }
+
+  clearStartDate() {
+    this.filterForm.patchValue({ startDate: null });
+  }
+
+  clearEndDate() {
+    this.filterForm.patchValue({ endDate: null });
+  }
+
+  getStatusVariant(status: string): string {
+    switch (status) {
+      case 'upcoming': return 'info';
+      case 'ongoing': return 'warning';
+      case 'completed': return 'success';
+      default: return 'secondary';
+    }
+  }
+
+  getStatusLabel(status: string): string {
+    switch (status) {
+      case 'upcoming': return 'À venir';
+      case 'ongoing': return 'En cours';
+      case 'completed': return 'Terminé';
+      default: return status;
+    }
+  }
+}
+```
+
+**Bonnes pratiques Formulaire de filtrage** :
+
+- Utiliser `debounceTime` sur la recherche pour éviter les requêtes excessives
+- Afficher le nombre de résultats avant d'appliquer les filtres
+- Permettre la suppression individuelle de chaque filtre actif
+- Valider que la date de fin est postérieure à la date de début
+- Gérer l'état responsive avec des media queries
+- Afficher un feedback utilisateur via toast après application des filtres
+
+---
+
 ## Ressources complémentaires
 
 - [Introduction](./Introduction) — Installation et Quick Start

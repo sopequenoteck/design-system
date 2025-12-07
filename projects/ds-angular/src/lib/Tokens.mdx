@@ -551,6 +551,70 @@ Surchargez les tokens sémantiques des composants pour un rendu cohérent :
 
 ---
 
+## Tokens formulaires avancés
+
+### Search Input
+
+Le composant `ds-search-input` utilise des tokens dédiés pour une personnalisation complète :
+
+| Token | Description | Valeur par défaut |
+|-------|-------------|-------------------|
+| `--search-input-height-sm` | Hauteur taille small | `32px` |
+| `--search-input-height-md` | Hauteur taille medium | `40px` |
+| `--search-input-height-lg` | Hauteur taille large | `48px` |
+| `--search-input-padding-sm` | Padding taille small | `var(--space-2)` |
+| `--search-input-padding-md` | Padding taille medium | `var(--space-3)` |
+| `--search-input-padding-lg` | Padding taille large | `var(--space-4)` |
+| `--search-input-icon-size-sm` | Taille icône small | `12px` |
+| `--search-input-icon-size-md` | Taille icône medium | `14px` |
+| `--search-input-icon-size-lg` | Taille icône large | `16px` |
+| `--search-input-clear-size-sm` | Taille bouton clear small | `20px` |
+| `--search-input-clear-size-md` | Taille bouton clear medium | `24px` |
+| `--search-input-clear-size-lg` | Taille bouton clear large | `28px` |
+| `--search-input-bg` | Couleur de fond | `var(--input-bg)` |
+| `--search-input-border` | Couleur bordure | `var(--input-border-color)` |
+| `--search-input-focus-border` | Couleur bordure focus | `var(--color-primary)` |
+
+### Date Picker
+
+Le composant `ds-date-picker` dispose de tokens pour chaque élément :
+
+| Token | Description | Valeur par défaut |
+|-------|-------------|-------------------|
+| `--datepicker-width-sm` | Largeur taille small | `260px` |
+| `--datepicker-width-md` | Largeur taille medium | `300px` |
+| `--datepicker-width-lg` | Largeur taille large | `360px` |
+| `--datepicker-day-size-sm` | Taille cellule jour small | `28px` |
+| `--datepicker-day-size-md` | Taille cellule jour medium | `36px` |
+| `--datepicker-day-size-lg` | Taille cellule jour large | `44px` |
+| `--datepicker-nav-size-sm` | Taille boutons navigation small | `24px` |
+| `--datepicker-nav-size-md` | Taille boutons navigation medium | `32px` |
+| `--datepicker-nav-size-lg` | Taille boutons navigation large | `40px` |
+| `--datepicker-bg` | Couleur de fond | `var(--background-main)` |
+| `--datepicker-header-bg` | Fond header | `var(--surface-raised)` |
+| `--datepicker-selected-bg` | Fond jour sélectionné | `var(--color-primary)` |
+| `--datepicker-selected-text` | Texte jour sélectionné | `var(--gray-50)` |
+| `--datepicker-today-border` | Bordure jour actuel | `var(--color-primary)` |
+| `--datepicker-range-bg` | Fond plage de dates | `color-mix(...)` |
+
+### Exemple de personnalisation
+
+```css
+:root.theme-custom {
+  /* Search Input personnalisé */
+  --search-input-focus-border: #10b981;
+  --search-input-focus-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+  --search-input-icon-color: #6b7280;
+
+  /* Date Picker personnalisé */
+  --datepicker-selected-bg: #10b981;
+  --datepicker-today-border: #10b981;
+  --datepicker-range-bg: rgba(16, 185, 129, 0.15);
+}
+```
+
+---
+
 ## Thèmes & Storybook
 
 Activez le sélecteur de thème dans la toolbar Storybook pour visualiser les tokens en **Light**, **Dark** et **Custom**. Les tokens exposés via `:root` sont automatiquement recalculés selon le thème courant.
