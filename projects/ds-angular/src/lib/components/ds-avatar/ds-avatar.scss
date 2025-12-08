@@ -10,12 +10,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   overflow: hidden;
   background-color: var(--avatar-bg);
   color: var(--avatar-text);
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-medium);
   user-select: none;
+  flex-shrink: 0;
 
   // === SIZES ===
 
@@ -74,6 +76,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: inherit;
+    display: block;
   }
 
   &__initials {
