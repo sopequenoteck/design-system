@@ -338,7 +338,7 @@ export const Themed: StoryObj = {
   parameters: {
     docs: {
       description: {
-        story: 'Démonstration du composant dans les thèmes light et dark. S\'adapte automatiquement aux CSS custom properties.',
+        story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
       },
     },
   },
@@ -347,6 +347,7 @@ export const Themed: StoryObj = {
       options: fruitOptions,
       value1: '1',
       value2: '2',
+      value3: '3',
     },
     template: `
       <div style="display: flex; flex-direction: column; gap: 32px;">
@@ -366,6 +367,15 @@ export const Themed: StoryObj = {
             label="Fruit"
             placeholder="Rechercher..."
             [(ngModel)]="value2">
+          </ds-combobox>
+        </div>
+        <div class="theme-custom" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
+          <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Custom</h4>
+          <ds-combobox
+            [options]="options"
+            label="Fruit"
+            placeholder="Rechercher..."
+            [(ngModel)]="value3">
           </ds-combobox>
         </div>
       </div>

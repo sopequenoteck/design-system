@@ -221,10 +221,21 @@ export const Themed: Story = {
           <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Dark</h4>
           <ds-table [data]="data" [columns]="columns" [size]="size" variant="striped"></ds-table>
         </div>
+        <div class="theme-custom" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
+          <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Custom</h4>
+          <ds-table [data]="data" [columns]="columns" [size]="size" variant="striped"></ds-table>
+        </div>
       </div>
     `,
   }),
   args: Default.args,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
 };
 
 export const AllFeatures: Story = {

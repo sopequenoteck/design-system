@@ -431,5 +431,17 @@
   --datepicker-option-hover-bg: var(--surface-hover);
   --datepicker-action-color: var(--text-default);
   --datepicker-action-hover-bg: var(--surface-hover);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS CONTAINER
+   * ======================================================================== */
+  --ds-container-sm: 540px;
+  --ds-container-md: 720px;
+  --ds-container-lg: 960px;
+  --ds-container-xl: 1140px;
+  --ds-container-2xl: 1320px;
+  --ds-container-gutter-sm: var(--space-4);
+  --ds-container-gutter-md: var(--space-6);
+  --ds-container-gutter-lg: var(--space-8);
 }
 

@@ -41,6 +41,14 @@ Les tokens sont la source de vérité pour la couleur, la typographie et l'espac
       <td style={{padding: '12px 16px'}}><a href="#tokens-composants-navigation">Tokens composants navigation</a></td>
       <td style={{padding: '12px 16px'}}>Pagination, Stepper, Accordion</td>
     </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><a href="#tokens-formulaires-avancés">Tokens formulaires avancés</a></td>
+      <td style={{padding: '12px 16px'}}>Search Input, Date Picker</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><a href="#container">Container</a></td>
+      <td style={{padding: '12px 16px'}}>Layout et breakpoints</td>
+    </tr>
     <tr>
       <td style={{padding: '12px 16px'}}><a href="#thème-custom">Thème Custom</a></td>
       <td style={{padding: '12px 16px'}}>Personnalisation avancée</td>
@@ -610,6 +618,68 @@ Le composant `ds-date-picker` dispose de tokens pour chaque élément :
   --datepicker-selected-bg: #10b981;
   --datepicker-today-border: #10b981;
   --datepicker-range-bg: rgba(16, 185, 129, 0.15);
+}
+```
+
+---
+
+## Container
+
+Le composant `ds-container` utilise des tokens pour définir les largeurs maximales et les gutters responsive :
+
+| Token | Description | Valeur par défaut |
+|-------|-------------|-------------------|
+| `--ds-container-sm` | Largeur max small | `540px` |
+| `--ds-container-md` | Largeur max medium | `720px` |
+| `--ds-container-lg` | Largeur max large | `960px` |
+| `--ds-container-xl` | Largeur max extra-large | `1140px` |
+| `--ds-container-2xl` | Largeur max 2xl | `1320px` |
+| `--ds-container-gutter-sm` | Padding horizontal small | `var(--space-4)` |
+| `--ds-container-gutter-md` | Padding horizontal medium | `var(--space-6)` |
+| `--ds-container-gutter-lg` | Padding horizontal large | `var(--space-8)` |
+
+### Exemple visuel
+
+<div style={{display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px'}}>
+  <div style={{
+    maxWidth: '540px', width: '100%',
+    padding: '12px 16px',
+    background: 'var(--surface-default, #fafafa)',
+    border: '1px solid var(--border-color, #e5e5e5)',
+    borderRadius: 'var(--radius-1)',
+    textAlign: 'center',
+    fontSize: '14px'
+  }}>container-sm (540px)</div>
+  <div style={{
+    maxWidth: '720px', width: '100%',
+    padding: '12px 16px',
+    background: 'var(--surface-default, #fafafa)',
+    border: '1px solid var(--border-color, #e5e5e5)',
+    borderRadius: 'var(--radius-1)',
+    textAlign: 'center',
+    fontSize: '14px'
+  }}>container-md (720px)</div>
+  <div style={{
+    maxWidth: '960px', width: '100%',
+    padding: '12px 16px',
+    background: 'var(--surface-default, #fafafa)',
+    border: '1px solid var(--border-color, #e5e5e5)',
+    borderRadius: 'var(--radius-1)',
+    textAlign: 'center',
+    fontSize: '14px'
+  }}>container-lg (960px)</div>
+</div>
+
+### Personnalisation
+
+```css
+:root.theme-custom {
+  /* Containers plus étroits pour un design éditorial */
+  --ds-container-md: 680px;
+  --ds-container-lg: 880px;
+
+  /* Gutters réduits sur mobile */
+  --ds-container-gutter-sm: 12px;
 }
 ```
 
