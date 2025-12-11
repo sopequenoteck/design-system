@@ -448,6 +448,25 @@ $datepicker-nav-size-sm: 24px;
 $datepicker-nav-size-md: 32px;
 $datepicker-nav-size-lg: 40px;
 
+// === SLIDER ===
+
+$slider-track-height-sm: 4px;
+$slider-track-height-md: 6px;
+$slider-track-height-lg: 8px;
+
+$slider-thumb-size-sm: 16px;
+$slider-thumb-size-md: 20px;
+$slider-thumb-size-lg: 24px;
+
+$slider-thumb-border-width: 2px;
+
+$slider-tick-size: 2px;
+
+$slider-label-gap: $space-3;
+$slider-label-font-size: $font-size-2;
+
+$slider-track-radius: $radius-full;
+
 $datepicker-font-size-sm: $font-size-2;
 $datepicker-font-size-md: $font-size-3;
 $datepicker-font-size-lg: $font-size-4;
@@ -468,3 +487,26 @@ $ds-container-2xl: 1320px;
 $ds-container-gutter-sm: $space-4;
 $ds-container-gutter-md: $space-6;
 $ds-container-gutter-lg: $space-8;
+
+// === FILE UPLOAD ===
+
+$file-upload-min-height-sm: 150px;
+$file-upload-min-height-md: 200px;
+$file-upload-min-height-lg: 250px;
+
+$file-upload-padding-sm: $space-6;
+$file-upload-padding-md: $space-8;
+$file-upload-padding-lg: $space-10;
+
+$file-upload-radius: $radius-2;
+$file-upload-file-radius: $radius-2;
+
+$file-upload-preview-size-sm: 48px;
+$file-upload-preview-size-md: 60px;
+$file-upload-preview-size-lg: 80px;
+
+$file-upload-icon-size-sm: 48px;
+$file-upload-icon-size-md: 60px;
+$file-upload-icon-size-lg: 80px;
+
+$file-upload-remove-btn-size: 32px;

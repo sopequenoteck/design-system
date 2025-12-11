@@ -1,5 +1,6 @@
-import { Meta, StoryObj } from '@storybook/angular';
+import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { DsTable, DsTableColumn } from './ds-table';
+import { DsPagination } from '../ds-pagination/ds-pagination';
 
 type User = {
   id: number;
@@ -30,6 +31,11 @@ const defaultColumns: DsTableColumn<User>[] = [
 const meta: Meta<DsTable<User>> = {
   title: 'Components/Data Display/DsTable',
   component: DsTable,
+  decorators: [
+    moduleMetadata({
+      imports: [DsTable, DsPagination],
+    }),
+  ],
   tags: ['autodocs'],
   argTypes: {
     data: {
@@ -264,5 +270,188 @@ export const AllFeatures: Story = {
     variant: 'striped',
     selectable: true,
     hoverable: true,
+  },
+};
+
+// Extended mock data for pagination demos
+const extendedMockUsers: User[] = Array.from({ length: 50 }, (_, i) => ({
+  id: i + 1,
+  name: `User ${i + 1}`,
+  email: `user${i + 1}@example.com`,
+  role: ['Admin', 'User', 'Editor'][i % 3],
+  status: i % 3 === 0 ? 'inactive' : 'active',
+  age: 25 + (i % 30),
+}));
+
+export const WithPagination: Story = {
+  render: () => ({
+    template: `
+      <div>
+        <ds-table
+          [data]="paginatedData"
+          [columns]="columns"
+          variant="striped"
+          [hoverable]="true">
+        </ds-table>
+        <div style="margin-top: 16px;">
+          <ds-pagination
+            [totalItems]="totalItems"
+            [pageSize]="pageSize"
+            [currentPage]="currentPage"
+            [showInfo]="true"
+            (pageChange)="onPageChange($event)">
+          </ds-pagination>
+        </div>
+      </div>
+    `,
+    props: {
+      columns: defaultColumns,
+      totalItems: extendedMockUsers.length,
+      pageSize: 10,
+      currentPage: 1,
+      get paginatedData() {
+        const start = (this.currentPage - 1) * this.pageSize;
+        return extendedMockUsers.slice(start, start + this.pageSize);
+      },
+      onPageChange(page: number) {
+        this.currentPage = page;
+      },
+    },
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Intégration ds-table avec ds-pagination pour paginer les données côté client.',
+      },
+    },
+  },
+};
+
+export const WithSortAndPagination: Story = {
+  render: () => ({
+    template: `
+      <div>
+        <ds-table
+          [data]="paginatedData"
+          [columns]="columns"
+          variant="bordered"
+          [hoverable]="true"
+          [selectable]="true"
+          (sortChange)="onSortChange($event)">
+        </ds-table>
+        <div style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <ds-pagination
+            [totalItems]="totalItems"
+            [pageSize]="pageSize"
+            [currentPage]="currentPage"
+            [showPageSizeSelector]="true"
+            [pageSizeOptions]="[5, 10, 25, 50]"
+            [showInfo]="true"
+            (pageChange)="onPageChange($event)"
+            (pageSizeChange)="onPageSizeChange($event)">
+          </ds-pagination>
+        </div>
+      </div>
+    `,
+    props: {
+      columns: defaultColumns,
+      totalItems: extendedMockUsers.length,
+      pageSize: 10,
+      currentPage: 1,
+      sortKey: null as string | null,
+      sortDirection: 'asc' as 'asc' | 'desc',
+      get sortedData() {
+        if (!this.sortKey) return [...extendedMockUsers];
+        return [...extendedMockUsers].sort((a, b) => {
+          const aVal = a[this.sortKey!];
+          const bVal = b[this.sortKey!];
+          const cmp = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
+          return this.sortDirection === 'asc' ? cmp : -cmp;
+        });
+      },
+      get paginatedData() {
+        const start = (this.currentPage - 1) * this.pageSize;
+        return this.sortedData.slice(start, start + this.pageSize);
+      },
+      onPageChange(page: number) {
+        this.currentPage = page;
+      },
+      onPageSizeChange(size: number) {
+        this.pageSize = size;
+        this.currentPage = 1;
+      },
+      onSortChange(event: { key: string; direction: 'asc' | 'desc' }) {
+        this.sortKey = event.key;
+        this.sortDirection = event.direction;
+      },
+    },
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Table avec tri et pagination complète. Inclut sélecteur de taille de page et tri sur colonnes.',
+      },
+    },
+  },
+};
+
+export const ServerSidePagination: Story = {
+  render: () => ({
+    template: `
+      <div>
+        <p style="margin-bottom: 16px; color: var(--text-muted); font-size: 14px;">
+          <em>Simulation de pagination serveur - les données sont "chargées" à chaque changement de page</em>
+        </p>
+        <ds-table
+          [data]="displayData"
+          [columns]="columns"
+          variant="striped"
+          [hoverable]="true"
+          [loading]="loading">
+        </ds-table>
+        <div style="margin-top: 16px;">
+          <ds-pagination
+            [totalItems]="serverTotalItems"
+            [pageSize]="pageSize"
+            [currentPage]="currentPage"
+            [showInfo]="true"
+            [disabled]="loading"
+            (pageChange)="fetchPage($event)">
+          </ds-pagination>
+        </div>
+      </div>
+    `,
+    props: {
+      columns: defaultColumns,
+      serverTotalItems: 150,
+      pageSize: 10,
+      currentPage: 1,
+      loading: false,
+      displayData: extendedMockUsers.slice(0, 10),
+      fetchPage(page: number) {
+        this.loading = true;
+        this.currentPage = page;
+        // Simulate server delay
+        setTimeout(() => {
+          const start = (page - 1) * this.pageSize;
+          this.displayData = Array.from({ length: this.pageSize }, (_, i) => ({
+            id: start + i + 1,
+            name: `Server User ${start + i + 1}`,
+            email: `server${start + i + 1}@api.com`,
+            role: ['Admin', 'User', 'Editor'][(start + i) % 3],
+            status: (start + i) % 4 === 0 ? 'inactive' : 'active',
+            age: 20 + ((start + i) % 40),
+          }));
+          this.loading = false;
+        }, 500);
+      },
+    },
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Pattern de pagination côté serveur. Le loading state désactive la pagination pendant le chargement.',
+      },
+    },
   },
 };

@@ -443,5 +443,166 @@
   --ds-container-gutter-sm: var(--space-4);
   --ds-container-gutter-md: var(--space-6);
   --ds-container-gutter-lg: var(--space-8);
+
+  /* ==========================================================================
+   * LINKS & SELECTIONS
+   * ======================================================================== */
+  --link: var(--role-primary);
+  --link-hover: color-mix(in oklab, var(--role-primary) 85%, var(--background-main));
+  --selection-bg: color-mix(in oklab, var(--role-primary) 25%, transparent);
+  --selection-text: var(--text-default);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS AVATAR
+   * ======================================================================== */
+  --avatar-bg: var(--background-header);
+  --avatar-text: var(--text-muted);
+  --avatar-border: var(--border-color);
+  --avatar-placeholder-bg: var(--role-primary);
+  --avatar-placeholder-text: var(--gray-50);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS MENU
+   * ======================================================================== */
+  --menu-bg: var(--surface-default);
+  --menu-border: var(--border-color);
+  --menu-shadow: var(--shadow-2);
+  --menu-item-text: var(--text-default);
+  --menu-item-icon: var(--text-muted);
+  --menu-item-hover-bg: var(--surface-hover);
+  --menu-item-hover-text: var(--text-default);
+  --menu-item-active-bg: color-mix(in oklab, var(--role-primary) 15%, transparent);
+  --menu-item-active-text: var(--role-primary);
+  --menu-item-disabled-text: var(--text-disabled);
+  --menu-item-disabled-icon: var(--text-disabled-alt);
+  --menu-divider: var(--border-subtle);
+  --menu-backdrop: transparent;
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS CARD
+   * ======================================================================== */
+  --card-bg: var(--surface-default);
+  --card-text: var(--text-default);
+  --card-border: var(--border-color);
+  --card-border-strong: var(--border-strong);
+  --card-divider: var(--border-subtle);
+  --card-header-color: var(--text-default);
+  --card-footer-color: var(--text-muted);
+  --card-shadow: var(--shadow-2);
+  --card-shadow-hover: var(--shadow-3);
+  --card-disabled-opacity: 0.5;
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS ALERT
+   * ======================================================================== */
+  --alert-success-bg: var(--bg-success);
+  --alert-success-border: var(--success);
+  --alert-success-text: var(--text-success);
+  --alert-success-icon: var(--success);
+  --alert-warning-bg: var(--bg-warning);
+  --alert-warning-border: var(--warning);
+  --alert-warning-text: var(--text-warning);
+  --alert-warning-icon: var(--warning);
+  --alert-error-bg: var(--bg-error);
+  --alert-error-border: var(--error);
+  --alert-error-text: var(--text-error);
+  --alert-error-icon: var(--error);
+  --alert-info-bg: var(--bg-info);
+  --alert-info-border: var(--info);
+  --alert-info-text: var(--text-info);
+  --alert-info-icon: var(--info);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS DIVIDER
+   * ======================================================================== */
+  --divider-color: var(--border-color);
+  --divider-text: var(--text-muted);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS SELECT
+   * ======================================================================== */
+  --select-bg: var(--surface-default);
+  --select-text: var(--text-default);
+  --select-border: var(--border-color);
+  --select-placeholder: var(--text-muted);
+  --select-hover-border: var(--role-primary);
+  --select-focus-border: var(--role-primary);
+  --select-focus-shadow: color-mix(in oklab, var(--role-primary) 20%, transparent);
+  --select-disabled-bg: var(--bg-disabled);
+  --select-dropdown-bg: var(--surface-default);
+  --select-dropdown-border: var(--border-color);
+  --select-option-hover-bg: var(--surface-hover);
+  --select-option-selected-bg: color-mix(in oklab, var(--role-primary) 10%, transparent);
+  --select-option-selected-text: var(--role-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS TABLE
+   * ======================================================================== */
+  --table-bg: var(--surface-default);
+  --table-border-color: var(--border-color);
+  --table-header-bg: var(--surface-raised);
+  --table-header-text: var(--text-default);
+  --table-header-hover-bg: var(--surface-hover);
+  --table-row-border: color-mix(in oklab, var(--border-color) 50%, transparent);
+  --table-row-hover-bg: var(--surface-hover);
+  --table-row-selected-bg: color-mix(in oklab, var(--role-primary) 10%, transparent);
+  --table-stripe-bg: var(--surface-raised);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS COMBOBOX
+   * ======================================================================== */
+  --combobox-bg: var(--surface-default);
+  --combobox-text: var(--text-default);
+  --combobox-border: var(--border-color);
+  --combobox-placeholder: var(--text-muted);
+  --combobox-hover-border: var(--role-primary);
+  --combobox-focus-border: var(--role-primary);
+  --combobox-focus-shadow: color-mix(in oklab, var(--role-primary) 20%, transparent);
+  --combobox-disabled-bg: var(--bg-disabled);
+  --combobox-dropdown-bg: var(--surface-default);
+  --combobox-dropdown-border: var(--border-color);
+  --combobox-option-hover-bg: var(--surface-hover);
+  --combobox-option-selected-bg: color-mix(in oklab, var(--role-primary) 10%, transparent);
+  --combobox-option-selected-text: var(--role-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS PROGRESS BAR
+   * ======================================================================== */
+  --progress-track-bg: var(--background-header);
+  --progress-fill-bg: var(--role-primary);
+  --progress-fill-success: var(--success);
+  --progress-fill-warning: var(--warning);
+  --progress-fill-error: var(--error);
+  --progress-label-color: var(--text-default);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS SKELETON
+   * ======================================================================== */
+  --skeleton-bg: var(--background-header);
+  --skeleton-shimmer: var(--border-color);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS MODAL (compléments)
+   * ======================================================================== */
+  --modal-border-color: var(--border-strong);
+  --modal-box-shadow: var(--shadow-3);
+  --modal-divider: var(--border-subtle);
+  --modal-footer-shadow: inset 0 1px 0 var(--modal-divider);
+  --modal-type-success-color: var(--success);
+  --modal-type-success-contrast: var(--gray-50);
+  --modal-type-warning-color: var(--warning);
+  --modal-type-warning-contrast: var(--gray-900);
+  --modal-type-error-color: var(--error);
+  --modal-type-error-contrast: var(--gray-50);
+  --modal-type-info-color: var(--info);
+  --modal-type-info-contrast: var(--gray-50);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS TOAST (compléments)
+   * ======================================================================== */
+  --toast-success-border: var(--success);
+  --toast-warning-border: var(--warning);
+  --toast-error-border: var(--error);
+  --toast-info-border: var(--info);
 }
 

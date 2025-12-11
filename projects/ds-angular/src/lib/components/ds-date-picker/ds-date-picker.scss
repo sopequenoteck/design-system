@@ -248,6 +248,11 @@
     border-radius: 0;
   }
 
+  &--in-preview {
+    background: var(--datepicker-preview-bg, color-mix(in oklab, var(--color-primary) 10%, transparent));
+    border-radius: 0;
+  }
+
   &--disabled {
     opacity: 0.4;
     cursor: not-allowed;
@@ -325,6 +330,46 @@
   &:hover:not(:disabled) {
     background: var(--datepicker-action-hover-bg, var(--surface-hover));
     border-color: var(--border-strong);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+// === PRESETS ===
+.ds-date-picker__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border-top: 1px solid var(--datepicker-border, var(--border-default));
+  background: var(--datepicker-presets-bg, var(--surface-raised));
+}
+
+.ds-date-picker__preset {
+  padding: var(--space-1) var(--space-2);
+  background: var(--datepicker-preset-bg, transparent);
+  border: 1px solid var(--datepicker-preset-border, var(--border-default));
+  border-radius: var(--radius-1);
+  color: var(--datepicker-preset-color, var(--text-muted));
+  font-size: 0.75em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--duration-fast, 0.15s) ease,
+              border-color var(--duration-fast, 0.15s) ease,
+              color var(--duration-fast, 0.15s) ease;
+
+  &:hover:not(:disabled) {
+    background: var(--datepicker-preset-hover-bg, var(--surface-hover));
+    border-color: var(--color-primary);
+    color: var(--text-default);
   }
 
   &:focus-visible {

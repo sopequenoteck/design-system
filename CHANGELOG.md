@@ -7,6 +7,84 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 
 ---
 
+## [1.2.5] - 2025-12-11
+
+### 🔧 Maintenance
+
+- **deps**: Mise à jour FontAwesome v7 et angular-fontawesome v3
+
+---
+
+## [1.2.4] - 2025-12-10
+
+### ✨ Nouvelles fonctionnalités
+
+- **tokens**: Ajout tokens thématiques pour 8 composants (card, alert, divider, select, table, combobox, progress-bar, skeleton)
+
+---
+
+## [1.2.3] - 2025-12-09
+
+### 📝 Documentation
+
+- **tokens**: Documentation container complète et stories thématisées
+
+### 🐛 Corrections
+
+- **ds-avatar**: Correction overflow image dans le container
+- **ds-avatar**: Suppression background-color quand une image est affichée
+
+---
+
+## [1.2.2] - 2025-12-08
+
+### ✨ Nouvelles fonctionnalités
+
+- **tokens**: Harmonisation tokens search-input, date-picker, container
+- **components**: Ajout DsAvatar et DsMenu (2 nouveaux composants)
+
+---
+
+## [1.2.1] - 2025-12-07
+
+### 🔧 Maintenance
+
+- **package**: Renommage du package en `@kksdev/ds-angular`
+- **ci**: Suppression déploiement GitHub Pages
+
+### 🐛 Corrections
+
+- **storybook**: Renommage 'globals' → 'initialGlobals' (deprecated)
+
+---
+
+## [1.2.0] - 2025-12-07
+
+### ✨ Nouvelles fonctionnalités
+
+- **docker**: Configuration Docker pour Storybook
+
+### 🐛 Corrections
+
+- **storybook**: Correction erreurs TypeScript dans stories
+
+### 📝 Documentation
+
+- **storybook**: Amélioration documentation et conversion tableaux MDX en HTML
+
+### 🔧 Maintenance
+
+- **storybook**: Réorganisation sidebar avec structure hiérarchique
+
+### 📊 Métriques v1.2.x
+
+- **30 composants DS** (+2 : DsAvatar, DsMenu)
+- **7 primitives** (inchangé)
+- **3 thèmes** complets avec parité tokens
+- Package renommé : `@kksdev/ds-angular`
+
+---
+
 ## [1.1.0] - 2025-12-06
 
 ### ✨ Nouvelles fonctionnalités

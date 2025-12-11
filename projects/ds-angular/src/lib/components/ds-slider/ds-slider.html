@@ -1,0 +1,91 @@
+<div [class]="containerClasses()">
+  <!-- Min label -->
+  @if (showLabels()) {
+    <span class="ds-slider__label ds-slider__label--min">
+      {{ getTickLabel(min()) }}
+    </span>
+  }
+
+  <!-- Track container -->
+  <div class="ds-slider__track-container">
+    <!-- Track background -->
+    <div
+      #track
+      class="ds-slider__track"
+      (click)="onTrackClick($event)"
+      role="presentation">
+      <!-- Fill -->
+      <div
+        class="ds-slider__fill"
+        [ngStyle]="fillStyle()">
+      </div>
+
+      <!-- Ticks -->
+      @if (showTicks()) {
+        <div class="ds-slider__ticks">
+          @for (tick of ticks(); track tick) {
+            <div
+              class="ds-slider__tick"
+              [ngStyle]="isVertical() ? { bottom: getTickPosition(tick) + '%' } : { left: getTickPosition(tick) + '%' }">
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Thumb 1 (always present) -->
+      <div
+        #thumb1
+        class="ds-slider__thumb"
+        [class.ds-slider__thumb--active]="focusedThumb() === 0 || dragging() === 0"
+        [ngStyle]="thumb1Style()"
+        [attr.role]="'slider'"
+        [attr.aria-valuemin]="min()"
+        [attr.aria-valuemax]="isRange() ? value2() : max()"
+        [attr.aria-valuenow]="value1()"
+        [attr.aria-valuetext]="getAriaValueText(0)"
+        [attr.aria-orientation]="orientation()"
+        [attr.aria-disabled]="isDisabled()"
+        [attr.tabindex]="isDisabled() ? -1 : 0"
+        (keydown)="onKeyDown($event, 0)"
+        (mousedown)="onThumbMouseDown($event, 0)"
+        (focus)="onThumbFocus(0)"
+        (blur)="onThumbBlur()">
+        @if (showLabels()) {
+          <span class="ds-slider__thumb-label">{{ label1() }}</span>
+        }
+      </div>
+
+      <!-- Thumb 2 (only for range mode) -->
+      @if (isRange()) {
+        <div
+          #thumb2
+          class="ds-slider__thumb"
+          [class.ds-slider__thumb--active]="focusedThumb() === 1 || dragging() === 1"
+          [ngStyle]="thumb2Style()"
+          [attr.role]="'slider'"
+          [attr.aria-valuemin]="value1()"
+          [attr.aria-valuemax]="max()"
+          [attr.aria-valuenow]="value2()"
+          [attr.aria-valuetext]="getAriaValueText(1)"
+          [attr.aria-orientation]="orientation()"
+          [attr.aria-disabled]="isDisabled()"
+          [attr.tabindex]="isDisabled() ? -1 : 0"
+          (keydown)="onKeyDown($event, 1)"
+          (mousedown)="onThumbMouseDown($event, 1)"
+          (focus)="onThumbFocus(1)"
+          (blur)="onThumbBlur()">
+          @if (showLabels()) {
+            <span class="ds-slider__thumb-label">{{ label2() }}</span>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Max label -->
+  @if (showLabels()) {
+    <span class="ds-slider__label ds-slider__label--max">
+      {{ getTickLabel(max()) }}
+    </span>
+  }
+</div>

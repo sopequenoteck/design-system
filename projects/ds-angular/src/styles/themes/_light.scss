@@ -573,4 +573,40 @@
    * ======================================================================== */
   --skeleton-bg: var(--gray-200);
   --skeleton-shimmer: var(--gray-300);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS SLIDER
+   * ======================================================================== */
+  --slider-track-bg: var(--gray-200);
+  --slider-fill-bg: var(--color-primary);
+  --slider-thumb-bg: var(--surface-default);
+  --slider-thumb-border-color: var(--color-primary);
+  --slider-thumb-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --slider-thumb-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --slider-thumb-shadow-focus: 0 0 0 3px color-mix(in oklab, var(--color-primary) 30%, transparent);
+  --slider-thumb-shadow-active: 0 0 0 4px color-mix(in oklab, var(--color-primary) 20%, transparent);
+  --slider-tick-color: var(--gray-400);
+  --slider-label-color: var(--text-default);
+  --slider-thumb-label-bg: var(--gray-900);
+  --slider-thumb-label-color: var(--white);
+
+  /* ==========================================================================
+   * FILE UPLOAD
+   * ======================================================================== */
+  --file-upload-border: var(--gray-300);
+  --file-upload-border-hover: var(--color-primary);
+  --file-upload-border-active: var(--color-primary);
+  --file-upload-bg: var(--white);
+  --file-upload-bg-hover: var(--gray-50);
+  --file-upload-bg-active: var(--blue-50);
+  --file-upload-text-color: var(--gray-700);
+  --file-upload-label-color: var(--gray-900);
+  --file-upload-help-color: var(--gray-500);
+  --file-upload-hint-color: var(--gray-500);
+  --file-upload-icon-color: var(--gray-400);
+  --file-upload-icon-color-hover: var(--color-primary);
+  --file-upload-icon-color-active: var(--color-primary);
+  --file-upload-file-border: var(--gray-200);
+  --file-upload-file-bg: var(--white);
+  --file-upload-file-bg-hover: var(--gray-50);
 }

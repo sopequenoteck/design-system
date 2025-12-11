@@ -1,0 +1,45 @@
+<div
+  [class]="chipClasses()"
+  [attr.role]="role()"
+  [attr.tabindex]="tabindex()"
+  [attr.aria-selected]="ariaSelected()"
+  [attr.aria-disabled]="ariaDisabled()"
+  (click)="handleClick($event)"
+  (keydown)="handleKeyDown($event)"
+>
+  <!-- Avatar -->
+  @if (avatar()) {
+    <img
+      class="ds-chip__avatar"
+      [src]="avatar()"
+      [alt]="label()"
+    />
+  }
+
+  <!-- Icon -->
+  @if (icon() && !avatar()) {
+    <fa-icon
+      class="ds-chip__icon"
+      [icon]="['fas', icon()]"
+      [fixedWidth]="true"
+    />
+  }
+
+  <!-- Label -->
+  <span class="ds-chip__label">{{ label() }}</span>
+
+  <!-- Remove button -->
+  @if (removable() && !disabled()) {
+    <button
+      type="button"
+      class="ds-chip__remove"
+      [attr.aria-label]="'Remove ' + label()"
+      (click)="handleRemove($event)"
+    >
+      <fa-icon
+        [icon]="closeIcon"
+        [fixedWidth]="true"
+      />
+    </button>
+  }
+</div>

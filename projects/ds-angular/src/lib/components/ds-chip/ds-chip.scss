@@ -1,0 +1,236 @@
+/**
+ * DS Chip — Composant tag/badge interactif
+ *
+ * Utilise les tokens CSS custom properties pour garantir la cohérence thématique.
+ */
+
+.ds-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--chip-gap, var(--space-2));
+  padding: var(--chip-padding-y, var(--space-1)) var(--chip-padding-x, var(--space-3));
+  border-radius: var(--chip-border-radius, var(--radius-pill));
+  font-family: var(--font-family-base);
+  font-size: var(--chip-font-size, var(--font-size-sm));
+  font-weight: var(--chip-font-weight, 500);
+  line-height: var(--chip-line-height, 1.5);
+  transition: all var(--transition-fast);
+  user-select: none;
+  outline: none;
+
+  // Default variant (filled)
+  background-color: var(--chip-bg, var(--gray-200));
+  color: var(--chip-text, var(--gray-800));
+  border: 1px solid var(--chip-border, transparent);
+
+  // Avatar
+  &__avatar {
+    width: var(--chip-avatar-size, 1.25rem);
+    height: var(--chip-avatar-size, 1.25rem);
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  // Icon
+  &__icon {
+    flex-shrink: 0;
+    font-size: var(--chip-icon-size, 0.875rem);
+  }
+
+  // Label
+  &__label {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // Remove button
+  &__remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.6;
+    transition: opacity var(--transition-fast);
+    flex-shrink: 0;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:focus {
+      outline: none;
+      opacity: 1;
+    }
+
+    fa-icon {
+      font-size: var(--chip-remove-icon-size, 0.75rem);
+    }
+  }
+
+  // Outlined variant
+  &--outlined {
+    background-color: transparent;
+    border-color: var(--chip-border, var(--gray-300));
+  }
+
+  // Sizes
+  &--sm {
+    padding: var(--chip-padding-y-sm, var(--space-0-5)) var(--chip-padding-x-sm, var(--space-2));
+    font-size: var(--chip-font-size-sm, var(--font-size-xs));
+    gap: var(--chip-gap-sm, var(--space-1));
+
+    .ds-chip__avatar {
+      width: var(--chip-avatar-size-sm, 1rem);
+      height: var(--chip-avatar-size-sm, 1rem);
+    }
+
+    .ds-chip__icon {
+      font-size: var(--chip-icon-size-sm, 0.75rem);
+    }
+
+    .ds-chip__remove fa-icon {
+      font-size: var(--chip-remove-icon-size-sm, 0.625rem);
+    }
+  }
+
+  &--md {
+    // Default values already set
+  }
+
+  &--lg {
+    padding: var(--chip-padding-y-lg, var(--space-2)) var(--chip-padding-x-lg, var(--space-4));
+    font-size: var(--chip-font-size-lg, var(--font-size-base));
+    gap: var(--chip-gap-lg, var(--space-2));
+
+    .ds-chip__avatar {
+      width: var(--chip-avatar-size-lg, 1.5rem);
+      height: var(--chip-avatar-size-lg, 1.5rem);
+    }
+
+    .ds-chip__icon {
+      font-size: var(--chip-icon-size-lg, 1rem);
+    }
+
+    .ds-chip__remove fa-icon {
+      font-size: var(--chip-remove-icon-size-lg, 0.875rem);
+    }
+  }
+
+  // Colors - Filled variant
+  &--primary {
+    background-color: var(--chip-primary-bg, var(--color-primary));
+    color: var(--chip-primary-text, var(--white));
+    border-color: var(--chip-primary-border, transparent);
+
+    &.ds-chip--outlined {
+      background-color: transparent;
+      color: var(--chip-primary-bg, var(--color-primary));
+      border-color: var(--chip-primary-bg, var(--color-primary));
+    }
+  }
+
+  &--success {
+    background-color: var(--chip-success-bg, var(--success-bg));
+    color: var(--chip-success-text, var(--success));
+    border-color: var(--chip-success-border, var(--success-border));
+
+    &.ds-chip--outlined {
+      background-color: transparent;
+      color: var(--chip-success-text, var(--success));
+      border-color: var(--chip-success-text, var(--success));
+    }
+  }
+
+  &--warning {
+    background-color: var(--chip-warning-bg, var(--warning-bg));
+    color: var(--chip-warning-text, var(--warning));
+    border-color: var(--chip-warning-border, var(--warning-border));
+
+    &.ds-chip--outlined {
+      background-color: transparent;
+      color: var(--chip-warning-text, var(--warning));
+      border-color: var(--chip-warning-text, var(--warning));
+    }
+  }
+
+  &--error {
+    background-color: var(--chip-error-bg, var(--error-bg));
+    color: var(--chip-error-text, var(--error));
+    border-color: var(--chip-error-border, var(--error-border));
+
+    &.ds-chip--outlined {
+      background-color: transparent;
+      color: var(--chip-error-text, var(--error));
+      border-color: var(--chip-error-text, var(--error));
+    }
+  }
+
+  // Clickable state
+  &--clickable {
+    cursor: pointer;
+
+    &:hover:not(.ds-chip--disabled) {
+      background-color: var(--chip-hover-bg, var(--gray-300));
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 3px var(--chip-focus-ring, var(--focus-ring));
+    }
+
+    &.ds-chip--outlined:hover:not(.ds-chip--disabled) {
+      background-color: var(--chip-hover-bg, var(--gray-50));
+    }
+
+    &.ds-chip--primary:hover:not(.ds-chip--disabled) {
+      background-color: var(--chip-primary-hover-bg, var(--primary-600));
+    }
+
+    &.ds-chip--primary.ds-chip--outlined:hover:not(.ds-chip--disabled) {
+      background-color: var(--chip-primary-hover-bg-outlined, var(--primary-50));
+    }
+
+    &.ds-chip--success:hover:not(.ds-chip--disabled) {
+      background-color: var(--chip-success-hover-bg, var(--success-100));
+    }
+
+    &.ds-chip--success.ds-chip--outlined:hover:not(.ds-chip--disabled) {
+      background-color: var(--chip-success-hover-bg-outlined, var(--success-50));
+    }
+
+    &.ds-chip--warning:hover:not(.ds-chip--disabled) {
+      background-color: var(--chip-warning-hover-bg, var(--warning-100));
+    }
+
+    &.ds-chip--warning.ds-chip--outlined:hover:not(.ds-chip--disabled) {
+      background-color: var(--chip-warning-hover-bg-outlined, var(--warning-50));
+    }
+
+    &.ds-chip--error:hover:not(.ds-chip--disabled) {
+      background-color: var(--chip-error-hover-bg, var(--error-100));
+    }
+
+    &.ds-chip--error.ds-chip--outlined:hover:not(.ds-chip--disabled) {
+      background-color: var(--chip-error-hover-bg-outlined, var(--error-50));
+    }
+  }
+
+  // Selected state
+  &--selected {
+    box-shadow: 0 0 0 2px var(--chip-selected-ring, var(--color-primary));
+  }
+
+  // Disabled state
+  &--disabled {
+    opacity: var(--chip-disabled-opacity, 0.5);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}

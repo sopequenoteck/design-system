@@ -25,6 +25,61 @@ export interface DateRange {
   end: Date | null;
 }
 
+export interface DatePreset {
+  label: string;
+  getValue: () => DateRange;
+}
+
+/** Presets prédéfinis pour le mode range */
+export const DEFAULT_DATE_PRESETS: DatePreset[] = [
+  {
+    label: "Aujourd'hui",
+    getValue: () => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return { start: today, end: today };
+    },
+  },
+  {
+    label: '7 derniers jours',
+    getValue: () => {
+      const end = new Date();
+      end.setHours(0, 0, 0, 0);
+      const start = new Date(end);
+      start.setDate(start.getDate() - 6);
+      return { start, end };
+    },
+  },
+  {
+    label: '30 derniers jours',
+    getValue: () => {
+      const end = new Date();
+      end.setHours(0, 0, 0, 0);
+      const start = new Date(end);
+      start.setDate(start.getDate() - 29);
+      return { start, end };
+    },
+  },
+  {
+    label: 'Ce mois',
+    getValue: () => {
+      const now = new Date();
+      const start = new Date(now.getFullYear(), now.getMonth(), 1);
+      const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+      return { start, end };
+    },
+  },
+  {
+    label: 'Mois dernier',
+    getValue: () => {
+      const now = new Date();
+      const start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+      const end = new Date(now.getFullYear(), now.getMonth(), 0);
+      return { start, end };
+    },
+  },
+];
+
 /**
  * DsDatePicker - Composant de sélection de date
  *
@@ -144,13 +199,16 @@ export interface DateRange {
                     [class.ds-date-picker__day--range-start]="day.isRangeStart"
                     [class.ds-date-picker__day--range-end]="day.isRangeEnd"
                     [class.ds-date-picker__day--in-range]="day.isInRange"
+                    [class.ds-date-picker__day--in-preview]="day.isInPreviewRange"
                     [class.ds-date-picker__day--disabled]="day.isDisabled"
                     [disabled]="disabled() || day.isDisabled"
                     role="gridcell"
                     [attr.aria-selected]="day.isSelected"
                     [attr.aria-label]="day.ariaLabel"
                     (click)="selectDate(day.date)"
-                    (keydown)="onDayKeydown($event, day.date)">
+                    (keydown)="onDayKeydown($event, day.date)"
+                    (mouseenter)="onDayMouseEnter(day.date)"
+                    (mouseleave)="onDayMouseLeave()">
                     {{ day.dayNumber }}
                   </button>
                 }
@@ -158,6 +216,21 @@ export interface DateRange {
             }
           </div>
         </div>
+
+        <!-- Presets (mode range uniquement) -->
+        @if (showPresets() && mode() === 'range') {
+          <div class="ds-date-picker__presets">
+            @for (preset of effectivePresets(); track preset.label) {
+              <button
+                type="button"
+                class="ds-date-picker__preset"
+                [disabled]="disabled()"
+                (click)="selectPreset(preset)">
+                {{ preset.label }}
+              </button>
+            }
+          </div>
+        }
 
         <!-- Actions -->
         @if (showTodayButton() || showClearButton()) {
@@ -229,6 +302,15 @@ export class DsDatePicker implements ControlValueAccessor, OnInit {
   /** Label bouton mois suivant */
   readonly nextMonthLabel = input<string>('Mois suivant');
 
+  /** Presets pour le mode range */
+  readonly presets = input<DatePreset[]>([]);
+
+  /** Afficher les presets */
+  readonly showPresets = input<boolean>(false);
+
+  /** Activer le preview au survol en mode range */
+  readonly showRangePreview = input<boolean>(true);
+
   /** Événement de changement de date (mode single) */
   readonly dateChange = output<Date | null>();
 
@@ -257,6 +339,7 @@ export class DsDatePicker implements ControlValueAccessor, OnInit {
   readonly rangeEnd = signal<Date | null>(null);
   readonly showMonthPicker = signal(false);
   readonly showYearPicker = signal(false);
+  readonly hoveredDate = signal<Date | null>(null);
 
   /** Callbacks CVA */
   private onChange: (value: Date | DateRange | null) => void = () => {};
@@ -320,6 +403,7 @@ export class DsDatePicker implements ControlValueAccessor, OnInit {
         const isRangeStart = this.isRangeStartDate(date);
         const isRangeEnd = this.isRangeEndDate(date);
         const isInRange = this.isDateInRange(date);
+        const isInPreviewRange = this.isDateInPreviewRange(date);
         const isDisabled = this.isDateDisabled(date);
 
         week.push({
@@ -331,6 +415,7 @@ export class DsDatePicker implements ControlValueAccessor, OnInit {
           isRangeStart,
           isRangeEnd,
           isInRange,
+          isInPreviewRange,
           isDisabled,
           ariaLabel: this.formatDateForAria(date),
         });
@@ -518,6 +603,51 @@ export class DsDatePicker implements ControlValueAccessor, OnInit {
     return date > start && date < end;
   }
 
+  private isDateInPreviewRange(date: Date): boolean {
+    if (this.mode() !== 'range' || !this.showRangePreview()) return false;
+    const start = this.rangeStart();
+    const end = this.rangeEnd();
+    const hovered = this.hoveredDate();
+
+    // Seulement si on a un start mais pas de end, et on survole
+    if (!start || end || !hovered) return false;
+
+    const minDate = start < hovered ? start : hovered;
+    const maxDate = start < hovered ? hovered : start;
+
+    return date > minDate && date < maxDate;
+  }
+
+  onDayMouseEnter(date: Date | null): void {
+    if (date && this.mode() === 'range' && this.showRangePreview() && this.rangeStart() && !this.rangeEnd()) {
+      this.hoveredDate.set(date);
+    }
+  }
+
+  onDayMouseLeave(): void {
+    this.hoveredDate.set(null);
+  }
+
+  selectPreset(preset: DatePreset): void {
+    const range = preset.getValue();
+    this.rangeStart.set(range.start);
+    this.rangeEnd.set(range.end);
+    this.rangeChange.emit(range);
+    this.onChange(range);
+
+    // Naviguer vers le mois du début
+    if (range.start) {
+      this.currentMonth.set(range.start.getMonth());
+      this.currentYear.set(range.start.getFullYear());
+    }
+  }
+
+  /** Presets effectifs (utilise les presets fournis ou les défauts) */
+  readonly effectivePresets = computed(() => {
+    const custom = this.presets();
+    return custom.length > 0 ? custom : DEFAULT_DATE_PRESETS;
+  });
+
   private isDateDisabled(date: Date): boolean {
     const min = this.minDate();
     const max = this.maxDate();
@@ -589,6 +719,7 @@ interface CalendarDay {
   isRangeStart: boolean;
   isRangeEnd: boolean;
   isInRange: boolean;
+  isInPreviewRange: boolean;
   isDisabled: boolean;
   ariaLabel: string;
 }

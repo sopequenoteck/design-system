@@ -214,9 +214,11 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ .npmignore créé : exclusion tests, stories, docs internes (40 lignes)
 - ✅ Dry-run npm validé : ds-angular@1.0.0, 134.6kB compressé, 49 fichiers
 - ✅ Starter kit créé : starter-kit/ avec 10 fichiers, exemples 8 composants DS, Angular 20
-- ✅ **Publication npm réussie** : ds-angular@1.0.0 disponible sur https://www.npmjs.com/package/ds-angular
+- ✅ **Publication npm réussie** : ds-angular@1.0.0 disponible sur npm
 - ✅ README mis à jour : liens Documentation et Liens utiles
 - 📊 ÉTAPE 12 : 100% complétée (8/8 tâches)
+
+> **Note** : Le package a été renommé `@kksdev/ds-angular` à partir de v1.1.0
 
 **Corrections post-publication ÉTAPE 13** (2025-12-05) :
 - ✅ Erreur TS2445 corrigée : propriété `icons` rendue publique (readonly) dans DsAlert
@@ -355,6 +357,37 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ _light.scss : 71 nouveaux tokens thématiques pour 8 composants
 - ✅ _dark.scss : 71 nouveaux tokens thématiques avec couleurs dark mode adaptées
 - 📊 ÉTAPE 25 : 100% complétée — Parité thématique complète pour les 30 composants DS
+
+---
+
+## Versions publiées
+
+### v1.2.5 (2025-12-09) - Version actuelle
+
+Package npm : `@kksdev/ds-angular@1.2.5`
+
+**Changements depuis v1.0.0 :**
+
+#### v1.2.x
+- `chore(deps)`: Upgrade FontAwesome v7 et angular-fontawesome v3
+- `feat(tokens)`: Tokens thématiques pour 8 composants supplémentaires
+- `fix(ds-avatar)`: Correction overflow image dans container
+
+#### v1.1.0 (2025-12-06)
+- `chore`: Renommage package → `@kksdev/ds-angular`
+- `feat(docker)`: Configuration Docker pour Storybook
+- `feat(components)`: DsAvatar et DsMenu ajoutés
+- `feat(tokens)`: Harmonisation tokens search-input, date-picker, container
+- `test(e2e)`: 90+ tests Playwright pour select, table, combobox, date-picker
+- `ci`: Workflows a11y-wave, chromatic et bundlesize PR
+- `docs`: Guides Accessibility, Testing et Theming créés
+- `refactor(storybook)`: Réorganisation sidebar avec structure hiérarchique
+
+### Installation
+
+```bash
+npm install @kksdev/ds-angular@1.2.5
+```
 
 ## Patterns techniques
 

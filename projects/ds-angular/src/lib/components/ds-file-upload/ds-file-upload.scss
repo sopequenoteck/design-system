@@ -1,0 +1,281 @@
+// ============================================================================
+// DS-FILE-UPLOAD — Composant de téléchargement de fichiers
+// ============================================================================
+
+.ds-file-upload {
+  display: block;
+  font-family: var(--font-family-base);
+
+  // Dropzone
+  &__dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8);
+    border: 2px dashed var(--file-upload-border, var(--gray-300));
+    border-radius: var(--file-upload-radius, var(--radius-2));
+    background: var(--file-upload-bg, var(--white));
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    min-height: 200px;
+
+    &:hover:not(.ds-file-upload--disabled &) {
+      border-color: var(--file-upload-border-hover, var(--color-primary));
+      background: var(--file-upload-bg-hover, var(--gray-50));
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    &--active {
+      border-color: var(--file-upload-border-active, var(--color-primary));
+      background: var(--file-upload-bg-active, var(--blue-50));
+    }
+  }
+
+  // Input caché
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  // Icône centrale
+  &__icon {
+    color: var(--file-upload-icon-color, var(--gray-400));
+    margin-bottom: var(--space-3);
+    transition: color 0.2s ease;
+
+    .ds-file-upload__dropzone:hover & {
+      color: var(--file-upload-icon-color-hover, var(--color-primary));
+    }
+
+    .ds-file-upload__dropzone--active & {
+      color: var(--file-upload-icon-color-active, var(--color-primary));
+      transform: scale(1.1);
+    }
+  }
+
+  // Texte principal
+  &__text {
+    text-align: center;
+    color: var(--file-upload-text-color, var(--gray-700));
+  }
+
+  &__label {
+    display: block;
+    font-size: var(--font-size-base, var(--font-size-3));
+    font-weight: 500;
+    margin-bottom: var(--space-1);
+    color: var(--file-upload-label-color, var(--gray-900));
+  }
+
+  &__help {
+    display: block;
+    font-size: var(--font-size-sm, var(--font-size-2));
+    color: var(--file-upload-help-color, var(--gray-500));
+  }
+
+  &__limit {
+    display: block;
+    font-size: var(--font-size-sm, var(--font-size-2));
+    color: var(--warning);
+    font-weight: 500;
+  }
+
+  // Messages
+  &__error {
+    margin-top: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: var(--error-bg, var(--red-50));
+    color: var(--error);
+    border-radius: var(--radius-1);
+    font-size: var(--font-size-sm, var(--font-size-2));
+    text-align: center;
+  }
+
+  &__hint {
+    margin-top: var(--space-1);
+    font-size: var(--font-size-xs, var(--font-size-1));
+    color: var(--file-upload-hint-color, var(--gray-500));
+    text-align: center;
+  }
+
+  // Liste des fichiers
+  &__files {
+    margin-top: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  &__file {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border: 1px solid var(--file-upload-file-border, var(--gray-200));
+    border-radius: var(--radius-2);
+    background: var(--file-upload-file-bg, var(--white));
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--file-upload-file-bg-hover, var(--gray-50));
+    }
+  }
+
+  // Preview image
+  &__preview {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-1);
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  // Icône fichier
+  &__file-icon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-50);
+    border-radius: var(--radius-1);
+    color: var(--gray-400);
+    font-size: var(--font-size-5);
+  }
+
+  // Infos fichier
+  &__file-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__file-name {
+    font-size: var(--font-size-sm, var(--font-size-2));
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: var(--space-1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__file-size {
+    font-size: var(--font-size-xs, var(--font-size-1));
+    color: var(--gray-500);
+    margin-bottom: var(--space-2);
+  }
+
+  &__file-error {
+    margin-top: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    background: var(--error-bg, var(--red-50));
+    color: var(--error);
+    border-radius: var(--radius-1);
+    font-size: var(--font-size-xs, var(--font-size-1));
+  }
+
+  // Bouton supprimer
+  &__remove {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--gray-400);
+    border-radius: var(--radius-1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background: var(--gray-100);
+      color: var(--error);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  // Tailles
+  &--sm {
+    .ds-file-upload__dropzone {
+      min-height: 150px;
+      padding: var(--space-6);
+    }
+
+    .ds-file-upload__label {
+      font-size: var(--font-size-sm, var(--font-size-2));
+    }
+
+    .ds-file-upload__preview,
+    .ds-file-upload__file-icon {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  &--lg {
+    .ds-file-upload__dropzone {
+      min-height: 250px;
+      padding: var(--space-10);
+    }
+
+    .ds-file-upload__label {
+      font-size: var(--font-size-lg, var(--font-size-4));
+    }
+
+    .ds-file-upload__preview,
+    .ds-file-upload__file-icon {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  // État désactivé
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    .ds-file-upload__dropzone {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+
+  // État erreur
+  &--error {
+    .ds-file-upload__dropzone {
+      border-color: var(--error);
+    }
+  }
+}

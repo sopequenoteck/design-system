@@ -507,6 +507,19 @@
   --datepicker-font-size-lg: #{$datepicker-font-size-lg};
   --datepicker-radius: #{$datepicker-radius};
   --datepicker-shadow: #{$datepicker-shadow};
+
+  /* === SLIDER === */
+  --slider-track-height-sm: #{$slider-track-height-sm};
+  --slider-track-height-md: #{$slider-track-height-md};
+  --slider-track-height-lg: #{$slider-track-height-lg};
+  --slider-thumb-size-sm: #{$slider-thumb-size-sm};
+  --slider-thumb-size-md: #{$slider-thumb-size-md};
+  --slider-thumb-size-lg: #{$slider-thumb-size-lg};
+  --slider-thumb-border-width: #{$slider-thumb-border-width};
+  --slider-tick-size: #{$slider-tick-size};
+  --slider-label-gap: #{$slider-label-gap};
+  --slider-label-font-size: #{$slider-label-font-size};
+  --slider-track-radius: #{$slider-track-radius};
   --datepicker-calendar-padding: #{$datepicker-calendar-padding};
   --datepicker-calendar-gap: #{$datepicker-calendar-gap};
 
@@ -519,4 +532,21 @@
   --ds-container-gutter-sm: #{$ds-container-gutter-sm};
   --ds-container-gutter-md: #{$ds-container-gutter-md};
   --ds-container-gutter-lg: #{$ds-container-gutter-lg};
+
+  /* === FILE UPLOAD === */
+  --file-upload-min-height-sm: #{$file-upload-min-height-sm};
+  --file-upload-min-height-md: #{$file-upload-min-height-md};
+  --file-upload-min-height-lg: #{$file-upload-min-height-lg};
+  --file-upload-padding-sm: #{$file-upload-padding-sm};
+  --file-upload-padding-md: #{$file-upload-padding-md};
+  --file-upload-padding-lg: #{$file-upload-padding-lg};
+  --file-upload-radius: #{$file-upload-radius};
+  --file-upload-file-radius: #{$file-upload-file-radius};
+  --file-upload-preview-size-sm: #{$file-upload-preview-size-sm};
+  --file-upload-preview-size-md: #{$file-upload-preview-size-md};
+  --file-upload-preview-size-lg: #{$file-upload-preview-size-lg};
+  --file-upload-icon-size-sm: #{$file-upload-icon-size-sm};
+  --file-upload-icon-size-md: #{$file-upload-icon-size-md};
+  --file-upload-icon-size-lg: #{$file-upload-icon-size-lg};
+  --file-upload-remove-btn-size: #{$file-upload-remove-btn-size};
 }

@@ -53,10 +53,12 @@ export class AppComponent {}
 - `primitive-checkbox`, `primitive-radio`, `primitive-toggle`
 - `primitive-textarea`
 
-### Components (17 composants DS)
-- **Forms** : `ds-input-field`, `ds-input-textarea`, `ds-checkbox`, `ds-radio-group`, `ds-toggle`
-- **Display** : `ds-button`, `ds-badge`, `ds-card`, `ds-alert`, `ds-divider`
-- **Navigation** : `ds-breadcrumb`, `ds-tabs`
+### Components (30 composants DS)
+- **Forms** : `ds-input-field`, `ds-input-textarea`, `ds-checkbox`, `ds-radio-group`, `ds-toggle`, `ds-select`, `ds-combobox`, `ds-search-input`, `ds-date-picker`
+- **Display** : `ds-button`, `ds-badge`, `ds-card`, `ds-alert`, `ds-divider`, `ds-avatar`, `ds-progress-bar`, `ds-skeleton`
+- **Data** : `ds-table`
+- **Navigation** : `ds-breadcrumb`, `ds-tabs`, `ds-pagination`, `ds-stepper`, `ds-accordion`, `ds-menu`
+- **Layout** : `ds-container`
 - **Overlays** : `ds-modal`, `ds-dropdown`, `ds-tooltip`, `ds-popover`, `ds-toast`
 
 ## 🛠️ Développement

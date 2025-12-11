@@ -162,3 +162,37 @@ export const FormTabs: Story = {
     `,
   }),
 };
+
+export const Themed: Story = {
+  render: () => ({
+    props: {
+      tabs: [
+        { id: 't1', label: 'Tab 1' },
+        { id: 't2', label: 'Tab 2' },
+      ] as TabItem[],
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 32px;">
+        <div class="theme-light" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
+          <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Light</h4>
+          <ds-tabs [tabs]="tabs"></ds-tabs>
+        </div>
+        <div class="theme-dark" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
+          <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Dark</h4>
+          <ds-tabs [tabs]="tabs"></ds-tabs>
+        </div>
+        <div class="theme-custom" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
+          <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Custom</h4>
+          <ds-tabs [tabs]="tabs"></ds-tabs>
+        </div>
+      </div>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};

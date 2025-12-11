@@ -172,3 +172,23 @@ export {
   type MenuTrigger,
   type MenuSize,
 } from './ds-menu/ds-menu';
+
+export {
+  DsChip,
+  type ChipVariant,
+  type ChipSize,
+  type ChipColor,
+} from './ds-chip/ds-chip';
+
+export {
+  DsSlider,
+  type SliderSize,
+  type SliderValue,
+  type SliderOrientation,
+} from './ds-slider/ds-slider';
+
+export {
+  DsFileUpload,
+  type FileUploadSize,
+  type UploadFile,
+} from './ds-file-upload/ds-file-upload';

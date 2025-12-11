@@ -296,3 +296,34 @@ export const ComplexLayout: Story = {
     `,
   }),
 };
+
+export const Themed: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 32px;">
+        <div class="theme-light" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
+          <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Light</h4>
+          <primitive-radio name="themed-light" value="a" label="Option A" [checked]="true"></primitive-radio>
+          <primitive-radio name="themed-light" value="b" label="Option B"></primitive-radio>
+        </div>
+        <div class="theme-dark" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
+          <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Dark</h4>
+          <primitive-radio name="themed-dark" value="a" label="Option A" [checked]="true"></primitive-radio>
+          <primitive-radio name="themed-dark" value="b" label="Option B"></primitive-radio>
+        </div>
+        <div class="theme-custom" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
+          <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Custom</h4>
+          <primitive-radio name="themed-custom" value="a" label="Option A" [checked]="true"></primitive-radio>
+          <primitive-radio name="themed-custom" value="b" label="Option B"></primitive-radio>
+        </div>
+      </div>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
