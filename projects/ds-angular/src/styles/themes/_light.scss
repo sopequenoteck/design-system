@@ -470,4 +470,107 @@
   --datepicker-option-hover-bg: var(--surface-hover);
   --datepicker-action-color: var(--text-default);
   --datepicker-action-hover-bg: var(--surface-hover);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS CARD
+   * ======================================================================== */
+  --card-bg: var(--surface-default);
+  --card-text: var(--text-default);
+  --card-border: var(--border-color);
+  --card-border-strong: var(--border-strong);
+  --card-divider: var(--border-subtle);
+  --card-header-color: var(--text-default);
+  --card-footer-color: var(--text-muted);
+  --card-shadow: var(--shadow-2);
+  --card-shadow-hover: var(--shadow-3);
+  --card-disabled-opacity: 0.5;
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS ALERT
+   * ======================================================================== */
+  --alert-success-bg: var(--bg-success);
+  --alert-success-border: var(--success);
+  --alert-success-text: var(--text-success);
+  --alert-success-icon: var(--success);
+  --alert-warning-bg: var(--bg-warning);
+  --alert-warning-border: var(--warning);
+  --alert-warning-text: var(--text-warning);
+  --alert-warning-icon: var(--warning);
+  --alert-error-bg: var(--bg-error);
+  --alert-error-border: var(--error);
+  --alert-error-text: var(--text-error);
+  --alert-error-icon: var(--error);
+  --alert-info-bg: var(--bg-info);
+  --alert-info-border: var(--info);
+  --alert-info-text: var(--text-info);
+  --alert-info-icon: var(--info);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS DIVIDER
+   * ======================================================================== */
+  --divider-color: var(--border-color);
+  --divider-text: var(--text-muted);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS SELECT
+   * ======================================================================== */
+  --select-bg: var(--surface-default);
+  --select-text: var(--text-default);
+  --select-border: var(--border-color);
+  --select-placeholder: var(--text-muted);
+  --select-hover-border: var(--color-primary);
+  --select-focus-border: var(--color-primary);
+  --select-focus-shadow: color-mix(in oklab, var(--color-primary) 20%, transparent);
+  --select-disabled-bg: var(--bg-disabled);
+  --select-dropdown-bg: var(--surface-default);
+  --select-dropdown-border: var(--border-color);
+  --select-option-hover-bg: var(--surface-hover);
+  --select-option-selected-bg: color-mix(in oklab, var(--color-primary) 10%, transparent);
+  --select-option-selected-text: var(--color-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS TABLE
+   * ======================================================================== */
+  --table-bg: var(--surface-default);
+  --table-border-color: var(--border-color);
+  --table-header-bg: var(--surface-raised);
+  --table-header-text: var(--text-default);
+  --table-header-hover-bg: var(--surface-hover);
+  --table-row-border: color-mix(in oklab, var(--border-color) 50%, transparent);
+  --table-row-hover-bg: var(--surface-hover);
+  --table-row-selected-bg: color-mix(in oklab, var(--color-primary) 10%, transparent);
+  --table-stripe-bg: var(--surface-raised);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS COMBOBOX
+   * ======================================================================== */
+  --combobox-bg: var(--surface-default);
+  --combobox-text: var(--text-default);
+  --combobox-border: var(--border-color);
+  --combobox-placeholder: var(--text-muted);
+  --combobox-hover-border: var(--color-primary);
+  --combobox-focus-border: var(--color-primary);
+  --combobox-focus-shadow: color-mix(in oklab, var(--color-primary) 20%, transparent);
+  --combobox-disabled-bg: var(--bg-disabled);
+  --combobox-dropdown-bg: var(--surface-default);
+  --combobox-dropdown-border: var(--border-color);
+  --combobox-option-hover-bg: var(--surface-hover);
+  --combobox-option-selected-bg: color-mix(in oklab, var(--color-primary) 10%, transparent);
+  --combobox-option-selected-text: var(--color-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS PROGRESS BAR
+   * ======================================================================== */
+  --progress-track-bg: var(--gray-200);
+  --progress-fill-bg: var(--color-primary);
+  --progress-fill-success: var(--success);
+  --progress-fill-warning: var(--warning);
+  --progress-fill-error: var(--error);
+  --progress-label-color: var(--text-default);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS SKELETON
+   * ======================================================================== */
+  --skeleton-bg: var(--gray-200);
+  --skeleton-shimmer: var(--gray-300);
 }

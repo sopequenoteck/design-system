@@ -343,6 +343,19 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Exports : DsAvatar, DsMenu, DsContainer, DsSearchInput, DsDatePicker + types
 - 📊 ÉTAPE 24 : 100% complétée — 30 composants DS au total
 
+**Tokens thématiques complets ÉTAPE 25** (2025-12-09) :
+- ✅ Tokens ds-card ajoutés : 10 tokens (--card-bg, --card-text, --card-border, --card-shadow, etc.)
+- ✅ Tokens ds-alert ajoutés : 16 tokens (success/warning/error/info bg, border, text, icon)
+- ✅ Tokens ds-divider ajoutés : 2 tokens (--divider-color, --divider-text)
+- ✅ Tokens ds-select ajoutés : 13 tokens (bg, text, border, hover, focus, dropdown, options)
+- ✅ Tokens ds-table ajoutés : 9 tokens (bg, header, border, row hover/selected, stripe)
+- ✅ Tokens ds-combobox ajoutés : 13 tokens (bg, text, border, hover, focus, dropdown, options)
+- ✅ Tokens ds-progress-bar ajoutés : 6 tokens (track-bg, fill-bg, fill-success/warning/error, label)
+- ✅ Tokens ds-skeleton ajoutés : 2 tokens (--skeleton-bg, --skeleton-shimmer)
+- ✅ _light.scss : 71 nouveaux tokens thématiques pour 8 composants
+- ✅ _dark.scss : 71 nouveaux tokens thématiques avec couleurs dark mode adaptées
+- 📊 ÉTAPE 25 : 100% complétée — Parité thématique complète pour les 30 composants DS
+
 ## Patterns techniques
 
 - **Standalone components** : Tous les composants sont standalone (Angular 20)
