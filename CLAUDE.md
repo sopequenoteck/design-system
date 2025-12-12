@@ -377,14 +377,26 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Tests ds-chip.spec.ts corrigés (helper getChipElement())
 - ✅ Correction ds-file-upload.ts : protected → readonly pour icônes
 - ✅ Documentation Tokens.mdx : section "Tokens composants SPRINT-001"
-- 🔍 Tokens _custom.scss : manquants pour chip, slider, file-upload (SPRINT-002)
+- ✅ Tokens _custom.scss : chip (45 tokens), slider (12 tokens), file-upload (18 tokens) ajoutés
+- ✅ Tests e2e Playwright : chip.spec.ts (30 tests), slider.spec.ts (28 tests), file-upload.spec.ts (32 tests)
 - 📊 ÉTAPE 26 : 100% complétée — 33 composants DS au total
 
 ---
 
 ## Versions publiées
 
-### v1.2.5 (2025-12-09) - Version actuelle
+### v1.3.0 (2025-12-12) - Version actuelle
+
+Package npm : `@kksdev/ds-angular@1.3.0`
+
+**Nouveautés v1.3.0 :**
+- `feat(components)`: DsChip, DsSlider, DsFileUpload (SPRINT-001)
+- `feat(tokens)`: Tokens thématiques SPRINT-001 dans les 3 thèmes (light/dark/custom)
+- `test(e2e)`: 90+ tests Playwright pour chip, slider, file-upload
+- `docs`: Tokens.mdx enrichi avec section SPRINT-001
+- `docs`: Accessibility.mdx et Integration.mdx enrichis
+
+### v1.2.5 (2025-12-09)
 
 Package npm : `@kksdev/ds-angular@1.2.5`
 
