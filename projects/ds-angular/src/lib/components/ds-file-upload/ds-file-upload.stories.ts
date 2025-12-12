@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule, FormControl, FormGroup } from '@angul
 import { Component } from '@angular/core';
 
 const meta: Meta<DsFileUpload> = {
-  title: 'Components/FileUpload',
+  title: 'Components/Forms/DsFileUpload',
   component: DsFileUpload,
   decorators: [
     applicationConfig({

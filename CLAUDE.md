@@ -371,11 +371,14 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ DsFileUpload créé : drag & drop, multiple files, accept, maxSize, preview
 - ✅ DsFileUpload : tailles (sm/md/lg), CVA, disabled, ARIA complet
 - ✅ DsFileUpload : 5 fichiers, stories complètes, tests unitaires
-- ✅ Tokens sémantiques : slider (16 tokens), file-upload (18 tokens)
-- ✅ Tokens thématiques : slider et file-upload ajoutés dans _light.scss et _dark.scss
+- ✅ Tokens sémantiques : chip (16), slider (16), file-upload (18) tokens ajoutés
+- ✅ Tokens thématiques : chip, slider, file-upload ajoutés dans _light.scss et _dark.scss
 - ✅ Exports : DsChip, DsSlider, DsFileUpload + 8 types dans index.ts
-- 🔍 Tokens ds-chip : manquants dans _semantic.scss, _tokens.scss, themes
-- 📊 ÉTAPE 26 : 90% complétée — 33 composants DS au total
+- ✅ Tests ds-chip.spec.ts corrigés (helper getChipElement())
+- ✅ Correction ds-file-upload.ts : protected → readonly pour icônes
+- ✅ Documentation Tokens.mdx : section "Tokens composants SPRINT-001"
+- 🔍 Tokens _custom.scss : manquants pour chip, slider, file-upload (SPRINT-002)
+- 📊 ÉTAPE 26 : 100% complétée — 33 composants DS au total
 
 ---
 

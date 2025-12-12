@@ -276,7 +276,42 @@ export class DsFileUpload implements ControlValueAccessor {
   private handleFiles(newFiles: File[]): void {
     this.errorMessage.set('');
 
-    // Vérifier la limite de fichiers
+    // En mode single, on remplace toujours le fichier existant
+    if (!this.multiple()) {
+      // Mode single : remplacer le fichier existant
+      const filesToAdd = [newFiles[0]];
+
+      // Valider et ajouter le fichier
+      const validFiles: UploadFile[] = [];
+
+      for (const file of filesToAdd) {
+        const validation = this.validateFile(file);
+        if (validation.valid) {
+          const uploadFile: UploadFile = {
+            file,
+            progress: 0,
+          };
+
+          // Générer preview pour les images
+          if (this.showPreview() && file.type.startsWith('image/')) {
+            this.generatePreview(file, uploadFile);
+          }
+
+          validFiles.push(uploadFile);
+        } else {
+          this.errorMessage.set(validation.error || 'Fichier invalide');
+        }
+      }
+
+      if (validFiles.length > 0) {
+        this.files.set(validFiles);
+        this.notifyChange();
+        this.simulateUpload(validFiles);
+      }
+      return;
+    }
+
+    // Mode multiple : vérifier la limite de fichiers
     const currentCount = this.fileCount();
     const maxFiles = this.maxFiles();
     const availableSlots = maxFiles - currentCount;
@@ -287,9 +322,7 @@ export class DsFileUpload implements ControlValueAccessor {
     }
 
     // Limiter le nombre de nouveaux fichiers
-    const filesToAdd = this.multiple()
-      ? newFiles.slice(0, availableSlots)
-      : [newFiles[0]];
+    const filesToAdd = newFiles.slice(0, availableSlots);
 
     // Valider et ajouter les fichiers
     const validFiles: UploadFile[] = [];
@@ -314,13 +347,8 @@ export class DsFileUpload implements ControlValueAccessor {
     }
 
     if (validFiles.length > 0) {
-      // Si single mode, remplacer le fichier existant
-      if (!this.multiple()) {
-        this.files.set(validFiles);
-      } else {
-        this.files.update((current) => [...current, ...validFiles]);
-      }
-
+      // Mode multiple : ajouter aux fichiers existants
+      this.files.update((current) => [...current, ...validFiles]);
       this.notifyChange();
       this.simulateUpload(validFiles);
     }
