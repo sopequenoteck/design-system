@@ -681,4 +681,21 @@
   --rating-empty-color: var(--gray-600);
   --rating-hover-color: color-mix(in oklab, var(--warning) 60%, transparent);
   --rating-focus-color: var(--color-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS DRAWER
+   * ======================================================================== */
+  --drawer-bg: var(--gray-800);
+  --drawer-border: var(--gray-700);
+  --drawer-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  --drawer-header-bg: var(--gray-750);
+  --drawer-footer-bg: var(--gray-750);
+  --drawer-title-color: var(--gray-100);
+  --drawer-body-color: var(--gray-200);
+  --drawer-close-color: var(--gray-400);
+  --drawer-close-hover-bg: var(--gray-700);
+  --drawer-close-hover-color: var(--gray-100);
+  --drawer-close-active-bg: var(--gray-600);
+  --drawer-close-focus-color: var(--color-primary);
+  --drawer-backdrop: rgba(0, 0, 0, 0.7);
 }

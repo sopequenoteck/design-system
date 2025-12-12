@@ -586,3 +586,22 @@ $rating-active-scale: 0.95;
 $rating-disabled-opacity: 0.5;
 
 $rating-focus-radius: $radius-1;
+
+// === DRAWER ===
+
+$drawer-width-sm: 320px;
+$drawer-width-md: 480px;
+$drawer-width-lg: 640px;
+
+$drawer-header-padding: $space-4;
+$drawer-body-padding: $space-4;
+$drawer-footer-padding: $space-4;
+
+$drawer-title-font-size: $font-size-4;
+$drawer-title-font-weight: 600;
+
+$drawer-close-size: 32px;
+$drawer-close-radius: $radius-1;
+
+$drawer-backdrop-z-index: 1000;
+$drawer-z-index: 1001;

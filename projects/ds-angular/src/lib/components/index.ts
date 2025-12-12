@@ -202,3 +202,9 @@ export {
   DsRating,
   type RatingSize,
 } from './ds-rating/ds-rating';
+
+export {
+  DsDrawer,
+  type DrawerPosition,
+  type DrawerSize,
+} from './ds-drawer/ds-drawer';

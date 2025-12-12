@@ -608,4 +608,18 @@
   --rating-active-scale: #{$rating-active-scale};
   --rating-disabled-opacity: #{$rating-disabled-opacity};
   --rating-focus-radius: #{$rating-focus-radius};
+
+  /* === DRAWER === */
+  --drawer-width-sm: #{$drawer-width-sm};
+  --drawer-width-md: #{$drawer-width-md};
+  --drawer-width-lg: #{$drawer-width-lg};
+  --drawer-header-padding: #{$drawer-header-padding};
+  --drawer-body-padding: #{$drawer-body-padding};
+  --drawer-footer-padding: #{$drawer-footer-padding};
+  --drawer-title-font-size: #{$drawer-title-font-size};
+  --drawer-title-font-weight: #{$drawer-title-font-weight};
+  --drawer-close-size: #{$drawer-close-size};
+  --drawer-close-radius: #{$drawer-close-radius};
+  --drawer-backdrop-z-index: #{$drawer-backdrop-z-index};
+  --drawer-z-index: #{$drawer-z-index};
 }
