@@ -673,4 +673,12 @@
   --empty-icon-color: var(--gray-500);
   --empty-title-color: var(--text-default);
   --empty-description-color: var(--text-muted);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS RATING
+   * ======================================================================== */
+  --rating-filled-color: var(--warning);
+  --rating-empty-color: var(--gray-600);
+  --rating-hover-color: color-mix(in oklab, var(--warning) 60%, transparent);
+  --rating-focus-color: var(--color-primary);
 }

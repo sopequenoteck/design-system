@@ -1,0 +1,34 @@
+<div
+  [class]="containerClasses()"
+  role="slider"
+  [attr.aria-label]="'Note : ' + displayValue() + ' sur ' + max()"
+  [attr.aria-valuenow]="displayValue()"
+  [attr.aria-valuemin]="0"
+  [attr.aria-valuemax]="max()"
+  [attr.aria-readonly]="readonly()"
+  [attr.aria-disabled]="disabled()"
+  [attr.tabindex]="disabled() || readonly() ? -1 : 0"
+  (keydown)="handleKeyDown($event)"
+  (mouseleave)="handleMouseLeave()">
+
+  @for (starIndex of stars(); track starIndex) {
+    <span
+      class="ds-rating__star"
+      [attr.data-index]="starIndex"
+      (click)="handleStarClick(starIndex, $event)"
+      (mousemove)="handleStarHover(starIndex, $event)">
+
+      @switch (getStarType(starIndex)) {
+        @case ('full') {
+          <fa-icon [icon]="faStar" class="ds-rating__icon ds-rating__icon--filled" aria-hidden="true" />
+        }
+        @case ('half') {
+          <fa-icon [icon]="faStarHalf" class="ds-rating__icon ds-rating__icon--half" aria-hidden="true" />
+        }
+        @case ('empty') {
+          <fa-icon [icon]="faStar" class="ds-rating__icon ds-rating__icon--empty" aria-hidden="true" />
+        }
+      }
+    </span>
+  }
+</div>

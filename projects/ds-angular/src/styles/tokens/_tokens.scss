@@ -596,4 +596,16 @@
   --empty-description-font-size: #{$empty-description-font-size};
   --empty-description-max-width: #{$empty-description-max-width};
   --empty-actions-gap: #{$empty-actions-gap};
+
+  /* === RATING === */
+  --rating-gap-sm: #{$rating-gap-sm};
+  --rating-gap-md: #{$rating-gap-md};
+  --rating-gap-lg: #{$rating-gap-lg};
+  --rating-icon-size-sm: #{$rating-icon-size-sm};
+  --rating-icon-size-md: #{$rating-icon-size-md};
+  --rating-icon-size-lg: #{$rating-icon-size-lg};
+  --rating-hover-scale: #{$rating-hover-scale};
+  --rating-active-scale: #{$rating-active-scale};
+  --rating-disabled-opacity: #{$rating-disabled-opacity};
+  --rating-focus-radius: #{$rating-focus-radius};
 }

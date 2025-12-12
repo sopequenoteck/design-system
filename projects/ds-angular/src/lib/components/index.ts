@@ -197,3 +197,8 @@ export {
   DsEmpty,
   type EmptySize,
 } from './ds-empty/ds-empty';
+
+export {
+  DsRating,
+  type RatingSize,
+} from './ds-rating/ds-rating';
