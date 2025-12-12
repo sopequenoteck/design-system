@@ -406,7 +406,17 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 
 ## Versions publiées
 
-### v1.3.0 (2025-12-12) - Version actuelle
+### v1.4.0 (2025-12-12) - Version actuelle
+
+Package npm : `@kksdev/ds-angular@1.4.0`
+
+**Nouveautés v1.4.0 :**
+- `feat(components)`: DsEmpty, DsRating, DsDrawer, DsTimePicker, DsTree (5 composants utilitaires finaux)
+- `test(e2e)`: 450+ tests Playwright pour empty, rating, drawer, time-picker, tree
+- `test(unit)`: 1808 tests unitaires (99.6% succès), couverture 87.22% statements
+- `docs`: DS_TODO.md mis à jour avec état complet
+
+### v1.3.0 (2025-12-12)
 
 Package npm : `@kksdev/ds-angular@1.3.0`
 
@@ -441,7 +451,7 @@ Package npm : `@kksdev/ds-angular@1.2.5`
 ### Installation
 
 ```bash
-npm install @kksdev/ds-angular@1.2.5
+npm install @kksdev/ds-angular@1.4.0
 ```
 
 ## Patterns techniques

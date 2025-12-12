@@ -287,7 +287,7 @@ describe('DsRating', () => {
     it('should work with FormControl', () => {
       const control = new FormControl(3);
       fixture.componentRef.setInput('value', control.value);
-      component.writeValue(control.value);
+      component.writeValue(control.value!);
       fixture.detectChanges();
 
       expect(component.internalValue()).toBe(3);

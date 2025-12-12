@@ -1,6 +1,6 @@
 {
   "name": "@kksdev/ds-angular",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Angular 20 standalone component library - Design System with 38 components, 7 primitives, 3 themes, i18n support",
   "keywords": [
     "angular",

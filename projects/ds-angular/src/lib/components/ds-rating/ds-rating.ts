@@ -99,12 +99,12 @@ export class DsRating implements ControlValueAccessor {
   /**
    * État interne de la valeur (ControlValueAccessor).
    */
-  protected internalValue = signal<number>(0);
+  readonly internalValue = signal<number>(0);
 
   /**
    * État de survol (pour aperçu avant clic).
    */
-  protected hoverValue = signal<number | null>(null);
+  readonly hoverValue = signal<number | null>(null);
 
   /**
    * Callbacks ControlValueAccessor.
