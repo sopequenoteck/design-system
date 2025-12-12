@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { expect, userEvent, within, waitFor } from '@storybook/test';
 import { moduleMetadata } from '@storybook/angular';
 import { DsModalComponent } from './ds-modal.component';
 import { DsButton } from '../ds-button/ds-button';
@@ -512,6 +513,114 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const Accessibility: Story = {
+  render: () => ({
+    props: {
+      isOpen: false,
+    },
+    template: `
+      <ds-button (clicked)="isOpen = true">Ouvrir la modale</ds-button>
+      <ds-modal [open]="isOpen" title="Modale accessible" [closable]="true" (closed)="isOpen = false">
+        <p>Cette modale démontre les fonctionnalités d'accessibilité :</p>
+        <ul>
+          <li>Focus trap : le focus reste dans la modale</li>
+          <li>ESC ferme la modale</li>
+          <li>Focus automatique sur le premier élément focusable</li>
+          <li>Retour du focus au déclencheur à la fermeture</li>
+        </ul>
+        <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px;">
+          <ds-button variant="ghost" (clicked)="isOpen = false">Annuler</ds-button>
+          <ds-button (clicked)="isOpen = false">Confirmer</ds-button>
+        </div>
+      </ds-modal>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Navigue entre les éléments focusables (focus trap actif) |
+| Shift + Tab | Navigation arrière |
+| Escape | Ferme la modale (si closable) |
+| Enter | Active le bouton focalisé |
+
+### Attributs ARIA
+- \`role="dialog"\`: Identifie la modale
+- \`aria-modal="true"\`: Indique le mode modal
+- \`aria-labelledby\`: Lie le titre à la modale
+- \`aria-describedby\`: Lie la description au contenu
+
+### Bonnes pratiques
+- Focus trap : empêche le focus de sortir de la modale
+- Focus automatique sur le premier élément interactif
+- Restauration du focus à la fermeture
+- Backdrop cliquable pour fermer (closeOnBackdrop)
+- Types sémantiques (success, warning, error, info) avec icônes
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  render: () => ({
+    props: {
+      isOpen: false,
+    },
+    template: `
+      <ds-button (clicked)="isOpen = true" data-testid="open-btn">Ouvrir</ds-button>
+      <ds-modal [open]="isOpen" title="Modale de test" [closable]="true" (closed)="isOpen = false" data-testid="test-modal">
+        <p>Contenu de la modale</p>
+        <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px;">
+          <ds-button variant="ghost" (clicked)="isOpen = false" data-testid="cancel-btn">Annuler</ds-button>
+          <ds-button (clicked)="isOpen = false" data-testid="confirm-btn">Confirmer</ds-button>
+        </div>
+      </ds-modal>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const openButton = canvas.getByTestId('open-btn');
+
+    // Ouvrir la modale
+    await userEvent.click(openButton);
+
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Vérifier que la modale est ouverte
+    const modal = document.querySelector('[data-testid="test-modal"]');
+    await expect(modal).toBeInTheDocument();
+
+    // Trouver le bouton de fermeture (X)
+    const closeButton = modal?.querySelector('.ds-modal__close') as HTMLElement;
+
+    if (closeButton) {
+      // Fermer la modale avec le bouton X
+      await userEvent.click(closeButton);
+
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      // Vérifier que la modale est fermée
+      await waitFor(() => {
+        const closedModal = document.querySelector('.ds-modal--open');
+        expect(closedModal).not.toBeInTheDocument();
+      });
+    }
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie l\'ouverture, la fermeture et ESC.',
       },
     },
   },

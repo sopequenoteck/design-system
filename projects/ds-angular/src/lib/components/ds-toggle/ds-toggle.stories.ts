@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { DsToggle } from './ds-toggle';
 
 const meta: Meta<DsToggle> = {
@@ -236,6 +237,85 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const Accessibility: Story = {
+  args: {
+    label: 'Activer les notifications',
+    helper: 'Recevez des alertes en temps réel',
+    labelPosition: 'right',
+    size: 'md',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers le toggle |
+| Space | Active/désactive le toggle |
+| Enter | Active/désactive le toggle |
+
+### Attributs ARIA
+- \`role="switch"\`: Identifie l'élément comme un interrupteur
+- \`aria-checked\`: Indique l'état activé/désactivé
+- \`aria-disabled\`: Indique si le toggle est désactivé
+- \`aria-describedby\`: Lie le texte d'aide au toggle
+
+### Bonnes pratiques
+- Le label est visible et cliquable pour activer le toggle
+- L'état de focus est clairement indiqué visuellement
+- L'état activé/désactivé est visible via la couleur et la position
+- Le texte d'aide fournit du contexte supplémentaire
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    label: 'Mode sombre',
+    size: 'md',
+  },
+  render: (args) => ({
+    props: args,
+    template: `<ds-toggle [label]="label" [size]="size" data-testid="test-toggle"></ds-toggle>`,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const toggleContainer = canvas.getByTestId('test-toggle');
+    const toggleInput = toggleContainer.querySelector('input[type="checkbox"]') as HTMLInputElement;
+
+    // Vérifier l'état initial (désactivé)
+    await expect(toggleInput).not.toBeChecked();
+
+    // Activer le toggle
+    await userEvent.click(toggleInput);
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Vérifier que le toggle est activé
+    await expect(toggleInput).toBeChecked();
+
+    // Désactiver le toggle
+    await userEvent.click(toggleInput);
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Vérifier que le toggle est désactivé
+    await expect(toggleInput).not.toBeChecked();
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie le toggle on/off.',
       },
     },
   },

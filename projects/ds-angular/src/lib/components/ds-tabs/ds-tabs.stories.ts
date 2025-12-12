@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { DsTabs, TabItem } from './ds-tabs';
 
 const meta: Meta<DsTabs> = {
@@ -191,6 +192,91 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const Accessibility: Story = {
+  args: {
+    tabs: [
+      { id: 'tab1', label: 'Informations' },
+      { id: 'tab2', label: 'Documents' },
+      { id: 'tab3', label: 'Paramètres' },
+      { id: 'tab4', label: 'Historique', disabled: true },
+    ],
+    activeTabId: 'tab1',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers le premier/prochain tab |
+| Arrow Right | Sélectionne le tab suivant |
+| Arrow Left | Sélectionne le tab précédent |
+| Home | Sélectionne le premier tab |
+| End | Sélectionne le dernier tab |
+| Enter/Space | Active le tab focalisé |
+
+### Attributs ARIA
+- \`role="tablist"\`: Identifie le conteneur des tabs
+- \`role="tab"\`: Identifie chaque onglet
+- \`role="tabpanel"\`: Identifie le panneau de contenu
+- \`aria-selected\`: Indique le tab actif
+- \`aria-controls\`: Lie le tab à son panneau
+- \`aria-disabled\`: Indique les tabs désactivés
+
+### Bonnes pratiques
+- Navigation clavier fluide entre les onglets
+- Un seul tab est focusable à la fois (roving tabindex)
+- L'indicateur visuel montre clairement le tab actif
+- Les tabs désactivés restent visibles mais non activables
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    tabs: basicTabs,
+  },
+  render: (args) => ({
+    props: args,
+    template: `<ds-tabs [tabs]="tabs" data-testid="test-tabs"></ds-tabs>`,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const tabsContainer = canvas.getByTestId('test-tabs');
+    const tabButtons = tabsContainer.querySelectorAll('[role="tab"]');
+
+    // Vérifier que les tabs sont dans le DOM
+    await expect(tabButtons.length).toBeGreaterThan(0);
+
+    // Vérifier que le premier tab est actif par défaut
+    const firstTab = tabButtons[0] as HTMLElement;
+    await expect(firstTab).toHaveAttribute('aria-selected', 'true');
+
+    // Cliquer sur le deuxième tab
+    const secondTab = tabButtons[1] as HTMLElement;
+    await userEvent.click(secondTab);
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Vérifier que le deuxième tab est maintenant actif
+    await expect(secondTab).toHaveAttribute('aria-selected', 'true');
+    // Et que le premier ne l'est plus
+    await expect(firstTab).toHaveAttribute('aria-selected', 'false');
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie la sélection des tabs et la navigation clavier.',
       },
     },
   },

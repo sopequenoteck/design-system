@@ -258,3 +258,42 @@ export const Themed: Story = {
     },
   },
 };
+
+export const Accessibility: Story = {
+  args: {
+    placeholder: 'Rechercher...',
+    size: 'md',
+    debounceMs: 300,
+    clearable: true,
+    minChars: 2,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers l'input |
+| Type | Saisie et déclenchement de la recherche |
+| Escape | Efface le contenu (si clearable) |
+| Enter | Soumet la recherche immédiatement |
+
+### Attributs ARIA
+- \`role="searchbox"\`: Identifie le champ de recherche
+- \`aria-label="Rechercher"\`: Description
+- \`aria-busy\`: Indique le chargement
+- \`aria-describedby\`: Lie les suggestions/résultats
+
+### Bonnes pratiques
+- Debounce pour limiter les requêtes
+- Indicateur de chargement visible
+- Bouton clear accessible au clavier
+- minChars évite les recherches trop larges
+- Messages de feedback (résultats, erreurs)
+        `,
+      },
+    },
+  },
+};

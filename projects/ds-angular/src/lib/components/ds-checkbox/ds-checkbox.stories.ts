@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { DsCheckbox } from './ds-checkbox';
 
 const meta: Meta<DsCheckbox> = {
@@ -215,6 +216,86 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const Accessibility: Story = {
+  args: {
+    label: 'J\'accepte les conditions',
+    helper: 'Cochez cette case pour continuer',
+    size: 'md',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers la checkbox |
+| Space | Coche/décoche la checkbox |
+| Shift + Tab | Déplace le focus vers l'élément précédent |
+
+### Attributs ARIA
+- \`role="checkbox"\`: Identifie l'élément comme une case à cocher
+- \`aria-checked\`: Indique l'état coché/non coché/indéterminé
+- \`aria-disabled\`: Indique si la checkbox est désactivée
+- \`aria-required\`: Indique si la checkbox est obligatoire
+- \`aria-describedby\`: Lie le message d'aide ou d'erreur
+
+### Bonnes pratiques
+- Le label est toujours visible et cliquable
+- L'état de focus est clairement visible
+- Les messages d'erreur sont annoncés aux lecteurs d'écran
+- L'indicateur requis (*) est présent visuellement et dans le label ARIA
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    label: 'Option de test',
+    size: 'md',
+  },
+  render: (args) => ({
+    props: args,
+    template: `<ds-checkbox [label]="label" [size]="size" data-testid="test-checkbox"></ds-checkbox>`,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const checkboxContainer = canvas.getByTestId('test-checkbox');
+    const checkbox = checkboxContainer.querySelector('input[type="checkbox"]') as HTMLInputElement;
+
+    // Vérifier l'état initial (décoché)
+    await expect(checkbox).not.toBeChecked();
+
+    // Cliquer sur la checkbox pour la cocher
+    await userEvent.click(checkbox);
+
+    // Attendre un court délai pour la mise à jour
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Vérifier que la checkbox est cochée
+    await expect(checkbox).toBeChecked();
+
+    // Cliquer à nouveau pour décocher
+    await userEvent.click(checkbox);
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Vérifier que la checkbox est décochée
+    await expect(checkbox).not.toBeChecked();
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie le toggle de l\'état coché/décoché.',
       },
     },
   },

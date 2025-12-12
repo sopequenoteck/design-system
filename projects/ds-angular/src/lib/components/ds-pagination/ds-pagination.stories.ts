@@ -1,4 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { DsPagination } from './ds-pagination';
 
 const meta: Meta<DsPagination> = {
@@ -214,6 +215,86 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const Accessibility: Story = {
+  args: {
+    ...Default.args,
+    showPageSizeSelector: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Navigue entre les boutons de pagination |
+| Enter/Space | Active le bouton focalisé |
+| Arrow Left/Right | Navigation rapide (optionnelle) |
+
+### Attributs ARIA
+- \`role="navigation"\`: Identifie la navigation
+- \`aria-label="Pagination"\`: Décrit la navigation
+- \`aria-current="page"\`: Indique la page courante
+- \`aria-disabled\`: Boutons désactivés (prev/next)
+
+### Bonnes pratiques
+- Boutons first/last pour navigation rapide
+- Info "X - Y sur Z" pour le contexte
+- Sélecteur de taille de page accessible
+- maxVisiblePages pour gérer les longues listes
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    totalItems: 100,
+    pageSize: 10,
+    currentPage: 1,
+    showFirstLast: true,
+  },
+  render: (args) => ({
+    props: { ...args, currentPageState: 1 },
+    template: `<ds-pagination [totalItems]="totalItems" [pageSize]="pageSize" [currentPage]="currentPageState" [showFirstLast]="showFirstLast" (pageChange)="currentPageState = $event" data-testid="test-pagination"></ds-pagination>`,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const paginationContainer = canvas.getByTestId('test-pagination');
+
+    // Vérifier que la pagination est dans le DOM
+    await expect(paginationContainer).toBeInTheDocument();
+
+    // Trouver le bouton "Next"
+    const nextButton = Array.from(paginationContainer.querySelectorAll('button')).find(
+      btn => btn.getAttribute('aria-label') === 'Page suivante'
+    ) as HTMLButtonElement;
+
+    if (nextButton) {
+      // Cliquer sur next
+      await userEvent.click(nextButton);
+
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // Vérifier que la page 2 est maintenant active
+      const page2Button = Array.from(paginationContainer.querySelectorAll('button')).find(
+        btn => btn.textContent?.trim() === '2' && btn.getAttribute('aria-current') === 'page'
+      );
+      await expect(page2Button).toBeInTheDocument();
+    }
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie la navigation entre les pages.',
       },
     },
   },

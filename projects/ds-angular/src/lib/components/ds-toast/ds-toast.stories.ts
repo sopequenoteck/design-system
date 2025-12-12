@@ -127,6 +127,17 @@ const meta: Meta = {
       imports: [ToastDemoComponent, ToastPositionsDemoComponent, ToastActionDemoComponent, ToastPersistentDemoComponent],
     }),
   ],
+  argTypes: {
+    // Events/Actions
+    closed: {
+      action: 'closed',
+      description: 'Émis lorsqu\'un toast est fermé (manuellement ou automatiquement)',
+      table: {
+        category: 'Events',
+        type: { summary: 'EventEmitter<void>' },
+      },
+    },
+  },
 };
 
 export default meta;

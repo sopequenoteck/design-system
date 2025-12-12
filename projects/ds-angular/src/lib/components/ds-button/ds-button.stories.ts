@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { DsButton } from './ds-button';
 import { faPlus, faCheck, faArrowRight, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -373,6 +374,38 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    variant: 'primary',
+    size: 'md',
+  },
+  render: (args) => ({
+    props: args,
+    template: `<ds-button [variant]="variant" [size]="size" data-testid="test-button">Cliquez-moi</ds-button>`,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const button = canvas.getByTestId('test-button');
+
+    // Vérifier que le bouton est dans le DOM
+    await expect(button).toBeInTheDocument();
+
+    // Cliquer sur le bouton
+    await userEvent.click(button);
+
+    // Vérifier que le bouton reçoit le focus après le clic
+    await expect(button).toHaveFocus();
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie le clic et le focus du bouton.',
       },
     },
   },

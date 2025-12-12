@@ -1,4 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { DsDatePicker } from './ds-date-picker';
 
@@ -372,6 +373,86 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const Accessibility: Story = {
+  args: {
+    size: 'md',
+    mode: 'single',
+    showTodayButton: true,
+    showClearButton: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Navigue entre les contrôles du calendrier |
+| Arrow keys | Navigue entre les jours |
+| Home/End | Va au premier/dernier jour du mois |
+| Page Up/Down | Change de mois |
+| Enter/Space | Sélectionne la date focalisée |
+| Escape | Ferme le calendrier |
+
+### Attributs ARIA
+- \`role="dialog"\`: Identifie le panneau calendrier
+- \`aria-label\`: Décrit le calendrier
+- \`aria-selected\`: Indique les dates sélectionnées
+- \`aria-disabled\`: Indique les dates désactivées
+- \`aria-current="date"\`: Marque la date du jour
+
+### Bonnes pratiques
+- Navigation clavier complète dans le calendrier
+- Les boutons Aujourd'hui et Effacer sont accessibles
+- Mode range permet la sélection de plages de dates
+- Labels clairs pour tous les contrôles
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    size: 'md',
+    mode: 'single',
+    showTodayButton: true,
+  },
+  render: (args) => ({
+    props: { ...args, selectedDate: null },
+    template: `<ds-date-picker [size]="size" [mode]="mode" [showTodayButton]="showTodayButton" [(ngModel)]="selectedDate" data-testid="test-date-picker"></ds-date-picker>`,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const datePickerContainer = canvas.getByTestId('test-date-picker');
+
+    // Vérifier que le date picker est dans le DOM
+    await expect(datePickerContainer).toBeInTheDocument();
+
+    // Trouver et cliquer sur le bouton "Aujourd'hui"
+    const todayButton = datePickerContainer.querySelector('[data-action="today"]') as HTMLButtonElement;
+
+    if (todayButton) {
+      await userEvent.click(todayButton);
+
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // Vérifier que la date d'aujourd'hui est sélectionnée
+      const selectedDay = datePickerContainer.querySelector('[aria-selected="true"]');
+      await expect(selectedDay).toBeInTheDocument();
+    }
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie la sélection de date.',
       },
     },
   },

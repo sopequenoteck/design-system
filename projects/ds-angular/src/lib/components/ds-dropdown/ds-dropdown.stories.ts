@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { DsDropdown } from './ds-dropdown';
 import { DropdownItem } from './model/dropdown-item.model';
 import { faChevronDown, faUser, faCog, faGlobe } from '@fortawesome/free-solid-svg-icons';
@@ -233,6 +234,90 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const Accessibility: Story = {
+  args: {
+    ...Default.args,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Focus le bouton dropdown |
+| Enter/Space | Ouvre le menu |
+| Arrow Up/Down | Navigue dans les options |
+| Escape | Ferme le menu |
+
+### Attributs ARIA
+- \`role="button"\`: Bouton déclencheur
+- \`aria-haspopup="menu"\`: Indique le menu
+- \`aria-expanded\`: État ouvert/fermé
+- \`role="menu"\`: Menu d'options
+- \`role="menuitem"\`: Chaque option
+
+### Bonnes pratiques
+- Navigation clavier complète
+- Focus visible sur le bouton
+- Options cliquables et accessibles
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  render: () => ({
+    props: {
+      items: basicItems,
+    },
+    template: `
+      <ds-dropdown [dropdownItems]="items" data-testid="test-dropdown">
+        Actions
+      </ds-dropdown>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const dropdownContainer = canvas.getByTestId('test-dropdown');
+    const triggerButton = dropdownContainer.querySelector('button') as HTMLButtonElement;
+
+    // Vérifier que le bouton est dans le DOM
+    await expect(triggerButton).toBeInTheDocument();
+
+    // Ouvrir le dropdown
+    await userEvent.click(triggerButton);
+
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    // Vérifier que le dropdown est ouvert
+    const dropdown = document.querySelector('.ds-dropdown__menu');
+    await expect(dropdown).toBeInTheDocument();
+
+    // Sélectionner la première option
+    const firstOption = dropdown?.querySelector('.ds-dropdown__item') as HTMLElement;
+    if (firstOption) {
+      await userEvent.click(firstOption);
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    // Vérifier que le dropdown se ferme après la sélection
+    const closedDropdown = document.querySelector('.ds-dropdown__menu');
+    await expect(closedDropdown).not.toBeInTheDocument();
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie l\'ouverture, la sélection et la fermeture.',
       },
     },
   },

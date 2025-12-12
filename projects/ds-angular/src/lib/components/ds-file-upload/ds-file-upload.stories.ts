@@ -50,6 +50,31 @@ const meta: Meta<DsFileUpload> = {
       control: 'text',
       description: "Texte d'aide pour le drag & drop",
     },
+    // Events/Actions
+    filesChange: {
+      action: 'filesChange',
+      description: 'Émis lorsque la liste de fichiers change (ajout ou suppression)',
+      table: {
+        category: 'Events',
+        type: { summary: 'EventEmitter<File[]>' },
+      },
+    },
+    fileRemoved: {
+      action: 'fileRemoved',
+      description: 'Émis lorsqu\'un fichier est retiré de la liste',
+      table: {
+        category: 'Events',
+        type: { summary: 'EventEmitter<File>' },
+      },
+    },
+    uploadProgress: {
+      action: 'uploadProgress',
+      description: 'Émis pour suivre la progression de l\'upload d\'un fichier',
+      table: {
+        category: 'Events',
+        type: { summary: 'EventEmitter<{ file: File; progress: number }>' },
+      },
+    },
   },
 };
 
@@ -380,4 +405,43 @@ export const AllSizes: Story = {
       </div>
     `,
   }),
+};
+
+export const Accessibility: Story = {
+  args: {
+    accept: 'image/*,.pdf',
+    multiple: true,
+    maxFiles: 3,
+    size: 'md',
+    label: 'Choisir des fichiers',
+    dragHelpText: 'ou glisser-déposer',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers la zone de upload |
+| Enter/Space | Ouvre le sélecteur de fichiers |
+| Drag & Drop | Support complet du glisser-déposer |
+
+### Attributs ARIA
+- \`role="button"\`: Zone cliquable pour upload
+- \`aria-label\`: Description de la zone de upload
+- \`aria-describedby\`: Lie les instructions d'usage
+- \`aria-disabled\`: État désactivé
+
+### Bonnes pratiques
+- Preview visuelle pour les images
+- Messages d'erreur clairs (taille, type)
+- Support drag & drop avec feedback visuel
+- Liste des fichiers sélectionnés accessible
+- Bouton de suppression pour chaque fichier
+        `,
+      },
+    },
+  },
 };

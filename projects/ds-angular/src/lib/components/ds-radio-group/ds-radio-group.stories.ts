@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { moduleMetadata } from '@storybook/angular';
 import { PrimitiveRadio } from '../../primitives/primitive-radio/primitive-radio';
 
@@ -322,6 +323,93 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const Accessibility: Story = {
+  render: () => ({
+    template: `
+      <fieldset style="border: none; padding: 0; margin: 0;">
+        <legend style="font-weight: 500; margin-bottom: 12px;">Choisissez une option (utilisez les flèches)</legend>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <primitive-radio name="accessibility" value="option1" label="Option 1" [checked]="true"></primitive-radio>
+          <primitive-radio name="accessibility" value="option2" label="Option 2"></primitive-radio>
+          <primitive-radio name="accessibility" value="option3" label="Option 3"></primitive-radio>
+        </div>
+      </fieldset>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers le groupe de radios |
+| Arrow Up/Down | Sélectionne le radio précédent/suivant |
+| Arrow Left/Right | Sélectionne le radio précédent/suivant |
+| Space | Sélectionne le radio focalisé |
+
+### Attributs ARIA
+- \`role="radiogroup"\`: Identifie le conteneur du groupe (fieldset/legend recommandé)
+- \`role="radio"\`: Identifie chaque option radio
+- \`aria-checked\`: Indique quelle option est sélectionnée
+- \`aria-disabled\`: Indique les options désactivées
+
+### Bonnes pratiques
+- Toujours regrouper les radios dans un \`<fieldset>\` avec un \`<legend>\`
+- Un seul radio peut être sélectionné à la fois dans un groupe
+- La navigation au clavier doit parcourir tous les radios du groupe
+- Le focus est visible sur l'option sélectionnée
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  render: () => ({
+    template: `
+      <fieldset style="border: none; padding: 0; margin: 0;" data-testid="radio-group">
+        <legend style="font-weight: 500; margin-bottom: 12px;">Sélectionnez une option</legend>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <primitive-radio name="test-group" value="option1" label="Option 1" [checked]="true" data-testid="radio1"></primitive-radio>
+          <primitive-radio name="test-group" value="option2" label="Option 2" data-testid="radio2"></primitive-radio>
+          <primitive-radio name="test-group" value="option3" label="Option 3" data-testid="radio3"></primitive-radio>
+        </div>
+      </fieldset>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const radio1Container = canvas.getByTestId('radio1');
+    const radio2Container = canvas.getByTestId('radio2');
+    const radio1 = radio1Container.querySelector('input[type="radio"]') as HTMLInputElement;
+    const radio2 = radio2Container.querySelector('input[type="radio"]') as HTMLInputElement;
+
+    // Vérifier que l'option 1 est sélectionnée par défaut
+    await expect(radio1).toBeChecked();
+    await expect(radio2).not.toBeChecked();
+
+    // Sélectionner l'option 2
+    await userEvent.click(radio2);
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Vérifier que l'option 2 est maintenant sélectionnée
+    await expect(radio2).toBeChecked();
+    // Et que l'option 1 n'est plus sélectionnée (comportement radio)
+    await expect(radio1).not.toBeChecked();
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie la sélection exclusive des options radio.',
       },
     },
   },

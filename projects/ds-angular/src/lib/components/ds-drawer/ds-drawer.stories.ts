@@ -3,29 +3,45 @@ import { signal } from '@angular/core';
 import { DsDrawer } from './ds-drawer';
 import { DsButton } from '../ds-button/ds-button';
 
-/**
- * # DsDrawer
- *
- * Composant de panneau latéral overlay avec animation slide-in/out
- * et support CDK Overlay pour le focus trap.
- *
- * ## Usage
- *
- * ```html
- * <ds-drawer
- *   [(visible)]="isDrawerOpen"
- *   position="right"
- *   size="md"
- *   title="Détails"
- *   [closable]="true"
- *   (closed)="onDrawerClose()">
- *   <p>Contenu du drawer</p>
- * </ds-drawer>
- * ```
- */
 const meta: Meta<DsDrawer> = {
   title: 'Overlays/DsDrawer',
   component: DsDrawer,
+  parameters: {
+    docs: {
+      description: {
+        component: `
+**DsDrawer** est un composant de panneau latéral coulissant (overlay) avec animation slide-in/out, focus trap via CDK Overlay, et support de la navigation clavier.
+
+### Caractéristiques principales
+- Positions multiples (left, right, top, bottom)
+- Tailles configurables (sm, md, lg, full)
+- Animation slide-in/out fluide
+- Focus trap automatique (piège le focus dans le drawer)
+- Fermeture par ESC, backdrop ou bouton close
+- Header avec titre et footer personnalisables via content projection
+- Attributs ARIA complets (role="dialog", aria-modal, aria-labelledby)
+
+### Utilisation
+\`\`\`html
+<ds-drawer
+  [(visible)]="isDrawerOpen"
+  position="right"
+  size="md"
+  title="Détails"
+  [closable]="true"
+  [maskClosable]="true"
+  (closed)="onDrawerClose()">
+  <p>Contenu du drawer</p>
+
+  <div drawer-footer>
+    <button ds-button variant="primary">Valider</button>
+  </div>
+</ds-drawer>
+\`\`\`
+        `,
+      },
+    },
+  },
   decorators: [
     moduleMetadata({
       imports: [DsDrawer, DsButton],
@@ -549,5 +565,66 @@ export const Themed: Story = {
         </div>
       `,
     };
+  },
+};
+
+export const Accessibility: Story = {
+  render: () => {
+    const isOpen = signal(false);
+    return {
+      props: {
+        isOpen,
+        openDrawer() {
+          isOpen.set(true);
+        },
+      },
+      template: `
+        <button ds-button variant="primary" (click)="openDrawer()">
+          Ouvrir le drawer
+        </button>
+
+        <ds-drawer
+          [visible]="isOpen()"
+          (visibleChange)="isOpen.set($event)"
+          title="Drawer accessible"
+          position="right"
+          size="md">
+          <p>Ce drawer démontre les fonctionnalités d'accessibilité :</p>
+          <ul>
+            <li>Focus trap : le focus reste dans le drawer</li>
+            <li>ESC ferme le drawer (si closable)</li>
+            <li>Focus automatique sur le premier élément</li>
+            <li>Restauration du focus à la fermeture</li>
+          </ul>
+        </ds-drawer>
+      `,
+    };
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Navigue entre les éléments focusables |
+| Escape | Ferme le drawer (si closable) |
+| Enter | Active l'élément focalisé |
+
+### Attributs ARIA
+- \`role="dialog"\`: Identifie le drawer
+- \`aria-modal="true"\`: Mode modal
+- \`aria-labelledby\`: Lie le titre
+- \`aria-describedby\`: Lie la description
+
+### Bonnes pratiques
+- Focus trap actif
+- Positions multiples (left/right/top/bottom)
+- Tailles configurables (sm/md/lg/full)
+- Backdrop optionnel (maskClosable)
+        `,
+      },
+    },
   },
 };

@@ -1,4 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { DsTable, DsTableColumn } from './ds-table';
 import { DsPagination } from '../ds-pagination/ds-pagination';
 
@@ -472,6 +473,61 @@ export const ServerSidePagination: Story = {
     docs: {
       description: {
         story: 'Pattern de pagination côté serveur. Le loading state désactive la pagination pendant le chargement.',
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    data: mockUsers,
+    columns: defaultColumns,
+    selectable: true,
+    hoverable: true,
+  },
+  render: (args) => ({
+    props: args,
+    template: `<ds-table [data]="data" [columns]="columns" [selectable]="selectable" [hoverable]="hoverable" data-testid="test-table"></ds-table>`,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const tableContainer = canvas.getByTestId('test-table');
+    const table = tableContainer.querySelector('table');
+
+    // Vérifier que le tableau est dans le DOM
+    await expect(table).toBeInTheDocument();
+
+    // Trouver le header de la colonne triable "Nom"
+    const headers = table?.querySelectorAll('th');
+    const nameHeader = Array.from(headers || []).find(th => th.textContent?.includes('Nom')) as HTMLElement;
+
+    if (nameHeader) {
+      // Cliquer sur le header pour trier
+      await userEvent.click(nameHeader);
+
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // Vérifier que le tri a été appliqué (icône de tri visible)
+      const sortIcon = nameHeader.querySelector('.ds-table__sort-icon');
+      await expect(sortIcon).toBeInTheDocument();
+    }
+
+    // Tester la sélection de ligne si selectable
+    const firstRowCheckbox = table?.querySelector('tbody tr:first-child input[type="checkbox"]') as HTMLInputElement;
+    if (firstRowCheckbox) {
+      await userEvent.click(firstRowCheckbox);
+
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Vérifier que la ligne est sélectionnée
+      await expect(firstRowCheckbox).toBeChecked();
+    }
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie le tri et la sélection de lignes.',
       },
     },
   },

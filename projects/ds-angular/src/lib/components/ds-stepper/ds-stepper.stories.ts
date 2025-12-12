@@ -47,6 +47,15 @@ const meta: Meta<DsStepper> = {
       control: 'boolean',
       description: 'Afficher les connecteurs',
     },
+    // Events/Actions
+    stepChange: {
+      action: 'stepChange',
+      description: 'Émis lorsque l\'étape active change',
+      table: {
+        category: 'Events',
+        type: { summary: 'EventEmitter<number>' },
+      },
+    },
   },
 };
 
@@ -240,6 +249,43 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const Accessibility: Story = {
+  args: {
+    steps: defaultSteps,
+    activeStep: 1,
+    clickable: true,
+    linear: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Navigue entre les étapes (si clickable) |
+| Enter/Space | Active l'étape focalisée |
+| Arrow Left/Right | Navigue entre les étapes (horizontal) |
+| Arrow Up/Down | Navigue entre les étapes (vertical) |
+
+### Attributs ARIA
+- \`role="navigation"\`: Identifie le stepper
+- \`aria-label="Progression"\`: Décrit le stepper
+- \`aria-current="step"\`: Indique l'étape courante
+- \`aria-disabled\`: Étapes désactivées
+
+### Bonnes pratiques
+- États visuels clairs (completed/active/pending/error)
+- Mode linear pour processus séquentiels
+- Orientation horizontal/vertical selon l'espace
+- Étapes optional marquées distinctement
+        `,
       },
     },
   },

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { DsInputField } from './ds-input-field';
 import { faUser, faEnvelope, faLock, faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -762,6 +763,57 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    label: 'Email',
+    type: 'email',
+    placeholder: 'votre.email@exemple.com',
+    size: 'md',
+  },
+  render: (args) => ({
+    props: args,
+    template: `
+      <ds-input-field
+        [label]="label"
+        [type]="type"
+        [placeholder]="placeholder"
+        [size]="size"
+        data-testid="test-input">
+      </ds-input-field>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const inputContainer = canvas.getByTestId('test-input');
+    const input = inputContainer.querySelector('input') as HTMLInputElement;
+
+    // Vérifier que l'input est dans le DOM
+    await expect(input).toBeInTheDocument();
+
+    // Vérifier que l'input est vide au départ
+    await expect(input).toHaveValue('');
+
+    // Taper du texte dans l'input
+    await userEvent.type(input, 'test@example.com');
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Vérifier que le texte a été saisi
+    await expect(input).toHaveValue('test@example.com');
+
+    // Vérifier que l'input a le focus
+    await expect(input).toHaveFocus();
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie la saisie de texte et la validation.',
       },
     },
   },

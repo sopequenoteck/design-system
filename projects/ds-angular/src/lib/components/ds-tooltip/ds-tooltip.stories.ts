@@ -247,3 +247,41 @@ export const Themed: Story = {
     },
   },
 };
+
+export const Accessibility: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; gap: 16px;">
+        <ds-button dsTooltip="Créer un nouveau document" dsTooltipPosition="top">Nouveau</ds-button>
+        <ds-button dsTooltip="Enregistrer les modifications" dsTooltipPosition="top">Enregistrer</ds-button>
+        <ds-button dsTooltip="Supprimer définitivement" dsTooltipPosition="top">Supprimer</ds-button>
+      </div>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Hover | Affiche le tooltip |
+| Focus | Affiche le tooltip (éléments focusables) |
+
+### Attributs ARIA
+- \`role="tooltip"\`: Identifie le tooltip
+- \`aria-describedby\`: Lie l'élément au tooltip
+- Delay configurable pour ne pas gêner la navigation
+
+### Bonnes pratiques
+- Texte court et informatif
+- Toujours visible au survol ET au focus
+- Positions multiples (top/bottom/left/right)
+- Délai configurable (dsTooltipDelay)
+- Essentiel pour les boutons icon-only
+        `,
+      },
+    },
+  },
+};

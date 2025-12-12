@@ -1,4 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { FormsModule } from '@angular/forms';
 import { DsSelect, DsSelectOption } from './ds-select';
 
@@ -315,4 +316,102 @@ export const Themed: Story = {
       value3: 'es',
     },
   }),
+};
+
+export const Accessibility: Story = {
+  args: {
+    ...Default.args,
+    label: 'Pays de résidence',
+    helper: 'Sélectionnez votre pays',
+    searchable: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers le select |
+| Enter/Space | Ouvre le dropdown |
+| Arrow Up/Down | Navigue entre les options |
+| Home/End | Va à la première/dernière option |
+| Enter | Sélectionne l'option focalisée |
+| Escape | Ferme le dropdown |
+| Type | Recherche dans les options (si searchable) |
+
+### Attributs ARIA
+- \`role="combobox"\`: Identifie le select
+- \`aria-expanded\`: Indique si le dropdown est ouvert
+- \`aria-haspopup="listbox"\`: Indique la présence d'un menu déroulant
+- \`aria-activedescendant\`: Identifie l'option focalisée
+- \`role="option"\`: Identifie chaque option de la liste
+- \`aria-selected\`: Indique l'option sélectionnée
+
+### Bonnes pratiques
+- Le label est associé au select via \`for\` ou wrapping
+- Les options disabled sont annoncées aux lecteurs d'écran
+- La recherche permet de filtrer rapidement les options
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    options: defaultOptions,
+    label: 'Sélectionner un pays',
+    size: 'md',
+  },
+  render: (args) => ({
+    props: { ...args, selectedValue: null },
+    template: `
+      <ds-select
+        [options]="options"
+        [label]="label"
+        [size]="size"
+        [(ngModel)]="selectedValue"
+        data-testid="test-select">
+      </ds-select>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const selectContainer = canvas.getByTestId('test-select');
+    const selectTrigger = selectContainer.querySelector('.ds-select__trigger') as HTMLElement;
+
+    // Vérifier que le select est dans le DOM
+    await expect(selectTrigger).toBeInTheDocument();
+
+    // Ouvrir le dropdown
+    await userEvent.click(selectTrigger);
+
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    // Vérifier que le dropdown est ouvert
+    const dropdown = document.querySelector('.ds-select__dropdown');
+    await expect(dropdown).toBeInTheDocument();
+
+    // Sélectionner la première option
+    const firstOption = dropdown?.querySelector('.ds-select__option') as HTMLElement;
+    if (firstOption) {
+      await userEvent.click(firstOption);
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    // Vérifier que le dropdown est fermé après la sélection
+    const closedDropdown = document.querySelector('.ds-select__dropdown');
+    await expect(closedDropdown).not.toBeInTheDocument();
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie l\'ouverture, la sélection et la fermeture du dropdown.',
+      },
+    },
+  },
 };

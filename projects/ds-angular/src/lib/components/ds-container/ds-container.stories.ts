@@ -4,6 +4,44 @@ import { DsContainer } from './ds-container';
 const meta: Meta<DsContainer> = {
   title: 'Foundation/Layout/DsContainer',
   component: DsContainer,
+  parameters: {
+    docs: {
+      description: {
+        component: `
+**DsContainer** est un composant de mise en page permettant de créer des conteneurs responsive avec largeurs maximales configurables, gutters, et centrage automatique.
+
+### Caractéristiques principales
+- Largeurs maximales prédéfinies (fluid, sm, md, lg, xl, 2xl)
+- Centrage horizontal automatique (optionnel)
+- Gutters configurables (none, sm, md, lg) pour padding horizontal
+- PaddingY configurable (none, sm, md, lg) pour padding vertical
+- Support des conteneurs imbriqués
+- Responsive par design (s'adapte aux breakpoints)
+
+### Utilisation
+\`\`\`html
+<ds-container maxWidth="lg" gutter="md" paddingY="lg" [center]="true">
+  <p>Contenu centré avec largeur maximale de 960px</p>
+</ds-container>
+\`\`\`
+
+### Largeurs maximales
+- \`fluid\`: 100% (pas de limite)
+- \`sm\`: 540px
+- \`md\`: 720px
+- \`lg\`: 960px
+- \`xl\`: 1140px
+- \`2xl\`: 1320px
+
+### Cas d'usage
+- Sections de page centrées
+- Layouts responsive
+- Grilles avec marges cohérentes
+- Conteneurs de contenu éditorial
+        `,
+      },
+    },
+  },
   argTypes: {
     maxWidth: {
       control: 'select',

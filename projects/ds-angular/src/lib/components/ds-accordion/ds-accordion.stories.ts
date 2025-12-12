@@ -1,4 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { DsAccordion, AccordionItem } from './ds-accordion';
 
 const defaultItems: AccordionItem[] = [
@@ -203,6 +204,95 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const Accessibility: Story = {
+  args: {
+    items: defaultItems,
+    variant: 'bordered',
+    size: 'md',
+    multiple: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers le header suivant |
+| Enter/Space | Expand/Collapse le panneau |
+| Arrow Down | Va au header suivant |
+| Arrow Up | Va au header précédent |
+| Home | Va au premier header |
+| End | Va au dernier header |
+
+### Attributs ARIA
+- \`role="region"\`: Identifie chaque section
+- \`aria-expanded\`: Indique l'état ouvert/fermé
+- \`aria-controls\`: Lie le header au panneau de contenu
+- \`aria-labelledby\`: Identifie le titre du panneau
+- \`aria-disabled\`: Indique les items désactivés
+
+### Bonnes pratiques
+- Mode multiple permet l'ouverture de plusieurs sections
+- Les headers sont toujours visibles et cliquables
+- L'animation d'ouverture/fermeture est fluide
+- Les items désactivés restent visibles
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    items: defaultItems,
+    variant: 'default',
+    size: 'md',
+  },
+  render: (args) => ({
+    props: args,
+    template: `<ds-accordion [items]="items" [variant]="variant" [size]="size" data-testid="test-accordion"></ds-accordion>`,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const accordionContainer = canvas.getByTestId('test-accordion');
+    const headers = accordionContainer.querySelectorAll('.ds-accordion__header');
+
+    // Vérifier que les headers sont dans le DOM
+    await expect(headers.length).toBeGreaterThan(0);
+
+    const firstHeader = headers[0] as HTMLElement;
+
+    // Vérifier que le panneau est fermé par défaut
+    await expect(firstHeader).toHaveAttribute('aria-expanded', 'false');
+
+    // Cliquer pour ouvrir le premier panneau
+    await userEvent.click(firstHeader);
+
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Vérifier que le panneau est maintenant ouvert
+    await expect(firstHeader).toHaveAttribute('aria-expanded', 'true');
+
+    // Cliquer à nouveau pour fermer
+    await userEvent.click(firstHeader);
+
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Vérifier que le panneau est fermé
+    await expect(firstHeader).toHaveAttribute('aria-expanded', 'false');
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie l\'ouverture et la fermeture des panneaux.',
       },
     },
   },

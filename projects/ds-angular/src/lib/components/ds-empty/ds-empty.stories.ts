@@ -10,26 +10,44 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 
-/**
- * # DsEmpty
- *
- * Composant d'état vide standardisé permettant d'afficher un message
- * lorsqu'aucune donnée n'est disponible.
- *
- * ## Usage
- *
- * ```html
- * <ds-empty
- *   title="Aucun résultat"
- *   description="Essayez de modifier vos filtres"
- *   [icon]="faSearch">
- *   <button ds-button (click)="resetFilters()">Réinitialiser</button>
- * </ds-empty>
- * ```
- */
 const meta: Meta<DsEmpty> = {
   title: 'Feedback/DsEmpty',
   component: DsEmpty,
+  parameters: {
+    docs: {
+      description: {
+        component: `
+**DsEmpty** est un composant d'état vide standardisé permettant d'afficher un message informatif lorsqu'aucune donnée n'est disponible (liste vide, résultats de recherche nuls, panier vide, etc.).
+
+### Caractéristiques principales
+- Icône FontAwesome ou image personnalisée (SVG/PNG)
+- Titre et description configurables
+- Tailles multiples (sm, md, lg) pour s'adapter au contexte
+- Slot de contenu pour boutons d'action ou CTA personnalisés
+- Support thèmes light/dark/custom
+
+### Utilisation
+\`\`\`html
+<ds-empty
+  title="Aucun résultat"
+  description="Essayez de modifier vos filtres"
+  [icon]="faSearch"
+  size="md">
+  <button ds-button variant="primary" (click)="resetFilters()">Réinitialiser</button>
+  <button ds-button variant="ghost" (click)="clearSearch()">Effacer</button>
+</ds-empty>
+\`\`\`
+
+### Cas d'usage courants
+- Liste vide ou tableau sans données
+- Résultats de recherche nuls
+- Panier vide
+- Boîte de réception vide
+- Dossiers sans fichiers
+        `,
+      },
+    },
+  },
   decorators: [
     moduleMetadata({
       imports: [DsEmpty, DsButton],

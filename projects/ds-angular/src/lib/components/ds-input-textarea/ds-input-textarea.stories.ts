@@ -254,3 +254,50 @@ export const Themed: Story = {
     },
   },
 };
+
+export const Accessibility: Story = {
+  render: () => ({
+    template: `
+      <div style="max-width: 400px;">
+        <label for="message-textarea" style="display: block; margin-bottom: 4px; font-weight: 500;">Message</label>
+        <textarea
+          id="message-textarea"
+          placeholder="Votre message..."
+          rows="4"
+          aria-describedby="message-help"
+          style="width: 100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; resize: vertical; font-family: inherit;">
+        </textarea>
+        <p id="message-help" style="margin: 4px 0 0; font-size: 12px; color: #6b7280;">Maximum 500 caractères</p>
+      </div>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers le textarea |
+| Type | Saisie de texte multiligne |
+| Ctrl+Enter | Soumission (dans certains contextes) |
+
+### Attributs ARIA
+- \`aria-label\` ou \`<label>\`: Décrit le champ
+- \`aria-describedby\`: Lie le texte d'aide
+- \`aria-invalid\`: Indique l'état d'erreur
+- \`aria-required\`: Champ obligatoire
+- \`maxlength\`: Limite de caractères
+
+### Bonnes pratiques
+- Label visible associé via for/id
+- Compteur de caractères avec couleur dynamique
+- Mode resize pour ajuster la hauteur
+- Messages d'aide et d'erreur clairs
+- États readonly et disabled distincts
+        `,
+      },
+    },
+  },
+};

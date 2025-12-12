@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { DsSlider } from './ds-slider';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -48,6 +49,15 @@ const meta: Meta<DsSlider> = {
     tickInterval: {
       control: 'number',
       description: 'Intervalle des ticks',
+    },
+    // Events/Actions
+    valueChange: {
+      action: 'valueChange',
+      description: 'Émis lorsque la valeur du slider change (nombre simple ou tuple [min, max] en mode range)',
+      table: {
+        category: 'Events',
+        type: { summary: 'EventEmitter<number | [number, number]>' },
+      },
     },
   },
 };
@@ -445,4 +455,88 @@ export const RangeWithCustomFormatter: Story = {
       </div>
     `,
   }),
+};
+
+export const Accessibility: Story = {
+  args: {
+    ...Default.args,
+    showLabels: true,
+    showTicks: true,
+    tickInterval: 25,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers le slider |
+| Arrow Left/Down | Diminue la valeur |
+| Arrow Right/Up | Augmente la valeur |
+| Home | Va à la valeur minimale |
+| End | Va à la valeur maximale |
+| Page Up/Down | Augmente/diminue par paliers larges |
+
+### Attributs ARIA
+- \`role="slider"\`: Identifie l'élément comme un slider
+- \`aria-valuenow\`: Valeur actuelle
+- \`aria-valuemin\`: Valeur minimale
+- \`aria-valuemax\`: Valeur maximale
+- \`aria-valuetext\`: Description textuelle de la valeur (si formatLabel)
+- \`aria-orientation\`: Orientation horizontal/vertical
+- \`aria-disabled\`: État désactivé
+
+### Bonnes pratiques
+- Les labels min/max sont visibles pour le contexte
+- Les ticks fournissent des repères visuels
+- Le formatLabel permet d'ajouter des unités (€, %, ans)
+- Le mode range utilise deux handles accessibles au clavier
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    min: 0,
+    max: 100,
+    step: 1,
+    showLabels: true,
+  },
+  render: (args) => ({
+    props: { ...args, value: 50 },
+    template: `<ds-slider [min]="min" [max]="max" [step]="step" [showLabels]="showLabels" [(ngModel)]="value" data-testid="test-slider"></ds-slider>`,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const sliderContainer = canvas.getByTestId('test-slider');
+    const sliderInput = sliderContainer.querySelector('input[type="range"]') as HTMLInputElement;
+
+    // Vérifier que le slider est dans le DOM
+    await expect(sliderInput).toBeInTheDocument();
+
+    // Vérifier la valeur initiale
+    await expect(sliderInput).toHaveValue('50');
+
+    // Simuler la navigation clavier (augmenter la valeur)
+    sliderInput.focus();
+    await userEvent.keyboard('{ArrowRight}{ArrowRight}{ArrowRight}');
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Vérifier que la valeur a augmenté
+    const newValue = parseInt(sliderInput.value);
+    await expect(newValue).toBeGreaterThan(50);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie la modification de valeur par clavier.',
+      },
+    },
+  },
 };

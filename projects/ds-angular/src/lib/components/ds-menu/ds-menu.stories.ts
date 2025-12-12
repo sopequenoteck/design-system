@@ -277,3 +277,46 @@ export const Themed: Story = {
     `,
   }),
 };
+
+export const Accessibility: Story = {
+  render: () => ({
+    props: {
+      items: itemsWithDividers,
+    },
+    template: `
+      <ds-menu [items]="items" ariaLabel="Menu accessible">
+        <button dsMenuTrigger style="padding: 8px 16px; border-radius: 4px; border: 1px solid #ccc; cursor: pointer;">
+          Ouvrir le menu
+        </button>
+      </ds-menu>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Focus le trigger |
+| Enter/Space | Ouvre le menu |
+| Arrow Up/Down | Navigue dans les items |
+| Home/End | Premier/dernier item |
+| Escape | Ferme le menu |
+
+### Attributs ARIA
+- \`role="menu"\`: Identifie le menu
+- \`role="menuitem"\`: Chaque item
+- \`aria-disabled\`: Items désactivés
+- \`aria-label\`: Décrit le menu
+
+### Bonnes pratiques
+- Trigger click ou contextmenu
+- Navigation fluide au clavier
+- Items avec icônes et dividers
+        `,
+      },
+    },
+  },
+};

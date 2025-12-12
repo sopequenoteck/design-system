@@ -1,4 +1,5 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
 import { FormsModule } from '@angular/forms';
 import { DsCombobox, DsComboboxOption } from './ds-combobox';
 
@@ -380,4 +381,103 @@ export const Themed: StoryObj = {
       </div>
     `,
   }),
+};
+
+export const Accessibility: Story = {
+  args: {
+    options: countryOptions,
+    placeholder: 'Rechercher un pays...',
+    label: 'Pays',
+    helper: 'Tapez pour filtrer les options',
+    minChars: 1,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers l'input |
+| Type | Filtre les options disponibles |
+| Arrow Down | Ouvre le dropdown et navigue vers le bas |
+| Arrow Up | Navigue vers le haut dans le dropdown |
+| Enter | Sélectionne l'option focalisée |
+| Escape | Ferme le dropdown |
+| Home/End | Va à la première/dernière option |
+
+### Attributs ARIA
+- \`role="combobox"\`: Identifie le champ de recherche
+- \`aria-autocomplete="list"\`: Indique le mode autocomplete
+- \`aria-expanded\`: État d'ouverture du dropdown
+- \`aria-controls\`: Lie l'input à la liste d'options
+- \`aria-activedescendant\`: Identifie l'option focalisée
+- \`role="listbox"\`: Identifie la liste des résultats
+- \`role="option"\`: Identifie chaque option
+
+### Bonnes pratiques
+- Les descriptions des options fournissent du contexte supplémentaire
+- Le filtrage est annoncé aux lecteurs d'écran
+- Le mode allowCustom permet de saisir des valeurs libres
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    options: fruitOptions,
+    placeholder: 'Rechercher un fruit...',
+    label: 'Fruits',
+  },
+  render: (args) => ({
+    props: { ...args, selectedValue: null },
+    template: `
+      <ds-combobox
+        [options]="options"
+        [placeholder]="placeholder"
+        [label]="label"
+        [(ngModel)]="selectedValue"
+        data-testid="test-combobox">
+      </ds-combobox>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const comboboxContainer = canvas.getByTestId('test-combobox');
+    const input = comboboxContainer.querySelector('input') as HTMLInputElement;
+
+    // Vérifier que l'input est dans le DOM
+    await expect(input).toBeInTheDocument();
+
+    // Taper du texte pour filtrer
+    await userEvent.type(input, 'Ban');
+
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Vérifier que le dropdown apparaît avec les résultats filtrés
+    const dropdown = document.querySelector('.ds-combobox__dropdown');
+    await expect(dropdown).toBeInTheDocument();
+
+    // Sélectionner le premier résultat
+    const firstOption = dropdown?.querySelector('.ds-combobox__option') as HTMLElement;
+    if (firstOption) {
+      await userEvent.click(firstOption);
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    // Vérifier que l'input contient le texte sélectionné
+    await expect(input).toHaveValue('Banana');
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test d\'interaction automatisé : vérifie la saisie, le filtrage et la sélection.',
+      },
+    },
+  },
 };

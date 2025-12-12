@@ -239,3 +239,41 @@ export const Themed: Story = {
     },
   },
 };
+
+export const Accessibility: Story = {
+  render: () => ({
+    template: `
+      <ng-template #accessiblePopover>
+        <div style="padding: 12px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+          <p style="margin: 0; font-size: 14px;">Popover accessible avec contenu riche</p>
+        </div>
+      </ng-template>
+      <ds-button [dsPopover]="accessiblePopover" dsPopoverTrigger="click">Cliquez-moi</ds-button>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Focus le trigger |
+| Enter/Space | Ouvre le popover (trigger click) |
+| Escape | Ferme le popover |
+
+### Attributs ARIA
+- \`role="tooltip"\` ou \`role="dialog"\`: Selon le contenu
+- \`aria-describedby\`: Lie le popover au trigger
+- \`aria-hidden\`: État fermé
+
+### Bonnes pratiques
+- Trigger click ou hover
+- Positions configurables (top/bottom/left/right)
+- closeOnBackdrop optionnel
+        `,
+      },
+    },
+  },
+};

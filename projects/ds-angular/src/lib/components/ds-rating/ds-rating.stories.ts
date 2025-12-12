@@ -52,6 +52,15 @@ const meta: Meta<DsRating> = {
       control: 'boolean',
       description: 'État désactivé',
     },
+    // Events/Actions
+    ratingChange: {
+      action: 'ratingChange',
+      description: 'Émis lorsque la note est modifiée par l\'utilisateur',
+      table: {
+        category: 'Events',
+        type: { summary: 'EventEmitter<number>' },
+      },
+    },
   },
 };
 
@@ -361,4 +370,47 @@ export const Themed: Story = {
       </div>
     `,
   }),
+};
+
+export const Accessibility: Story = {
+  args: {
+    value: 0,
+    max: 5,
+    allowHalf: true,
+    readonly: false,
+    size: 'md',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Déplace le focus vers le rating |
+| Arrow Right | Augmente la note d'une étoile |
+| Arrow Left | Diminue la note d'une étoile |
+| Home | Va à la note minimale (0) |
+| End | Va à la note maximale (max) |
+| 0-9 | Sélectionne directement la note correspondante |
+
+### Attributs ARIA
+- \`role="slider"\`: Identifie le composant comme un slider de notation
+- \`aria-valuenow\`: Note actuelle
+- \`aria-valuemin\`: Toujours 0
+- \`aria-valuemax\`: Note maximale (défaut: 5)
+- \`aria-valuetext\`: Description textuelle (ex: "3.5 sur 5 étoiles")
+- \`aria-readonly\`: Indique le mode lecture seule
+- \`aria-disabled\`: Indique l'état désactivé
+
+### Bonnes pratiques
+- Mode readonly pour afficher des notes sans interaction
+- AllowHalf permet une précision accrue (demi-étoiles)
+- La navigation clavier offre un contrôle précis
+- Les étoiles sont visibles et compréhensibles sans couleur
+        `,
+      },
+    },
+  },
 };

@@ -362,3 +362,42 @@ export const MinuteSteps: Story = {
     template: `<storybook-time-picker-steps></storybook-time-picker-steps>`,
   }),
 };
+
+export const Accessibility: Story = {
+  args: {
+    format: '24h',
+    showSeconds: true,
+    size: 'md',
+    placeholder: 'HH:mm:ss',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+### Accessibilité clavier
+
+| Touche | Action |
+|--------|--------|
+| Tab | Navigue entre heures, minutes, secondes |
+| Arrow Up/Down | Incrémente/décrémente la valeur |
+| Home/End | Va à min/max (00 ou 23/59) |
+| Type | Saisie directe de la valeur |
+| Enter | Valide la saisie |
+
+### Attributs ARIA
+- \`role="spinbutton"\`: Pour chaque champ (heure, minute, seconde)
+- \`aria-valuenow\`: Valeur actuelle
+- \`aria-valuemin\`: Valeur minimale
+- \`aria-valuemax\`: Valeur maximale
+- \`aria-label\`: Identifie chaque champ
+
+### Bonnes pratiques
+- Support 12h et 24h avec AM/PM
+- Steps configurables (minuteStep, hourStep)
+- Saisie directe et navigation clavier
+- Format clair avec placeholder
+        `,
+      },
+    },
+  },
+};
