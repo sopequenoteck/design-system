@@ -665,4 +665,12 @@
   --chip-info-border: var(--info);
   --chip-info-hover-bg: color-mix(in oklab, var(--info) 30%, transparent);
   --chip-info-hover-bg-outlined: color-mix(in oklab, var(--info) 15%, transparent);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS EMPTY
+   * ======================================================================== */
+  --empty-text: var(--text-muted);
+  --empty-icon-color: var(--gray-500);
+  --empty-title-color: var(--text-default);
+  --empty-description-color: var(--text-muted);
 }

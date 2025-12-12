@@ -1,0 +1,99 @@
+.ds-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--empty-padding, var(--space-8));
+  color: var(--empty-text, var(--text-muted));
+
+  // Tailles
+  &--sm {
+    padding: var(--empty-padding-sm, var(--space-6));
+  }
+
+  &--md {
+    padding: var(--empty-padding-md, var(--space-8));
+  }
+
+  &--lg {
+    padding: var(--empty-padding-lg, var(--space-10));
+  }
+}
+
+.ds-empty__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--empty-icon-margin, var(--space-4));
+  color: var(--empty-icon-color, var(--text-disabled));
+
+  &--sm {
+    font-size: var(--empty-icon-size-sm, 2.5rem);
+  }
+
+  &--md {
+    font-size: var(--empty-icon-size-md, 3.5rem);
+  }
+
+  &--lg {
+    font-size: var(--empty-icon-size-lg, 5rem);
+  }
+}
+
+.ds-empty__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--empty-image-margin, var(--space-4));
+
+  &--sm {
+    width: var(--empty-image-size-sm, 120px);
+    height: var(--empty-image-size-sm, 120px);
+  }
+
+  &--md {
+    width: var(--empty-image-size-md, 180px);
+    height: var(--empty-image-size-md, 180px);
+  }
+
+  &--lg {
+    width: var(--empty-image-size-lg, 240px);
+    height: var(--empty-image-size-lg, 240px);
+  }
+}
+
+.ds-empty__image-element {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ds-empty__content {
+  margin-bottom: var(--empty-content-margin, var(--space-4));
+}
+
+.ds-empty__title {
+  margin: 0 0 var(--space-2);
+  font-size: var(--empty-title-font-size, var(--font-size-lg));
+  font-weight: var(--empty-title-font-weight, 600);
+  color: var(--empty-title-color, var(--text-default));
+}
+
+.ds-empty__description {
+  margin: 0;
+  font-size: var(--empty-description-font-size, var(--font-size-sm));
+  color: var(--empty-description-color, var(--text-muted));
+  max-width: var(--empty-description-max-width, 400px);
+}
+
+.ds-empty__actions {
+  display: flex;
+  gap: var(--empty-actions-gap, var(--space-3));
+  align-items: center;
+  justify-content: center;
+
+  &:empty {
+    display: none;
+  }
+}

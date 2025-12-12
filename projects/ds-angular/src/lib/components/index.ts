@@ -192,3 +192,8 @@ export {
   type FileUploadSize,
   type UploadFile,
 } from './ds-file-upload/ds-file-upload';
+
+export {
+  DsEmpty,
+  type EmptySize,
+} from './ds-empty/ds-empty';

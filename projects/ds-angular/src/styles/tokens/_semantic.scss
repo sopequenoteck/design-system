@@ -545,3 +545,28 @@ $chip-remove-icon-size-md: 12px;
 $chip-remove-icon-size-lg: 14px;
 
 $chip-border-radius: $radius-round;
+
+// === EMPTY ===
+
+$empty-padding-sm: $space-6;
+$empty-padding-md: $space-8;
+$empty-padding-lg: $space-10;
+
+$empty-icon-margin: $space-4;
+$empty-icon-size-sm: 40px;
+$empty-icon-size-md: 56px;
+$empty-icon-size-lg: 80px;
+
+$empty-image-margin: $space-4;
+$empty-image-size-sm: 120px;
+$empty-image-size-md: 180px;
+$empty-image-size-lg: 240px;
+
+$empty-content-margin: $space-4;
+$empty-title-font-size: $font-size-4;
+$empty-title-font-weight: 600;
+
+$empty-description-font-size: $font-size-2;
+$empty-description-max-width: 400px;
+
+$empty-actions-gap: $space-3;

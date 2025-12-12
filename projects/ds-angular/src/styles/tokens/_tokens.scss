@@ -577,4 +577,23 @@
   --chip-remove-icon-size-md: #{$chip-remove-icon-size-md};
   --chip-remove-icon-size-lg: #{$chip-remove-icon-size-lg};
   --chip-border-radius: #{$chip-border-radius};
+
+  /* === EMPTY === */
+  --empty-padding-sm: #{$empty-padding-sm};
+  --empty-padding-md: #{$empty-padding-md};
+  --empty-padding-lg: #{$empty-padding-lg};
+  --empty-icon-margin: #{$empty-icon-margin};
+  --empty-icon-size-sm: #{$empty-icon-size-sm};
+  --empty-icon-size-md: #{$empty-icon-size-md};
+  --empty-icon-size-lg: #{$empty-icon-size-lg};
+  --empty-image-margin: #{$empty-image-margin};
+  --empty-image-size-sm: #{$empty-image-size-sm};
+  --empty-image-size-md: #{$empty-image-size-md};
+  --empty-image-size-lg: #{$empty-image-size-lg};
+  --empty-content-margin: #{$empty-content-margin};
+  --empty-title-font-size: #{$empty-title-font-size};
+  --empty-title-font-weight: #{$empty-title-font-weight};
+  --empty-description-font-size: #{$empty-description-font-size};
+  --empty-description-max-width: #{$empty-description-max-width};
+  --empty-actions-gap: #{$empty-actions-gap};
 }

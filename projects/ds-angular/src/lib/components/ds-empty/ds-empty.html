@@ -1,0 +1,38 @@
+<div
+  [class]="containerClasses()"
+  role="region"
+  [attr.aria-label]="'État vide : ' + title()">
+
+  <!-- Image personnalisée -->
+  @if (hasImage()) {
+    <div [class]="imageClasses()">
+      <img
+        [src]="imageUrl()"
+        [alt]="title()"
+        class="ds-empty__image-element" />
+    </div>
+  }
+
+  <!-- Icône FontAwesome par défaut -->
+  @if (!hasImage()) {
+    <div [class]="iconClasses()">
+      <fa-icon
+        [icon]="icon()"
+        aria-hidden="true" />
+    </div>
+  }
+
+  <!-- Contenu texte -->
+  <div class="ds-empty__content">
+    <h3 class="ds-empty__title">{{ title() }}</h3>
+
+    @if (hasDescription()) {
+      <p class="ds-empty__description">{{ description() }}</p>
+    }
+  </div>
+
+  <!-- Slot pour action button personnalisé -->
+  <div class="ds-empty__actions">
+    <ng-content></ng-content>
+  </div>
+</div>
