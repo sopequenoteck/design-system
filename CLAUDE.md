@@ -74,7 +74,12 @@ projects/ds-angular/src/lib/
 │   ├── ds-tooltip/
 │   ├── ds-chip/
 │   ├── ds-slider/
-│   └── ds-file-upload/
+│   ├── ds-file-upload/
+│   ├── ds-empty/
+│   ├── ds-rating/
+│   ├── ds-drawer/
+│   ├── ds-time-picker/
+│   └── ds-tree/
 └── utils/           # Utilitaires partagés (overlay-positions, etc.)
 ```
 
@@ -380,6 +385,22 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Tokens _custom.scss : chip (45 tokens), slider (12 tokens), file-upload (18 tokens) ajoutés
 - ✅ Tests e2e Playwright : chip.spec.ts (30 tests), slider.spec.ts (28 tests), file-upload.spec.ts (32 tests)
 - 📊 ÉTAPE 26 : 100% complétée — 33 composants DS au total
+
+**Composants utilitaires finaux (2025-12-12) :**
+- ✅ DsEmpty créé : variants (icon/image), tailles (sm/md/lg), content projection, action slot
+- ✅ DsEmpty : 5 fichiers, 10 stories, 30+ tests
+- ✅ DsRating créé : half stars, readonly, disabled, tailles (sm/md/lg), navigation clavier
+- ✅ DsRating : 5 fichiers, 12 stories, 35+ tests
+- ✅ DsDrawer créé : positions (left/right/top/bottom), tailles (sm/md/lg), overlay, focus trap
+- ✅ DsDrawer : 5 fichiers, 14 stories, 40+ tests
+- ✅ DsTimePicker créé : CVA, 12h/24h format, seconds optional, minute/hour steps, CDK Overlay
+- ✅ DsTimePicker : 7 fichiers (panel component), 18 stories, 82+ tests
+- ✅ DsTree créé : récursion, checkbox tri-state, expand/collapse, lazy loading, keyboard nav
+- ✅ DsTree : 7 fichiers (node component), 15 stories, 96+ tests
+- ✅ Tokens sémantiques : empty (9), rating (6), drawer (8), time-picker (12), tree (8) tokens
+- ✅ Tokens thématiques : 5 composants ajoutés dans _light.scss et _dark.scss
+- ✅ Exports : DsEmpty, DsRating, DsDrawer, DsTimePicker, DsTree + 15 types dans index.ts
+- 📊 Design system complet : **38 composants DS** (33 SPRINT-001 + 5 utilitaires finaux)
 
 ---
 

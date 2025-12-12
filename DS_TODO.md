@@ -28,8 +28,8 @@
 
 ## Nouveaux composants
 
-- [ ] [NEW] DsTree - Affichage hiérarchique de données | `ds-tree/` | Haute | ~8h
-- [ ] [NEW] DsTimePicker - Sélecteur d'heure (complément DatePicker) | `ds-time-picker/` | Haute | ~6h
+- [x] [NEW] DsTree - Affichage hiérarchique de données | `ds-tree/` | Haute | ~8h ✅ Créé avec récursion, checkbox tri-state, expand/collapse, lazy loading
+- [x] [NEW] DsTimePicker - Sélecteur d'heure (complément DatePicker) | `ds-time-picker/` | Haute | ~6h ✅ Créé avec CDK Overlay, 12h/24h, secondes optionnelles, minute steps
 - [x] [NEW] DsDrawer - Panneau latéral overlay | `ds-drawer/` | Moyenne | ~4h ✅ Créé avec CDK Overlay et focus trap
 - [x] [NEW] DsRating - Notation étoiles | `ds-rating/` | Moyenne | ~3h ✅ Créé avec demi-étoiles et navigation clavier
 - [x] [NEW] DsEmpty - État vide standardisé avec illustration | `ds-empty/` | Moyenne | ~2h ✅ Créé avec icône/image et slot action
@@ -48,7 +48,7 @@
 - COMP : 2/2 tâches ✅
 - STORY : 2/2 tâches ✅
 - DOC : 3/3 tâches ✅
-- NEW : 3/5 tâches ✅ (DsEmpty, DsRating, DsDrawer créés)
+- NEW : 5/5 tâches ✅ (DsEmpty, DsRating, DsDrawer, DsTimePicker, DsTree créés)
 - MAINT : 3/3 tâches ✅
-- **Total** : 15/17 tâches complétées (~33h effectuées)
-- **Restant** : 2 tâches [NEW] (~14h estimées : DsTree, DsTimePicker)
+- **Total** : 17/17 tâches complétées (~47h effectuées)
+- **Restant** : 0 tâche 🎉
