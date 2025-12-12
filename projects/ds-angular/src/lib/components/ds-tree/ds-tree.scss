@@ -1,0 +1,54 @@
+.ds-tree {
+  display: block;
+  width: 100%;
+  background-color: var(--tree-bg, var(--white));
+  border: 1px solid var(--tree-border, var(--gray-300));
+  border-radius: var(--radius-2);
+  padding: var(--space-2);
+  max-height: 400px;
+  overflow-y: auto;
+
+  &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8);
+    color: var(--text-muted, var(--gray-500));
+    font-size: var(--font-size-sm);
+  }
+
+  // Size variants
+  &--sm {
+    font-size: var(--font-size-sm);
+    padding: var(--space-1);
+  }
+
+  &--lg {
+    font-size: var(--font-size-lg);
+    padding: var(--space-3);
+  }
+
+  // Lines variant
+  &--with-lines {
+    // TODO: implement tree lines
+  }
+
+  // Scrollbar styling
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--gray-100);
+    border-radius: var(--radius-1);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--gray-400);
+    border-radius: var(--radius-1);
+
+    &:hover {
+      background: var(--gray-500);
+    }
+  }
+}

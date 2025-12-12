@@ -1,0 +1,99 @@
+.ds-tree-node {
+  display: block;
+  cursor: pointer;
+  outline: none;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--tree-node-padding, var(--space-1, 0.25rem) var(--space-2, 0.5rem));
+    border-radius: var(--radius-1);
+    transition: background-color 0.15s ease;
+    user-select: none;
+
+    &:hover:not(.ds-tree-node--disabled .ds-tree-node__content) {
+      background-color: var(--tree-node-hover-bg, var(--gray-100));
+    }
+  }
+
+  &:focus-visible {
+    .ds-tree-node__content {
+      box-shadow: 0 0 0 2px var(--color-primary);
+    }
+  }
+
+  &--selected {
+    .ds-tree-node__content {
+      background-color: var(--tree-node-selected-bg, var(--blue-100));
+      color: var(--tree-node-selected-text, var(--color-primary));
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: var(--tree-toggle-color, var(--gray-600));
+    transition: transform 0.2s ease;
+    outline: none;
+
+    &:hover {
+      color: var(--tree-toggle-hover-color, var(--gray-900));
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 2px var(--color-primary);
+      border-radius: var(--radius-1);
+    }
+
+    fa-icon {
+      font-size: 12px;
+    }
+  }
+
+  &__toggle-placeholder {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
+
+  &__checkbox {
+    margin: 0;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  &__icon {
+    color: var(--tree-icon-color, var(--gray-600));
+    font-size: var(--tree-icon-size, 16px);
+    flex-shrink: 0;
+  }
+
+  &__label {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--tree-label-font-size, var(--font-size-base));
+  }
+
+  &__children {
+    margin-left: 0;
+  }
+}

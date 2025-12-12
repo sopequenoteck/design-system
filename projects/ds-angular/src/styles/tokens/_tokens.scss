@@ -636,4 +636,14 @@
   --time-picker-option-font-size: #{$time-picker-option-font-size};
   --time-picker-scrollbar-width: #{$time-picker-scrollbar-width};
   --time-picker-scrollbar-radius: #{$time-picker-scrollbar-radius};
+
+  /* === TREE === */
+  --tree-node-padding: #{$tree-node-padding};
+  --tree-node-gap: #{$tree-node-gap};
+  --tree-toggle-size: #{$tree-toggle-size};
+  --tree-icon-size: #{$tree-icon-size};
+  --tree-label-font-size: #{$tree-label-font-size};
+  --tree-indent: #{$tree-indent};
+  --tree-max-height: #{$tree-max-height};
+  --tree-border-radius: #{$tree-border-radius};
 }

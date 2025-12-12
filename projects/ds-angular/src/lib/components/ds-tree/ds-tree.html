@@ -1,0 +1,24 @@
+<div [class]="containerClasses()" role="tree">
+  @if (processedData().length === 0) {
+    <div class="ds-tree__empty">
+      <p>No data available</p>
+    </div>
+  } @else {
+    @for (node of processedData(); track node.id) {
+      <ds-tree-node
+        [node]="node"
+        [level]="0"
+        [selectable]="selectable()"
+        [checkable]="checkable()"
+        [showIcon]="showIcon()"
+        [selectedNodeId]="selectedNodeId()"
+        [expandedNodeIds]="expandedNodeIds()"
+        [checkedNodeIds]="checkedNodeIds()"
+        [getIndeterminateState]="getIndeterminateState.bind(this)"
+        (nodeClick)="onNodeClick($event)"
+        (nodeToggle)="onNodeToggle($event)"
+        (nodeCheck)="onNodeCheck($event.node, $event.checked)">
+      </ds-tree-node>
+    }
+  }
+</div>

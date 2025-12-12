@@ -712,4 +712,16 @@
   --time-picker-option-selected-bg: var(--color-primary);
   --time-picker-option-selected-text: var(--white);
   --time-picker-option-selected-hover: color-mix(in oklab, var(--color-primary) 75%, var(--gray-800));
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS TREE
+   * ======================================================================== */
+  --tree-bg: var(--gray-800);
+  --tree-border: var(--gray-700);
+  --tree-node-hover-bg: var(--gray-700);
+  --tree-node-selected-bg: color-mix(in oklab, var(--color-primary) 20%, transparent);
+  --tree-node-selected-text: var(--color-primary);
+  --tree-toggle-color: var(--gray-400);
+  --tree-toggle-hover-color: var(--gray-100);
+  --tree-icon-color: var(--gray-400);
 }

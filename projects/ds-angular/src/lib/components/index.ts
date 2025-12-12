@@ -215,3 +215,12 @@ export {
   type TimeFormat,
   type TimeValue,
 } from './ds-time-picker/ds-time-picker';
+
+export {
+  DsTree,
+  type TreeSize,
+  type TreeNode,
+  type TreeNodeSelectEvent,
+  type TreeNodeExpandEvent,
+  type TreeNodeCheckEvent,
+} from './ds-tree/ds-tree';
