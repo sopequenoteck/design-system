@@ -1,0 +1,337 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Guides/Testing" />
+
+# Stratégie de tests
+
+Le Design System `ds-angular` adopte une approche de tests multi-niveaux pour garantir la qualité, la fiabilité et la stabilité de tous les composants.
+
+## Introduction
+
+Notre stratégie de tests couvre :
+- **Tests unitaires** : Logique des composants et services
+- **Tests e2e** : Interactions utilisateur réelles
+- **Tests Storybook** : Validation des stories
+- **Tests visuels** : Détection de régressions visuelles
+
+**Objectif de couverture :** ≥ 80% pour tous les fichiers (statements, lines, functions, branches)
+
+## Tests unitaires (Jasmine/Karma)
+
+Les tests unitaires valident la logique des composants, les transformations de données et les événements.
+
+### Framework
+
+- **Jasmine** : Framework de tests
+- **Karma** : Test runner navigateur
+- **Couverture** : Istanbul/nyc
+
+### Structure des tests
+
+Chaque composant a son fichier `.spec.ts` colocalisé :
+
+```
+ds-button/
+├── ds-button.component.ts
+├── ds-button.component.html
+├── ds-button.component.scss
+├── ds-button.component.spec.ts    ← Tests unitaires
+└── ds-button.stories.ts
+```
+
+### Patterns de tests
+
+**1. Configuration du TestBed**
+
+```typescript
+describe('DsButtonComponent', () => {
+  let component: DsButtonComponent;
+  let fixture: ComponentFixture<DsButtonComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DsButtonComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(DsButtonComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+```
+
+**2. Tests des signals (Angular 20)**
+
+```typescript
+it('should update variant signal', () => {
+  component.variant.set('primary');
+  fixture.detectChanges();
+
+  expect(component.variant()).toBe('primary');
+  expect(fixture.nativeElement.classList.contains('ds-button--primary')).toBe(true);
+});
+```
+
+**3. Tests des événements**
+
+```typescript
+it('should emit click event', () => {
+  let emitted = false;
+  component.clicked.subscribe(() => emitted = true);
+
+  const button = fixture.nativeElement.querySelector('button');
+  button.click();
+
+  expect(emitted).toBe(true);
+});
+```
+
+**4. Tests ControlValueAccessor**
+
+```typescript
+it('should implement ControlValueAccessor', () => {
+  const onChange = jasmine.createSpy('onChange');
+  component.registerOnChange(onChange);
+
+  component.value.set('new-value');
+
+  expect(onChange).toHaveBeenCalledWith('new-value');
+});
+```
+
+### Commandes
+
+```bash
+# Tests interactifs (avec watch)
+ng test ds-angular
+
+# Tests headless (CI)
+npm run test:headless
+
+# Tests avec couverture
+npm run test:coverage
+
+# Tests d'un composant spécifique
+ng test ds-angular --include='**/ds-button.component.spec.ts'
+```
+
+### Seuils de couverture
+
+Configuration dans `karma.conf.js` :
+
+```javascript
+coverageReporter: {
+  check: {
+    global: {
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80
+    }
+  }
+}
+```
+
+**État actuel :** 87.22% statements, 87.52% lines, 88.89% functions, 83.12% branches
+
+## Tests e2e (Playwright)
+
+Les tests end-to-end valident les interactions utilisateur réelles dans un navigateur.
+
+### Framework
+
+- **Playwright** : Framework e2e moderne (Chromium, Firefox, WebKit)
+- **Configuration** : `playwright.config.ts`
+
+### Composants couverts
+
+Les tests e2e se concentrent sur les composants critiques avec interactions complexes :
+
+- **DsTable** : Tri, sélection, pagination
+- **DsSelect** : Ouverture, recherche, sélection
+- **DsDatePicker** : Navigation calendrier, sélection dates
+- **DsCombobox** : Autocomplete, filtrage
+- **DsModal** : Ouverture/fermeture, focus trap
+- **DsDropdown** : Navigation clavier
+- **DsTabs** : Changement d'onglets
+- **DsToast** : Apparition/disparition
+- **DsChip** : Selection, suppression
+- **DsSlider** : Drag, clavier
+- **DsFileUpload** : Drag & drop, validation
+
+### Patterns e2e
+
+**1. Page Object Model**
+
+```typescript
+class SelectPage {
+  readonly page: Page;
+  readonly select = () => this.page.locator('ds-select');
+  readonly dropdown = () => this.page.locator('.ds-select__dropdown');
+
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  async open() {
+    await this.page.goto('http://localhost:6006/iframe.html?id=components-ds-select--default');
+  }
+
+  async selectOption(text: string) {
+    await this.select().click();
+    await this.dropdown().locator(`text=${text}`).click();
+  }
+}
+```
+
+**2. Tests d'interaction**
+
+```typescript
+test('should select option via keyboard', async ({ page }) => {
+  const selectPage = new SelectPage(page);
+  await selectPage.open();
+
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('ArrowDown');
+  await page.keyboard.press('Enter');
+
+  await expect(selectPage.select()).toContainText('Option 2');
+});
+```
+
+### Commandes
+
+```bash
+# Tests e2e headless
+npm run test:e2e
+
+# Tests e2e avec UI
+npm run test:e2e:ui
+
+# Tests e2e d'un fichier spécifique
+npx playwright test table.spec.ts
+```
+
+## Tests Storybook (test-runner)
+
+Les tests Storybook valident automatiquement toutes les stories et détectent les erreurs de rendu.
+
+### Framework
+
+- **@storybook/test-runner** : Tests automatisés des stories
+- **Playwright** : Runner sous-jacent
+
+### Commandes
+
+```bash
+# Build Storybook statique
+npm run build-storybook
+
+# Lancer test-runner
+npm run test:storybook
+```
+
+### Fonctionnement
+
+Le test-runner :
+1. Charge chaque story dans un navigateur
+2. Vérifie l'absence d'erreurs console
+3. Vérifie le rendu visuel
+4. Exécute les interactions play functions
+
+## Tests visuels (Chromatic)
+
+Les tests visuels détectent les régressions visuelles involontaires.
+
+### Service
+
+- **Chromatic** : Plateforme de tests visuels pour Storybook
+- **Configuration** : `.chromatic.json`
+
+### Workflow
+
+1. Chaque PR déclenche un build Chromatic
+2. Chromatic capture des screenshots de toutes les stories
+3. Compare avec la baseline approuvée
+4. Signale les différences visuelles
+
+### Commandes
+
+```bash
+# Publier sur Chromatic (manuel)
+npm run chromatic
+
+# Build Chromatic (CI)
+npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+```
+
+### Workflow GitHub Actions
+
+`.github/workflows/chromatic.yml` exécute les tests visuels automatiquement sur chaque push.
+
+## CI/CD
+
+### Workflows GitHub Actions
+
+**1. CI (.github/workflows/ci.yml)**
+
+- Build de la bibliothèque
+- Tests unitaires (seuil ≥80%)
+- Tests e2e Playwright
+- Analyse bundle size
+
+**2. Publish (.github/workflows/publish.yml)**
+
+- Publication npm sur tags `v*`
+- Dry-run sur branches
+
+**3. Chromatic (.github/workflows/chromatic.yml)**
+
+- Tests visuels automatisés
+
+**4. A11y WAVE (.github/workflows/a11y-wave.yml)**
+
+- Audits accessibilité automatisés
+
+### Commandes CI
+
+```bash
+# Build bibliothèque
+npm run build:lib
+
+# Tests headless
+npm run test:headless
+
+# Tests e2e
+npm run test:e2e
+
+# Tests accessibilité
+npm run test:a11y
+
+# Analyse bundle
+npm run analyze:bundle
+```
+
+## Bonnes pratiques
+
+1. **Écrire les tests en même temps que le composant**
+2. **Tester les cas limites** : valeurs nulles, tableaux vides, erreurs
+3. **Utiliser des spies Jasmine** : `jasmine.createSpy()` pour les callbacks
+4. **Tests indépendants** : Chaque test doit fonctionner seul
+5. **Noms descriptifs** : `it('should emit remove event when close icon clicked')`
+6. **Assertions claires** : Une assertion par test idéalement
+7. **Fixtures réutilisables** : Helpers et constantes partagées
+8. **Tests accessibilité** : Vérifier les attributs ARIA et la navigation clavier
+
+## Ressources
+
+- [Angular Testing Guide](https://angular.dev/guide/testing)
+- [Jasmine Documentation](https://jasmine.github.io/)
+- [Playwright Documentation](https://playwright.dev/)
+- [Storybook Test Runner](https://storybook.js.org/docs/writing-tests/test-runner)
+- [Chromatic Documentation](https://www.chromatic.com/docs/)

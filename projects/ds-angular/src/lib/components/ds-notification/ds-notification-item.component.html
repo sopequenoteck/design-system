@@ -1,0 +1,47 @@
+<div
+  [class]="notificationClasses().join(' ')"
+  role="alert"
+  [attr.aria-live]="notification().type === 'error' ? 'assertive' : 'polite'"
+  [attr.aria-atomic]="true"
+>
+  <div class="ds-notification__header">
+    <div class="ds-notification__icon-title">
+      @if (notification().icon) {
+        <fa-icon
+          [icon]="notification().icon"
+          class="ds-notification__icon"
+          [attr.aria-hidden]="true"
+        />
+      }
+      <h4 class="ds-notification__title">{{ notification().title }}</h4>
+    </div>
+    @if (notification().closable) {
+      <button
+        type="button"
+        class="ds-notification__close"
+        (click)="onClose()"
+        [attr.aria-label]="'Fermer la notification'"
+      >
+        <fa-icon [icon]="closeIcon" />
+      </button>
+    }
+  </div>
+
+  <div class="ds-notification__body">
+    <p class="ds-notification__message">{{ notification().message }}</p>
+  </div>
+
+  @if (notification().actions && notification().actions!.length > 0) {
+    <div class="ds-notification__actions">
+      @for (action of notification().actions!; track $index) {
+        <button
+          type="button"
+          class="ds-notification__action ds-notification__action--{{ action.variant || 'secondary' }}"
+          (click)="onActionClick($index)"
+        >
+          {{ action.label }}
+        </button>
+      }
+    </div>
+  }
+</div>

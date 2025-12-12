@@ -231,3 +231,47 @@ export {
   type PasswordStrengthSize,
   type PasswordCriterion,
 } from './ds-password-strength/ds-password-strength';
+
+export {
+  DsTimeline,
+  type TimelineItem,
+  type TimelineMode,
+  type TimelineSize,
+  type TimelineColor,
+  type TimelineItemClickEvent,
+} from './ds-timeline/ds-timeline';
+
+export {
+  DsTransfer,
+  type TransferItem,
+  type TransferDirection,
+  type TransferSize,
+  type TransferChangeEvent,
+} from './ds-transfer/ds-transfer';
+
+export {
+  DsCarousel,
+  type CarouselSlide,
+  type CarouselEffect,
+  type CarouselDotsPosition,
+} from './ds-carousel/ds-carousel';
+
+export { DsNotificationContainerComponent } from './ds-notification/ds-notification-container.component';
+
+export { DsNotificationItemComponent } from './ds-notification/ds-notification-item.component';
+
+export { DsNotificationService } from './ds-notification/ds-notification.service';
+
+export type {
+  NotificationConfig,
+  NotificationAction,
+  NotificationPlacement,
+  NotificationItem,
+} from './ds-notification/ds-notification.types';
+
+export {
+  DsCalendar,
+  type CalendarEvent,
+  type CalendarMode,
+  type CalendarSize,
+} from './ds-calendar/ds-calendar';

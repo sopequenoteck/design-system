@@ -1,0 +1,181 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Guides/Accessibility" />
+
+# Accessibilité
+
+Le Design System `ds-angular` est conçu pour être accessible à tous les utilisateurs, indépendamment de leurs capacités ou des technologies d'assistance qu'ils utilisent.
+
+## Engagement accessibilité
+
+Tous les composants du Design System respectent les standards d'accessibilité internationaux et sont testés avec des lecteurs d'écran, des outils d'analyse automatisée et des tests manuels.
+
+**Notre engagement :**
+- Conformité WCAG 2.1 niveau AA minimum
+- Support complet de la navigation au clavier
+- Annotations ARIA appropriées
+- Ratios de contraste conformes
+- Documentation des bonnes pratiques
+
+## Standards suivis
+
+### WCAG 2.1 AA
+
+Le Design System respecte les [Web Content Accessibility Guidelines (WCAG) 2.1](https://www.w3.org/WAI/WCAG21/quickref/) niveau AA, incluant :
+
+- **Perceptible** : Contenu présentable de multiples façons
+- **Utilisable** : Navigation et interaction accessibles
+- **Compréhensible** : Contenu et fonctionnement clairs
+- **Robuste** : Compatible avec les technologies d'assistance
+
+### ARIA 1.2
+
+Tous les composants utilisent les attributs [ARIA (Accessible Rich Internet Applications)](https://www.w3.org/TR/wai-aria-1.2/) appropriés pour améliorer l'expérience des lecteurs d'écran.
+
+## Navigation clavier
+
+Tous les composants interactifs sont entièrement navigables au clavier.
+
+### Touches communes
+
+| Touche | Action |
+|--------|--------|
+| `Tab` | Naviguer vers l'élément suivant |
+| `Shift + Tab` | Naviguer vers l'élément précédent |
+| `Enter` / `Space` | Activer l'élément focalisé |
+| `Escape` | Fermer les overlays (modal, dropdown, etc.) |
+| `Arrow Up/Down` | Naviguer dans les listes et menus |
+| `Arrow Left/Right` | Naviguer dans les tabs et sliders |
+| `Home` | Aller au premier élément |
+| `End` | Aller au dernier élément |
+
+### Composants avec navigation avancée
+
+- **DsSelect, DsCombobox, DsDropdown** : Navigation avec flèches, recherche par lettre
+- **DsTable** : Navigation cellule par cellule avec flèches
+- **DsTabs** : Navigation entre onglets avec flèches
+- **DsDatePicker, DsTimePicker** : Navigation dans le calendrier/l'horloge
+- **DsTree** : Navigation hiérarchique avec flèches et Enter
+
+## Lecteurs d'écran
+
+Tous les composants sont testés avec les lecteurs d'écran suivants :
+- **VoiceOver** (macOS/iOS)
+- **NVDA** (Windows)
+- **JAWS** (Windows)
+- **TalkBack** (Android)
+
+### Attributs ARIA utilisés
+
+| Attribut | Usage |
+|----------|-------|
+| `role` | Définit le type d'élément (button, dialog, listbox, etc.) |
+| `aria-label` | Étiquette textuelle pour les icônes |
+| `aria-labelledby` | Référence à un label externe |
+| `aria-describedby` | Description additionnelle |
+| `aria-expanded` | État ouvert/fermé (dropdown, accordion) |
+| `aria-selected` | État sélectionné (tabs, options) |
+| `aria-checked` | État coché (checkbox, radio) |
+| `aria-disabled` | État désactivé |
+| `aria-hidden` | Masquer aux lecteurs d'écran |
+| `aria-live` | Annonces dynamiques (toast, alerts) |
+| `aria-controls` | Référence à l'élément contrôlé |
+
+## Contraste couleurs
+
+Tous les thèmes (Light, Dark, Custom) respectent les ratios de contraste WCAG 2.1 AA.
+
+### Ratios minimum
+
+- **Texte normal** (< 18pt) : 4.5:1
+- **Texte large** (≥ 18pt ou 14pt bold) : 3:1
+- **Éléments UI** (boutons, bordures) : 3:1
+
+### Vérification
+
+Utilisez des outils comme [Contrast Checker](https://webaim.org/resources/contrastchecker/) ou les DevTools Chrome pour vérifier les contrastes.
+
+## Focus visible
+
+Tous les éléments interactifs ont un indicateur de focus visible et conforme.
+
+### Styles de focus
+
+- **Focus ring** : Bordure solide avec contraste ≥ 3:1
+- **Couleur** : `var(--color-primary)` par défaut
+- **Épaisseur** : 2px minimum
+- **Offset** : 2px pour éviter la collision avec les bordures
+
+**Exemple SCSS :**
+```scss
+&:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+```
+
+## Composants accessibles
+
+### Formulaires
+
+- **DsInputField, DsInputTextarea** : Labels associés, messages d'erreur via `aria-describedby`
+- **DsCheckbox, DsRadioGroup, DsToggle** : États ARIA complets, groupes logiques
+- **DsSelect, DsCombobox** : Listbox ARIA, navigation clavier, annonces
+- **DsDatePicker, DsTimePicker** : Calendrier/horloge navigable, format localisé
+- **DsFileUpload** : Zone de drop accessible, liste des fichiers avec actions
+
+### Navigation
+
+- **DsMenu, DsDropdown** : Menu ARIA, navigation avec flèches
+- **DsTabs** : Tablist ARIA, navigation avec flèches
+- **DsBreadcrumb** : Navigation landmark, état actuel
+- **DsPagination** : États actif/désactivé clairs
+
+### Feedback
+
+- **DsAlert** : `role="alert"` et `aria-live="assertive"` pour les erreurs critiques
+- **DsToast** : `role="status"` et `aria-live="polite"` pour les notifications
+- **DsModal** : Focus trap, fermeture avec Escape, `aria-modal="true"`
+- **DsProgressBar** : `role="progressbar"`, `aria-valuenow/min/max`
+
+### Affichage
+
+- **DsTooltip** : `aria-describedby`, déclenchement au focus
+- **DsPopover** : `aria-expanded`, gestion du focus
+- **DsAccordion** : États expand/collapse, headers cliquables
+
+## Tests accessibilité
+
+### Outils automatisés
+
+- **[axe DevTools](https://www.deque.com/axe/devtools/)** : Extension navigateur (gratuite)
+- **[WAVE](https://wave.webaim.org/)** : Analyse visuelle des problèmes a11y
+- **[Lighthouse](https://developers.google.com/web/tools/lighthouse)** : Audit intégré Chrome DevTools
+- **[Pa11y](https://pa11y.org/)** : Tests automatisés en ligne de commande
+
+### Tests manuels
+
+1. **Navigation clavier** : Parcourir toute l'interface au clavier uniquement
+2. **Lecteur d'écran** : Tester avec VoiceOver, NVDA ou JAWS
+3. **Zoom** : Vérifier jusqu'à 200% de zoom
+4. **Contraste** : Vérifier tous les états (hover, focus, disabled)
+
+### CI/CD
+
+Le Design System exécute automatiquement des tests d'accessibilité dans la CI :
+
+```bash
+npm run test:a11y      # Tests axe-core via Playwright
+```
+
+### Workflow GitHub Actions
+
+Le workflow `.github/workflows/a11y-wave.yml` exécute des audits WAVE automatisés sur chaque PR.
+
+## Ressources
+
+- [WCAG 2.1 Quick Reference](https://www.w3.org/WAI/WCAG21/quickref/)
+- [ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/)
+- [WebAIM Articles](https://webaim.org/articles/)
+- [Inclusive Components](https://inclusive-components.design/)
+- [A11y Project](https://www.a11yproject.com/)

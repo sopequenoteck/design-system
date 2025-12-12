@@ -1,0 +1,256 @@
+// ============================================================================
+// DS-TIMELINE — Design System Assist-AI
+// ============================================================================
+//
+// Utilise les tokens CSS custom properties pour garantir la cohérence thématique.
+
+// === CONTENEUR ===
+
+.ds-timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+// === ITEM ===
+
+.ds-timeline__item {
+  position: relative;
+  display: grid;
+  padding-bottom: var(--timeline-item-gap);
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+  }
+
+  &--last {
+    padding-bottom: 0;
+  }
+
+  &--pending {
+    cursor: default;
+    animation: pulse 2s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+// === MODES DE POSITIONNEMENT ===
+
+// Mode left : contenu à droite de la ligne
+.ds-timeline--left .ds-timeline__item {
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "dot content"
+    "line content";
+}
+
+// Mode right : contenu à gauche de la ligne
+.ds-timeline--right .ds-timeline__item {
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "content dot"
+    "content line";
+  text-align: right;
+
+  .ds-timeline__content {
+    padding-left: 0;
+    padding-right: var(--timeline-content-gap);
+  }
+}
+
+// Mode alternate : alternance gauche/droite
+.ds-timeline--alternate .ds-timeline__item--left {
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "content dot"
+    "content line";
+  text-align: right;
+
+  .ds-timeline__content {
+    padding-left: 0;
+    padding-right: var(--timeline-content-gap);
+  }
+}
+
+.ds-timeline--alternate .ds-timeline__item--right {
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "dot content"
+    "line content";
+}
+
+// === DOT (Point de la timeline) ===
+
+.ds-timeline__dot {
+  grid-area: dot;
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
+  border-radius: 50%;
+  border: var(--timeline-dot-border-width) solid var(--timeline-dot-border-color);
+  background: var(--timeline-dot-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+
+  // Couleurs variants
+  &--default {
+    background: var(--timeline-dot-bg-default);
+    border-color: var(--timeline-dot-border-default);
+  }
+
+  &--primary {
+    background: var(--timeline-dot-bg-primary);
+    border-color: var(--timeline-dot-border-primary);
+  }
+
+  &--success {
+    background: var(--timeline-dot-bg-success);
+    border-color: var(--timeline-dot-border-success);
+  }
+
+  &--warning {
+    background: var(--timeline-dot-bg-warning);
+    border-color: var(--timeline-dot-border-warning);
+  }
+
+  &--error {
+    background: var(--timeline-dot-bg-error);
+    border-color: var(--timeline-dot-border-error);
+  }
+
+  &--info {
+    background: var(--timeline-dot-bg-info);
+    border-color: var(--timeline-dot-border-info);
+  }
+
+  &--pending {
+    background: var(--timeline-dot-bg-pending);
+    border-color: var(--timeline-dot-border-pending);
+  }
+
+  &--with-icon {
+    background: transparent;
+    border: none;
+  }
+}
+
+.ds-timeline__item:hover .ds-timeline__dot {
+  transform: scale(1.1);
+}
+
+// === ICÔNE ===
+
+.ds-timeline__icon {
+  font-size: var(--timeline-icon-size);
+  color: var(--timeline-icon-color);
+
+  &--pending {
+    color: var(--timeline-icon-color-pending);
+    animation: spin 2s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// === LIGNE DE CONNEXION ===
+
+.ds-timeline__line {
+  grid-area: line;
+  width: var(--timeline-line-width);
+  background: var(--timeline-line-color);
+  justify-self: center;
+  flex: 1;
+  min-height: var(--timeline-item-gap);
+  margin-top: 4px;
+}
+
+// === CONTENU ===
+
+.ds-timeline__content {
+  grid-area: content;
+  padding-left: var(--timeline-content-gap);
+  display: flex;
+  flex-direction: column;
+  gap: var(--timeline-content-inner-gap);
+  min-width: 0; // Pour gérer l'overflow
+}
+
+.ds-timeline__date {
+  font-size: var(--timeline-date-font-size);
+  color: var(--timeline-date-color);
+  font-weight: 500;
+}
+
+.ds-timeline__text {
+  font-size: var(--timeline-text-font-size);
+  color: var(--timeline-text-color);
+  line-height: 1.5;
+
+  &--pending {
+    color: var(--timeline-text-color-pending);
+    font-style: italic;
+  }
+}
+
+// === TAILLES ===
+
+.ds-timeline--sm {
+  --timeline-dot-size: var(--timeline-dot-size-sm);
+  --timeline-line-width: var(--timeline-line-width-sm);
+  --timeline-item-gap: var(--timeline-item-gap-sm);
+  --timeline-content-gap: var(--timeline-content-gap-sm);
+  --timeline-content-inner-gap: var(--timeline-content-inner-gap-sm);
+  --timeline-date-font-size: var(--timeline-date-font-size-sm);
+  --timeline-text-font-size: var(--timeline-text-font-size-sm);
+  --timeline-icon-size: var(--timeline-icon-size-sm);
+}
+
+.ds-timeline--md {
+  --timeline-dot-size: var(--timeline-dot-size-md);
+  --timeline-line-width: var(--timeline-line-width-md);
+  --timeline-item-gap: var(--timeline-item-gap-md);
+  --timeline-content-gap: var(--timeline-content-gap-md);
+  --timeline-content-inner-gap: var(--timeline-content-inner-gap-md);
+  --timeline-date-font-size: var(--timeline-date-font-size-md);
+  --timeline-text-font-size: var(--timeline-text-font-size-md);
+  --timeline-icon-size: var(--timeline-icon-size-md);
+}
+
+.ds-timeline--lg {
+  --timeline-dot-size: var(--timeline-dot-size-lg);
+  --timeline-line-width: var(--timeline-line-width-lg);
+  --timeline-item-gap: var(--timeline-item-gap-lg);
+  --timeline-content-gap: var(--timeline-content-gap-lg);
+  --timeline-content-inner-gap: var(--timeline-content-inner-gap-lg);
+  --timeline-date-font-size: var(--timeline-date-font-size-lg);
+  --timeline-text-font-size: var(--timeline-text-font-size-lg);
+  --timeline-icon-size: var(--timeline-icon-size-lg);
+}

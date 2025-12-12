@@ -1,0 +1,46 @@
+<div [ngClass]="containerClasses()" role="list" aria-label="Timeline">
+  @for (item of sortedItems(); track $index) {
+    <div
+      [ngClass]="getItemClasses(item, $index)"
+      role="listitem"
+      tabindex="0"
+      (click)="handleItemClick(item, $index)"
+      (keydown)="handleKeydown($event, item, $index)"
+      [class.ds-timeline__item--last]="isLastItem($index) && !pending()">
+
+      <!-- Point de la timeline -->
+      <div [ngClass]="getDotClasses(item)" [attr.aria-label]="item.date || 'Événement'">
+        @if (item.icon) {
+          <fa-icon [icon]="getIcon(item)" class="ds-timeline__icon" aria-hidden="true"></fa-icon>
+        }
+      </div>
+
+      <!-- Ligne de connexion -->
+      @if (!isLastItem($index) || pending()) {
+        <div class="ds-timeline__line" aria-hidden="true"></div>
+      }
+
+      <!-- Contenu -->
+      <div class="ds-timeline__content">
+        @if (item.date) {
+          <div class="ds-timeline__date">{{ item.date }}</div>
+        }
+        <div class="ds-timeline__text">{{ item.content }}</div>
+      </div>
+    </div>
+  }
+
+  <!-- Indicateur pending -->
+  @if (pending()) {
+    <div
+      class="ds-timeline__item ds-timeline__item--pending ds-timeline__item--{{ getItemPosition(sortedItems().length) }}"
+      role="listitem">
+      <div class="ds-timeline__dot ds-timeline__dot--pending ds-timeline__dot--with-icon">
+        <fa-icon [icon]="pendingIcon" class="ds-timeline__icon ds-timeline__icon--pending" aria-hidden="true"></fa-icon>
+      </div>
+      <div class="ds-timeline__content">
+        <div class="ds-timeline__text ds-timeline__text--pending">{{ pendingContent() }}</div>
+      </div>
+    </div>
+  }
+</div>

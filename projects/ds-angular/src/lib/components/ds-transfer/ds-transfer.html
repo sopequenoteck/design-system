@@ -1,0 +1,211 @@
+<div [ngClass]="containerClasses()" role="group" aria-label="Transfer component">
+  <!-- Source panel -->
+  <div class="ds-transfer__panel ds-transfer__panel--source">
+    <!-- Header -->
+    <div class="ds-transfer__header">
+      <div class="ds-transfer__title">
+        <span>{{ sourceTitle() }}</span>
+        <span class="ds-transfer__count">
+          {{ getSelectedCount('left') }} / {{ source().length }}
+        </span>
+      </div>
+      @if (showSelectAll()) {
+        <primitive-checkbox
+          [checked]="isAllSourceSelected()"
+          [indeterminate]="sourceSelected().size > 0 && !isAllSourceSelected()"
+          [disabled]="disabled() || sourceSelectableCount() === 0"
+          (checkedChange)="toggleSelectAll('left')"
+          size="sm"
+          label="Tout sélectionner"
+          class="ds-transfer__select-all"
+        />
+      }
+    </div>
+
+    <!-- Search -->
+    @if (showSearch()) {
+      <div class="ds-transfer__search">
+        <input
+          type="text"
+          class="ds-transfer__search-input"
+          placeholder="Rechercher..."
+          [value]="sourceSearchQuery()"
+          (input)="onSearchInput($event, 'left')"
+          [disabled]="disabled()"
+          aria-label="Rechercher dans les items source"
+        />
+        @if (sourceSearchQuery()) {
+          <button
+            type="button"
+            class="ds-transfer__search-clear"
+            (click)="clearSearch('left')"
+            aria-label="Effacer la recherche"
+          >
+            ✕
+          </button>
+        }
+      </div>
+    }
+
+    <!-- List -->
+    <div
+      class="ds-transfer__list"
+      role="listbox"
+      [attr.aria-label]="sourceListboxLabel()"
+      [attr.id]="getListboxId('left')"
+      [attr.aria-multiselectable]="true"
+    >
+      @if (filteredSource().length === 0) {
+        <div class="ds-transfer__empty">
+          @if (sourceSearchQuery()) {
+            Aucun résultat
+          } @else {
+            Aucun item disponible
+          }
+        </div>
+      } @else {
+        @for (item of filteredSource(); track item.key) {
+          <div
+            class="ds-transfer__item"
+            [class.ds-transfer__item--selected]="isItemSelected(item, 'left')"
+            [class.ds-transfer__item--disabled]="item.disabled"
+            role="option"
+            [attr.aria-selected]="isItemSelected(item, 'left')"
+            [attr.aria-disabled]="item.disabled"
+            [attr.id]="getItemId(item, 'left')"
+            (click)="toggleItemSelection(item, 'left')"
+          >
+            <primitive-checkbox
+              [checked]="isItemSelected(item, 'left')"
+              [disabled]="disabled() || (item.disabled ?? false)"
+              (checkedChange)="toggleItemSelection(item, 'left')"
+              size="sm"
+            />
+            <div class="ds-transfer__item-content">
+              <div class="ds-transfer__item-label">{{ item.label }}</div>
+              @if (item.description) {
+                <div class="ds-transfer__item-description">{{ item.description }}</div>
+              }
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </div>
+
+  <!-- Transfer buttons -->
+  <div class="ds-transfer__actions">
+    <ds-button
+      variant="secondary"
+      size="sm"
+      [disabled]="!canTransferToTarget()"
+      (click)="transferToTarget()"
+      aria-label="Transférer les items sélectionnés vers la droite"
+    >
+      ›
+    </ds-button>
+    <ds-button
+      variant="secondary"
+      size="sm"
+      [disabled]="!canTransferToSource()"
+      (click)="transferToSource()"
+      aria-label="Transférer les items sélectionnés vers la gauche"
+    >
+      ‹
+    </ds-button>
+  </div>
+
+  <!-- Target panel -->
+  <div class="ds-transfer__panel ds-transfer__panel--target">
+    <!-- Header -->
+    <div class="ds-transfer__header">
+      <div class="ds-transfer__title">
+        <span>{{ targetTitle() }}</span>
+        <span class="ds-transfer__count">
+          {{ getSelectedCount('right') }} / {{ target().length }}
+        </span>
+      </div>
+      @if (showSelectAll()) {
+        <primitive-checkbox
+          [checked]="isAllTargetSelected()"
+          [indeterminate]="targetSelected().size > 0 && !isAllTargetSelected()"
+          [disabled]="disabled() || targetSelectableCount() === 0"
+          (checkedChange)="toggleSelectAll('right')"
+          size="sm"
+          label="Tout sélectionner"
+          class="ds-transfer__select-all"
+        />
+      }
+    </div>
+
+    <!-- Search -->
+    @if (showSearch()) {
+      <div class="ds-transfer__search">
+        <input
+          type="text"
+          class="ds-transfer__search-input"
+          placeholder="Rechercher..."
+          [value]="targetSearchQuery()"
+          (input)="onSearchInput($event, 'right')"
+          [disabled]="disabled()"
+          aria-label="Rechercher dans les items cible"
+        />
+        @if (targetSearchQuery()) {
+          <button
+            type="button"
+            class="ds-transfer__search-clear"
+            (click)="clearSearch('right')"
+            aria-label="Effacer la recherche"
+          >
+            ✕
+          </button>
+        }
+      </div>
+    }
+
+    <!-- List -->
+    <div
+      class="ds-transfer__list"
+      role="listbox"
+      [attr.aria-label]="targetListboxLabel()"
+      [attr.id]="getListboxId('right')"
+      [attr.aria-multiselectable]="true"
+    >
+      @if (filteredTarget().length === 0) {
+        <div class="ds-transfer__empty">
+          @if (targetSearchQuery()) {
+            Aucun résultat
+          } @else {
+            Aucun item sélectionné
+          }
+        </div>
+      } @else {
+        @for (item of filteredTarget(); track item.key) {
+          <div
+            class="ds-transfer__item"
+            [class.ds-transfer__item--selected]="isItemSelected(item, 'right')"
+            [class.ds-transfer__item--disabled]="item.disabled"
+            role="option"
+            [attr.aria-selected]="isItemSelected(item, 'right')"
+            [attr.aria-disabled]="item.disabled"
+            [attr.id]="getItemId(item, 'right')"
+            (click)="toggleItemSelection(item, 'right')"
+          >
+            <primitive-checkbox
+              [checked]="isItemSelected(item, 'right')"
+              [disabled]="disabled() || (item.disabled ?? false)"
+              (checkedChange)="toggleItemSelection(item, 'right')"
+              size="sm"
+            />
+            <div class="ds-transfer__item-content">
+              <div class="ds-transfer__item-label">{{ item.label }}</div>
+              @if (item.description) {
+                <div class="ds-transfer__item-description">{{ item.description }}</div>
+              }
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>

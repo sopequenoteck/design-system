@@ -79,7 +79,8 @@ projects/ds-angular/src/lib/
 │   ├── ds-rating/
 │   ├── ds-drawer/
 │   ├── ds-time-picker/
-│   └── ds-tree/
+│   ├── ds-tree/
+│   └── ds-password-strength/
 └── utils/           # Utilitaires partagés (overlay-positions, etc.)
 ```
 
@@ -400,7 +401,7 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Tokens sémantiques : empty (9), rating (6), drawer (8), time-picker (12), tree (8) tokens
 - ✅ Tokens thématiques : 5 composants ajoutés dans _light.scss et _dark.scss
 - ✅ Exports : DsEmpty, DsRating, DsDrawer, DsTimePicker, DsTree + 15 types dans index.ts
-- 📊 Design system complet : **38 composants DS** (33 SPRINT-001 + 5 utilitaires finaux)
+- 📊 Design system complet : **39 composants DS** (33 SPRINT-001 + 5 utilitaires finaux + ds-password-strength)
 
 ---
 

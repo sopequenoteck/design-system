@@ -1,0 +1,272 @@
+// ============================================================================
+// DS TRANSFER — Transfert d'items entre deux listes
+// ============================================================================
+
+.ds-transfer {
+  display: flex;
+  align-items: center;
+  gap: var(--transfer-gap, 1rem);
+  width: 100%;
+
+  // === PANELS ===
+
+  &__panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--transfer-border-color, var(--gray-300));
+    border-radius: var(--transfer-border-radius, var(--radius-2));
+    background: var(--transfer-bg, var(--white));
+    overflow: hidden;
+
+    &--source {
+      // Specific styles for source panel
+    }
+
+    &--target {
+      // Specific styles for target panel
+    }
+  }
+
+  // === HEADER ===
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--transfer-header-padding, 0.75rem 1rem);
+    border-bottom: 1px solid var(--transfer-header-border-color, var(--gray-200));
+    background: var(--transfer-header-bg, var(--gray-50));
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: var(--transfer-title-font-size, var(--font-size-sm));
+    color: var(--transfer-title-color, var(--text-default));
+  }
+
+  &__count {
+    font-weight: 400;
+    font-size: var(--font-size-xs);
+    color: var(--transfer-count-color, var(--text-light));
+  }
+
+  &__select-all {
+    // Already styled by ds-checkbox
+  }
+
+  // === SEARCH ===
+
+  &__search {
+    position: relative;
+    padding: var(--transfer-search-padding, 0.75rem 1rem);
+    border-bottom: 1px solid var(--transfer-search-border-color, var(--gray-200));
+  }
+
+  &__search-input {
+    width: 100%;
+    padding: var(--transfer-search-input-padding, 0.5rem 2rem 0.5rem 0.75rem);
+    border: 1px solid var(--transfer-search-input-border, var(--gray-300));
+    border-radius: var(--transfer-search-input-radius, var(--radius-1));
+    font-size: var(--font-size-sm);
+    color: var(--transfer-search-input-text, var(--text-default));
+    background: var(--transfer-search-input-bg, var(--white));
+
+    &::placeholder {
+      color: var(--transfer-search-placeholder, var(--text-lighter));
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--transfer-search-input-focus, var(--color-primary));
+      box-shadow: 0 0 0 3px var(--transfer-search-input-focus-shadow, rgba(59, 130, 246, 0.1));
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background: var(--transfer-search-input-disabled-bg, var(--gray-50));
+    }
+  }
+
+  &__search-clear {
+    position: absolute;
+    top: 50%;
+    right: 1.5rem;
+    transform: translateY(-50%);
+    padding: 0.25rem;
+    border: none;
+    background: transparent;
+    color: var(--transfer-search-clear-color, var(--text-lighter));
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+
+    &:hover {
+      color: var(--transfer-search-clear-hover, var(--text-default));
+    }
+
+    &:focus {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  // === LIST ===
+
+  &__list {
+    flex: 1;
+    overflow-y: auto;
+    min-height: var(--transfer-list-min-height, 300px);
+    max-height: var(--transfer-list-max-height, 400px);
+  }
+
+  &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 2rem;
+    color: var(--transfer-empty-color, var(--text-lighter));
+    font-size: var(--font-size-sm);
+    text-align: center;
+  }
+
+  // === ITEMS ===
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: var(--transfer-item-padding, 0.75rem 1rem);
+    border-bottom: 1px solid var(--transfer-item-border, var(--gray-100));
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover:not(&--disabled) {
+      background: var(--transfer-item-hover-bg, var(--gray-50));
+    }
+
+    &--selected {
+      background: var(--transfer-item-selected-bg, var(--blue-50));
+
+      &:hover:not(&--disabled) {
+        background: var(--transfer-item-selected-hover-bg, var(--blue-100));
+      }
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__item-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__item-label {
+    font-size: var(--transfer-item-font-size, var(--font-size-sm));
+    font-weight: 500;
+    color: var(--transfer-item-label-color, var(--text-default));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__item-description {
+    margin-top: 0.25rem;
+    font-size: var(--font-size-xs);
+    color: var(--transfer-item-description-color, var(--text-light));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // === ACTIONS ===
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--transfer-actions-gap, 0.5rem);
+    align-self: center;
+  }
+
+  // === SIZES ===
+
+  &--sm {
+    .ds-transfer__header {
+      padding: 0.5rem 0.75rem;
+    }
+
+    .ds-transfer__search {
+      padding: 0.5rem 0.75rem;
+    }
+
+    .ds-transfer__search-input {
+      padding: 0.375rem 1.5rem 0.375rem 0.5rem;
+      font-size: var(--font-size-xs);
+    }
+
+    .ds-transfer__item {
+      padding: 0.5rem 0.75rem;
+    }
+
+    .ds-transfer__item-label {
+      font-size: var(--font-size-xs);
+    }
+
+    .ds-transfer__list {
+      min-height: 200px;
+      max-height: 300px;
+    }
+  }
+
+  &--lg {
+    .ds-transfer__header {
+      padding: 1rem 1.25rem;
+    }
+
+    .ds-transfer__search {
+      padding: 1rem 1.25rem;
+    }
+
+    .ds-transfer__search-input {
+      padding: 0.625rem 2.5rem 0.625rem 1rem;
+      font-size: var(--font-size-base);
+    }
+
+    .ds-transfer__item {
+      padding: 1rem 1.25rem;
+    }
+
+    .ds-transfer__item-label {
+      font-size: var(--font-size-base);
+    }
+
+    .ds-transfer__list {
+      min-height: 400px;
+      max-height: 500px;
+    }
+  }
+
+  // === DISABLED STATE ===
+
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    .ds-transfer__panel,
+    .ds-transfer__item {
+      pointer-events: none;
+    }
+  }
+}

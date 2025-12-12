@@ -1,0 +1,140 @@
+<div class="ds-calendar__container">
+  <!-- Header avec navigation et sélecteur mode -->
+  <div class="ds-calendar__header">
+    <div class="ds-calendar__nav">
+      @if (currentMode() === 'month') {
+        <button
+          type="button"
+          class="ds-calendar__nav-btn"
+          (click)="previousMonth()"
+          aria-label="Mois précédent"
+        >
+          <fa-icon [icon]="icons.chevronLeft"></fa-icon>
+        </button>
+      } @else {
+        <button
+          type="button"
+          class="ds-calendar__nav-btn"
+          (click)="previousYear()"
+          aria-label="Année précédente"
+        >
+          <fa-icon [icon]="icons.chevronLeft"></fa-icon>
+        </button>
+      }
+
+      <button
+        type="button"
+        class="ds-calendar__title"
+        (click)="toggleMode()"
+        [attr.aria-label]="currentMode() === 'month' ? 'Voir l\'année' : 'Voir le mois'"
+      >
+        {{ calendarTitle() }}
+      </button>
+
+      @if (currentMode() === 'month') {
+        <button
+          type="button"
+          class="ds-calendar__nav-btn"
+          (click)="nextMonth()"
+          aria-label="Mois suivant"
+        >
+          <fa-icon [icon]="icons.chevronRight"></fa-icon>
+        </button>
+      } @else {
+        <button
+          type="button"
+          class="ds-calendar__nav-btn"
+          (click)="nextYear()"
+          aria-label="Année suivante"
+        >
+          <fa-icon [icon]="icons.chevronRight"></fa-icon>
+        </button>
+      }
+    </div>
+
+    <div class="ds-calendar__mode-selector">
+      <button
+        type="button"
+        class="ds-calendar__mode-btn"
+        [class.ds-calendar__mode-btn--active]="currentMode() === 'month'"
+        (click)="currentMode() === 'year' && toggleMode()"
+      >
+        Mois
+      </button>
+      <button
+        type="button"
+        class="ds-calendar__mode-btn"
+        [class.ds-calendar__mode-btn--active]="currentMode() === 'year'"
+        (click)="currentMode() === 'month' && toggleMode()"
+      >
+        Année
+      </button>
+    </div>
+  </div>
+
+  <!-- Vue mois -->
+  @if (currentMode() === 'month') {
+    <div class="ds-calendar__month-view">
+      <!-- Noms des jours de la semaine -->
+      <div class="ds-calendar__weekdays">
+        @for (day of weekDays(); track day) {
+          <div class="ds-calendar__weekday">{{ day }}</div>
+        }
+      </div>
+
+      <!-- Grille des jours -->
+      <div class="ds-calendar__grid">
+        @for (day of calendarGrid(); track day.date.getTime()) {
+          <button
+            type="button"
+            [class]="getDayClasses(day)"
+            [disabled]="day.isDisabled"
+            (click)="selectDate(day)"
+            [attr.aria-label]="day.date.toLocaleDateString(locale())"
+            [attr.aria-current]="day.isToday ? 'date' : null"
+          >
+            <span class="ds-calendar__day-number">{{ day.date.getDate() }}</span>
+
+            @if (day.events.length > 0) {
+              <div class="ds-calendar__events">
+                @for (event of day.events; track event.id) {
+                  <div
+                    [class]="getEventClasses(event)"
+                    [title]="event.title"
+                    (click)="onEventClick(event, $event)"
+                    role="button"
+                    [attr.aria-label]="event.title"
+                  >
+                    <span class="ds-calendar__event-dot"></span>
+                    @if (size() === 'lg') {
+                      <span class="ds-calendar__event-title">{{ event.title }}</span>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Vue année -->
+  @if (currentMode() === 'year') {
+    <div class="ds-calendar__year-view">
+      <div class="ds-calendar__months-grid">
+        @for (month of monthGrid(); track month.monthIndex) {
+          <button
+            type="button"
+            [class]="getMonthClasses(month)"
+            (click)="selectMonth(month)"
+            [attr.aria-label]="month.label"
+            [attr.aria-current]="month.isCurrentMonth ? 'true' : null"
+          >
+            {{ month.label }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+</div>

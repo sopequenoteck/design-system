@@ -670,6 +670,165 @@
   --password-strength-bar-radius: #{$password-strength-bar-radius};
   --password-strength-label-font-size: #{$password-strength-label-font-size};
   --password-strength-label-gap: #{$password-strength-label-gap};
+
+  /* === TIMELINE === */
+  --timeline-dot-size-sm: #{$timeline-dot-size-sm};
+  --timeline-dot-size-md: #{$timeline-dot-size-md};
+  --timeline-dot-size-lg: #{$timeline-dot-size-lg};
+  --timeline-dot-border-width: #{$timeline-dot-border-width};
+
+  --timeline-line-width-sm: #{$timeline-line-width-sm};
+  --timeline-line-width-md: #{$timeline-line-width-md};
+  --timeline-line-width-lg: #{$timeline-line-width-lg};
+
+  --timeline-item-gap-sm: #{$timeline-item-gap-sm};
+  --timeline-item-gap-md: #{$timeline-item-gap-md};
+  --timeline-item-gap-lg: #{$timeline-item-gap-lg};
+
+  --timeline-content-gap-sm: #{$timeline-content-gap-sm};
+  --timeline-content-gap-md: #{$timeline-content-gap-md};
+  --timeline-content-gap-lg: #{$timeline-content-gap-lg};
+
+  --timeline-content-inner-gap-sm: #{$timeline-content-inner-gap-sm};
+  --timeline-content-inner-gap-md: #{$timeline-content-inner-gap-md};
+  --timeline-content-inner-gap-lg: #{$timeline-content-inner-gap-lg};
+
+  --timeline-date-font-size-sm: #{$timeline-date-font-size-sm};
+  --timeline-date-font-size-md: #{$timeline-date-font-size-md};
+  --timeline-date-font-size-lg: #{$timeline-date-font-size-lg};
+
+  --timeline-text-font-size-sm: #{$timeline-text-font-size-sm};
+  --timeline-text-font-size-md: #{$timeline-text-font-size-md};
+  --timeline-text-font-size-lg: #{$timeline-text-font-size-lg};
+
+  --timeline-icon-size-sm: #{$timeline-icon-size-sm};
+  --timeline-icon-size-md: #{$timeline-icon-size-md};
+  --timeline-icon-size-lg: #{$timeline-icon-size-lg};
+
+  /* === TRANSFER === */
+  --transfer-gap: #{$transfer-gap};
+  --transfer-border-radius: #{$transfer-border-radius};
+
+  --transfer-header-padding: #{$transfer-header-padding};
+  --transfer-search-padding: #{$transfer-search-padding};
+  --transfer-search-input-padding: #{$transfer-search-input-padding};
+  --transfer-search-input-radius: #{$transfer-search-input-radius};
+
+  --transfer-list-min-height: #{$transfer-list-min-height};
+  --transfer-list-max-height: #{$transfer-list-max-height};
+
+  --transfer-item-padding: #{$transfer-item-padding};
+  --transfer-title-font-size: #{$transfer-title-font-size};
+  --transfer-item-font-size: #{$transfer-item-font-size};
+  --transfer-actions-gap: #{$transfer-actions-gap};
+
+  /* === CAROUSEL === */
+  --carousel-container-height: #{$carousel-container-height};
+  --carousel-radius: #{$carousel-radius};
+  --carousel-content-padding: #{$carousel-content-padding};
+  --carousel-title-size: #{$carousel-title-size};
+  --carousel-description-size: #{$carousel-description-size};
+  --carousel-arrow-size: #{$carousel-arrow-size};
+  --carousel-arrow-radius: #{$carousel-arrow-radius};
+  --carousel-arrow-offset: #{$carousel-arrow-offset};
+  --carousel-arrow-icon-size: #{$carousel-arrow-icon-size};
+  --carousel-dot-size: #{$carousel-dot-size};
+  --carousel-dot-size-active: #{$carousel-dot-size-active};
+  --carousel-dots-gap: #{$carousel-dots-gap};
+  --carousel-dots-padding: #{$carousel-dots-padding};
+
+  /* === NOTIFICATION === */
+  --notification-z-index: #{$notification-z-index};
+  --notification-max-width: #{$notification-max-width};
+  --notification-gap: #{$notification-gap};
+
+  --notification-offset-x: #{$notification-offset-x};
+  --notification-offset-y: #{$notification-offset-y};
+
+  --notification-padding: #{$notification-padding};
+  --notification-gap-inner: #{$notification-gap-inner};
+
+  --notification-border-width: #{$notification-border-width};
+  --notification-radius: #{$notification-radius};
+
+  --notification-icon-size: #{$notification-icon-size};
+  --notification-icon-gap: #{$notification-icon-gap};
+
+  --notification-title-size: #{$notification-title-size};
+  --notification-title-weight: #{$notification-title-weight};
+
+  --notification-message-size: #{$notification-message-size};
+
+  /* === CALENDAR === */
+
+  --calendar-radius: #{$calendar-radius};
+
+  --calendar-header-padding: #{$calendar-header-padding};
+  --calendar-header-padding-sm: #{$calendar-header-padding-sm};
+  --calendar-header-padding-lg: #{$calendar-header-padding-lg};
+
+  --calendar-nav-gap: #{$calendar-nav-gap};
+  --calendar-nav-btn-size: #{$calendar-nav-btn-size};
+  --calendar-nav-btn-radius: #{$calendar-nav-btn-radius};
+  --calendar-nav-btn-font-size: #{$calendar-nav-btn-font-size};
+
+  --calendar-title-padding: #{$calendar-title-padding};
+  --calendar-title-radius: #{$calendar-title-radius};
+  --calendar-title-font-size: #{$calendar-title-font-size};
+  --calendar-title-font-size-sm: #{$calendar-title-font-size-sm};
+  --calendar-title-font-size-lg: #{$calendar-title-font-size-lg};
+  --calendar-title-font-weight: #{$calendar-title-font-weight};
+
+  --calendar-mode-gap: #{$calendar-mode-gap};
+  --calendar-mode-radius: #{$calendar-mode-radius};
+  --calendar-mode-padding: #{$calendar-mode-padding};
+  --calendar-mode-btn-padding: #{$calendar-mode-btn-padding};
+  --calendar-mode-btn-radius: #{$calendar-mode-btn-radius};
+  --calendar-mode-btn-font-size: #{$calendar-mode-btn-font-size};
+
+  --calendar-month-view-padding: #{$calendar-month-view-padding};
+
+  --calendar-weekday-gap: #{$calendar-weekday-gap};
+  --calendar-weekday-margin: #{$calendar-weekday-margin};
+  --calendar-weekday-padding: #{$calendar-weekday-padding};
+  --calendar-weekday-font-size: #{$calendar-weekday-font-size};
+  --calendar-weekday-font-size-sm: #{$calendar-weekday-font-size-sm};
+  --calendar-weekday-font-size-lg: #{$calendar-weekday-font-size-lg};
+  --calendar-weekday-font-weight: #{$calendar-weekday-font-weight};
+
+  --calendar-grid-gap: #{$calendar-grid-gap};
+
+  --calendar-day-padding: #{$calendar-day-padding};
+  --calendar-day-padding-sm: #{$calendar-day-padding-sm};
+  --calendar-day-padding-lg: #{$calendar-day-padding-lg};
+  --calendar-day-radius: #{$calendar-day-radius};
+  --calendar-day-font-size: #{$calendar-day-font-size};
+  --calendar-day-font-size-sm: #{$calendar-day-font-size-sm};
+  --calendar-day-font-size-lg: #{$calendar-day-font-size-lg};
+
+  --calendar-day-number-margin: #{$calendar-day-number-margin};
+
+  --calendar-events-gap: #{$calendar-events-gap};
+
+  --calendar-event-gap: #{$calendar-event-gap};
+  --calendar-event-padding: #{$calendar-event-padding};
+  --calendar-event-radius: #{$calendar-event-radius};
+
+  --calendar-event-dot-size: #{$calendar-event-dot-size};
+
+  --calendar-event-title-font-size: #{$calendar-event-title-font-size};
+
+  --calendar-year-view-padding: #{$calendar-year-view-padding};
+
+  --calendar-months-gap: #{$calendar-months-gap};
+
+  --calendar-month-padding: #{$calendar-month-padding};
+  --calendar-month-padding-sm: #{$calendar-month-padding-sm};
+  --calendar-month-padding-lg: #{$calendar-month-padding-lg};
+  --calendar-month-radius: #{$calendar-month-radius};
+  --calendar-month-font-size: #{$calendar-month-font-size};
+  --calendar-month-font-size-sm: #{$calendar-month-font-size-sm};
+  --calendar-month-font-size-lg: #{$calendar-month-font-size-lg};
 }
 
 /* === ACCESSIBILITY: REDUCED MOTION === */

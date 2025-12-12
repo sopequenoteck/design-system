@@ -1,0 +1,270 @@
+// ============================================================================
+// DS-CAROUSEL — Styles du composant Carousel
+// ============================================================================
+
+.ds-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--carousel-bg, var(--gray-50));
+  border-radius: var(--carousel-radius, var(--radius-2));
+  outline: none;
+
+  // Container
+  &__container {
+    position: relative;
+    width: 100%;
+    height: 400px; // Hauteur par défaut, peut être surchargée
+    overflow: hidden;
+  }
+
+  // Track (conteneur des slides)
+  &__track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  // Slide
+  &__slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+
+    &--fade {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+
+      &.ds-carousel__slide--active {
+        opacity: 1;
+        z-index: 1;
+      }
+    }
+  }
+
+  // Image
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  // Content overlay
+  &__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--carousel-content-padding, var(--space-6));
+    background: var(--carousel-content-bg, linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent));
+    color: var(--carousel-content-text, var(--white));
+  }
+
+  &__title {
+    margin: 0 0 var(--space-2) 0;
+    font-size: var(--carousel-title-size, var(--font-size-5));
+    font-weight: var(--font-weight-bold, 700);
+    line-height: 1.2;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: var(--carousel-description-size, var(--font-size-3));
+    line-height: 1.5;
+    opacity: 0.95;
+  }
+
+  // Arrows
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--carousel-arrow-size, 40px);
+    height: var(--carousel-arrow-size, 40px);
+    padding: 0;
+    background-color: var(--carousel-arrow-bg, rgba(255, 255, 255, 0.9));
+    color: var(--carousel-arrow-color, var(--gray-800));
+    border: none;
+    border-radius: var(--carousel-arrow-radius, 50%);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--carousel-arrow-shadow, var(--shadow-md));
+
+    &:hover {
+      background-color: var(--carousel-arrow-bg-hover, var(--white));
+      color: var(--carousel-arrow-color-hover, var(--color-primary));
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    &:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--carousel-arrow-focus, var(--color-primary));
+      outline-offset: 2px;
+    }
+
+    &--left {
+      left: var(--carousel-arrow-offset, var(--space-4));
+    }
+
+    &--right {
+      right: var(--carousel-arrow-offset, var(--space-4));
+    }
+
+    fa-icon {
+      font-size: var(--carousel-arrow-icon-size, var(--font-size-4));
+    }
+  }
+
+  // Dots
+  &__dots {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    gap: var(--carousel-dots-gap, var(--space-2));
+    padding: var(--carousel-dots-padding, var(--space-4));
+  }
+
+  // Dots position variants
+  &--dots-bottom &__dots {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+  }
+
+  &--dots-top &__dots {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+  }
+
+  &--dots-left &__dots {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    flex-direction: column;
+  }
+
+  &--dots-right &__dots {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    flex-direction: column;
+  }
+
+  &__dot {
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:focus-visible {
+      outline: 2px solid var(--carousel-dot-focus, var(--color-primary));
+      outline-offset: 2px;
+      border-radius: 50%;
+    }
+  }
+
+  &__dot-inner {
+    display: block;
+    width: var(--carousel-dot-size, 10px);
+    height: var(--carousel-dot-size, 10px);
+    background-color: var(--carousel-dot-bg, rgba(255, 255, 255, 0.5));
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  &__dot--active &__dot-inner {
+    background-color: var(--carousel-dot-bg-active, var(--white));
+    width: var(--carousel-dot-size-active, 12px);
+    height: var(--carousel-dot-size-active, 12px);
+  }
+
+  &__dot:hover &__dot-inner {
+    background-color: var(--carousel-dot-bg-hover, rgba(255, 255, 255, 0.8));
+    transform: scale(1.2);
+  }
+
+  // Effect: fade
+  &--fade &__track {
+    position: relative;
+  }
+
+  &--fade &__slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  // Transitioning state
+  &--transitioning {
+    user-select: none;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .ds-carousel {
+    &__container {
+      height: 300px;
+    }
+
+    &__content {
+      padding: var(--space-4);
+    }
+
+    &__title {
+      font-size: var(--font-size-4);
+    }
+
+    &__description {
+      font-size: var(--font-size-2);
+    }
+
+    &__arrow {
+      width: 32px;
+      height: 32px;
+
+      fa-icon {
+        font-size: var(--font-size-3);
+      }
+    }
+
+    &__arrow--left,
+    &__arrow--right {
+      --carousel-arrow-offset: var(--space-2);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .ds-carousel {
+    &__container {
+      height: 250px;
+    }
+
+    &__arrow {
+      width: 28px;
+      height: 28px;
+    }
+  }
+}

@@ -644,3 +644,195 @@ $password-strength-bar-gap: $space-1;
 $password-strength-bar-radius: $radius-1;
 $password-strength-label-font-size: $font-size-2;
 $password-strength-label-gap: $space-2;
+
+// === TIMELINE ===
+
+$timeline-dot-size-sm: 20px;
+$timeline-dot-size-md: 24px;
+$timeline-dot-size-lg: 32px;
+
+$timeline-dot-border-width: 2px;
+
+$timeline-line-width-sm: 2px;
+$timeline-line-width-md: 2px;
+$timeline-line-width-lg: 3px;
+
+$timeline-item-gap-sm: $space-4;
+$timeline-item-gap-md: $space-6;
+$timeline-item-gap-lg: $space-8;
+
+$timeline-content-gap-sm: $space-3;
+$timeline-content-gap-md: $space-4;
+$timeline-content-gap-lg: $space-6;
+
+$timeline-content-inner-gap-sm: $space-1;
+$timeline-content-inner-gap-md: $space-2;
+$timeline-content-inner-gap-lg: $space-3;
+
+$timeline-date-font-size-sm: $font-size-1;
+$timeline-date-font-size-md: $font-size-2;
+$timeline-date-font-size-lg: $font-size-3;
+
+$timeline-text-font-size-sm: $font-size-2;
+$timeline-text-font-size-md: $font-size-3;
+$timeline-text-font-size-lg: $font-size-4;
+
+$timeline-icon-size-sm: 12px;
+$timeline-icon-size-md: 14px;
+$timeline-icon-size-lg: 18px;
+
+// === TRANSFER ===
+
+$transfer-gap: $space-4;
+$transfer-border-radius: $radius-2;
+
+$transfer-header-padding: $space-3 $space-4;
+$transfer-header-padding-sm: $space-2 $space-3;
+$transfer-header-padding-lg: $space-4 $space-5;
+
+$transfer-search-padding: $space-3 $space-4;
+$transfer-search-padding-sm: $space-2 $space-3;
+$transfer-search-padding-lg: $space-4 $space-5;
+
+$transfer-search-input-padding: $space-2 $space-8 $space-2 $space-3;
+$transfer-search-input-padding-sm: $space-1-5 $space-6 $space-1-5 $space-2;
+$transfer-search-input-padding-lg: $space-3 $space-10 $space-3 $space-4;
+
+$transfer-search-input-radius: $radius-1;
+
+$transfer-list-min-height: 300px;
+$transfer-list-min-height-sm: 200px;
+$transfer-list-min-height-lg: 400px;
+
+$transfer-list-max-height: 400px;
+$transfer-list-max-height-sm: 300px;
+$transfer-list-max-height-lg: 500px;
+
+$transfer-item-padding: $space-3 $space-4;
+$transfer-item-padding-sm: $space-2 $space-3;
+$transfer-item-padding-lg: $space-4 $space-5;
+
+$transfer-title-font-size: $font-size-3;
+$transfer-item-font-size: $font-size-3;
+$transfer-item-font-size-sm: $font-size-2;
+$transfer-item-font-size-lg: $font-size-4;
+
+$transfer-actions-gap: $space-2;
+
+// === CAROUSEL ===
+
+$carousel-container-height: 400px;
+$carousel-container-height-mobile: 250px;
+
+$carousel-radius: $radius-2;
+
+$carousel-content-padding: $space-6;
+$carousel-title-size: $font-size-5;
+$carousel-description-size: $font-size-3;
+
+$carousel-arrow-size: 40px;
+$carousel-arrow-size-mobile: 28px;
+$carousel-arrow-radius: 50%;
+$carousel-arrow-offset: $space-4;
+$carousel-arrow-offset-mobile: $space-2;
+$carousel-arrow-icon-size: $font-size-4;
+$carousel-arrow-icon-size-mobile: $font-size-3;
+
+$carousel-dot-size: 10px;
+$carousel-dot-size-active: 12px;
+$carousel-dots-gap: $space-2;
+$carousel-dots-padding: $space-4;
+
+// === CALENDAR ===
+
+$calendar-radius: $radius-2;
+
+$calendar-header-padding: $space-4;
+$calendar-header-padding-sm: $space-2;
+$calendar-header-padding-lg: $space-6;
+
+$calendar-nav-gap: $space-2;
+$calendar-nav-btn-size: 32px;
+$calendar-nav-btn-radius: $radius-1;
+$calendar-nav-btn-font-size: $font-size-3;
+
+$calendar-title-padding: $space-2 $space-3;
+$calendar-title-radius: $radius-1;
+$calendar-title-font-size: $font-size-4;
+$calendar-title-font-size-sm: $font-size-3;
+$calendar-title-font-size-lg: $font-size-5;
+$calendar-title-font-weight: 600;
+
+$calendar-mode-gap: $space-1;
+$calendar-mode-radius: $radius-1;
+$calendar-mode-padding: 2px;
+$calendar-mode-btn-padding: $space-1 $space-3;
+$calendar-mode-btn-radius: $radius-1;
+$calendar-mode-btn-font-size: $font-size-2;
+
+$calendar-month-view-padding: $space-4;
+
+$calendar-weekday-gap: $space-1;
+$calendar-weekday-margin: $space-2;
+$calendar-weekday-padding: $space-2 0;
+$calendar-weekday-font-size: $font-size-2;
+$calendar-weekday-font-size-sm: $font-size-1;
+$calendar-weekday-font-size-lg: $font-size-3;
+$calendar-weekday-font-weight: 600;
+
+$calendar-grid-gap: $space-1;
+
+$calendar-day-padding: $space-2;
+$calendar-day-padding-sm: $space-1;
+$calendar-day-padding-lg: $space-3;
+$calendar-day-radius: $radius-1;
+$calendar-day-font-size: $font-size-3;
+$calendar-day-font-size-sm: $font-size-2;
+$calendar-day-font-size-lg: $font-size-4;
+
+$calendar-day-number-margin: $space-1;
+
+$calendar-events-gap: 2px;
+
+$calendar-event-gap: $space-1;
+$calendar-event-padding: 2px;
+$calendar-event-radius: $radius-1;
+
+$calendar-event-dot-size: 6px;
+
+$calendar-event-title-font-size: $font-size-1;
+
+$calendar-year-view-padding: $space-4;
+
+$calendar-months-gap: $space-3;
+
+$calendar-month-padding: $space-4;
+$calendar-month-padding-sm: $space-2;
+$calendar-month-padding-lg: $space-6;
+$calendar-month-radius: $radius-2;
+$calendar-month-font-size: $font-size-3;
+$calendar-month-font-size-sm: $font-size-2;
+$calendar-month-font-size-lg: $font-size-4;
+
+// === NOTIFICATION ===
+
+$notification-z-index: 1050;
+$notification-max-width: 384px;
+$notification-gap: $space-3;
+
+$notification-offset-x: $space-6;
+$notification-offset-y: $space-6;
+
+$notification-padding: $space-4;
+$notification-gap-inner: $space-3;
+
+$notification-border-width: 1px;
+$notification-radius: $radius-2;
+
+$notification-icon-size: 20px;
+$notification-icon-gap: $space-2;
+
+$notification-title-size: $font-size-3;
+$notification-title-weight: 600;
+
+$notification-message-size: $font-size-2;

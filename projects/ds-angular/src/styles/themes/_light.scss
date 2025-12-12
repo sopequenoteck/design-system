@@ -725,4 +725,160 @@
   --password-strength-text: var(--text-muted);
   --password-strength-criterion-valid: var(--success);
   --password-strength-criterion-invalid: var(--text-muted);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS TIMELINE
+   * ======================================================================== */
+  --timeline-dot-bg: var(--background-main);
+  --timeline-dot-border-color: var(--border-color);
+
+  --timeline-dot-bg-default: var(--gray-100);
+  --timeline-dot-border-default: var(--gray-400);
+
+  --timeline-dot-bg-primary: color-mix(in oklab, var(--color-primary) 15%, transparent);
+  --timeline-dot-border-primary: var(--color-primary);
+
+  --timeline-dot-bg-success: color-mix(in oklab, var(--success) 15%, transparent);
+  --timeline-dot-border-success: var(--success);
+
+  --timeline-dot-bg-warning: color-mix(in oklab, var(--warning) 15%, transparent);
+  --timeline-dot-border-warning: var(--warning);
+
+  --timeline-dot-bg-error: color-mix(in oklab, var(--error) 15%, transparent);
+  --timeline-dot-border-error: var(--error);
+
+  --timeline-dot-bg-info: color-mix(in oklab, var(--info) 15%, transparent);
+  --timeline-dot-border-info: var(--info);
+
+  --timeline-dot-bg-pending: color-mix(in oklab, var(--gray-300) 15%, transparent);
+  --timeline-dot-border-pending: var(--gray-500);
+
+  --timeline-line-color: var(--border-subtle);
+  --timeline-date-color: var(--text-muted);
+  --timeline-text-color: var(--text-default);
+  --timeline-text-color-pending: var(--text-muted);
+  --timeline-icon-color: var(--color-primary);
+  --timeline-icon-color-pending: var(--text-muted);
+
+  /* ==========================================================================
+   * TRANSFER
+   * ======================================================================== */
+  --transfer-bg: var(--white);
+  --transfer-border-color: var(--border-color);
+  --transfer-header-bg: var(--gray-50);
+  --transfer-header-border-color: var(--border-subtle);
+  --transfer-title-color: var(--text-default);
+  --transfer-count-color: var(--text-muted);
+
+  --transfer-search-border-color: var(--border-subtle);
+  --transfer-search-input-bg: var(--white);
+  --transfer-search-input-text: var(--text-default);
+  --transfer-search-input-border: var(--border-color);
+  --transfer-search-input-focus: var(--color-primary);
+  --transfer-search-input-focus-shadow: color-mix(in oklab, var(--color-primary) 10%, transparent);
+  --transfer-search-input-disabled-bg: var(--gray-50);
+  --transfer-search-placeholder: var(--text-disabled);
+  --transfer-search-clear-color: var(--text-muted);
+  --transfer-search-clear-hover: var(--text-default);
+
+  --transfer-item-border: var(--border-subtle);
+  --transfer-item-hover-bg: var(--gray-50);
+  --transfer-item-selected-bg: color-mix(in oklab, var(--color-primary) 10%, transparent);
+  --transfer-item-selected-hover-bg: color-mix(in oklab, var(--color-primary) 15%, transparent);
+  --transfer-item-label-color: var(--text-default);
+  --transfer-item-description-color: var(--text-muted);
+
+  --transfer-empty-color: var(--text-disabled);
+
+  /* ==========================================================================
+   * CAROUSEL
+   * ======================================================================== */
+  --carousel-bg: var(--gray-50);
+
+  --carousel-content-bg: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  --carousel-content-text: var(--white);
+
+  --carousel-arrow-bg: rgba(255, 255, 255, 0.9);
+  --carousel-arrow-color: var(--gray-800);
+  --carousel-arrow-bg-hover: var(--white);
+  --carousel-arrow-color-hover: var(--color-primary);
+  --carousel-arrow-focus: var(--color-primary);
+  --carousel-arrow-shadow: var(--shadow-md);
+
+  --carousel-dot-bg: rgba(255, 255, 255, 0.5);
+  --carousel-dot-bg-hover: rgba(255, 255, 255, 0.8);
+  --carousel-dot-bg-active: var(--white);
+  --carousel-dot-focus: var(--color-primary);
+
+  /* ==========================================================================
+   * NOTIFICATION
+   * ======================================================================== */
+  --notification-bg: var(--white);
+  --notification-border-color: var(--gray-300);
+  --notification-shadow: var(--shadow-lg);
+
+  --notification-icon-color: var(--gray-500);
+  --notification-title-color: var(--gray-900);
+  --notification-message-color: var(--gray-600);
+
+  --notification-close-color: var(--gray-400);
+  --notification-close-hover-color: var(--gray-600);
+
+  --notification-info-icon: var(--color-primary);
+  --notification-success-icon: var(--success);
+  --notification-warning-icon: var(--warning);
+  --notification-error-icon: var(--error);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS CALENDAR
+   * ======================================================================== */
+  --calendar-bg: var(--white);
+  --calendar-border: var(--gray-200);
+
+  --calendar-header-bg: var(--gray-50);
+
+  --calendar-nav-btn-border: var(--gray-300);
+  --calendar-nav-btn-color: var(--gray-700);
+  --calendar-nav-btn-hover-bg: var(--gray-100);
+  --calendar-nav-btn-hover-border: var(--gray-400);
+  --calendar-nav-btn-hover-color: var(--gray-900);
+
+  --calendar-title-color: var(--gray-900);
+  --calendar-title-hover-bg: var(--gray-100);
+  --calendar-title-hover-border: var(--gray-300);
+
+  --calendar-mode-bg: var(--white);
+  --calendar-mode-border: var(--gray-300);
+  --calendar-mode-btn-color: var(--gray-700);
+  --calendar-mode-btn-hover-color: var(--gray-900);
+  --calendar-mode-btn-active-bg: var(--color-primary);
+  --calendar-mode-btn-active-color: var(--white);
+
+  --calendar-weekday-color: var(--gray-600);
+
+  --calendar-day-bg: transparent;
+  --calendar-day-border: transparent;
+  --calendar-day-color: var(--gray-900);
+  --calendar-day-hover-bg: var(--gray-100);
+  --calendar-day-hover-border: var(--gray-300);
+  --calendar-day-other-month-color: var(--gray-400);
+  --calendar-day-today-bg: var(--blue-50);
+  --calendar-day-today-border: var(--color-primary);
+  --calendar-day-today-color: var(--color-primary);
+  --calendar-day-disabled-bg: var(--gray-50);
+
+  --calendar-event-dot-color: var(--gray-500);
+  --calendar-event-title-color: var(--gray-700);
+  --calendar-event-success-color: var(--success);
+  --calendar-event-warning-color: var(--warning);
+  --calendar-event-error-color: var(--error);
+
+  --calendar-month-bg: transparent;
+  --calendar-month-border: var(--gray-200);
+  --calendar-month-color: var(--gray-900);
+  --calendar-month-hover-bg: var(--gray-50);
+  --calendar-month-hover-border: var(--gray-300);
+  --calendar-month-current-bg: var(--blue-50);
+  --calendar-month-current-border: var(--color-primary);
+  --calendar-month-current-color: var(--color-primary);
 }
