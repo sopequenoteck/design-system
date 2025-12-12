@@ -45,11 +45,11 @@
 - [x] [TEST] Exécuter tests unitaires ds-file-upload | `ds-file-upload.spec.ts` | ~1h
 - [x] [TEST] Corriger test `DsFileUpload Multiple files should replace file in single mode` | `ds-file-upload.spec.ts` | ~0.5h
 
-## Tests e2e Playwright ⏳ EN ATTENTE
+## Tests e2e Playwright ✅ TERMINÉ
 
-- [ ] [TEST] Ajouter tests e2e Playwright pour ds-chip | `e2e/chip.spec.ts` | ~2h
-- [ ] [TEST] Ajouter tests e2e Playwright pour ds-slider | `e2e/slider.spec.ts` | ~2h
-- [ ] [TEST] Ajouter tests e2e Playwright pour ds-file-upload | `e2e/file-upload.spec.ts` | ~2h
+- [x] [TEST] Ajouter tests e2e Playwright pour ds-chip | `e2e/chip.spec.ts` | ~2h
+- [x] [TEST] Ajouter tests e2e Playwright pour ds-slider | `e2e/slider.spec.ts` | ~2h
+- [x] [TEST] Ajouter tests e2e Playwright pour ds-file-upload | `e2e/file-upload.spec.ts` | ~2h
 
 ---
 
@@ -63,9 +63,9 @@
 | STORY | ✅ TERMINÉ | 3/3 (100%) |
 | DOC | ✅ TERMINÉ | 3/3 (100%) |
 | TEST (unitaires) | ✅ TERMINÉ | 1630/1630 (100%) |
-| TEST (e2e) | ⏳ EN ATTENTE | 0/3 (0%) |
+| TEST (e2e) | ✅ TERMINÉ | 3/3 (100%) |
 
-**Total** : 21/24 tâches terminées (87.5%)
+**Total** : 24/24 tâches terminées (100%)
 
 ---
 
@@ -131,10 +131,10 @@
 
 ### Priorité HAUTE
 1. [x] Tokens ds-chip/ds-slider/ds-file-upload dans `_custom.scss`
-2. [ ] Tests e2e Playwright pour les 3 composants SPRINT-001
+2. [x] Tests e2e Playwright pour les 3 composants SPRINT-001
 
 ### Priorité MOYENNE
-3. [ ] Correction test unitaire DsFileUpload
+3. [x] Correction test unitaire DsFileUpload
 4. [ ] Documentation accessibilité WCAG 2.1 AA
 
 ### Priorité BASSE
@@ -151,5 +151,5 @@
 | Primitives | 7 |
 | Stories | 40+ |
 | Tests unitaires | 1628/1630 (99.8%) |
-| Tests e2e | 4 fichiers |
+| Tests e2e | 7 fichiers |
 | Build | ✅ 3.9s |
