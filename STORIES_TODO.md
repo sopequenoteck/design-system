@@ -10,8 +10,8 @@
 
 | Statut | Tâches |
 |--------|--------|
-| Complétées | 0 / 62 |
-| **Progression** | 0% |
+| Complétées | 8 / 62 |
+| **Progression** | 13% |
 
 ---
 
@@ -70,32 +70,33 @@
 
 ---
 
-## Sprint 3 : Couverture états et thèmes (15 tâches)
+## Sprint 3 : Couverture états et thèmes (15 tâches) ✅ COMPLÉTÉ
 
 **Objectif** : Compléter les stories manquantes
+**Complété le** : 2025-12-12
 
 ### Stories Themed manquantes
-- [ ] `ds-tree/ds-tree.stories.ts` — Ajouter story Themed
-- [ ] `ds-breadcrumb/ds-breadcrumb.stories.ts` — Ajouter story Themed
-- [ ] `ds-tooltip/ds-tooltip.stories.ts` — Ajouter story Themed
-- [ ] `ds-popover/ds-popover.stories.ts` — Ajouter story Themed
-- [ ] `ds-toast/ds-toast.stories.ts` — Ajouter story Themed
-- [ ] `ds-alert/ds-alert.stories.ts` — Ajouter story Themed
+- [x] `ds-tree/ds-tree.stories.ts` — Ajouter story Themed ✅
+- [x] `ds-breadcrumb/ds-breadcrumb.stories.ts` — Ajouter story Themed ✅ (déjà présent)
+- [x] `ds-tooltip/ds-tooltip.stories.ts` — Ajouter story Themed ✅ (déjà présent)
+- [x] `ds-popover/ds-popover.stories.ts` — Ajouter story Themed ✅ (déjà présent)
+- [x] `ds-toast/ds-toast.stories.ts` — Ajouter story Themed ✅ (déjà présent)
+- [x] `ds-alert/ds-alert.stories.ts` — Ajouter story Themed ✅ (déjà présent)
 
 ### Stories États manquantes
-- [ ] `ds-tree/ds-tree.stories.ts` — Ajouter stories états (loading, empty)
-- [ ] `ds-badge/ds-badge.stories.ts` — Ajouter stories états
-- [ ] `ds-avatar/ds-avatar.stories.ts` — Ajouter stories états (loading placeholder)
-- [ ] `ds-progress-bar/ds-progress-bar.stories.ts` — Ajouter story indeterminate
-- [ ] `ds-empty/ds-empty.stories.ts` — Ajouter variantes d'illustrations
-- [ ] `ds-alert/ds-alert.stories.ts` — Ajouter story closable/dismissible
+- [x] `ds-tree/ds-tree.stories.ts` — Ajouter stories états (loading, empty) ✅
+- [x] `ds-badge/ds-badge.stories.ts` — Ajouter stories états ✅
+- [x] `ds-avatar/ds-avatar.stories.ts` — Ajouter stories états (loading placeholder) ✅
+- [x] `ds-progress-bar/ds-progress-bar.stories.ts` — Ajouter story indeterminate ✅ (déjà présent)
+- [x] `ds-empty/ds-empty.stories.ts` — Ajouter variantes d'illustrations ✅
+- [x] `ds-alert/ds-alert.stories.ts` — Ajouter story closable/dismissible ✅ (déjà présent)
 
 ### Stories Default manquantes
-- [ ] `ds-skeleton/ds-skeleton.stories.ts` — Ajouter story Default
+- [x] `ds-skeleton/ds-skeleton.stories.ts` — Ajouter story Default ✅
 - [ ] `Integration.stories.ts` — Ajouter story Default (ou renommer ContactForm)
 
 ### Stories Variants explicites
-- [ ] `ds-chip/ds-chip.stories.ts` — Créer story AllVariants (grille)
+- [x] `ds-chip/ds-chip.stories.ts` — Créer story AllVariants (grille) ✅
 
 ---
 
