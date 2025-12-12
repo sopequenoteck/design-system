@@ -50,7 +50,12 @@
     &:focus {
       outline: none;
       border-color: var(--combobox-focus-border, var(--color-primary));
-      box-shadow: 0 0 0 3px var(--combobox-focus-shadow, rgba(125, 75, 192, 0.2));
+      box-shadow: 0 0 0 3px var(--combobox-focus-shadow, rgba(var(--color-primary-rgb), 0.2));
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
     }
 
     &:disabled {
@@ -254,7 +259,7 @@
       border-color: var(--error);
 
       &:focus {
-        box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.2);
+        box-shadow: 0 0 0 3px rgba(var(--error-rgb), 0.2);
       }
     }
   }

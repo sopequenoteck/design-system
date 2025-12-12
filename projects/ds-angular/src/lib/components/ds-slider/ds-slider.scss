@@ -79,7 +79,7 @@
     background-color: var(--slider-thumb-bg, var(--white, #ffffff));
     border: var(--slider-thumb-border-width, 2px) solid var(--slider-thumb-border-color, var(--color-primary, #3b82f6));
     border-radius: 50%;
-    box-shadow: var(--slider-thumb-shadow, 0 1px 3px rgba(0, 0, 0, 0.1));
+    box-shadow: var(--slider-thumb-shadow, 0 1px 3px rgba(var(--black-rgb), 0.1));
     cursor: grab;
     transform: translate(-50%, -50%);
     top: 50%;
@@ -88,17 +88,19 @@
 
     &:hover:not([aria-disabled="true"]) {
       transform: translate(-50%, -50%) scale(1.1);
-      box-shadow: var(--slider-thumb-shadow-hover, 0 2px 8px rgba(0, 0, 0, 0.15));
+      box-shadow: var(--slider-thumb-shadow-hover, 0 2px 8px rgba(var(--black-rgb), 0.15));
     }
 
     &:focus-visible {
-      box-shadow: var(--slider-thumb-shadow-focus, 0 0 0 3px rgba(59, 130, 246, 0.3));
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      box-shadow: var(--slider-thumb-shadow-focus, 0 0 0 3px rgba(var(--color-primary-rgb), 0.3));
     }
 
     &--active {
       cursor: grabbing;
       transform: translate(-50%, -50%) scale(1.15);
-      box-shadow: var(--slider-thumb-shadow-active, 0 0 0 4px rgba(59, 130, 246, 0.2));
+      box-shadow: var(--slider-thumb-shadow-active, 0 0 0 4px rgba(var(--color-primary-rgb), 0.2));
     }
 
     &[aria-disabled="true"] {

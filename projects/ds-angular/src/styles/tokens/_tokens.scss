@@ -109,14 +109,29 @@
   --gray-500: #{$gray-500};
   --gray-600: #{$gray-600};
   --gray-700: #{$gray-700};
+  --gray-750: #{$gray-750};
   --gray-800: #{$gray-800};
+  --gray-850: #{$gray-850};
   --gray-900: #{$gray-900};
+
+  --white: #{$white};
+  --black: #{$black};
 
   --success: #{$success};
   --warning: #{$warning};
   --error: #{$error};
   --info: #{$info};
   --focus-color: var(--color-secondary);
+
+  /* === RGB VALUES (for rgba() with custom opacity) === */
+  --color-primary-rgb: 125, 75, 192;
+  --color-secondary-rgb: 251, 194, 36;
+  --success-rgb: 76, 175, 80;
+  --warning-rgb: 255, 152, 0;
+  --error-rgb: 244, 67, 54;
+  --info-rgb: 33, 150, 243;
+  --black-rgb: 0, 0, 0;
+  --white-rgb: 255, 255, 255;
 
   /* === SIZES & LAYOUT === */
   --container-xs: #{$container-xs};
@@ -646,4 +661,16 @@
   --tree-indent: #{$tree-indent};
   --tree-max-height: #{$tree-max-height};
   --tree-border-radius: #{$tree-border-radius};
+}
+
+/* === ACCESSIBILITY: REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
