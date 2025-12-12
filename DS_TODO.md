@@ -135,10 +135,10 @@
 
 ### Priorité MOYENNE
 3. [x] Correction test unitaire DsFileUpload
-4. [ ] Documentation accessibilité WCAG 2.1 AA
+4. [x] Documentation accessibilité WCAG 2.1 AA
 
 ### Priorité BASSE
-5. [ ] Exemples d'utilisation dans Integration.mdx
+5. [x] Exemples d'utilisation dans Integration.mdx
 6. [ ] Publication npm v1.3.0
 
 ---

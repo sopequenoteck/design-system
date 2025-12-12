@@ -193,9 +193,40 @@ Niveau AAA → Excellence (cible future)
       <td style={{padding: '12px 16px'}}><code>Enter</code></td>
       <td style={{padding: '12px 16px'}}>Sélectionner date</td>
     </tr>
-    <tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
       <td style={{padding: '12px 16px'}}><code>Escape</code></td>
       <td style={{padding: '12px 16px'}}>Fermer calendrier</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)', background: 'var(--surface-subtle, #fafafa)'}}>
+      <td style={{padding: '12px 16px', fontWeight: 600}} rowSpan={2}>Chip</td>
+      <td style={{padding: '12px 16px'}}><code>Enter/Space</code></td>
+      <td style={{padding: '12px 16px'}}>Activer chip (si clickable)</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>Delete/Backspace</code></td>
+      <td style={{padding: '12px 16px'}}>Supprimer chip (si removable)</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)', background: 'var(--surface-subtle, #fafafa)'}}>
+      <td style={{padding: '12px 16px', fontWeight: 600}} rowSpan={3}>Slider</td>
+      <td style={{padding: '12px 16px'}}><code>←→</code></td>
+      <td style={{padding: '12px 16px'}}>Diminuer/augmenter valeur</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>Home/End</code></td>
+      <td style={{padding: '12px 16px'}}>Valeur min/max</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}><code>PageUp/Down</code></td>
+      <td style={{padding: '12px 16px'}}>Grands incréments</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)', background: 'var(--surface-subtle, #fafafa)'}}>
+      <td style={{padding: '12px 16px', fontWeight: 600}} rowSpan={2}>FileUpload</td>
+      <td style={{padding: '12px 16px'}}><code>Enter/Space</code></td>
+      <td style={{padding: '12px 16px'}}>Ouvrir sélecteur fichiers</td>
+    </tr>
+    <tr>
+      <td style={{padding: '12px 16px'}}><code>Tab</code></td>
+      <td style={{padding: '12px 16px'}}>Navigation entre fichiers</td>
     </tr>
   </tbody>
 </table>
@@ -292,10 +323,25 @@ private trapFocus(): void {
       <td style={{padding: '12px 16px'}}><code>role="status"</code></td>
       <td style={{padding: '12px 16px'}}>Annonce polite aux lecteurs d'écran</td>
     </tr>
-    <tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
       <td style={{padding: '12px 16px'}}>Progress</td>
       <td style={{padding: '12px 16px'}}><code>role="progressbar"</code></td>
       <td style={{padding: '12px 16px'}}>+ <code>aria-valuenow</code>, <code>aria-valuemin</code>, <code>aria-valuemax</code></td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}>Chip</td>
+      <td style={{padding: '12px 16px'}}><code>role="button"</code></td>
+      <td style={{padding: '12px 16px'}}>Si clickable + <code>aria-selected</code>, <code>aria-disabled</code></td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}>Slider</td>
+      <td style={{padding: '12px 16px'}}><code>role="slider"</code></td>
+      <td style={{padding: '12px 16px'}}>+ <code>aria-valuenow</code>, <code>aria-valuemin</code>, <code>aria-valuemax</code>, <code>aria-valuetext</code></td>
+    </tr>
+    <tr>
+      <td style={{padding: '12px 16px'}}>FileUpload</td>
+      <td style={{padding: '12px 16px'}}><code>role="button"</code></td>
+      <td style={{padding: '12px 16px'}}>Dropzone focusable + <code>aria-label</code>, erreurs avec <code>role="alert"</code></td>
     </tr>
   </tbody>
 </table>
@@ -761,8 +807,29 @@ prefersDark.addEventListener('change', (e) => {
       <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
       <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
     </tr>
-    <tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
       <td style={{padding: '12px 16px'}}>DsCombobox</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}>DsChip</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+    </tr>
+    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
+      <td style={{padding: '12px 16px'}}>DsSlider</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+      <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
+    </tr>
+    <tr>
+      <td style={{padding: '12px 16px'}}>DsFileUpload</td>
       <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
       <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>
       <td style={{padding: '12px 16px', textAlign: 'center'}}>✅</td>

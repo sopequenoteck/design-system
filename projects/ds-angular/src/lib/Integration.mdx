@@ -1084,6 +1084,560 @@ Cette architecture complète démontre :
 
 ---
 
+## 5. Composants SPRINT-001 (Chip, Slider, FileUpload)
+
+Cette section présente l'intégration des composants ajoutés dans le SPRINT-001.
+
+### 5.1 DsChip — Tags et filtres interactifs
+
+```typescript
+// src/app/features/filters/tag-filter.component.ts
+import { Component, signal, computed } from '@angular/core';
+import { DsChip } from 'ds-angular';
+
+interface Tag {
+  id: string;
+  label: string;
+  color: 'default' | 'primary' | 'success' | 'warning' | 'error';
+}
+
+@Component({
+  selector: 'app-tag-filter',
+  standalone: true,
+  imports: [DsChip],
+  template: `
+    <div class="tag-filter">
+      <h3>Filtrer par tags</h3>
+
+      <!-- Tags sélectionnables -->
+      <div class="tags-list">
+        @for (tag of availableTags(); track tag.id) {
+          <ds-chip
+            [label]="tag.label"
+            [color]="tag.color"
+            [clickable]="true"
+            [selected]="isSelected(tag.id)"
+            (click)="toggleTag(tag.id)">
+          </ds-chip>
+        }
+      </div>
+
+      <!-- Tags sélectionnés avec suppression -->
+      @if (selectedTags().length > 0) {
+        <div class="selected-tags">
+          <span class="label">Sélection :</span>
+          @for (tag of selectedTagObjects(); track tag.id) {
+            <ds-chip
+              [label]="tag.label"
+              [color]="tag.color"
+              [removable]="true"
+              (removed)="removeTag(tag.id)">
+            </ds-chip>
+          }
+          <ds-chip
+            label="Tout effacer"
+            variant="outlined"
+            [clickable]="true"
+            (click)="clearAll()">
+          </ds-chip>
+        </div>
+      }
+    </div>
+  `,
+  styles: [`
+    .tag-filter { padding: var(--space-4); }
+    .tags-list { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-4) 0; }
+    .selected-tags { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+    .label { font-size: var(--font-size-sm); color: var(--text-muted); }
+  `]
+})
+export class TagFilterComponent {
+  availableTags = signal<Tag[]>([
+    { id: 'angular', label: 'Angular', color: 'error' },
+    { id: 'react', label: 'React', color: 'primary' },
+    { id: 'vue', label: 'Vue', color: 'success' },
+    { id: 'typescript', label: 'TypeScript', color: 'primary' },
+    { id: 'javascript', label: 'JavaScript', color: 'warning' },
+  ]);
+
+  selectedTags = signal<string[]>([]);
+
+  selectedTagObjects = computed(() =>
+    this.availableTags().filter(t => this.selectedTags().includes(t.id))
+  );
+
+  isSelected(tagId: string): boolean {
+    return this.selectedTags().includes(tagId);
+  }
+
+  toggleTag(tagId: string): void {
+    this.selectedTags.update(tags =>
+      tags.includes(tagId)
+        ? tags.filter(t => t !== tagId)
+        : [...tags, tagId]
+    );
+  }
+
+  removeTag(tagId: string): void {
+    this.selectedTags.update(tags => tags.filter(t => t !== tagId));
+  }
+
+  clearAll(): void {
+    this.selectedTags.set([]);
+  }
+}
+```
+
+### 5.2 DsSlider — Sélection de valeurs et plages
+
+```typescript
+// src/app/features/settings/price-range.component.ts
+import { Component, signal, computed, output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DsSlider, DsButton } from 'ds-angular';
+
+@Component({
+  selector: 'app-price-range',
+  standalone: true,
+  imports: [FormsModule, DsSlider, DsButton],
+  template: `
+    <div class="price-range">
+      <h3>Fourchette de prix</h3>
+
+      <!-- Slider simple -->
+      <div class="slider-section">
+        <label>Prix maximum : {{ maxPrice() }}€</label>
+        <ds-slider
+          [min]="0"
+          [max]="1000"
+          [step]="10"
+          [value]="maxPrice()"
+          [showTicks]="true"
+          [tickInterval]="100"
+          [showLabels]="true"
+          (valueChange)="onMaxPriceChange($event)">
+        </ds-slider>
+      </div>
+
+      <!-- Slider avec ngModel -->
+      <div class="slider-section">
+        <label>Quantité : {{ quantity }}</label>
+        <ds-slider
+          [(ngModel)]="quantity"
+          [min]="1"
+          [max]="100"
+          [step]="1"
+          size="lg">
+        </ds-slider>
+      </div>
+
+      <!-- Slider range (deux poignées) -->
+      <div class="slider-section">
+        <label>Plage : {{ priceRange()[0] }}€ - {{ priceRange()[1] }}€</label>
+        <ds-slider
+          [min]="0"
+          [max]="500"
+          [step]="25"
+          [range]="true"
+          [value]="priceRange()"
+          (valueChange)="onRangeChange($event)">
+        </ds-slider>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <ds-button variant="primary" (clicked)="applyFilters()">
+          Appliquer les filtres
+        </ds-button>
+        <ds-button variant="ghost" (clicked)="resetFilters()">
+          Réinitialiser
+        </ds-button>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .price-range { padding: var(--space-4); max-width: 400px; }
+    .slider-section { margin-bottom: var(--space-6); }
+    .slider-section label { display: block; margin-bottom: var(--space-2); font-weight: 500; }
+    .actions { display: flex; gap: var(--space-2); margin-top: var(--space-4); }
+  `]
+})
+export class PriceRangeComponent {
+  filtersApplied = output<{ max: number; quantity: number; range: number[] }>();
+
+  maxPrice = signal(500);
+  quantity = 10;
+  priceRange = signal([100, 300]);
+
+  onMaxPriceChange(value: number): void {
+    this.maxPrice.set(value);
+  }
+
+  onRangeChange(value: number[]): void {
+    this.priceRange.set(value);
+  }
+
+  applyFilters(): void {
+    this.filtersApplied.emit({
+      max: this.maxPrice(),
+      quantity: this.quantity,
+      range: this.priceRange()
+    });
+  }
+
+  resetFilters(): void {
+    this.maxPrice.set(500);
+    this.quantity = 10;
+    this.priceRange.set([100, 300]);
+  }
+}
+```
+
+### 5.3 DsFileUpload — Upload de fichiers avec validation
+
+```typescript
+// src/app/features/documents/document-uploader.component.ts
+import { Component, signal, computed, output } from '@angular/core';
+import { DsFileUpload, DsAlert, DsButton, DsProgressBar } from 'ds-angular';
+
+interface UploadedDocument {
+  id: string;
+  name: string;
+  size: number;
+  status: 'uploading' | 'success' | 'error';
+  progress: number;
+  error?: string;
+}
+
+@Component({
+  selector: 'app-document-uploader',
+  standalone: true,
+  imports: [DsFileUpload, DsAlert, DsButton, DsProgressBar],
+  template: `
+    <div class="document-uploader">
+      <h3>Téléverser des documents</h3>
+
+      <!-- Alerte d'information -->
+      <ds-alert type="info" [showIcon]="true">
+        Formats acceptés : PDF, Word, Excel. Taille max : 10 MB par fichier.
+      </ds-alert>
+
+      <!-- Composant d'upload -->
+      <ds-file-upload
+        [accept]="'.pdf,.doc,.docx,.xls,.xlsx'"
+        [maxFileSize]="10485760"
+        [maxFiles]="5"
+        [multiple]="true"
+        [showPreview]="false"
+        label="Glisser vos documents ici"
+        dragHelpText="ou cliquer pour parcourir"
+        size="lg"
+        (filesChange)="onFilesSelected($event)">
+      </ds-file-upload>
+
+      <!-- Liste des fichiers uploadés -->
+      @if (uploadedFiles().length > 0) {
+        <div class="upload-list">
+          <h4>Fichiers ({{ uploadedFiles().length }}/5)</h4>
+
+          @for (doc of uploadedFiles(); track doc.id) {
+            <div class="upload-item" [class.error]="doc.status === 'error'">
+              <div class="file-info">
+                <span class="file-name">{{ doc.name }}</span>
+                <span class="file-size">{{ formatSize(doc.size) }}</span>
+              </div>
+
+              @if (doc.status === 'uploading') {
+                <ds-progress-bar
+                  [value]="doc.progress"
+                  size="sm"
+                  [showLabel]="true">
+                </ds-progress-bar>
+              }
+
+              @if (doc.status === 'success') {
+                <span class="status success">✓ Uploadé</span>
+              }
+
+              @if (doc.status === 'error') {
+                <span class="status error">✗ {{ doc.error }}</span>
+              }
+
+              <button class="remove-btn" (click)="removeFile(doc.id)">×</button>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Actions -->
+      @if (hasFilesToUpload()) {
+        <div class="actions">
+          <ds-button
+            variant="primary"
+            [loading]="isUploading()"
+            [disabled]="isUploading()"
+            (clicked)="uploadAll()">
+            {{ isUploading() ? 'Upload en cours...' : 'Tout uploader' }}
+          </ds-button>
+          <ds-button
+            variant="ghost"
+            [disabled]="isUploading()"
+            (clicked)="clearAll()">
+            Tout supprimer
+          </ds-button>
+        </div>
+      }
+
+      <!-- Résultat -->
+      @if (uploadComplete()) {
+        <ds-alert type="success" [showIcon]="true" [closable]="true">
+          {{ successCount() }} fichier(s) uploadé(s) avec succès !
+        </ds-alert>
+      }
+    </div>
+  `,
+  styles: [`
+    .document-uploader { padding: var(--space-4); max-width: 600px; }
+    .document-uploader > * { margin-bottom: var(--space-4); }
+    .upload-list { background: var(--surface-default); border-radius: var(--radius-2); padding: var(--space-4); }
+    .upload-list h4 { margin: 0 0 var(--space-3) 0; font-size: var(--font-size-sm); }
+    .upload-item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2); border-bottom: 1px solid var(--border-subtle); }
+    .upload-item:last-child { border-bottom: none; }
+    .upload-item.error { background: var(--error-bg); }
+    .file-info { flex: 1; min-width: 0; }
+    .file-name { display: block; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .file-size { font-size: var(--font-size-xs); color: var(--text-muted); }
+    .status { font-size: var(--font-size-sm); padding: var(--space-1) var(--space-2); border-radius: var(--radius-1); }
+    .status.success { background: var(--success-bg); color: var(--success); }
+    .status.error { background: var(--error-bg); color: var(--error); }
+    .remove-btn { background: none; border: none; cursor: pointer; font-size: 1.25rem; color: var(--text-muted); }
+    .remove-btn:hover { color: var(--error); }
+    .actions { display: flex; gap: var(--space-2); }
+  `]
+})
+export class DocumentUploaderComponent {
+  uploadCompleted = output<File[]>();
+
+  uploadedFiles = signal<UploadedDocument[]>([]);
+  isUploading = signal(false);
+  uploadComplete = signal(false);
+
+  successCount = computed(() =>
+    this.uploadedFiles().filter(f => f.status === 'success').length
+  );
+
+  hasFilesToUpload = computed(() =>
+    this.uploadedFiles().some(f => f.status !== 'success')
+  );
+
+  onFilesSelected(files: File[]): void {
+    const newDocs: UploadedDocument[] = files.map(file => ({
+      id: crypto.randomUUID(),
+      name: file.name,
+      size: file.size,
+      status: 'uploading' as const,
+      progress: 0
+    }));
+
+    this.uploadedFiles.update(existing => [...existing, ...newDocs]);
+    this.uploadComplete.set(false);
+  }
+
+  async uploadAll(): Promise<void> {
+    this.isUploading.set(true);
+
+    const pendingFiles = this.uploadedFiles().filter(f => f.status === 'uploading');
+
+    for (const doc of pendingFiles) {
+      await this.simulateUpload(doc.id);
+    }
+
+    this.isUploading.set(false);
+    this.uploadComplete.set(true);
+  }
+
+  private simulateUpload(docId: string): Promise<void> {
+    return new Promise(resolve => {
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 10;
+        this.uploadedFiles.update(files =>
+          files.map(f => f.id === docId ? { ...f, progress } : f)
+        );
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          this.uploadedFiles.update(files =>
+            files.map(f => f.id === docId ? { ...f, status: 'success' as const } : f)
+          );
+          resolve();
+        }
+      }, 100);
+    });
+  }
+
+  removeFile(docId: string): void {
+    this.uploadedFiles.update(files => files.filter(f => f.id !== docId));
+  }
+
+  clearAll(): void {
+    this.uploadedFiles.set([]);
+    this.uploadComplete.set(false);
+  }
+
+  formatSize(bytes: number): string {
+    if (bytes >= 1048576) return `${(bytes / 1048576).toFixed(1)} MB`;
+    return `${(bytes / 1024).toFixed(0)} KB`;
+  }
+}
+```
+
+### 5.4 Exemple combiné : Formulaire de soumission avec Chip, Slider et FileUpload
+
+```typescript
+// src/app/features/submit/project-submit.component.ts
+import { Component, signal, computed } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  DsInputField, DsInputTextarea, DsButton, DsAlert,
+  DsChip, DsSlider, DsFileUpload, DsCard
+} from 'ds-angular';
+
+@Component({
+  selector: 'app-project-submit',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    DsInputField, DsInputTextarea, DsButton, DsAlert,
+    DsChip, DsSlider, DsFileUpload, DsCard
+  ],
+  template: `
+    <ds-card variant="elevated">
+      <h2>Soumettre un projet</h2>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Nom du projet -->
+        <ds-input-field
+          formControlName="name"
+          label="Nom du projet"
+          placeholder="Mon super projet"
+          required>
+        </ds-input-field>
+
+        <!-- Description -->
+        <ds-input-textarea
+          formControlName="description"
+          label="Description"
+          [rows]="4"
+          [maxlength]="500">
+        </ds-input-textarea>
+
+        <!-- Tags (Chips) -->
+        <div class="field">
+          <label>Technologies utilisées</label>
+          <div class="chips-container">
+            @for (tech of availableTechs; track tech) {
+              <ds-chip
+                [label]="tech"
+                [clickable]="true"
+                [selected]="selectedTechs().includes(tech)"
+                (click)="toggleTech(tech)">
+              </ds-chip>
+            }
+          </div>
+        </div>
+
+        <!-- Budget (Slider) -->
+        <div class="field">
+          <label>Budget estimé : {{ budget() | number }}€</label>
+          <ds-slider
+            [min]="1000"
+            [max]="50000"
+            [step]="1000"
+            [value]="budget()"
+            [showTicks]="true"
+            [tickInterval]="10000"
+            (valueChange)="budget.set($event)">
+          </ds-slider>
+        </div>
+
+        <!-- Fichiers (FileUpload) -->
+        <div class="field">
+          <label>Documents du projet</label>
+          <ds-file-upload
+            [accept]="'.pdf,.zip'"
+            [maxFiles]="3"
+            [multiple]="true"
+            size="md"
+            (filesChange)="onFilesChange($event)">
+          </ds-file-upload>
+        </div>
+
+        <!-- Résumé -->
+        <ds-alert type="info" [showIcon]="true">
+          <strong>Résumé :</strong><br>
+          Technologies : {{ selectedTechs().join(', ') || 'Aucune' }}<br>
+          Budget : {{ budget() | number }}€<br>
+          Fichiers : {{ files().length }}
+        </ds-alert>
+
+        <!-- Actions -->
+        <div class="actions">
+          <ds-button variant="primary" type="submit" [disabled]="form.invalid">
+            Soumettre le projet
+          </ds-button>
+        </div>
+      </form>
+    </ds-card>
+  `,
+  styles: [`
+    .field { margin-bottom: var(--space-4); }
+    .field label { display: block; margin-bottom: var(--space-2); font-weight: 500; }
+    .chips-container { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .actions { margin-top: var(--space-4); }
+  `]
+})
+export class ProjectSubmitComponent {
+  fb = inject(FormBuilder);
+
+  form = this.fb.group({
+    name: ['', Validators.required],
+    description: ['']
+  });
+
+  availableTechs = ['Angular', 'React', 'Vue', 'Node.js', 'Python', 'Docker'];
+  selectedTechs = signal<string[]>([]);
+  budget = signal(10000);
+  files = signal<File[]>([]);
+
+  toggleTech(tech: string): void {
+    this.selectedTechs.update(techs =>
+      techs.includes(tech)
+        ? techs.filter(t => t !== tech)
+        : [...techs, tech]
+    );
+  }
+
+  onFilesChange(files: File[]): void {
+    this.files.set(files);
+  }
+
+  onSubmit(): void {
+    if (this.form.valid) {
+      const project = {
+        ...this.form.value,
+        technologies: this.selectedTechs(),
+        budget: this.budget(),
+        files: this.files()
+      };
+      console.log('Projet soumis:', project);
+    }
+  }
+}
+```
+
+---
+
 ## Ressources
 
 - [Introduction](./Introduction) — Installation et Quick Start
