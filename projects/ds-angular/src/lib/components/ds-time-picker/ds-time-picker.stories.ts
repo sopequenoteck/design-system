@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/angular';
+import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { DsTimePicker } from './ds-time-picker';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -190,8 +190,13 @@ class ReactiveFormStory {
 }
 
 export const InReactiveForm: Story = {
+  decorators: [
+    moduleMetadata({
+      imports: [ReactiveFormStory],
+    }),
+  ],
   render: () => ({
-    component: ReactiveFormStory,
+    template: `<storybook-time-picker-reactive-form></storybook-time-picker-reactive-form>`,
   }),
 };
 
@@ -233,8 +238,13 @@ export const InReactiveForm: Story = {
 class SizesStory {}
 
 export const AllSizes: Story = {
+  decorators: [
+    moduleMetadata({
+      imports: [SizesStory],
+    }),
+  ],
   render: () => ({
-    component: SizesStory,
+    template: `<storybook-time-picker-sizes></storybook-time-picker-sizes>`,
   }),
 };
 
@@ -287,8 +297,13 @@ export const AllSizes: Story = {
 class FormatsStory {}
 
 export const AllFormats: Story = {
+  decorators: [
+    moduleMetadata({
+      imports: [FormatsStory],
+    }),
+  ],
   render: () => ({
-    component: FormatsStory,
+    template: `<storybook-time-picker-formats></storybook-time-picker-formats>`,
   }),
 };
 
@@ -339,7 +354,12 @@ export const AllFormats: Story = {
 class StepsStory {}
 
 export const MinuteSteps: Story = {
+  decorators: [
+    moduleMetadata({
+      imports: [StepsStory],
+    }),
+  ],
   render: () => ({
-    component: StepsStory,
+    template: `<storybook-time-picker-steps></storybook-time-picker-steps>`,
   }),
 };
