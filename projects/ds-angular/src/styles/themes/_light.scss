@@ -609,4 +609,50 @@
   --file-upload-file-border: var(--gray-200);
   --file-upload-file-bg: var(--white);
   --file-upload-file-bg-hover: var(--gray-50);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS CHIP
+   * ======================================================================== */
+  --chip-bg: var(--gray-200);
+  --chip-text: var(--gray-800);
+  --chip-border: transparent;
+  --chip-hover-bg: var(--gray-300);
+  --chip-focus-ring: color-mix(in oklab, var(--color-primary) 30%, transparent);
+  --chip-selected-ring: var(--color-primary);
+  --chip-disabled-opacity: 0.5;
+
+  /* Primary */
+  --chip-primary-bg: var(--color-primary);
+  --chip-primary-text: var(--gray-50);
+  --chip-primary-border: transparent;
+  --chip-primary-hover-bg: color-mix(in oklab, var(--color-primary) 85%, var(--background-main));
+  --chip-primary-hover-bg-outlined: color-mix(in oklab, var(--color-primary) 10%, transparent);
+
+  /* Success */
+  --chip-success-bg: var(--bg-success);
+  --chip-success-text: var(--success);
+  --chip-success-border: var(--success);
+  --chip-success-hover-bg: color-mix(in oklab, var(--success) 20%, transparent);
+  --chip-success-hover-bg-outlined: color-mix(in oklab, var(--success) 10%, transparent);
+
+  /* Warning */
+  --chip-warning-bg: var(--bg-warning);
+  --chip-warning-text: var(--warning);
+  --chip-warning-border: var(--warning);
+  --chip-warning-hover-bg: color-mix(in oklab, var(--warning) 25%, transparent);
+  --chip-warning-hover-bg-outlined: color-mix(in oklab, var(--warning) 10%, transparent);
+
+  /* Error */
+  --chip-error-bg: var(--bg-error);
+  --chip-error-text: var(--error);
+  --chip-error-border: var(--error);
+  --chip-error-hover-bg: color-mix(in oklab, var(--error) 25%, transparent);
+  --chip-error-hover-bg-outlined: color-mix(in oklab, var(--error) 10%, transparent);
+
+  /* Info */
+  --chip-info-bg: var(--bg-info);
+  --chip-info-text: var(--info);
+  --chip-info-border: var(--info);
+  --chip-info-hover-bg: color-mix(in oklab, var(--info) 25%, transparent);
+  --chip-info-hover-bg-outlined: color-mix(in oklab, var(--info) 10%, transparent);
 }

@@ -71,7 +71,10 @@ projects/ds-angular/src/lib/
 │   ├── ds-tabs/
 │   ├── ds-toast/
 │   ├── ds-toggle/
-│   └── ds-tooltip/
+│   ├── ds-tooltip/
+│   ├── ds-chip/
+│   ├── ds-slider/
+│   └── ds-file-upload/
 └── utils/           # Utilitaires partagés (overlay-positions, etc.)
 ```
 
@@ -357,6 +360,22 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ _light.scss : 71 nouveaux tokens thématiques pour 8 composants
 - ✅ _dark.scss : 71 nouveaux tokens thématiques avec couleurs dark mode adaptées
 - 📊 ÉTAPE 25 : 100% complétée — Parité thématique complète pour les 30 composants DS
+
+**Composants SPRINT-001 ÉTAPE 26** (2025-12-11) :
+- ✅ DsChip créé : variants (filled/outlined), tailles (sm/md/lg), couleurs (default/primary/success/warning/error/info)
+- ✅ DsChip : removable, selectable, disabled, icônes, navigation clavier, ARIA complet
+- ✅ DsChip : 5 fichiers, stories complètes, tests unitaires
+- ✅ DsSlider créé : CVA, tailles (sm/md/lg), min/max/step, range mode, ticks, labels
+- ✅ DsSlider : orientation (horizontal/vertical), disabled, keyboard navigation, ARIA
+- ✅ DsSlider : 5 fichiers, stories complètes, tests unitaires
+- ✅ DsFileUpload créé : drag & drop, multiple files, accept, maxSize, preview
+- ✅ DsFileUpload : tailles (sm/md/lg), CVA, disabled, ARIA complet
+- ✅ DsFileUpload : 5 fichiers, stories complètes, tests unitaires
+- ✅ Tokens sémantiques : slider (16 tokens), file-upload (18 tokens)
+- ✅ Tokens thématiques : slider et file-upload ajoutés dans _light.scss et _dark.scss
+- ✅ Exports : DsChip, DsSlider, DsFileUpload + 8 types dans index.ts
+- 🔍 Tokens ds-chip : manquants dans _semantic.scss, _tokens.scss, themes
+- 📊 ÉTAPE 26 : 90% complétée — 33 composants DS au total
 
 ---
 

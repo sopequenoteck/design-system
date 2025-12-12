@@ -549,4 +549,31 @@
   --file-upload-icon-size-md: #{$file-upload-icon-size-md};
   --file-upload-icon-size-lg: #{$file-upload-icon-size-lg};
   --file-upload-remove-btn-size: #{$file-upload-remove-btn-size};
+
+  /* === CHIP === */
+  --chip-height-sm: #{$chip-height-sm};
+  --chip-height-md: #{$chip-height-md};
+  --chip-height-lg: #{$chip-height-lg};
+  --chip-padding-y-sm: #{$chip-padding-y-sm};
+  --chip-padding-x-sm: #{$chip-padding-x-sm};
+  --chip-padding-y-md: #{$chip-padding-y-md};
+  --chip-padding-x-md: #{$chip-padding-x-md};
+  --chip-padding-y-lg: #{$chip-padding-y-lg};
+  --chip-padding-x-lg: #{$chip-padding-x-lg};
+  --chip-font-size-sm: #{$chip-font-size-sm};
+  --chip-font-size-md: #{$chip-font-size-md};
+  --chip-font-size-lg: #{$chip-font-size-lg};
+  --chip-gap-sm: #{$chip-gap-sm};
+  --chip-gap-md: #{$chip-gap-md};
+  --chip-gap-lg: #{$chip-gap-lg};
+  --chip-avatar-size-sm: #{$chip-avatar-size-sm};
+  --chip-avatar-size-md: #{$chip-avatar-size-md};
+  --chip-avatar-size-lg: #{$chip-avatar-size-lg};
+  --chip-icon-size-sm: #{$chip-icon-size-sm};
+  --chip-icon-size-md: #{$chip-icon-size-md};
+  --chip-icon-size-lg: #{$chip-icon-size-lg};
+  --chip-remove-icon-size-sm: #{$chip-remove-icon-size-sm};
+  --chip-remove-icon-size-md: #{$chip-remove-icon-size-md};
+  --chip-remove-icon-size-lg: #{$chip-remove-icon-size-lg};
+  --chip-border-radius: #{$chip-border-radius};
 }

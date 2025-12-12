@@ -685,6 +685,154 @@ Le composant `ds-container` utilise des tokens pour définir les largeurs maxima
 
 ---
 
+## Tokens composants SPRINT-001
+
+Les composants ajoutés lors du SPRINT-001 (`ds-chip`, `ds-slider`, `ds-file-upload`) disposent de tokens sémantiques complets.
+
+### Chip
+
+Le composant `ds-chip` utilise des tokens pour les tailles, couleurs et états :
+
+| Token | Description | Valeur par défaut |
+|-------|-------------|-------------------|
+| `--chip-height-sm` | Hauteur taille small | `24px` |
+| `--chip-height-md` | Hauteur taille medium | `32px` |
+| `--chip-height-lg` | Hauteur taille large | `40px` |
+| `--chip-padding-y-sm` | Padding vertical small | `2px` |
+| `--chip-padding-x-sm` | Padding horizontal small | `var(--space-2)` |
+| `--chip-padding-y-md` | Padding vertical medium | `var(--space-1)` |
+| `--chip-padding-x-md` | Padding horizontal medium | `var(--space-3)` |
+| `--chip-font-size-sm` | Taille texte small | `var(--font-size-1)` |
+| `--chip-font-size-md` | Taille texte medium | `var(--font-size-2)` |
+| `--chip-font-size-lg` | Taille texte large | `var(--font-size-3)` |
+| `--chip-bg` | Fond par défaut | `var(--gray-200)` |
+| `--chip-text` | Couleur texte | `var(--gray-800)` |
+| `--chip-primary-bg` | Fond couleur primary | `var(--color-primary)` |
+| `--chip-success-bg` | Fond couleur success | `var(--bg-success)` |
+| `--chip-error-bg` | Fond couleur error | `var(--bg-error)` |
+| `--chip-hover-bg` | Fond survol | `var(--gray-300)` |
+| `--chip-focus-ring` | Ring de focus | `color-mix(...)` |
+| `--chip-border-radius` | Rayon bordure | `var(--radius-round)` |
+
+<div style={{display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '16px'}}>
+  <span style={{
+    display: 'inline-flex', alignItems: 'center', gap: '4px',
+    padding: '4px 12px',
+    background: 'var(--gray-200, #e5e5e5)',
+    color: 'var(--gray-800, #404040)',
+    borderRadius: '999px',
+    fontSize: '14px', fontWeight: 500
+  }}>Default</span>
+  <span style={{
+    display: 'inline-flex', alignItems: 'center', gap: '4px',
+    padding: '4px 12px',
+    background: 'var(--color-primary)',
+    color: 'white',
+    borderRadius: '999px',
+    fontSize: '14px', fontWeight: 500
+  }}>Primary</span>
+  <span style={{
+    display: 'inline-flex', alignItems: 'center', gap: '4px',
+    padding: '4px 12px',
+    background: 'var(--success, #4caf50)',
+    color: 'white',
+    borderRadius: '999px',
+    fontSize: '14px', fontWeight: 500
+  }}>Success</span>
+  <span style={{
+    display: 'inline-flex', alignItems: 'center', gap: '4px',
+    padding: '4px 12px',
+    background: 'transparent',
+    color: 'var(--color-primary)',
+    border: '1px solid var(--color-primary)',
+    borderRadius: '999px',
+    fontSize: '14px', fontWeight: 500
+  }}>Outlined</span>
+</div>
+
+### Slider
+
+Le composant `ds-slider` utilise des tokens pour la piste, le thumb et les labels :
+
+| Token | Description | Valeur par défaut |
+|-------|-------------|-------------------|
+| `--slider-track-height-sm` | Hauteur piste small | `4px` |
+| `--slider-track-height-md` | Hauteur piste medium | `6px` |
+| `--slider-track-height-lg` | Hauteur piste large | `8px` |
+| `--slider-thumb-size-sm` | Taille thumb small | `16px` |
+| `--slider-thumb-size-md` | Taille thumb medium | `20px` |
+| `--slider-thumb-size-lg` | Taille thumb large | `24px` |
+| `--slider-track-bg` | Fond piste | `var(--gray-200)` |
+| `--slider-fill-bg` | Fond remplissage | `var(--color-primary)` |
+| `--slider-thumb-bg` | Fond thumb | `var(--surface-default)` |
+| `--slider-thumb-border-color` | Bordure thumb | `var(--color-primary)` |
+| `--slider-thumb-shadow` | Ombre thumb | `0 1px 3px rgba(0,0,0,0.1)` |
+| `--slider-thumb-shadow-focus` | Ombre focus | `0 0 0 3px color-mix(...)` |
+| `--slider-tick-color` | Couleur ticks | `var(--gray-400)` |
+| `--slider-label-color` | Couleur labels | `var(--text-default)` |
+
+<div style={{padding: '16px', marginTop: '16px'}}>
+  <div style={{position: 'relative', height: '20px'}}>
+    <div style={{
+      position: 'absolute', top: '8px', left: 0, right: 0,
+      height: '6px',
+      background: 'var(--gray-200, #e5e5e5)',
+      borderRadius: '999px'
+    }}></div>
+    <div style={{
+      position: 'absolute', top: '8px', left: 0,
+      width: '60%', height: '6px',
+      background: 'var(--color-primary)',
+      borderRadius: '999px'
+    }}></div>
+    <div style={{
+      position: 'absolute', top: '0px', left: '60%',
+      width: '20px', height: '20px',
+      background: 'white',
+      border: '2px solid var(--color-primary)',
+      borderRadius: '50%',
+      transform: 'translateX(-50%)',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+    }}></div>
+  </div>
+</div>
+
+### File Upload
+
+Le composant `ds-file-upload` utilise des tokens pour la zone de drop et les fichiers :
+
+| Token | Description | Valeur par défaut |
+|-------|-------------|-------------------|
+| `--file-upload-min-height-sm` | Hauteur min small | `150px` |
+| `--file-upload-min-height-md` | Hauteur min medium | `200px` |
+| `--file-upload-min-height-lg` | Hauteur min large | `250px` |
+| `--file-upload-padding-sm` | Padding small | `var(--space-6)` |
+| `--file-upload-padding-md` | Padding medium | `var(--space-8)` |
+| `--file-upload-border` | Couleur bordure | `var(--gray-300)` |
+| `--file-upload-border-hover` | Bordure survol | `var(--color-primary)` |
+| `--file-upload-border-active` | Bordure active | `var(--color-primary)` |
+| `--file-upload-bg` | Fond | `var(--white)` |
+| `--file-upload-bg-hover` | Fond survol | `var(--gray-50)` |
+| `--file-upload-bg-active` | Fond drag actif | `color-mix(...)` |
+| `--file-upload-icon-color` | Couleur icône | `var(--gray-400)` |
+| `--file-upload-text-color` | Couleur texte | `var(--gray-700)` |
+| `--file-upload-preview-size-md` | Taille preview | `60px` |
+
+<div style={{
+  padding: '32px',
+  border: '2px dashed var(--gray-300, #d1d5db)',
+  borderRadius: 'var(--radius-2)',
+  textAlign: 'center',
+  marginTop: '16px',
+  background: 'var(--gray-50, #fafafa)'
+}}>
+  <div style={{color: 'var(--gray-400, #a3a3a3)', fontSize: '32px', marginBottom: '8px'}}>☁️</div>
+  <div style={{fontWeight: 500, color: 'var(--gray-700, #404040)'}}>Glissez-déposez vos fichiers ici</div>
+  <div style={{fontSize: '14px', color: 'var(--gray-500, #737373)', marginTop: '4px'}}>ou cliquez pour parcourir</div>
+</div>
+
+---
+
 ## Thèmes & Storybook
 
 Activez le sélecteur de thème dans la toolbar Storybook pour visualiser les tokens en **Light**, **Dark** et **Custom**. Les tokens exposés via `:root` sont automatiquement recalculés selon le thème courant.

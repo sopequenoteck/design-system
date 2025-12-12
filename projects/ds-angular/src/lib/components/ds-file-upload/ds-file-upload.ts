@@ -151,14 +151,14 @@ export class DsFileUpload implements ControlValueAccessor {
    */
   uploadProgress = output<{ file: File; progress: number }>();
 
-  // Icons
-  protected readonly faCloudArrowUp = faCloudArrowUp;
-  protected readonly faXmark = faXmark;
-  protected readonly faFile = faFile;
-  protected readonly faFileImage = faFileImage;
-  protected readonly faFilePdf = faFilePdf;
-  protected readonly faFileWord = faFileWord;
-  protected readonly faFileExcel = faFileExcel;
+  // Icons (readonly for template access)
+  readonly faCloudArrowUp = faCloudArrowUp;
+  readonly faXmark = faXmark;
+  readonly faFile = faFile;
+  readonly faFileImage = faFileImage;
+  readonly faFilePdf = faFilePdf;
+  readonly faFileWord = faFileWord;
+  readonly faFileExcel = faFileExcel;
 
   // ViewChild pour l'input file
   readonly fileInput = viewChild<ElementRef<HTMLInputElement>>('fileInput');

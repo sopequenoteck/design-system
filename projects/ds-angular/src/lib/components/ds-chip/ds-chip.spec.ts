@@ -8,7 +8,9 @@ import { By } from '@angular/platform-browser';
 describe('DsChip', () => {
   let component: DsChip;
   let fixture: ComponentFixture<DsChip>;
-  let chipElement: DebugElement;
+
+  // Helper to get the chip element after detectChanges
+  const getChipElement = (): DebugElement => fixture.debugElement.query(By.css('.ds-chip'));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -22,7 +24,6 @@ describe('DsChip', () => {
     fixture = TestBed.createComponent(DsChip);
     component = fixture.componentInstance;
     fixture.componentRef.setInput('label', 'Test Chip');
-    chipElement = fixture.debugElement.query(By.css('.ds-chip'));
   });
 
   describe('Component initialization', () => {
@@ -33,15 +34,15 @@ describe('DsChip', () => {
     it('should render with default values', () => {
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--filled');
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--md');
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--default');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--filled');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--md');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--default');
     });
 
     it('should display label', () => {
       fixture.detectChanges();
 
-      const label = chipElement.query(By.css('.ds-chip__label'));
+      const label = getChipElement().query(By.css('.ds-chip__label'));
       expect(label.nativeElement.textContent.trim()).toBe('Test Chip');
     });
   });
@@ -51,14 +52,14 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('variant', 'filled');
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--filled');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--filled');
     });
 
     it('should apply outlined variant', () => {
       fixture.componentRef.setInput('variant', 'outlined');
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--outlined');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--outlined');
     });
   });
 
@@ -67,21 +68,21 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('size', 'sm');
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--sm');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--sm');
     });
 
     it('should apply medium size', () => {
       fixture.componentRef.setInput('size', 'md');
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--md');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--md');
     });
 
     it('should apply large size', () => {
       fixture.componentRef.setInput('size', 'lg');
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--lg');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--lg');
     });
   });
 
@@ -90,35 +91,35 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('color', 'default');
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--default');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--default');
     });
 
     it('should apply primary color', () => {
       fixture.componentRef.setInput('color', 'primary');
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--primary');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--primary');
     });
 
     it('should apply success color', () => {
       fixture.componentRef.setInput('color', 'success');
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--success');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--success');
     });
 
     it('should apply warning color', () => {
       fixture.componentRef.setInput('color', 'warning');
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--warning');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--warning');
     });
 
     it('should apply error color', () => {
       fixture.componentRef.setInput('color', 'error');
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--error');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--error');
     });
   });
 
@@ -127,14 +128,14 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('icon', 'star');
       fixture.detectChanges();
 
-      const icon = chipElement.query(By.css('.ds-chip__icon'));
+      const icon = getChipElement().query(By.css('.ds-chip__icon'));
       expect(icon).toBeTruthy();
     });
 
     it('should not display icon when not provided', () => {
       fixture.detectChanges();
 
-      const icon = chipElement.query(By.css('.ds-chip__icon'));
+      const icon = getChipElement().query(By.css('.ds-chip__icon'));
       expect(icon).toBeFalsy();
     });
 
@@ -143,7 +144,7 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('avatar', 'https://example.com/avatar.jpg');
       fixture.detectChanges();
 
-      const icon = chipElement.query(By.css('.ds-chip__icon'));
+      const icon = getChipElement().query(By.css('.ds-chip__icon'));
       expect(icon).toBeFalsy();
     });
   });
@@ -153,7 +154,7 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('avatar', 'https://example.com/avatar.jpg');
       fixture.detectChanges();
 
-      const avatar = chipElement.query(By.css('.ds-chip__avatar'));
+      const avatar = getChipElement().query(By.css('.ds-chip__avatar'));
       expect(avatar).toBeTruthy();
       expect(avatar.nativeElement.src).toBe('https://example.com/avatar.jpg');
       expect(avatar.nativeElement.alt).toBe('Test Chip');
@@ -162,7 +163,7 @@ describe('DsChip', () => {
     it('should not display avatar when not provided', () => {
       fixture.detectChanges();
 
-      const avatar = chipElement.query(By.css('.ds-chip__avatar'));
+      const avatar = getChipElement().query(By.css('.ds-chip__avatar'));
       expect(avatar).toBeFalsy();
     });
 
@@ -171,8 +172,8 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('avatar', 'https://example.com/avatar.jpg');
       fixture.detectChanges();
 
-      const avatar = chipElement.query(By.css('.ds-chip__avatar'));
-      const icon = chipElement.query(By.css('.ds-chip__icon'));
+      const avatar = getChipElement().query(By.css('.ds-chip__avatar'));
+      const icon = getChipElement().query(By.css('.ds-chip__icon'));
 
       expect(avatar).toBeTruthy();
       expect(icon).toBeFalsy();
@@ -184,7 +185,7 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('removable', true);
       fixture.detectChanges();
 
-      const removeBtn = chipElement.query(By.css('.ds-chip__remove'));
+      const removeBtn = getChipElement().query(By.css('.ds-chip__remove'));
       expect(removeBtn).toBeTruthy();
     });
 
@@ -192,7 +193,7 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('removable', false);
       fixture.detectChanges();
 
-      const removeBtn = chipElement.query(By.css('.ds-chip__remove'));
+      const removeBtn = getChipElement().query(By.css('.ds-chip__remove'));
       expect(removeBtn).toBeFalsy();
     });
 
@@ -201,7 +202,7 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 
-      const removeBtn = chipElement.query(By.css('.ds-chip__remove'));
+      const removeBtn = getChipElement().query(By.css('.ds-chip__remove'));
       expect(removeBtn).toBeFalsy();
     });
 
@@ -212,7 +213,7 @@ describe('DsChip', () => {
       const removedSpy = jasmine.createSpy('removed');
       component.removed.subscribe(removedSpy);
 
-      const removeBtn = chipElement.query(By.css('.ds-chip__remove'));
+      const removeBtn = getChipElement().query(By.css('.ds-chip__remove'));
       removeBtn.nativeElement.click();
 
       expect(removedSpy).toHaveBeenCalledTimes(1);
@@ -226,7 +227,7 @@ describe('DsChip', () => {
       const clickedSpy = jasmine.createSpy('clicked');
       component.clicked.subscribe(clickedSpy);
 
-      const removeBtn = chipElement.query(By.css('.ds-chip__remove'));
+      const removeBtn = getChipElement().query(By.css('.ds-chip__remove'));
       removeBtn.nativeElement.click();
 
       expect(clickedSpy).not.toHaveBeenCalled();
@@ -236,7 +237,7 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('removable', true);
       fixture.detectChanges();
 
-      const removeBtn = chipElement.query(By.css('.ds-chip__remove'));
+      const removeBtn = getChipElement().query(By.css('.ds-chip__remove'));
       expect(removeBtn.nativeElement.getAttribute('aria-label')).toBe('Remove Test Chip');
     });
   });
@@ -246,7 +247,7 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('clickable', true);
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--clickable');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--clickable');
     });
 
     it('should not apply clickable class when disabled', () => {
@@ -254,7 +255,7 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).not.toHaveClass('ds-chip--clickable');
+      expect(getChipElement().nativeElement).not.toHaveClass('ds-chip--clickable');
     });
 
     it('should emit clicked event when chip is clicked', () => {
@@ -264,7 +265,7 @@ describe('DsChip', () => {
       const clickedSpy = jasmine.createSpy('clicked');
       component.clicked.subscribe(clickedSpy);
 
-      chipElement.nativeElement.click();
+      getChipElement().nativeElement.click();
 
       expect(clickedSpy).toHaveBeenCalledTimes(1);
     });
@@ -276,7 +277,7 @@ describe('DsChip', () => {
       const selectedChangeSpy = jasmine.createSpy('selectedChange');
       component.selectedChange.subscribe(selectedChangeSpy);
 
-      chipElement.nativeElement.click();
+      getChipElement().nativeElement.click();
 
       expect(selectedChangeSpy).toHaveBeenCalledWith(true);
     });
@@ -289,7 +290,7 @@ describe('DsChip', () => {
       const clickedSpy = jasmine.createSpy('clicked');
       component.clicked.subscribe(clickedSpy);
 
-      chipElement.nativeElement.click();
+      getChipElement().nativeElement.click();
 
       expect(clickedSpy).not.toHaveBeenCalled();
     });
@@ -298,14 +299,14 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('clickable', true);
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement.getAttribute('role')).toBe('button');
+      expect(getChipElement().nativeElement.getAttribute('role')).toBe('button');
     });
 
     it('should set tabindex="0" when clickable', () => {
       fixture.componentRef.setInput('clickable', true);
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement.getAttribute('tabindex')).toBe('0');
+      expect(getChipElement().nativeElement.getAttribute('tabindex')).toBe('0');
     });
   });
 
@@ -314,7 +315,7 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('selected', true);
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--selected');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--selected');
     });
 
     it('should set aria-selected when clickable and selected', () => {
@@ -322,7 +323,7 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('selected', true);
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement.getAttribute('aria-selected')).toBe('true');
+      expect(getChipElement().nativeElement.getAttribute('aria-selected')).toBe('true');
     });
 
     it('should toggle selected state when clicked', () => {
@@ -333,13 +334,13 @@ describe('DsChip', () => {
       const selectedChangeSpy = jasmine.createSpy('selectedChange');
       component.selectedChange.subscribe(selectedChangeSpy);
 
-      chipElement.nativeElement.click();
+      getChipElement().nativeElement.click();
       expect(selectedChangeSpy).toHaveBeenCalledWith(true);
 
       fixture.componentRef.setInput('selected', true);
       fixture.detectChanges();
 
-      chipElement.nativeElement.click();
+      getChipElement().nativeElement.click();
       expect(selectedChangeSpy).toHaveBeenCalledWith(false);
     });
   });
@@ -349,14 +350,14 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement).toHaveClass('ds-chip--disabled');
+      expect(getChipElement().nativeElement).toHaveClass('ds-chip--disabled');
     });
 
     it('should set aria-disabled when disabled', () => {
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(getChipElement().nativeElement.getAttribute('aria-disabled')).toBe('true');
     });
 
     it('should set tabindex="-1" when disabled', () => {
@@ -364,7 +365,7 @@ describe('DsChip', () => {
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 
-      expect(chipElement.nativeElement.getAttribute('tabindex')).toBe('-1');
+      expect(getChipElement().nativeElement.getAttribute('tabindex')).toBe('-1');
     });
 
     it('should not emit events when disabled', () => {
@@ -377,7 +378,7 @@ describe('DsChip', () => {
       component.clicked.subscribe(clickedSpy);
       component.selectedChange.subscribe(selectedChangeSpy);
 
-      chipElement.nativeElement.click();
+      getChipElement().nativeElement.click();
 
       expect(clickedSpy).not.toHaveBeenCalled();
       expect(selectedChangeSpy).not.toHaveBeenCalled();
@@ -393,7 +394,7 @@ describe('DsChip', () => {
       component.clicked.subscribe(clickedSpy);
 
       const event = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
-      chipElement.nativeElement.dispatchEvent(event);
+      getChipElement().nativeElement.dispatchEvent(event);
 
       expect(clickedSpy).toHaveBeenCalledTimes(1);
     });
@@ -406,7 +407,7 @@ describe('DsChip', () => {
       component.clicked.subscribe(clickedSpy);
 
       const event = new KeyboardEvent('keydown', { key: ' ', bubbles: true });
-      chipElement.nativeElement.dispatchEvent(event);
+      getChipElement().nativeElement.dispatchEvent(event);
 
       expect(clickedSpy).toHaveBeenCalledTimes(1);
     });
@@ -419,7 +420,7 @@ describe('DsChip', () => {
       component.removed.subscribe(removedSpy);
 
       const event = new KeyboardEvent('keydown', { key: 'Delete', bubbles: true });
-      chipElement.nativeElement.dispatchEvent(event);
+      getChipElement().nativeElement.dispatchEvent(event);
 
       expect(removedSpy).toHaveBeenCalledTimes(1);
     });
@@ -432,7 +433,7 @@ describe('DsChip', () => {
       component.removed.subscribe(removedSpy);
 
       const event = new KeyboardEvent('keydown', { key: 'Backspace', bubbles: true });
-      chipElement.nativeElement.dispatchEvent(event);
+      getChipElement().nativeElement.dispatchEvent(event);
 
       expect(removedSpy).toHaveBeenCalledTimes(1);
     });
@@ -449,10 +450,10 @@ describe('DsChip', () => {
       component.removed.subscribe(removedSpy);
 
       const enterEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
-      chipElement.nativeElement.dispatchEvent(enterEvent);
+      getChipElement().nativeElement.dispatchEvent(enterEvent);
 
       const deleteEvent = new KeyboardEvent('keydown', { key: 'Delete', bubbles: true });
-      chipElement.nativeElement.dispatchEvent(deleteEvent);
+      getChipElement().nativeElement.dispatchEvent(deleteEvent);
 
       expect(clickedSpy).not.toHaveBeenCalled();
       expect(removedSpy).not.toHaveBeenCalled();
