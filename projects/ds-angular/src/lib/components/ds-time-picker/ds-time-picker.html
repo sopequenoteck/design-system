@@ -1,0 +1,34 @@
+<div [class]="containerClasses()">
+  <div class="ds-time-picker__wrapper">
+    <div
+      class="ds-time-picker__input"
+      [class.ds-time-picker__input--disabled]="disabled()"
+      [class.ds-time-picker__input--readonly]="readonly()"
+      [class.ds-time-picker__input--focused]="isFocused()"
+      [attr.tabindex]="isDisabled() ? -1 : 0"
+      [attr.role]="'combobox'"
+      [attr.aria-expanded]="isOpen()"
+      [attr.aria-haspopup]="'dialog'"
+      [attr.aria-label]="placeholder()"
+      (click)="toggle()"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      (keydown.enter)="toggle()"
+      (keydown.space)="toggle(); $event.preventDefault()">
+
+      <fa-icon
+        class="ds-time-picker__icon"
+        [icon]="clockIcon"
+        aria-hidden="true">
+      </fa-icon>
+
+      <span class="ds-time-picker__display">
+        @if (displayValue(); as display) {
+          {{ display }}
+        } @else {
+          <span class="ds-time-picker__placeholder">{{ placeholder() }}</span>
+        }
+      </span>
+    </div>
+  </div>
+</div>

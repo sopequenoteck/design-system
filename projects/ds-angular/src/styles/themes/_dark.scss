@@ -698,4 +698,18 @@
   --drawer-close-active-bg: var(--gray-600);
   --drawer-close-focus-color: var(--color-primary);
   --drawer-backdrop: rgba(0, 0, 0, 0.7);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS TIME PICKER
+   * ======================================================================== */
+  --time-picker-panel-bg: var(--gray-800);
+  --time-picker-panel-border: var(--gray-700);
+  --time-picker-column-bg: var(--gray-850);
+  --time-picker-column-border: var(--gray-700);
+  --time-picker-option-text: var(--gray-200);
+  --time-picker-option-hover: var(--gray-700);
+  --time-picker-option-focus: var(--gray-700);
+  --time-picker-option-selected-bg: var(--color-primary);
+  --time-picker-option-selected-text: var(--white);
+  --time-picker-option-selected-hover: color-mix(in oklab, var(--color-primary) 75%, var(--gray-800));
 }

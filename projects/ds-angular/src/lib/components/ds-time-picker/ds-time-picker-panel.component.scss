@@ -1,0 +1,89 @@
+.ds-time-picker-panel {
+  background-color: var(--time-picker-panel-bg, var(--white));
+  border: 1px solid var(--time-picker-panel-border, var(--gray-300));
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-2);
+  min-width: 200px;
+
+  &__columns {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 60px;
+
+    &--period {
+      min-width: 50px;
+    }
+  }
+
+  &__column-scroll {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--time-picker-column-border, var(--gray-200));
+    border-radius: var(--radius-1);
+    background-color: var(--time-picker-column-bg, var(--white));
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--gray-100);
+      border-radius: var(--radius-1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--gray-400);
+      border-radius: var(--radius-1);
+
+      &:hover {
+        background: var(--gray-500);
+      }
+    }
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    color: var(--time-picker-option-text, var(--gray-900));
+    transition: all 0.15s ease;
+    outline: none;
+
+    &:hover:not(&--disabled) {
+      background-color: var(--time-picker-option-hover, var(--gray-100));
+    }
+
+    &:focus-visible {
+      background-color: var(--time-picker-option-focus, var(--gray-100));
+      box-shadow: inset 0 0 0 2px var(--color-primary);
+    }
+
+    &--selected {
+      background-color: var(--time-picker-option-selected-bg, var(--color-primary));
+      color: var(--time-picker-option-selected-text, var(--white));
+      font-weight: 600;
+
+      &:hover {
+        background-color: var(--time-picker-option-selected-hover, var(--primary-dark));
+      }
+    }
+
+    &--disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+}

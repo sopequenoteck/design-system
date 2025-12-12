@@ -208,3 +208,10 @@ export {
   type DrawerPosition,
   type DrawerSize,
 } from './ds-drawer/ds-drawer';
+
+export {
+  DsTimePicker,
+  type TimePickerSize,
+  type TimeFormat,
+  type TimeValue,
+} from './ds-time-picker/ds-time-picker';

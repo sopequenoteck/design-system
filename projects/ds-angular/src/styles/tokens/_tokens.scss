@@ -622,4 +622,18 @@
   --drawer-close-radius: #{$drawer-close-radius};
   --drawer-backdrop-z-index: #{$drawer-backdrop-z-index};
   --drawer-z-index: #{$drawer-z-index};
+
+  /* === TIME PICKER === */
+  --time-picker-panel-padding: #{$time-picker-panel-padding};
+  --time-picker-panel-border-radius: #{$time-picker-panel-border-radius};
+  --time-picker-panel-min-width: #{$time-picker-panel-min-width};
+  --time-picker-column-gap: #{$time-picker-column-gap};
+  --time-picker-column-min-width: #{$time-picker-column-min-width};
+  --time-picker-column-period-width: #{$time-picker-column-period-width};
+  --time-picker-column-max-height: #{$time-picker-column-max-height};
+  --time-picker-column-border-radius: #{$time-picker-column-border-radius};
+  --time-picker-option-padding: #{$time-picker-option-padding};
+  --time-picker-option-font-size: #{$time-picker-option-font-size};
+  --time-picker-scrollbar-width: #{$time-picker-scrollbar-width};
+  --time-picker-scrollbar-radius: #{$time-picker-scrollbar-radius};
 }

@@ -605,3 +605,21 @@ $drawer-close-radius: $radius-1;
 
 $drawer-backdrop-z-index: 1000;
 $drawer-z-index: 1001;
+
+// === TIME PICKER ===
+
+$time-picker-panel-padding: $space-2;
+$time-picker-panel-border-radius: $radius-2;
+$time-picker-panel-min-width: 200px;
+
+$time-picker-column-gap: $space-2;
+$time-picker-column-min-width: 60px;
+$time-picker-column-period-width: 50px;
+$time-picker-column-max-height: 200px;
+$time-picker-column-border-radius: $radius-1;
+
+$time-picker-option-padding: $space-2;
+$time-picker-option-font-size: $font-size-2;
+
+$time-picker-scrollbar-width: 6px;
+$time-picker-scrollbar-radius: $radius-1;

@@ -1,0 +1,96 @@
+.ds-time-picker {
+  display: inline-block;
+  position: relative;
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__input {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0 var(--input-padding-horizontal-md);
+    height: var(--input-height-md);
+    background-color: var(--input-bg, var(--white));
+    border: 1px solid var(--input-border-color, var(--gray-300));
+    border-radius: var(--input-border-radius);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+
+    &:hover:not(&--disabled):not(&--readonly) {
+      border-color: var(--input-border-hover, var(--gray-400));
+    }
+
+    &--focused {
+      border-color: var(--input-border-focus, var(--color-primary));
+      box-shadow: var(--input-focus-shadow);
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: var(--input-bg-disabled, var(--gray-100));
+    }
+
+    &--readonly {
+      cursor: default;
+      background-color: var(--input-bg-readonly, var(--gray-50));
+    }
+  }
+
+  &__icon {
+    color: var(--input-text-color, var(--gray-600));
+    font-size: var(--input-icon-md);
+    flex-shrink: 0;
+  }
+
+  &__display {
+    flex: 1;
+    color: var(--input-text-color, var(--gray-900));
+    font-size: var(--input-font-size-md);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__placeholder {
+    color: var(--input-placeholder-color, var(--gray-500));
+  }
+
+  // Size variants
+  &--sm {
+    .ds-time-picker__input {
+      height: var(--input-height-sm);
+      padding: 0 var(--input-padding-horizontal-sm);
+    }
+
+    .ds-time-picker__display {
+      font-size: var(--input-font-size-sm);
+    }
+
+    .ds-time-picker__icon {
+      font-size: var(--input-icon-sm);
+    }
+  }
+
+  &--lg {
+    .ds-time-picker__input {
+      height: var(--input-height-lg);
+      padding: 0 var(--input-padding-horizontal-lg);
+    }
+
+    .ds-time-picker__display {
+      font-size: var(--input-font-size-lg);
+    }
+
+    .ds-time-picker__icon {
+      font-size: var(--input-icon-lg);
+    }
+  }
+
+  &--disabled {
+    pointer-events: none;
+  }
+}
