@@ -5,14 +5,13 @@ import { FormsModule, ReactiveFormsModule, FormControl, FormGroup } from '@angul
 import { Component } from '@angular/core';
 
 const meta: Meta<DsFileUpload> = {
-  title: 'Components/Forms/DsFileUpload',
+  title: 'Form/Upload/DsFileUpload',
   component: DsFileUpload,
   decorators: [
     applicationConfig({
       providers: [provideAnimations()],
     }),
   ],
-  tags: ['autodocs'],
   argTypes: {
     accept: {
       control: 'text',

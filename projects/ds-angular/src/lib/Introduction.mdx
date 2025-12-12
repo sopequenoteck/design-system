@@ -1,325 +1,52 @@
 {/* Introduction.mdx */}
 import { Meta } from '@storybook/blocks';
 
-<Meta title="Getting Started/Introduction" />
+<Meta title="Documentation/Introduction" />
 
-# DS-Angular - Design System
+# DS-Angular
 
-Bienvenue dans la documentation du Design System **ds-angular**, une bibliothèque de composants Angular moderne et accessible.
+Bibliothèque de composants Angular 20 accessible et thématisable.
 
 ## Installation
 
 ```bash
-npm install @kksdev/ds-angular
+npm install @kksdev/ds-angular @angular/cdk @fortawesome/angular-fontawesome @fortawesome/free-solid-svg-icons
 ```
 
-### Peer dependencies
+## Configuration
 
-@kksdev/ds-angular nécessite les dépendances suivantes dans votre projet :
+**1. Importer les styles** dans `src/styles.scss` :
 
-<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '16px'}}>
-  <thead>
-    <tr style={{borderBottom: '2px solid var(--border-color, #e5e5e5)'}}>
-      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Package</th>
-      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Version</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><code>@angular/core</code></td>
-      <td style={{padding: '12px 16px'}}><code>^20.0.0</code></td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><code>@angular/common</code></td>
-      <td style={{padding: '12px 16px'}}><code>^20.0.0</code></td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><code>@angular/forms</code></td>
-      <td style={{padding: '12px 16px'}}><code>^20.0.0</code></td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><code>@angular/cdk</code></td>
-      <td style={{padding: '12px 16px'}}><code>^20.0.0</code></td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><code>@fortawesome/angular-fontawesome</code></td>
-      <td style={{padding: '12px 16px'}}><code>^0.16.0</code></td>
-    </tr>
-    <tr>
-      <td style={{padding: '12px 16px'}}><code>@fortawesome/free-solid-svg-icons</code></td>
-      <td style={{padding: '12px 16px'}}><code>^6.5.0</code></td>
-    </tr>
-  </tbody>
-</table>
-
-```bash
-npm install @angular/cdk @fortawesome/angular-fontawesome @fortawesome/free-solid-svg-icons
+```scss
+@use '@kksdev/ds-angular/styles';
 ```
 
-## Erreurs courantes
-
-### Thème non appliqué
-
-**Symptôme** : Les composants s'affichent sans couleurs ou avec des styles par défaut.
-
-**Solution** : Assurez-vous d'activer un thème sur `:root` :
+**2. Activer un thème** dans `app.component.ts` :
 
 ```typescript
-// Dans app.component.ts
 document.documentElement.className = 'theme-light'; // ou 'theme-dark'
 ```
 
-### Styles non chargés
-
-**Symptôme** : Les composants n'ont aucun style CSS.
-
-**Solution** : Importez les styles globaux dans votre fichier `styles.scss` :
-
-```scss
-@use '@kksdev/ds-angular/styles';
-```
-
-### Icônes FontAwesome manquantes
-
-**Symptôme** : Les icônes n'apparaissent pas dans les composants.
-
-**Solution** : Vérifiez que `@fortawesome/angular-fontawesome` est installé et que vous importez les icônes nécessaires :
+## Exemple
 
 ```typescript
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
-```
-
-### Erreur CDK Overlay
-
-**Symptôme** : `NullInjectorError: No provider for Overlay`.
-
-**Solution** : Importez `OverlayModule` dans votre composant ou module :
-
-```typescript
-import { OverlayModule } from '@angular/cdk/overlay';
-```
-
-## Quick Start
-
-Voici 3 exemples pour démarrer rapidement avec ds-angular.
-
-### 1. Installation et import des tokens
-
-Installez la bibliothèque et importez les styles globaux dans votre application :
-
-```scss
-// Dans src/styles.scss
-@use '@kksdev/ds-angular/styles';
-```
-
-Activez le thème souhaité dans votre composant racine :
-
-```typescript
-// Dans src/app/app.component.ts
 import { Component } from '@angular/core';
+import { DsButton, DsInputField } from '@kksdev/ds-angular';
 
 @Component({
-  selector: 'app-root',
   standalone: true,
-  template: `<router-outlet />`
-})
-export class AppComponent {
-  constructor() {
-    // Activer le thème light (ou 'theme-dark')
-    document.documentElement.className = 'theme-light';
-  }
-}
-```
-
-### 2. Utiliser un composant basique (ds-button)
-
-Importez et utilisez le composant `DsButton` :
-
-```typescript
-// Dans src/app/home/home.component.ts
-import { Component } from '@angular/core';
-import { DsButton } from '@kksdev/ds-angular';
-
-@Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [DsButton],
+  imports: [DsButton, DsInputField],
   template: `
-    <ds-button
-      variant="primary"
-      size="md"
-      (clicked)="handleClick()">
-      Cliquez-moi
-    </ds-button>
+    <ds-input-field label="Email" placeholder="email@exemple.com" />
+    <ds-button variant="primary" (clicked)="submit()">Envoyer</ds-button>
   `
 })
-export class HomeComponent {
-  handleClick() {
-    console.log('Bouton cliqué !');
-  }
+export class MyComponent {
+  submit() { console.log('Envoyé !'); }
 }
 ```
-
-### 3. Utiliser un composant de formulaire (ds-input-field)
-
-Les composants de formulaire sont compatibles avec `ngModel` et reactive forms :
-
-```typescript
-// Dans src/app/login/login.component.ts
-import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { DsInputField } from '@kksdev/ds-angular';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-
-@Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [FormsModule, DsInputField],
-  template: `
-    <ds-input-field
-      name="email"
-      type="email"
-      label="Adresse email"
-      placeholder="exemple@domaine.com"
-      [iconStart]="emailIcon"
-      [(ngModel)]="email"
-      [error]="emailError()">
-    </ds-input-field>
-
-    <p>Valeur : {{ email() }}</p>
-  `
-})
-export class LoginComponent {
-  email = signal('');
-  emailIcon = faEnvelope;
-
-  emailError() {
-    const value = this.email();
-    if (!value) return 'Email requis';
-    if (!value.includes('@')) return 'Email invalide';
-    return '';
-  }
-}
-```
-
----
-
-## Architecture
-
-Le design system est organisé en deux niveaux :
-
-### Primitives
-
-Composants atomiques de base, sans logique métier :
-- `primitive-button`, `primitive-badge`, `primitive-input`
-- `primitive-checkbox`, `primitive-radio`, `primitive-toggle`
-- `primitive-textarea`
-
-### Components
-
-Composants haut niveau avec logique intégrée :
-- **Forms** : `ds-input-field`, `ds-checkbox`, `ds-radio-group`, `ds-toggle`
-- **Display** : `ds-badge`, `ds-button`, `ds-breadcrumb`, `ds-tabs`
-- **Overlays** : `ds-modal`, `ds-dropdown`, `ds-tooltip`, `ds-popover`, `ds-toast`
-
-### Guides complémentaires
-
-- [Tokens & styles](./Tokens) — Aperçu des couleurs, de la typographie et des espacements du design system.
-- [Guide de contribution](./Contributing) — Processus pour ajouter des composants, stories et tokens.
-
----
-
-## Tokens & Thèmes
-
-### Couleurs de marque
-
-<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '16px'}}>
-  <thead>
-    <tr style={{borderBottom: '2px solid var(--border-color, #e5e5e5)'}}>
-      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Token</th>
-      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Valeur</th>
-      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Usage</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><code>--color-primary</code></td>
-      <td style={{padding: '12px 16px'}}><span style={{background: '#7d4bc0', padding: '2px 12px', color: 'white', borderRadius: '4px'}}>#7d4bc0</span></td>
-      <td style={{padding: '12px 16px'}}>Action principale</td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><code>--color-secondary</code></td>
-      <td style={{padding: '12px 16px'}}><span style={{background: '#fbc224', padding: '2px 12px', color: 'black', borderRadius: '4px'}}>#fbc224</span></td>
-      <td style={{padding: '12px 16px'}}>Accent secondaire</td>
-    </tr>
-    <tr>
-      <td style={{padding: '12px 16px'}}><code>--color-alt</code></td>
-      <td style={{padding: '12px 16px'}}><span style={{background: '#2dd4bf', padding: '2px 12px', color: 'black', borderRadius: '4px'}}>#2dd4bf</span></td>
-      <td style={{padding: '12px 16px'}}>Alternative</td>
-    </tr>
-  </tbody>
-</table>
-
-### Couleurs de feedback
-
-<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '16px'}}>
-  <thead>
-    <tr style={{borderBottom: '2px solid var(--border-color, #e5e5e5)'}}>
-      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Token</th>
-      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Usage</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><code>--success</code></td>
-      <td style={{padding: '12px 16px'}}>Validation réussie</td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><code>--warning</code></td>
-      <td style={{padding: '12px 16px'}}>Attention requise</td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><code>--error</code></td>
-      <td style={{padding: '12px 16px'}}>Erreur, action destructive</td>
-    </tr>
-    <tr>
-      <td style={{padding: '12px 16px'}}><code>--info</code></td>
-      <td style={{padding: '12px 16px'}}>Information neutre</td>
-    </tr>
-  </tbody>
-</table>
-
-### Thèmes
-
-Le système supporte deux thèmes : **Light** et **Dark**.
-
-Utilisez le sélecteur de thème dans la toolbar Storybook pour prévisualiser les composants dans chaque mode.
-
----
-
-## Conventions
-
-### Nommage
-
-- Prefix des composants : `ds-` (ex: `ds-button`)
-- Prefix des primitives : `primitive-` (ex: `primitive-input`)
-
-### Formulaires
-
-Les composants de formulaire implémentent `ControlValueAccessor` et sont compatibles avec :
-- Template-driven forms (`ngModel`)
-- Reactive forms (`formControl`, `formControlName`)
-
-### Accessibilité
-
-Tous les composants sont conçus pour être accessibles :
-- Labels et ARIA attributes
-- Navigation clavier
-- Contraste suffisant
-
----
 
 ## Ressources
 
-- [Angular CDK](https://material.angular.io/cdk/categories) - Utilisé pour les overlays
-- [FontAwesome](https://fontawesome.com/icons) - Icônes via `@fortawesome/angular-fontawesome`
+- **Tokens** : Variables CSS disponibles dans l'onglet "Tokens"
+- **Composants** : Explorez la sidebar pour voir tous les composants

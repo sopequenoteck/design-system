@@ -4,9 +4,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 
 const meta: Meta<DsTimePicker> = {
-  title: 'Components/TimePicker',
+  title: 'Form/Pickers/DsTimePicker',
   component: DsTimePicker,
-  tags: ['autodocs'],
   argTypes: {
     value: { control: 'text' },
     format: { control: 'radio', options: ['12h', '24h'] },

@@ -2,9 +2,8 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { PrimitiveRadio, RadioSize } from './primitive-radio';
 
 const meta: Meta<PrimitiveRadio> = {
-  title: 'Primitives/PrimitiveRadio',
+  title: 'Foundation/Primitives/PrimitiveRadio',
   component: PrimitiveRadio,
-  tags: ['autodocs'],
   argTypes: {
     checked: {
       control: 'boolean',

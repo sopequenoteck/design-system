@@ -2,9 +2,8 @@ import { Meta, StoryObj, argsToTemplate } from '@storybook/angular';
 import { DsSkeleton } from './ds-skeleton';
 
 const meta: Meta<DsSkeleton> = {
-  title: 'Components/Feedback/DsSkeleton',
+  title: 'Data Display/DsSkeleton',
   component: DsSkeleton,
-  tags: ['autodocs'],
   argTypes: {
     variant: {
       control: 'select',

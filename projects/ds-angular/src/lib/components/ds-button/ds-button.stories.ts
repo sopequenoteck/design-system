@@ -9,9 +9,8 @@ import {
 } from '../../utils/storybook-controls';
 
 const meta: Meta<DsButton> = {
-  title: 'Components/Forms/DsButton',
+  title: 'Actions/DsButton',
   component: DsButton,
-  tags: ['autodocs'],
   argTypes: buildButtonArgTypes(),
 };
 

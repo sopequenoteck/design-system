@@ -4,8 +4,7 @@ import { DsInputField } from '../ds-input-field/ds-input-field';
 
 // Note: Using DsInputField with textarea type if available, or creating basic textarea story
 const meta: Meta = {
-  title: 'Components/Forms/DsInputTextarea',
-  tags: ['autodocs'],
+  title: 'Form/Inputs/DsInputTextarea',
   decorators: [
     moduleMetadata({
       imports: [DsInputField],

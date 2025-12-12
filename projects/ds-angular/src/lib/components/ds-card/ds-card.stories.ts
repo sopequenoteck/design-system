@@ -2,9 +2,8 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsCard } from './ds-card';
 
 const meta: Meta<DsCard> = {
-  title: 'Components/Layout/DsCard',
+  title: 'Foundation/Layout/DsCard',
   component: DsCard,
-  tags: ['autodocs'],
   argTypes: {
     variant: {
       control: 'select',

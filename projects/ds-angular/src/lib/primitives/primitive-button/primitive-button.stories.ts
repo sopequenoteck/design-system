@@ -9,9 +9,8 @@ import {
 } from '../../utils/storybook-controls';
 
 const meta: Meta<PrimitiveButton> = {
-  title: 'Primitives/PrimitiveButton',
+  title: 'Foundation/Primitives/PrimitiveButton',
   component: PrimitiveButton,
-  tags: ['autodocs'],
   argTypes: {
     ...buildButtonArgTypes({ includeLoading: false }),
     type: {

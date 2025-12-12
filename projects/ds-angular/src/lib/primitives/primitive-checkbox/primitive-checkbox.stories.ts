@@ -2,9 +2,8 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { PrimitiveCheckbox, CheckboxSize } from './primitive-checkbox';
 
 const meta: Meta<PrimitiveCheckbox> = {
-  title: 'Primitives/PrimitiveCheckbox',
+  title: 'Foundation/Primitives/PrimitiveCheckbox',
   component: PrimitiveCheckbox,
-  tags: ['autodocs'],
   argTypes: {
     checked: {
       control: 'boolean',

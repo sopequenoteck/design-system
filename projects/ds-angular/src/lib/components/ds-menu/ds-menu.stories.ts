@@ -35,9 +35,8 @@ const itemsWithDisabled: MenuItem[] = [
 ];
 
 const meta: Meta<DsMenu> = {
-  title: 'Components/Navigation/DsMenu',
+  title: 'Navigation/DsMenu',
   component: DsMenu,
-  tags: ['autodocs'],
   argTypes: {
     size: {
       control: 'select',

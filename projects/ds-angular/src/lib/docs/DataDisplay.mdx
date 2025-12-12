@@ -1,0 +1,169 @@
+{/* DataDisplay.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Data Display/Overview" />
+
+# Data Display
+
+Composants pour afficher et présenter des données.
+
+---
+
+## Vue d'ensemble
+
+La catégorie **Data Display** regroupe les composants dédiés à la présentation de données.
+
+| Composant | Description |
+|-----------|-------------|
+| **DsTable** | Tableau de données avec tri et sélection |
+| **DsAvatar** | Avatar utilisateur (image/initiales) |
+| **DsBadge** | Badge pour indicateurs et compteurs |
+| **DsChip** | Tag pour catégorisation et filtres |
+| **DsRating** | Étoiles de notation |
+| **DsProgressBar** | Barre de progression |
+| **DsSkeleton** | Placeholder de chargement |
+
+---
+
+## Patterns d'utilisation
+
+### Tableau de données
+
+```html
+<ds-table
+  [columns]="[
+    { key: 'name', label: 'Nom', sortable: true },
+    { key: 'email', label: 'Email' },
+    { key: 'role', label: 'Rôle' }
+  ]"
+  [data]="users"
+  [selectable]="true"
+  variant="striped"
+  (rowClick)="onRowClick($event)"
+  (sortChange)="onSort($event)"
+/>
+```
+
+### Avatar avec status
+
+```html
+<ds-avatar
+  [src]="user.avatar"
+  [name]="user.name"
+  size="lg"
+  status="online"
+  shape="circle"
+/>
+```
+
+### Badges et Chips
+
+```html
+<!-- Badge pour compteur -->
+<ds-badge variant="primary" type="count">42</ds-badge>
+
+<!-- Chip pour tags -->
+<ds-chip
+  variant="filled"
+  color="primary"
+  [removable]="true"
+  (remove)="removeTag($event)"
+>
+  Angular
+</ds-chip>
+```
+
+### Notation
+
+```html
+<ds-rating
+  [(value)]="rating"
+  [max]="5"
+  [half]="true"
+  size="md"
+/>
+```
+
+### États de chargement
+
+```html
+<!-- Skeleton pour texte -->
+<ds-skeleton variant="text" [lines]="3" />
+
+<!-- Skeleton pour carte -->
+<ds-skeleton variant="card" />
+
+<!-- Progress bar -->
+<ds-progress-bar
+  [value]="progress"
+  [max]="100"
+  variant="success"
+/>
+```
+
+---
+
+## Variants visuels
+
+### Tableaux
+
+```html
+<ds-table variant="default" />   <!-- Sans bordures -->
+<ds-table variant="striped" />   <!-- Lignes alternées -->
+<ds-table variant="bordered" />  <!-- Avec bordures -->
+```
+
+### Badges
+
+```html
+<ds-badge variant="primary" />
+<ds-badge variant="success" />
+<ds-badge variant="warning" />
+<ds-badge variant="error" />
+<ds-badge variant="info" />
+```
+
+### Progress
+
+```html
+<ds-progress-bar mode="determinate" [value]="75" />
+<ds-progress-bar mode="indeterminate" />
+```
+
+---
+
+## Accessibilité
+
+### Tableaux
+
+```html
+<table role="grid" aria-label="Liste des utilisateurs">
+  <thead>
+    <tr>
+      <th scope="col" aria-sort="ascending">Nom</th>
+    </tr>
+  </thead>
+</table>
+```
+
+### Rating
+
+```html
+<div role="slider"
+     aria-valuemin="0"
+     aria-valuemax="5"
+     aria-valuenow="3"
+     aria-label="Note">
+</div>
+```
+
+### Progress
+
+```html
+<div role="progressbar"
+     aria-valuenow="75"
+     aria-valuemin="0"
+     aria-valuemax="100"
+     aria-label="Progression du téléchargement">
+</div>
+```

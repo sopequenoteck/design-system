@@ -1,0 +1,176 @@
+{/* Feedback.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Feedback/Overview" />
+
+# Feedback
+
+Composants pour les notifications et retours utilisateur.
+
+---
+
+## Vue d'ensemble
+
+La catégorie **Feedback** regroupe les composants qui communiquent des informations à l'utilisateur.
+
+| Composant | Description |
+|-----------|-------------|
+| **DsAlert** | Message contextuel (success, warning, error, info) |
+| **DsToast** | Notification temporaire |
+| **DsEmpty** | État vide avec illustration |
+| **DsTooltip** | Info-bulle au survol |
+
+---
+
+## Patterns d'utilisation
+
+### Alertes contextuelles
+
+```html
+<!-- Alert de succès -->
+<ds-alert type="success" [closable]="true">
+  Opération réussie !
+</ds-alert>
+
+<!-- Alert d'erreur -->
+<ds-alert type="error" [showIcon]="true">
+  Une erreur s'est produite. Veuillez réessayer.
+</ds-alert>
+
+<!-- Alert d'information -->
+<ds-alert type="info">
+  Nouvelle fonctionnalité disponible.
+</ds-alert>
+```
+
+### Notifications toast
+
+```typescript
+// Dans le composant
+constructor(private toastService: DsToastService) {}
+
+showToast() {
+  this.toastService.show({
+    message: 'Modifications enregistrées',
+    type: 'success',
+    duration: 3000,
+    position: 'top-right'
+  });
+}
+```
+
+```html
+<!-- Placement du container -->
+<ds-toast-container position="top-right" />
+```
+
+### État vide
+
+```html
+<ds-empty
+  variant="icon"
+  title="Aucun résultat"
+  description="Essayez de modifier vos critères de recherche"
+>
+  <button ds-button variant="primary">
+    Réinitialiser les filtres
+  </button>
+</ds-empty>
+```
+
+### Tooltips
+
+```html
+<!-- Sur un élément -->
+<button dsTooltip="Supprimer l'élément" position="top">
+  <fa-icon [icon]="faTrash" />
+</button>
+
+<!-- Avec délai -->
+<span dsTooltip="Aide contextuelle" [delay]="500">
+  Besoin d'aide ?
+</span>
+```
+
+---
+
+## Types de feedback
+
+### Sémantique des types
+
+| Type | Usage | Couleur |
+|------|-------|---------|
+| **success** | Confirmation d'action réussie | Vert |
+| **warning** | Avertissement, action requise | Orange |
+| **error** | Erreur, action bloquée | Rouge |
+| **info** | Information contextuelle | Bleu |
+
+### Durée des toasts
+
+```typescript
+// Court (action simple)
+{ duration: 2000 }
+
+// Standard
+{ duration: 3000 }
+
+// Long (message important)
+{ duration: 5000 }
+
+// Permanent (action requise)
+{ duration: 0, closable: true }
+```
+
+### Positions
+
+```typescript
+type ToastPosition =
+  | 'top-left'
+  | 'top-center'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right';
+```
+
+---
+
+## Accessibilité
+
+### ARIA Live Regions
+
+```html
+<!-- Alertes -->
+<div role="alert" aria-live="polite">
+  Message d'information
+</div>
+
+<!-- Erreurs urgentes -->
+<div role="alert" aria-live="assertive">
+  Erreur critique !
+</div>
+```
+
+### Toasts
+
+- Les toasts utilisent `aria-live="polite"` par défaut
+- Les erreurs utilisent `aria-live="assertive"`
+- Focus piégé si le toast requiert une action
+
+### Tooltips
+
+```html
+<button aria-describedby="tooltip-1">
+  Action
+</button>
+<div id="tooltip-1" role="tooltip">
+  Description de l'action
+</div>
+```
+
+### Bonnes pratiques
+
+1. **Ne pas abuser des toasts** - Réserver aux confirmations importantes
+2. **Alertes fermables** - Permettre à l'utilisateur de les masquer
+3. **Messages clairs** - Indiquer ce qui s'est passé et quoi faire
+4. **Contraste suffisant** - Respecter WCAG AA (4.5:1)

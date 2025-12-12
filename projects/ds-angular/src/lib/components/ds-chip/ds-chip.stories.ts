@@ -5,9 +5,8 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
 const meta: Meta<DsChip> = {
-  title: 'Components/Data Display/DsChip',
+  title: 'Data Display/DsChip',
   component: DsChip,
-  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [DsChip, FontAwesomeModule],

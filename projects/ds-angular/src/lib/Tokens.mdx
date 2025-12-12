@@ -1,938 +1,448 @@
 {/* Tokens.mdx */}
 import { Meta } from '@storybook/blocks';
 
-<Meta title="Foundations/Tokens" />
+<Meta title="Documentation/Tokens" />
 
-# Tokens du design system
+# Tokens CSS
 
-Les tokens sont la source de vérité pour la couleur, la typographie et l'espacement. Ils sont exposés sous forme de variables CSS et utilisés par les composants comme par vos applications Angular.
-
-## Index
-
-<table style={{width: '100%', borderCollapse: 'collapse', marginBottom: '16px'}}>
-  <thead>
-    <tr style={{borderBottom: '2px solid var(--border-color, #e5e5e5)'}}>
-      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Section</th>
-      <th style={{textAlign: 'left', padding: '12px 16px', fontWeight: 600}}>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><a href="#palette-principale">Palette principale</a></td>
-      <td style={{padding: '12px 16px'}}>Couleurs de marque et feedback</td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><a href="#typographie">Typographie</a></td>
-      <td style={{padding: '12px 16px'}}>Polices, tailles et graisses</td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><a href="#espacements">Espacements</a></td>
-      <td style={{padding: '12px 16px'}}>Échelle d'espacement (4px base)</td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><a href="#ombres-et-rayons">Ombres et rayons</a></td>
-      <td style={{padding: '12px 16px'}}>Border radius et box shadows</td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><a href="#règles-de-nommage">Règles de nommage</a></td>
-      <td style={{padding: '12px 16px'}}>Architecture à 3 couches</td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><a href="#tokens-composants-navigation">Tokens composants navigation</a></td>
-      <td style={{padding: '12px 16px'}}>Pagination, Stepper, Accordion</td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><a href="#tokens-formulaires-avancés">Tokens formulaires avancés</a></td>
-      <td style={{padding: '12px 16px'}}>Search Input, Date Picker</td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><a href="#container">Container</a></td>
-      <td style={{padding: '12px 16px'}}>Layout et breakpoints</td>
-    </tr>
-    <tr style={{borderBottom: '1px solid var(--border-color, #e5e5e5)'}}>
-      <td style={{padding: '12px 16px'}}><a href="#breakpoints">Breakpoints</a></td>
-      <td style={{padding: '12px 16px'}}>Responsive design et media queries</td>
-    </tr>
-    <tr>
-      <td style={{padding: '12px 16px'}}><a href="#thèmes--storybook">Thèmes & Storybook</a></td>
-      <td style={{padding: '12px 16px'}}>Visualisation interactive</td>
-    </tr>
-  </tbody>
-</table>
-
-<p style={{marginBottom: '24px', color: 'var(--text-muted, #737373)'}}>
-  <strong>Voir aussi</strong> : <a href="./Theming">Theming</a> pour la configuration complète des thèmes • <a href="./Accessibility">Accessibility</a> pour les contrastes WCAG
-</p>
+Variables CSS disponibles dans le design system. Ces tokens garantissent la cohérence visuelle à travers tous les composants.
 
 ---
 
-## Palette principale
+## Couleurs
 
-| Token               | Valeur    | Usage                        | Aperçu                                                                                                                            |
-|---------------------|-----------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| `--color-primary`   | `#7d4bc0` | Actions principales, liens   | <span style={{background: 'var(--color-primary)', padding: '4px 12px', color: 'white', borderRadius: '6px'}}>Primary</span>       |
-| `--color-secondary` | `#fbc224` | Accentuation, surlignage     | <span style={{background: 'var(--color-secondary)', padding: '4px 12px', color: '#1a1c22', borderRadius: '6px'}}>Secondary</span> |
-| `--color-alt`       | `#2dd4bf` | Alternative, succès léger    | <span style={{background: 'var(--color-alt)', padding: '4px 12px', color: '#0f172a', borderRadius: '6px'}}>Alt</span>             |
-| `--success`         | `#4caf50` | Statuts positifs             | <span style={{background: 'var(--success)', padding: '4px 12px', color: 'white', borderRadius: '6px'}}>Success</span>             |
-| `--warning`         | `#ff9800` | Alerte/attention             | <span style={{background: 'var(--warning)', padding: '4px 12px', color: '#1a1c22', borderRadius: '6px'}}>Warning</span>           |
-| `--error`           | `#f44336` | Erreur ou action destructive | <span style={{background: 'var(--error)', padding: '4px 12px', color: 'white', borderRadius: '6px'}}>Error</span>                 |
-| `--info`            | `#2196f3` | Informations neutres         | <span style={{background: 'var(--info)', padding: '4px 12px', color: 'white', borderRadius: '6px'}}>Info</span>                   |
+### Couleurs principales
 
-### Nuances de gris
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '16px', marginBottom: '32px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ width: '100%', height: '48px', borderRadius: '8px', background: 'var(--color-primary)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
+    <code style={{ fontSize: '12px' }}>--color-primary</code>
+  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ width: '100%', height: '48px', borderRadius: '8px', background: 'var(--color-secondary)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
+    <code style={{ fontSize: '12px' }}>--color-secondary</code>
+  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ width: '100%', height: '48px', borderRadius: '8px', background: 'var(--color-alt)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
+    <code style={{ fontSize: '12px' }}>--color-alt</code>
+  </div>
+</div>
 
-| Token        | Valeur    | Aperçu                                                                                                                                      |
-|--------------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| `--gray-50`  | `#fafafa` | <span style={{background: 'var(--gray-50)', padding: '4px 18px', border: '1px solid #e5e7eb', borderRadius: '4px'}}>UI subtle</span>        |
-| `--gray-200` | `#e5e5e5` | <span style={{background: 'var(--gray-200)', padding: '4px 18px', border: '1px solid #d1d5db', borderRadius: '4px'}}>Neutral borders</span> |
-| `--gray-400` | `#a3a3a3` | <span style={{background: 'var(--gray-400)', padding: '4px 18px', color: '#0f172a', borderRadius: '4px'}}>Muted text</span>                 |
-| `--gray-700` | `#404040` | <span style={{background: 'var(--gray-700)', padding: '4px 18px', color: 'white', borderRadius: '4px'}}>Body text</span>                    |
-| `--gray-900` | `#171717` | <span style={{background: 'var(--gray-900)', padding: '4px 18px', color: 'white', borderRadius: '4px'}}>Inverse</span>                      |
+### Couleurs sémantiques
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '16px', marginBottom: '32px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ width: '100%', height: '48px', borderRadius: '8px', background: 'var(--success)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
+    <code style={{ fontSize: '12px' }}>--success</code>
+  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ width: '100%', height: '48px', borderRadius: '8px', background: 'var(--warning)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
+    <code style={{ fontSize: '12px' }}>--warning</code>
+  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ width: '100%', height: '48px', borderRadius: '8px', background: 'var(--error)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
+    <code style={{ fontSize: '12px' }}>--error</code>
+  </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ width: '100%', height: '48px', borderRadius: '8px', background: 'var(--info)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
+    <code style={{ fontSize: '12px' }}>--info</code>
+  </div>
+</div>
+
+### Palette de gris
+
+<div style={{ display: 'flex', gap: '4px', marginBottom: '32px', flexWrap: 'wrap' }}>
+  {['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+    <div key={shade} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+      <div style={{
+        width: '56px',
+        height: '56px',
+        borderRadius: '8px',
+        background: `var(--gray-${shade})`,
+        border: shade === '50' ? '1px solid var(--gray-200)' : 'none',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.08)'
+      }} />
+      <code style={{ fontSize: '10px' }}>{shade}</code>
+    </div>
+  ))}
+</div>
 
 ---
 
 ## Typographie
 
-La police par défaut est `var(--font-family-base)` (Poppins). Les tailles sont exposées en rem pour être responsives.
+### Famille de police
 
-| Style     | Token                                      | Rendu                                                                                                                                                                                              |
-|-----------|--------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Affichage | `--font-size-xxl` / `--font-weight-bold`   | <span style={{fontFamily: 'var(--font-family-base)', fontSize: 'var(--font-size-xxl)', fontWeight: 'var(--font-weight-bold)', letterSpacing: 'var(--letter-spacing-tight)'}}>Heading XXL</span>    |
-| Titre     | `--font-size-l` / `--font-weight-semibold` | <span style={{fontFamily: 'var(--font-family-base)', fontSize: 'var(--font-size-l)', fontWeight: 'var(--font-weight-semibold)', lineHeight: 'var(--line-height-tight)'}}>Titre section</span>      |
-| Corps     | `--font-size-3` / `--font-weight-normal`   | <span style={{fontFamily: 'var(--font-family-base)', fontSize: 'var(--font-size-3)', fontWeight: 'var(--font-weight-normal)', lineHeight: 'var(--line-height-normal)'}}>Texte par défaut</span>    |
-| Légende   | `--font-size-2` / `--font-weight-medium`   | <span style={{fontFamily: 'var(--font-family-base)', fontSize: 'var(--font-size-2)', fontWeight: 'var(--font-weight-medium)', letterSpacing: 'var(--letter-spacing-wide)'}}>Légende / label</span> |
+<div style={{ padding: '16px', background: 'var(--background-secondary)', borderRadius: '8px', marginBottom: '24px' }}>
+  <p style={{ fontFamily: 'var(--font-family-base)', fontSize: '18px', margin: 0 }}>
+    The quick brown fox jumps over the lazy dog
+  </p>
+  <code style={{ fontSize: '12px', marginTop: '8px', display: 'block' }}>--font-family-base</code>
+</div>
+
+### Tailles de police
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', padding: '12px', background: 'var(--background-secondary)', borderRadius: '8px' }}>
+    <span style={{ fontSize: 'var(--font-size-1)', minWidth: '200px' }}>Font Size 1 (12px)</span>
+    <code style={{ fontSize: '11px' }}>--font-size-1</code>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', padding: '12px', background: 'var(--background-secondary)', borderRadius: '8px' }}>
+    <span style={{ fontSize: 'var(--font-size-2)', minWidth: '200px' }}>Font Size 2 (14px)</span>
+    <code style={{ fontSize: '11px' }}>--font-size-2</code>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', padding: '12px', background: 'var(--background-secondary)', borderRadius: '8px' }}>
+    <span style={{ fontSize: 'var(--font-size-3)', minWidth: '200px' }}>Font Size 3 (16px)</span>
+    <code style={{ fontSize: '11px' }}>--font-size-3</code>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', padding: '12px', background: 'var(--background-secondary)', borderRadius: '8px' }}>
+    <span style={{ fontSize: 'var(--font-size-4)', minWidth: '200px' }}>Font Size 4 (18px)</span>
+    <code style={{ fontSize: '11px' }}>--font-size-4</code>
+  </div>
+</div>
+
+### Alias de taille
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '12px', marginBottom: '32px' }}>
+  <div style={{ padding: '12px', background: 'var(--background-secondary)', borderRadius: '8px', textAlign: 'center' }}>
+    <span style={{ fontSize: 'var(--font-size-xs)' }}>Extra Small</span>
+    <code style={{ fontSize: '10px', display: 'block', marginTop: '4px' }}>--font-size-xs</code>
+  </div>
+  <div style={{ padding: '12px', background: 'var(--background-secondary)', borderRadius: '8px', textAlign: 'center' }}>
+    <span style={{ fontSize: 'var(--font-size-sm)' }}>Small</span>
+    <code style={{ fontSize: '10px', display: 'block', marginTop: '4px' }}>--font-size-sm</code>
+  </div>
+  <div style={{ padding: '12px', background: 'var(--background-secondary)', borderRadius: '8px', textAlign: 'center' }}>
+    <span style={{ fontSize: 'var(--font-size-base)' }}>Base</span>
+    <code style={{ fontSize: '10px', display: 'block', marginTop: '4px' }}>--font-size-base</code>
+  </div>
+  <div style={{ padding: '12px', background: 'var(--background-secondary)', borderRadius: '8px', textAlign: 'center' }}>
+    <span style={{ fontSize: 'var(--font-size-lg)' }}>Large</span>
+    <code style={{ fontSize: '10px', display: 'block', marginTop: '4px' }}>--font-size-lg</code>
+  </div>
+</div>
+
+### Graisses
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '12px', marginBottom: '32px' }}>
+  <div style={{ padding: '16px', background: 'var(--background-secondary)', borderRadius: '8px' }}>
+    <span style={{ fontWeight: 'var(--font-weight-normal)', fontSize: '16px' }}>Normal (400)</span>
+    <code style={{ fontSize: '10px', display: 'block', marginTop: '8px' }}>--font-weight-normal</code>
+  </div>
+  <div style={{ padding: '16px', background: 'var(--background-secondary)', borderRadius: '8px' }}>
+    <span style={{ fontWeight: 'var(--font-weight-medium)', fontSize: '16px' }}>Medium (500)</span>
+    <code style={{ fontSize: '10px', display: 'block', marginTop: '8px' }}>--font-weight-medium</code>
+  </div>
+  <div style={{ padding: '16px', background: 'var(--background-secondary)', borderRadius: '8px' }}>
+    <span style={{ fontWeight: 'var(--font-weight-semibold)', fontSize: '16px' }}>Semibold (600)</span>
+    <code style={{ fontSize: '10px', display: 'block', marginTop: '8px' }}>--font-weight-semibold</code>
+  </div>
+  <div style={{ padding: '16px', background: 'var(--background-secondary)', borderRadius: '8px' }}>
+    <span style={{ fontWeight: 'var(--font-weight-bold)', fontSize: '16px' }}>Bold (700)</span>
+    <code style={{ fontSize: '10px', display: 'block', marginTop: '8px' }}>--font-weight-bold</code>
+  </div>
+</div>
 
 ---
 
 ## Espacements
 
-L'échelle d'espacement repose sur `--space-1` (4px). Combinez-les pour rythmer les interfaces et aligner les composants entre eux.
+<div style={{ display: 'flex', alignItems: 'flex-end', gap: '24px', marginBottom: '32px', flexWrap: 'wrap' }}>
+  {[
+    { name: 'space-1', size: '4px' },
+    { name: 'space-2', size: '8px' },
+    { name: 'space-3', size: '12px' },
+    { name: 'space-4', size: '16px' },
+    { name: 'space-5', size: '20px' },
+    { name: 'space-6', size: '24px' },
+    { name: 'space-8', size: '32px' },
+  ].map(({ name, size }) => (
+    <div key={name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+      <div style={{
+        width: `var(--${name})`,
+        height: `var(--${name})`,
+        background: 'var(--color-primary)',
+        borderRadius: '4px',
+        minWidth: '4px',
+        minHeight: '4px'
+      }} />
+      <code style={{ fontSize: '10px' }}>--{name}</code>
+      <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{size}</span>
+    </div>
+  ))}
+</div>
 
-<div style={{display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap'}}>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-    <div style={{width: '32px', height: '8px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
-    <span style={{fontSize: '14px'}}>--space-1 (4px)</span>
+---
+
+## Rayons (Border Radius)
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: '16px', marginBottom: '32px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+    <div style={{
+      width: '64px',
+      height: '64px',
+      background: 'var(--color-primary)',
+      borderRadius: 'var(--radius-1)',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+    }} />
+    <code style={{ fontSize: '11px' }}>--radius-1</code>
+    <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>4px</span>
   </div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-    <div style={{width: '48px', height: '12px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
-    <span style={{fontSize: '14px'}}>--space-2 (8px)</span>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+    <div style={{
+      width: '64px',
+      height: '64px',
+      background: 'var(--color-primary)',
+      borderRadius: 'var(--radius-2)',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+    }} />
+    <code style={{ fontSize: '11px' }}>--radius-2</code>
+    <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>8px</span>
   </div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-    <div style={{width: '64px', height: '16px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
-    <span style={{fontSize: '14px'}}>--space-3 (12px)</span>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+    <div style={{
+      width: '64px',
+      height: '64px',
+      background: 'var(--color-primary)',
+      borderRadius: 'var(--radius-3)',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+    }} />
+    <code style={{ fontSize: '11px' }}>--radius-3</code>
+    <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>12px</span>
   </div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-    <div style={{width: '88px', height: '20px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
-    <span style={{fontSize: '14px'}}>--space-4 (16px)</span>
-  </div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-    <div style={{width: '120px', height: '24px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
-    <span style={{fontSize: '14px'}}>--space-6 (24px)</span>
-  </div>
-  <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-    <div style={{width: '160px', height: '28px', background: 'var(--color-secondary)', borderRadius: '4px'}}></div>
-    <span style={{fontSize: '14px'}}>--space-8 (32px)</span>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+    <div style={{
+      width: '64px',
+      height: '64px',
+      background: 'var(--color-primary)',
+      borderRadius: 'var(--radius-round)',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+    }} />
+    <code style={{ fontSize: '11px' }}>--radius-round</code>
+    <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>50%</span>
   </div>
 </div>
 
 ---
 
-## Ombres et rayons
+## Ombres
 
-### Rayons (Border radius)
-
-| Token            | Valeur  | Usage                   | Aperçu                                                                                                                                                                                                              |
-|------------------|---------|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `--radius-1`     | `4px`   | Boutons, champs simples | <div style={{width: '60px', height: '40px', background: 'var(--color-primary)', borderRadius: 'var(--radius-1)'}}></div>                                                                                            |
-| `--radius-2`     | `8px`   | Cartes, badges          | <div style={{width: '60px', height: '40px', background: 'var(--color-secondary)', borderRadius: 'var(--radius-2)'}}></div>                                                                                          |
-| `--radius-3`     | `12px`  | Panneaux, modals        | <div style={{width: '60px', height: '40px', background: 'var(--color-alt)', borderRadius: 'var(--radius-3)'}}></div>                                                                                                |
-| `--radius-round` | `999px` | Pills, toggles          | <div style={{width: '80px', height: '40px', background: 'var(--info)', borderRadius: 'var(--radius-round)', display: 'inline-block'}}><span style={{color: 'white', padding: '8px 16px'}}>Pill</span></div> |
-
-### Ombres (Box shadows)
-
-| Token        | Valeur                        | Usage              | Aperçu                                                                                                                                                                                               |
-|--------------|-------------------------------|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `--shadow-1` | `0 1px 2px rgba(0,0,0,.14)`   | Hover léger        | <div style={{width: '120px', height: '80px', background: 'var(--background-main, white)', boxShadow: 'var(--shadow-1)', borderRadius: 'var(--radius-2)', padding: '16px'}}>Shadow 1</div>           |
-| `--shadow-2` | `0 6px 16px rgba(0,0,0,.18)`  | Éléments flottants | <div style={{width: '120px', height: '80px', background: 'var(--background-main, white)', boxShadow: 'var(--shadow-2)', borderRadius: 'var(--radius-2)', padding: '16px'}}>Shadow 2</div>           |
-| `--shadow-3` | `0 15px 40px rgba(0,0,0,.24)` | Dialogues modaux   | <div style={{width: '120px', height: '80px', background: 'var(--background-main, white)', boxShadow: 'var(--shadow-3)', borderRadius: 'var(--radius-3)', padding: '16px'}}>Shadow 3</div>           |
-
-<div style={{display: 'flex', gap: '24px', marginTop: '24px', flexWrap: 'wrap'}}>
-  <div style={{textAlign: 'center'}}>
-    <div style={{width: '100px', height: '100px', background: 'var(--background-main, white)', boxShadow: 'var(--shadow-1)', borderRadius: 'var(--radius-2)', marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px'}}>Hover</div>
-    <span style={{fontSize: '12px', color: 'var(--text-muted, #737373)'}}>shadow-1</span>
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '24px', marginBottom: '32px' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+    <div style={{
+      width: '100%',
+      height: '80px',
+      background: 'var(--background-main)',
+      borderRadius: '8px',
+      boxShadow: 'var(--shadow-1)'
+    }} />
+    <code style={{ fontSize: '11px' }}>--shadow-1</code>
+    <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Subtle</span>
   </div>
-  <div style={{textAlign: 'center'}}>
-    <div style={{width: '100px', height: '100px', background: 'var(--background-main, white)', boxShadow: 'var(--shadow-2)', borderRadius: 'var(--radius-2)', marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px'}}>Floating</div>
-    <span style={{fontSize: '12px', color: 'var(--text-muted, #737373)'}}>shadow-2</span>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+    <div style={{
+      width: '100%',
+      height: '80px',
+      background: 'var(--background-main)',
+      borderRadius: '8px',
+      boxShadow: 'var(--shadow-2)'
+    }} />
+    <code style={{ fontSize: '11px' }}>--shadow-2</code>
+    <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Medium</span>
   </div>
-  <div style={{textAlign: 'center'}}>
-    <div style={{width: '100px', height: '100px', background: 'var(--background-main, white)', boxShadow: 'var(--shadow-3)', borderRadius: 'var(--radius-3)', marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px'}}>Modal</div>
-    <span style={{fontSize: '12px', color: 'var(--text-muted, #737373)'}}>shadow-3</span>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+    <div style={{
+      width: '100%',
+      height: '80px',
+      background: 'var(--background-main)',
+      borderRadius: '8px',
+      boxShadow: 'var(--shadow-3)'
+    }} />
+    <code style={{ fontSize: '11px' }}>--shadow-3</code>
+    <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Elevated</span>
   </div>
 </div>
 
 ---
 
-## Règles de nommage
+## Thèmes
 
-Le design system utilise une architecture de tokens à **trois couches** pour garantir cohérence, maintenabilité et flexibilité thématique.
+Le design system propose trois thèmes. Activez-les via la classe CSS sur `:root` :
 
-### Hiérarchie des couches
-
-```
-_primitives.scss (SCSS variables)
-    ↓
-_semantic.scss (SCSS variables)
-    ↓
-_tokens.scss (CSS custom properties sur :root)
-    ↓
-themes/ (CSS custom properties sur :root.theme-*)
-```
-
-### 1. Tokens primitifs (`_primitives.scss`)
-
-**Convention** : Variables SCSS brutes définissant les valeurs source (couleurs hex, tailles px/rem, durées ms).
-
-**Exemples** :
-```scss
-$primary: #7d4bc0;
-$gray-500: #737373;
-$space-2: 8px;
-$font-size-3: 1rem;
-$duration-fast: 150ms;
-```
-
-**Règle** : Pas de référence à d'autres variables. Valeurs absolues uniquement.
-
-### 2. Tokens sémantiques (`_semantic.scss`)
-
-**Convention** : Variables SCSS mappant les primitifs vers des usages composant (tailles, dimensions, rayons).
-
-**Exemples** :
-```scss
-$btn-height-md: 40px;
-$input-border-radius: $radius-2;
-$modal-padding: $space-4;
-$badge-font-size-sm: $font-size-2;
-```
-
-**Règle** : Référencent `_primitives.scss`. Nommage `composant-propriété-variant`.
-
-### 3. Tokens globaux (`_tokens.scss`)
-
-**Convention** : CSS custom properties sur `:root` exposant les tokens SCSS au runtime. Consommés par tous les composants.
-
-**Exemples** :
-```css
-:root {
-  --color-primary: var(--role-primary);
-  --btn-height-md: 40px;
-  --space-2: 8px;
-  --radius-2: 8px;
-}
-```
-
-**Règle** : Interpolation SCSS `#{$variable}` ou référence à d'autres CSS vars `var(--token)`.
-
-### 4. Tokens thématiques (`themes/_light.scss`, `_dark.scss`)
-
-**Convention** : CSS custom properties sur `:root.theme-*` redéfinissant les tokens sémantiques par thème (couleurs, contrastes, backgrounds).
-
-**Exemples** :
-```css
-:root.theme-light {
-  --background-main: var(--gray-50);
-  --text-default: var(--gray-900);
-  --modal-bg: var(--surface-overlay);
-  --btn-primary-bg: var(--color-primary);
-}
-
-:root.theme-dark {
-  --background-main: var(--gray-900);
-  --text-default: var(--gray-50);
-  --modal-bg: var(--background-main);
-  --btn-primary-bg: var(--color-primary);
-}
-```
-
-**Règle** : Nommage sémantique cohérent entre thèmes. Utilise `color-mix()` pour variations dynamiques.
-
-### Conventions de nommage
-
-| Type                 | Pattern                                  | Exemple                                  |
-|----------------------|------------------------------------------|------------------------------------------|
-| Primitif couleur     | `$nom-valeur`                            | `$gray-700`, `$primary`                  |
-| Primitif dimension   | `$propriété-valeur`                      | `$space-4`, `$radius-2`                  |
-| Sémantique composant | `$composant-propriété-variant`           | `$btn-height-md`, `$input-border-radius` |
-| Token global         | `--propriété` ou `--composant-propriété` | `--color-primary`, `--btn-height-md`     |
-| Token thématique     | `--contexte-propriété`                   | `--background-main`, `--text-default`    |
-
-### Politique de dépréciation
-
-Les tokens obsolètes sont marqués avec `@deprecated`, une date d'expiration, et un fallback CSS :
-
-```scss
-/* @deprecated Utiliser --badge-bg à la place. Sera supprimé le 2025-06-01 */
---badge-bg-color: var(--badge-bg);
-```
-
-Après expiration, les tokens dépréciés sont supprimés. Les composants utilisent des **fallbacks CSS** pour éviter les régressions :
-
-```css
-background-color: var(--new-token, var(--old-token));
-```
-
----
-
-## Tokens composants navigation
-
-Les composants de navigation (`ds-pagination`, `ds-stepper`, `ds-accordion`) utilisent des tokens sémantiques dédiés pour garantir une thématisation complète.
-
-### Pagination
-
-| Token | Description | Valeur par défaut |
-|-------|-------------|-------------------|
-| `--pagination-btn-size-sm` | Taille bouton SM | `24px` |
-| `--pagination-btn-size-md` | Taille bouton MD | `32px` |
-| `--pagination-btn-size-lg` | Taille bouton LG | `40px` |
-| `--pagination-btn-bg` | Fond bouton | `var(--surface-default)` |
-| `--pagination-btn-text` | Texte bouton | `var(--text-default)` |
-| `--pagination-btn-border` | Bordure bouton | `var(--border-color)` |
-| `--pagination-active-bg` | Fond page active | `var(--color-primary)` |
-| `--pagination-active-text` | Texte page active | `var(--gray-50)` |
-| `--pagination-hover-bg` | Fond survol | `var(--surface-hover)` |
-| `--pagination-info-color` | Couleur info totaux | `var(--text-muted)` |
-
-<div style={{display: 'flex', gap: '8px', marginTop: '16px', flexWrap: 'wrap'}}>
-  <button style={{
-    width: '32px', height: '32px',
-    background: 'var(--surface-default, #fafafa)',
-    border: '1px solid var(--border-color, #e5e5e5)',
-    borderRadius: 'var(--radius-1)',
-    cursor: 'pointer'
-  }}>1</button>
-  <button style={{
-    width: '32px', height: '32px',
-    background: 'var(--color-primary)',
-    color: 'var(--gray-50, white)',
-    border: 'none',
-    borderRadius: 'var(--radius-1)',
-    cursor: 'pointer',
-    fontWeight: 600
-  }}>2</button>
-  <button style={{
-    width: '32px', height: '32px',
-    background: 'var(--surface-default, #fafafa)',
-    border: '1px solid var(--border-color, #e5e5e5)',
-    borderRadius: 'var(--radius-1)',
-    cursor: 'pointer'
-  }}>3</button>
-</div>
-
-### Stepper
-
-| Token | Description | Valeur par défaut |
-|-------|-------------|-------------------|
-| `--stepper-indicator-size-sm` | Taille indicateur SM | `24px` |
-| `--stepper-indicator-size-md` | Taille indicateur MD | `32px` |
-| `--stepper-indicator-size-lg` | Taille indicateur LG | `40px` |
-| `--stepper-pending-bg` | Fond étape en attente | `var(--background-secondary)` |
-| `--stepper-pending-border` | Bordure étape en attente | `var(--border-color)` |
-| `--stepper-active-bg` | Fond étape active | `var(--color-primary)` |
-| `--stepper-active-text` | Texte étape active | `var(--gray-50)` |
-| `--stepper-completed-bg` | Fond étape complétée | `var(--success)` |
-| `--stepper-completed-text` | Texte étape complétée | `var(--gray-50)` |
-| `--stepper-error-bg` | Fond étape erreur | `var(--error)` |
-| `--stepper-connector-color` | Couleur connecteur | `var(--border-color)` |
-| `--stepper-connector-width` | Largeur connecteur | `2px` |
-
-<div style={{display: 'flex', alignItems: 'center', gap: '0', marginTop: '16px'}}>
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '24px' }}>
   <div style={{
-    width: '32px', height: '32px',
-    background: 'var(--success, #4caf50)',
-    borderRadius: '50%',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    color: 'white', fontWeight: 600, fontSize: '14px'
-  }}>✓</div>
-  <div style={{width: '40px', height: '2px', background: 'var(--success, #4caf50)'}}></div>
-  <div style={{
-    width: '32px', height: '32px',
-    background: 'var(--color-primary)',
-    borderRadius: '50%',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    color: 'white', fontWeight: 600, fontSize: '14px'
-  }}>2</div>
-  <div style={{width: '40px', height: '2px', background: 'var(--border-color, #e5e5e5)'}}></div>
-  <div style={{
-    width: '32px', height: '32px',
-    background: 'var(--background-secondary, #f5f5f5)',
-    border: '2px solid var(--border-color, #e5e5e5)',
-    borderRadius: '50%',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    color: 'var(--text-muted)', fontWeight: 600, fontSize: '14px'
-  }}>3</div>
-</div>
-
-### Accordion
-
-| Token | Description | Valeur par défaut |
-|-------|-------------|-------------------|
-| `--accordion-header-padding-sm` | Padding header SM | `8px 12px` |
-| `--accordion-header-padding-md` | Padding header MD | `16px` |
-| `--accordion-header-padding-lg` | Padding header LG | `20px 24px` |
-| `--accordion-header-bg` | Fond header | `var(--surface-default)` |
-| `--accordion-header-hover-bg` | Fond header survol | `var(--surface-hover)` |
-| `--accordion-header-text` | Texte header | `var(--text-default)` |
-| `--accordion-content-bg` | Fond contenu | `var(--background-main)` |
-| `--accordion-border-color` | Couleur bordure | `var(--border-color)` |
-| `--accordion-icon-color` | Couleur icône | `var(--text-muted)` |
-| `--accordion-expanded-border-color` | Bordure étendu | `var(--color-primary)` |
-| `--accordion-radius` | Rayon bordure | `var(--radius-2)` |
-
-<div style={{border: '1px solid var(--border-color, #e5e5e5)', borderRadius: 'var(--radius-2)', overflow: 'hidden', marginTop: '16px'}}>
-  <div style={{
-    padding: '12px 16px',
-    background: 'var(--surface-default, #fafafa)',
-    borderBottom: '1px solid var(--border-color, #e5e5e5)',
-    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-    cursor: 'pointer'
+    padding: '24px',
+    background: '#ffffff',
+    borderRadius: '12px',
+    textAlign: 'center',
+    border: '2px solid #e5e7eb'
   }}>
-    <span style={{fontWeight: 500}}>Section étendue</span>
-    <span style={{color: 'var(--text-muted)', transform: 'rotate(180deg)'}}>▼</span>
-  </div>
-  <div style={{padding: '16px', background: 'var(--background-main, white)'}}>
-    Contenu de la section avec tokens thématisés.
+    <div style={{ fontSize: '24px', marginBottom: '8px' }}>☀️</div>
+    <strong style={{ color: '#1f2937' }}>Light</strong>
+    <code style={{ fontSize: '10px', display: 'block', marginTop: '8px', color: '#6b7280' }}>theme-light</code>
   </div>
   <div style={{
-    padding: '12px 16px',
-    background: 'var(--surface-default, #fafafa)',
-    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-    cursor: 'pointer'
+    padding: '24px',
+    background: '#1f2937',
+    borderRadius: '12px',
+    textAlign: 'center',
+    border: '2px solid #374151'
   }}>
-    <span style={{fontWeight: 500}}>Section repliée</span>
-    <span style={{color: 'var(--text-muted)'}}>▼</span>
+    <div style={{ fontSize: '24px', marginBottom: '8px' }}>🌙</div>
+    <strong style={{ color: '#f9fafb' }}>Dark</strong>
+    <code style={{ fontSize: '10px', display: 'block', marginTop: '8px', color: '#9ca3af' }}>theme-dark</code>
+  </div>
+  <div style={{
+    padding: '24px',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    borderRadius: '12px',
+    textAlign: 'center',
+    border: '2px solid #7c3aed'
+  }}>
+    <div style={{ fontSize: '24px', marginBottom: '8px' }}>🎨</div>
+    <strong style={{ color: '#ffffff' }}>Custom</strong>
+    <code style={{ fontSize: '10px', display: 'block', marginTop: '8px', color: '#e0e7ff' }}>theme-custom</code>
   </div>
 </div>
-
-### Aliases font-size (t-shirt sizes)
-
-Pour faciliter la migration, des aliases sont disponibles :
-
-| Alias | Valeur | Équivalent |
-|-------|--------|------------|
-| `--font-size-xs` | `var(--font-size-1)` | `0.75rem` |
-| `--font-size-sm` | `var(--font-size-2)` | `0.875rem` |
-| `--font-size-base` | `var(--font-size-3)` | `1rem` |
-| `--font-size-lg` | `var(--font-size-4)` | `1.125rem` |
-
----
-
-## Thème Custom
-
-Le design system offre un **thème personnalisable** (`theme-custom`) permettant de surcharger les tokens sans modifier les fichiers source.
-
-### Configuration
-
-Le fichier `projects/ds-angular/src/styles/themes/_custom.scss` expose des CSS custom properties sur `:root.theme-custom` avec des **fallbacks** vers des variables `--custom-*` :
-
-```css
-:root.theme-custom {
-  --background-main: var(--custom-bg, #ffffff);
-  --role-primary: var(--custom-accent-primary, #7d4bc0);
-  --text-default: var(--custom-text-default, #1a1c22);
-}
-```
-
-### Activation
-
-Ajoutez la classe `theme-custom` à l'élément racine HTML :
 
 ```typescript
-// app.component.ts
+// Activer un thème
+document.documentElement.className = 'theme-light';
+document.documentElement.className = 'theme-dark';
 document.documentElement.className = 'theme-custom';
 ```
 
-Ou en Angular :
+### Tokens thématiques
 
-```html
-<div class="theme-custom">
-  <ds-button variant="primary">Bouton avec thème custom</ds-button>
-</div>
-```
-
-### Exemples de personnalisation
-
-#### 1. Surcharger les couleurs d'accent
-
-Définissez vos propres couleurs primaires et secondaires :
-
-```css
-:root {
-  --custom-accent-primary: #e63946;    /* Rouge moderne */
-  --custom-accent-secondary: #06ffa5;  /* Vert néon */
-}
-```
-
-<div style={{padding: '16px', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-2)', marginTop: '12px'}}>
-  <div style={{display: 'flex', gap: '12px', alignItems: 'center'}}>
-    <div style={{width: '60px', height: '40px', background: '#e63946', borderRadius: 'var(--radius-1)'}}></div>
-    <span style={{fontSize: '14px'}}>Accent primaire custom (#e63946)</span>
-  </div>
-  <div style={{display: 'flex', gap: '12px', alignItems: 'center', marginTop: '8px'}}>
-    <div style={{width: '60px', height: '40px', background: '#06ffa5', borderRadius: 'var(--radius-1)'}}></div>
-    <span style={{fontSize: '14px'}}>Accent secondaire custom (#06ffa5)</span>
-  </div>
-</div>
-
-#### 2. Personnaliser arrière-plans et textes
-
-Créez une identité visuelle propre à votre marque :
-
-```css
-:root {
-  --custom-bg: #0a0e27;               /* Fond bleu nuit */
-  --custom-bg-secondary: #1a1f3a;     /* Panneau secondaire */
-  --custom-text-default: #e0e6ed;     /* Texte clair */
-  --custom-text-muted: #8b92a8;       /* Texte atténué */
-  --custom-border: #2d3451;           /* Bordures discrètes */
-}
-```
-
-<div style={{padding: '16px', background: '#0a0e27', border: '1px solid #2d3451', borderRadius: 'var(--radius-2)', marginTop: '12px'}}>
-  <div style={{color: '#e0e6ed', fontSize: '16px', fontWeight: 500}}>Titre avec thème nuit</div>
-  <div style={{color: '#8b92a8', fontSize: '14px', marginTop: '8px'}}>Texte secondaire atténué pour une ambiance sombre.</div>
-  <div style={{marginTop: '12px', padding: '12px', background: '#1a1f3a', border: '1px solid #2d3451', borderRadius: 'var(--radius-1)'}}>
-    <span style={{color: '#e0e6ed', fontSize: '14px'}}>Panneau secondaire</span>
-  </div>
-</div>
-
-#### 3. Adapter les composants (boutons, inputs)
-
-Surchargez les tokens sémantiques des composants pour un rendu cohérent :
-
-```css
-:root.theme-custom {
-  /* Boutons primary avec gradient */
-  --btn-primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --btn-primary-text: #ffffff;
-  --btn-primary-hover-bg: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
-
-  /* Inputs avec bordure accentuée */
-  --input-focus-border: #667eea;
-  --input-focus-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
-
-  /* Radius uniformes arrondis */
-  --radius-1: 8px;
-  --radius-2: 12px;
-  --radius-3: 16px;
-}
-```
-
-<div style={{padding: '16px', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-2)', marginTop: '12px'}}>
-  <button style={{
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    color: '#ffffff',
-    border: 'none',
-    padding: '8px 16px',
-    borderRadius: '8px',
-    fontWeight: 500,
-    cursor: 'pointer'
-  }}>
-    Bouton gradient custom
-  </button>
-  <input
-    type="text"
-    placeholder="Input avec focus custom"
-    style={{
-      marginTop: '12px',
-      display: 'block',
-      width: '100%',
-      padding: '8px 12px',
-      border: '1px solid var(--border-color)',
-      borderRadius: '12px',
-      fontFamily: 'inherit'
-    }}
-  />
-</div>
-
-### Bonnes pratiques
-
-- **Utilisez les tokens `--custom-*`** pour définir vos valeurs de marque au lieu de surcharger directement `--background-main` ou `--role-primary`.
-- **Respectez les contrastes WCAG 2.1 AA** : vérifiez que vos couleurs de texte/fond garantissent un ratio ≥ 4.5:1.
-- **Testez avec Storybook** : utilisez le sélecteur de thème pour prévisualiser votre thème custom sur tous les composants.
-- **Documentez vos tokens custom** : créez un fichier `custom-tokens.md` listant vos valeurs de marque pour faciliter la maintenance.
-
----
-
-## Tokens formulaires avancés
-
-### Search Input
-
-Le composant `ds-search-input` utilise des tokens dédiés pour une personnalisation complète :
-
-| Token | Description | Valeur par défaut |
-|-------|-------------|-------------------|
-| `--search-input-height-sm` | Hauteur taille small | `32px` |
-| `--search-input-height-md` | Hauteur taille medium | `40px` |
-| `--search-input-height-lg` | Hauteur taille large | `48px` |
-| `--search-input-padding-sm` | Padding taille small | `var(--space-2)` |
-| `--search-input-padding-md` | Padding taille medium | `var(--space-3)` |
-| `--search-input-padding-lg` | Padding taille large | `var(--space-4)` |
-| `--search-input-icon-size-sm` | Taille icône small | `12px` |
-| `--search-input-icon-size-md` | Taille icône medium | `14px` |
-| `--search-input-icon-size-lg` | Taille icône large | `16px` |
-| `--search-input-clear-size-sm` | Taille bouton clear small | `20px` |
-| `--search-input-clear-size-md` | Taille bouton clear medium | `24px` |
-| `--search-input-clear-size-lg` | Taille bouton clear large | `28px` |
-| `--search-input-bg` | Couleur de fond | `var(--input-bg)` |
-| `--search-input-border` | Couleur bordure | `var(--input-border-color)` |
-| `--search-input-focus-border` | Couleur bordure focus | `var(--color-primary)` |
-
-### Date Picker
-
-Le composant `ds-date-picker` dispose de tokens pour chaque élément :
-
-| Token | Description | Valeur par défaut |
-|-------|-------------|-------------------|
-| `--datepicker-width-sm` | Largeur taille small | `260px` |
-| `--datepicker-width-md` | Largeur taille medium | `300px` |
-| `--datepicker-width-lg` | Largeur taille large | `360px` |
-| `--datepicker-day-size-sm` | Taille cellule jour small | `28px` |
-| `--datepicker-day-size-md` | Taille cellule jour medium | `36px` |
-| `--datepicker-day-size-lg` | Taille cellule jour large | `44px` |
-| `--datepicker-nav-size-sm` | Taille boutons navigation small | `24px` |
-| `--datepicker-nav-size-md` | Taille boutons navigation medium | `32px` |
-| `--datepicker-nav-size-lg` | Taille boutons navigation large | `40px` |
-| `--datepicker-bg` | Couleur de fond | `var(--background-main)` |
-| `--datepicker-header-bg` | Fond header | `var(--surface-raised)` |
-| `--datepicker-selected-bg` | Fond jour sélectionné | `var(--color-primary)` |
-| `--datepicker-selected-text` | Texte jour sélectionné | `var(--gray-50)` |
-| `--datepicker-today-border` | Bordure jour actuel | `var(--color-primary)` |
-| `--datepicker-range-bg` | Fond plage de dates | `color-mix(...)` |
-
-### Exemple de personnalisation
-
-```css
-:root.theme-custom {
-  /* Search Input personnalisé */
-  --search-input-focus-border: #10b981;
-  --search-input-focus-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
-  --search-input-icon-color: #6b7280;
-
-  /* Date Picker personnalisé */
-  --datepicker-selected-bg: #10b981;
-  --datepicker-today-border: #10b981;
-  --datepicker-range-bg: rgba(16, 185, 129, 0.15);
-}
-```
-
----
-
-## Container
-
-Le composant `ds-container` utilise des tokens pour définir les largeurs maximales et les gutters responsive :
-
-| Token | Description | Valeur par défaut |
-|-------|-------------|-------------------|
-| `--ds-container-sm` | Largeur max small | `540px` |
-| `--ds-container-md` | Largeur max medium | `720px` |
-| `--ds-container-lg` | Largeur max large | `960px` |
-| `--ds-container-xl` | Largeur max extra-large | `1140px` |
-| `--ds-container-2xl` | Largeur max 2xl | `1320px` |
-| `--ds-container-gutter-sm` | Padding horizontal small | `var(--space-4)` |
-| `--ds-container-gutter-md` | Padding horizontal medium | `var(--space-6)` |
-| `--ds-container-gutter-lg` | Padding horizontal large | `var(--space-8)` |
-
-### Exemple visuel
-
-<div style={{display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px'}}>
-  <div style={{
-    maxWidth: '540px', width: '100%',
-    padding: '12px 16px',
-    background: 'var(--surface-default, #fafafa)',
-    border: '1px solid var(--border-color, #e5e5e5)',
-    borderRadius: 'var(--radius-1)',
-    textAlign: 'center',
-    fontSize: '14px'
-  }}>container-sm (540px)</div>
-  <div style={{
-    maxWidth: '720px', width: '100%',
-    padding: '12px 16px',
-    background: 'var(--surface-default, #fafafa)',
-    border: '1px solid var(--border-color, #e5e5e5)',
-    borderRadius: 'var(--radius-1)',
-    textAlign: 'center',
-    fontSize: '14px'
-  }}>container-md (720px)</div>
-  <div style={{
-    maxWidth: '960px', width: '100%',
-    padding: '12px 16px',
-    background: 'var(--surface-default, #fafafa)',
-    border: '1px solid var(--border-color, #e5e5e5)',
-    borderRadius: 'var(--radius-1)',
-    textAlign: 'center',
-    fontSize: '14px'
-  }}>container-lg (960px)</div>
-</div>
-
-### Personnalisation
-
-```css
-:root.theme-custom {
-  /* Containers plus étroits pour un design éditorial */
-  --ds-container-md: 680px;
-  --ds-container-lg: 880px;
-
-  /* Gutters réduits sur mobile */
-  --ds-container-gutter-sm: 12px;
-}
-```
-
----
-
-## Tokens composants SPRINT-001
-
-Les composants ajoutés lors du SPRINT-001 (`ds-chip`, `ds-slider`, `ds-file-upload`) disposent de tokens sémantiques complets.
-
-### Chip
-
-Le composant `ds-chip` utilise des tokens pour les tailles, couleurs et états :
-
-| Token | Description | Valeur par défaut |
-|-------|-------------|-------------------|
-| `--chip-height-sm` | Hauteur taille small | `24px` |
-| `--chip-height-md` | Hauteur taille medium | `32px` |
-| `--chip-height-lg` | Hauteur taille large | `40px` |
-| `--chip-padding-y-sm` | Padding vertical small | `2px` |
-| `--chip-padding-x-sm` | Padding horizontal small | `var(--space-2)` |
-| `--chip-padding-y-md` | Padding vertical medium | `var(--space-1)` |
-| `--chip-padding-x-md` | Padding horizontal medium | `var(--space-3)` |
-| `--chip-font-size-sm` | Taille texte small | `var(--font-size-1)` |
-| `--chip-font-size-md` | Taille texte medium | `var(--font-size-2)` |
-| `--chip-font-size-lg` | Taille texte large | `var(--font-size-3)` |
-| `--chip-bg` | Fond par défaut | `var(--gray-200)` |
-| `--chip-text` | Couleur texte | `var(--gray-800)` |
-| `--chip-primary-bg` | Fond couleur primary | `var(--color-primary)` |
-| `--chip-success-bg` | Fond couleur success | `var(--bg-success)` |
-| `--chip-error-bg` | Fond couleur error | `var(--bg-error)` |
-| `--chip-hover-bg` | Fond survol | `var(--gray-300)` |
-| `--chip-focus-ring` | Ring de focus | `color-mix(...)` |
-| `--chip-border-radius` | Rayon bordure | `var(--radius-round)` |
-
-<div style={{display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '16px'}}>
-  <span style={{
-    display: 'inline-flex', alignItems: 'center', gap: '4px',
-    padding: '4px 12px',
-    background: 'var(--gray-200, #e5e5e5)',
-    color: 'var(--gray-800, #404040)',
-    borderRadius: '999px',
-    fontSize: '14px', fontWeight: 500
-  }}>Default</span>
-  <span style={{
-    display: 'inline-flex', alignItems: 'center', gap: '4px',
-    padding: '4px 12px',
-    background: 'var(--color-primary)',
-    color: 'white',
-    borderRadius: '999px',
-    fontSize: '14px', fontWeight: 500
-  }}>Primary</span>
-  <span style={{
-    display: 'inline-flex', alignItems: 'center', gap: '4px',
-    padding: '4px 12px',
-    background: 'var(--success, #4caf50)',
-    color: 'white',
-    borderRadius: '999px',
-    fontSize: '14px', fontWeight: 500
-  }}>Success</span>
-  <span style={{
-    display: 'inline-flex', alignItems: 'center', gap: '4px',
-    padding: '4px 12px',
-    background: 'transparent',
-    color: 'var(--color-primary)',
-    border: '1px solid var(--color-primary)',
-    borderRadius: '999px',
-    fontSize: '14px', fontWeight: 500
-  }}>Outlined</span>
-</div>
-
-### Slider
-
-Le composant `ds-slider` utilise des tokens pour la piste, le thumb et les labels :
-
-| Token | Description | Valeur par défaut |
-|-------|-------------|-------------------|
-| `--slider-track-height-sm` | Hauteur piste small | `4px` |
-| `--slider-track-height-md` | Hauteur piste medium | `6px` |
-| `--slider-track-height-lg` | Hauteur piste large | `8px` |
-| `--slider-thumb-size-sm` | Taille thumb small | `16px` |
-| `--slider-thumb-size-md` | Taille thumb medium | `20px` |
-| `--slider-thumb-size-lg` | Taille thumb large | `24px` |
-| `--slider-track-bg` | Fond piste | `var(--gray-200)` |
-| `--slider-fill-bg` | Fond remplissage | `var(--color-primary)` |
-| `--slider-thumb-bg` | Fond thumb | `var(--surface-default)` |
-| `--slider-thumb-border-color` | Bordure thumb | `var(--color-primary)` |
-| `--slider-thumb-shadow` | Ombre thumb | `0 1px 3px rgba(0,0,0,0.1)` |
-| `--slider-thumb-shadow-focus` | Ombre focus | `0 0 0 3px color-mix(...)` |
-| `--slider-tick-color` | Couleur ticks | `var(--gray-400)` |
-| `--slider-label-color` | Couleur labels | `var(--text-default)` |
-
-<div style={{padding: '16px', marginTop: '16px'}}>
-  <div style={{position: 'relative', height: '20px'}}>
-    <div style={{
-      position: 'absolute', top: '8px', left: 0, right: 0,
-      height: '6px',
-      background: 'var(--gray-200, #e5e5e5)',
-      borderRadius: '999px'
-    }}></div>
-    <div style={{
-      position: 'absolute', top: '8px', left: 0,
-      width: '60%', height: '6px',
-      background: 'var(--color-primary)',
-      borderRadius: '999px'
-    }}></div>
-    <div style={{
-      position: 'absolute', top: '0px', left: '60%',
-      width: '20px', height: '20px',
-      background: 'white',
-      border: '2px solid var(--color-primary)',
-      borderRadius: '50%',
-      transform: 'translateX(-50%)',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-    }}></div>
-  </div>
-</div>
-
-### File Upload
-
-Le composant `ds-file-upload` utilise des tokens pour la zone de drop et les fichiers :
-
-| Token | Description | Valeur par défaut |
-|-------|-------------|-------------------|
-| `--file-upload-min-height-sm` | Hauteur min small | `150px` |
-| `--file-upload-min-height-md` | Hauteur min medium | `200px` |
-| `--file-upload-min-height-lg` | Hauteur min large | `250px` |
-| `--file-upload-padding-sm` | Padding small | `var(--space-6)` |
-| `--file-upload-padding-md` | Padding medium | `var(--space-8)` |
-| `--file-upload-border` | Couleur bordure | `var(--gray-300)` |
-| `--file-upload-border-hover` | Bordure survol | `var(--color-primary)` |
-| `--file-upload-border-active` | Bordure active | `var(--color-primary)` |
-| `--file-upload-bg` | Fond | `var(--white)` |
-| `--file-upload-bg-hover` | Fond survol | `var(--gray-50)` |
-| `--file-upload-bg-active` | Fond drag actif | `color-mix(...)` |
-| `--file-upload-icon-color` | Couleur icône | `var(--gray-400)` |
-| `--file-upload-text-color` | Couleur texte | `var(--gray-700)` |
-| `--file-upload-preview-size-md` | Taille preview | `60px` |
+Ces tokens s'adaptent automatiquement au thème actif :
 
 <div style={{
-  padding: '32px',
-  border: '2px dashed var(--gray-300, #d1d5db)',
-  borderRadius: 'var(--radius-2)',
-  textAlign: 'center',
-  marginTop: '16px',
-  background: 'var(--gray-50, #fafafa)'
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+  gap: '12px',
+  marginBottom: '32px'
 }}>
-  <div style={{color: 'var(--gray-400, #a3a3a3)', fontSize: '32px', marginBottom: '8px'}}>☁️</div>
-  <div style={{fontWeight: 500, color: 'var(--gray-700, #404040)'}}>Glissez-déposez vos fichiers ici</div>
-  <div style={{fontSize: '14px', color: 'var(--gray-500, #737373)', marginTop: '4px'}}>ou cliquez pour parcourir</div>
+  <div style={{
+    padding: '16px',
+    background: 'var(--background-main)',
+    borderRadius: '8px',
+    border: '1px solid var(--border-color)'
+  }}>
+    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '4px' }}>Background Main</div>
+    <code style={{ fontSize: '10px' }}>--background-main</code>
+  </div>
+  <div style={{
+    padding: '16px',
+    background: 'var(--background-secondary)',
+    borderRadius: '8px',
+    border: '1px solid var(--border-color)'
+  }}>
+    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '4px' }}>Background Secondary</div>
+    <code style={{ fontSize: '10px' }}>--background-secondary</code>
+  </div>
+  <div style={{
+    padding: '16px',
+    background: 'var(--background-main)',
+    borderRadius: '8px',
+    border: '1px solid var(--border-color)'
+  }}>
+    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '4px', color: 'var(--text-default)' }}>Text Default</div>
+    <code style={{ fontSize: '10px' }}>--text-default</code>
+  </div>
+  <div style={{
+    padding: '16px',
+    background: 'var(--background-main)',
+    borderRadius: '8px',
+    border: '1px solid var(--border-color)'
+  }}>
+    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '4px', color: 'var(--text-muted)' }}>Text Muted</div>
+    <code style={{ fontSize: '10px' }}>--text-muted</code>
+  </div>
+  <div style={{
+    padding: '16px',
+    background: 'var(--background-main)',
+    borderRadius: '8px',
+    border: '2px solid var(--border-color)'
+  }}>
+    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '4px' }}>Border Color</div>
+    <code style={{ fontSize: '10px' }}>--border-color</code>
+  </div>
 </div>
 
 ---
 
 ## Breakpoints
 
-Les breakpoints permettent de créer des layouts responsives cohérents à travers toute l'application. Ils suivent une approche mobile-first similaire à Bootstrap.
-
-### Tokens disponibles
-
-| Token | Valeur | Usage | Exemple média query |
-|-------|--------|-------|---------------------|
-| `--breakpoint-xs` | `320px` | Mobile extra small | Téléphones compacts |
-| `--breakpoint-sm` | `576px` | Mobile large | Téléphones standards |
-| `--breakpoint-md` | `768px` | Tablette | Tablettes portrait |
-| `--breakpoint-lg` | `992px` | Desktop | Écrans de bureau |
-| `--breakpoint-xl` | `1200px` | Large desktop | Grands écrans |
-| `--breakpoint-2xl` | `1400px` | Extra large desktop | Écrans larges professionnels |
-
-### Utilisation en SCSS
-
-```scss
-// Approche mobile-first recommandée
-.my-component {
-  padding: var(--space-2); // Mobile par défaut (xs)
-
-  @media (min-width: $breakpoint-sm) {
-    padding: var(--space-4); // Mobile large (≥576px)
-  }
-
-  @media (min-width: $breakpoint-md) {
-    padding: var(--space-6); // Tablette (≥768px)
-  }
-
-  @media (min-width: $breakpoint-lg) {
-    padding: var(--space-8); // Desktop (≥992px)
-  }
-}
-```
-
-### Utilisation avec Container
-
-Le composant `ds-container` utilise automatiquement ces breakpoints :
-
-```html
-<!-- Largeur max adaptée selon le viewport -->
-<ds-container maxWidth="lg">
-  <!-- Contenu centré avec marges latérales (gutter) -->
-</ds-container>
-```
-
-| maxWidth | Largeur max | Breakpoint correspondant |
-|----------|-------------|--------------------------|
-| `xs` | 320px | `--breakpoint-xs` |
-| `sm` | 640px | `--breakpoint-sm` |
-| `md` | 768px | `--breakpoint-md` |
-| `lg` | 1024px | `--breakpoint-lg` |
-| `xl` | 1280px | `--breakpoint-xl` |
-| `2xl` | 1536px | `--breakpoint-2xl` |
-| `full` | 100% | Pas de contrainte |
-
-### Exemples visuels
+Points de rupture pour le responsive design :
 
 <div style={{
-  display: 'grid',
-  gap: '16px',
-  marginTop: '24px',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))'
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '8px',
+  marginBottom: '32px'
 }}>
-  {['xs', 'sm', 'md', 'lg', 'xl', '2xl'].map((bp) => (
-    <div key={bp} style={{
-      padding: '16px',
-      background: 'var(--color-primary)',
-      color: 'white',
-      borderRadius: 'var(--radius-2)',
-      textAlign: 'center',
-      fontWeight: 500
+  {[
+    { name: 'xs', value: '320px', desc: 'Mobile petit' },
+    { name: 'sm', value: '576px', desc: 'Mobile' },
+    { name: 'md', value: '768px', desc: 'Tablette' },
+    { name: 'lg', value: '992px', desc: 'Desktop' },
+    { name: 'xl', value: '1200px', desc: 'Large desktop' },
+    { name: '2xl', value: '1400px', desc: 'Extra large' },
+  ].map(({ name, value, desc }) => (
+    <div key={name} style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '16px',
+      padding: '12px 16px',
+      background: 'var(--background-secondary)',
+      borderRadius: '8px'
     }}>
-      <div style={{fontSize: '14px', opacity: 0.8}}>--breakpoint-{bp}</div>
-      <div style={{fontSize: '18px', marginTop: '4px'}}>
-        {bp === 'xs' && '320px'}
-        {bp === 'sm' && '576px'}
-        {bp === 'md' && '768px'}
-        {bp === 'lg' && '992px'}
-        {bp === 'xl' && '1200px'}
-        {bp === '2xl' && '1400px'}
-      </div>
+      <code style={{ fontSize: '12px', minWidth: '140px' }}>--breakpoint-{name}</code>
+      <div style={{
+        width: `calc(${value} / 10)`,
+        height: '8px',
+        background: 'var(--color-primary)',
+        borderRadius: '4px',
+        minWidth: '32px'
+      }} />
+      <span style={{ fontSize: '12px', fontWeight: '600', minWidth: '60px' }}>{value}</span>
+      <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{desc}</span>
     </div>
   ))}
 </div>
 
-### Bonnes pratiques
-
-1. **Mobile-first** : Écrivez les styles de base pour mobile, puis ajoutez les breakpoints pour écrans plus grands
-2. **Cohérence** : Utilisez toujours les tokens `$breakpoint-*` plutôt que des valeurs en dur
-3. **Grid CSS** : Privilégiez CSS Grid avec `auto-fit` et `minmax()` pour éviter trop de média queries
-4. **Container queries** : Pour les composants isolés, envisagez les container queries (voir [Patterns → Responsive](/story/patterns-patterns--documentation#responsive))
-
 ---
 
-## Thèmes & Storybook
+## Utilisation
 
-Activez le sélecteur de thème dans la toolbar Storybook pour visualiser les tokens en **Light**, **Dark** et **Custom**. Les tokens exposés via `:root` sont automatiquement recalculés selon le thème courant.
+### Dans vos styles SCSS
+
+```scss
+.my-component {
+  background: var(--background-main);
+  color: var(--text-default);
+  padding: var(--space-4);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-1);
+}
+```
+
+### Avec des fallbacks
+
+```scss
+.my-component {
+  // Fallback pour compatibilité
+  color: var(--text-default, #1f2937);
+  background: var(--background-main, #ffffff);
+}
+```
+
+### Media queries avec breakpoints
+
+```scss
+@media (min-width: 768px) {
+  .my-component {
+    padding: var(--space-6);
+  }
+}
+```

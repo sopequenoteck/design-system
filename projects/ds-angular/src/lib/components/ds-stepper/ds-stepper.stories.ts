@@ -9,14 +9,13 @@ const defaultSteps: Step[] = [
 ];
 
 const meta: Meta<DsStepper> = {
-  title: 'Components/Navigation/DsStepper',
+  title: 'Navigation/DsStepper',
   component: DsStepper,
   decorators: [
     moduleMetadata({
       imports: [DsStepper],
     }),
   ],
-  tags: ['autodocs'],
   argTypes: {
     orientation: {
       control: 'select',

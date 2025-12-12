@@ -1,0 +1,199 @@
+{/* Overlays.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Overlays/Overview" />
+
+# Overlays
+
+Composants flottants et modaux.
+
+---
+
+## Vue d'ensemble
+
+La catégorie **Overlays** regroupe les composants qui s'affichent au-dessus du contenu principal.
+
+| Composant | Description |
+|-----------|-------------|
+| **DsModal** | Fenêtre modale centrée |
+| **DsDrawer** | Panneau latéral coulissant |
+| **DsDropdown** | Menu déroulant |
+| **DsPopover** | Bulle de contenu riche |
+
+---
+
+## Patterns d'utilisation
+
+### Modal
+
+```typescript
+@Component({
+  template: `
+    <button (click)="openModal()">Ouvrir</button>
+
+    <ds-modal
+      [(isOpen)]="isModalOpen"
+      title="Confirmation"
+      size="md"
+      [closable]="true"
+    >
+      <p>Êtes-vous sûr de vouloir continuer ?</p>
+
+      <ng-template #footer>
+        <button ds-button variant="ghost" (click)="cancel()">
+          Annuler
+        </button>
+        <button ds-button variant="primary" (click)="confirm()">
+          Confirmer
+        </button>
+      </ng-template>
+    </ds-modal>
+  `
+})
+export class MyComponent {
+  isModalOpen = false;
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+}
+```
+
+### Drawer
+
+```html
+<ds-drawer
+  [(isOpen)]="isDrawerOpen"
+  position="right"
+  size="md"
+  [showOverlay]="true"
+>
+  <ng-template #header>
+    <h2>Filtres</h2>
+  </ng-template>
+
+  <!-- Contenu du drawer -->
+  <ds-checkbox>Option 1</ds-checkbox>
+  <ds-checkbox>Option 2</ds-checkbox>
+
+  <ng-template #footer>
+    <button ds-button variant="primary">
+      Appliquer
+    </button>
+  </ng-template>
+</ds-drawer>
+```
+
+### Dropdown
+
+```html
+<ds-dropdown
+  [options]="[
+    { value: 'edit', label: 'Modifier' },
+    { value: 'duplicate', label: 'Dupliquer' },
+    { divider: true },
+    { value: 'delete', label: 'Supprimer', danger: true }
+  ]"
+  (select)="onAction($event)"
+>
+  <button ds-button variant="ghost">
+    Actions <fa-icon [icon]="faChevronDown" />
+  </button>
+</ds-dropdown>
+```
+
+### Popover
+
+```html
+<button
+  dsPopover
+  [content]="popoverContent"
+  position="bottom"
+  trigger="click"
+>
+  Plus d'infos
+</button>
+
+<ng-template #popoverContent>
+  <h4>Détails</h4>
+  <p>Contenu riche avec HTML, images, etc.</p>
+  <a href="#">En savoir plus</a>
+</ng-template>
+```
+
+---
+
+## Tailles et positions
+
+### Tailles de modal
+
+```html
+<ds-modal size="sm" />  <!-- 400px -->
+<ds-modal size="md" />  <!-- 600px -->
+<ds-modal size="lg" />  <!-- 800px -->
+```
+
+### Positions de drawer
+
+```html
+<ds-drawer position="left" />
+<ds-drawer position="right" />
+<ds-drawer position="top" />
+<ds-drawer position="bottom" />
+```
+
+### Positions de popover
+
+```html
+<div dsPopover position="top" />
+<div dsPopover position="bottom" />
+<div dsPopover position="left" />
+<div dsPopover position="right" />
+```
+
+---
+
+## Accessibilité
+
+### Focus Trap
+
+Tous les overlays piègent le focus à l'intérieur :
+
+```typescript
+// Le focus est automatiquement géré
+// - Focus initial sur le premier élément focusable
+// - Tab cycle à l'intérieur de l'overlay
+// - Focus restauré à la fermeture
+```
+
+### Fermeture au clavier
+
+| Touche | Action |
+|--------|--------|
+| `Escape` | Fermer l'overlay |
+| `Tab` | Naviguer dans l'overlay |
+| `Enter` | Activer le bouton focusé |
+
+### Attributs ARIA
+
+```html
+<!-- Modal -->
+<div role="dialog"
+     aria-modal="true"
+     aria-labelledby="modal-title">
+  <h2 id="modal-title">Titre</h2>
+</div>
+
+<!-- Dropdown -->
+<ul role="menu" aria-expanded="true">
+  <li role="menuitem">Option</li>
+</ul>
+```
+
+### Overlay et backdrop
+
+```html
+<!-- Le backdrop bloque l'interaction avec le contenu derrière -->
+<div class="ds-overlay" aria-hidden="true" />
+<div class="ds-modal" role="dialog">...</div>
+```

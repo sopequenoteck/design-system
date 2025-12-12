@@ -29,14 +29,13 @@ const manyOptions: DsSelectOption[] = [
 ];
 
 const meta: Meta<DsSelect> = {
-  title: 'Components/Forms/DsSelect',
+  title: 'Form/Selection/DsSelect',
   component: DsSelect,
   decorators: [
     moduleMetadata({
       imports: [DsSelect, FormsModule],
     }),
   ],
-  tags: ['autodocs'],
   argTypes: {
     options: {
       control: 'object',

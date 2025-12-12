@@ -2,9 +2,8 @@ import { Meta, StoryObj, argsToTemplate } from '@storybook/angular';
 import { DsProgressBar } from './ds-progress-bar';
 
 const meta: Meta<DsProgressBar> = {
-  title: 'Components/Feedback/DsProgressBar',
+  title: 'Data Display/DsProgressBar',
   component: DsProgressBar,
-  tags: ['autodocs'],
   argTypes: {
     value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },

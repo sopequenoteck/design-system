@@ -4,8 +4,7 @@ import { DsTooltip } from './ds-tooltip.directive';
 import { DsButton } from '../ds-button/ds-button';
 
 const meta: Meta = {
-  title: 'Components/Overlays/DsTooltip',
-  tags: ['autodocs'],
+  title: 'Feedback/DsTooltip',
   decorators: [
     moduleMetadata({
       imports: [DsTooltip, DsButton],

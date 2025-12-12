@@ -3,14 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { DsSearchInput } from './ds-search-input';
 
 const meta: Meta<DsSearchInput> = {
-  title: 'Components/Forms/DsSearchInput',
+  title: 'Form/Inputs/DsSearchInput',
   component: DsSearchInput,
   decorators: [
     moduleMetadata({
       imports: [DsSearchInput, FormsModule],
     }),
   ],
-  tags: ['autodocs'],
   argTypes: {
     size: {
       control: 'select',

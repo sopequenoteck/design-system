@@ -4,9 +4,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 
 const meta: Meta<DsSlider> = {
-  title: 'Components/Forms/DsSlider',
+  title: 'Form/Selection/DsSlider',
   component: DsSlider,
-  tags: ['autodocs'],
   argTypes: {
     min: {
       control: 'number',

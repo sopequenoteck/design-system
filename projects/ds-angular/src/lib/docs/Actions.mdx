@@ -1,0 +1,207 @@
+{/* Actions.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Actions/Overview" />
+
+# Actions
+
+Composants d'interaction utilisateur.
+
+---
+
+## Vue d'ensemble
+
+La catégorie **Actions** regroupe les composants permettant aux utilisateurs de déclencher des actions.
+
+| Composant | Description |
+|-----------|-------------|
+| **DsButton** | Bouton avec variants, tailles et états |
+| **DsAccordion** | Panneau expansible |
+
+---
+
+## DsButton
+
+### Variants
+
+```html
+<button ds-button variant="primary">Principal</button>
+<button ds-button variant="secondary">Secondaire</button>
+<button ds-button variant="outline">Contour</button>
+<button ds-button variant="ghost">Fantôme</button>
+<button ds-button variant="danger">Danger</button>
+<button ds-button variant="link">Lien</button>
+```
+
+### Tailles
+
+```html
+<button ds-button size="sm">Petit</button>
+<button ds-button size="md">Moyen</button>
+<button ds-button size="lg">Grand</button>
+```
+
+### États
+
+```html
+<!-- Loading -->
+<button ds-button [loading]="isLoading">
+  Enregistrer
+</button>
+
+<!-- Disabled -->
+<button ds-button [disabled]="true">
+  Indisponible
+</button>
+
+<!-- Avec icône -->
+<button ds-button [iconLeft]="faPlus">
+  Ajouter
+</button>
+
+<button ds-button [iconRight]="faArrowRight">
+  Suivant
+</button>
+```
+
+### Bouton icône seul
+
+```html
+<button ds-button variant="ghost" [icon]="faTrash" aria-label="Supprimer" />
+```
+
+---
+
+## DsAccordion
+
+### Usage basique
+
+```html
+<ds-accordion>
+  <ds-accordion-item title="Section 1">
+    Contenu de la section 1
+  </ds-accordion-item>
+  <ds-accordion-item title="Section 2">
+    Contenu de la section 2
+  </ds-accordion-item>
+  <ds-accordion-item title="Section 3" [disabled]="true">
+    Section désactivée
+  </ds-accordion-item>
+</ds-accordion>
+```
+
+### Multi-expansion
+
+```html
+<!-- Un seul panneau ouvert à la fois (défaut) -->
+<ds-accordion [multi]="false">...</ds-accordion>
+
+<!-- Plusieurs panneaux ouverts simultanément -->
+<ds-accordion [multi]="true">...</ds-accordion>
+```
+
+### Variants
+
+```html
+<ds-accordion variant="default">...</ds-accordion>
+<ds-accordion variant="bordered">...</ds-accordion>
+<ds-accordion variant="separated">...</ds-accordion>
+```
+
+### Contrôle programmatique
+
+```typescript
+@ViewChild(DsAccordion) accordion!: DsAccordion;
+
+expandAll() {
+  this.accordion.expandAll();
+}
+
+collapseAll() {
+  this.accordion.collapseAll();
+}
+
+toggle(index: number) {
+  this.accordion.toggle(index);
+}
+```
+
+---
+
+## Patterns d'utilisation
+
+### Bouton de soumission de formulaire
+
+```html
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Champs du formulaire -->
+
+  <div class="form-actions">
+    <button ds-button variant="ghost" type="button" (click)="cancel()">
+      Annuler
+    </button>
+    <button ds-button variant="primary" type="submit"
+            [loading]="isSubmitting"
+            [disabled]="form.invalid">
+      Enregistrer
+    </button>
+  </div>
+</form>
+```
+
+### FAQ avec accordéon
+
+```html
+<ds-accordion variant="separated">
+  <ds-accordion-item title="Comment créer un compte ?">
+    <p>Pour créer un compte, cliquez sur...</p>
+  </ds-accordion-item>
+  <ds-accordion-item title="Comment réinitialiser mon mot de passe ?">
+    <p>Rendez-vous sur la page de connexion...</p>
+  </ds-accordion-item>
+</ds-accordion>
+```
+
+---
+
+## Accessibilité
+
+### Boutons
+
+```html
+<!-- Bouton avec label visible -->
+<button ds-button>Enregistrer</button>
+
+<!-- Bouton icône avec aria-label -->
+<button ds-button [icon]="faTrash" aria-label="Supprimer l'élément" />
+
+<!-- Bouton désactivé -->
+<button ds-button [disabled]="true" aria-disabled="true">
+  Action indisponible
+</button>
+```
+
+### Accordéon
+
+```html
+<div class="ds-accordion">
+  <h3>
+    <button aria-expanded="true" aria-controls="panel-1">
+      Section 1
+    </button>
+  </h3>
+  <div id="panel-1" role="region" aria-labelledby="header-1">
+    Contenu
+  </div>
+</div>
+```
+
+### Navigation clavier
+
+| Touche | Bouton | Accordéon |
+|--------|--------|-----------|
+| `Enter` | Active le bouton | Ouvre/ferme le panneau |
+| `Space` | Active le bouton | Ouvre/ferme le panneau |
+| `↑` `↓` | - | Navigue entre les headers |
+| `Home` | - | Premier header |
+| `End` | - | Dernier header |

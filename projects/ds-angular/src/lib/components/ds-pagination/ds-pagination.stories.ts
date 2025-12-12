@@ -2,14 +2,13 @@ import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { DsPagination } from './ds-pagination';
 
 const meta: Meta<DsPagination> = {
-  title: 'Components/Navigation/DsPagination',
+  title: 'Navigation/DsPagination',
   component: DsPagination,
   decorators: [
     moduleMetadata({
       imports: [DsPagination],
     }),
   ],
-  tags: ['autodocs'],
   argTypes: {
     totalItems: {
       control: { type: 'number', min: 0 },

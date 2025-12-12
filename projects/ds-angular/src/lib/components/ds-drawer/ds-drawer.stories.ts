@@ -24,14 +24,13 @@ import { DsButton } from '../ds-button/ds-button';
  * ```
  */
 const meta: Meta<DsDrawer> = {
-  title: 'Components/DsDrawer',
+  title: 'Overlays/DsDrawer',
   component: DsDrawer,
   decorators: [
     moduleMetadata({
       imports: [DsDrawer, DsButton],
     }),
   ],
-  tags: ['autodocs'],
   argTypes: {
     visible: {
       control: 'boolean',

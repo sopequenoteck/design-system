@@ -84,9 +84,8 @@ const organizationData: TreeNode[] = [
 ];
 
 const meta: Meta<DsTree> = {
-  title: 'Components/Tree',
+  title: 'Navigation/DsTree',
   component: DsTree,
-  tags: ['autodocs'],
   argTypes: {
     data: { control: 'object' },
     selectable: { control: 'boolean' },

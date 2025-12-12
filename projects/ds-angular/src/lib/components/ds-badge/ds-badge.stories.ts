@@ -3,9 +3,8 @@ import { DsBadge } from './ds-badge';
 import { faCheck, faStar, faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const meta: Meta<DsBadge> = {
-  title: 'Components/Data Display/DsBadge',
+  title: 'Data Display/DsBadge',
   component: DsBadge,
-  tags: ['autodocs'],
   argTypes: {
     type: {
       control: 'select',

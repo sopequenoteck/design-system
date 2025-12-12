@@ -20,14 +20,13 @@ const defaultItems: AccordionItem[] = [
 ];
 
 const meta: Meta<DsAccordion> = {
-  title: 'Components/Navigation/DsAccordion',
+  title: 'Actions/DsAccordion',
   component: DsAccordion,
   decorators: [
     moduleMetadata({
       imports: [DsAccordion],
     }),
   ],
-  tags: ['autodocs'],
   argTypes: {
     multiple: {
       control: 'boolean',

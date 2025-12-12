@@ -41,14 +41,13 @@ interface DsComboboxArgs {
 }
 
 const meta: Meta<DsComboboxArgs> = {
-  title: 'Components/Forms/DsCombobox',
+  title: 'Form/Inputs/DsCombobox',
   component: DsCombobox,
   decorators: [
     moduleMetadata({
       imports: [DsCombobox, FormsModule],
     }),
   ],
-  tags: ['autodocs'],
   argTypes: {
     options: {
       control: 'object',

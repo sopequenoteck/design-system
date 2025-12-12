@@ -1,0 +1,136 @@
+{/* Navigation.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Navigation/Overview" />
+
+# Navigation
+
+Composants de navigation et de structure hiérarchique.
+
+---
+
+## Vue d'ensemble
+
+La catégorie **Navigation** regroupe les composants permettant aux utilisateurs de se déplacer dans l'application.
+
+| Composant | Description |
+|-----------|-------------|
+| **DsBreadcrumb** | Fil d'Ariane pour la navigation hiérarchique |
+| **DsMenu** | Menu contextuel avec trigger (click/hover) |
+| **DsTabs** | Onglets pour navigation entre vues |
+| **DsPagination** | Pagination de listes |
+| **DsStepper** | Navigation par étapes (wizard) |
+| **DsTree** | Arborescence hiérarchique |
+
+---
+
+## Patterns d'utilisation
+
+### Fil d'Ariane
+
+```html
+<ds-breadcrumb [items]="[
+  { label: 'Accueil', path: '/' },
+  { label: 'Produits', path: '/products' },
+  { label: 'Catégorie', path: '/products/category' },
+  { label: 'Article' }
+]" />
+```
+
+### Navigation par onglets
+
+```html
+<ds-tabs [tabs]="[
+  { id: 'overview', label: 'Vue d\'ensemble' },
+  { id: 'details', label: 'Détails' },
+  { id: 'reviews', label: 'Avis', badge: 42 }
+]" (tabChange)="onTabChange($event)" />
+```
+
+### Stepper pour wizard
+
+```html
+<ds-stepper
+  [steps]="[
+    { label: 'Informations', status: 'completed' },
+    { label: 'Paiement', status: 'active' },
+    { label: 'Confirmation', status: 'pending' }
+  ]"
+  orientation="horizontal"
+/>
+```
+
+### Pagination
+
+```html
+<ds-pagination
+  [currentPage]="page"
+  [totalItems]="items.length"
+  [pageSize]="10"
+  (pageChange)="onPageChange($event)"
+/>
+```
+
+### Arborescence
+
+```html
+<ds-tree
+  [nodes]="[
+    {
+      label: 'Documents',
+      children: [
+        { label: 'Factures' },
+        { label: 'Contrats' }
+      ]
+    }
+  ]"
+  [selectable]="true"
+  (nodeSelect)="onNodeSelect($event)"
+/>
+```
+
+---
+
+## Accessibilité
+
+### Navigation clavier
+
+| Composant | Touches |
+|-----------|---------|
+| **Tabs** | `←` `→` pour changer d'onglet, `Home` `End` |
+| **Menu** | `↑` `↓` pour naviguer, `Enter` pour sélectionner |
+| **Tree** | `↑` `↓` `←` `→` pour naviguer, `Space` pour sélectionner |
+| **Pagination** | `Tab` entre boutons, `Enter` pour activer |
+| **Stepper** | `Tab` entre étapes, `Enter` pour naviguer |
+
+### Attributs ARIA
+
+Tous les composants utilisent les bons rôles ARIA :
+
+```html
+<!-- Tabs -->
+<div role="tablist">
+  <button role="tab" aria-selected="true">Onglet 1</button>
+  <button role="tab" aria-selected="false">Onglet 2</button>
+</div>
+<div role="tabpanel">Contenu</div>
+
+<!-- Menu -->
+<ul role="menu">
+  <li role="menuitem">Option 1</li>
+  <li role="menuitem">Option 2</li>
+</ul>
+
+<!-- Tree -->
+<ul role="tree">
+  <li role="treeitem" aria-expanded="true">
+    <ul role="group">...</ul>
+  </li>
+</ul>
+```
+
+### Focus management
+
+- Focus piégé dans les menus ouverts
+- Focus restauré après fermeture
+- Indicateur de focus visible sur tous les éléments

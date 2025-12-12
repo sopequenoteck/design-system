@@ -29,14 +29,13 @@ const defaultColumns: DsTableColumn<User>[] = [
 ];
 
 const meta: Meta<DsTable<User>> = {
-  title: 'Components/Data Display/DsTable',
+  title: 'Data Display/DsTable',
   component: DsTable,
   decorators: [
     moduleMetadata({
       imports: [DsTable, DsPagination],
     }),
   ],
-  tags: ['autodocs'],
   argTypes: {
     data: {
       control: 'object',

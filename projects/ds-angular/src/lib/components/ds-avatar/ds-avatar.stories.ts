@@ -2,9 +2,8 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsAvatar } from './ds-avatar';
 
 const meta: Meta<DsAvatar> = {
-  title: 'Components/Data Display/DsAvatar',
+  title: 'Data Display/DsAvatar',
   component: DsAvatar,
-  tags: ['autodocs'],
   argTypes: {
     size: {
       control: 'select',

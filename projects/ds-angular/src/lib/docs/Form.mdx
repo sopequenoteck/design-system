@@ -1,0 +1,145 @@
+{/* Form.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Form/Overview" />
+
+# Form
+
+Composants de formulaire pour la saisie et la sélection de données.
+
+---
+
+## Vue d'ensemble
+
+La catégorie **Form** regroupe tous les composants liés aux formulaires, organisés en sous-catégories logiques.
+
+### Inputs
+
+Champs de saisie texte :
+
+| Composant | Description |
+|-----------|-------------|
+| **DsInputField** | Champ de saisie avec label, helper, états |
+| **DsInputTextarea** | Zone de texte multi-lignes |
+| **DsSearchInput** | Champ de recherche avec debounce |
+| **DsCombobox** | Autocomplete avec filtrage |
+
+### Selection
+
+Composants de sélection :
+
+| Composant | Description |
+|-----------|-------------|
+| **DsCheckbox** | Case à cocher avec label |
+| **DsRadioGroup** | Groupe de boutons radio |
+| **DsToggle** | Interrupteur on/off |
+| **DsSelect** | Liste déroulante |
+| **DsSlider** | Curseur de valeur |
+
+### Pickers
+
+Sélecteurs de dates et heures :
+
+| Composant | Description |
+|-----------|-------------|
+| **DsDatePicker** | Calendrier de sélection de date |
+| **DsTimePicker** | Sélecteur d'heure (12h/24h) |
+
+### Upload
+
+Téléversement de fichiers :
+
+| Composant | Description |
+|-----------|-------------|
+| **DsFileUpload** | Zone de drag & drop pour fichiers |
+
+---
+
+## Patterns d'utilisation
+
+### Reactive Forms
+
+Tous les composants de formulaire implémentent `ControlValueAccessor` :
+
+```typescript
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+@Component({
+  template: `
+    <form [formGroup]="form">
+      <ds-input-field
+        formControlName="email"
+        label="Email"
+        [state]="form.get('email')?.invalid ? 'error' : 'default'"
+      />
+      <ds-select
+        formControlName="country"
+        label="Pays"
+        [options]="countries"
+      />
+      <ds-checkbox formControlName="newsletter">
+        S'inscrire à la newsletter
+      </ds-checkbox>
+    </form>
+  `
+})
+export class MyFormComponent {
+  form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    country: new FormControl(''),
+    newsletter: new FormControl(false)
+  });
+}
+```
+
+### Validation avec états
+
+Les composants supportent 4 états de validation :
+
+```html
+<ds-input-field state="default" />  <!-- Neutre -->
+<ds-input-field state="success" />  <!-- Valide -->
+<ds-input-field state="warning" />  <!-- Avertissement -->
+<ds-input-field state="error" />    <!-- Erreur -->
+```
+
+### Tailles disponibles
+
+Tous les composants de formulaire supportent 3 tailles :
+
+```html
+<ds-input-field size="sm" />  <!-- Compact -->
+<ds-input-field size="md" />  <!-- Standard (défaut) -->
+<ds-input-field size="lg" />  <!-- Large -->
+```
+
+---
+
+## Accessibilité
+
+### Labels et descriptions
+
+```html
+<ds-input-field
+  label="Adresse email"
+  helper="Nous ne partagerons jamais votre email"
+  required
+/>
+```
+
+### Navigation clavier
+
+| Touche | Action |
+|--------|--------|
+| `Tab` | Naviguer entre les champs |
+| `Space` | Cocher/décocher (checkbox, radio) |
+| `Enter` | Valider la sélection |
+| `Escape` | Fermer les dropdowns |
+| `↑` `↓` | Naviguer dans les options |
+
+### ARIA
+
+Tous les composants incluent :
+- `aria-required` pour les champs obligatoires
+- `aria-invalid` pour les champs en erreur
+- `aria-describedby` lié aux messages d'aide/erreur

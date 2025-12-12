@@ -121,8 +121,7 @@ class ToastPersistentDemoComponent {
 }
 
 const meta: Meta = {
-  title: 'Components/Feedback/DsToast',
-  tags: ['autodocs'],
+  title: 'Feedback/DsToast',
   decorators: [
     moduleMetadata({
       imports: [ToastDemoComponent, ToastPositionsDemoComponent, ToastActionDemoComponent, ToastPersistentDemoComponent],

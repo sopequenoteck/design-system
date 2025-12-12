@@ -19,14 +19,13 @@ import { DsRating } from './ds-rating';
  * ```
  */
 const meta: Meta<DsRating> = {
-  title: 'Components/DsRating',
+  title: 'Data Display/DsRating',
   component: DsRating,
   decorators: [
     moduleMetadata({
       imports: [DsRating, ReactiveFormsModule],
     }),
   ],
-  tags: ['autodocs'],
   argTypes: {
     value: {
       control: 'number',

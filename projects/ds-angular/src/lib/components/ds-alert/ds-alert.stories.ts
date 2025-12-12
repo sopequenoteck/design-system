@@ -2,9 +2,8 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsAlert } from './ds-alert';
 
 const meta: Meta<DsAlert> = {
-  title: 'Components/Feedback/DsAlert',
+  title: 'Feedback/DsAlert',
   component: DsAlert,
-  tags: ['autodocs'],
   argTypes: {
     type: {
       control: 'select',

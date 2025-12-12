@@ -28,14 +28,13 @@ import {
  * ```
  */
 const meta: Meta<DsEmpty> = {
-  title: 'Components/DsEmpty',
+  title: 'Feedback/DsEmpty',
   component: DsEmpty,
   decorators: [
     moduleMetadata({
       imports: [DsEmpty, DsButton],
     }),
   ],
-  tags: ['autodocs'],
   argTypes: {
     title: {
       control: 'text',

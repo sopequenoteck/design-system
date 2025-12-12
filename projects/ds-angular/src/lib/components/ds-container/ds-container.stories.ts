@@ -2,9 +2,8 @@ import { Meta, StoryObj } from '@storybook/angular';
 import { DsContainer } from './ds-container';
 
 const meta: Meta<DsContainer> = {
-  title: 'Components/Layout/DsContainer',
+  title: 'Foundation/Layout/DsContainer',
   component: DsContainer,
-  tags: ['autodocs'],
   argTypes: {
     maxWidth: {
       control: 'select',

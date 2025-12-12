@@ -2,9 +2,8 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsCheckbox } from './ds-checkbox';
 
 const meta: Meta<DsCheckbox> = {
-  title: 'Components/Forms/DsCheckbox',
+  title: 'Form/Selection/DsCheckbox',
   component: DsCheckbox,
-  tags: ['autodocs'],
   argTypes: {
     label: {
       control: 'text',
