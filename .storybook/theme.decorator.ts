@@ -1,16 +1,15 @@
-import type { AngularRenderer } from '@storybook/angular';
-import type { DecoratorFunction, Globals } from '@storybook/csf';
+import type { Decorator } from '@storybook/angular';
 
 const SUPPORTED_THEMES = ['light', 'dark', 'custom'] as const;
 type ThemeName = (typeof SUPPORTED_THEMES)[number];
 type DensityName = 'compact' | 'cozy' | 'comfortable';
 type TypographyScale = 'small' | 'base' | 'large';
 
-type ThemeGlobals = Globals & {
+interface ThemeGlobals {
   theme?: ThemeName;
   density?: DensityName;
   typography?: TypographyScale;
-};
+}
 
 const applyGlobalsToDocument = (
   doc: Document,
@@ -60,10 +59,7 @@ const applyGlobalsToIframe = (
   }
 };
 
-export const withThemeFromTokens: DecoratorFunction<AngularRenderer, ThemeGlobals> = (
-  storyFn,
-  context
-) => {
+export const withThemeFromTokens: Decorator = (storyFn, context) => {
   const globals = context.globals as ThemeGlobals;
   const theme: ThemeName = globals.theme ?? 'light';
   const density: DensityName = globals.density ?? 'cozy';

@@ -634,3 +634,13 @@ $tree-label-font-size: $font-size-3;
 $tree-indent: 20px;
 $tree-max-height: 400px;
 $tree-border-radius: $radius-2;
+
+// === PASSWORD STRENGTH ===
+
+$password-strength-bar-height-sm: 4px;
+$password-strength-bar-height-md: 6px;
+$password-strength-bar-height-lg: 8px;
+$password-strength-bar-gap: $space-1;
+$password-strength-bar-radius: $radius-1;
+$password-strength-label-font-size: $font-size-2;
+$password-strength-label-gap: $space-2;

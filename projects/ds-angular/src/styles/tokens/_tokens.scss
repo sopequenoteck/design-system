@@ -661,6 +661,15 @@
   --tree-indent: #{$tree-indent};
   --tree-max-height: #{$tree-max-height};
   --tree-border-radius: #{$tree-border-radius};
+
+  /* === PASSWORD STRENGTH === */
+  --password-strength-bar-height-sm: #{$password-strength-bar-height-sm};
+  --password-strength-bar-height-md: #{$password-strength-bar-height-md};
+  --password-strength-bar-height-lg: #{$password-strength-bar-height-lg};
+  --password-strength-bar-gap: #{$password-strength-bar-gap};
+  --password-strength-bar-radius: #{$password-strength-bar-radius};
+  --password-strength-label-font-size: #{$password-strength-label-font-size};
+  --password-strength-label-gap: #{$password-strength-label-gap};
 }
 
 /* === ACCESSIBILITY: REDUCED MOTION === */

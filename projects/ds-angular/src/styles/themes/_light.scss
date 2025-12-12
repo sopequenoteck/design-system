@@ -714,4 +714,15 @@
   --tree-toggle-color: var(--text-muted);
   --tree-toggle-hover-color: var(--text-default);
   --tree-icon-color: var(--text-muted);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS PASSWORD STRENGTH
+   * ======================================================================== */
+  --password-strength-bg: var(--gray-200);
+  --password-strength-weak: var(--error);
+  --password-strength-medium: var(--warning);
+  --password-strength-strong: var(--success);
+  --password-strength-text: var(--text-muted);
+  --password-strength-criterion-valid: var(--success);
+  --password-strength-criterion-invalid: var(--text-muted);
 }

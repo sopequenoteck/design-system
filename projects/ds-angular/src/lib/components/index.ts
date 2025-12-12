@@ -224,3 +224,10 @@ export {
   type TreeNodeExpandEvent,
   type TreeNodeCheckEvent,
 } from './ds-tree/ds-tree';
+
+export {
+  DsPasswordStrength,
+  type PasswordStrength,
+  type PasswordStrengthSize,
+  type PasswordCriterion,
+} from './ds-password-strength/ds-password-strength';
