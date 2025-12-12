@@ -295,6 +295,60 @@ export const AllSizes: Story = {
 };
 
 /**
+ * Variantes d'illustrations (icône vs image personnalisée)
+ */
+export const IllustrationVariants: Story = {
+  render: () => ({
+    props: { faInbox, faSearch },
+    template: `
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+        <!-- Icône FontAwesome -->
+        <div>
+          <h4 style="margin-bottom: 1rem; text-align: center;">Icône FontAwesome</h4>
+          <ds-empty
+            title="Aucun message"
+            description="Votre boîte de réception est vide"
+            [icon]="faInbox"
+            size="md" />
+        </div>
+
+        <!-- Image SVG personnalisée -->
+        <div>
+          <h4 style="margin-bottom: 1rem; text-align: center;">Image SVG personnalisée</h4>
+          <ds-empty
+            title="Aucun résultat"
+            description="Essayez une autre recherche"
+            imageUrl="https://via.placeholder.com/200x200/e5e7eb/6b7280?text=SVG+Illustration"
+            size="md" />
+        </div>
+
+        <!-- Icône grande taille -->
+        <div>
+          <h4 style="margin-bottom: 1rem; text-align: center;">Icône grande taille</h4>
+          <ds-empty
+            title="Aucun document"
+            description="Téléchargez vos fichiers"
+            [icon]="faSearch"
+            size="lg" />
+        </div>
+
+        <!-- Image PNG personnalisée -->
+        <div>
+          <h4 style="margin-bottom: 1rem; text-align: center;">Image PNG personnalisée</h4>
+          <ds-empty
+            title="Bienvenue"
+            description="Commencez par créer votre premier projet"
+            imageUrl="https://via.placeholder.com/250x250/f3f4f6/9ca3af?text=Custom+PNG"
+            size="lg">
+            <button ds-button variant="primary">Créer un projet</button>
+          </ds-empty>
+        </div>
+      </div>
+    `,
+  }),
+};
+
+/**
  * Test des 3 thèmes (Light/Dark/Custom) côte à côte.
  */
 export const Themed: Story = {

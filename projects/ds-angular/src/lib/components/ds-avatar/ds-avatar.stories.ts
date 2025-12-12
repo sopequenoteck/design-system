@@ -210,3 +210,50 @@ export const AvatarGroup: Story = {
     `,
   }),
 };
+
+// === LOADING STATE (PLACEHOLDER) ===
+
+export const LoadingState: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <div style="position: relative;">
+          <ds-avatar size="md" style="opacity: 0.5;"></ds-avatar>
+          <div style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-primary);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;">
+          </div>
+        </div>
+        <div style="position: relative;">
+          <ds-avatar size="lg" style="opacity: 0.5;"></ds-avatar>
+          <div style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--color-primary);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;">
+          </div>
+        </div>
+        <span style="color: var(--text-muted);">Chargement des avatars...</span>
+      </div>
+      <style>
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
+    `,
+  }),
+};

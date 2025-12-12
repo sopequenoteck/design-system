@@ -133,6 +133,41 @@ export const CustomColor: Story = {
   }),
 };
 
+export const States: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <p style="margin: 0 0 8px; font-weight: 600;">Status States</p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <ds-badge type="success">Actif</ds-badge>
+            <ds-badge type="warning">En attente</ds-badge>
+            <ds-badge type="error">Désactivé</ds-badge>
+            <ds-badge type="info">En cours</ds-badge>
+            <ds-badge type="default">Brouillon</ds-badge>
+          </div>
+        </div>
+        <div>
+          <p style="margin: 0 0 8px; font-weight: 600;">Notification Count</p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <ds-badge type="error" shape="pill" size="sm">3</ds-badge>
+            <ds-badge type="primary" shape="pill" size="sm">12</ds-badge>
+            <ds-badge type="warning" shape="pill" size="sm">99+</ds-badge>
+          </div>
+        </div>
+        <div>
+          <p style="margin: 0 0 8px; font-weight: 600;">Roles & Permissions</p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <ds-badge type="primary" variant="outline">Admin</ds-badge>
+            <ds-badge type="success" variant="outline">Editeur</ds-badge>
+            <ds-badge type="default" variant="outline">Lecteur</ds-badge>
+          </div>
+        </div>
+      </div>
+    `,
+  }),
+};
+
 export const Themed: Story = {
   render: () => ({
     template: `

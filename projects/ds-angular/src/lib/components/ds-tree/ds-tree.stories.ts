@@ -280,3 +280,82 @@ export const CheckableWithInitialChecked: Story = {
     checkable: true,
   },
 };
+
+export const LoadingState: Story = {
+  render: () => ({
+    template: `
+      <div style="padding: 24px; border: 1px solid var(--border-default); border-radius: 8px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 20px; height: 20px; border: 2px solid var(--color-primary); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+          <p style="margin: 0; color: var(--text-muted);">Chargement de l'arborescence...</p>
+        </div>
+        <style>
+          @keyframes spin {
+            to { transform: rotate(360deg); }
+          }
+        </style>
+      </div>
+    `,
+  }),
+};
+
+export const Themed: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 32px;">
+        <div class="theme-light" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
+          <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Light</h4>
+          <ds-tree [data]="[
+            {
+              id: '1',
+              label: 'Documents',
+              expanded: true,
+              children: [
+                { id: '1-1', label: 'Resume.pdf' },
+                { id: '1-2', label: 'Cover Letter.docx' }
+              ]
+            },
+            { id: '2', label: 'Images' }
+          ]" [showIcon]="true"></ds-tree>
+        </div>
+        <div class="theme-dark" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
+          <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Dark</h4>
+          <ds-tree [data]="[
+            {
+              id: '1',
+              label: 'Documents',
+              expanded: true,
+              children: [
+                { id: '1-1', label: 'Resume.pdf' },
+                { id: '1-2', label: 'Cover Letter.docx' }
+              ]
+            },
+            { id: '2', label: 'Images' }
+          ]" [showIcon]="true"></ds-tree>
+        </div>
+        <div class="theme-custom" style="padding: 24px; background: var(--background-main); border-radius: 8px;">
+          <h4 style="margin: 0 0 16px; color: var(--text-default);">Theme Custom</h4>
+          <ds-tree [data]="[
+            {
+              id: '1',
+              label: 'Documents',
+              expanded: true,
+              children: [
+                { id: '1-1', label: 'Resume.pdf' },
+                { id: '1-2', label: 'Cover Letter.docx' }
+              ]
+            },
+            { id: '2', label: 'Images' }
+          ]" [showIcon]="true"></ds-tree>
+        </div>
+      </div>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};

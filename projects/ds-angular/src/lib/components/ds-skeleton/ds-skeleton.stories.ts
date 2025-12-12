@@ -41,6 +41,18 @@ const meta: Meta<DsSkeleton> = {
 export default meta;
 type Story = StoryObj<DsSkeleton>;
 
+export const Default: Story = {
+  args: {
+    variant: 'text',
+    lines: 3,
+    size: 'md',
+  },
+  render: (args) => ({
+    props: args,
+    template: `<ds-skeleton ${argsToTemplate(args)}></ds-skeleton>`,
+  }),
+};
+
 export const TextSingle: Story = {
   args: {
     variant: 'text',

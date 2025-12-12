@@ -236,6 +236,43 @@ export const Disabled: Story = {
 };
 
 /**
+ * All variants in a grid layout
+ */
+export const AllVariants: Story = {
+  render: () => ({
+    template: `
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+        <!-- Filled Variants -->
+        <ds-chip label="Default Filled" variant="filled" color="default" />
+        <ds-chip label="Primary Filled" variant="filled" color="primary" />
+        <ds-chip label="Success Filled" variant="filled" color="success" />
+        <ds-chip label="Warning Filled" variant="filled" color="warning" />
+        <ds-chip label="Error Filled" variant="filled" color="error" />
+
+        <!-- Outlined Variants -->
+        <ds-chip label="Default Outlined" variant="outlined" color="default" />
+        <ds-chip label="Primary Outlined" variant="outlined" color="primary" />
+        <ds-chip label="Success Outlined" variant="outlined" color="success" />
+        <ds-chip label="Warning Outlined" variant="outlined" color="warning" />
+        <ds-chip label="Error Outlined" variant="outlined" color="error" />
+
+        <!-- Sizes -->
+        <ds-chip label="Small" size="sm" color="primary" />
+        <ds-chip label="Medium" size="md" color="primary" />
+        <ds-chip label="Large" size="lg" color="primary" />
+
+        <!-- States -->
+        <ds-chip label="With Icon" icon="star" color="primary" />
+        <ds-chip label="Removable" [removable]="true" color="primary" />
+        <ds-chip label="Selected" [clickable]="true" [selected]="true" color="primary" />
+        <ds-chip label="Disabled" [disabled]="true" color="primary" />
+        <ds-chip label="With Avatar" avatar="https://i.pravatar.cc/150?img=1" />
+      </div>
+    `,
+  }),
+};
+
+/**
  * Complete showcase with all features
  */
 export const CompleteShowcase: Story = {
