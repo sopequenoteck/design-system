@@ -16,8 +16,10 @@ import { DsBadge } from './components/ds-badge/ds-badge';
 import { DsDivider } from './components/ds-divider/ds-divider';
 import { DsBreadcrumb, BreadcrumbItem } from './components/ds-breadcrumb/ds-breadcrumb';
 import { DsTabs, TabItem } from './components/ds-tabs/ds-tabs';
-import { DsDropdown, DropdownItem } from './components/ds-dropdown/ds-dropdown';
-import { DsToastService, DsToastContainerComponent } from './components/ds-toast/ds-toast';
+import { DsDropdown } from './components/ds-dropdown/ds-dropdown';
+import { DropdownItem } from './components/ds-dropdown/model/dropdown-item.model';
+import { DsToastService } from './components/ds-toast/ds-toast.service';
+import { DsToastContainerComponent } from './components/ds-toast/ds-toast-container.component';
 
 /**
  * # Stories d'intégration
@@ -196,8 +198,13 @@ class ContactFormComponent {
 }
 
 export const ContactForm: StoryObj = {
+  decorators: [
+    moduleMetadata({
+      imports: [ContactFormComponent],
+    }),
+  ],
   render: () => ({
-    component: ContactFormComponent,
+    template: `<story-contact-form></story-contact-form>`,
   }),
   parameters: {
     docs: {
@@ -290,8 +297,13 @@ export const ContactForm: StoryObj = {
 class DashboardComponent {}
 
 export const Dashboard: StoryObj = {
+  decorators: [
+    moduleMetadata({
+      imports: [DashboardComponent],
+    }),
+  ],
   render: () => ({
-    component: DashboardComponent,
+    template: `<story-dashboard></story-dashboard>`,
   }),
   parameters: {
     docs: {
@@ -397,8 +409,8 @@ class ThemeSwitcherComponent {
   activeTab = signal<string>('overview');
 
   breadcrumbItems: BreadcrumbItem[] = [
-    { label: 'Accueil', url: '/' },
-    { label: 'Documentation', url: '/docs' },
+    { label: 'Accueil', href: '/' },
+    { label: 'Documentation', href: '/docs' },
     { label: 'Thèmes' },
   ];
 
@@ -409,9 +421,9 @@ class ThemeSwitcherComponent {
   ];
 
   themeOptions: DropdownItem[] = [
-    { id: 'light', label: 'Light', value: 'light' },
-    { id: 'dark', label: 'Dark', value: 'dark' },
-    { id: 'custom', label: 'Custom', value: 'custom' },
+    { code: 'light', label: 'Light' },
+    { code: 'dark', label: 'Dark' },
+    { code: 'custom', label: 'Custom' },
   ];
 
   constructor() {
@@ -430,8 +442,13 @@ class ThemeSwitcherComponent {
 }
 
 export const ThemeSwitcher: StoryObj = {
+  decorators: [
+    moduleMetadata({
+      imports: [ThemeSwitcherComponent],
+    }),
+  ],
   render: () => ({
-    component: ThemeSwitcherComponent,
+    template: `<story-theme-switcher></story-theme-switcher>`,
   }),
   parameters: {
     docs: {
