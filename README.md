@@ -1,8 +1,9 @@
 # DS-Angular Design System
 
 [![CI](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml)
-[![npm version](https://badge.fury.io/js/@kksdev/ds-angular.svg)](https://www.npmjs.com/package/@kksdev/ds-angular)
+[![npm version](https://img.shields.io/npm/v/@kksdev/ds-angular?label=v1.3.0&color=7d4bc0)](https://www.npmjs.com/package/@kksdev/ds-angular)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@kksdev/ds-angular?label=bundle&color=2dd4bf)](https://bundlephobia.com/package/@kksdev/ds-angular)
 
 Design system Angular moderne et accessible avec support TypeScript, theming, et composants standalone.
 
