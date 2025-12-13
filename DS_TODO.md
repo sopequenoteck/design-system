@@ -132,7 +132,18 @@
 
 ## Notes de version
 
-### v1.5.0 (2025-12-13) ✅ Publié
+### v1.6.0 (2025-12-13) ✅ Publié
+
+**Nouveaux composants** :
+- ds-input-number (stepper numérique CVA) - 55 tests + 14 stories
+- ds-segmented-control (boutons radio visuels) - 42 tests + 17 stories
+- ds-color-picker (sélecteur couleur complet) - 52 tests + 12 stories
+
+**Total** : 47 composants DS, 7 primitives, 2300+ tests, 87% couverture
+
+---
+
+### v1.5.0 (2025-12-13)
 
 **Composants ajoutés depuis v1.4.0** :
 - ds-transfer (transfert items entre listes)
@@ -141,16 +152,9 @@
 - ds-calendar (vue calendrier mensuelle)
 - ds-carousel (défilement images)
 
-**Total** : 44 composants DS, 7 primitives, 2200+ tests, 87% couverture
-
-**Ajouts post-publication** :
-- ds-input-number (stepper numérique CVA) - 55 tests + 14 stories
-- ds-segmented-control (boutons radio visuels) - 42 tests + 17 stories
-- ds-color-picker (sélecteur couleur complet) - 52 tests + 12 stories
-
 ---
 
 ## Prochaines étapes
 
-1. Publier v1.6.0 avec les 3 nouveaux composants
+1. ✅ v1.6.0 publiée sur npm
 2. (Optionnel) Implémenter DsMentions ou DsBackTop
