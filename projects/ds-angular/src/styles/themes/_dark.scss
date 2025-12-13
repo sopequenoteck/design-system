@@ -732,6 +732,9 @@
   --time-picker-option-selected-bg: var(--color-primary);
   --time-picker-option-selected-text: var(--white);
   --time-picker-option-selected-hover: color-mix(in oklab, var(--color-primary) 75%, var(--gray-800));
+  --time-picker-scrollbar-track: var(--gray-700);
+  --time-picker-scrollbar-thumb: var(--gray-500);
+  --time-picker-scrollbar-thumb-hover: var(--gray-400);
 
   /* ==========================================================================
    * SÉMANTIQUES DS TREE

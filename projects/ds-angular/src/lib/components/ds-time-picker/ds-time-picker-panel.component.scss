@@ -1,49 +1,49 @@
 .ds-time-picker-panel {
   background-color: var(--time-picker-panel-bg, var(--white));
   border: 1px solid var(--time-picker-panel-border, var(--gray-300));
-  border-radius: var(--radius-2);
+  border-radius: var(--time-picker-panel-border-radius, var(--radius-2));
   box-shadow: var(--shadow-lg);
-  padding: var(--space-2);
-  min-width: 200px;
+  padding: var(--time-picker-panel-padding, var(--space-2));
+  min-width: var(--time-picker-panel-min-width, 200px);
 
   &__columns {
     display: flex;
-    gap: var(--space-2);
+    gap: var(--time-picker-column-gap, var(--space-2));
   }
 
   &__column {
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-width: 60px;
+    min-width: var(--time-picker-column-min-width, 60px);
 
     &--period {
-      min-width: 50px;
+      min-width: var(--time-picker-column-period-width, 50px);
     }
   }
 
   &__column-scroll {
-    max-height: 200px;
+    max-height: var(--time-picker-column-max-height, 200px);
     overflow-y: auto;
     border: 1px solid var(--time-picker-column-border, var(--gray-200));
-    border-radius: var(--radius-1);
+    border-radius: var(--time-picker-column-border-radius, var(--radius-1));
     background-color: var(--time-picker-column-bg, var(--white));
 
     &::-webkit-scrollbar {
-      width: 6px;
+      width: var(--time-picker-scrollbar-width, 6px);
     }
 
     &::-webkit-scrollbar-track {
-      background: var(--gray-100);
-      border-radius: var(--radius-1);
+      background: var(--time-picker-scrollbar-track, var(--gray-100));
+      border-radius: var(--time-picker-scrollbar-radius, var(--radius-1));
     }
 
     &::-webkit-scrollbar-thumb {
-      background: var(--gray-400);
-      border-radius: var(--radius-1);
+      background: var(--time-picker-scrollbar-thumb, var(--gray-400));
+      border-radius: var(--time-picker-scrollbar-radius, var(--radius-1));
 
       &:hover {
-        background: var(--gray-500);
+        background: var(--time-picker-scrollbar-thumb-hover, var(--gray-500));
       }
     }
   }
@@ -52,11 +52,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-2);
+    padding: var(--time-picker-option-padding, var(--space-2));
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: var(--font-size-sm);
+    font-size: var(--time-picker-option-font-size, var(--font-size-sm));
     color: var(--time-picker-option-text, var(--gray-900));
     transition: all 0.15s ease;
     outline: none;

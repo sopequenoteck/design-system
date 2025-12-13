@@ -743,5 +743,22 @@
   --colorpicker-input-border: var(--border-color);
   --colorpicker-input-text: var(--text-default);
   --colorpicker-preset-border: var(--border-color);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS TIME PICKER
+   * ======================================================================== */
+  --time-picker-panel-bg: var(--surface-default);
+  --time-picker-panel-border: var(--border-color);
+  --time-picker-column-bg: var(--surface-default);
+  --time-picker-column-border: var(--border-subtle);
+  --time-picker-option-text: var(--text-default);
+  --time-picker-option-hover: var(--surface-hover);
+  --time-picker-option-focus: var(--surface-hover);
+  --time-picker-option-selected-bg: var(--role-primary);
+  --time-picker-option-selected-text: var(--gray-50);
+  --time-picker-option-selected-hover: color-mix(in oklab, var(--role-primary) 85%, var(--bg-main));
+  --time-picker-scrollbar-track: var(--surface-raised);
+  --time-picker-scrollbar-thumb: var(--border-strong);
+  --time-picker-scrollbar-thumb-hover: var(--text-muted);
 }
 
