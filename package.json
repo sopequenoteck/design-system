@@ -12,7 +12,7 @@
     "test:headless": "ng test ds-angular --watch=false --browsers=ChromeHeadless",
     "test:coverage": "ng test ds-angular --code-coverage --watch=false --browsers=ChromeHeadless",
     "test:a11y": "node scripts/test-a11y.js",
-    "test:storybook": "test-storybook",
+    "test:storybook": "test-storybook  --url http://localhost:6006",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:visual": "chromatic --exit-zero-on-changes",

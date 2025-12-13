@@ -25,7 +25,7 @@
 - **Directive** : `[dsPopover]` (trigger + overlay CDK)
 - **Standalone** : ✅ Les deux
 - **Signals** : ✅ `input()`, `output()`, `computed()`
-
+  
 ### Points forts identifiés
 1. Directive bien testée (26 tests)
 2. Utilise Angular CDK Overlay
