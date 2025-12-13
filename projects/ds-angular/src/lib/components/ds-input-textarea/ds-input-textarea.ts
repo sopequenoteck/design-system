@@ -25,6 +25,45 @@ import {
 
 type WindowWithResizeObserver = typeof window & { ['ResizeObserver']?: typeof globalThis.ResizeObserver };
 
+/**
+ * Composant textarea multiligne pour le Design System.
+ *
+ * Wrapper autour de `PrimitiveTextarea` avec support complet des formulaires Angular
+ * via `ControlValueAccessor`. Inclut label, helper text, validation, compteur de caractères,
+ * auto-resize et bouton d'effacement.
+ *
+ * @example
+ * ```html
+ * <!-- Usage simple -->
+ * <ds-input-textarea
+ *   label="Description"
+ *   placeholder="Entrez votre description..."
+ *   [rows]="4">
+ * </ds-input-textarea>
+ *
+ * <!-- Avec formulaire réactif -->
+ * <ds-input-textarea
+ *   formControlName="description"
+ *   label="Description"
+ *   [maxlength]="500"
+ *   [clearable]="true">
+ * </ds-input-textarea>
+ * ```
+ *
+ * @usageNotes
+ * ### Accessibilité
+ * - Le label est associé au textarea via `for`/`id`
+ * - Les messages d'aide/erreur sont liés via `aria-describedby`
+ * - Les erreurs sont annoncées via `role="alert"`
+ * - Navigation clavier standard
+ *
+ * ### Auto-resize
+ * Utiliser `resizeAuto` pour activer le redimensionnement automatique.
+ * La valeur définit la hauteur maximale en pixels.
+ *
+ * @selector ds-input-textarea
+ * @standalone true
+ */
 @Component({
   selector: 'ds-input-textarea',
   imports: [CommonModule, PrimitiveTextarea, FaIconComponent],
@@ -39,46 +78,138 @@ type WindowWithResizeObserver = typeof window & { ['ResizeObserver']?: typeof gl
   ],
 })
 export class DsInputTextarea implements ControlValueAccessor, AfterViewInit, OnDestroy {
-  // Base inputs
+  // ═══════════════════════════════════════════════════════════════════════════
+  // INPUTS
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /** Identifiant unique du textarea. Auto-généré si non fourni. */
   id = input<string>(crypto.randomUUID());
+
+  /** Nom du champ pour les formulaires HTML natifs. */
   name = input<string | undefined>(undefined);
+
+  /** Label visible affiché au-dessus du textarea. */
   label = input<string | undefined>(undefined);
+
+  /** Label accessible pour les lecteurs d'écran (si pas de label visible). */
   ariaLabel = input<string | undefined>(undefined);
+
+  /** Texte indicatif affiché quand le champ est vide. */
   placeholder = input<string>('');
+
+  /** Désactive le champ (non modifiable, exclu de la navigation clavier). */
   disabled = input<boolean>(false);
+
+  /** Champ en lecture seule (visible et sélectionnable, non modifiable). */
   readonly = input<boolean>(false);
+
+  /** Marque le champ comme obligatoire (affiche * après le label). */
   required = input<boolean>(false);
+
+  /**
+   * État visuel de validation.
+   * @default 'default'
+   */
   state = input<TextareaState>('default');
+
+  /**
+   * Taille du composant.
+   * @default 'md'
+   */
   size = input<TextareaSize>('md');
+
+  /**
+   * Variante visuelle (outline ou filled).
+   * @default 'default'
+   */
   variant = input<TextareaAppearance>('default');
+
+  /** Nombre de lignes visibles. */
   rows = input<number | undefined>(undefined);
+
+  /** Nombre de colonnes (largeur en caractères). */
   cols = input<number | undefined>(undefined);
+
+  /**
+   * Mode de redimensionnement manuel.
+   * Ignoré si `resizeAuto` est défini.
+   * @default 'vertical'
+   */
   resize = input<TextareaResize>('vertical');
+
+  /**
+   * Active le redimensionnement automatique.
+   * La valeur définit la hauteur maximale en pixels.
+   * Désactive le resize manuel.
+   */
   resizeAuto = input<number | undefined>(undefined);
+
+  /** Limite de caractères avec compteur affiché. */
   maxlength = input<number | undefined>(undefined);
+
+  /** Texte d'aide affiché sous le champ. */
   helper = input<string | undefined>(undefined);
+
+  /** Message d'erreur (remplace helper, force l'état 'error'). */
   error = input<string | undefined>(undefined);
+
+  /** Icône FontAwesome à gauche du textarea. */
   iconStart = input<IconDefinition | null>(null);
+
+  /** Icône FontAwesome à droite du textarea. */
   iconEnd = input<IconDefinition | null>(null);
+
+  /** Affiche un bouton X pour effacer le contenu. */
   clearable = input<boolean>(false);
+
+  /**
+   * Valeur externe pour initialisation sans formulaire.
+   * Utile pour les stories Storybook.
+   */
   externalValue = input<string | null | undefined>(undefined);
 
-  // Signals
+  // ═══════════════════════════════════════════════════════════════════════════
+  // SIGNALS & OUTPUTS
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /** État disabled géré par ControlValueAccessor. */
   private readonly disabledState = signal<boolean>(false);
+
+  /** Indique si une valeur externe a été fournie. */
   private readonly hasExternalValue = signal<boolean>(false);
+
+  /** Valeur interne du textarea. */
   readonly internalValue = signal<string>('');
+
+  /**
+   * Émis à chaque changement de valeur.
+   * Payload : nouvelle valeur (string).
+   */
   readonly valueChange = output<string>();
 
+  // ═══════════════════════════════════════════════════════════════════════════
+  // COMPUTED (accessibilité & état)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  /** ID de l'élément erreur pour aria-describedby. */
   readonly arErrorId = computed<string | undefined>(() => (this.error() ? `${this.id()}-error` : undefined));
+
+  /** ID de l'élément helper pour aria-describedby. */
   readonly arHelperId = computed<string | undefined>(() => (this.helper() ? `${this.id()}-helper` : undefined));
+
+  /** ID de l'élément compteur pour aria-describedby. */
   readonly arCounterId = computed<string | undefined>(() => (this.maxlength() ? `${this.id()}-counter` : undefined));
+
+  /** Attribut aria-describedby combinant erreur, helper et compteur. */
   readonly ariaDescribedBy = computed<string | undefined>(() => {
     const refs = [this.arErrorId(), this.arHelperId(), this.arCounterId()].filter(Boolean) as string[];
     return refs.length ? refs.join(' ') : undefined;
   });
 
+  /** True si le champ est désactivé (input ou CVA). */
   readonly isDisabled = computed<boolean>(() => this.disabled() || this.disabledState());
 
+  /** État visuel effectif (error forcé si message d'erreur). */
   readonly inputState = computed<TextareaState>(() => {
     if (this.error()) {
       return 'error';
@@ -86,11 +217,15 @@ export class DsInputTextarea implements ControlValueAccessor, AfterViewInit, OnD
     return this.state();
   });
 
+  /** True si le bouton clear doit être affiché. */
   readonly showClearButton = computed<boolean>(() =>
     this.clearable() && !this.isDisabled() && !this.readonly() && this.internalValue().length > 0,
   );
 
+  /** Mode de resize effectif (none si resizeAuto activé). */
   readonly textareaResize = computed<TextareaResize>(() => (this.resizeAuto() ? 'none' : this.resize()));
+
+  /** Nombre de caractères saisis. */
   readonly characterCount = computed<number>(() => this.internalValue().length);
 
   protected readonly faClose = faClose;

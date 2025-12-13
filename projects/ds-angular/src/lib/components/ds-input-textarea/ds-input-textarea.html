@@ -10,7 +10,8 @@
     <label [for]="id()" [attr.data-state]="inputState()">
       {{ label() }}
       @if (required()) {
-        <span class="required">*</span>
+        <span class="required" aria-hidden="true">*</span>
+        <span class="sr-only">(obligatoire)</span>
       }
     </label>
   }
@@ -46,7 +47,7 @@
         type="button"
         class="icon-btn clear"
         (click)="clearValue()"
-        aria-label="Clear textarea">
+        [attr.aria-label]="'Effacer ' + (label() || 'le champ')">
         <fa-icon [icon]="faClose" />
       </button>
     }
@@ -61,8 +62,8 @@
   }
 
   @if (maxlength()) {
-    <p class="counter" [id]="arCounterId()">
-      {{ characterCount() }}/{{ maxlength() }}
+    <p class="counter" [id]="arCounterId()" aria-live="polite" aria-atomic="true">
+      {{ characterCount() }}/{{ maxlength() }} caractères
     </p>
   }
 </div>
