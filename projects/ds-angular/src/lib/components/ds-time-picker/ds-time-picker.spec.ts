@@ -179,6 +179,19 @@ describe('DsTimePicker', () => {
 
       expect(component.isOpen()).toBe(false);
     });
+
+    it('should close panel on Escape key', () => {
+      const input = fixture.nativeElement.querySelector('.ds-time-picker__input');
+      input.click();
+      fixture.detectChanges();
+      expect(component.isOpen()).toBe(true);
+
+      const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+      input.dispatchEvent(event);
+      fixture.detectChanges();
+
+      expect(component.isOpen()).toBe(false);
+    });
   });
 
   describe('ControlValueAccessor', () => {

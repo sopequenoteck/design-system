@@ -7,6 +7,8 @@ import {
   signal,
   forwardRef,
   effect,
+  ElementRef,
+  ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -57,6 +59,9 @@ export interface TimeValue {
   ],
 })
 export class DsTimePicker implements ControlValueAccessor {
+  // ViewChild - référence à l'élément input pour le positionnement overlay
+  @ViewChild('inputElement') private inputElementRef!: ElementRef<HTMLElement>;
+
   // Inputs
   readonly value = input<string>('');
   readonly format = input<TimeFormat>('24h');
@@ -189,11 +194,11 @@ export class DsTimePicker implements ControlValueAccessor {
   }
 
   private createOverlay(): void {
-    if (this.overlayRef) return;
+    if (this.overlayRef || !this.inputElementRef) return;
 
     const positionStrategy = this.overlay
       .position()
-      .flexibleConnectedTo(document.querySelector('.ds-time-picker__input') as HTMLElement)
+      .flexibleConnectedTo(this.inputElementRef.nativeElement)
       .withPositions([
         {
           originX: 'start',
@@ -234,6 +239,14 @@ export class DsTimePicker implements ControlValueAccessor {
     });
 
     this.overlayRef.backdropClick().subscribe(() => this.close());
+
+    // Fermer sur Escape dans le panel
+    this.overlayRef.keydownEvents().subscribe((event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        this.close();
+        this.inputElementRef.nativeElement.focus();
+      }
+    });
   }
 
   private destroyOverlay(): void {

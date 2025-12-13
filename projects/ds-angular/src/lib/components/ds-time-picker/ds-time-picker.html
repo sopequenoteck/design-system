@@ -1,6 +1,7 @@
 <div [class]="containerClasses()">
   <div class="ds-time-picker__wrapper">
     <div
+      #inputElement
       class="ds-time-picker__input"
       [class.ds-time-picker__input--disabled]="disabled()"
       [class.ds-time-picker__input--readonly]="readonly()"
@@ -14,7 +15,8 @@
       (focus)="onFocus()"
       (blur)="onBlur()"
       (keydown.enter)="toggle()"
-      (keydown.space)="toggle(); $event.preventDefault()">
+      (keydown.space)="toggle(); $event.preventDefault()"
+      (keydown.escape)="close()">
 
       <fa-icon
         class="ds-time-picker__icon"
