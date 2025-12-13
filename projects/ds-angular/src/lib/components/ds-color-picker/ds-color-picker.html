@@ -1,0 +1,44 @@
+<div [class]="containerClasses()">
+  <div class="ds-color-picker__trigger" (click)="toggle()">
+    <!-- Preview de la couleur -->
+    <div
+      class="ds-color-picker__preview"
+      [style.background-color]="previewColor()"
+      [attr.aria-label]="'Color: ' + displayValue()">
+    </div>
+
+    <!-- Input texte -->
+    <input
+      type="text"
+      class="ds-color-picker__input"
+      [value]="displayValue()"
+      [placeholder]="placeholder()"
+      [disabled]="disabled()"
+      readonly
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      [attr.aria-label]="placeholder()" />
+
+    <!-- Actions -->
+    <div class="ds-color-picker__actions">
+      @if (allowClear() && internalValue()) {
+        <button
+          type="button"
+          class="ds-color-picker__action ds-color-picker__action--clear"
+          [disabled]="disabled()"
+          (click)="clear(); $event.stopPropagation()"
+          [attr.aria-label]="'Clear color'">
+          <fa-icon [icon]="clearIcon" aria-hidden="true"></fa-icon>
+        </button>
+      }
+
+      <button
+        type="button"
+        class="ds-color-picker__action ds-color-picker__action--picker"
+        [disabled]="disabled()"
+        [attr.aria-label]="'Open color picker'">
+        <fa-icon [icon]="pickerIcon" aria-hidden="true"></fa-icon>
+      </button>
+    </div>
+  </div>
+</div>

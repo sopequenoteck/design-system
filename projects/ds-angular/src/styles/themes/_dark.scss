@@ -911,4 +911,25 @@
   --calendar-month-current-bg: color-mix(in oklab, var(--color-primary) 15%, var(--gray-800));
   --calendar-month-current-border: var(--color-primary);
   --calendar-month-current-color: var(--color-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS COLOR PICKER
+   * ======================================================================== */
+  --colorpicker-bg: var(--gray-800);
+  --colorpicker-border: var(--gray-700);
+  --colorpicker-border-hover: var(--gray-600);
+  --colorpicker-text: var(--gray-100);
+  --colorpicker-placeholder: var(--gray-500);
+  --colorpicker-icon: var(--gray-400);
+  --colorpicker-clear-icon: var(--gray-400);
+  --colorpicker-preview-border: var(--gray-700);
+  --colorpicker-action-hover-bg: var(--gray-700);
+  --colorpicker-focus-shadow: color-mix(in oklab, var(--color-primary) 25%, transparent);
+
+  --colorpicker-panel-bg: var(--gray-800);
+  --colorpicker-panel-border: var(--gray-700);
+  --colorpicker-input-bg: var(--gray-750);
+  --colorpicker-input-border: var(--gray-700);
+  --colorpicker-input-text: var(--gray-100);
+  --colorpicker-preset-border: var(--gray-700);
 }

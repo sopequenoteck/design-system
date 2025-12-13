@@ -9,10 +9,10 @@
 
 | Métrique | Valeur |
 |----------|--------|
-| Composants DS | 46 |
+| Composants DS | 47 |
 | Primitives | 7 |
-| Stories | 68+ |
-| Tests unitaires | 2250+ |
+| Stories | 80+ |
+| Tests unitaires | 2300+ |
 | Tests e2e | 710+ |
 | Couverture | ~87% statements |
 
@@ -87,7 +87,7 @@
 
 - [x] [NEW] DsInputNumber - Input numérique avec boutons +/- | ✅ 55 tests + 14 stories
 - [x] [NEW] DsSegmentedControl - Boutons radio en groupe visuel | ✅ 42 tests + 17 stories
-- [ ] [NEW] DsColorPicker - Sélecteur de couleur | `ds-color-picker/` | Moyenne | ~6h
+- [x] [NEW] DsColorPicker - Sélecteur de couleur | ✅ 52 tests + 12 stories
 
 ---
 
@@ -123,10 +123,10 @@
 | COMP | 0 | ✅ Complet |
 | STORY | 0 | ✅ Complet |
 | DOC | 0 | ✅ Complet |
-| NEW | 1 | 🔄 Optionnel |
+| NEW | 0 | ✅ Complet |
 | MAINT | 0 | ✅ Complet |
 
-**Total** : 1 tâche optionnelle (~6h estimée)
+**Total** : 0 tâche restante - Design System complet ! 🎉
 
 ---
 
@@ -146,10 +146,11 @@
 **Ajouts post-publication** :
 - ds-input-number (stepper numérique CVA) - 55 tests + 14 stories
 - ds-segmented-control (boutons radio visuels) - 42 tests + 17 stories
+- ds-color-picker (sélecteur couleur complet) - 52 tests + 12 stories
 
 ---
 
 ## Prochaines étapes
 
-1. (Optionnel) Implémenter DsColorPicker - sélecteur de couleur (~6h)
-2. Publier v1.6.0 avec ds-input-number et ds-segmented-control
+1. Publier v1.6.0 avec les 3 nouveaux composants
+2. (Optionnel) Implémenter DsMentions ou DsBackTop

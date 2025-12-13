@@ -289,3 +289,11 @@ export {
   type SegmentedControlOrientation,
   type SegmentedControlColor,
 } from './ds-segmented-control/ds-segmented-control';
+
+export {
+  DsColorPicker,
+  type ColorPickerSize,
+  type ColorFormat,
+  type RGBColor,
+  type HSLColor,
+} from './ds-color-picker/ds-color-picker';

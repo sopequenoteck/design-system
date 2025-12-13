@@ -1,0 +1,258 @@
+// ============================================================================
+// DS-COLOR-PICKER-PANEL — Panel de sélection de couleur
+// ============================================================================
+
+.ds-color-picker-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 300px;
+  padding: var(--space-4);
+  background: var(--colorpicker-panel-bg, var(--background-main));
+  border: 1px solid var(--colorpicker-panel-border, var(--border-default));
+  border-radius: var(--colorpicker-panel-radius, var(--radius-2));
+  box-shadow: var(--colorpicker-panel-shadow, var(--shadow-3));
+}
+
+// === SPECTRE ===
+.ds-color-picker-panel__spectrum {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  border-radius: var(--radius-1);
+  overflow: hidden;
+  cursor: crosshair;
+  border: 1px solid var(--border-default);
+}
+
+.ds-color-picker-panel__spectrum-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ds-color-picker-panel__cursor {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+// === SLIDERS ===
+.ds-color-picker-panel__hue-slider,
+.ds-color-picker-panel__alpha-slider {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  border-radius: var(--radius-1);
+  overflow: hidden;
+}
+
+.ds-color-picker-panel__hue-slider {
+  background: linear-gradient(
+    to right,
+    #ff0000 0%,
+    #ffff00 16.66%,
+    #00ff00 33.33%,
+    #00ffff 50%,
+    #0000ff 66.66%,
+    #ff00ff 83.33%,
+    #ff0000 100%
+  );
+}
+
+.ds-color-picker-panel__alpha-slider {
+  .ds-color-picker-panel__alpha-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(45deg, #ccc 25%, transparent 25%),
+      linear-gradient(-45deg, #ccc 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ccc 75%),
+      linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 8px 8px;
+    background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+  }
+}
+
+.ds-color-picker-panel__slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 1;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &--alpha {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      currentColor 100%
+    );
+  }
+}
+
+// === INPUTS ===
+.ds-color-picker-panel__inputs {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.ds-color-picker-panel__input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.ds-color-picker-panel__label {
+  font-size: var(--font-size-1);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.ds-color-picker-panel__input {
+  width: 100%;
+  padding: var(--space-1) var(--space-2);
+  background: var(--colorpicker-input-bg, var(--background-main));
+  border: 1px solid var(--colorpicker-input-border, var(--border-default));
+  border-radius: var(--radius-1);
+  color: var(--colorpicker-input-text, var(--text-default));
+  font-size: var(--font-size-2);
+  font-family: monospace;
+  text-align: center;
+  outline: none;
+  transition: border-color var(--duration-fast, 0.15s) ease;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+
+  &:hover:not(:focus) {
+    border-color: var(--border-strong);
+  }
+
+  // Remove spinner for number inputs
+  &[type='number'] {
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+// === PRESETS ===
+.ds-color-picker-panel__presets,
+.ds-color-picker-panel__recent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ds-color-picker-panel__presets-label,
+.ds-color-picker-panel__recent-label {
+  font-size: var(--font-size-2);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.ds-color-picker-panel__presets-grid,
+.ds-color-picker-panel__recent-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: var(--space-2);
+}
+
+.ds-color-picker-panel__preset {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: currentColor;
+  border: 2px solid var(--colorpicker-preset-border, var(--border-default));
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  transition: transform var(--duration-fast, 0.15s) ease,
+              border-color var(--duration-fast, 0.15s) ease;
+
+  // Checkered background for transparency
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: currentColor;
+    border-radius: inherit;
+  }
+
+  &:hover:not(:disabled) {
+    transform: scale(1.1);
+    border-color: var(--color-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  &--selected {
+    border-color: var(--color-primary);
+    border-width: 3px;
+  }
+}
+
+.ds-color-picker-panel__preset-check {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  font-size: var(--font-size-2);
+  z-index: 1;
+}

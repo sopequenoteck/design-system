@@ -1,0 +1,203 @@
+// ============================================================================
+// DS-COLOR-PICKER — Composant de sélection de couleur
+// ============================================================================
+
+.ds-color-picker {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+}
+
+.ds-color-picker__trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--colorpicker-gap, var(--space-2));
+  width: 100%;
+  background: var(--colorpicker-bg, var(--background-main));
+  border: 1px solid var(--colorpicker-border, var(--border-default));
+  border-radius: var(--colorpicker-radius, var(--radius-2));
+  padding: var(--colorpicker-padding, var(--space-2));
+  cursor: pointer;
+  transition: border-color var(--duration-fast, 0.15s) ease,
+              box-shadow var(--duration-fast, 0.15s) ease;
+
+  &:hover:not([disabled]) {
+    border-color: var(--colorpicker-border-hover, var(--border-strong));
+  }
+}
+
+.ds-color-picker__preview {
+  flex-shrink: 0;
+  width: var(--colorpicker-preview-size, 28px);
+  height: var(--colorpicker-preview-size, 28px);
+  border: 2px solid var(--colorpicker-preview-border, var(--border-default));
+  border-radius: var(--radius-1);
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: currentColor;
+    border-radius: inherit;
+  }
+}
+
+.ds-color-picker__input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  color: var(--colorpicker-text, var(--text-default));
+  font-size: var(--colorpicker-font-size, var(--font-size-3));
+  outline: none;
+  cursor: pointer;
+
+  &::placeholder {
+    color: var(--colorpicker-placeholder, var(--text-muted));
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.ds-color-picker__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.ds-color-picker__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--colorpicker-action-size, 24px);
+  height: var(--colorpicker-action-size, 24px);
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-1);
+  color: var(--colorpicker-icon, var(--text-muted));
+  cursor: pointer;
+  transition: background-color var(--duration-fast, 0.15s) ease,
+              color var(--duration-fast, 0.15s) ease;
+
+  &:hover:not(:disabled) {
+    background: var(--colorpicker-action-hover-bg, var(--surface-hover));
+    color: var(--text-default);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--clear {
+    color: var(--colorpicker-clear-icon, var(--text-muted));
+
+    &:hover:not(:disabled) {
+      color: var(--error);
+    }
+  }
+}
+
+// === SIZES ===
+.ds-color-picker--sm {
+  .ds-color-picker__trigger {
+    padding: var(--colorpicker-padding-sm, var(--space-1) var(--space-2));
+    height: var(--colorpicker-height-sm, 32px);
+  }
+
+  .ds-color-picker__preview {
+    width: var(--colorpicker-preview-size-sm, 20px);
+    height: var(--colorpicker-preview-size-sm, 20px);
+  }
+
+  .ds-color-picker__input {
+    font-size: var(--colorpicker-font-size-sm, var(--font-size-2));
+  }
+
+  .ds-color-picker__action {
+    width: var(--colorpicker-action-size-sm, 20px);
+    height: var(--colorpicker-action-size-sm, 20px);
+    font-size: var(--font-size-2);
+  }
+}
+
+.ds-color-picker--md {
+  .ds-color-picker__trigger {
+    padding: var(--colorpicker-padding-md, var(--space-2));
+    height: var(--colorpicker-height-md, 40px);
+  }
+
+  .ds-color-picker__preview {
+    width: var(--colorpicker-preview-size-md, 28px);
+    height: var(--colorpicker-preview-size-md, 28px);
+  }
+
+  .ds-color-picker__input {
+    font-size: var(--colorpicker-font-size-md, var(--font-size-3));
+  }
+
+  .ds-color-picker__action {
+    width: var(--colorpicker-action-size-md, 24px);
+    height: var(--colorpicker-action-size-md, 24px);
+    font-size: var(--font-size-3);
+  }
+}
+
+.ds-color-picker--lg {
+  .ds-color-picker__trigger {
+    padding: var(--colorpicker-padding-lg, var(--space-3));
+    height: var(--colorpicker-height-lg, 48px);
+  }
+
+  .ds-color-picker__preview {
+    width: var(--colorpicker-preview-size-lg, 36px);
+    height: var(--colorpicker-preview-size-lg, 36px);
+  }
+
+  .ds-color-picker__input {
+    font-size: var(--colorpicker-font-size-lg, var(--font-size-4));
+  }
+
+  .ds-color-picker__action {
+    width: var(--colorpicker-action-size-lg, 28px);
+    height: var(--colorpicker-action-size-lg, 28px);
+    font-size: var(--font-size-4);
+  }
+}
+
+// === STATES ===
+.ds-color-picker--focused {
+  .ds-color-picker__trigger {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--colorpicker-focus-shadow, rgba(59, 130, 246, 0.25));
+  }
+}
+
+.ds-color-picker--open {
+  .ds-color-picker__trigger {
+    border-color: var(--color-primary);
+  }
+}
+
+.ds-color-picker--disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: not-allowed;
+}
