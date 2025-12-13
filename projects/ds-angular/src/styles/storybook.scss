@@ -8,12 +8,16 @@
 // ============================================================================
 
 // Import des tokens (variables CSS sur :root)
+// Note: @use doit toujours être en premier en SCSS
 @use './tokens/tokens';
 
 // Import des thèmes (variables sur :root.theme-light et :root.theme-dark)
 @use './themes/light';
 @use './themes/dark';
 @use './themes/custom';
+
+// Import des styles CDK Overlay (nécessaire pour modal, dropdown, tooltip, etc.)
+@import '@angular/cdk/overlay-prebuilt.css';
 
 :root,
 body {
@@ -42,4 +46,13 @@ body[data-density='comfortable'] {
   --btn-height-md: var(--btn-height-lg);
   --input-height-md: var(--input-height-lg);
   --space-4: var(--space-6);
+}
+
+// ============================================================================
+// CDK Overlay Panel Classes
+// ============================================================================
+// Ces styles sont globaux car les overlays CDK sont rendus au niveau du document
+
+.ds-time-picker-panel-overlay {
+  z-index: 1000;
 }

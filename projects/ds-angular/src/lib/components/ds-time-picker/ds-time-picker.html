@@ -2,6 +2,8 @@
   <div class="ds-time-picker__wrapper">
     <div
       #inputElement
+      #triggerOrigin="cdkOverlayOrigin"
+      cdkOverlayOrigin
       class="ds-time-picker__input"
       [class.ds-time-picker__input--disabled]="disabled()"
       [class.ds-time-picker__input--readonly]="readonly()"
@@ -34,3 +36,27 @@
     </div>
   </div>
 </div>
+
+<!-- Panel Overlay -->
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="triggerOrigin"
+  [cdkConnectedOverlayOpen]="isOpen()"
+  [cdkConnectedOverlayPositions]="overlayPositions"
+  [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+  [cdkConnectedOverlayPanelClass]="'ds-time-picker-panel-overlay'"
+  (backdropClick)="onBackdropClick()"
+  (overlayKeydown)="onOverlayKeydown($event)">
+
+  <ds-time-picker-panel
+    [value]="internalValue()"
+    [format]="format()"
+    [showSeconds]="showSeconds()"
+    [minuteStep]="minuteStep()"
+    [hourStep]="hourStep()"
+    [minTime]="minTime()"
+    [maxTime]="maxTime()"
+    (timeSelected)="onTimeSelected($event)">
+  </ds-time-picker-panel>
+</ng-template>

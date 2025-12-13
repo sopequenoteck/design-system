@@ -13,9 +13,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faClock, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { OverlayModule, OverlayRef, Overlay } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
+import { faClock } from '@fortawesome/free-solid-svg-icons';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedPosition } from '@angular/cdk/overlay';
 import { DsTimePickerPanelComponent } from './ds-time-picker-panel.component';
 
 export type TimePickerSize = 'sm' | 'md' | 'lg';
@@ -26,6 +25,24 @@ export interface TimeValue {
   minutes: number;
   seconds?: number;
 }
+
+/** Positions pour le panel overlay */
+const TIME_PICKER_POSITIONS: ConnectedPosition[] = [
+  {
+    originX: 'start',
+    originY: 'bottom',
+    overlayX: 'start',
+    overlayY: 'top',
+    offsetY: 4,
+  },
+  {
+    originX: 'start',
+    originY: 'top',
+    overlayX: 'start',
+    overlayY: 'bottom',
+    offsetY: -4,
+  },
+];
 
 /**
  * DsTimePicker - Composant de sélection d'heure
@@ -46,7 +63,13 @@ export interface TimeValue {
 @Component({
   selector: 'ds-time-picker',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, OverlayModule],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    CdkConnectedOverlay,
+    CdkOverlayOrigin,
+    DsTimePickerPanelComponent,
+  ],
   templateUrl: './ds-time-picker.html',
   styleUrl: './ds-time-picker.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,8 +82,8 @@ export interface TimeValue {
   ],
 })
 export class DsTimePicker implements ControlValueAccessor {
-  // ViewChild - référence à l'élément input pour le positionnement overlay
-  @ViewChild('inputElement') private inputElementRef!: ElementRef<HTMLElement>;
+  // ViewChild - référence à l'élément input pour le focus
+  @ViewChild('inputElement') inputElementRef?: ElementRef<HTMLElement>;
 
   // Inputs
   readonly value = input<string>('');
@@ -80,16 +103,14 @@ export class DsTimePicker implements ControlValueAccessor {
 
   // Icons
   readonly clockIcon = faClock;
-  readonly upIcon = faChevronUp;
-  readonly downIcon = faChevronDown;
+
+  // Overlay positions
+  readonly overlayPositions = TIME_PICKER_POSITIONS;
 
   // State
   readonly isOpen = signal(false);
   readonly internalValue = signal<string>('');
   readonly isFocused = signal(false);
-
-  // Overlay
-  private overlayRef: OverlayRef | null = null;
 
   // Computed
   readonly containerClasses = computed(() => {
@@ -118,7 +139,7 @@ export class DsTimePicker implements ControlValueAccessor {
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
-  constructor(private overlay: Overlay) {
+  constructor() {
     // Sync external value with internal
     effect(() => {
       const val = this.value();
@@ -156,16 +177,12 @@ export class DsTimePicker implements ControlValueAccessor {
 
   open(): void {
     if (this.isDisabled() || this.isOpen()) return;
-
     this.isOpen.set(true);
-    this.createOverlay();
   }
 
   close(): void {
     if (!this.isOpen()) return;
-
     this.isOpen.set(false);
-    this.destroyOverlay();
     this.onTouched();
   }
 
@@ -185,75 +202,24 @@ export class DsTimePicker implements ControlValueAccessor {
   onTimeSelected(timeString: string): void {
     this.updateValue(timeString);
     this.close();
+    this.inputElementRef?.nativeElement.focus();
+  }
+
+  onBackdropClick(): void {
+    this.close();
+  }
+
+  onOverlayKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      this.close();
+      this.inputElementRef?.nativeElement.focus();
+    }
   }
 
   private updateValue(value: string): void {
     this.internalValue.set(value);
     this.onChange(value);
     this.timeChange.emit(value);
-  }
-
-  private createOverlay(): void {
-    if (this.overlayRef || !this.inputElementRef) return;
-
-    const positionStrategy = this.overlay
-      .position()
-      .flexibleConnectedTo(this.inputElementRef.nativeElement)
-      .withPositions([
-        {
-          originX: 'start',
-          originY: 'bottom',
-          overlayX: 'start',
-          overlayY: 'top',
-          offsetY: 4,
-        },
-        {
-          originX: 'start',
-          originY: 'top',
-          overlayX: 'start',
-          overlayY: 'bottom',
-          offsetY: -4,
-        },
-      ]);
-
-    this.overlayRef = this.overlay.create({
-      positionStrategy,
-      hasBackdrop: true,
-      backdropClass: 'cdk-overlay-transparent-backdrop',
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
-    });
-
-    const portal = new ComponentPortal(DsTimePickerPanelComponent);
-    const componentRef = this.overlayRef.attach(portal);
-
-    // Pass config to panel
-    componentRef.instance.value = this.internalValue();
-    componentRef.instance.format = this.format();
-    componentRef.instance.showSeconds = this.showSeconds();
-    componentRef.instance.minuteStep = this.minuteStep();
-    componentRef.instance.hourStep = this.hourStep();
-    componentRef.instance.minTime = this.minTime();
-    componentRef.instance.maxTime = this.maxTime();
-    componentRef.instance.timeSelected.subscribe((time: string) => {
-      this.onTimeSelected(time);
-    });
-
-    this.overlayRef.backdropClick().subscribe(() => this.close());
-
-    // Fermer sur Escape dans le panel
-    this.overlayRef.keydownEvents().subscribe((event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        this.close();
-        this.inputElementRef.nativeElement.focus();
-      }
-    });
-  }
-
-  private destroyOverlay(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-      this.overlayRef = null;
-    }
   }
 
   private parseTime(timeString: string): TimeValue | null {
