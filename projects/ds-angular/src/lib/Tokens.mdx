@@ -446,3 +446,55 @@ Points de rupture pour le responsive design :
   }
 }
 ```
+
+---
+
+## Tokens composants
+
+### Input Number
+
+Tokens spécifiques au composant **DsInputNumber** :
+
+| Token | Description | Valeur par défaut |
+|-------|-------------|-------------------|
+| `--input-number-height-sm` | Hauteur input (small) | `32px` |
+| `--input-number-height-md` | Hauteur input (medium) | `40px` |
+| `--input-number-height-lg` | Hauteur input (large) | `48px` |
+| `--input-number-btn-size-sm` | Taille boutons (small) | `28px` |
+| `--input-number-btn-size-md` | Taille boutons (medium) | `36px` |
+| `--input-number-btn-size-lg` | Taille boutons (large) | `44px` |
+| `--input-number-btn-bg` | Couleur fond boutons | `var(--gray-100)` |
+| `--input-number-btn-hover` | Couleur hover boutons | `var(--gray-200)` |
+| `--input-number-btn-active` | Couleur active boutons | `var(--gray-300)` |
+| `--input-number-btn-disabled` | Couleur disabled boutons | `var(--gray-50)` |
+
+**Exemple d'utilisation :**
+
+<div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginTop: '16px', marginBottom: '32px' }}>
+  <div style={{
+    height: 'var(--input-number-height-sm)',
+    width: '160px',
+    background: 'var(--input-bg)',
+    border: '1px solid var(--input-border-color)',
+    borderRadius: 'var(--input-border-radius)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  }}>
+    <button style={{
+      width: 'var(--input-number-btn-size-sm)',
+      height: 'calc(var(--input-number-height-sm) - 2px)',
+      background: 'var(--input-number-btn-bg)',
+      border: 'none',
+      cursor: 'pointer'
+    }}>-</button>
+    <span style={{ fontSize: '14px' }}>Small</span>
+    <button style={{
+      width: 'var(--input-number-btn-size-sm)',
+      height: 'calc(var(--input-number-height-sm) - 2px)',
+      background: 'var(--input-number-btn-bg)',
+      border: 'none',
+      cursor: 'pointer'
+    }}>+</button>
+  </div>
+</div>

@@ -498,6 +498,21 @@ $file-upload-padding-sm: $space-6;
 $file-upload-padding-md: $space-8;
 $file-upload-padding-lg: $space-10;
 
+// === INPUT NUMBER ===
+
+$input-number-height-sm: 32px;
+$input-number-height-md: 40px;
+$input-number-height-lg: 48px;
+
+$input-number-btn-size-sm: 28px;
+$input-number-btn-size-md: 36px;
+$input-number-btn-size-lg: 44px;
+
+$input-number-btn-bg: $gray-100;
+$input-number-btn-hover: $gray-200;
+$input-number-btn-active: $gray-300;
+$input-number-btn-disabled: $gray-50;
+
 $file-upload-radius: $radius-2;
 $file-upload-file-radius: $radius-2;
 

@@ -275,3 +275,9 @@ export {
   type CalendarMode,
   type CalendarSize,
 } from './ds-calendar/ds-calendar';
+
+export {
+  DsInputNumber,
+  type InputNumberSize,
+  type InputNumberControlsPosition,
+} from './ds-input-number/ds-input-number';

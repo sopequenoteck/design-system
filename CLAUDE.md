@@ -80,7 +80,12 @@ projects/ds-angular/src/lib/
 │   ├── ds-drawer/
 │   ├── ds-time-picker/
 │   ├── ds-tree/
-│   └── ds-password-strength/
+│   ├── ds-password-strength/
+│   ├── ds-transfer/
+│   ├── ds-timeline/
+│   ├── ds-notification/
+│   ├── ds-calendar/
+│   └── ds-carousel/
 └── utils/           # Utilitaires partagés (overlay-positions, etc.)
 ```
 
@@ -401,7 +406,7 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Tokens sémantiques : empty (9), rating (6), drawer (8), time-picker (12), tree (8) tokens
 - ✅ Tokens thématiques : 5 composants ajoutés dans _light.scss et _dark.scss
 - ✅ Exports : DsEmpty, DsRating, DsDrawer, DsTimePicker, DsTree + 15 types dans index.ts
-- 📊 Design system complet : **39 composants DS** (33 SPRINT-001 + 5 utilitaires finaux + ds-password-strength)
+- 📊 Design system complet : **44 composants DS** (39 initiaux + ds-transfer, ds-timeline, ds-notification, ds-calendar, ds-carousel)
 
 ---
 
@@ -413,8 +418,9 @@ Package npm : `@kksdev/ds-angular@1.4.0`
 
 **Nouveautés v1.4.0 :**
 - `feat(components)`: DsEmpty, DsRating, DsDrawer, DsTimePicker, DsTree (5 composants utilitaires finaux)
-- `test(e2e)`: 450+ tests Playwright pour empty, rating, drawer, time-picker, tree
-- `test(unit)`: 1808 tests unitaires (99.6% succès), couverture 87.22% statements
+- `feat(components)`: DsTransfer, DsTimeline, DsNotification, DsCalendar, DsCarousel (5 composants avancés)
+- `test(e2e)`: 480+ tests Playwright pour 13+ composants
+- `test(unit)`: 2200+ tests unitaires, couverture ~87% statements
 - `docs`: DS_TODO.md mis à jour avec état complet
 
 ### v1.3.0 (2025-12-12)

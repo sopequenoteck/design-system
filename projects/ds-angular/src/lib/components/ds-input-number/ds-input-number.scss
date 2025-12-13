@@ -1,0 +1,232 @@
+.ds-input-number {
+  display: inline-flex;
+  align-items: stretch;
+  position: relative;
+  vertical-align: middle;
+  width: 100%;
+  max-width: 200px;
+}
+
+// === INPUT WRAPPER ===
+
+.ds-input-number__input-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  background-color: var(--input-bg, var(--gray-50));
+  border: 1px solid var(--input-border-color, var(--gray-300));
+  border-radius: var(--input-border-radius, var(--radius-2));
+  transition: all 0.2s ease;
+  overflow: hidden;
+
+  .ds-input-number--focused & {
+    border-color: var(--input-focus-border, var(--color-primary));
+    box-shadow: 0 0 0 3px var(--input-focus-ring, rgba(37, 99, 235, 0.1));
+  }
+
+  .ds-input-number--disabled & {
+    background-color: var(--input-bg-disabled, var(--gray-100));
+    border-color: var(--input-border-disabled, var(--gray-200));
+    cursor: not-allowed;
+  }
+
+  .ds-input-number--readonly & {
+    background-color: var(--input-bg-readonly, var(--gray-50));
+    border-color: var(--input-border-color, var(--gray-300));
+  }
+}
+
+.ds-input-number__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--input-text-color, var(--gray-900));
+  font-family: inherit;
+  text-align: center;
+  padding: 0 var(--space-2, 0.5rem);
+
+  &::placeholder {
+    color: var(--input-placeholder, var(--gray-500));
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--input-text-disabled, var(--gray-500));
+  }
+
+  .ds-input-number--readonly & {
+    cursor: default;
+  }
+
+  // Enlever les spinners natifs
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+// === PREFIX / SUFFIX ===
+
+.ds-input-number__prefix,
+.ds-input-number__suffix {
+  display: inline-flex;
+  align-items: center;
+  color: var(--input-placeholder, var(--gray-500));
+  font-size: inherit;
+  padding: 0 var(--space-2, 0.5rem);
+  user-select: none;
+}
+
+.ds-input-number__prefix {
+  padding-right: 0;
+}
+
+.ds-input-number__suffix {
+  padding-left: 0;
+}
+
+// === BUTTONS ===
+
+.ds-input-number__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: var(--input-number-btn-bg, var(--gray-100));
+  color: var(--input-text-color, var(--gray-900));
+  transition: all 0.15s ease;
+  user-select: none;
+
+  &:hover:not(:disabled) {
+    background-color: var(--input-number-btn-hover, var(--gray-200));
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--input-number-btn-active, var(--gray-300));
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--input-number-btn-disabled, var(--gray-50));
+    color: var(--input-text-disabled, var(--gray-400));
+  }
+
+  fa-icon {
+    font-size: 0.875em;
+  }
+}
+
+// === CONTROLS BOTH (gauche/droite) ===
+
+.ds-input-number--controls-both {
+  .ds-input-number__btn--decrement {
+    border-right: 1px solid var(--input-border-color, var(--gray-300));
+    border-top-left-radius: var(--input-border-radius, var(--radius-2));
+    border-bottom-left-radius: var(--input-border-radius, var(--radius-2));
+  }
+
+  .ds-input-number__btn--increment {
+    border-left: 1px solid var(--input-border-color, var(--gray-300));
+    border-top-right-radius: var(--input-border-radius, var(--radius-2));
+    border-bottom-right-radius: var(--input-border-radius, var(--radius-2));
+  }
+
+  .ds-input-number__input-wrapper {
+    border-radius: 0;
+  }
+}
+
+// === CONTROLS RIGHT (stack vertical) ===
+
+.ds-input-number--controls-right {
+  .ds-input-number__controls-right {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--input-border-color, var(--gray-300));
+  }
+
+  .ds-input-number__btn--increment-right,
+  .ds-input-number__btn--decrement-right {
+    flex: 1;
+    width: var(--input-number-btn-size-md, 24px);
+  }
+
+  .ds-input-number__btn--increment-right {
+    border-bottom: 1px solid var(--input-border-color, var(--gray-300));
+    border-top-right-radius: var(--input-border-radius, var(--radius-2));
+  }
+
+  .ds-input-number__btn--decrement-right {
+    border-bottom-right-radius: var(--input-border-radius, var(--radius-2));
+  }
+
+  .ds-input-number__input-wrapper {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+// === SIZES ===
+
+.ds-input-number--sm {
+  font-size: var(--font-size-sm, 0.875rem);
+
+  .ds-input-number__input-wrapper {
+    height: var(--input-number-height-sm, 32px);
+  }
+
+  .ds-input-number__btn {
+    width: var(--input-number-btn-size-sm, 28px);
+    height: var(--input-number-btn-size-sm, 28px);
+  }
+
+  &.ds-input-number--controls-right .ds-input-number__btn {
+    width: var(--input-number-btn-size-sm, 20px);
+    height: calc(var(--input-number-height-sm, 32px) / 2);
+  }
+}
+
+.ds-input-number--md {
+  font-size: var(--font-size-base, 1rem);
+
+  .ds-input-number__input-wrapper {
+    height: var(--input-number-height-md, 40px);
+  }
+
+  .ds-input-number__btn {
+    width: var(--input-number-btn-size-md, 36px);
+    height: var(--input-number-btn-size-md, 36px);
+  }
+
+  &.ds-input-number--controls-right .ds-input-number__btn {
+    width: var(--input-number-btn-size-md, 24px);
+    height: calc(var(--input-number-height-md, 40px) / 2);
+  }
+}
+
+.ds-input-number--lg {
+  font-size: var(--font-size-lg, 1.125rem);
+
+  .ds-input-number__input-wrapper {
+    height: var(--input-number-height-lg, 48px);
+  }
+
+  .ds-input-number__btn {
+    width: var(--input-number-btn-size-lg, 44px);
+    height: var(--input-number-btn-size-lg, 44px);
+  }
+
+  &.ds-input-number--controls-right .ds-input-number__btn {
+    width: var(--input-number-btn-size-lg, 28px);
+    height: calc(var(--input-number-height-lg, 48px) / 2);
+  }
+}

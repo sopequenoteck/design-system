@@ -593,6 +593,18 @@
   --chip-remove-icon-size-lg: #{$chip-remove-icon-size-lg};
   --chip-border-radius: #{$chip-border-radius};
 
+  /* === INPUT NUMBER === */
+  --input-number-height-sm: #{$input-number-height-sm};
+  --input-number-height-md: #{$input-number-height-md};
+  --input-number-height-lg: #{$input-number-height-lg};
+  --input-number-btn-size-sm: #{$input-number-btn-size-sm};
+  --input-number-btn-size-md: #{$input-number-btn-size-md};
+  --input-number-btn-size-lg: #{$input-number-btn-size-lg};
+  --input-number-btn-bg: #{$input-number-btn-bg};
+  --input-number-btn-hover: #{$input-number-btn-hover};
+  --input-number-btn-active: #{$input-number-btn-active};
+  --input-number-btn-disabled: #{$input-number-btn-disabled};
+
   /* === EMPTY === */
   --empty-padding-sm: #{$empty-padding-sm};
   --empty-padding-md: #{$empty-padding-md};

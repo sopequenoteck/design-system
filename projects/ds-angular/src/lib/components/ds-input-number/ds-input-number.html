@@ -1,0 +1,89 @@
+<div [class]="containerClasses()">
+  <!-- Bouton décrémentation (position both) -->
+  @if (showControls() && controlsOnBoth()) {
+    <button
+      type="button"
+      class="ds-input-number__btn ds-input-number__btn--decrement"
+      [disabled]="!canDecrement()"
+      (click)="decrement()"
+      [attr.aria-label]="'Decrement value'"
+      tabindex="-1"
+    >
+      <fa-icon [icon]="faMinus" />
+    </button>
+  }
+
+  <!-- Wrapper pour input + prefix/suffix -->
+  <div class="ds-input-number__input-wrapper">
+    @if (prefix()) {
+      <span class="ds-input-number__prefix">{{ prefix() }}</span>
+    }
+
+    <input
+      #inputElement
+      type="text"
+      class="ds-input-number__input"
+      [id]="id()"
+      [name]="name()"
+      [value]="displayValue()"
+      [placeholder]="placeholder()"
+      [disabled]="isDisabled()"
+      [readonly]="isReadonly()"
+      [required]="required()"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-valuemin]="ariaValueMin()"
+      [attr.aria-valuemax]="ariaValueMax()"
+      [attr.aria-valuenow]="ariaValueNow()"
+      [attr.aria-valuetext]="ariaValueText()"
+      role="spinbutton"
+      (input)="onInputChange($event)"
+      (blur)="onInputBlur()"
+      (focus)="onInputFocus()"
+      (keydown)="onKeyDown($event)"
+    />
+
+    @if (suffix()) {
+      <span class="ds-input-number__suffix">{{ suffix() }}</span>
+    }
+  </div>
+
+  <!-- Boutons position right -->
+  @if (showControls() && controlsOnRight()) {
+    <div class="ds-input-number__controls-right">
+      <button
+        type="button"
+        class="ds-input-number__btn ds-input-number__btn--increment-right"
+        [disabled]="!canIncrement()"
+        (click)="increment()"
+        [attr.aria-label]="'Increment value'"
+        tabindex="-1"
+      >
+        <fa-icon [icon]="faPlus" />
+      </button>
+      <button
+        type="button"
+        class="ds-input-number__btn ds-input-number__btn--decrement-right"
+        [disabled]="!canDecrement()"
+        (click)="decrement()"
+        [attr.aria-label]="'Decrement value'"
+        tabindex="-1"
+      >
+        <fa-icon [icon]="faMinus" />
+      </button>
+    </div>
+  }
+
+  <!-- Bouton incrémentation (position both) -->
+  @if (showControls() && controlsOnBoth()) {
+    <button
+      type="button"
+      class="ds-input-number__btn ds-input-number__btn--increment"
+      [disabled]="!canIncrement()"
+      (click)="increment()"
+      [attr.aria-label]="'Increment value'"
+      tabindex="-1"
+    >
+      <fa-icon [icon]="faPlus" />
+    </button>
+  }
+</div>

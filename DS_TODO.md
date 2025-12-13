@@ -1,7 +1,7 @@
 # DS_TODO - Design System Tasks
 
 > Généré automatiquement par `/orchestrator-ds`
-> Dernière mise à jour : 2025-12-12
+> Dernière mise à jour : 2025-12-13
 
 ---
 
@@ -9,11 +9,11 @@
 
 | Métrique | Valeur |
 |----------|--------|
-| Composants DS | 44 |
+| Composants DS | 45 |
 | Primitives | 7 |
 | Stories | 51+ |
 | Tests unitaires | 2200+ |
-| Tests e2e | 480+ |
+| Tests e2e | 710+ |
 | Couverture | ~87% statements |
 
 ---
@@ -33,19 +33,19 @@
 
 ## Composants
 
-- [x] [COMP] 39/39 composants DS initiaux | ✅ Complet
-- [x] [COMP] ds-password-strength (indicateur force mot de passe) | ✅ Complet
-- [x] [COMP] ds-transfer (transfert items entre listes) | ✅ Complet
-- [x] [COMP] ds-timeline (événements chronologiques) | ✅ Complet
-- [x] [COMP] ds-notification (centre notifications) | ✅ Complet
-- [x] [COMP] ds-calendar (vue calendrier mensuelle) | ✅ Complet
-- [x] [COMP] ds-carousel (défilement images) | ✅ Complet
+- [x] [COMP] 44/44 composants DS | ✅ Complet
+- [x] [COMP] ds-password-strength | ✅ Complet
+- [x] [COMP] ds-transfer | ✅ Complet
+- [x] [COMP] ds-timeline | ✅ Complet
+- [x] [COMP] ds-notification | ✅ Complet
+- [x] [COMP] ds-calendar | ✅ Complet
+- [x] [COMP] ds-carousel | ✅ Complet
 
 ---
 
 ## Stories
 
-- [x] [STORY] Stories 39 composants initiaux | ✅ Complet
+- [x] [STORY] Stories 44 composants DS | ✅ Complet
 - [x] [STORY] 8 stories ds-password-strength | ✅ Complet
 - [x] [STORY] 14 stories ds-transfer | ✅ Complet
 - [x] [STORY] 13 stories ds-timeline | ✅ Complet
@@ -67,14 +67,31 @@
 ## Maintenance
 
 - [x] [MAINT] Vérifier couverture tests ≥80% | ✅ ~87% statements
-- [x] [MAINT] Version 1.4.0 dans package.json | ✅ Complet
-- [x] [MAINT] Build bibliothèque | ✅ Succès (2901ms)
-- [x] [MAINT] Publication npm v1.4.0 | ✅ Publié
-- [x] [MAINT] Mettre à jour CLAUDE.md | ✅ Complet
+- [x] [MAINT] Synchronisation CLAUDE.md | ✅ Complet (44 composants documentés)
+- [x] [MAINT] Publication npm v1.5.0 | ✅ Publié @kksdev/ds-angular@1.5.0
+- [x] [MAINT] Tests e2e nouveaux composants (transfer, calendar, carousel, notification) | ✅ ~230 tests créés
 
 ---
 
-## Tests e2e Playwright (13+ composants couverts)
+## Nouveaux composants (vs Material/Ant Design)
+
+| Composant | Priorité | Description | Estimation |
+|-----------|----------|-------------|------------|
+| DsInputNumber | Haute | Input numérique avec stepper +/- | ~4h |
+| DsSegmentedControl | Moyenne | Boutons radio groupés visuels | ~3h |
+| DsColorPicker | Moyenne | Sélecteur de couleur | ~6h |
+| DsMentions | Basse | Input avec @mentions autocomplete | ~8h |
+| DsBackTop | Basse | Bouton retour en haut | ~2h |
+
+### Tâches proposées
+
+- [x] [NEW] DsInputNumber - Input numérique avec boutons +/- | ✅ 55 tests + 14 stories
+- [ ] [NEW] DsSegmentedControl - Boutons radio en groupe visuel | `ds-segmented-control/` | Moyenne | ~3h
+- [ ] [NEW] DsColorPicker - Sélecteur de couleur | `ds-color-picker/` | Moyenne | ~6h
+
+---
+
+## Tests e2e Playwright (17 composants couverts)
 
 | Composant | Tests | Status |
 |-----------|-------|--------|
@@ -91,42 +108,45 @@
 | time-picker | ~95 | ✅ |
 | tree | ~100 | ✅ |
 | password-strength | ~30 | ✅ |
+| transfer | ~55 | ✅ |
+| calendar | ~60 | ✅ |
+| carousel | ~60 | ✅ |
+| notification | ~55 | ✅ |
 
 ---
 
 ## Résumé
 
-| Catégorie | Tâches | Status |
-|-----------|--------|--------|
+| Catégorie | Tâches restantes | Status |
+|-----------|------------------|--------|
 | TOKEN | 0 | ✅ Complet |
 | COMP | 0 | ✅ Complet |
 | STORY | 0 | ✅ Complet |
 | DOC | 0 | ✅ Complet |
-| NEW | 0 | ✅ Complet |
+| NEW | 2 | 🔄 Optionnel |
 | MAINT | 0 | ✅ Complet |
 
-**🎉 Toutes les tâches sont terminées !**
+**Total** : 2 tâches optionnelles (~9h estimées)
 
 ---
 
-## Nouveaux composants créés (session 2025-12-12)
+## Notes de version
 
-| Composant | Description | Tests | Stories |
-|-----------|-------------|-------|---------|
-| ds-password-strength | Indicateur force mot de passe | 68 | 8 |
-| ds-transfer | Transfert items entre listes | 115+ | 14 |
-| ds-timeline | Événements chronologiques | 60+ | 13 |
-| ds-notification | Centre notifications persistantes | 160+ | 11 |
-| ds-calendar | Vue calendrier mensuelle | 96 | 17 |
-| ds-carousel | Défilement images/contenus | 47 | 20 |
+### v1.5.0 (2025-12-13) ✅ Publié
 
-**Total** : 6 nouveaux composants, 546+ tests, 83 stories
+**Composants ajoutés depuis v1.4.0** :
+- ds-transfer (transfert items entre listes)
+- ds-timeline (événements chronologiques)
+- ds-notification (centre notifications)
+- ds-calendar (vue calendrier mensuelle)
+- ds-carousel (défilement images)
+
+**Total** : 44 composants DS, 7 primitives, 2200+ tests, 87% couverture
 
 ---
 
-## Notes v1.5.0 (à publier)
+## Prochaines étapes
 
-- **v1.4.0** : 38 composants + ds-password-strength
-- **+6 composants** : transfer, timeline, notification, calendar, carousel
-- **+3 fichiers MDX** : Accessibility, Testing, Contributing
-- **Total** : 44 composants DS, 2200+ tests, 87% couverture
+1. Exécuter `/ds-todo-next-task` pour traiter les tâches une par une
+2. Publier v1.5.0 avec les 6 nouveaux composants
+3. (Optionnel) Implémenter DsInputNumber pour compléter les formulaires
