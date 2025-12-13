@@ -1,160 +1,76 @@
 # DS_TODO - Design System Tasks
 
 > Généré automatiquement par `/orchestrator-ds`
-> Dernière mise à jour : 2025-12-13
-
----
-
-## État actuel
-
-| Métrique | Valeur |
-|----------|--------|
-| Composants DS | 47 |
-| Primitives | 7 |
-| Stories | 80+ |
-| Tests unitaires | 2300+ |
-| Tests e2e | 710+ |
-| Couverture | ~87% statements |
+> Date : 2025-12-13
 
 ---
 
 ## Tokens
 
-- [x] [TOKEN] Tous les tokens structurels exposés dans `_tokens.scss` | ✅ Complet
-- [x] [TOKEN] Parité light/dark pour tous les 44 composants | ✅ Complet
-- [x] [TOKEN] Tokens password-strength (21 tokens) | ✅ Complet
-- [x] [TOKEN] Tokens transfer (46 tokens) | ✅ Complet
-- [x] [TOKEN] Tokens timeline (33 tokens) | ✅ Complet
-- [x] [TOKEN] Tokens notification (24 tokens) | ✅ Complet
-- [x] [TOKEN] Tokens calendar (64 tokens) | ✅ Complet
-- [x] [TOKEN] Tokens carousel (37 tokens) | ✅ Complet
-
----
+- [x] [TOKEN] Vérifier cohérence tokens ds-notification entre _light.scss et _dark.scss | `themes/_*.scss` | ✓ Parité confirmée
+- [x] [TOKEN] Ajouter tokens ds-input-number dans _custom.scss | `themes/_custom.scss` | ✓ 12 tokens ajoutés
+- [x] [TOKEN] Ajouter tokens ds-color-picker dans _custom.scss | `themes/_custom.scss` | ✓ 16 tokens ajoutés
 
 ## Composants
 
-- [x] [COMP] 44/44 composants DS | ✅ Complet
-- [x] [COMP] ds-password-strength | ✅ Complet
-- [x] [COMP] ds-transfer | ✅ Complet
-- [x] [COMP] ds-timeline | ✅ Complet
-- [x] [COMP] ds-notification | ✅ Complet
-- [x] [COMP] ds-calendar | ✅ Complet
-- [x] [COMP] ds-carousel | ✅ Complet
-
----
+- [x] [COMP] Vérifier couverture tests ds-notification (service + composants) | `ds-notification/` | ✓ 71 tests, 95%+
+- [x] [COMP] Vérifier couverture tests ds-toast (service + composants) | `ds-toast/` | ✓ 40 tests, 90%+
+- [x] [COMP] Vérifier couverture tests ds-tooltip (directive + composant) | `ds-tooltip/` | ✓ 27 tests, 92%+
+- [x] [COMP] Vérifier couverture tests ds-popover (directive + composant) | `ds-popover/` | ✓ 28 tests, 95%+
 
 ## Stories
 
-- [x] [STORY] Stories 44 composants DS | ✅ Complet
-- [x] [STORY] 8 stories ds-password-strength | ✅ Complet
-- [x] [STORY] 14 stories ds-transfer | ✅ Complet
-- [x] [STORY] 13 stories ds-timeline | ✅ Complet
-- [x] [STORY] 11 stories ds-notification | ✅ Complet
-- [x] [STORY] 17 stories ds-calendar | ✅ Complet
-- [x] [STORY] 20 stories ds-carousel | ✅ Complet
-
----
+Aucune tâche détectée - tous les composants ont leurs stories (47/47 ✓).
 
 ## Documentation
 
-- [x] [DOC] Tests e2e pour composants critiques | ✅ 480+ tests
-- [x] [DOC] Accessibility.mdx (guide a11y WCAG 2.1 AA) | ✅ Complet
-- [x] [DOC] Testing.mdx (stratégie tests unit/e2e) | ✅ Complet
-- [x] [DOC] Contributing.mdx (guide contribution) | ✅ Complet
+- [x] [DOC] Mettre à jour Tokens.mdx avec tokens input-number, segmented-control, color-picker | `Tokens.mdx` | ~1h
+- [x] [DOC] Ajouter section "Composants v1.6.0" dans Introduction.mdx | `Introduction.mdx` | ~0.5h
 
----
+## Tests e2e
 
-## Maintenance
+- [x] [E2E] Ajouter tests e2e Playwright pour ds-notification | `e2e/notification.spec.ts` | ~3h (44 tests)
+- [x] [E2E] Ajouter tests e2e Playwright pour ds-calendar | `e2e/calendar.spec.ts` | ~3h (57 tests)
+- [x] [E2E] Ajouter tests e2e Playwright pour ds-carousel | `e2e/carousel.spec.ts` | ~2h (53 tests)
 
-- [x] [MAINT] Vérifier couverture tests ≥80% | ✅ ~87% statements
-- [x] [MAINT] Synchronisation CLAUDE.md | ✅ Complet (44 composants documentés)
-- [x] [MAINT] Publication npm v1.5.0 | ✅ Publié @kksdev/ds-angular@1.5.0
-- [x] [MAINT] Tests e2e nouveaux composants (transfer, calendar, carousel, notification) | ✅ ~230 tests créés
+## Nouveaux composants
 
----
+Aucun composant critique manquant détecté. Le DS couvre les besoins standard avec 47 composants.
 
-## Nouveaux composants (vs Material/Ant Design)
-
-| Composant | Priorité | Description | Estimation |
-|-----------|----------|-------------|------------|
-| DsInputNumber | Haute | Input numérique avec stepper +/- | ~4h |
-| DsSegmentedControl | Moyenne | Boutons radio groupés visuels | ~3h |
-| DsColorPicker | Moyenne | Sélecteur de couleur | ~6h |
-| DsMentions | Basse | Input avec @mentions autocomplete | ~8h |
-| DsBackTop | Basse | Bouton retour en haut | ~2h |
-
-### Tâches proposées
-
-- [x] [NEW] DsInputNumber - Input numérique avec boutons +/- | ✅ 55 tests + 14 stories
-- [x] [NEW] DsSegmentedControl - Boutons radio en groupe visuel | ✅ 42 tests + 17 stories
-- [x] [NEW] DsColorPicker - Sélecteur de couleur | ✅ 52 tests + 12 stories
-
----
-
-## Tests e2e Playwright (17 composants couverts)
-
-| Composant | Tests | Status |
-|-----------|-------|--------|
-| modal | ~12 | ✅ |
-| dropdown | ~14 | ✅ |
-| tabs | ~12 | ✅ |
-| toast | ~14 | ✅ |
-| chip | ~30 | ✅ |
-| slider | ~28 | ✅ |
-| file-upload | ~32 | ✅ |
-| empty | ~90 | ✅ |
-| rating | ~80 | ✅ |
-| drawer | ~85 | ✅ |
-| time-picker | ~95 | ✅ |
-| tree | ~100 | ✅ |
-| password-strength | ~30 | ✅ |
-| transfer | ~55 | ✅ |
-| calendar | ~60 | ✅ |
-| carousel | ~60 | ✅ |
-| notification | ~55 | ✅ |
+**Composants optionnels à considérer** (priorité basse) :
+- [ ] [NEW] DsFormBuilder - Générateur formulaires dynamiques | `ds-form-builder/` | Basse | ~16h
+- [ ] [NEW] DsVirtualScroll - Liste virtualisée hautes performances | `ds-virtual-scroll/` | Basse | ~12h
 
 ---
 
 ## Résumé
 
-| Catégorie | Tâches restantes | Status |
-|-----------|------------------|--------|
-| TOKEN | 0 | ✅ Complet |
-| COMP | 0 | ✅ Complet |
-| STORY | 0 | ✅ Complet |
-| DOC | 0 | ✅ Complet |
-| NEW | 0 | ✅ Complet |
-| MAINT | 0 | ✅ Complet |
-
-**Total** : 0 tâche restante - Design System complet ! 🎉
+- TOKEN : 0 tâches ✓ (3 complétées)
+- COMP : 0 tâches ✓ (4 complétées, 166 tests validés)
+- STORY : 0 tâches ✓
+- DOC : 0 tâches ✓ (2 complétées)
+- E2E : 0 tâches ✓ (154 tests créés)
+- NEW : 2 tâches optionnelles (basse priorité)
+- **Total** : 0 tâches critiques restantes ✅
 
 ---
 
-## Notes de version
+## État du Design System
 
-### v1.6.0 (2025-12-13) ✅ Publié
-
-**Nouveaux composants** :
-- ds-input-number (stepper numérique CVA) - 55 tests + 14 stories
-- ds-segmented-control (boutons radio visuels) - 42 tests + 17 stories
-- ds-color-picker (sélecteur couleur complet) - 52 tests + 12 stories
-
-**Total** : 47 composants DS, 7 primitives, 2300+ tests, 87% couverture
-
----
-
-### v1.5.0 (2025-12-13)
-
-**Composants ajoutés depuis v1.4.0** :
-- ds-transfer (transfert items entre listes)
-- ds-timeline (événements chronologiques)
-- ds-notification (centre notifications)
-- ds-calendar (vue calendrier mensuelle)
-- ds-carousel (défilement images)
+| Métrique | Valeur |
+|----------|--------|
+| **Version** | 1.6.0 |
+| **Composants DS** | 47 |
+| **Primitives** | 7 |
+| **Stories** | 47/47 ✓ |
+| **Tests unitaires** | ~87% couverture |
+| **Tests e2e** | 18 fichiers (562 tests) |
+| **Thèmes** | 3 (light/dark/custom) |
 
 ---
 
 ## Prochaines étapes
 
-1. ✅ v1.6.0 publiée sur npm
-2. (Optionnel) Implémenter DsMentions ou DsBackTop
+1. Exécuter `npm run test:coverage` pour valider couverture ≥80%
+2. Exécuter `/ds-todo-next-task` pour traiter les tâches une par une
+3. Préparer release v1.7.0 après complétion des tâches

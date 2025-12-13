@@ -46,7 +46,92 @@ export class MyComponent {
 }
 ```
 
+## Composants v1.6.0
+
+La version 1.6.0 introduit 3 nouveaux composants :
+
+### DsInputNumber
+
+Champ de saisie numérique avec boutons d'incrémentation/décrémentation :
+
+```typescript
+import { DsInputNumber } from '@kksdev/ds-angular';
+
+@Component({
+  standalone: true,
+  imports: [DsInputNumber],
+  template: `
+    <ds-input-number
+      [(ngModel)]="quantity"
+      [min]="0"
+      [max]="100"
+      [step]="1"
+      size="md"
+      label="Quantité"
+    />
+  `
+})
+export class MyComponent {
+  quantity = 0;
+}
+```
+
+### DsSegmentedControl
+
+Groupe de boutons radio visuels pour sélection exclusive :
+
+```typescript
+import { DsSegmentedControl } from '@kksdev/ds-angular';
+
+@Component({
+  standalone: true,
+  imports: [DsSegmentedControl],
+  template: `
+    <ds-segmented-control
+      [(ngModel)]="view"
+      [options]="viewOptions"
+      size="md"
+    />
+  `
+})
+export class MyComponent {
+  view = 'grid';
+  viewOptions = [
+    { value: 'grid', label: 'Grille', icon: 'grid' },
+    { value: 'list', label: 'Liste', icon: 'list' },
+    { value: 'table', label: 'Tableau', icon: 'table' }
+  ];
+}
+```
+
+### DsColorPicker
+
+Sélecteur de couleur complet avec palette, sliders et presets :
+
+```typescript
+import { DsColorPicker } from '@kksdev/ds-angular';
+
+@Component({
+  standalone: true,
+  imports: [DsColorPicker],
+  template: `
+    <ds-color-picker
+      [(ngModel)]="color"
+      [showAlpha]="true"
+      [presets]="colorPresets"
+      size="md"
+    />
+  `
+})
+export class MyComponent {
+  color = '#3b82f6';
+  colorPresets = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+}
+```
+
+---
+
 ## Ressources
 
 - **Tokens** : Variables CSS disponibles dans l'onglet "Tokens"
-- **Composants** : Explorez la sidebar pour voir tous les composants
+- **Composants** : Explorez la sidebar pour voir tous les 47 composants disponibles

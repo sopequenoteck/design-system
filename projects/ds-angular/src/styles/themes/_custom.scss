@@ -686,5 +686,62 @@
   --file-upload-file-border: var(--border-subtle);
   --file-upload-file-bg: var(--surface-default);
   --file-upload-file-bg-hover: var(--surface-hover);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS INPUT NUMBER
+   * ======================================================================== */
+  --input-number-bg: var(--surface-default);
+  --input-number-text: var(--text-default);
+  --input-number-border: var(--border-color);
+  --input-number-placeholder: var(--text-muted);
+  --input-number-hover-border: var(--border-strong);
+  --input-number-focus-border: var(--role-primary);
+  --input-number-focus-shadow: 0 0 0 3px color-mix(in oklab, var(--role-primary) 25%, transparent);
+  --input-number-disabled-bg: var(--bg-disabled);
+  --input-number-disabled-text: var(--text-disabled);
+  --input-number-btn-bg: var(--surface-raised);
+  --input-number-btn-hover-bg: var(--surface-hover);
+  --input-number-btn-disabled-bg: var(--bg-disabled);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS SEGMENTED CONTROL
+   * ======================================================================== */
+  --segmented-bg: var(--surface-default);
+  --segmented-text: var(--text-default);
+  --segmented-border-color: var(--border-subtle);
+  --segmented-hover-bg: color-mix(in oklab, var(--role-primary) 5%, transparent);
+
+  /* Primary color variant */
+  --segmented-active-bg-primary: var(--role-primary);
+  --segmented-active-text-primary: var(--gray-50);
+
+  /* Neutral color variant */
+  --segmented-active-bg-neutral: var(--surface-raised);
+  --segmented-active-text-neutral: var(--text-default);
+
+  /* Active state (generic, deprecated) */
+  --segmented-active-bg: var(--segmented-active-bg-primary);
+  --segmented-active-text: var(--segmented-active-text-primary);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS COLOR PICKER
+   * ======================================================================== */
+  --colorpicker-bg: var(--surface-default);
+  --colorpicker-border: var(--border-color);
+  --colorpicker-border-hover: var(--border-strong);
+  --colorpicker-text: var(--text-default);
+  --colorpicker-placeholder: var(--text-muted);
+  --colorpicker-icon: var(--text-muted);
+  --colorpicker-clear-icon: var(--text-muted);
+  --colorpicker-preview-border: var(--border-color);
+  --colorpicker-action-hover-bg: var(--surface-hover);
+  --colorpicker-focus-shadow: color-mix(in oklab, var(--role-primary) 25%, transparent);
+
+  --colorpicker-panel-bg: var(--surface-default);
+  --colorpicker-panel-border: var(--border-color);
+  --colorpicker-input-bg: var(--surface-raised);
+  --colorpicker-input-border: var(--border-color);
+  --colorpicker-input-text: var(--text-default);
+  --colorpicker-preset-border: var(--border-color);
 }
 

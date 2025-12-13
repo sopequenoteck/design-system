@@ -449,7 +449,7 @@ Points de rupture pour le responsive design :
 
 ---
 
-## Tokens composants
+## Tokens composants v1.6.0
 
 ### Input Number
 
@@ -467,8 +467,10 @@ Tokens spécifiques au composant **DsInputNumber** :
 | `--input-number-btn-hover` | Couleur hover boutons | `var(--gray-200)` |
 | `--input-number-btn-active` | Couleur active boutons | `var(--gray-300)` |
 | `--input-number-btn-disabled` | Couleur disabled boutons | `var(--gray-50)` |
+| `--input-number-border` | Bordure input | `1px solid var(--border-color)` |
+| `--input-number-focus-border` | Bordure focus input | `1px solid var(--color-primary)` |
 
-**Exemple d'utilisation :**
+**Exemple visuel :**
 
 <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginTop: '16px', marginBottom: '32px' }}>
   <div style={{
@@ -496,5 +498,177 @@ Tokens spécifiques au composant **DsInputNumber** :
       border: 'none',
       cursor: 'pointer'
     }}>+</button>
+  </div>
+</div>
+
+---
+
+### Segmented Control
+
+Tokens spécifiques au composant **DsSegmentedControl** :
+
+| Token | Description | Valeur par défaut |
+|-------|-------------|-------------------|
+| `--segmented-control-height-sm` | Hauteur control (small) | `32px` |
+| `--segmented-control-height-md` | Hauteur control (medium) | `40px` |
+| `--segmented-control-height-lg` | Hauteur control (large) | `48px` |
+| `--segmented-control-padding-sm` | Padding option (small) | `var(--space-2) var(--space-3)` |
+| `--segmented-control-padding-md` | Padding option (medium) | `var(--space-3) var(--space-4)` |
+| `--segmented-control-padding-lg` | Padding option (large) | `var(--space-4) var(--space-6)` |
+| `--segmented-control-bg` | Couleur fond control | `var(--gray-100)` |
+| `--segmented-control-border` | Bordure control | `1px solid var(--border-color)` |
+| `--segmented-control-radius` | Border radius control | `var(--radius-2)` |
+| `--segmented-control-option-bg` | Couleur fond option | `transparent` |
+| `--segmented-control-option-hover-bg` | Couleur hover option | `var(--gray-200)` |
+| `--segmented-control-option-selected-bg` | Couleur selected option | `var(--background-main)` |
+| `--segmented-control-option-selected-shadow` | Ombre option sélectionnée | `var(--shadow-1)` |
+| `--segmented-control-option-text` | Couleur texte option | `var(--text-default)` |
+| `--segmented-control-option-selected-text` | Couleur texte sélectionné | `var(--color-primary)` |
+| `--segmented-control-option-disabled-text` | Couleur texte disabled | `var(--text-muted)` |
+| `--segmented-control-transition` | Durée transition | `150ms ease` |
+| `--segmented-control-gap` | Espace entre options | `4px` |
+
+**Exemple visuel :**
+
+<div style={{
+  display: 'inline-flex',
+  height: 'var(--segmented-control-height-md)',
+  background: 'var(--segmented-control-bg)',
+  border: 'var(--segmented-control-border)',
+  borderRadius: 'var(--segmented-control-radius)',
+  padding: 'var(--segmented-control-gap)',
+  gap: 'var(--segmented-control-gap)',
+  marginBottom: '32px'
+}}>
+  <div style={{
+    padding: 'var(--segmented-control-padding-md)',
+    background: 'var(--segmented-control-option-selected-bg)',
+    color: 'var(--segmented-control-option-selected-text)',
+    borderRadius: 'calc(var(--segmented-control-radius) - 2px)',
+    boxShadow: 'var(--segmented-control-option-selected-shadow)',
+    fontWeight: '500',
+    fontSize: '14px',
+    display: 'flex',
+    alignItems: 'center'
+  }}>Option 1</div>
+  <div style={{
+    padding: 'var(--segmented-control-padding-md)',
+    background: 'var(--segmented-control-option-bg)',
+    color: 'var(--segmented-control-option-text)',
+    borderRadius: 'calc(var(--segmented-control-radius) - 2px)',
+    fontSize: '14px',
+    display: 'flex',
+    alignItems: 'center'
+  }}>Option 2</div>
+  <div style={{
+    padding: 'var(--segmented-control-padding-md)',
+    background: 'var(--segmented-control-option-bg)',
+    color: 'var(--segmented-control-option-text)',
+    borderRadius: 'calc(var(--segmented-control-radius) - 2px)',
+    fontSize: '14px',
+    display: 'flex',
+    alignItems: 'center'
+  }}>Option 3</div>
+</div>
+
+---
+
+### Color Picker
+
+Tokens spécifiques au composant **DsColorPicker** :
+
+| Token | Description | Valeur par défaut |
+|-------|-------------|-------------------|
+| `--color-picker-panel-width` | Largeur panneau | `280px` |
+| `--color-picker-panel-bg` | Couleur fond panneau | `var(--background-main)` |
+| `--color-picker-panel-border` | Bordure panneau | `1px solid var(--border-color)` |
+| `--color-picker-panel-radius` | Border radius panneau | `var(--radius-2)` |
+| `--color-picker-panel-shadow` | Ombre panneau | `var(--shadow-3)` |
+| `--color-picker-swatch-size-sm` | Taille swatch (small) | `32px` |
+| `--color-picker-swatch-size-md` | Taille swatch (medium) | `40px` |
+| `--color-picker-swatch-size-lg` | Taille swatch (large) | `48px` |
+| `--color-picker-swatch-border` | Bordure swatch | `2px solid var(--border-color)` |
+| `--color-picker-swatch-radius` | Border radius swatch | `var(--radius-1)` |
+| `--color-picker-palette-size` | Taille palette colorée | `200px` |
+| `--color-picker-slider-height` | Hauteur sliders | `12px` |
+| `--color-picker-slider-radius` | Border radius sliders | `var(--radius-1)` |
+| `--color-picker-slider-thumb-size` | Taille thumb slider | `16px` |
+| `--color-picker-preset-size` | Taille preset couleur | `28px` |
+| `--color-picker-preset-gap` | Espacement presets | `8px` |
+| `--color-picker-input-height` | Hauteur input HEX/RGB | `32px` |
+| `--color-picker-input-bg` | Couleur fond input | `var(--input-bg)` |
+| `--color-picker-input-border` | Bordure input | `1px solid var(--input-border-color)` |
+| `--color-picker-input-radius` | Border radius input | `var(--input-border-radius)` |
+| `--color-picker-tabs-height` | Hauteur onglets HEX/RGB | `36px` |
+| `--color-picker-tabs-bg` | Couleur fond onglets | `var(--gray-100)` |
+| `--color-picker-tabs-active-bg` | Couleur fond onglet actif | `var(--background-main)` |
+| `--color-picker-spacing` | Espacement interne | `var(--space-4)` |
+| `--color-picker-gap` | Espacement entre sections | `var(--space-3)` |
+
+**Exemple visuel :**
+
+<div style={{
+  width: 'var(--color-picker-panel-width)',
+  background: 'var(--color-picker-panel-bg)',
+  border: 'var(--color-picker-panel-border)',
+  borderRadius: 'var(--color-picker-panel-radius)',
+  padding: 'var(--color-picker-spacing)',
+  boxShadow: 'var(--color-picker-panel-shadow)',
+  marginBottom: '32px'
+}}>
+  <div style={{
+    width: '100%',
+    height: 'var(--color-picker-palette-size)',
+    background: 'linear-gradient(to bottom, transparent, black), linear-gradient(to right, white, hsl(200, 100%, 50%))',
+    borderRadius: 'var(--radius-1)',
+    marginBottom: 'var(--color-picker-gap)',
+    position: 'relative'
+  }}>
+    <div style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      width: 'var(--color-picker-slider-thumb-size)',
+      height: 'var(--color-picker-slider-thumb-size)',
+      border: '2px solid white',
+      borderRadius: '50%',
+      boxShadow: '0 0 0 1px rgba(0,0,0,0.2)',
+      transform: 'translate(-50%, -50%)'
+    }} />
+  </div>
+  <div style={{
+    height: 'var(--color-picker-slider-height)',
+    background: 'linear-gradient(to right, red, yellow, lime, cyan, blue, magenta, red)',
+    borderRadius: 'var(--color-picker-slider-radius)',
+    marginBottom: 'var(--color-picker-gap)',
+    position: 'relative'
+  }}>
+    <div style={{
+      position: 'absolute',
+      top: '50%',
+      left: '33%',
+      width: 'var(--color-picker-slider-thumb-size)',
+      height: 'var(--color-picker-slider-thumb-size)',
+      border: '2px solid white',
+      borderRadius: '50%',
+      boxShadow: '0 0 0 1px rgba(0,0,0,0.2)',
+      transform: 'translate(-50%, -50%)'
+    }} />
+  </div>
+  <div style={{
+    display: 'flex',
+    gap: 'var(--color-picker-preset-gap)',
+    marginTop: 'var(--color-picker-spacing)'
+  }}>
+    {['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'].map((color) => (
+      <div key={color} style={{
+        width: 'var(--color-picker-preset-size)',
+        height: 'var(--color-picker-preset-size)',
+        background: color,
+        borderRadius: 'var(--color-picker-swatch-radius)',
+        border: 'var(--color-picker-swatch-border)',
+        cursor: 'pointer'
+      }} />
+    ))}
   </div>
 </div>

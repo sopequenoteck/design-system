@@ -139,8 +139,8 @@ export class DsTimeline {
   /**
    * Icônes par défaut.
    */
-  protected readonly defaultIcon = faCircle;
-  protected readonly pendingIcon = faCircleHalfStroke;
+  readonly defaultIcon = faCircle;
+  readonly pendingIcon = faCircleHalfStroke;
 
   /**
    * Items triés (reverse si demandé).

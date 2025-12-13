@@ -85,7 +85,10 @@ projects/ds-angular/src/lib/
 │   ├── ds-timeline/
 │   ├── ds-notification/
 │   ├── ds-calendar/
-│   └── ds-carousel/
+│   ├── ds-carousel/
+│   ├── ds-input-number/
+│   ├── ds-segmented-control/
+│   └── ds-color-picker/
 └── utils/           # Utilitaires partagés (overlay-positions, etc.)
 ```
 
@@ -408,11 +411,53 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Exports : DsEmpty, DsRating, DsDrawer, DsTimePicker, DsTree + 15 types dans index.ts
 - 📊 Design system complet : **44 composants DS** (39 initiaux + ds-transfer, ds-timeline, ds-notification, ds-calendar, ds-carousel)
 
+**Composants v1.6.0 ÉTAPE 27** (2025-12-13) :
+- ✅ DsInputNumber créé : CVA, min/max/step, boutons +/-, keyboard navigation, ARIA
+- ✅ DsInputNumber : 5 fichiers, 14 stories, 55 tests
+- ✅ DsSegmentedControl créé : options visuelles, tailles (sm/md/lg), disabled, block mode
+- ✅ DsSegmentedControl : 5 fichiers, 17 stories, 42 tests
+- ✅ DsColorPicker créé : palette, HEX/RGB, opacity slider, presets, CDK Overlay
+- ✅ DsColorPicker : 7 fichiers (panel component), 12 stories, 52 tests
+- ✅ Tokens sémantiques : input-number (12), segmented-control (18), color-picker (24) tokens
+- ✅ Tokens thématiques : 3 composants ajoutés dans _light.scss, _dark.scss, _custom.scss
+- ✅ Exports : DsInputNumber, DsSegmentedControl, DsColorPicker + types dans index.ts
+- 📊 Design system : **47 composants DS** + 7 primitives
+
+**Harmonisation tokens thématiques ÉTAPE 28** (2025-12-13) :
+- ✅ Vérification cohérence ds-notification : tokens identiques entre _light.scss et _dark.scss (15 tokens)
+- ✅ Ajout tokens ds-input-number dans _custom.scss : 12 tokens (bg, text, border, states, buttons)
+- ✅ Ajout tokens ds-segmented-control dans _custom.scss : 11 tokens (bg, text, border, hover, active variants)
+- ✅ Ajout tokens ds-color-picker dans _custom.scss : 16 tokens (input, panel, presets)
+- ✅ Correction tokens invalides dans _dark.scss : --gray-750 → --gray-700, --gray-850 → --gray-700 (8 occurrences)
+- ✅ Build réussi : compilation SCSS sans erreurs, cohérence complète des 3 thèmes
+- 📊 Parité thématique : 100% des 47 composants DS couverts dans light/dark/custom
+
 ---
 
 ## Versions publiées
 
-### v1.4.0 (2025-12-12) - Version actuelle
+### v1.6.0 (2025-12-13) - Version actuelle
+
+Package npm : `@kksdev/ds-angular@1.6.0`
+
+**Nouveautés v1.6.0 :**
+- `feat(components)`: DsInputNumber (input numérique avec stepper +/-)
+- `feat(components)`: DsSegmentedControl (boutons radio visuels groupés)
+- `feat(components)`: DsColorPicker (sélecteur de couleur complet)
+- `feat(tokens)`: Tokens sémantiques et thématiques pour les 3 nouveaux composants
+- `test(unit)`: 2300+ tests unitaires, couverture ~87% statements
+- 📊 Total : 47 composants DS, 7 primitives, 54 fichiers stories
+
+### v1.5.0 (2025-12-13)
+
+Package npm : `@kksdev/ds-angular@1.5.0`
+
+**Nouveautés v1.5.0 :**
+- `feat(components)`: DsTransfer, DsTimeline, DsNotification, DsCalendar, DsCarousel
+- `test(e2e)`: 710+ tests Playwright pour 17+ composants
+- `docs`: Guides Accessibility, Testing et Theming mis à jour
+
+### v1.4.0 (2025-12-12)
 
 Package npm : `@kksdev/ds-angular@1.4.0`
 
@@ -458,7 +503,7 @@ Package npm : `@kksdev/ds-angular@1.2.5`
 ### Installation
 
 ```bash
-npm install @kksdev/ds-angular@1.4.0
+npm install @kksdev/ds-angular@1.6.0
 ```
 
 ## Patterns techniques

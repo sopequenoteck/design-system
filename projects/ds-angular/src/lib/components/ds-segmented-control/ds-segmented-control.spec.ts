@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faList, faGripVertical, faMap, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { DsSegmentedControl, SegmentOption } from './ds-segmented-control';
 import { IconRegistryService } from '../../utils/icon-registry.service';
 
@@ -15,7 +17,7 @@ describe('DsSegmentedControl', () => {
 
   const optionsWithIcons: SegmentOption[] = [
     { value: 'list', label: 'Liste', icon: 'fas-list' },
-    { value: 'grid', label: 'Grille', icon: 'fas-grid' },
+    { value: 'grid', label: 'Grille', icon: 'fas-grip-vertical' },
     { value: 'map', label: 'Carte', icon: 'fas-map' },
   ];
 
@@ -30,6 +32,10 @@ describe('DsSegmentedControl', () => {
       imports: [DsSegmentedControl, ReactiveFormsModule],
       providers: [IconRegistryService],
     }).compileComponents();
+
+    // Enregistrer les icônes pour les tests
+    const library = TestBed.inject(FaIconLibrary);
+    library.addIcons(faList, faGripVertical, faMap, faCheck);
 
     fixture = TestBed.createComponent(DsSegmentedControl);
     component = fixture.componentInstance;
