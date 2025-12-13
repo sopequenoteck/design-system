@@ -359,5 +359,93 @@ describe('DsTimePickerPanelComponent', () => {
       expect(selectedOption).toBeTruthy();
       expect(selectedOption.textContent.trim()).toBe('10');
     });
+
+    it('should have unique IDs on options', () => {
+      const hourOption = fixture.nativeElement.querySelector('#hour-0');
+      const minuteOption = fixture.nativeElement.querySelector('#minute-0');
+      expect(hourOption).toBeTruthy();
+      expect(minuteOption).toBeTruthy();
+    });
+
+    it('should have aria-disabled on disabled options', () => {
+      component.minTime = '09:00';
+      fixture.detectChanges();
+
+      const disabledOption = fixture.nativeElement.querySelector('#hour-0');
+      expect(disabledOption.getAttribute('aria-disabled')).toBe('true');
+    });
+
+    it('should have tabindex on listbox columns', () => {
+      const hoursColumn = fixture.nativeElement.querySelector('[aria-label="Hours"]');
+      expect(hoursColumn.getAttribute('tabindex')).toBe('0');
+    });
+  });
+
+  describe('Keyboard navigation', () => {
+    it('should set active column on focus', () => {
+      component.setActiveColumn('minutes');
+      expect(component.activeColumn()).toBe('minutes');
+    });
+
+    it('should get active option ID for hours', () => {
+      component.selectHours(14);
+      expect(component.getActiveOptionId('hours')).toBe('hour-14');
+    });
+
+    it('should get active option ID for minutes', () => {
+      component.selectMinutes(30);
+      expect(component.getActiveOptionId('minutes')).toBe('minute-30');
+    });
+
+    it('should get active option ID for period', () => {
+      component.selectPeriod('PM');
+      expect(component.getActiveOptionId('period')).toBe('period-PM');
+    });
+
+    it('should navigate hours with arrow down', () => {
+      fixture.componentRef.setInput('format', '24h');
+      fixture.detectChanges();
+
+      component.selectHours(10);
+      component.navigateOption('hours', 1);
+      expect(component.selectedHours()).toBe(11);
+    });
+
+    it('should navigate hours with arrow up', () => {
+      fixture.componentRef.setInput('format', '24h');
+      fixture.detectChanges();
+
+      component.selectHours(10);
+      component.navigateOption('hours', -1);
+      expect(component.selectedHours()).toBe(9);
+    });
+
+    it('should navigate minutes with arrow down', () => {
+      component.selectMinutes(30);
+      component.navigateOption('minutes', 1);
+      expect(component.selectedMinutes()).toBe(31);
+    });
+
+    it('should skip disabled options when navigating', () => {
+      component.minTime = '09:00';
+      fixture.detectChanges();
+
+      component.selectHours(9);
+      component.navigateOption('hours', -1);
+      // Should stay at 9 since 8 and below are disabled
+      expect(component.selectedHours()).toBe(9);
+    });
+
+    it('should toggle period with arrow keys', () => {
+      fixture.componentRef.setInput('format', '12h');
+      fixture.detectChanges();
+
+      component.selectPeriod('AM');
+      component.navigateOption('period', 1);
+      expect(component.selectedPeriod()).toBe('PM');
+
+      component.navigateOption('period', -1);
+      expect(component.selectedPeriod()).toBe('AM');
+    });
   });
 });

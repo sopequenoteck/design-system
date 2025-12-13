@@ -24,10 +24,23 @@ export interface TimeColumn {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="ds-time-picker-panel" role="dialog" aria-label="Time picker">
+    <div
+      class="ds-time-picker-panel"
+      role="dialog"
+      aria-label="Time picker"
+      [attr.id]="panelId"
+      (keydown)="onPanelKeydown($event)">
       <div class="ds-time-picker-panel__columns">
         <!-- Hours column -->
-        <div class="ds-time-picker-panel__column" role="listbox" aria-label="Hours">
+        <div
+          class="ds-time-picker-panel__column"
+          role="listbox"
+          aria-label="Hours"
+          [attr.aria-activedescendant]="activeColumn() === 'hours' ? getActiveOptionId('hours') : null"
+          [attr.tabindex]="0"
+          (focus)="setActiveColumn('hours')"
+          (keydown.arrowDown)="navigateOption('hours', 1); $event.preventDefault()"
+          (keydown.arrowUp)="navigateOption('hours', -1); $event.preventDefault()">
           <div
             #hoursColumn
             class="ds-time-picker-panel__column-scroll"
@@ -39,8 +52,10 @@ export interface TimeColumn {
                 [class.ds-time-picker-panel__option--selected]="hour.value === selectedHours()"
                 [class.ds-time-picker-panel__option--disabled]="hour.disabled"
                 [disabled]="hour.disabled"
+                [attr.id]="'hour-' + hour.value"
                 [attr.role]="'option'"
                 [attr.aria-selected]="hour.value === selectedHours()"
+                [attr.aria-disabled]="hour.disabled"
                 (click)="selectHours(hour.value)">
                 {{ hour.label }}
               </button>
@@ -49,7 +64,15 @@ export interface TimeColumn {
         </div>
 
         <!-- Minutes column -->
-        <div class="ds-time-picker-panel__column" role="listbox" aria-label="Minutes">
+        <div
+          class="ds-time-picker-panel__column"
+          role="listbox"
+          aria-label="Minutes"
+          [attr.aria-activedescendant]="activeColumn() === 'minutes' ? getActiveOptionId('minutes') : null"
+          [attr.tabindex]="0"
+          (focus)="setActiveColumn('minutes')"
+          (keydown.arrowDown)="navigateOption('minutes', 1); $event.preventDefault()"
+          (keydown.arrowUp)="navigateOption('minutes', -1); $event.preventDefault()">
           <div
             #minutesColumn
             class="ds-time-picker-panel__column-scroll"
@@ -61,8 +84,10 @@ export interface TimeColumn {
                 [class.ds-time-picker-panel__option--selected]="minute.value === selectedMinutes()"
                 [class.ds-time-picker-panel__option--disabled]="minute.disabled"
                 [disabled]="minute.disabled"
+                [attr.id]="'minute-' + minute.value"
                 [attr.role]="'option'"
                 [attr.aria-selected]="minute.value === selectedMinutes()"
+                [attr.aria-disabled]="minute.disabled"
                 (click)="selectMinutes(minute.value)">
                 {{ minute.label }}
               </button>
@@ -72,7 +97,15 @@ export interface TimeColumn {
 
         <!-- Seconds column (conditional) -->
         @if (showSeconds()) {
-          <div class="ds-time-picker-panel__column" role="listbox" aria-label="Seconds">
+          <div
+            class="ds-time-picker-panel__column"
+            role="listbox"
+            aria-label="Seconds"
+            [attr.aria-activedescendant]="activeColumn() === 'seconds' ? getActiveOptionId('seconds') : null"
+            [attr.tabindex]="0"
+            (focus)="setActiveColumn('seconds')"
+            (keydown.arrowDown)="navigateOption('seconds', 1); $event.preventDefault()"
+            (keydown.arrowUp)="navigateOption('seconds', -1); $event.preventDefault()">
             <div
               #secondsColumn
               class="ds-time-picker-panel__column-scroll"
@@ -84,8 +117,10 @@ export interface TimeColumn {
                   [class.ds-time-picker-panel__option--selected]="second.value === selectedSeconds()"
                   [class.ds-time-picker-panel__option--disabled]="second.disabled"
                   [disabled]="second.disabled"
+                  [attr.id]="'second-' + second.value"
                   [attr.role]="'option'"
                   [attr.aria-selected]="second.value === selectedSeconds()"
+                  [attr.aria-disabled]="second.disabled"
                   (click)="selectSeconds(second.value)">
                   {{ second.label }}
                 </button>
@@ -96,12 +131,21 @@ export interface TimeColumn {
 
         <!-- AM/PM column (12h format) -->
         @if (format() === '12h') {
-          <div class="ds-time-picker-panel__column ds-time-picker-panel__column--period" role="listbox" aria-label="Period">
+          <div
+            class="ds-time-picker-panel__column ds-time-picker-panel__column--period"
+            role="listbox"
+            aria-label="Period"
+            [attr.aria-activedescendant]="activeColumn() === 'period' ? getActiveOptionId('period') : null"
+            [attr.tabindex]="0"
+            (focus)="setActiveColumn('period')"
+            (keydown.arrowDown)="navigateOption('period', 1); $event.preventDefault()"
+            (keydown.arrowUp)="navigateOption('period', -1); $event.preventDefault()">
             <div class="ds-time-picker-panel__column-scroll">
               <button
                 type="button"
                 class="ds-time-picker-panel__option"
                 [class.ds-time-picker-panel__option--selected]="selectedPeriod() === 'AM'"
+                [attr.id]="'period-AM'"
                 [attr.role]="'option'"
                 [attr.aria-selected]="selectedPeriod() === 'AM'"
                 (click)="selectPeriod('AM')">
@@ -111,6 +155,7 @@ export interface TimeColumn {
                 type="button"
                 class="ds-time-picker-panel__option"
                 [class.ds-time-picker-panel__option--selected]="selectedPeriod() === 'PM'"
+                [attr.id]="'period-PM'"
                 [attr.role]="'option'"
                 [attr.aria-selected]="selectedPeriod() === 'PM'"
                 (click)="selectPeriod('PM')">
@@ -129,6 +174,12 @@ export class DsTimePickerPanelComponent implements AfterViewInit {
   @ViewChild('hoursColumn') hoursColumn?: ElementRef<HTMLDivElement>;
   @ViewChild('minutesColumn') minutesColumn?: ElementRef<HTMLDivElement>;
   @ViewChild('secondsColumn') secondsColumn?: ElementRef<HTMLDivElement>;
+
+  // Panel ID for aria-controls (passed from parent or auto-generated)
+  @Input() panelId = `ds-time-picker-panel-${Math.random().toString(36).substr(2, 9)}`;
+
+  // Active column for keyboard navigation
+  readonly activeColumn = signal<'hours' | 'minutes' | 'seconds' | 'period'>('hours');
 
   // Inputs (signal-based)
   readonly value = input<string>('');
@@ -261,6 +312,117 @@ export class DsTimePickerPanelComponent implements AfterViewInit {
 
   onScroll(column: 'hours' | 'minutes' | 'seconds', event: Event): void {
     // Optional: could implement snap-to-value on scroll end
+  }
+
+  /**
+   * Set the active column for keyboard navigation
+   */
+  setActiveColumn(column: 'hours' | 'minutes' | 'seconds' | 'period'): void {
+    this.activeColumn.set(column);
+  }
+
+  /**
+   * Get the ID of the currently active option in a column
+   */
+  getActiveOptionId(column: 'hours' | 'minutes' | 'seconds' | 'period'): string {
+    switch (column) {
+      case 'hours':
+        return `hour-${this.selectedHours()}`;
+      case 'minutes':
+        return `minute-${this.selectedMinutes()}`;
+      case 'seconds':
+        return `second-${this.selectedSeconds()}`;
+      case 'period':
+        return `period-${this.selectedPeriod()}`;
+    }
+  }
+
+  /**
+   * Navigate options with arrow keys
+   */
+  navigateOption(column: 'hours' | 'minutes' | 'seconds' | 'period', direction: 1 | -1): void {
+    switch (column) {
+      case 'hours': {
+        const options = this.hoursOptions();
+        const currentIndex = options.findIndex(o => o.value === this.selectedHours());
+        const newIndex = this.findNextEnabledIndex(options, currentIndex, direction);
+        if (newIndex !== -1) {
+          this.selectHours(options[newIndex].value);
+          this.scrollOptionIntoView('hours', options[newIndex].value);
+        }
+        break;
+      }
+      case 'minutes': {
+        const options = this.minutesOptions();
+        const currentIndex = options.findIndex(o => o.value === this.selectedMinutes());
+        const newIndex = this.findNextEnabledIndex(options, currentIndex, direction);
+        if (newIndex !== -1) {
+          this.selectMinutes(options[newIndex].value);
+          this.scrollOptionIntoView('minutes', options[newIndex].value);
+        }
+        break;
+      }
+      case 'seconds': {
+        const options = this.secondsOptions();
+        const currentIndex = options.findIndex(o => o.value === this.selectedSeconds());
+        const newIndex = this.findNextEnabledIndex(options, currentIndex, direction);
+        if (newIndex !== -1) {
+          this.selectSeconds(options[newIndex].value);
+          this.scrollOptionIntoView('seconds', options[newIndex].value);
+        }
+        break;
+      }
+      case 'period': {
+        const newPeriod = this.selectedPeriod() === 'AM' ? 'PM' : 'AM';
+        this.selectPeriod(newPeriod);
+        break;
+      }
+    }
+  }
+
+  /**
+   * Handle global panel keyboard events
+   */
+  onPanelKeydown(event: KeyboardEvent): void {
+    // Tab between columns
+    if (event.key === 'Tab') {
+      // Let default tab behavior work with focusable listbox columns
+      return;
+    }
+  }
+
+  /**
+   * Focus the hours column (called from parent on panel open)
+   */
+  focusFirstColumn(): void {
+    const hoursListbox = document.querySelector(`#${this.panelId} [aria-label="Hours"]`) as HTMLElement;
+    if (hoursListbox) {
+      hoursListbox.focus();
+    }
+  }
+
+  /**
+   * Find the next enabled option index in a direction
+   */
+  private findNextEnabledIndex(options: TimeColumn[], currentIndex: number, direction: 1 | -1): number {
+    let newIndex = currentIndex + direction;
+    while (newIndex >= 0 && newIndex < options.length) {
+      if (!options[newIndex].disabled) {
+        return newIndex;
+      }
+      newIndex += direction;
+    }
+    return -1; // No enabled option found
+  }
+
+  /**
+   * Scroll an option into view in its column
+   */
+  private scrollOptionIntoView(column: 'hours' | 'minutes' | 'seconds', value: number): void {
+    const columnRef = column === 'hours' ? this.hoursColumn :
+                      column === 'minutes' ? this.minutesColumn :
+                      this.secondsColumn;
+    this.scrollColumnToValue(columnRef, value);
   }
 
   private parseAndSetValue(val: string, fmt: '12h' | '24h'): void {

@@ -84,6 +84,7 @@ const TIME_PICKER_POSITIONS: ConnectedPosition[] = [
 export class DsTimePicker implements ControlValueAccessor {
   // ViewChild - référence à l'élément input pour le focus
   @ViewChild('inputElement') inputElementRef?: ElementRef<HTMLElement>;
+  @ViewChild(DsTimePickerPanelComponent) panelComponent?: DsTimePickerPanelComponent;
 
   // Inputs
   readonly value = input<string>('');
@@ -106,6 +107,9 @@ export class DsTimePicker implements ControlValueAccessor {
 
   // Overlay positions
   readonly overlayPositions = TIME_PICKER_POSITIONS;
+
+  // Unique ID for aria-controls
+  readonly panelId = `ds-time-picker-panel-${Math.random().toString(36).substr(2, 9)}`;
 
   // State
   readonly isOpen = signal(false);
@@ -178,6 +182,10 @@ export class DsTimePicker implements ControlValueAccessor {
   open(): void {
     if (this.isDisabled() || this.isOpen()) return;
     this.isOpen.set(true);
+    // Focus the first column after panel renders
+    setTimeout(() => {
+      this.panelComponent?.focusFirstColumn();
+    }, 0);
   }
 
   close(): void {

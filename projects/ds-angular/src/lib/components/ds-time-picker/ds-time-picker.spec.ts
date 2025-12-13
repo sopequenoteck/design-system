@@ -395,5 +395,19 @@ describe('DsTimePicker', () => {
       const input = fixture.nativeElement.querySelector('.ds-time-picker__input');
       expect(input.getAttribute('tabindex')).toBe('-1');
     });
+
+    it('should have aria-controls when open', () => {
+      const input = fixture.nativeElement.querySelector('.ds-time-picker__input');
+
+      // Should not have aria-controls when closed
+      expect(input.getAttribute('aria-controls')).toBeNull();
+
+      // Open the picker
+      component.open();
+      fixture.detectChanges();
+
+      // Should have aria-controls pointing to panel ID
+      expect(input.getAttribute('aria-controls')).toBe(component.panelId);
+    });
   });
 });

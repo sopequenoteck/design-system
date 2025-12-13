@@ -12,6 +12,7 @@
       [attr.role]="'combobox'"
       [attr.aria-expanded]="isOpen()"
       [attr.aria-haspopup]="'dialog'"
+      [attr.aria-controls]="isOpen() ? panelId : null"
       [attr.aria-label]="placeholder()"
       (click)="toggle()"
       (focus)="onFocus()"
@@ -50,6 +51,7 @@
   (overlayKeydown)="onOverlayKeydown($event)">
 
   <ds-time-picker-panel
+    [panelId]="panelId"
     [value]="internalValue()"
     [format]="format()"
     [showSeconds]="showSeconds()"
