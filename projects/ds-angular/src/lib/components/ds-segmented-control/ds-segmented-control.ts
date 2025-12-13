@@ -255,4 +255,21 @@ export class DsSegmentedControl implements ControlValueAccessor {
   protected trackByValue(_index: number, option: SegmentOption): string {
     return option.value;
   }
+
+  /**
+   * Parse l'icône depuis le format string vers le format FontAwesome
+   * @param iconName - Nom de l'icône (ex: 'fas-list', 'list', 'fa-solid fa-list')
+   * @returns Tuple [prefix, iconName] pour FontAwesome
+   */
+  protected parseIcon(iconName: string): [string, string] {
+    // Format: 'fas-list' ou 'far-check'
+    if (iconName.includes('-')) {
+      const parts = iconName.split('-');
+      if (parts[0] === 'fas' || parts[0] === 'far' || parts[0] === 'fab') {
+        return [parts[0], parts.slice(1).join('-')];
+      }
+    }
+    // Par défaut, utiliser 'fas' comme préfixe
+    return ['fas', iconName];
+  }
 }

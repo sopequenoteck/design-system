@@ -18,7 +18,7 @@
       @if (option.icon) {
         <fa-icon
           class="ds-segmented-control__icon"
-          [icon]="['fas', option.icon]"
+          [icon]="parseIcon(option.icon)"
         />
       }
       <span class="ds-segmented-control__label">{{ option.label }}</span>

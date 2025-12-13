@@ -9,10 +9,10 @@
 
 | Métrique | Valeur |
 |----------|--------|
-| Composants DS | 45 |
+| Composants DS | 46 |
 | Primitives | 7 |
-| Stories | 51+ |
-| Tests unitaires | 2200+ |
+| Stories | 68+ |
+| Tests unitaires | 2250+ |
 | Tests e2e | 710+ |
 | Couverture | ~87% statements |
 
@@ -86,7 +86,7 @@
 ### Tâches proposées
 
 - [x] [NEW] DsInputNumber - Input numérique avec boutons +/- | ✅ 55 tests + 14 stories
-- [ ] [NEW] DsSegmentedControl - Boutons radio en groupe visuel | `ds-segmented-control/` | Moyenne | ~3h
+- [x] [NEW] DsSegmentedControl - Boutons radio en groupe visuel | ✅ 42 tests + 17 stories
 - [ ] [NEW] DsColorPicker - Sélecteur de couleur | `ds-color-picker/` | Moyenne | ~6h
 
 ---
@@ -123,10 +123,10 @@
 | COMP | 0 | ✅ Complet |
 | STORY | 0 | ✅ Complet |
 | DOC | 0 | ✅ Complet |
-| NEW | 2 | 🔄 Optionnel |
+| NEW | 1 | 🔄 Optionnel |
 | MAINT | 0 | ✅ Complet |
 
-**Total** : 2 tâches optionnelles (~9h estimées)
+**Total** : 1 tâche optionnelle (~6h estimée)
 
 ---
 
@@ -143,10 +143,13 @@
 
 **Total** : 44 composants DS, 7 primitives, 2200+ tests, 87% couverture
 
+**Ajouts post-publication** :
+- ds-input-number (stepper numérique CVA) - 55 tests + 14 stories
+- ds-segmented-control (boutons radio visuels) - 42 tests + 17 stories
+
 ---
 
 ## Prochaines étapes
 
-1. Exécuter `/ds-todo-next-task` pour traiter les tâches une par une
-2. Publier v1.5.0 avec les 6 nouveaux composants
-3. (Optionnel) Implémenter DsInputNumber pour compléter les formulaires
+1. (Optionnel) Implémenter DsColorPicker - sélecteur de couleur (~6h)
+2. Publier v1.6.0 avec ds-input-number et ds-segmented-control
