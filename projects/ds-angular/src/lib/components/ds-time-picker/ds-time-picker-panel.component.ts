@@ -138,8 +138,30 @@ export class DsTimePickerPanelComponent implements AfterViewInit {
   readonly hourStep = input(1);
 
   // Inputs (decorator-based for Storybook JIT compatibility)
-  @Input() minTime: string | null = null;
-  @Input() maxTime: string | null = null;
+  // Using setters to update internal signals for reactivity
+  @Input()
+  set minTime(value: string | null) {
+    this._minTime.set(value);
+  }
+  get minTime(): string | null {
+    return this._minTime();
+  }
+
+  @Input()
+  set maxTime(value: string | null) {
+    this._maxTime.set(value);
+  }
+  get maxTime(): string | null {
+    return this._maxTime();
+  }
+
+  // Internal signals for minTime/maxTime (for computed reactivity)
+  private readonly _minTime = signal<string | null>(null);
+  private readonly _maxTime = signal<string | null>(null);
+
+  // Parsed min/max time values (computed)
+  private readonly parsedMinTime = computed(() => this.parseTimeConstraint(this._minTime()));
+  private readonly parsedMaxTime = computed(() => this.parseTimeConstraint(this._maxTime()));
 
   // Outputs
   readonly timeSelected = output<string>();
@@ -295,14 +317,92 @@ export class DsTimePickerPanelComponent implements AfterViewInit {
     this.timeSelected.emit(timeString);
   }
 
+  /**
+   * Parse a time constraint string (HH:mm or HH:mm:ss) into components
+   */
+  private parseTimeConstraint(timeStr: string | null): { hours: number; minutes: number; seconds: number } | null {
+    if (!timeStr) return null;
+
+    const parts = timeStr.split(':');
+    if (parts.length < 2) return null;
+
+    const hours = parseInt(parts[0], 10);
+    const minutes = parseInt(parts[1], 10);
+    const seconds = parts[2] ? parseInt(parts[2], 10) : 0;
+
+    if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) return null;
+
+    return { hours, minutes, seconds };
+  }
+
+  /**
+   * Convert 12h hour to 24h for comparison
+   */
+  private to24Hour(hour: number): number {
+    if (this.format() === '12h') {
+      const period = this.selectedPeriod();
+      if (period === 'PM' && hour !== 12) {
+        return hour + 12;
+      } else if (period === 'AM' && hour === 12) {
+        return 0;
+      }
+    }
+    return hour;
+  }
+
+  /**
+   * Check if an hour is disabled based on minTime/maxTime constraints
+   */
   private isHourDisabled(hour: number): boolean {
-    // TODO: implement minTime/maxTime validation
+    const min = this.parsedMinTime();
+    const max = this.parsedMaxTime();
+
+    // Convert hour to 24h format for comparison
+    const hour24 = this.format() === '12h' ? this.convert12hTo24h(hour) : hour;
+
+    if (min && hour24 < min.hours) {
+      return true;
+    }
+    if (max && hour24 > max.hours) {
+      return true;
+    }
+
     return false;
   }
 
+  /**
+   * Check if a minute is disabled based on minTime/maxTime and selected hour
+   */
   private isMinuteDisabled(minute: number): boolean {
-    // TODO: implement minTime/maxTime validation
+    const min = this.parsedMinTime();
+    const max = this.parsedMaxTime();
+    const selectedHour24 = this.to24Hour(this.selectedHours());
+
+    // If selected hour equals min hour, disable minutes below min minutes
+    if (min && selectedHour24 === min.hours && minute < min.minutes) {
+      return true;
+    }
+
+    // If selected hour equals max hour, disable minutes above max minutes
+    if (max && selectedHour24 === max.hours && minute > max.minutes) {
+      return true;
+    }
+
     return false;
+  }
+
+  /**
+   * Convert a 12h hour value to 24h based on current period selection
+   * Used for constraint comparison when in 12h format
+   */
+  private convert12hTo24h(hour: number): number {
+    const period = this.selectedPeriod();
+    if (period === 'PM' && hour !== 12) {
+      return hour + 12;
+    } else if (period === 'AM' && hour === 12) {
+      return 0;
+    }
+    return hour;
   }
 
   private scrollToSelected(): void {

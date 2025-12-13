@@ -302,6 +302,55 @@ describe('DsTimePicker', () => {
     });
   });
 
+  describe('Additional behaviors', () => {
+    it('should respect hourStep input', () => {
+      fixture.componentRef.setInput('hourStep', 2);
+      fixture.detectChanges();
+
+      // hourStep is passed to the panel - verify input is set
+      expect(component.hourStep()).toBe(2);
+    });
+
+    it('should handle empty string value', () => {
+      component.writeValue('');
+      fixture.detectChanges();
+
+      expect(component.internalValue()).toBe('');
+      expect(component.displayValue()).toBe('');
+    });
+
+    it('should handle null value in writeValue', () => {
+      component.writeValue(null as unknown as string);
+      fixture.detectChanges();
+
+      expect(component.internalValue()).toBe('');
+    });
+
+    it('should close panel and update value on time selection', () => {
+      const changeSpy = jasmine.createSpy('onChange');
+      component.registerOnChange(changeSpy);
+
+      component.open();
+      fixture.detectChanges();
+      expect(component.isOpen()).toBe(true);
+
+      component.onTimeSelected('15:45');
+      fixture.detectChanges();
+
+      expect(component.isOpen()).toBe(false);
+      expect(component.internalValue()).toBe('15:45');
+      expect(changeSpy).toHaveBeenCalledWith('15:45');
+    });
+
+    it('should apply open class when panel is open', () => {
+      component.open();
+      fixture.detectChanges();
+
+      const container = fixture.nativeElement.querySelector('.ds-time-picker');
+      expect(container.classList.contains('ds-time-picker--open')).toBe(true);
+    });
+  });
+
   describe('ARIA attributes', () => {
     it('should have role combobox', () => {
       const input = fixture.nativeElement.querySelector('.ds-time-picker__input');

@@ -401,3 +401,115 @@ export const Accessibility: Story = {
     },
   },
 };
+
+export const WithMinTime: Story = {
+  args: {
+    value: '10:00',
+    minTime: '09:00',
+    format: '24h',
+    placeholder: 'Min: 09:00',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Time picker with minimum time constraint. Hours before 09:00 are disabled.',
+      },
+    },
+  },
+};
+
+export const WithMaxTime: Story = {
+  args: {
+    value: '16:00',
+    maxTime: '18:00',
+    format: '24h',
+    placeholder: 'Max: 18:00',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Time picker with maximum time constraint. Hours after 18:00 are disabled.',
+      },
+    },
+  },
+};
+
+export const WithMinMaxRange: Story = {
+  args: {
+    value: '12:00',
+    minTime: '09:00',
+    maxTime: '17:30',
+    format: '24h',
+    placeholder: '09:00 - 17:30',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Time picker with both min and max constraints. Only times between 09:00 and 17:30 are selectable.',
+      },
+    },
+  },
+};
+
+@Component({
+  selector: 'storybook-time-picker-constraints',
+  standalone: true,
+  imports: [DsTimePicker],
+  template: `
+    <div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 300px;">
+      <div>
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Business Hours (09:00 - 18:00)</label>
+        <ds-time-picker
+          [value]="'10:00'"
+          [minTime]="'09:00'"
+          [maxTime]="'18:00'"
+          [minuteStep]="15"
+          placeholder="Select meeting time">
+        </ds-time-picker>
+        <p style="margin: 0.5rem 0 0 0; font-size: 12px; color: #666;">
+          Hours outside 09:00-18:00 are disabled
+        </p>
+      </div>
+
+      <div>
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Afternoon Only (12:00 - 17:00)</label>
+        <ds-time-picker
+          [value]="'14:00'"
+          [minTime]="'12:00'"
+          [maxTime]="'17:00'"
+          placeholder="Afternoon slot">
+        </ds-time-picker>
+      </div>
+
+      <div>
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Morning Only (06:00 - 12:00)</label>
+        <ds-time-picker
+          [value]="'09:00'"
+          [minTime]="'06:00'"
+          [maxTime]="'12:00'"
+          [format]="'12h'"
+          placeholder="Morning slot (12h)">
+        </ds-time-picker>
+      </div>
+    </div>
+  `,
+})
+class ConstraintsStory {}
+
+export const TimeConstraints: Story = {
+  decorators: [
+    moduleMetadata({
+      imports: [ConstraintsStory],
+    }),
+  ],
+  render: () => ({
+    template: `<storybook-time-picker-constraints></storybook-time-picker-constraints>`,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Examples of time pickers with various time constraints for different use cases.',
+      },
+    },
+  },
+};
