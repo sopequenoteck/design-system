@@ -281,3 +281,11 @@ export {
   type InputNumberSize,
   type InputNumberControlsPosition,
 } from './ds-input-number/ds-input-number';
+
+export {
+  DsSegmentedControl,
+  type SegmentOption,
+  type SegmentedControlSize,
+  type SegmentedControlOrientation,
+  type SegmentedControlColor,
+} from './ds-segmented-control/ds-segmented-control';

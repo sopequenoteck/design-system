@@ -841,6 +841,28 @@
   --calendar-month-font-size: #{$calendar-month-font-size};
   --calendar-month-font-size-sm: #{$calendar-month-font-size-sm};
   --calendar-month-font-size-lg: #{$calendar-month-font-size-lg};
+
+  /* === SEGMENTED CONTROL === */
+  --segmented-height-sm: #{$segmented-height-sm};
+  --segmented-height-md: #{$segmented-height-md};
+  --segmented-height-lg: #{$segmented-height-lg};
+
+  --segmented-padding-sm: #{$segmented-padding-sm};
+  --segmented-padding-md: #{$segmented-padding-md};
+  --segmented-padding-lg: #{$segmented-padding-lg};
+
+  --segmented-font-size-sm: #{$segmented-font-size-sm};
+  --segmented-font-size-md: #{$segmented-font-size-md};
+  --segmented-font-size-lg: #{$segmented-font-size-lg};
+
+  --segmented-icon-size-sm: #{$segmented-icon-size-sm};
+  --segmented-icon-size-md: #{$segmented-icon-size-md};
+  --segmented-icon-size-lg: #{$segmented-icon-size-lg};
+
+  --segmented-gap: #{$segmented-gap};
+  --segmented-segment-gap: #{$segmented-segment-gap};
+  --segmented-border-radius: #{$segmented-border-radius};
+  --segmented-active-shadow: #{$segmented-active-shadow};
 }
 
 /* === ACCESSIBILITY: REDUCED MOTION === */

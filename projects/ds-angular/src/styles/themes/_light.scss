@@ -652,6 +652,26 @@
   /* Info */
   --chip-info-bg: var(--bg-info);
   --chip-info-text: var(--info);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS SEGMENTED CONTROL
+   * ======================================================================== */
+  --segmented-bg: var(--gray-100);
+  --segmented-text: var(--text-default);
+  --segmented-border-color: var(--border-subtle);
+  --segmented-hover-bg: color-mix(in oklab, var(--gray-900) 5%, transparent);
+
+  /* Primary color variant */
+  --segmented-active-bg-primary: var(--color-primary);
+  --segmented-active-text-primary: var(--gray-50);
+
+  /* Neutral color variant */
+  --segmented-active-bg-neutral: var(--surface-default);
+  --segmented-active-text-neutral: var(--text-default);
+
+  /* Active state (generic, deprecated) */
+  --segmented-active-bg: var(--segmented-active-bg-primary);
+  --segmented-active-text: var(--segmented-active-text-primary);
   --chip-info-border: var(--info);
   --chip-info-hover-bg: color-mix(in oklab, var(--info) 25%, transparent);
   --chip-info-hover-bg-outlined: color-mix(in oklab, var(--info) 10%, transparent);

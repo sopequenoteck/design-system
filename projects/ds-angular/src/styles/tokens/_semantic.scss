@@ -660,6 +660,29 @@ $password-strength-bar-radius: $radius-1;
 $password-strength-label-font-size: $font-size-2;
 $password-strength-label-gap: $space-2;
 
+// === SEGMENTED CONTROL ===
+
+$segmented-height-sm: 32px;
+$segmented-height-md: 40px;
+$segmented-height-lg: 48px;
+
+$segmented-padding-sm: $space-2;
+$segmented-padding-md: $space-3;
+$segmented-padding-lg: $space-4;
+
+$segmented-font-size-sm: $font-size-2;
+$segmented-font-size-md: $font-size-3;
+$segmented-font-size-lg: $font-size-4;
+
+$segmented-icon-size-sm: 14px;
+$segmented-icon-size-md: 16px;
+$segmented-icon-size-lg: 18px;
+
+$segmented-gap: 4px;
+$segmented-segment-gap: $space-2;
+$segmented-border-radius: $radius-2;
+$segmented-active-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
 // === TIMELINE ===
 
 $timeline-dot-size-sm: 20px;

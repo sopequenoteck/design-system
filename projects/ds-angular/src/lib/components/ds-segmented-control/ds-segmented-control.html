@@ -1,0 +1,27 @@
+<div
+  [ngClass]="containerClasses()"
+  role="radiogroup"
+  [attr.aria-disabled]="isDisabled()"
+>
+  @for (option of options(); track trackByValue($index, option)) {
+    <button
+      type="button"
+      role="radio"
+      [ngClass]="getSegmentClasses(option)"
+      [attr.data-index]="$index"
+      [attr.aria-checked]="isOptionSelected(option)"
+      [attr.aria-disabled]="isOptionDisabled(option)"
+      [disabled]="isOptionDisabled(option)"
+      [tabindex]="isOptionSelected(option) ? 0 : -1"
+      (click)="onSegmentClick(option)"
+    >
+      @if (option.icon) {
+        <fa-icon
+          class="ds-segmented-control__icon"
+          [icon]="['fas', option.icon]"
+        />
+      }
+      <span class="ds-segmented-control__label">{{ option.label }}</span>
+    </button>
+  }
+</div>
