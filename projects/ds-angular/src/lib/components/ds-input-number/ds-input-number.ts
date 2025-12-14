@@ -127,7 +127,7 @@ export class DsInputNumber implements ControlValueAccessor {
   // Helpers
   private formatValue(value: number): string {
     const prec = this.precision();
-    return prec > 0 ? value.toFixed(prec) : Math.floor(value).toString();
+    return prec > 0 ? value.toFixed(prec) : Math.round(value).toString();
   }
 
   private parseValue(input: string): number | null {

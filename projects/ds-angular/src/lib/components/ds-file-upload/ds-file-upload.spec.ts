@@ -294,7 +294,10 @@ describe('DsFileUpload', () => {
     });
 
     it('should enforce max files limit', () => {
+      fixture.componentRef.setInput('multiple', true);
       fixture.componentRef.setInput('maxFiles', 2);
+      fixture.detectChanges();
+
       const files = [
         new File(['1'], 'file1.txt', { type: 'text/plain' }),
         new File(['2'], 'file2.txt', { type: 'text/plain' }),

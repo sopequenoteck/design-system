@@ -93,8 +93,8 @@ describe('DsCalendar', () => {
     fixture.detectChanges();
 
     expect(component.size()).toBe('lg');
-    const calendar = debugElement.query(By.css('.ds-calendar'));
-    expect(calendar.nativeElement.className).toContain('ds-calendar--lg');
+    // Host element has the ds-calendar class
+    expect(debugElement.nativeElement.className).toContain('ds-calendar--lg');
   });
 
   it('should accept locale input', () => {
@@ -127,24 +127,24 @@ describe('DsCalendar', () => {
     fixture.componentRef.setInput('size', 'sm');
     fixture.detectChanges();
 
-    const calendar = debugElement.query(By.css('.ds-calendar'));
-    expect(calendar.nativeElement.className).toContain('ds-calendar--sm');
+    // Host element has the ds-calendar class
+    expect(debugElement.nativeElement.className).toContain('ds-calendar--sm');
   });
 
   it('should apply size class md', () => {
     fixture.componentRef.setInput('size', 'md');
     fixture.detectChanges();
 
-    const calendar = debugElement.query(By.css('.ds-calendar'));
-    expect(calendar.nativeElement.className).toContain('ds-calendar--md');
+    // Host element has the ds-calendar class
+    expect(debugElement.nativeElement.className).toContain('ds-calendar--md');
   });
 
   it('should apply size class lg', () => {
     fixture.componentRef.setInput('size', 'lg');
     fixture.detectChanges();
 
-    const calendar = debugElement.query(By.css('.ds-calendar'));
-    expect(calendar.nativeElement.className).toContain('ds-calendar--lg');
+    // Host element has the ds-calendar class
+    expect(debugElement.nativeElement.className).toContain('ds-calendar--lg');
   });
 
   // =========================================================================

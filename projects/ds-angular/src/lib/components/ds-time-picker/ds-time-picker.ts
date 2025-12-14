@@ -142,18 +142,20 @@ export class DsTimePicker implements ControlValueAccessor {
   // ControlValueAccessor
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
+  private hasExternalValue = signal(false);
 
   constructor() {
-    // Sync external value with internal
+    // Sync external value with internal only if no value was written via CVA
     effect(() => {
       const val = this.value();
-      if (val !== this.internalValue()) {
+      if (!this.hasExternalValue() && val !== this.internalValue()) {
         this.internalValue.set(val);
       }
     });
   }
 
   writeValue(value: string): void {
+    this.hasExternalValue.set(true);
     this.internalValue.set(value || '');
   }
 
@@ -225,6 +227,7 @@ export class DsTimePicker implements ControlValueAccessor {
   }
 
   private updateValue(value: string): void {
+    this.hasExternalValue.set(true);
     this.internalValue.set(value);
     this.onChange(value);
     this.timeChange.emit(value);

@@ -247,12 +247,12 @@ export class DsPasswordStrength {
    * Constructeur : émet les changements de force via effect.
    */
   constructor() {
-    let previousStrength: PasswordStrength = 'none';
+    let previousStrength: PasswordStrength | null = null;
 
-    // Émettre strengthChange à chaque changement
+    // Émettre strengthChange à chaque changement (y compris la valeur initiale)
     effect(() => {
       const currentStrength = this.strength();
-      if (currentStrength !== previousStrength) {
+      if (previousStrength === null || currentStrength !== previousStrength) {
         previousStrength = currentStrength;
         this.strengthChange.emit(currentStrength);
       }

@@ -5,6 +5,7 @@ import {
   output,
   computed,
   signal,
+  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DsTreeNodeComponent } from './ds-tree-node.component';
@@ -94,16 +95,19 @@ export class DsTree {
   });
 
   readonly processedData = computed(() => {
-    const data = this.data();
-    if (this.expandAll()) {
-      this.expandAllNodes(data);
-    }
-    return data;
+    return this.data();
   });
 
   constructor() {
     // Initialize expanded state from data
     this.initializeExpandedState();
+
+    // Effect to handle expandAll changes
+    effect(() => {
+      if (this.expandAll()) {
+        this.expandAllNodes(this.data());
+      }
+    });
   }
 
   onNodeClick(node: TreeNode): void {

@@ -243,6 +243,8 @@ export class DsDrawer implements AfterViewInit, OnDestroy {
     if (!this.closable()) return;
 
     this.visibleChange.emit(false);
+    // Déclenche aussi la fermeture directement pour les cas sans two-way binding
+    this.closeDrawer();
   }
 
   /**

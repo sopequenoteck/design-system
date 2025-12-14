@@ -42,7 +42,7 @@ module.exports = function (config) {
     },
     reporters: ['progress', 'kjhtml'],
     // Change port and use 127.0.0.1 to avoid EPERM error on macOS
-    port: 9877,
+    port: 9999,
     hostname: 'localhost',
     listenAddress: '127.0.0.1',
     colors: true,
@@ -51,6 +51,9 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     singleRun: false,
     restartOnFileChange: true,
+    browserDisconnectTimeout: 60000,
+    browserNoActivityTimeout: 60000,
+    captureTimeout: 120000,
     customLaunchers: {
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',

@@ -394,9 +394,13 @@ describe('DsPasswordStrength', () => {
       emittedValue = strength;
     });
 
+    // Change password to trigger a new emission
+    fixture.componentRef.setInput('password', 'Test123!');
+    fixture.detectChanges();
+
     // Le composant émet dans un effect, attendre un cycle
     setTimeout(() => {
-      expect(emittedValue).toBe('none');
+      expect(emittedValue).toBe('strong');
       done();
     }, 50);
   });

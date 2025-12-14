@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DsInputNumber } from './ds-input-number';
-import { Component, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 describe('DsInputNumber', () => {
   let component: DsInputNumber;
@@ -533,7 +533,7 @@ describe('DsInputNumber', () => {
   imports: [DsInputNumber, ReactiveFormsModule],
 })
 class TestHostComponent {
-  form = signal({
+  form = new FormGroup({
     amount: new FormControl(100),
   });
 }
@@ -553,7 +553,7 @@ describe('DsInputNumber - Reactive Forms', () => {
   });
 
   it('should bind to reactive form control', () => {
-    const formValue = component.form().amount.value;
+    const formValue = component.form.get('amount')?.value;
     expect(formValue).toBe(100);
   });
 
@@ -562,12 +562,12 @@ describe('DsInputNumber - Reactive Forms', () => {
     incrementBtn.click();
     fixture.detectChanges();
 
-    const formValue = component.form().amount.value;
+    const formValue = component.form.get('amount')?.value;
     expect(formValue).toBe(110);
   });
 
   it('should update component when form control changes', () => {
-    component.form().amount.setValue(500);
+    component.form.get('amount')?.setValue(500);
     fixture.detectChanges();
 
     const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;

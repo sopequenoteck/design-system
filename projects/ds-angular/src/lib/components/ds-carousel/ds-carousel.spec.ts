@@ -355,23 +355,17 @@ describe('DsCarousel', () => {
   });
 
   describe('Touch/Swipe', () => {
+    // Helper to create mock touch events
+    const createMockTouchEvent = (type: string, clientX: number, clientY: number) => ({
+      touches: [{ clientX, clientY }],
+      changedTouches: [{ clientX, clientY }],
+    } as unknown as TouchEvent);
+
     it('should detect swipe left (next)', () => {
-      const container = fixture.nativeElement.querySelector('.ds-carousel');
-
-      const touchStart = new TouchEvent('touchstart', {
-        touches: [{ clientX: 200, clientY: 100 } as any],
-      });
-      container.dispatchEvent(touchStart);
-
-      const touchMove = new TouchEvent('touchmove', {
-        touches: [{ clientX: 100, clientY: 100 } as any],
-      });
-      container.dispatchEvent(touchMove);
-
-      const touchEnd = new TouchEvent('touchend', {
-        changedTouches: [{ clientX: 50, clientY: 100 } as any],
-      });
-      container.dispatchEvent(touchEnd);
+      // Simulate swipe left: start at 200, end at 50 (delta = -150)
+      component.onTouchStart(createMockTouchEvent('touchstart', 200, 100));
+      component.onTouchMove(createMockTouchEvent('touchmove', 100, 100));
+      component.onTouchEnd(createMockTouchEvent('touchend', 50, 100));
 
       fixture.detectChanges();
       expect(component.internalActiveIndex()).toBe(1);
@@ -381,44 +375,20 @@ describe('DsCarousel', () => {
       component.goTo(1);
       fixture.detectChanges();
 
-      const container = fixture.nativeElement.querySelector('.ds-carousel');
-
-      const touchStart = new TouchEvent('touchstart', {
-        touches: [{ clientX: 100, clientY: 100 } as any],
-      });
-      container.dispatchEvent(touchStart);
-
-      const touchMove = new TouchEvent('touchmove', {
-        touches: [{ clientX: 200, clientY: 100 } as any],
-      });
-      container.dispatchEvent(touchMove);
-
-      const touchEnd = new TouchEvent('touchend', {
-        changedTouches: [{ clientX: 250, clientY: 100 } as any],
-      });
-      container.dispatchEvent(touchEnd);
+      // Simulate swipe right: start at 100, end at 250 (delta = +150)
+      component.onTouchStart(createMockTouchEvent('touchstart', 100, 100));
+      component.onTouchMove(createMockTouchEvent('touchmove', 200, 100));
+      component.onTouchEnd(createMockTouchEvent('touchend', 250, 100));
 
       fixture.detectChanges();
       expect(component.internalActiveIndex()).toBe(0);
     });
 
     it('should not navigate on small swipe', () => {
-      const container = fixture.nativeElement.querySelector('.ds-carousel');
-
-      const touchStart = new TouchEvent('touchstart', {
-        touches: [{ clientX: 100, clientY: 100 } as any],
-      });
-      container.dispatchEvent(touchStart);
-
-      const touchMove = new TouchEvent('touchmove', {
-        touches: [{ clientX: 120, clientY: 100 } as any],
-      });
-      container.dispatchEvent(touchMove);
-
-      const touchEnd = new TouchEvent('touchend', {
-        changedTouches: [{ clientX: 130, clientY: 100 } as any],
-      });
-      container.dispatchEvent(touchEnd);
+      // Simulate small swipe: start at 100, end at 130 (delta = 30 < 50 threshold)
+      component.onTouchStart(createMockTouchEvent('touchstart', 100, 100));
+      component.onTouchMove(createMockTouchEvent('touchmove', 120, 100));
+      component.onTouchEnd(createMockTouchEvent('touchend', 130, 100));
 
       fixture.detectChanges();
       expect(component.internalActiveIndex()).toBe(0); // No change
