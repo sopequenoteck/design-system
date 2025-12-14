@@ -74,7 +74,7 @@ import {
   standalone: true,
   imports: [CommonModule, FontAwesomeModule, DsSidebarItemComponent],
   templateUrl: './ds-sidebar.html',
-  styleUrl: './ds-sidebar.scss',
+  styleUrls: ['./ds-sidebar.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DsSidebar implements OnInit, AfterViewInit, OnDestroy {

@@ -116,7 +116,10 @@
   z-index: 1;
 
   // Content projection styling
-  ::ng-deep {
+  // Note: ::ng-deep est déprécié mais reste nécessaire pour styler le contenu projeté
+  // via ng-content. Angular n'a pas encore d'alternative pour ce cas d'usage.
+  // Les styles sont scopés à .ds-sidebar__header pour éviter les fuites.
+  :host ::ng-deep & {
     img {
       max-height: 32px;
       width: auto;
@@ -127,6 +130,18 @@
       font-size: var(--font-size-lg, 1.125rem);
       font-weight: 600;
     }
+  }
+
+  // Classes utilitaires pour le content projection (alternative à ::ng-deep)
+  .ds-sidebar-logo {
+    max-height: 32px;
+    width: auto;
+  }
+
+  .ds-sidebar-title {
+    margin: 0;
+    font-size: var(--font-size-lg, 1.125rem);
+    font-weight: 600;
   }
 }
 
@@ -199,10 +214,16 @@
   }
 
   // Content projection styling
-  ::ng-deep {
+  // Note: ::ng-deep scopé pour styler les boutons projetés
+  :host ::ng-deep & {
     button {
       width: 100%;
     }
+  }
+
+  // Classe utilitaire (alternative à ::ng-deep)
+  .ds-sidebar-footer-btn {
+    width: 100%;
   }
 }
 
