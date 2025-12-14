@@ -765,5 +765,19 @@
   --time-picker-btn-confirm-bg: var(--role-primary);
   --time-picker-btn-confirm-text: var(--gray-50);
   --time-picker-btn-confirm-hover: color-mix(in oklab, var(--role-primary) 85%, var(--text-default));
+
+  /* ==========================================================================
+   * SIDEBAR
+   * ======================================================================== */
+  --sidebar-bg: var(--custom-bg);
+  --sidebar-border: var(--custom-border);
+  --sidebar-text: var(--custom-text-default);
+  --sidebar-icon-color: var(--custom-text-muted);
+  --sidebar-item-hover-bg: var(--custom-bg-secondary);
+  --sidebar-item-active-bg: color-mix(in oklab, var(--custom-accent-primary) 10%, var(--custom-bg));
+  --sidebar-item-active-text: var(--custom-accent-primary);
+  --sidebar-header-bg: var(--custom-bg-header);
+  --sidebar-footer-bg: var(--custom-bg);
+  --sidebar-backdrop-bg: rgba(0, 0, 0, 0.5);
 }
 

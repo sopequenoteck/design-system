@@ -909,3 +909,22 @@ $notification-title-size: $font-size-3;
 $notification-title-weight: 600;
 
 $notification-message-size: $font-size-2;
+
+// === SIDEBAR ===
+
+$sidebar-width-sm: 200px;
+$sidebar-width-md: 240px;
+$sidebar-width-lg: 280px;
+$sidebar-width-collapsed: 64px;
+
+$sidebar-item-height: 44px;
+$sidebar-item-padding: $space-2 $space-4;
+$sidebar-item-radius: $radius-1-5;
+$sidebar-nested-indent: 20px;
+
+$sidebar-badge-size: 20px;
+
+$sidebar-transition-duration: 200ms;
+
+$sidebar-header-padding: $space-4;
+$sidebar-footer-padding: $space-4;

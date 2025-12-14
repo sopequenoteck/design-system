@@ -930,4 +930,18 @@
   --colorpicker-input-border: var(--border-default);
   --colorpicker-input-text: var(--text-default);
   --colorpicker-preset-border: var(--border-default);
+
+  /* ==========================================================================
+   * SIDEBAR
+   * ======================================================================== */
+  --sidebar-bg: var(--white);
+  --sidebar-border: var(--gray-200);
+  --sidebar-text: var(--gray-800);
+  --sidebar-icon-color: var(--gray-500);
+  --sidebar-item-hover-bg: var(--gray-100);
+  --sidebar-item-active-bg: color-mix(in oklab, var(--color-primary) 10%, var(--white));
+  --sidebar-item-active-text: var(--color-primary);
+  --sidebar-header-bg: var(--white);
+  --sidebar-footer-bg: var(--white);
+  --sidebar-backdrop-bg: rgba(0, 0, 0, 0.5);
 }

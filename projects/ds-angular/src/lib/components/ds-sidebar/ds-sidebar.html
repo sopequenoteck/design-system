@@ -1,0 +1,80 @@
+<!-- Backdrop (mode overlay) -->
+@if (internalMode() === 'overlay' && isOverlayOpen()) {
+  <div
+    class="ds-sidebar__backdrop"
+    (click)="handleBackdropClick()"
+    aria-hidden="true">
+  </div>
+}
+
+<!-- Sidebar container -->
+<nav
+  #sidebarContainer
+  [class]="containerClasses()"
+  [attr.aria-label]="ariaLabel()"
+  role="navigation"
+  (keydown)="handleKeyDown($event)">
+
+  <!-- Header -->
+  <div class="ds-sidebar__header">
+    <ng-content select="[sidebar-header]"></ng-content>
+
+    <!-- Toggle button -->
+    @if (collapsible() && internalMode() !== 'overlay') {
+      <button
+        type="button"
+        class="ds-sidebar__toggle-btn"
+        [attr.aria-label]="internalMode() === 'collapsed' ? 'Développer la sidebar' : 'Réduire la sidebar'"
+        [attr.aria-expanded]="internalMode() === 'full'"
+        (click)="toggleMode()">
+        <fa-icon [icon]="internalMode() === 'collapsed' ? expandIcon : collapseIcon" />
+      </button>
+    }
+
+    <!-- Close button (overlay mode) -->
+    @if (internalMode() === 'overlay' && isOverlayOpen()) {
+      <button
+        type="button"
+        class="ds-sidebar__close-btn"
+        aria-label="Fermer le menu"
+        (click)="closeOverlay()">
+        <fa-icon [icon]="collapseIcon" />
+      </button>
+    }
+  </div>
+
+  <!-- Body (items) -->
+  <div class="ds-sidebar__body" role="tree">
+    @for (item of items(); track item.id) {
+      <ds-sidebar-item
+        [item]="item"
+        [level]="0"
+        [mode]="internalMode()"
+        [expandedItemIds]="expandedItemIds()"
+        [activeItemId]="activeItemId()"
+        (itemClick)="handleItemClick($event)"
+        (itemToggle)="handleItemToggle($event)"
+        (itemKeydown)="handleItemKeydown($event)" />
+    }
+  </div>
+
+  <!-- Footer -->
+  <div class="ds-sidebar__footer">
+    <ng-content select="[sidebar-footer]"></ng-content>
+  </div>
+</nav>
+
+<!-- Trigger button (overlay mode, quand fermé) -->
+@if (internalMode() === 'overlay' && !isOverlayOpen()) {
+  <button
+    type="button"
+    class="ds-sidebar__trigger"
+    [class.ds-sidebar__trigger--left]="position() === 'left'"
+    [class.ds-sidebar__trigger--right]="position() === 'right'"
+    aria-label="Ouvrir le menu"
+    aria-haspopup="menu"
+    [attr.aria-expanded]="isOverlayOpen()"
+    (click)="openOverlay()">
+    <fa-icon [icon]="menuIcon" />
+  </button>
+}

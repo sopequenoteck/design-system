@@ -1,0 +1,318 @@
+// ============================================
+// DS-SIDEBAR STYLES
+// ============================================
+
+// Variables avec fallbacks
+:host {
+  display: block;
+}
+
+// ============================================
+// BACKDROP
+// ============================================
+
+.ds-sidebar__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: var(--z-sidebar-backdrop, 999);
+  opacity: 0;
+  animation: fadeIn var(--sidebar-transition-duration, 200ms) ease forwards;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+// ============================================
+// MAIN CONTAINER
+// ============================================
+
+.ds-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--sidebar-bg, #ffffff);
+  color: var(--sidebar-text, #1f2937);
+  transition: width var(--sidebar-transition-duration, 200ms) ease,
+              transform var(--sidebar-transition-duration, 200ms) ease;
+  overflow: hidden;
+
+  // ---------- POSITION ----------
+
+  &--left {
+    border-right: 1px solid var(--sidebar-border, #e5e7eb);
+  }
+
+  &--right {
+    border-left: 1px solid var(--sidebar-border, #e5e7eb);
+  }
+
+  // ---------- MODES ----------
+
+  &--full {
+    width: var(--sidebar-width-md, 240px);
+
+    &.ds-sidebar--sm { width: var(--sidebar-width-sm, 200px); }
+    &.ds-sidebar--lg { width: var(--sidebar-width-lg, 280px); }
+  }
+
+  &--collapsed {
+    width: var(--sidebar-width-collapsed, 64px);
+
+    .ds-sidebar__header,
+    .ds-sidebar__footer {
+      padding: var(--space-2, 0.5rem);
+      justify-content: center;
+    }
+
+    .ds-sidebar__toggle-btn {
+      margin: 0 auto;
+    }
+  }
+
+  &--overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: var(--z-sidebar-overlay, 1000);
+    box-shadow: var(--shadow-3, 0 10px 25px rgba(0, 0, 0, 0.1));
+    transform: translateX(-100%);
+
+    &.ds-sidebar--left {
+      left: 0;
+    }
+
+    &.ds-sidebar--right {
+      right: 0;
+      transform: translateX(100%);
+    }
+
+    &.ds-sidebar--overlay-open {
+      transform: translateX(0);
+    }
+
+    // En overlay, toujours largeur full
+    width: var(--sidebar-width-md, 240px);
+    &.ds-sidebar--sm { width: var(--sidebar-width-sm, 200px); }
+    &.ds-sidebar--lg { width: var(--sidebar-width-lg, 280px); }
+  }
+}
+
+// ============================================
+// HEADER
+// ============================================
+
+.ds-sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4, 1rem);
+  border-bottom: 1px solid var(--sidebar-border, #e5e7eb);
+  flex-shrink: 0;
+  min-height: 60px;
+
+  // Content projection styling
+  ::ng-deep {
+    img {
+      max-height: 32px;
+      width: auto;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-size: var(--font-size-lg, 1.125rem);
+      font-weight: 600;
+    }
+  }
+}
+
+.ds-sidebar__toggle-btn,
+.ds-sidebar__close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-1-5, 6px);
+  background: transparent;
+  color: var(--sidebar-text, #1f2937);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    background: var(--sidebar-item-hover-bg, rgba(0, 0, 0, 0.05));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary, #3b82f6);
+    outline-offset: 2px;
+  }
+}
+
+// ============================================
+// BODY
+// ============================================
+
+.ds-sidebar__body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--space-2, 0.5rem);
+
+  // Scrollbar styling
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--gray-300, #d1d5db);
+    border-radius: 3px;
+
+    &:hover {
+      background: var(--gray-400, #9ca3af);
+    }
+  }
+}
+
+// ============================================
+// FOOTER
+// ============================================
+
+.ds-sidebar__footer {
+  padding: var(--space-4, 1rem);
+  border-top: 1px solid var(--sidebar-border, #e5e7eb);
+  flex-shrink: 0;
+
+  &:empty {
+    display: none;
+  }
+
+  // Content projection styling
+  ::ng-deep {
+    button {
+      width: 100%;
+    }
+  }
+}
+
+// ============================================
+// TRIGGER (OVERLAY MODE)
+// ============================================
+
+.ds-sidebar__trigger {
+  position: fixed;
+  top: var(--space-4, 1rem);
+  z-index: var(--z-sidebar-trigger, 998);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-2, 8px);
+  background: var(--sidebar-bg, #ffffff);
+  color: var(--sidebar-text, #1f2937);
+  box-shadow: var(--shadow-2, 0 4px 12px rgba(0, 0, 0, 0.1));
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+
+  &--left {
+    left: var(--space-4, 1rem);
+  }
+
+  &--right {
+    right: var(--space-4, 1rem);
+  }
+
+  &:hover {
+    background: var(--sidebar-item-hover-bg, rgba(0, 0, 0, 0.05));
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary, #3b82f6);
+    outline-offset: 2px;
+  }
+}
+
+// ============================================
+// DARK MODE OVERRIDES
+// ============================================
+
+:host-context(.theme-dark) {
+  .ds-sidebar {
+    background: var(--sidebar-bg, #1f2937);
+    color: var(--sidebar-text, #f9fafb);
+  }
+
+  .ds-sidebar__backdrop {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .ds-sidebar__trigger {
+    background: var(--sidebar-bg, #1f2937);
+    color: var(--sidebar-text, #f9fafb);
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+
+@media (max-width: 768px) {
+  .ds-sidebar--full,
+  .ds-sidebar--collapsed {
+    // Sur mobile, forcer le mode overlay
+    // Géré par le composant via autoCollapseOnMobile
+  }
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+// ============================================
+// PRINT
+// ============================================
+
+@media print {
+  .ds-sidebar {
+    display: none !important;
+  }
+
+  .ds-sidebar__backdrop,
+  .ds-sidebar__trigger {
+    display: none !important;
+  }
+}

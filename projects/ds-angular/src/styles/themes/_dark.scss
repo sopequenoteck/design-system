@@ -940,4 +940,18 @@
   --colorpicker-input-border: var(--gray-700);
   --colorpicker-input-text: var(--gray-100);
   --colorpicker-preset-border: var(--gray-700);
+
+  /* ==========================================================================
+   * SIDEBAR
+   * ======================================================================== */
+  --sidebar-bg: var(--gray-800);
+  --sidebar-border: var(--gray-700);
+  --sidebar-text: var(--gray-100);
+  --sidebar-icon-color: var(--gray-400);
+  --sidebar-item-hover-bg: var(--gray-700);
+  --sidebar-item-active-bg: var(--gray-600);
+  --sidebar-item-active-text: var(--color-primary);
+  --sidebar-header-bg: var(--gray-800);
+  --sidebar-footer-bg: var(--gray-800);
+  --sidebar-backdrop-bg: rgba(0, 0, 0, 0.7);
 }

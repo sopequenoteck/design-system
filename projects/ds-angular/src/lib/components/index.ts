@@ -297,3 +297,18 @@ export {
   type RGBColor,
   type HSLColor,
 } from './ds-color-picker/ds-color-picker';
+
+export { DsSidebar } from './ds-sidebar/ds-sidebar';
+
+export { DsSidebarItemComponent } from './ds-sidebar/ds-sidebar-item.component';
+
+export type {
+  SidebarItem,
+  SidebarMode,
+  SidebarSize,
+  SidebarPosition,
+  SidebarBadgeVariant,
+  SidebarItemClickEvent,
+  SidebarItemExpandEvent,
+  FlattenedSidebarItem,
+} from './ds-sidebar/ds-sidebar.types';

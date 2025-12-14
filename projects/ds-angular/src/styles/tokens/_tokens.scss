@@ -890,6 +890,20 @@
   --segmented-segment-gap: #{$segmented-segment-gap};
   --segmented-border-radius: #{$segmented-border-radius};
   --segmented-active-shadow: #{$segmented-active-shadow};
+
+  /* === SIDEBAR === */
+  --sidebar-width-sm: #{$sidebar-width-sm};
+  --sidebar-width-md: #{$sidebar-width-md};
+  --sidebar-width-lg: #{$sidebar-width-lg};
+  --sidebar-width-collapsed: #{$sidebar-width-collapsed};
+  --sidebar-item-height: #{$sidebar-item-height};
+  --sidebar-item-padding: #{$sidebar-item-padding};
+  --sidebar-item-radius: #{$sidebar-item-radius};
+  --sidebar-nested-indent: #{$sidebar-nested-indent};
+  --sidebar-badge-size: #{$sidebar-badge-size};
+  --sidebar-transition-duration: #{$sidebar-transition-duration};
+  --sidebar-header-padding: #{$sidebar-header-padding};
+  --sidebar-footer-padding: #{$sidebar-footer-padding};
 }
 
 /* === ACCESSIBILITY: REDUCED MOTION === */
