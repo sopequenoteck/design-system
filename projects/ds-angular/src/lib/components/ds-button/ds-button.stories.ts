@@ -10,7 +10,7 @@ import {
 } from '../../utils/storybook-controls';
 
 const meta: Meta<DsButton> = {
-  title: 'Actions/DsButton',
+  title: 'Components/Actions/Button',
   component: DsButton,
   argTypes: buildButtonArgTypes(),
 };

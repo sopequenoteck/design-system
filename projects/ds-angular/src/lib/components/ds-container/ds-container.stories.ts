@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/angular';
 import { DsContainer } from './ds-container';
 
 const meta: Meta<DsContainer> = {
-  title: 'Foundation/Layout/DsContainer',
+  title: 'Layout/Container',
   component: DsContainer,
   parameters: {
     docs: {

@@ -784,7 +784,7 @@ class DesignShowcaseComponent {
 }
 
 const meta: Meta<DesignShowcaseComponent> = {
-  title: 'Documentation/Design Preview',
+  title: 'Getting Started/Design Preview',
   component: DesignShowcaseComponent,
   decorators: [
     moduleMetadata({

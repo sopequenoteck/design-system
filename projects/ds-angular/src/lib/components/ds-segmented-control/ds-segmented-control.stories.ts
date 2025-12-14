@@ -5,7 +5,7 @@ import { DsSegmentedControl, SegmentOption } from './ds-segmented-control';
 import { IconRegistryService } from '../../utils/icon-registry.service';
 
 const meta: Meta<DsSegmentedControl> = {
-  title: 'Components/SegmentedControl',
+  title: 'Forms/Input Controls/Segmented Control',
   component: DsSegmentedControl,
   decorators: [
     moduleMetadata({

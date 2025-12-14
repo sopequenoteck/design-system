@@ -42,7 +42,7 @@ interface DsComboboxArgs {
 }
 
 const meta: Meta<DsComboboxArgs> = {
-  title: 'Form/Inputs/DsCombobox',
+  title: 'Forms/Selection/Combobox',
   component: DsCombobox,
   decorators: [
     moduleMetadata({

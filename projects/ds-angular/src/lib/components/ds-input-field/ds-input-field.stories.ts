@@ -4,7 +4,7 @@ import { DsInputField } from './ds-input-field';
 import { faUser, faEnvelope, faLock, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const meta: Meta<DsInputField> = {
-  title: 'Form/Inputs/DsInputField',
+  title: 'Forms/Text Inputs/Input Field',
   component: DsInputField,
   argTypes: {
     label: {

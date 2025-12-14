@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { PrimitiveToggle, ToggleSize } from './primitive-toggle';
 
 const meta: Meta<PrimitiveToggle> = {
-  title: 'Foundation/Primitives/PrimitiveToggle',
+  title: 'Foundation/Primitives/Toggle',
   component: PrimitiveToggle,
   argTypes: {
     checked: {

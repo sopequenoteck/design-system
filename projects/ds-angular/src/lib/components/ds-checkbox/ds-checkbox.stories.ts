@@ -3,7 +3,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { DsCheckbox } from './ds-checkbox';
 
 const meta: Meta<DsCheckbox> = {
-  title: 'Form/Selection/DsCheckbox',
+  title: 'Forms/Input Controls/Checkbox',
   component: DsCheckbox,
   argTypes: {
     label: {

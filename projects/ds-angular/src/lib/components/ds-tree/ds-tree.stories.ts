@@ -84,7 +84,7 @@ const organizationData: TreeNode[] = [
 ];
 
 const meta: Meta<DsTree> = {
-  title: 'Navigation/DsTree',
+  title: 'Components/Navigation/Tree',
   component: DsTree,
   // Exclure des tests automatiques car ce composant récursif a des performances variables
   tags: ['!test'],

@@ -30,7 +30,7 @@ const defaultColumns: DsTableColumn<User>[] = [
 ];
 
 const meta: Meta<DsTable<User>> = {
-  title: 'Data Display/DsTable',
+  title: 'Components/Data/Table',
   component: DsTable,
   decorators: [
     moduleMetadata({

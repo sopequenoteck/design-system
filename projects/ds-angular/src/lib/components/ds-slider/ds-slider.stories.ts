@@ -6,7 +6,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angul
 import { Component } from '@angular/core';
 
 const meta: Meta<DsSlider> = {
-  title: 'Form/Selection/DsSlider',
+  title: 'Forms/Specialized/Slider',
   component: DsSlider,
   argTypes: {
     min: {

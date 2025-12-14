@@ -21,7 +21,7 @@ const defaultItems: AccordionItem[] = [
 ];
 
 const meta: Meta<DsAccordion> = {
-  title: 'Actions/DsAccordion',
+  title: 'Components/Display/Accordion',
   component: DsAccordion,
   decorators: [
     moduleMetadata({

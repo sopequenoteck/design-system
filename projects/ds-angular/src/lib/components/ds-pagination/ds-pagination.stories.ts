@@ -3,7 +3,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { DsPagination } from './ds-pagination';
 
 const meta: Meta<DsPagination> = {
-  title: 'Navigation/DsPagination',
+  title: 'Components/Actions/Pagination',
   component: DsPagination,
   decorators: [
     moduleMetadata({

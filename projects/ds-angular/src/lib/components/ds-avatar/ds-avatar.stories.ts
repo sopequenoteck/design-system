@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsAvatar } from './ds-avatar';
 
 const meta: Meta<DsAvatar> = {
-  title: 'Data Display/DsAvatar',
+  title: 'Components/Display/Avatar',
   component: DsAvatar,
   argTypes: {
     size: {

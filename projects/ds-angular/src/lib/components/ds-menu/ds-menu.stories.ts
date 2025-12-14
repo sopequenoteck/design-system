@@ -35,7 +35,7 @@ const itemsWithDisabled: MenuItem[] = [
 ];
 
 const meta: Meta<DsMenu> = {
-  title: 'Navigation/DsMenu',
+  title: 'Components/Navigation/Menu',
   component: DsMenu,
   argTypes: {
     size: {

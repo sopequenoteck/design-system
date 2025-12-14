@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 import { DsDatePicker } from './ds-date-picker';
 
 const meta: Meta<DsDatePicker> = {
-  title: 'Form/Pickers/DsDatePicker',
+  title: 'Forms/Selection/Date Picker',
   component: DsDatePicker,
   decorators: [
     moduleMetadata({

@@ -3,7 +3,7 @@ import { PrimitiveBadge, BadgeVariant, BadgeSize, BadgeShape, BadgeAppearance } 
 import { faCheck, faStar, faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const meta: Meta<PrimitiveBadge> = {
-  title: 'Foundation/Primitives/PrimitiveBadge',
+  title: 'Foundation/Primitives/Badge',
   component: PrimitiveBadge,
   argTypes: {
     type: {

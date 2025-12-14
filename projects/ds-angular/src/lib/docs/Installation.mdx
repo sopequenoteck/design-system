@@ -1,0 +1,159 @@
+{/* Installation.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Getting Started/Installation" />
+
+# Installation
+
+Guide d'installation de DS-Angular dans votre projet.
+
+---
+
+## Prérequis
+
+- **Node.js** : Version 20.19+, 22.12+ ou 24.0+
+- **Angular** : Version 20.x
+- **npm** ou **yarn** ou **pnpm**
+
+Vérifiez votre version de Node.js :
+
+```bash
+node -v
+```
+
+---
+
+## Installation via npm
+
+### 1. Installer le package
+
+```bash
+npm install @kksdev/ds-angular
+```
+
+### 2. Installer les dépendances requises
+
+```bash
+npm install @angular/cdk @fortawesome/angular-fontawesome @fortawesome/free-solid-svg-icons
+```
+
+### Installation complète (une seule commande)
+
+```bash
+npm install @kksdev/ds-angular @angular/cdk @fortawesome/angular-fontawesome @fortawesome/free-solid-svg-icons
+```
+
+---
+
+## Installation via yarn
+
+```bash
+yarn add @kksdev/ds-angular @angular/cdk @fortawesome/angular-fontawesome @fortawesome/free-solid-svg-icons
+```
+
+---
+
+## Installation via pnpm
+
+```bash
+pnpm add @kksdev/ds-angular @angular/cdk @fortawesome/angular-fontawesome @fortawesome/free-solid-svg-icons
+```
+
+---
+
+## Configuration
+
+### 1. Importer les styles globaux
+
+Ajoutez dans votre fichier `src/styles.scss` :
+
+```scss
+@use '@kksdev/ds-angular/styles';
+```
+
+### 2. Activer un thème
+
+Dans votre `app.component.ts` ou `main.ts` :
+
+```typescript
+// Thème clair (par défaut)
+document.documentElement.className = 'theme-light';
+
+// Thème sombre
+document.documentElement.className = 'theme-dark';
+
+// Thème personnalisé
+document.documentElement.className = 'theme-custom';
+```
+
+### 3. Configurer FontAwesome (optionnel)
+
+Si vous utilisez des composants avec icônes :
+
+```typescript
+// app.config.ts
+import { ApplicationConfig } from '@angular/core';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // ...autres providers
+  ]
+};
+
+// Dans un composant ou service d'initialisation
+constructor(library: FaIconLibrary) {
+  library.addIconPacks(fas);
+}
+```
+
+---
+
+## Structure du package
+
+```
+@kksdev/ds-angular/
+├── styles/           # Styles globaux et tokens
+├── components/       # Composants DS (47)
+├── primitives/       # Briques de base (7)
+└── utils/            # Utilitaires
+```
+
+---
+
+## Vérification
+
+Pour vérifier que l'installation est correcte :
+
+```typescript
+import { Component } from '@angular/core';
+import { DsButton } from '@kksdev/ds-angular';
+
+@Component({
+  standalone: true,
+  imports: [DsButton],
+  template: `<ds-button variant="primary">Installation réussie !</ds-button>`
+})
+export class TestComponent {}
+```
+
+Si le bouton s'affiche correctement avec les styles, l'installation est réussie.
+
+---
+
+## Problèmes courants
+
+### Styles non appliqués
+
+Vérifiez que `@use '@kksdev/ds-angular/styles';` est bien dans `styles.scss`.
+
+### Erreur "Module not found"
+
+```bash
+npm install @kksdev/ds-angular --save
+```
+
+### Icônes non affichées
+
+Assurez-vous d'avoir installé `@fortawesome/angular-fontawesome` et configuré la bibliothèque d'icônes.

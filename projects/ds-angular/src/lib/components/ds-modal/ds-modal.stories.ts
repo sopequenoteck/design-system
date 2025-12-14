@@ -5,7 +5,7 @@ import { DsModalComponent } from './ds-modal.component';
 import { DsButton } from '../ds-button/ds-button';
 
 const meta: Meta<DsModalComponent> = {
-  title: 'Overlays/DsModal',
+  title: 'Overlays/Modal',
   component: DsModalComponent,
   decorators: [
     moduleMetadata({

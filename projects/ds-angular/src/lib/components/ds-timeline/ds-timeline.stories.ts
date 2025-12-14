@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const meta: Meta<DsTimeline> = {
-  title: 'Components/Timeline',
+  title: 'Components/Data/Timeline',
   component: DsTimeline,
   decorators: [
     moduleMetadata({

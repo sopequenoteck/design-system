@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsAlert } from './ds-alert';
 
 const meta: Meta<DsAlert> = {
-  title: 'Feedback/DsAlert',
+  title: 'Feedback/Alert',
   component: DsAlert,
   argTypes: {
     type: {

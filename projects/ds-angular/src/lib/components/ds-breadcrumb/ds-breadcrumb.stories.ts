@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsBreadcrumb, BreadcrumbItem } from './ds-breadcrumb';
 
 const meta: Meta<DsBreadcrumb> = {
-  title: 'Navigation/DsBreadcrumb',
+  title: 'Components/Navigation/Breadcrumb',
   component: DsBreadcrumb,
   argTypes: {
     separator: {

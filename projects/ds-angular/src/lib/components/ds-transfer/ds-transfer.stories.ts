@@ -20,7 +20,7 @@ const sampleTargetItems: TransferItem[] = [
 ];
 
 const meta: Meta<DsTransfer> = {
-  title: 'Components/DsTransfer',
+  title: 'Overlays/Transfer',
   component: DsTransfer,
   decorators: [
     moduleMetadata({

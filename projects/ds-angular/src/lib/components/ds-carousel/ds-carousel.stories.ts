@@ -3,7 +3,7 @@ import { argsToTemplate } from '@storybook/angular';
 import { DsCarousel, CarouselSlide } from './ds-carousel';
 
 const meta: Meta<DsCarousel> = {
-  title: 'Components/Carousel',
+  title: 'Components/Data/Carousel',
   component: DsCarousel,
   tags: ['autodocs'],
   argTypes: {

@@ -3,7 +3,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { DsToggle } from './ds-toggle';
 
 const meta: Meta<DsToggle> = {
-  title: 'Form/Selection/DsToggle',
+  title: 'Forms/Input Controls/Toggle',
   component: DsToggle,
   argTypes: {
     label: {

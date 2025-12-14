@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { PrimitiveTextarea, TextareaState, TextareaSize, TextareaAppearance, TextareaResize } from './primitive-textarea';
 
 const meta: Meta<PrimitiveTextarea> = {
-  title: 'Foundation/Primitives/PrimitiveTextarea',
+  title: 'Foundation/Primitives/Textarea',
   component: PrimitiveTextarea,
   argTypes: {
     state: {

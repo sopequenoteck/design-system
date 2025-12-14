@@ -4,7 +4,7 @@ import { DsDrawer } from './ds-drawer';
 import { DsButton } from '../ds-button/ds-button';
 
 const meta: Meta<DsDrawer> = {
-  title: 'Overlays/DsDrawer',
+  title: 'Overlays/Drawer',
   component: DsDrawer,
   parameters: {
     docs: {

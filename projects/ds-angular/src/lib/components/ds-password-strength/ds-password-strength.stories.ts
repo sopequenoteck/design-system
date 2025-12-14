@@ -4,7 +4,7 @@ import { DsPasswordStrength, PasswordStrength } from './ds-password-strength';
 import { DsInputField } from '../ds-input-field/ds-input-field';
 
 const meta: Meta<DsPasswordStrength> = {
-  title: 'Components/Password Strength',
+  title: 'Forms/Specialized/Password Strength',
   component: DsPasswordStrength,
   tags: ['autodocs'],
   decorators: [

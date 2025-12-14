@@ -166,7 +166,7 @@ class NotificationDemoComponent {
 }
 
 const meta: Meta<NotificationDemoComponent> = {
-  title: 'Components/Notification',
+  title: 'Feedback/Notification',
   component: NotificationDemoComponent,
   tags: ['autodocs'],
   decorators: [

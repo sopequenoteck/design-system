@@ -1,0 +1,370 @@
+{/* Grid.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Layout/Grid" />
+
+# Grid System
+
+Système de grille flexible pour créer des layouts responsives.
+
+---
+
+## Concept
+
+DS-Angular n'impose pas de système de grille spécifique. Utilisez CSS Grid ou Flexbox natifs avec nos tokens d'espacement.
+
+---
+
+## CSS Grid (recommandé)
+
+### Grille basique
+
+```scss
+.grid {
+  display: grid;
+  gap: var(--space-4);  // 16px
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+```
+
+<div style={{
+  display: 'grid',
+  gap: '16px',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+  marginBottom: '32px'
+}}>
+  {[1, 2, 3, 4, 5, 6].map((n) => (
+    <div key={n} style={{
+      padding: '24px',
+      background: 'var(--background-secondary)',
+      borderRadius: '8px',
+      textAlign: 'center',
+      border: '1px solid var(--border-color)'
+    }}>
+      Item {n}
+    </div>
+  ))}
+</div>
+
+### Grille 12 colonnes
+
+```scss
+.grid-12 {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.col-6 { grid-column: span 6; }
+.col-4 { grid-column: span 4; }
+.col-3 { grid-column: span 3; }
+```
+
+<div style={{
+  display: 'grid',
+  gap: '16px',
+  gridTemplateColumns: 'repeat(12, 1fr)',
+  marginBottom: '32px'
+}}>
+  <div style={{
+    gridColumn: 'span 6',
+    padding: '16px',
+    background: 'var(--color-primary)',
+    borderRadius: '8px',
+    color: 'white',
+    textAlign: 'center'
+  }}>col-6</div>
+  <div style={{
+    gridColumn: 'span 6',
+    padding: '16px',
+    background: 'var(--color-secondary)',
+    borderRadius: '8px',
+    color: 'white',
+    textAlign: 'center'
+  }}>col-6</div>
+  <div style={{
+    gridColumn: 'span 4',
+    padding: '16px',
+    background: 'var(--success)',
+    borderRadius: '8px',
+    color: 'white',
+    textAlign: 'center'
+  }}>col-4</div>
+  <div style={{
+    gridColumn: 'span 4',
+    padding: '16px',
+    background: 'var(--warning)',
+    borderRadius: '8px',
+    color: 'white',
+    textAlign: 'center'
+  }}>col-4</div>
+  <div style={{
+    gridColumn: 'span 4',
+    padding: '16px',
+    background: 'var(--error)',
+    borderRadius: '8px',
+    color: 'white',
+    textAlign: 'center'
+  }}>col-4</div>
+</div>
+
+---
+
+## Grille responsive
+
+```scss
+.grid-responsive {
+  display: grid;
+  gap: var(--space-4);
+
+  // Mobile : 1 colonne
+  grid-template-columns: 1fr;
+
+  // Tablette : 2 colonnes
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // Desktop : 3 colonnes
+  @media (min-width: 992px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  // Large : 4 colonnes
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+```
+
+---
+
+## Layout avec sidebar
+
+```scss
+.layout-sidebar {
+  display: grid;
+  gap: var(--space-6);
+
+  // Mobile : empilé
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "sidebar"
+    "main";
+
+  // Desktop : côte à côte
+  @media (min-width: 992px) {
+    grid-template-columns: 280px 1fr;
+    grid-template-areas: "sidebar main";
+  }
+}
+
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+```
+
+<div style={{
+  display: 'grid',
+  gap: '24px',
+  gridTemplateColumns: '200px 1fr',
+  marginBottom: '32px'
+}}>
+  <div style={{
+    padding: '24px',
+    background: 'var(--background-secondary)',
+    borderRadius: '8px',
+    border: '1px solid var(--border-color)'
+  }}>
+    <strong>Sidebar</strong>
+    <ul style={{ marginTop: '16px', paddingLeft: '16px' }}>
+      <li>Menu 1</li>
+      <li>Menu 2</li>
+      <li>Menu 3</li>
+    </ul>
+  </div>
+  <div style={{
+    padding: '24px',
+    background: 'var(--background-secondary)',
+    borderRadius: '8px',
+    border: '1px solid var(--border-color)'
+  }}>
+    <strong>Main Content</strong>
+    <p style={{ marginTop: '16px', color: 'var(--text-muted)' }}>
+      Zone de contenu principal avec plus d'espace.
+    </p>
+  </div>
+</div>
+
+---
+
+## Flexbox
+
+Pour les layouts simples ou les alignements :
+
+```scss
+.flex-row {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.flex-item {
+  flex: 1 1 200px;  // Grandit, rétrécit, min 200px
+}
+```
+
+### Alignements
+
+```scss
+// Centrage horizontal et vertical
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Distribution égale
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// Alignement à droite
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+```
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '16px',
+  background: 'var(--background-secondary)',
+  borderRadius: '8px',
+  marginBottom: '32px'
+}}>
+  <span>Logo</span>
+  <div style={{ display: 'flex', gap: '16px' }}>
+    <span>Link 1</span>
+    <span>Link 2</span>
+    <span>Link 3</span>
+  </div>
+  <button style={{
+    padding: '8px 16px',
+    background: 'var(--color-primary)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '6px'
+  }}>Action</button>
+</div>
+
+---
+
+## Classes utilitaires
+
+Si vous préférez des classes utilitaires, créez-les :
+
+```scss
+// Gap
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+
+// Grid columns
+.grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+// Responsive
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 992px) {
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+```
+
+---
+
+## Composant DsContainer
+
+Utilisez `DsContainer` pour les layouts avec largeur maximale :
+
+```html
+<ds-container maxWidth="lg" gutter="md">
+  <div class="grid-responsive">
+    <!-- Contenu -->
+  </div>
+</ds-container>
+```
+
+### Largeurs disponibles
+
+| maxWidth | Valeur |
+|----------|--------|
+| `xs` | 320px |
+| `sm` | 576px |
+| `md` | 768px |
+| `lg` | 992px |
+| `xl` | 1200px |
+| `full` | 100% |
+
+---
+
+## Exemple complet : Page layout
+
+```scss
+.page-layout {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+
+.page-header {
+  grid-area: header;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.page-main {
+  grid-area: main;
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-6);
+
+  @media (min-width: 992px) {
+    grid-template-columns: 250px 1fr;
+  }
+}
+
+.page-footer {
+  grid-area: footer;
+  padding: var(--space-4);
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+```
+
+---
+
+## Bonnes pratiques
+
+1. **Utilisez CSS Grid** pour les layouts 2D
+2. **Utilisez Flexbox** pour les alignements 1D
+3. **Tokens d'espacement** : Toujours utiliser `var(--space-*)` pour les gaps
+4. **Mobile-first** : Commencez par le layout mobile
+5. **Évitez les largeurs fixes** : Préférez `minmax()`, `fr`, `auto-fit`

@@ -3,7 +3,7 @@ import { DsInputTextarea } from './ds-input-textarea';
 import { faComment, faFileAlt, faPen, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const meta: Meta<DsInputTextarea> = {
-  title: 'Form/Inputs/DsInputTextarea',
+  title: 'Forms/Text Inputs/Input Textarea',
   component: DsInputTextarea,
   argTypes: {
     label: {

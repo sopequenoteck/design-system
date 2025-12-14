@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 const meta: Meta<DsColorPicker> = {
-  title: 'Components/ColorPicker',
+  title: 'Forms/Selection/Color Picker',
   component: DsColorPicker,
   tags: ['autodocs'],
   decorators: [

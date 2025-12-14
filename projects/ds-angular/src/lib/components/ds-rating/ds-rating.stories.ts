@@ -19,7 +19,7 @@ import { DsRating } from './ds-rating';
  * ```
  */
 const meta: Meta<DsRating> = {
-  title: 'Data Display/DsRating',
+  title: 'Components/Display/Rating',
   component: DsRating,
   decorators: [
     moduleMetadata({

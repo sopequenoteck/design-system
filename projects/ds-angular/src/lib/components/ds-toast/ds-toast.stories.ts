@@ -121,7 +121,7 @@ class ToastPersistentDemoComponent {
 }
 
 const meta: Meta = {
-  title: 'Feedback/DsToast',
+  title: 'Feedback/Toast',
   decorators: [
     moduleMetadata({
       imports: [ToastDemoComponent, ToastPositionsDemoComponent, ToastActionDemoComponent, ToastPersistentDemoComponent],

@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { DsSearchInput } from './ds-search-input';
 
 const meta: Meta<DsSearchInput> = {
-  title: 'Form/Inputs/DsSearchInput',
+  title: 'Forms/Text Inputs/Search Input',
   component: DsSearchInput,
   decorators: [
     moduleMetadata({

@@ -4,7 +4,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { PrimitiveRadio } from '../../primitives/primitive-radio/primitive-radio';
 
 const meta: Meta = {
-  title: 'Form/Selection/DsRadioGroup',
+  title: 'Forms/Input Controls/Radio Group',
   decorators: [
     moduleMetadata({
       imports: [PrimitiveRadio],

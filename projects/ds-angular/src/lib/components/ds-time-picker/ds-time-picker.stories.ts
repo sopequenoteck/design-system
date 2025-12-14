@@ -4,7 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 
 const meta: Meta<DsTimePicker> = {
-  title: 'Form/Pickers/DsTimePicker',
+  title: 'Forms/Specialized/Time Picker',
   component: DsTimePicker,
   parameters: {
     // Ignorer les erreurs de smoke tests pour ce composant avec CDK overlay

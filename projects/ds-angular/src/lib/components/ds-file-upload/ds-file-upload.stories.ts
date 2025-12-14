@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 
 const meta: Meta<DsFileUpload> = {
-  title: 'Form/Upload/DsFileUpload',
+  title: 'Forms/Specialized/File Upload',
   component: DsFileUpload,
   decorators: [
     applicationConfig({

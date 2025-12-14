@@ -2,7 +2,7 @@ import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { DsCalendar, CalendarEvent } from './ds-calendar';
 
 const meta: Meta<DsCalendar> = {
-  title: 'Components/Calendar',
+  title: 'Components/Data/Calendar',
   component: DsCalendar,
   decorators: [
     moduleMetadata({

@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const meta: Meta<DsEmpty> = {
-  title: 'Feedback/DsEmpty',
+  title: 'Components/Display/Empty',
   component: DsEmpty,
   parameters: {
     docs: {

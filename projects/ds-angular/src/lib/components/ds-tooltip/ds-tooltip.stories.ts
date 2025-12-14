@@ -4,7 +4,7 @@ import { DsTooltip } from './ds-tooltip.directive';
 import { DsButton } from '../ds-button/ds-button';
 
 const meta: Meta = {
-  title: 'Feedback/DsTooltip',
+  title: 'Feedback/Tooltip',
   decorators: [
     moduleMetadata({
       imports: [DsTooltip, DsButton],

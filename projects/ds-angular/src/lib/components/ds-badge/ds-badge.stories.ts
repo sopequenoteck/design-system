@@ -3,7 +3,7 @@ import { DsBadge } from './ds-badge';
 import { faCheck, faStar, faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const meta: Meta<DsBadge> = {
-  title: 'Data Display/DsBadge',
+  title: 'Components/Display/Badge',
   component: DsBadge,
   argTypes: {
     type: {

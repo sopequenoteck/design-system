@@ -6,7 +6,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { JsonPipe } from '@angular/common';
 
 const meta: Meta<DsInputNumber> = {
-  title: 'Components/DsInputNumber',
+  title: 'Forms/Text Inputs/Input Number',
   component: DsInputNumber,
   tags: ['autodocs'],
   decorators: [

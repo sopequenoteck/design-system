@@ -1,0 +1,232 @@
+{/* SassVariables.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Customize/Sass Variables" />
+
+# Variables Sass
+
+Variables SCSS disponibles pour personnaliser le design system au niveau du build.
+
+---
+
+## Architecture des tokens
+
+Le design system utilise une architecture à 3 couches :
+
+```
+_primitives.scss    →  Variables de base (couleurs, tailles)
+      ↓
+_semantic.scss      →  Variables sémantiques (composants)
+      ↓
+_tokens.scss        →  CSS custom properties (:root)
+```
+
+---
+
+## Variables primitives
+
+### Couleurs de base
+
+```scss
+// Palette principale
+$primary: #3b82f6;
+$secondary: #64748b;
+$alt: #8b5cf6;
+
+// Couleurs sémantiques
+$success: #10b981;
+$warning: #f59e0b;
+$error: #ef4444;
+$info: #0ea5e9;
+```
+
+### Palette de gris
+
+```scss
+$gray-50: #f9fafb;
+$gray-100: #f3f4f6;
+$gray-200: #e5e7eb;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-700: #374151;
+$gray-800: #1f2937;
+$gray-900: #111827;
+```
+
+### Espacements
+
+```scss
+$space-1: 0.25rem;   // 4px
+$space-2: 0.5rem;    // 8px
+$space-3: 0.75rem;   // 12px
+$space-4: 1rem;      // 16px
+$space-5: 1.25rem;   // 20px
+$space-6: 1.5rem;    // 24px
+$space-8: 2rem;      // 32px
+$space-10: 2.5rem;   // 40px
+$space-12: 3rem;     // 48px
+```
+
+### Border radius
+
+```scss
+$radius-1: 4px;
+$radius-2: 8px;
+$radius-3: 12px;
+$radius-4: 16px;
+$radius-round: 50%;
+$radius-full: 9999px;
+```
+
+### Ombres
+
+```scss
+$shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+$shadow-2: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+$shadow-3: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+$shadow-4: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+```
+
+### Typographie
+
+```scss
+$font-family-base: 'Poppins', system-ui, sans-serif;
+$font-family-mono: 'JetBrains Mono', monospace;
+
+$font-size-1: 0.75rem;   // 12px
+$font-size-2: 0.875rem;  // 14px
+$font-size-3: 1rem;      // 16px
+$font-size-4: 1.125rem;  // 18px
+$font-size-5: 1.25rem;   // 20px
+$font-size-6: 1.5rem;    // 24px
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+```
+
+---
+
+## Variables sémantiques
+
+### Boutons
+
+```scss
+// Tailles
+$btn-height-sm: 32px;
+$btn-height-md: 40px;
+$btn-height-lg: 48px;
+
+$btn-padding-sm: $space-2 $space-3;
+$btn-padding-md: $space-3 $space-4;
+$btn-padding-lg: $space-4 $space-6;
+
+$btn-font-size-sm: $font-size-1;
+$btn-font-size-md: $font-size-2;
+$btn-font-size-lg: $font-size-3;
+
+$btn-radius: $radius-2;
+```
+
+### Inputs
+
+```scss
+$input-height-sm: 32px;
+$input-height-md: 40px;
+$input-height-lg: 48px;
+
+$input-padding-x: $space-3;
+$input-border-radius: $radius-2;
+$input-border-width: 1px;
+
+$input-font-size-sm: $font-size-1;
+$input-font-size-md: $font-size-2;
+$input-font-size-lg: $font-size-3;
+```
+
+### Cards
+
+```scss
+$card-padding-sm: $space-3;
+$card-padding-md: $space-4;
+$card-padding-lg: $space-6;
+
+$card-radius: $radius-3;
+$card-shadow: $shadow-1;
+```
+
+### Modals
+
+```scss
+$modal-width-sm: 400px;
+$modal-width-md: 560px;
+$modal-width-lg: 800px;
+
+$modal-padding: $space-6;
+$modal-radius: $radius-3;
+```
+
+---
+
+## Breakpoints
+
+```scss
+$breakpoint-xs: 320px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-2xl: 1400px;
+```
+
+---
+
+## Utilisation
+
+### Dans vos fichiers SCSS
+
+```scss
+@use '@kksdev/ds-angular/styles/tokens/primitives' as primitives;
+@use '@kksdev/ds-angular/styles/tokens/semantic' as semantic;
+
+.my-component {
+  background: primitives.$gray-100;
+  padding: primitives.$space-4;
+  border-radius: semantic.$card-radius;
+}
+```
+
+### Surcharge des variables
+
+Pour personnaliser les valeurs par défaut :
+
+```scss
+// Avant l'import des styles
+$primary: #your-brand-color;
+$radius-2: 4px; // Coins moins arrondis
+
+@use '@kksdev/ds-angular/styles' with (
+  $primary: $primary,
+  $radius-2: $radius-2
+);
+```
+
+---
+
+## Bonnes pratiques
+
+1. **Utilisez les variables sémantiques** plutôt que les primitives dans vos composants
+2. **Ne modifiez pas** les variables primitives directement dans node_modules
+3. **Créez vos propres variables** qui référencent celles du DS pour faciliter la maintenance
+4. **Documentez** vos surcharges dans un fichier dédié
+
+```scss
+// _my-variables.scss
+$my-primary: #your-color;
+$my-card-radius: 4px;
+
+// Utilisez ensuite ces variables dans vos composants
+```

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsCard } from './ds-card';
 
 const meta: Meta<DsCard> = {
-  title: 'Foundation/Layout/DsCard',
+  title: 'Layout/Card',
   component: DsCard,
   argTypes: {
     variant: {

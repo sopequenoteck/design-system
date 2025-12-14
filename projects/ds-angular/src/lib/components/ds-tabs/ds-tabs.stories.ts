@@ -3,7 +3,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { DsTabs, TabItem } from './ds-tabs';
 
 const meta: Meta<DsTabs> = {
-  title: 'Navigation/DsTabs',
+  title: 'Components/Navigation/Tabs',
   component: DsTabs,
   argTypes: {
     tabs: {

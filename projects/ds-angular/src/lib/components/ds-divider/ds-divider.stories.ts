@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DsDivider } from './ds-divider';
 
 const meta: Meta<DsDivider> = {
-  title: 'Foundation/Layout/DsDivider',
+  title: 'Layout/Divider',
   component: DsDivider,
   argTypes: {
     orientation: {

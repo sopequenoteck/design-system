@@ -9,7 +9,7 @@ import {
 } from '../../utils/storybook-controls';
 
 const meta: Meta<PrimitiveButton> = {
-  title: 'Foundation/Primitives/PrimitiveButton',
+  title: 'Foundation/Primitives/Button',
   component: PrimitiveButton,
   argTypes: {
     ...buildButtonArgTypes({ includeLoading: false }),

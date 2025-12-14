@@ -5,7 +5,7 @@ import { DsPopoverComponent } from './ds-popover.component';
 import { DsButton } from '../ds-button/ds-button';
 
 const meta: Meta = {
-  title: 'Overlays/DsPopover',
+  title: 'Overlays/Popover',
   decorators: [
     moduleMetadata({
       imports: [DsPopover, DsPopoverComponent, DsButton],

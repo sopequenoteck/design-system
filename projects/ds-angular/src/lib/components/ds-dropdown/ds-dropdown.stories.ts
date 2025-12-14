@@ -13,7 +13,7 @@ import {
 const baseButtonArgs = buildButtonArgs();
 
 const meta: Meta<DsDropdown> = {
-  title: 'Overlays/DsDropdown',
+  title: 'Overlays/Dropdown',
   component: DsDropdown,
   argTypes: (() => {
     const buttonControls = buildButtonArgTypes();
