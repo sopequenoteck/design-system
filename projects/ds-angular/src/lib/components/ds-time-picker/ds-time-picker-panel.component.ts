@@ -165,6 +165,22 @@ export interface TimeColumn {
           </div>
         }
       </div>
+
+      <!-- Action buttons -->
+      <div class="ds-time-picker-panel__actions">
+        <button
+          type="button"
+          class="ds-time-picker-panel__btn ds-time-picker-panel__btn--cancel"
+          (click)="cancel()">
+          Annuler
+        </button>
+        <button
+          type="button"
+          class="ds-time-picker-panel__btn ds-time-picker-panel__btn--confirm"
+          (click)="confirm()">
+          OK
+        </button>
+      </div>
     </div>
   `,
   styleUrl: './ds-time-picker-panel.component.scss',
@@ -216,6 +232,7 @@ export class DsTimePickerPanelComponent implements AfterViewInit {
 
   // Outputs
   readonly timeSelected = output<string>();
+  readonly cancelled = output<void>();
 
   // State
   readonly selectedHours = signal(0);
@@ -292,22 +309,28 @@ export class DsTimePickerPanelComponent implements AfterViewInit {
 
   selectHours(hours: number): void {
     this.selectedHours.set(hours);
-    this.emitCurrentTime();
   }
 
   selectMinutes(minutes: number): void {
     this.selectedMinutes.set(minutes);
-    this.emitCurrentTime();
   }
 
   selectSeconds(seconds: number): void {
     this.selectedSeconds.set(seconds);
-    this.emitCurrentTime();
   }
 
   selectPeriod(period: 'AM' | 'PM'): void {
     this.selectedPeriod.set(period);
+  }
+
+  /** Confirme la sélection et émet la valeur */
+  confirm(): void {
     this.emitCurrentTime();
+  }
+
+  /** Annule la sélection */
+  cancel(): void {
+    this.cancelled.emit();
   }
 
   onScroll(column: 'hours' | 'minutes' | 'seconds', event: Event): void {

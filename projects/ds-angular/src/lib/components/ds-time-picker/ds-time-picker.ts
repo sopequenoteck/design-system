@@ -219,6 +219,11 @@ export class DsTimePicker implements ControlValueAccessor {
     this.close();
   }
 
+  onCancelled(): void {
+    this.close();
+    this.inputElementRef?.nativeElement.focus();
+  }
+
   onOverlayKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
       this.close();

@@ -760,5 +760,10 @@
   --time-picker-scrollbar-track: var(--surface-raised);
   --time-picker-scrollbar-thumb: var(--border-strong);
   --time-picker-scrollbar-thumb-hover: var(--text-muted);
+  --time-picker-btn-cancel-text: var(--text-muted);
+  --time-picker-btn-cancel-hover: var(--surface-hover);
+  --time-picker-btn-confirm-bg: var(--role-primary);
+  --time-picker-btn-confirm-text: var(--gray-50);
+  --time-picker-btn-confirm-hover: color-mix(in oklab, var(--role-primary) 85%, var(--text-default));
 }
 

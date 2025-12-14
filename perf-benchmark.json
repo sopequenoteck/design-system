@@ -1,56 +1,56 @@
 {
-  "timestamp": "2025-12-05T21:50:03.592Z",
+  "timestamp": "2025-12-14T12:56:37.941Z",
   "results": [
     {
       "component": "ds-button",
       "metrics": {
-        "initialRenderTime": 31.61,
-        "interactionTime": 22.14,
-        "memoryUsage": 0.86
+        "initialRenderTime": 51.6,
+        "interactionTime": 6.84,
+        "memoryUsage": 0.51
       },
-      "timestamp": "2025-12-05T21:50:03.590Z"
+      "timestamp": "2025-12-14T12:56:37.940Z"
     },
     {
       "component": "ds-modal",
       "metrics": {
-        "initialRenderTime": 27.29,
-        "interactionTime": 28.54,
-        "memoryUsage": 0.67
+        "initialRenderTime": 12.26,
+        "interactionTime": 5.26,
+        "memoryUsage": 1.86
       },
-      "timestamp": "2025-12-05T21:50:03.591Z"
+      "timestamp": "2025-12-14T12:56:37.941Z"
     },
     {
       "component": "ds-dropdown",
       "metrics": {
-        "initialRenderTime": 54.66,
-        "interactionTime": 33.85,
-        "memoryUsage": 1.89
+        "initialRenderTime": 32.1,
+        "interactionTime": 7.98,
+        "memoryUsage": 2.17
       },
-      "timestamp": "2025-12-05T21:50:03.591Z"
+      "timestamp": "2025-12-14T12:56:37.941Z"
     },
     {
       "component": "ds-input-field",
       "metrics": {
-        "initialRenderTime": 57.07,
-        "interactionTime": 20.9,
-        "memoryUsage": 1.65
+        "initialRenderTime": 25.7,
+        "interactionTime": 34,
+        "memoryUsage": 2.35
       },
-      "timestamp": "2025-12-05T21:50:03.591Z"
+      "timestamp": "2025-12-14T12:56:37.941Z"
     },
     {
       "component": "ds-checkbox",
       "metrics": {
-        "initialRenderTime": 11.85,
-        "interactionTime": 28.53,
-        "memoryUsage": 2.3
+        "initialRenderTime": 49.95,
+        "interactionTime": 23.63,
+        "memoryUsage": 0.73
       },
-      "timestamp": "2025-12-05T21:50:03.591Z"
+      "timestamp": "2025-12-14T12:56:37.941Z"
     }
   ],
   "averages": {
-    "initialRenderTime": 36.5,
-    "interactionTime": 26.79,
-    "memoryUsage": 1.47
+    "initialRenderTime": 34.32,
+    "interactionTime": 15.54,
+    "memoryUsage": 1.52
   },
   "thresholds": {
     "initialRenderTime": 100,

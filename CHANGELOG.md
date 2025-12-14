@@ -7,160 +7,45 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 
 ---
 
-## [1.2.5] - 2025-12-11
-
-### 🔧 Maintenance
-
-- **deps**: Mise à jour FontAwesome v7 et angular-fontawesome v3
-
----
-
-## [1.2.4] - 2025-12-10
+## [En cours] - 2025-12-14
 
 ### ✨ Nouvelles fonctionnalités
 
-- **tokens**: Ajout tokens thématiques pour 8 composants (card, alert, divider, select, table, combobox, progress-bar, skeleton)
-
----
-
-## [1.2.3] - 2025-12-09
-
-### 📝 Documentation
-
-- **tokens**: Documentation container complète et stories thématisées
-
-### 🐛 Corrections
-
-- **ds-avatar**: Correction overflow image dans le container
-- **ds-avatar**: Suppression background-color quand une image est affichée
-
----
-
-## [1.2.2] - 2025-12-08
-
-### ✨ Nouvelles fonctionnalités
-
-- **tokens**: Harmonisation tokens search-input, date-picker, container
-- **components**: Ajout DsAvatar et DsMenu (2 nouveaux composants)
-
----
-
-## [1.2.1] - 2025-12-07
-
-### 🔧 Maintenance
-
-- **package**: Renommage du package en `@kksdev/ds-angular`
-- **ci**: Suppression déploiement GitHub Pages
-
-### 🐛 Corrections
-
-- **storybook**: Renommage 'globals' → 'initialGlobals' (deprecated)
-
----
-
-## [1.2.0] - 2025-12-07
-
-### ✨ Nouvelles fonctionnalités
-
-- **docker**: Configuration Docker pour Storybook
-
-### 🐛 Corrections
-
-- **storybook**: Correction erreurs TypeScript dans stories
-
-### 📝 Documentation
-
-- **storybook**: Amélioration documentation et conversion tableaux MDX en HTML
-
-### 🔧 Maintenance
-
-- **storybook**: Réorganisation sidebar avec structure hiérarchique
-
-### 📊 Métriques v1.2.x
-
-- **30 composants DS** (+2 : DsAvatar, DsMenu)
-- **7 primitives** (inchangé)
-- **3 thèmes** complets avec parité tokens
-- Package renommé : `@kksdev/ds-angular`
-
----
-
-## [1.1.0] - 2025-12-06
-
-### ✨ Nouvelles fonctionnalités
-
-#### Composants données (ÉTAPE 23)
-- **ds-select**: Composant select avec CVA, tailles (sm/md/lg), disabled, validation, 45 tests, 14 stories
-- **ds-table**: Table configurable avec colonnes, tri, stripe rows, sticky header, 35 tests, 13 stories
-- **ds-combobox**: Input filtrable + dropdown, CVA, navigation clavier, creatable, 33 tests, 13 stories
-
-#### Composants layout (ÉTAPE 24)
-- **ds-container**: Responsive max-width avec breakpoints, centering, gutter, 30 tests, 8 stories
-- **ds-search-input**: Input recherche avec CVA, debounce output, clear button, 34 tests, 8 stories
-- **ds-date-picker**: Calendrier inline/popover, mode range, navigation clavier, min/max, 44 tests, 12 stories
-
-#### Navigation (ÉTAPE 16)
-- **ds-pagination**: Pages, prev/next, first/last, page size selector, total items, 41 tests, 14 stories
-- **ds-stepper**: Horizontal/vertical, états (pending/active/completed/error), 39 tests, 16 stories
-- **ds-accordion**: Single/multi expand, variants (default/bordered/separated), 29 tests, 12 stories
-
-#### Utilitaires (ÉTAPE 15)
-- **ds-progress-bar**: Modes (determinate/indeterminate), variants (default/success/warning/error), 12 stories
-- **ds-skeleton**: Variants (text/circle/rectangle/card), animation pulse, 12 stories
-
-#### Internationalisation (ÉTAPE 17)
-- **DsI18nService**: 40+ labels, 4 locales (fr/en/es/de), setLocale(), format(), initFromBrowser()
-- **Tokens breakpoints**: $breakpoint-xs/sm/md/lg/xl/2xl (320-1400px) exposés en CSS vars
-
-### 📝 Documentation (ÉTAPE 25)
-
-- **Accessibility.mdx**: Guide WCAG 2.1 AA complet (11 sections, 650+ lignes)
-- **Testing.mdx**: Guide tests Jasmine/Playwright/Chromatic (10 sections, 550+ lignes)
-- **Theming.mdx**: Guide thème custom (10 sections, 500+ lignes)
-
-### 🔧 CI/CD (ÉTAPE 26)
-
-- **a11y-wave.yml**: Workflow audit Pa11y/Axe sur PR, seuil 0 erreurs
-- **chromatic.yml**: Visual regression testing avec commentaire PR automatique
-- **ci.yml**: Bundle size monitoring avec commentaire PR (target 150KB gzip)
-
-### ✅ Tests (ÉTAPE 27)
-
-- **90+ tests E2E Playwright** ajoutés :
-  - select.spec.ts: 16 tests (ouverture, navigation clavier, ARIA)
-  - table.spec.ts: 20 tests (tri, striped, hover, accessibility)
-  - combobox.spec.ts: 22 tests (filtrage, création, disabled)
-  - date-picker.spec.ts: 32 tests (navigation, range, constraints)
-
-### 🐛 Corrections (ÉTAPE 22)
-
-- **ds-tooltip**: Refactorisation avec ComponentPortal + overlayRef.attach()
-- **ds-tooltip**: Correction styleUrl → styleUrls
-- **Tests**: 1257/1257 tests passants (100%)
-
-### 📊 Métriques
-
-- **28 composants DS** (11 nouveaux)
-- **7 primitives** (inchangé)
-- **3 thèmes** complets (light, dark, custom)
-- **91.87% coverage** (lines), 82.61% branches
-- **Bundle**: 87 KB gzip (< 150 KB target)
-- **1257 tests unitaires** + **142 tests E2E**
-
----
-
-## [1.0.0] - 2025-12-05
-
-### ✨ Première release stable
-
-Publication initiale sur npm avec architecture consolidée.
-
----
-
-## [En cours - Historique] - 2025-12-05
-
-### ✨ Nouvelles fonctionnalités
-
+- **ds-time-picker**: implement minTime/maxTime validation with tests and stories ([8b9ef85])
+- **components**: add ds-color-picker component ([016ead7])
+- **components**: add DsSegmentedControl component ([19dffe6])
+- **components**: add DsInputNumber + e2e tests for 4 components ([ef187c3])
+- **components**: add 6 new components + 3 MDX docs ([a4e92e4])
+- **components**: add ds-password-strength component ([0cd154f])
+- **stories**: complete 62 stories improvements (4 sprints) ([6e09cf6])
+- **stories**: complete Sprint 3 - couverture etats et themes ([b70481b])
+- **components**: add DsTree component ([ecf4539])
+- **components**: add DsTimePicker component ([852904a])
+- **components**: create DsDrawer component with CDK overlay and focus trap ([edf0cb8])
+- **components**: create DsRating component with half stars and keyboard navigation ([fb6cd56])
+- **components**: create DsEmpty component with icon/image and action slot ([0b5d945])
+- **tokens**: add --space-7 token and document breakpoints ([27bd1f1])
+- **tokens**: complete SPRINT-001 custom theme tokens and fix file-upload ([32ed5b1])
+- **tokens**: add ds-chip tokens and fix SPRINT-001 issues ([4737785])
+- **components**: add ds-chip, ds-slider, ds-file-upload and complete SPRINT-001 ([b3174ff])
+- **tokens**: add thematic tokens for 8 components ([a559f35])
+- **tokens**: harmonisation tokens search-input, date-picker, container ([6d6b4c2])
+- **components**: add DsAvatar and DsMenu components ([808973a])
+- **docker**: add Docker configuration for Storybook ([84b1f72])
+- **components**: créer DsContainer, DsSearchInput et DsDatePicker (ÉTAPE 24) ([3e1faac])
+- **components**: créer ds-table et ds-combobox avec tokens (ÉTAPE 23) ([8cb9903])
+- **components**: créer ds-select avec CVA et tokens sémantiques (ÉTAPE 23) ([8fd9861])
+- **tokens**: harmoniser tokens navigation et compléter thèmes (ÉTAPES 18-21) ([5334965])
+- **i18n**: ajouter service i18n et tokens breakpoints (ÉTAPE 17) ([cc7cc64])
+- **components**: créer ds-pagination, ds-stepper et ds-accordion (ÉTAPE 16) ([47ee82d])
+- **components**: créer ds-progress-bar et ds-skeleton (ÉTAPE 15) ([ca5c572])
+- **tokens**: harmoniser tokens et enrichir Patterns.mdx (ÉTAPE 14) ([b6e4141])
+- finaliser ÉTAPE 12 - Déploiement Storybook GitHub Pages (100%) ([384a764])
+- **npm**: publier ds-angular@1.0.0 sur npm (ÉTAPE 12) ([41d240a])
+- **starter-kit**: créer template Angular 20 avec ds-angular (ÉTAPE 12) ([99a357e])
+- **npm**: préparer publication v1.0.0 (ÉTAPE 12 - 3/8 tâches) ([940de80])
+- finaliser ÉTAPE 11 - Tests automatisés avancés (100%) ([003c34b])
+- **examples**: créer demo app Angular 20 (ÉTAPE 10) ([0bb4563])
 - **tokens**: ajouter tokens sémantiques et exports pour card, alert, divider (ÉTAPE 9 finale) ([8f6656e])
 - **components**: compléter ds-alert et ds-divider (ÉTAPE 9) ([f43b0d7])
 - **components**: créer composants ds-card et ds-alert (ÉTAPE 9 partielle) ([ca70754])
@@ -181,13 +66,60 @@ Publication initiale sur npm avec architecture consolidée.
 
 ### 🐛 Corrections de bugs
 
+- **utils**: add generateId utility to replace crypto.randomUUID ([53f1a79])
+- **ds-time-picker**: corrige ouverture panel overlay (cdkConnectedOverlay + styles) ([90475d3])
+- **ds-time-picker**: corrige overlay multi-instances et ajoute Escape key handler ([8952a54])
+- **ds-segmented-control**: correct FontAwesome icon parsing ([683c6f0])
+- **tokens**: remplace les couleurs hardcodees par tokens RGB dans rgba() ([0c5e389])
+- **stories**: correct ds-time-picker stories format for Storybook ([cd3d59e])
+- **storybook**: resolve TS4111, TS18046 and SCSS variable errors ([7bd6d6f])
+- **ds-avatar**: correct image overflow in avatar container ([465297a])
+- **ds-avatar**: prevent background color when image is displayed ([f30bb15])
+- **storybook**: rename deprecated 'globals' to 'initialGlobals' ([8f24ec5])
+- **storybook**: corriger erreurs TypeScript dans stories ([f1c0ca2])
+- **stories**: corriger accès propriétés this dans ds-date-picker.stories ([566f7c5])
+- **stories**: corriger erreurs TypeScript Storybook ([25ac977])
+- **tooltip**: corriger DsTooltip avec pattern CDK Portal (ÉTAPE 22) ([4aadea2])
+- **storybook**: corriger import types @storybook/csf ([a37319f])
+- **ci**: tolérer tests échoués préexistants (106/942) ([f7b3ff4])
+- **deps**: mettre à jour ng-packagr@20 et ajouter --legacy-peer-deps ([67ee43d])
+- **ci**: corriger erreur YAML dans workflow CI ([cec89bf])
+- **ds-alert**: rendre propriété icons publique (ÉTAPE 13) ([dab93fd])
 - **build**: retirer sideEffects de ng-package.json ([ca84fc7])
 - **ds-tabs**: corriger erreur TS2445 - rendre activeIndex public ([ebc2002])
 - **storybook**: corrections erreurs de compilation ([907f920])
 - **storybook**: correction du chargement des styles ([802f323])
 
+### ♻️ Refactoring
+
+- **ds-popover**: audit complet composant (+24 tests, a11y, JSDoc, stories) ([f83448d])
+- **ds-input-textarea**: audit complet composant - tests, stories, a11y, doc ([68e32e4])
+- **storybook**: remplace demo-app par stories Integration ([6fb529f])
+- **storybook**: réorganiser sidebar avec structure hiérarchique ([516ce31])
+
 ### 📝 Documentation
 
+- **ds-time-picker**: add COMPONENT_AUDIT.md report ([11bdb09])
+- **ds-input-textarea**: ajoute rapport d'audit COMPONENT_AUDIT.md ([40fc4fe])
+- update DS_TODO.md with v1.6.0 release notes ([5623af9])
+- **stories**: mark Sprint 3 as completed in STORIES_TODO.md ([afd8145])
+- **storybook**: reorganise sidebar avec categories fonctionnelles ([834d4f7])
+- update DS_TODO.md and CLAUDE.md - 17/17 tasks completed ([787cb0c])
+- update DS_TODO.md - mark DsEmpty, DsRating, DsDrawer as completed ([a2f8abe])
+- update CLAUDE.md for v1.3.0 release and add DS_TODO.md ([ef585b3])
+- add SPRINT-001 components to accessibility and integration guides, bump to v1.3.0 ([0946a08])
+- **tokens**: complète documentation container et stories thématisées ([92aae19])
+- **storybook**: améliorer documentation et convertir tableaux MDX en HTML ([5dfdd2b])
+- créer guides Accessibility, Testing et Theming (ÉTAPE 25) ([2bad721])
+- marquer ÉTAPE 23 terminée (100%) ([4cf1d65])
+- marquer ÉTAPE 13 terminée (100%) ([9e37661])
+- générer nouveau DS_TODO.md post-publication v1.0.0 ([dc7ecc5])
+- valider dry-run npm publication (ÉTAPE 12 - 4/8 tâches) ([6cc8ebc])
+- mettre à jour ÉTAPE 11 (partielle - 3/6 tâches) ([d1a90a7])
+- finaliser ÉTAPE 10 - Documentation et guides d'adoption ([6f25132])
+- **readme,integration**: enrichir documentation et exemples (ÉTAPE 10 finale) ([04a2e68])
+- **changelog**: générer CHANGELOG.md initial (ÉTAPE 10) ([dc1e222])
+- **migration**: créer guide de migration et script changelog (ÉTAPE 10 partielle) ([52aa1fb])
 - finaliser ÉTAPE 9 - Composants utilitaires essentiels ([5796e5b])
 - **CLAUDE**: ajouter rapport ÉTAPE 8 - Enrichissement Storybook ([1646902])
 - **storybook**: enrichir documentation Tokens avec section Thème Custom ([ddf0419])
@@ -206,6 +138,10 @@ Publication initiale sur npm avec architecture consolidée.
 
 ### ✅ Tests
 
+- **e2e**: add Playwright tests for SPRINT-001 components (chip, slider, file-upload) ([41a010d])
+- **e2e**: ajouter 90+ tests Playwright pour select, table, combobox, date-picker (ÉTAPE 27) ([741cf49])
+- **e2e**: valider 52 tests Playwright pour composants critiques (ÉTAPE 11) ([b2afde7])
+- ajouter tests automatisés Storybook et Playwright (ÉTAPE 11 partielle) ([21e6729])
 - **ds-toggle**: compléter tests unitaires - couverture ≥90% ([0c16677])
 - **ds-radio-group**: compléter tests unitaires - couverture ≥90% ([e0d4736])
 - **ds-breadcrumb**: compléter tests unitaires - couverture ≥90% ([3cca789])
@@ -219,8 +155,40 @@ Publication initiale sur npm avec architecture consolidée.
 - **ds-modal**: compléter tests unitaires pour atteindre 85% de couverture ([ed5f487])
 - **ds-button**: compléter tests unitaires - couverture ≥90% ([d49f5a0])
 
+### 💄 Style
+
+- **design-system**: ameliorations modernes phases 3-6 - transitions granulaires, easing cubic-bezier, focus ring double-ring, active scale ([aafb366])
+- **design-system**: refonte moderne/minimaliste des tokens et primitives ([279973b])
+- **tokens**: ajoute tokens time-picker aux themes custom/light/dark ([ed1e77e])
+
 ### 🔧 Maintenance
 
+- okay ([6f06969])
+- fix test:storybook script url parameter ([3188d27])
+- complete DS_TODO tasks and fix tests ([645927b])
+- **release**: bump version to 1.6.0 ([c1b454b])
+- **release**: publie v1.4.0 avec 5 composants utilitaires finaux ([d03f83d])
+- Delete DS_TODO.md ([80f5843])
+- update package.json description - 38 components total ([e281c2c])
+- **config**: fix Karma EPERM error and optimize Storybook build ([9d77d6a])
+- Update Integration.stories.ts ([f6dfef9])
+- Delete DS_TODO.md ([97c2a91])
+- Delete TODO.md ([d9fc4cc])
+- nrt ([c281458])
+- **deps**: upgrade FontAwesome to v7 and angular-fontawesome to v3 ([d582e0c])
+- Update package.json ([eae7d0d])
+- Delete DS_TODO.md ([522f7ea])
+- Update package.json ([6269604])
+- rename package to @kksdev/ds-angular ([3510233])
+- remove GitHub Pages deployment ([ded033b])
+- Update index.html ([91f3322])
+- **release**: v1.1.0 ([295ecc2])
+- test okay ([8c047c2])
+- Delete DS_TODO.md ([7b38870])
+- Merge branch 'master' of github.com:sopequenoteck/design-system ([59a1c1e])
+- Add Claude Code GitHub Workflow (#9) ([6a2dc6c])
+- Delete DS_TODO.md ([3bbe7ca])
+- Create perf-benchmark.json ([12141ad])
 - **DS_TODO**: marquer ÉTAPE 8 comme terminée - Enrichissement Storybook complet ([aa3894f])
 - finalisation ÉTAPE 6 — Optimisation et performance ([42a6c92])
 - Merge pull request #8 from sopequenoteck/codex/import-themes-and-customize-global-types ([c604fe1])

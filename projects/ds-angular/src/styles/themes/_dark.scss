@@ -735,6 +735,11 @@
   --time-picker-scrollbar-track: var(--gray-700);
   --time-picker-scrollbar-thumb: var(--gray-500);
   --time-picker-scrollbar-thumb-hover: var(--gray-400);
+  --time-picker-btn-cancel-text: var(--gray-400);
+  --time-picker-btn-cancel-hover: var(--gray-700);
+  --time-picker-btn-confirm-bg: var(--color-primary);
+  --time-picker-btn-confirm-text: var(--gray-900);
+  --time-picker-btn-confirm-hover: color-mix(in oklab, var(--color-primary) 85%, var(--white));
 
   /* ==========================================================================
    * SÉMANTIQUES DS TREE

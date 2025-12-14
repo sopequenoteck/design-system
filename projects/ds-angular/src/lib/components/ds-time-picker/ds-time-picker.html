@@ -59,6 +59,7 @@
     [hourStep]="hourStep()"
     [minTime]="minTime()"
     [maxTime]="maxTime()"
-    (timeSelected)="onTimeSelected($event)">
+    (timeSelected)="onTimeSelected($event)"
+    (cancelled)="onCancelled()">
   </ds-time-picker-panel>
 </ng-template>

@@ -155,14 +155,14 @@ describe('DsTimePickerPanelComponent', () => {
   });
 
   describe('Time emission', () => {
-    it('should emit time string on selection', () => {
+    it('should emit time string on confirm', () => {
       let emittedTime: string | undefined;
       component.timeSelected.subscribe((time) => (emittedTime = time));
 
       component.selectHours(14);
-      expect(emittedTime).toBe('14:00');
-
       component.selectMinutes(30);
+      component.confirm();
+
       expect(emittedTime).toBe('14:30');
     });
 
@@ -176,6 +176,7 @@ describe('DsTimePickerPanelComponent', () => {
       component.selectHours(14);
       component.selectMinutes(30);
       component.selectSeconds(45);
+      component.confirm();
 
       expect(emittedTime).toBe('14:30:45');
     });
@@ -189,6 +190,7 @@ describe('DsTimePickerPanelComponent', () => {
 
       component.selectHours(2);
       component.selectPeriod('PM');
+      component.confirm();
 
       expect(emittedTime).toBe('14:00'); // 2 PM = 14:00
     });
@@ -202,8 +204,28 @@ describe('DsTimePickerPanelComponent', () => {
 
       component.selectHours(12);
       component.selectPeriod('AM');
+      component.confirm();
 
       expect(emittedTime).toBe('00:00'); // 12 AM = 00:00 (midnight)
+    });
+
+    it('should emit cancelled when cancel is called', () => {
+      let cancelled = false;
+      component.cancelled.subscribe(() => (cancelled = true));
+
+      component.cancel();
+
+      expect(cancelled).toBe(true);
+    });
+
+    it('should not emit time on selection without confirm', () => {
+      let emittedTime: string | undefined;
+      component.timeSelected.subscribe((time) => (emittedTime = time));
+
+      component.selectHours(14);
+      component.selectMinutes(30);
+
+      expect(emittedTime).toBeUndefined();
     });
   });
 
