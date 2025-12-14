@@ -59,16 +59,16 @@ ds-time-picker/
 | Nom | Type | Défaut | Description |
 |-----|------|--------|-------------|
 | `value` | `string` | `''` | Valeur initiale au format HH:mm ou HH:mm:ss |
-| `format` | `'12h' \| '24h'` | `'24h'` | Format d'affichage de l'heure |
+| `format` | `'12h'` ou `'24h'` | `'24h'` | Format d'affichage de l'heure |
 | `showSeconds` | `boolean` | `false` | Afficher la colonne des secondes |
 | `minuteStep` | `number` | `1` | Incrément des minutes (1, 5, 15, 30) |
 | `hourStep` | `number` | `1` | Incrément des heures |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du composant |
+| `size` | `'sm'  ou  'md'  ou  'lg'` | `'md'` | Taille du composant |
 | `disabled` | `boolean` | `false` | Désactiver le composant |
 | `readonly` | `boolean` | `false` | Mode lecture seule |
 | `placeholder` | `string` | `'Select time'` | Texte du placeholder |
-| `minTime` | `string \| null` | `null` | Heure minimale sélectionnable |
-| `maxTime` | `string \| null` | `null` | Heure maximale sélectionnable |
+| `minTime` | `string  ou  null` | `null` | Heure minimale sélectionnable |
+| `maxTime` | `string  ou  null` | `null` | Heure maximale sélectionnable |
 
 ### Outputs
 
@@ -82,12 +82,12 @@ ds-time-picker/
 |-----|------|--------|-------------|
 | `panelId` | `string` | Auto-généré | ID unique pour aria-controls |
 | `value` | `string` | `''` | Valeur actuelle |
-| `format` | `'12h' \| '24h'` | `'24h'` | Format d'affichage |
+| `format` | `'12h'  ou  '24h'` | `'24h'` | Format d'affichage |
 | `showSeconds` | `boolean` | `false` | Afficher les secondes |
 | `minuteStep` | `number` | `1` | Incrément minutes |
 | `hourStep` | `number` | `1` | Incrément heures |
-| `minTime` | `string \| null` | `null` | Contrainte min |
-| `maxTime` | `string \| null` | `null` | Contrainte max |
+| `minTime` | `string  ou  null` | `null` | Contrainte min |
+| `maxTime` | `string  ou  null` | `null` | Contrainte max |
 
 ### Computed Signals
 
@@ -95,7 +95,7 @@ ds-time-picker/
 |-----|------|-------------|
 | `containerClasses` | `string` | Classes CSS du container (size, disabled, focused, open) |
 | `displayValue` | `string` | Valeur formatée pour l'affichage (12h vs 24h) |
-| `isDisabled` | `boolean` | Combinaison disabled \|\| readonly |
+| `isDisabled` | `boolean` | Combinaison disabled  ou  ou  readonly |
 | `hoursOptions` | `TimeColumn[]` | Options heures avec état disabled |
 | `minutesOptions` | `TimeColumn[]` | Options minutes avec état disabled |
 | `secondsOptions` | `TimeColumn[]` | Options secondes (toujours 60) |
