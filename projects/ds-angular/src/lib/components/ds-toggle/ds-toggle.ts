@@ -2,6 +2,7 @@ import { Component, forwardRef, input, signal, computed } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PrimitiveToggle, ToggleSize } from '../../primitives/primitive-toggle/primitive-toggle';
+import { generateId } from '../../utils/id-generator';
 
 /**
  * DS Toggle (Switch)
@@ -43,7 +44,7 @@ export class DsToggle implements ControlValueAccessor {
   /**
    * ID unique du toggle (généré automatiquement)
    */
-  id = input<string>(`ds-toggle-${crypto.randomUUID()}`);
+  id = input<string>(`ds-toggle-${generateId()}`);
 
   /**
    * Label affiché à côté du toggle

@@ -2,6 +2,7 @@ import { Component, forwardRef, input, signal, computed } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PrimitiveRadio, RadioSize } from '../../primitives/primitive-radio/primitive-radio';
+import { generateId } from '../../utils/id-generator';
 
 /**
  * Option pour un groupe de radios
@@ -63,7 +64,7 @@ export class DsRadioGroup implements ControlValueAccessor {
   /**
    * ID unique du radio group (généré automatiquement)
    */
-  id = input<string>(`ds-radio-group-${crypto.randomUUID()}`);
+  id = input<string>(`ds-radio-group-${generateId()}`);
 
   /**
    * Label principal du groupe
@@ -108,7 +109,7 @@ export class DsRadioGroup implements ControlValueAccessor {
   /**
    * Nom du groupe (pour formulaires, généré automatiquement)
    */
-  name = input<string>(`radio-group-${crypto.randomUUID()}`);
+  name = input<string>(`radio-group-${generateId()}`);
 
   // Internal state
   private readonly disabledState = signal<boolean>(false);

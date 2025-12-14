@@ -22,6 +22,7 @@ import {
   TextareaSize,
   TextareaState,
 } from '../../primitives/primitive-textarea/primitive-textarea';
+import { generateId } from '../../utils/id-generator';
 
 type WindowWithResizeObserver = typeof window & { ['ResizeObserver']?: typeof globalThis.ResizeObserver };
 
@@ -83,7 +84,7 @@ export class DsInputTextarea implements ControlValueAccessor, AfterViewInit, OnD
   // ═══════════════════════════════════════════════════════════════════════════
 
   /** Identifiant unique du textarea. Auto-généré si non fourni. */
-  id = input<string>(crypto.randomUUID());
+  id = input<string>(generateId());
 
   /** Nom du champ pour les formulaires HTML natifs. */
   name = input<string | undefined>(undefined);

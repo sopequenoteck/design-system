@@ -1,5 +1,6 @@
 import { Component, input, output, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { generateId } from '../../utils/id-generator';
 
 /**
  * Composant popover du Design System.
@@ -95,7 +96,7 @@ export class DsPopoverComponent {
   /**
    * ID unique pour le popover (génération automatique si non fourni).
    */
-  id = input<string>(`ds-popover-${crypto.randomUUID()}`);
+  id = input<string>(`ds-popover-${generateId()}`);
 
   // ============================================
   // OUTPUTS

@@ -21,6 +21,7 @@ import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {FocusTrap, FocusTrapFactory} from '@angular/cdk/a11y';
 import {PrimitiveButton} from '../../primitives/primitive-button/primitive-button';
 import {DOCUMENT} from '@angular/common';
+import {generateId} from '../../utils/id-generator';
 
 @Component({
   selector: 'ds-modal',
@@ -83,7 +84,7 @@ export class DsModalComponent implements AfterContentInit, AfterViewInit, OnDest
   readonly shouldRenderDefaultIcon = computed(() => this.showIcon() && !this.hasProjectedIcon() && !!this.resolvedIcon());
   readonly shouldRenderOverlay = computed(() => this.open());
 
-  private readonly modalBaseId = crypto.randomUUID();
+  private readonly modalBaseId = generateId();
   readonly modalTitleId = `${this.modalBaseId}-title`;
   readonly modalDescId = `${this.modalBaseId}-desc`;
 

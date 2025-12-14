@@ -28,6 +28,7 @@ import {
 import { DropdownItem } from './model/dropdown-item.model';
 import { Subscription } from 'rxjs';
 import { DROPDOWN_POSITIONS } from '../../utils/overlay-positions';
+import { generateId } from '../../utils/id-generator';
 
 @Component({
   selector: 'ds-dropdown',
@@ -51,7 +52,7 @@ import { DROPDOWN_POSITIONS } from '../../utils/overlay-positions';
 export class DsDropdown implements ControlValueAccessor, AfterViewInit, OnDestroy {
   // Inputs
   /** Identifiant du menu déroulant pour l'accessibilité. */
-  readonly id = input<string>(crypto.randomUUID());
+  readonly id = input<string>(generateId());
   /** Variante du bouton déclencheur. */
   readonly type = input<ButtonVariant>('primary');
   /** Apparence du bouton déclencheur (plein ou outline). */

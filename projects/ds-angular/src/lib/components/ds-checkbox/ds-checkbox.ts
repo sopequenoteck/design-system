@@ -2,6 +2,7 @@ import { Component, forwardRef, input, signal, computed } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PrimitiveCheckbox, CheckboxSize } from '../../primitives/primitive-checkbox/primitive-checkbox';
+import { generateId } from '../../utils/id-generator';
 
 /**
  * DS Checkbox
@@ -43,7 +44,7 @@ export class DsCheckbox implements ControlValueAccessor {
   /**
    * ID unique du checkbox (généré automatiquement)
    */
-  id = input<string>(`ds-checkbox-${crypto.randomUUID()}`);
+  id = input<string>(`ds-checkbox-${generateId()}`);
 
   /**
    * Label affiché à côté du checkbox

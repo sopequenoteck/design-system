@@ -15,6 +15,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { generateId } from '../../utils/id-generator';
 
 /**
  * Position du drawer (gauche ou droite).
@@ -153,7 +154,7 @@ export class DsDrawer implements AfterViewInit, OnDestroy {
   /**
    * ID unique pour l'accessibilité.
    */
-  private readonly drawerId = crypto.randomUUID();
+  private readonly drawerId = generateId();
   readonly drawerTitleId = `drawer-${this.drawerId}-title`;
 
   /**

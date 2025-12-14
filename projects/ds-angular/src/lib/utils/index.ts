@@ -11,3 +11,4 @@ export {
   type SupportedLocale,
   type I18nLabels,
 } from './i18n.service';
+export { generateId, generateShortId } from './id-generator';

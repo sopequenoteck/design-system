@@ -3,6 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { IconDefinition, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { generateId } from '../../utils/id-generator';
 
 export type InputNumberSize = 'sm' | 'md' | 'lg';
 export type InputNumberControlsPosition = 'both' | 'right';
@@ -38,7 +39,7 @@ export class DsInputNumber implements ControlValueAccessor {
 
   // Accessibility
   ariaLabel = input<string | undefined>(undefined);
-  id = input<string>(crypto.randomUUID());
+  id = input<string>(generateId());
   name = input<string | undefined>(undefined);
 
   // Events

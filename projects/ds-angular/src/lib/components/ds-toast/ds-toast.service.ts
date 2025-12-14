@@ -1,4 +1,5 @@
 import { DestroyRef, Injectable, inject, signal } from '@angular/core';
+import { generateId } from '../../utils/id-generator';
 
 export type ToastType = 'success' | 'warning' | 'error' | 'info';
 export type ToastPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
@@ -46,7 +47,7 @@ export class DsToastService {
   readonly toasts = this.toastsSignal.asReadonly();
 
   show(options: ToastOptions): string {
-    const id = crypto.randomUUID();
+    const id = generateId();
     const toast: ToastInstance = {
       id,
       message: options.message,

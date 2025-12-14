@@ -10,6 +10,7 @@ import {
   InputSize,
   InputAppearance,
 } from '../../primitives/primitive-input/primitive-input';
+import { generateId } from '../../utils/id-generator';
 
 @Component({
   selector: 'ds-input-field',
@@ -26,7 +27,7 @@ import {
 })
 export class DsInputField implements ControlValueAccessor {
   // Props de base
-  id = input<string>(crypto.randomUUID());
+  id = input<string>(generateId());
   label = input<string | undefined>(undefined);
   name = input<string | undefined>(undefined);
   autocomplete = input<string | undefined>(undefined);
