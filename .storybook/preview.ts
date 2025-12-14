@@ -30,22 +30,34 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
-          'Documentation',
-          ['Introduction', 'Tokens'],
+          'Getting Started',
+          ['Introduction', 'Installation', 'Quick Start'],
+          'Customize',
+          ['Design Tokens', 'Sass Variables', 'CSS Variables', 'Theming'],
           'Foundation',
-          ['Overview', 'Primitives', 'Layout'],
-          'Form',
-          ['Overview', 'Inputs', 'Selection', 'Pickers', 'Upload'],
-          'Navigation',
-          ['Overview', '*'],
-          'Data Display',
-          ['Overview', '*'],
+          ['Overview', 'Primitives', ['Button', 'Badge', 'Checkbox', 'Input', 'Radio', 'Textarea', 'Toggle'], 'Breakpoints'],
+          'Layout',
+          ['Container', 'Card', 'Divider', 'Grid'],
+          'Forms',
+          [
+            'Input Controls', ['Checkbox', 'Radio Group', 'Toggle', 'Segmented Control'],
+            'Text Inputs', ['Input Field', 'Input Textarea', 'Input Number', 'Search Input'],
+            'Selection', ['Select', 'Combobox', 'Color Picker', 'Date Picker'],
+            'Specialized', ['File Upload', 'Slider', 'Time Picker', 'Password Strength']
+          ],
+          'Components',
+          [
+            'Actions', ['Button', 'Chip', 'Pagination'],
+            'Navigation', ['Breadcrumb', 'Menu', 'Tabs', 'Stepper', 'Tree'],
+            'Display', ['Avatar', 'Badge', 'Empty', 'Progress Bar', 'Rating', 'Skeleton', 'Accordion'],
+            'Data', ['Table', 'Calendar', 'Carousel', 'Timeline']
+          ],
           'Feedback',
-          ['Overview', '*'],
+          ['Alert', 'Toast', 'Notification', 'Tooltip'],
           'Overlays',
-          ['Overview', '*'],
-          'Actions',
-          ['Overview', '*']
+          ['Modal', 'Drawer', 'Dropdown', 'Popover', 'Transfer'],
+          'Guides',
+          ['Accessibility', 'Contributing', 'Testing', 'Migration']
         ]
       }
     },

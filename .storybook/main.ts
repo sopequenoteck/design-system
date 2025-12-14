@@ -3,13 +3,29 @@ import path from 'path';
 
 const config: StorybookConfig = {
   stories: [
+    // MDX documentation files
     {
       directory: '../projects/ds-angular/src/lib',
-      files: '**/*.mdx'
+      files: '!(audits)/**/*.mdx'
     },
     {
       directory: '../projects/ds-angular/src/lib',
+      files: '*.mdx'
+    },
+    // Primitives stories (Foundation)
+    {
+      directory: '../projects/ds-angular/src/lib/primitives',
       files: '**/*.stories.@(js|jsx|mjs|ts|tsx)'
+    },
+    // Components stories
+    {
+      directory: '../projects/ds-angular/src/lib/components',
+      files: '**/*.stories.@(js|jsx|mjs|ts|tsx)'
+    },
+    // General stories
+    {
+      directory: '../projects/ds-angular/src/lib',
+      files: 'stories/*.stories.@(js|jsx|mjs|ts|tsx)'
     }
   ],
   addons: [
