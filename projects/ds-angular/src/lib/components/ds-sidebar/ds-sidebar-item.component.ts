@@ -41,7 +41,7 @@ import {
       [class.ds-sidebar-item--has-children]="hasChildren()"
       [class.ds-sidebar-item--expanded]="isExpanded()"
       [class.ds-sidebar-item--collapsed-mode]="mode() === 'collapsed'"
-      [style.padding-left.px]="indentPadding()"
+      [style.padding-left.px]="mode() === 'collapsed' ? null : indentPadding()"
       [attr.tabindex]="item().disabled ? -1 : 0"
       role="menuitem"
       [attr.aria-expanded]="hasChildren() ? isExpanded() : null"
@@ -50,10 +50,12 @@ import {
       [attr.data-item-id]="item().id"
       (click)="handleClick($event)"
       (keydown)="handleKeydown($event)"
+      [dsTooltip]="mode() === 'collapsed' ? item().label : ''"
+      tooltipPosition="right"
       #itemElement>
 
-      <!-- Toggle chevron (si enfants) -->
-      @if (hasChildren()) {
+      <!-- Toggle chevron (si enfants) - masqué en mode collapsed -->
+      @if (hasChildren() && mode() !== 'collapsed') {
         <button
           type="button"
           class="ds-sidebar-item__toggle"
@@ -61,7 +63,7 @@ import {
           (click)="handleToggleClick($event)">
           <fa-icon [icon]="isExpanded() ? chevronDownIcon : chevronRightIcon" />
         </button>
-      } @else {
+      } @else if (mode() !== 'collapsed') {
         <span class="ds-sidebar-item__toggle-placeholder"></span>
       }
 
@@ -106,15 +108,6 @@ import {
           class="ds-sidebar-item__badge"
           [class]="'ds-sidebar-item__badge--' + (item().badgeVariant || 'default')">
           {{ item().badge }}
-        </span>
-      }
-
-      <!-- Tooltip en mode collapsed -->
-      @if (mode() === 'collapsed') {
-        <span
-          class="ds-sidebar-item__tooltip-trigger"
-          [dsTooltip]="item().label"
-          tooltipPosition="right">
         </span>
       }
     </div>
@@ -191,6 +184,11 @@ import {
     .ds-sidebar-item--collapsed-mode {
       justify-content: center;
       padding: var(--space-2, 0.5rem);
+      gap: 0;
+    }
+
+    .ds-sidebar-item--collapsed-mode .ds-sidebar-item__icon {
+      margin: 0;
     }
 
     .ds-sidebar-item__toggle {
@@ -286,12 +284,6 @@ import {
     .ds-sidebar-item__badge--info {
       background: var(--info, #06b6d4);
       color: white;
-    }
-
-    .ds-sidebar-item__tooltip-trigger {
-      position: absolute;
-      inset: 0;
-      cursor: pointer;
     }
 
     .ds-sidebar-item__divider {
