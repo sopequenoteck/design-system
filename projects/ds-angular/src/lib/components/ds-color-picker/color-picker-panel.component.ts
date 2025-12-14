@@ -6,22 +6,30 @@ import {
   output,
   effect,
   AfterViewInit,
+  OnDestroy,
   ElementRef,
   ViewChild,
+  HostListener,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { A11yModule, FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 
 export type ColorFormat = 'hex' | 'rgb' | 'hsl';
 
 @Component({
   selector: 'ds-color-picker-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, A11yModule],
   template: `
-    <div class="ds-color-picker-panel" role="dialog" aria-label="Color picker">
+    <div
+      class="ds-color-picker-panel"
+      role="dialog"
+      aria-label="Color picker"
+      aria-modal="true"
+      #panelElement>
       <!-- Spectre de couleurs -->
       <div class="ds-color-picker-panel__spectrum">
         <canvas
@@ -29,10 +37,15 @@ export type ColorFormat = 'hex' | 'rgb' | 'hsl';
           class="ds-color-picker-panel__spectrum-canvas"
           width="280"
           height="180"
+          tabindex="0"
+          role="slider"
+          aria-label="Color spectrum. Use arrow keys to adjust saturation and lightness"
+          [attr.aria-valuetext]="'Saturation ' + saturation() + '%, Lightness ' + lightness() + '%'"
           (mousedown)="onSpectrumMouseDown($event)"
           (mousemove)="onSpectrumMouseMove($event)"
           (mouseup)="onSpectrumMouseUp()"
-          (mouseleave)="onSpectrumMouseUp()">
+          (mouseleave)="onSpectrumMouseUp()"
+          (keydown)="onSpectrumKeyDown($event)">
         </canvas>
 
         <!-- Curseur de sélection -->
@@ -184,8 +197,9 @@ export type ColorFormat = 'hex' | 'rgb' | 'hsl';
   styleUrl: './color-picker-panel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DsColorPickerPanelComponent implements AfterViewInit {
+export class DsColorPickerPanelComponent implements AfterViewInit, OnDestroy {
   @ViewChild('spectrumCanvas') spectrumCanvas?: ElementRef<HTMLCanvasElement>;
+  @ViewChild('panelElement') panelElement?: ElementRef<HTMLElement>;
 
   // Config (set by parent)
   value = '';
@@ -211,6 +225,9 @@ export class DsColorPickerPanelComponent implements AfterViewInit {
   readonly cursorY = signal<number | null>(null);
   readonly isDragging = signal(false);
 
+  // Focus trap
+  private focusTrap: FocusTrap | null = null;
+
   // Computed
   readonly rgb = computed(() => this.hslToRGB(this.hue(), this.saturation(), this.lightness()));
 
@@ -230,7 +247,7 @@ export class DsColorPickerPanelComponent implements AfterViewInit {
     return this.hexValue();
   });
 
-  constructor() {
+  constructor(private focusTrapFactory: FocusTrapFactory) {
     // Observer les changements de couleur
     effect(() => {
       const color = this.currentColor();
@@ -240,9 +257,71 @@ export class DsColorPickerPanelComponent implements AfterViewInit {
     });
   }
 
+  /**
+   * Handle Escape key to close the panel
+   */
+  @HostListener('document:keydown.escape', ['$event'])
+  onEscapeKey(event: KeyboardEvent): void {
+    event.preventDefault();
+    this.closed.emit();
+  }
+
   ngAfterViewInit(): void {
     this.initializeFromValue();
     this.renderSpectrum();
+    this.setupFocusTrap();
+  }
+
+  ngOnDestroy(): void {
+    this.focusTrap?.destroy();
+  }
+
+  /**
+   * Setup focus trap to keep focus within the panel
+   */
+  private setupFocusTrap(): void {
+    if (this.panelElement) {
+      this.focusTrap = this.focusTrapFactory.create(this.panelElement.nativeElement);
+      this.focusTrap.focusInitialElementWhenReady();
+    }
+  }
+
+  /**
+   * Handle keyboard navigation on the spectrum canvas
+   */
+  onSpectrumKeyDown(event: KeyboardEvent): void {
+    const step = event.shiftKey ? 10 : 1;
+    let handled = true;
+
+    switch (event.key) {
+      case 'ArrowLeft':
+        this.saturation.set(Math.max(0, this.saturation() - step));
+        break;
+      case 'ArrowRight':
+        this.saturation.set(Math.min(100, this.saturation() + step));
+        break;
+      case 'ArrowUp':
+        this.lightness.set(Math.min(100, this.lightness() + step));
+        break;
+      case 'ArrowDown':
+        this.lightness.set(Math.max(0, this.lightness() - step));
+        break;
+      case 'Home':
+        this.saturation.set(0);
+        this.lightness.set(100);
+        break;
+      case 'End':
+        this.saturation.set(100);
+        this.lightness.set(0);
+        break;
+      default:
+        handled = false;
+    }
+
+    if (handled) {
+      event.preventDefault();
+      this.updateCursor();
+    }
   }
 
   private initializeFromValue(): void {

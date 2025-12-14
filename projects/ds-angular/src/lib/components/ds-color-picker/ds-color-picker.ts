@@ -8,6 +8,7 @@ import {
   forwardRef,
   effect,
   ElementRef,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
@@ -91,6 +92,9 @@ export class DsColorPicker implements ControlValueAccessor {
   readonly internalValue = signal<string>('');
   readonly isFocused = signal(false);
   readonly recentColors = signal<string[]>([]);
+
+  // Unique ID for ARIA
+  readonly uniqueId = `color-picker-${Math.random().toString(36).substring(2, 9)}`;
 
   // Overlay
   private overlayRef: OverlayRef | null = null;
@@ -209,6 +213,60 @@ export class DsColorPicker implements ControlValueAccessor {
     this.isFocused.set(false);
     if (!this.isOpen()) {
       this.onTouched();
+    }
+  }
+
+  /**
+   * Handle keyboard events on the trigger container
+   */
+  onTriggerKeyDown(event: KeyboardEvent): void {
+    if (this.disabled()) return;
+
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        this.toggle();
+        break;
+      case 'Escape':
+        if (this.isOpen()) {
+          event.preventDefault();
+          this.close();
+        }
+        break;
+      case 'ArrowDown':
+        event.preventDefault();
+        if (!this.isOpen()) {
+          this.open();
+        }
+        break;
+    }
+  }
+
+  /**
+   * Handle keyboard events on the input field
+   */
+  onInputKeyDown(event: KeyboardEvent): void {
+    if (this.disabled()) return;
+
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        this.toggle();
+        break;
+      case 'Escape':
+        if (this.isOpen()) {
+          event.preventDefault();
+          this.close();
+        }
+        break;
+      case 'ArrowDown':
+        event.preventDefault();
+        if (!this.isOpen()) {
+          this.open();
+        }
+        break;
     }
   }
 

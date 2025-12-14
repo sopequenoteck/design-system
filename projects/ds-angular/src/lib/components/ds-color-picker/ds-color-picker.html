@@ -1,10 +1,17 @@
-<div [class]="containerClasses()">
-  <div class="ds-color-picker__trigger" (click)="toggle()">
+<div [class]="containerClasses()" role="group" [attr.aria-label]="placeholder()">
+  <div
+    class="ds-color-picker__trigger"
+    role="combobox"
+    [attr.aria-expanded]="isOpen()"
+    aria-haspopup="dialog"
+    [attr.aria-disabled]="disabled() || null"
+    (click)="toggle()"
+    (keydown)="onTriggerKeyDown($event)">
     <!-- Preview de la couleur -->
     <div
       class="ds-color-picker__preview"
       [style.background-color]="previewColor()"
-      [attr.aria-label]="'Color: ' + displayValue()">
+      [attr.aria-hidden]="true">
     </div>
 
     <!-- Input texte -->
@@ -15,19 +22,22 @@
       [placeholder]="placeholder()"
       [disabled]="disabled()"
       readonly
+      role="textbox"
+      [attr.aria-label]="'Selected color: ' + (displayValue() || 'none')"
+      [attr.aria-describedby]="'color-picker-hint-' + uniqueId"
       (focus)="onFocus()"
       (blur)="onBlur()"
-      [attr.aria-label]="placeholder()" />
+      (keydown)="onInputKeyDown($event)" />
 
     <!-- Actions -->
-    <div class="ds-color-picker__actions">
+    <div class="ds-color-picker__actions" role="group" aria-label="Color picker actions">
       @if (allowClear() && internalValue()) {
         <button
           type="button"
           class="ds-color-picker__action ds-color-picker__action--clear"
           [disabled]="disabled()"
           (click)="clear(); $event.stopPropagation()"
-          [attr.aria-label]="'Clear color'">
+          aria-label="Clear selected color">
           <fa-icon [icon]="clearIcon" aria-hidden="true"></fa-icon>
         </button>
       }
@@ -36,9 +46,15 @@
         type="button"
         class="ds-color-picker__action ds-color-picker__action--picker"
         [disabled]="disabled()"
-        [attr.aria-label]="'Open color picker'">
+        [attr.aria-expanded]="isOpen()"
+        aria-haspopup="dialog"
+        aria-label="Open color picker">
         <fa-icon [icon]="pickerIcon" aria-hidden="true"></fa-icon>
       </button>
     </div>
   </div>
+  <!-- Hidden hint for screen readers -->
+  <span [id]="'color-picker-hint-' + uniqueId" class="ds-color-picker__sr-hint">
+    Press Enter or Space to open color picker. Use arrow keys to navigate.
+  </span>
 </div>
