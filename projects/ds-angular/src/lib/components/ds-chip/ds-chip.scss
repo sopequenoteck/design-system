@@ -14,7 +14,12 @@
   font-size: var(--chip-font-size, var(--font-size-sm));
   font-weight: var(--chip-font-weight, 500);
   line-height: var(--chip-line-height, 1.5);
-  transition: all var(--transition-fast);
+  transition:
+    background-color var(--duration-fast) var(--easing-default),
+    color var(--duration-fast) var(--easing-default),
+    border-color var(--duration-fast) var(--easing-default),
+    box-shadow var(--duration-fast) var(--easing-default),
+    transform var(--duration-fast) var(--easing-default);
   user-select: none;
   outline: none;
 
@@ -51,23 +56,33 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    padding: var(--space-0-5);
     margin: 0;
     background: none;
     border: none;
+    border-radius: var(--radius-round);
     cursor: pointer;
     color: inherit;
     opacity: 0.6;
-    transition: opacity var(--transition-fast);
+    transition:
+      opacity var(--duration-fast) var(--easing-default),
+      background-color var(--duration-fast) var(--easing-default),
+      transform var(--duration-fast) var(--easing-default);
     flex-shrink: 0;
 
     &:hover {
       opacity: 1;
+      background-color: rgba(var(--black-rgb), 0.1);
     }
 
-    &:focus {
+    &:active {
+      transform: scale(0.9);
+    }
+
+    &:focus-visible {
       outline: none;
       opacity: 1;
+      box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px currentColor;
     }
 
     fa-icon {
@@ -181,8 +196,12 @@
       background-color: var(--chip-hover-bg, var(--gray-300));
     }
 
+    &:active:not(.ds-chip--disabled) {
+      transform: scale(0.96);
+    }
+
     &:focus-visible {
-      box-shadow: 0 0 0 3px var(--chip-focus-ring, var(--focus-ring));
+      box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px var(--color-primary);
     }
 
     &.ds-chip--outlined:hover:not(.ds-chip--disabled) {

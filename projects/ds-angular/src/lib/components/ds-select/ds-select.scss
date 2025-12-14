@@ -33,8 +33,10 @@
     font-size: var(--select-font-size-md, var(--font-size-3));
     color: var(--select-text, var(--text-default));
     cursor: pointer;
-    transition: border-color var(--duration-fast) ease,
-                box-shadow var(--duration-fast) ease;
+    transition:
+      border-color var(--duration-fast) var(--easing-default),
+      box-shadow var(--duration-fast) var(--easing-default),
+      background-color var(--duration-fast) var(--easing-default);
 
     &:hover:not(:disabled) {
       border-color: var(--select-hover-border, var(--color-primary));
@@ -43,12 +45,12 @@
     &:focus {
       outline: none;
       border-color: var(--select-focus-border, var(--color-primary));
-      box-shadow: 0 0 0 3px var(--select-focus-shadow, rgba(var(--color-primary-rgb), 0.2));
+      box-shadow: 0 0 0 2px var(--select-focus-shadow, rgba(var(--color-primary-rgb), 0.2));
     }
 
     &:focus-visible {
-      outline: 2px solid var(--color-primary);
-      outline-offset: 2px;
+      outline: none;
+      box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px var(--color-primary);
     }
 
     &:disabled {
@@ -82,21 +84,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    padding: var(--space-1);
     background: none;
     border: none;
     color: var(--text-muted);
     cursor: pointer;
     border-radius: var(--radius-round);
-    transition: color var(--duration-fast) ease;
+    transition:
+      color var(--duration-fast) var(--easing-default),
+      background-color var(--duration-fast) var(--easing-default),
+      transform var(--duration-fast) var(--easing-default);
 
     &:hover {
       color: var(--error);
+      background: var(--surface-hover);
+    }
+
+    &:active {
+      transform: scale(0.9);
     }
   }
 
   &__arrow {
-    transition: transform var(--duration-fast) ease;
+    transition: transform var(--duration-normal) var(--easing-default);
 
     &--open {
       transform: rotate(180deg);
@@ -160,7 +170,9 @@
     justify-content: space-between;
     padding: var(--space-2) var(--space-3);
     cursor: pointer;
-    transition: background-color var(--duration-fast) ease;
+    transition:
+      background-color var(--duration-fast) var(--easing-default),
+      color var(--duration-fast) var(--easing-default);
 
     &:hover:not(&--disabled) {
       background-color: var(--select-option-hover-bg, var(--surface-hover));
@@ -247,7 +259,7 @@
       border-color: var(--error);
 
       &:focus {
-        box-shadow: 0 0 0 3px rgba(var(--error-rgb), 0.2);
+        box-shadow: 0 0 0 2px rgba(var(--error-rgb), 0.2);
       }
     }
   }

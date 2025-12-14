@@ -78,10 +78,10 @@
   &__step {
     display: flex;
     outline: none;
-    transition: opacity var(--duration-fast) ease;
+    transition: opacity var(--duration-fast) var(--easing-default);
 
     &:focus-visible .ds-stepper__indicator {
-      box-shadow: var(--input-focus-shadow);
+      box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px var(--color-primary);
     }
 
     &--pending {
@@ -151,9 +151,11 @@
     font-weight: var(--font-weight-semibold);
     font-size: var(--stepper-indicator-font-size-md, var(--font-size-2));
     flex-shrink: 0;
-    transition: transform var(--duration-fast) ease,
-                background-color var(--duration-fast) ease,
-                border-color var(--duration-fast) ease;
+    transition:
+      transform var(--duration-fast) var(--easing-default),
+      background-color var(--duration-fast) var(--easing-default),
+      border-color var(--duration-fast) var(--easing-default),
+      box-shadow var(--duration-fast) var(--easing-default);
   }
 
   &__number {
@@ -170,7 +172,7 @@
     font-size: var(--stepper-label-font-size-md, var(--font-size-2));
     font-weight: var(--font-weight-medium);
     color: var(--text-default);
-    transition: color var(--duration-fast) ease;
+    transition: color var(--duration-fast) var(--easing-default);
   }
 
   &__optional {
@@ -188,7 +190,7 @@
 
   // Connecteur
   &__connector {
-    transition: background-color var(--duration-normal) ease;
+    transition: background-color var(--duration-normal) var(--easing-default);
   }
 
   // Taille SM

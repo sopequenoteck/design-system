@@ -10,11 +10,14 @@
   background: var(--search-input-bg, var(--input-bg, var(--background-main)));
   border: 1px solid var(--search-input-border, var(--input-border-color, var(--border-default)));
   border-radius: var(--search-input-radius, var(--radius-2));
-  transition: border-color var(--duration-fast, 0.2s) ease, box-shadow var(--duration-fast, 0.2s) ease;
+  transition:
+    border-color var(--duration-fast) var(--easing-default),
+    box-shadow var(--duration-fast) var(--easing-default),
+    background-color var(--duration-fast) var(--easing-default);
 
   &:focus-within {
     border-color: var(--search-input-focus-border, var(--input-focus-border, var(--color-primary)));
-    box-shadow: var(--search-input-focus-shadow, var(--input-focus-shadow));
+    box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
   }
 
   // === SIZES ===
@@ -158,7 +161,10 @@
   color: var(--search-input-clear-color, var(--text-muted));
   cursor: pointer;
   border-radius: var(--radius-1);
-  transition: background-color var(--duration-fast, 0.15s) ease, color var(--duration-fast, 0.15s) ease;
+  transition:
+    background-color var(--duration-fast) var(--easing-default),
+    color var(--duration-fast) var(--easing-default),
+    transform var(--duration-fast) var(--easing-default);
 
   &:hover {
     background: var(--search-input-clear-hover-bg, var(--surface-hover));
@@ -166,11 +172,12 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 1px;
+    outline: none;
+    box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px var(--color-primary);
   }
 
   &:active {
     background: var(--search-input-clear-active-bg, var(--surface-raised));
+    transform: scale(0.9);
   }
 }

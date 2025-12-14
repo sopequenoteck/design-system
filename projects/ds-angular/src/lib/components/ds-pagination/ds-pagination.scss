@@ -38,7 +38,10 @@
     color: var(--pagination-btn-text, var(--text-default));
     font-size: var(--pagination-font-size-md, var(--font-size-2));
     cursor: pointer;
-    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+    transition:
+      border-color var(--duration-fast) var(--easing-default),
+      box-shadow var(--duration-fast) var(--easing-default),
+      background-color var(--duration-fast) var(--easing-default);
 
     &:hover:not(:disabled) {
       border-color: var(--pagination-btn-hover-border, var(--color-primary));
@@ -47,7 +50,12 @@
     &:focus {
       outline: none;
       border-color: var(--pagination-btn-focus-border, var(--color-primary));
-      box-shadow: var(--input-focus-shadow);
+      box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px var(--color-primary);
     }
 
     &:disabled {
@@ -78,7 +86,12 @@
     font-size: var(--pagination-font-size-md, var(--font-size-2));
     font-weight: var(--font-weight-medium);
     cursor: pointer;
-    transition: all var(--duration-fast) ease;
+    transition:
+      background-color var(--duration-fast) var(--easing-default),
+      border-color var(--duration-fast) var(--easing-default),
+      color var(--duration-fast) var(--easing-default),
+      box-shadow var(--duration-fast) var(--easing-default),
+      transform var(--duration-fast) var(--easing-default);
 
     &:hover:not(:disabled):not(&--active) {
       background-color: var(--pagination-btn-hover-bg, var(--surface-hover));
@@ -88,7 +101,16 @@
     &:focus {
       outline: none;
       border-color: var(--pagination-btn-focus-border, var(--color-primary));
-      box-shadow: var(--input-focus-shadow);
+      box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px var(--color-primary);
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.95);
     }
 
     &:disabled {

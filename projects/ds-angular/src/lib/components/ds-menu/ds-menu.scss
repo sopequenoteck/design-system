@@ -55,7 +55,8 @@
   text-align: left;
   transition:
     background-color var(--duration-fast) var(--easing-default),
-    color var(--duration-fast) var(--easing-default);
+    color var(--duration-fast) var(--easing-default),
+    transform var(--duration-fast) var(--easing-default);
 
   &:hover:not(.ds-menu__item--disabled),
   &--active:not(.ds-menu__item--disabled) {
@@ -64,8 +65,12 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--focus-color);
-    outline-offset: -2px;
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--color-primary, var(--focus-color));
+  }
+
+  &:active:not(.ds-menu__item--disabled) {
+    transform: scale(0.98);
   }
 
   &--disabled {

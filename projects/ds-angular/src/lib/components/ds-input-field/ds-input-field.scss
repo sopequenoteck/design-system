@@ -74,11 +74,19 @@ label {
   color: var(--input-icon, var(--text-muted));
   cursor: pointer;
   border-radius: var(--radius-1);
-  transition: all var(--duration-fast) var(--easing-default);
+  transition:
+    background-color var(--duration-fast) var(--easing-default),
+    color var(--duration-fast) var(--easing-default),
+    transform var(--duration-fast) var(--easing-default);
 
   &:hover {
     background: var(--surface-hover);
     color: var(--text-default);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px var(--color-primary);
   }
 
   &:active {

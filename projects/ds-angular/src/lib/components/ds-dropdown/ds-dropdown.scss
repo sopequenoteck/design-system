@@ -22,7 +22,10 @@
   cursor: pointer;
   color: var(--dropdown-item-color);
   background: transparent;
-  transition: background-color var(--duration-fast) var(--easing-default), color var(--duration-fast) var(--easing-default);
+  transition:
+    background-color var(--duration-fast) var(--easing-default),
+    color var(--duration-fast) var(--easing-default),
+    transform var(--duration-fast) var(--easing-default);
 }
 
 .menu-item-content fa-icon {
@@ -46,12 +49,12 @@
 }
 
 .menu-item-content:focus-visible {
-  outline: 2px solid var(--focus-color);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--color-primary, var(--focus-color));
 }
 
 .menu-item-content:active {
-  opacity: 0.9;
+  transform: scale(0.98);
 }
 
 .menu-overlay {

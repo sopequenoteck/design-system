@@ -30,15 +30,22 @@
     font-size: var(--accordion-header-font-size-md, var(--font-size-3));
     font-weight: var(--font-weight-medium);
     color: var(--accordion-header-text, var(--text-default));
-    transition: background-color var(--duration-fast) ease;
+    border-radius: 0;
+    transition:
+      background-color var(--duration-fast) var(--easing-default),
+      color var(--duration-fast) var(--easing-default);
 
     &:hover:not(:disabled) {
       background-color: var(--accordion-header-hover-bg, var(--surface-hover));
     }
 
-    &:focus {
+    &:focus-visible {
       outline: none;
       box-shadow: inset 0 0 0 2px var(--accordion-focus-color, var(--color-primary));
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.995);
     }
 
     &:disabled {
@@ -52,7 +59,7 @@
 
   &__icon {
     flex-shrink: 0;
-    transition: transform var(--duration-normal) ease;
+    transition: transform var(--duration-normal) var(--easing-default);
     color: var(--accordion-icon-color, var(--text-muted));
 
     &--rotated {
@@ -64,7 +71,7 @@
   &__content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height var(--duration-normal) ease-out;
+    transition: max-height var(--duration-normal) var(--easing-default);
 
     &--expanded {
       max-height: var(--accordion-content-max-height);

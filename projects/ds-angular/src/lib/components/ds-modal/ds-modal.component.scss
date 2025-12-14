@@ -81,13 +81,27 @@
     font-size: var(--font-size-4);
     cursor: pointer;
     color: var(--text-muted);
-    padding: 0;
+    padding: var(--space-1);
     line-height: var(--line-height-tight);
-    transition: color var(--duration-fast) var(--easing-default);
-  }
+    border-radius: var(--radius-1);
+    transition:
+      color var(--duration-fast) var(--easing-default),
+      background-color var(--duration-fast) var(--easing-default),
+      transform var(--duration-fast) var(--easing-default);
 
-  .close-btn button:hover {
-    color: var(--text-default);
+    &:hover {
+      color: var(--text-default);
+      background-color: rgba(var(--black-rgb), 0.05);
+    }
+
+    &:active {
+      transform: scale(0.92);
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px var(--color-primary);
+    }
   }
 }
 

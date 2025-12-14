@@ -36,8 +36,10 @@
     font-family: inherit;
     font-size: var(--combobox-font-size-md, var(--font-size-3));
     color: var(--combobox-text, var(--text-default));
-    transition: border-color var(--duration-fast) ease,
-                box-shadow var(--duration-fast) ease;
+    transition:
+      border-color var(--duration-fast) var(--easing-default),
+      box-shadow var(--duration-fast) var(--easing-default),
+      background-color var(--duration-fast) var(--easing-default);
 
     &::placeholder {
       color: var(--combobox-placeholder, var(--text-muted));
@@ -50,12 +52,12 @@
     &:focus {
       outline: none;
       border-color: var(--combobox-focus-border, var(--color-primary));
-      box-shadow: 0 0 0 3px var(--combobox-focus-shadow, rgba(var(--color-primary-rgb), 0.2));
+      box-shadow: 0 0 0 2px var(--combobox-focus-shadow, rgba(var(--color-primary-rgb), 0.2));
     }
 
     &:focus-visible {
-      outline: 2px solid var(--color-primary);
-      outline-offset: 2px;
+      outline: none;
+      box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px var(--color-primary);
     }
 
     &:disabled {
@@ -85,18 +87,26 @@
     color: var(--text-muted);
     cursor: pointer;
     border-radius: var(--radius-round);
-    transition: color var(--duration-fast) ease;
+    transition:
+      color var(--duration-fast) var(--easing-default),
+      background-color var(--duration-fast) var(--easing-default),
+      transform var(--duration-fast) var(--easing-default);
     pointer-events: auto;
 
     &:hover {
       color: var(--error);
+      background: var(--surface-hover);
+    }
+
+    &:active {
+      transform: scale(0.9);
     }
   }
 
   &__arrow {
     display: flex;
     align-items: center;
-    transition: transform var(--duration-fast) ease;
+    transition: transform var(--duration-normal) var(--easing-default);
 
     &--open {
       transform: rotate(180deg);
@@ -154,7 +164,9 @@
     justify-content: space-between;
     padding: var(--space-2) var(--space-3);
     cursor: pointer;
-    transition: background-color var(--duration-fast) ease;
+    transition:
+      background-color var(--duration-fast) var(--easing-default),
+      color var(--duration-fast) var(--easing-default);
 
     &:hover:not(&--disabled) {
       background-color: var(--combobox-option-hover-bg, var(--surface-hover));
@@ -259,7 +271,7 @@
       border-color: var(--error);
 
       &:focus {
-        box-shadow: 0 0 0 3px rgba(var(--error-rgb), 0.2);
+        box-shadow: 0 0 0 2px rgba(var(--error-rgb), 0.2);
       }
     }
   }

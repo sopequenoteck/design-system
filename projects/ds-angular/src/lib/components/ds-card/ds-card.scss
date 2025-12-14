@@ -9,7 +9,11 @@
   flex-direction: column;
   background-color: var(--card-bg, var(--background-main));
   border-radius: var(--card-radius, var(--radius-2));
-  transition: all var(--duration-fast, 150ms) ease;
+  transition:
+    background-color var(--duration-fast, 150ms) var(--easing-default),
+    border-color var(--duration-fast, 150ms) var(--easing-default),
+    box-shadow var(--duration-fast, 150ms) var(--easing-default),
+    transform var(--duration-fast, 150ms) var(--easing-default);
 
   // Variantes
   &--default {
@@ -66,7 +70,12 @@
     }
 
     &:active:not(.ds-card--disabled) {
-      transform: translateY(0);
+      transform: translateY(0) scale(0.995);
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px var(--color-primary);
     }
   }
 

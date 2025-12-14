@@ -23,7 +23,10 @@
     border: none;
     border-radius: 0;
     cursor: pointer;
-    transition: all var(--transition-default);
+    transition:
+      background-color var(--duration-fast) var(--easing-default),
+      color var(--duration-fast) var(--easing-default),
+      transform var(--duration-fast) var(--easing-default);
     white-space: nowrap;
 
     &:hover:not(&--disabled) {
@@ -32,9 +35,13 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: -2px;
+      outline: none;
+      box-shadow: inset 0 0 0 2px var(--color-primary, var(--accent));
       z-index: 1;
+    }
+
+    &:active:not(&--disabled) {
+      transform: scale(0.98);
     }
 
     &--active {
@@ -63,7 +70,7 @@
     left: 0;
     height: var(--tab-indicator-height);
     background: var(--tab-active-border);
-    transition: transform var(--transition-default);
+    transition: transform var(--duration-normal) var(--easing-default);
     z-index: 2;
   }
 
