@@ -43,7 +43,7 @@ import {
       [class.ds-sidebar-item--collapsed-mode]="mode() === 'collapsed'"
       [style.padding-left.px]="indentPadding()"
       [attr.tabindex]="item().disabled ? -1 : 0"
-      [attr.role]="'treeitem'"
+      role="menuitem"
       [attr.aria-expanded]="hasChildren() ? isExpanded() : null"
       [attr.aria-selected]="isActive()"
       [attr.aria-disabled]="item().disabled"
@@ -128,7 +128,7 @@ import {
     @if (hasChildren() && isExpanded() && mode() !== 'collapsed') {
       <div
         class="ds-sidebar-item__children"
-        role="group"
+        role="menu"
         [attr.aria-label]="'Sous-menu de ' + item().label">
         @for (child of item().children; track child.id) {
           <ds-sidebar-item

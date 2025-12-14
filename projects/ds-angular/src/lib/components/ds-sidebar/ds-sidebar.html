@@ -44,7 +44,7 @@
   </div>
 
   <!-- Body (items) -->
-  <div class="ds-sidebar__body" role="tree">
+  <div class="ds-sidebar__body" role="menubar" aria-orientation="vertical">
     @for (item of items(); track item.id) {
       <ds-sidebar-item
         [item]="item"

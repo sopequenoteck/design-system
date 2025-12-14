@@ -512,25 +512,37 @@ describe('DsSidebar', () => {
       host.items = sampleItems;
       fixture.detectChanges();
 
+      const component = fixture.debugElement.query(By.directive(DsSidebar)).componentInstance;
       const sidebar = fixture.debugElement.query(By.css('.ds-sidebar'));
+
+      // Initial focusedIndex is -1
+      expect(component['focusedIndex']()).toBe(-1);
+
+      // ArrowDown → focusedIndex devient 0
       sidebar.triggerEventHandler('keydown', { key: 'ArrowDown', preventDefault: () => {} });
       fixture.detectChanges();
 
-      const component = fixture.debugElement.query(By.directive(DsSidebar)).componentInstance;
-      // Après ArrowDown, le focus devrait être sur le premier item ou le suivant
+      expect(component['focusedIndex']()).toBe(0);
     });
 
     it('should navigate up with ArrowUp', () => {
       host.items = sampleItems;
       fixture.detectChanges();
 
+      const component = fixture.debugElement.query(By.directive(DsSidebar)).componentInstance;
       const sidebar = fixture.debugElement.query(By.css('.ds-sidebar'));
-      // D'abord descendre
+
+      // D'abord descendre deux fois
       sidebar.triggerEventHandler('keydown', { key: 'ArrowDown', preventDefault: () => {} });
       sidebar.triggerEventHandler('keydown', { key: 'ArrowDown', preventDefault: () => {} });
+      fixture.detectChanges();
+      expect(component['focusedIndex']()).toBe(1);
+
       // Puis remonter
       sidebar.triggerEventHandler('keydown', { key: 'ArrowUp', preventDefault: () => {} });
       fixture.detectChanges();
+
+      expect(component['focusedIndex']()).toBe(0);
     });
 
     it('should expand item with ArrowRight', () => {
@@ -577,22 +589,36 @@ describe('DsSidebar', () => {
       host.items = sampleItems;
       fixture.detectChanges();
 
+      const component = fixture.debugElement.query(By.directive(DsSidebar)).componentInstance;
       const sidebar = fixture.debugElement.query(By.css('.ds-sidebar'));
+
       // Descendre plusieurs fois
       sidebar.triggerEventHandler('keydown', { key: 'ArrowDown', preventDefault: () => {} });
       sidebar.triggerEventHandler('keydown', { key: 'ArrowDown', preventDefault: () => {} });
-      // Home
+      sidebar.triggerEventHandler('keydown', { key: 'ArrowDown', preventDefault: () => {} });
+      fixture.detectChanges();
+      expect(component['focusedIndex']()).toBe(2);
+
+      // Home → retour au premier item
       sidebar.triggerEventHandler('keydown', { key: 'Home', preventDefault: () => {} });
       fixture.detectChanges();
+
+      expect(component['focusedIndex']()).toBe(0);
     });
 
     it('should go to last item with End', () => {
       host.items = sampleItems;
       fixture.detectChanges();
 
+      const component = fixture.debugElement.query(By.directive(DsSidebar)).componentInstance;
       const sidebar = fixture.debugElement.query(By.css('.ds-sidebar'));
+
+      // End → dernier item (index = items.length - 1)
       sidebar.triggerEventHandler('keydown', { key: 'End', preventDefault: () => {} });
       fixture.detectChanges();
+
+      const lastIndex = component.flattenedItems().length - 1;
+      expect(component['focusedIndex']()).toBe(lastIndex);
     });
 
     it('should activate item with Enter', () => {
@@ -659,20 +685,20 @@ describe('DsSidebar', () => {
       expect(item).toBeTruthy();
     });
 
-    it('should have role="tree" on body', () => {
+    it('should have role="menubar" on body', () => {
       host.items = sampleItems;
       fixture.detectChanges();
 
-      const tree = fixture.debugElement.query(By.css('[role="tree"]'));
-      expect(tree).toBeTruthy();
+      const menubar = fixture.debugElement.query(By.css('[role="menubar"]'));
+      expect(menubar).toBeTruthy();
     });
 
-    it('should have role="treeitem" on items', () => {
+    it('should have role="menuitem" on items', () => {
       host.items = sampleItems;
       fixture.detectChanges();
 
-      const treeitems = fixture.debugElement.queryAll(By.css('[role="treeitem"]'));
-      expect(treeitems.length).toBeGreaterThan(0);
+      const menuitems = fixture.debugElement.queryAll(By.css('[role="menuitem"]'));
+      expect(menuitems.length).toBeGreaterThan(0);
     });
   });
 
