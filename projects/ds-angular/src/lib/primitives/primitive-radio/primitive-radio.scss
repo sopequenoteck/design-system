@@ -37,7 +37,10 @@
     border-radius: 50%;
     border: var(--radio-border-width) solid var(--radio-border);
     background-color: var(--radio-bg);
-    transition: all var(--duration-fast) var(--easing-default);
+    transition:
+      background-color var(--duration-fast) var(--easing-default),
+      border-color var(--duration-fast) var(--easing-default),
+      box-shadow var(--duration-fast) var(--easing-default);
 
     // Tailles
     .primitive-radio--sm & {

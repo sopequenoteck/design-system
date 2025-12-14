@@ -28,7 +28,23 @@ button {
   font-weight: var(--font-weight-medium);
   font-size: var(--btn-font-size-md);
   cursor: pointer;
-  transition: all var(--duration-fast) var(--easing-default);
+  transition:
+    background-color var(--duration-fast) var(--easing-default),
+    border-color var(--duration-fast) var(--easing-default),
+    color var(--duration-fast) var(--easing-default),
+    box-shadow var(--duration-fast) var(--easing-default),
+    transform var(--duration-fast) var(--easing-default);
+
+  /* Focus ring moderne */
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--background-main, #fff), 0 0 0 4px var(--btn-focus-outline, var(--color-primary));
+  }
+
+  /* Active state subtil */
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
 }
 
 /* === VARIANTS === */

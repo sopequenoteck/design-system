@@ -46,7 +46,9 @@
     position: relative;
     border-radius: var(--toggle-track-radius);
     background-color: var(--toggle-track-bg);
-    transition: background-color var(--duration-fast) var(--easing-default);
+    transition:
+      background-color var(--duration-fast) var(--easing-default),
+      box-shadow var(--duration-fast) var(--easing-default);
 
     // Tailles
     .primitive-toggle--sm & {
@@ -74,7 +76,10 @@
     border-radius: 50%;
     background-color: var(--toggle-thumb-bg);
     box-shadow: var(--toggle-thumb-shadow);
-    transition: transform var(--duration-fast) var(--easing-default);
+    transition:
+      transform var(--duration-fast) var(--easing-default),
+      background-color var(--duration-fast) var(--easing-default),
+      box-shadow var(--duration-fast) var(--easing-default);
 
     // Tailles
     .primitive-toggle--sm & {

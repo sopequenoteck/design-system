@@ -16,7 +16,10 @@
   background-color: var(--input-bg);
   border: 1px solid var(--input-border);
   border-radius: var(--input-radius);
-  transition: all var(--duration-fast) var(--easing-default);
+  transition:
+    border-color var(--duration-fast) var(--easing-default),
+    box-shadow var(--duration-fast) var(--easing-default),
+    background-color var(--duration-fast) var(--easing-default);
 }
 
 .input-wrapper:hover:not(.disabled) {

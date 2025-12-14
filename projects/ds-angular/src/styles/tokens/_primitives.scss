@@ -42,16 +42,16 @@ $gray-900: #171717;
 $white: #ffffff;
 $black: #000000;
 
-// Couleurs de feedback
-$success: #4caf50;
-$warning: #ff9800;
-$error:   #f44336;
-$info:    #2196f3;
+// Couleurs de feedback (Tailwind-inspired, modern/minimalist)
+$success: #22c55e;
+$warning: #f97316;
+$error:   #ef4444;
+$info:    #3b82f6;
 
-// Couleurs de marque
-$primary:   #7d4bc0;
-$secondary: #fbc224;
-$alt:       #2dd4bf;
+// Couleurs de marque (modern indigo palette)
+$primary:   #6366f1;
+$secondary: #f59e0b;
+$alt:       #14b8a6;
 
 // === SPACING ===
 
@@ -76,11 +76,11 @@ $radius-3: 12px;
 $radius-4: 20px;
 $radius-round: 999px;
 
-// === SHADOWS ===
+// === SHADOWS (subtle, modern) ===
 
-$shadow-1: 0 1px 2px rgba(0,0,0,.14);
-$shadow-2: 0 6px 16px rgba(0,0,0,.18);
-$shadow-3: 0 15px 40px rgba(0,0,0,.24);
+$shadow-1: 0 1px 2px rgba(0,0,0,.05);
+$shadow-2: 0 4px 12px rgba(0,0,0,.08);
+$shadow-3: 0 12px 32px rgba(0,0,0,.12);
 
 // === Z-INDEX ===
 
@@ -90,15 +90,15 @@ $z-index-3: 300;
 $z-index-4: 400;
 $z-index-full: 999;
 
-// === ANIMATIONS ===
+// === ANIMATIONS (faster, smoother) ===
 
-$duration-fast: 150ms;
-$duration-normal: 300ms;
-$duration-slow: 500ms;
+$duration-fast: 120ms;
+$duration-normal: 200ms;
+$duration-slow: 400ms;
 
-$easing-default: ease-in-out;
-$easing-in: ease-in;
-$easing-out: ease-out;
+$easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+$easing-in: cubic-bezier(0.4, 0, 1, 1);
+$easing-out: cubic-bezier(0, 0, 0.2, 1);
 
 // === TYPOGRAPHY ===
 

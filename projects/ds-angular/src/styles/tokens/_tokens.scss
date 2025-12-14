@@ -19,18 +19,18 @@
 
   /* === CUSTOM THEME PLACEHOLDERS === */
   --custom-bg: #ffffff;
-  --custom-bg-secondary: #f5f5f5;
-  --custom-bg-header: #e0e0e0;
-  --custom-text-default: #1a1c22;
-  --custom-text-muted: #2c2f36;
-  --custom-text-disabled: #8e95a2;
-  --custom-text-disabled-alt: #b0b4bd;
-  --custom-text-subtle: #4a4e5a;
-  --custom-border: #d0d0d0;
-  --custom-border-subtle: #e0e0e0;
-  --custom-border-strong: #b6bac3;
-  --custom-accent-primary: #7d4bc0;
-  --custom-accent-secondary: #fbc224;
+  --custom-bg-secondary: #f8fafc;
+  --custom-bg-header: #f1f5f9;
+  --custom-text-default: #0f172a;
+  --custom-text-muted: #475569;
+  --custom-text-disabled: #94a3b8;
+  --custom-text-disabled-alt: #cbd5e1;
+  --custom-text-subtle: #64748b;
+  --custom-border: #e2e8f0;
+  --custom-border-subtle: #f1f5f9;
+  --custom-border-strong: #cbd5e1;
+  --custom-accent-primary: #6366f1;
+  --custom-accent-secondary: #f59e0b;
 
   /* === TYPOGRAPHY === */
   --font-family-base: #{$font-family-base};
@@ -124,12 +124,12 @@
   --focus-color: var(--color-secondary);
 
   /* === RGB VALUES (for rgba() with custom opacity) === */
-  --color-primary-rgb: 125, 75, 192;
-  --color-secondary-rgb: 251, 194, 36;
-  --success-rgb: 76, 175, 80;
-  --warning-rgb: 255, 152, 0;
-  --error-rgb: 244, 67, 54;
-  --info-rgb: 33, 150, 243;
+  --color-primary-rgb: 99, 102, 241;
+  --color-secondary-rgb: 245, 158, 11;
+  --success-rgb: 34, 197, 94;
+  --warning-rgb: 249, 115, 22;
+  --error-rgb: 239, 68, 68;
+  --info-rgb: 59, 130, 246;
   --black-rgb: 0, 0, 0;
   --white-rgb: 255, 255, 255;
 

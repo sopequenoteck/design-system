@@ -37,7 +37,11 @@
     border-radius: var(--checkbox-radius);
     border: var(--checkbox-border-width) solid var(--checkbox-border);
     background-color: var(--checkbox-bg);
-    transition: all var(--duration-fast) var(--easing-default);
+    transition:
+      background-color var(--duration-fast) var(--easing-default),
+      border-color var(--duration-fast) var(--easing-default),
+      box-shadow var(--duration-fast) var(--easing-default),
+      transform var(--duration-fast) var(--easing-default);
 
     // Tailles
     .primitive-checkbox--sm & {
@@ -62,7 +66,10 @@
     width: 100%;
     height: 100%;
     color: var(--checkbox-check-color);
-    transition: opacity var(--duration-fast) var(--easing-default);
+    transition:
+      opacity var(--duration-fast) var(--easing-default),
+      transform var(--duration-fast) var(--easing-default);
+    transform: scale(1);
 
     // Tailles spécifiques pour l'icône
     .primitive-checkbox--sm & {

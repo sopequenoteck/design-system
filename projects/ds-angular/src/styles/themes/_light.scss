@@ -187,7 +187,7 @@
   --input-border: var(--border-color);
   --input-hover-border: color-mix(in oklab, var(--border-color) 85%, var(--background-main));
   --input-focus-border: var(--accent);
-  --input-focus-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 25%, transparent);
+  --input-focus-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 20%, transparent);
   --input-icon: var(--text-muted);
   --input-disabled-bg: var(--bg-disabled);
   --input-disabled-text: var(--text-disabled);
@@ -291,7 +291,7 @@
   --checkbox-checked-border: var(--color-primary);
   --checkbox-check-color: var(--gray-50);
   --checkbox-hover-border: color-mix(in oklab, var(--border-color) 85%, var(--background-main));
-  --checkbox-focus-ring: 0 0 0 3px color-mix(in oklab, var(--color-primary) 25%, transparent);
+  --checkbox-focus-ring: 0 0 0 2px color-mix(in oklab, var(--color-primary) 20%, transparent);
   --checkbox-disabled-bg: var(--bg-disabled);
   --checkbox-disabled-border: var(--border-disabled);
   --checkbox-disabled-check: var(--text-disabled);
@@ -307,7 +307,7 @@
   --radio-checked-border: var(--color-primary);
   --radio-dot-color: var(--color-primary);
   --radio-hover-border: color-mix(in oklab, var(--border-color) 85%, var(--background-main));
-  --radio-focus-ring: 0 0 0 3px color-mix(in oklab, var(--color-primary) 25%, transparent);
+  --radio-focus-ring: 0 0 0 2px color-mix(in oklab, var(--color-primary) 20%, transparent);
   --radio-disabled-bg: var(--bg-disabled);
   --radio-disabled-border: var(--border-disabled);
   --radio-disabled-dot: var(--text-disabled);
@@ -321,7 +321,7 @@
   --toggle-thumb-shadow: var(--shadow-1);
   --toggle-hover-track-bg: color-mix(in oklab, var(--gray-300) 85%, var(--background-main));
   --toggle-hover-track-checked-bg: color-mix(in oklab, var(--color-primary) 90%, var(--background-main));
-  --toggle-focus-ring: 0 0 0 3px color-mix(in oklab, var(--color-primary) 25%, transparent);
+  --toggle-focus-ring: 0 0 0 2px color-mix(in oklab, var(--color-primary) 20%, transparent);
   --toggle-disabled-track-bg: var(--bg-disabled);
   --toggle-disabled-thumb-bg: var(--gray-200);
 
@@ -583,8 +583,8 @@
   --slider-thumb-border-color: var(--color-primary);
   --slider-thumb-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   --slider-thumb-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.15);
-  --slider-thumb-shadow-focus: 0 0 0 3px color-mix(in oklab, var(--color-primary) 30%, transparent);
-  --slider-thumb-shadow-active: 0 0 0 4px color-mix(in oklab, var(--color-primary) 20%, transparent);
+  --slider-thumb-shadow-focus: 0 0 0 2px color-mix(in oklab, var(--color-primary) 25%, transparent);
+  --slider-thumb-shadow-active: 0 0 0 3px color-mix(in oklab, var(--color-primary) 20%, transparent);
   --slider-tick-color: var(--gray-400);
   --slider-label-color: var(--text-default);
   --slider-thumb-label-bg: var(--gray-900);
