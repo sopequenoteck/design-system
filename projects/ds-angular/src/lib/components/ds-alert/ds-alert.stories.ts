@@ -119,9 +119,13 @@ export const Closable: Story = {
         { id: 2, type: 'info' as const, visible: true },
         { id: 3, type: 'warning' as const, visible: true },
       ],
+      allClosed: false,
       closeAlert: function(id: number) {
         const alert = this['alerts'].find((a: { id: number }) => a.id === id);
-        if (alert) alert.visible = false;
+        if (alert) {
+          alert.visible = false;
+          this['allClosed'] = this['alerts'].filter((a: { visible: boolean }) => a.visible).length === 0;
+        }
       },
     },
     template: `
@@ -133,7 +137,7 @@ export const Closable: Story = {
             </ds-alert>
           }
         }
-        @if (alerts.every(a => !a.visible)) {
+        @if (allClosed) {
           <p style="color: var(--text-muted); text-align: center;">Toutes les alertes ont été fermées !</p>
         }
       </div>

@@ -3,6 +3,7 @@ import { DsInputNumber } from './ds-input-number';
 import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { JsonPipe } from '@angular/common';
 
 const meta: Meta<DsInputNumber> = {
   title: 'Components/DsInputNumber',
@@ -258,7 +259,7 @@ export const NoControls: Story = {
       </div>
     </form>
   `,
-  imports: [DsInputNumber, ReactiveFormsModule],
+  imports: [DsInputNumber, ReactiveFormsModule, JsonPipe],
 })
 class StoryReactiveFormComponent {
   form = signal(
@@ -351,7 +352,7 @@ export const InReactiveForm: Story = {
       </div>
     </form>
   `,
-  imports: [DsInputNumber, ReactiveFormsModule],
+  imports: [DsInputNumber, ReactiveFormsModule, JsonPipe],
 })
 class StoryWithValidationComponent {
   form = signal(

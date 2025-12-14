@@ -391,16 +391,18 @@ export const WithInteractionTest: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const button = canvas.getByTestId('test-button');
+    const buttonWrapper = canvas.getByTestId('test-button');
+    const innerButton = buttonWrapper.querySelector('button');
 
     // Vérifier que le bouton est dans le DOM
-    await expect(button).toBeInTheDocument();
+    await expect(buttonWrapper).toBeInTheDocument();
+    await expect(innerButton).toBeInTheDocument();
 
     // Cliquer sur le bouton
-    await userEvent.click(button);
+    await userEvent.click(innerButton!);
 
-    // Vérifier que le bouton reçoit le focus après le clic
-    await expect(button).toHaveFocus();
+    // Vérifier que le bouton interne reçoit le focus après le clic
+    await expect(innerButton).toHaveFocus();
   },
   parameters: {
     docs: {

@@ -124,7 +124,6 @@ import { DsTabs } from '../components/ds-tabs/ds-tabs';
             <primitive-button variant="primary">Primary</primitive-button>
             <primitive-button variant="secondary">Secondary</primitive-button>
             <primitive-button variant="ghost">Ghost</primitive-button>
-            <primitive-button variant="outline">Outline</primitive-button>
           </div>
 
           <h3>Feedback</h3>
@@ -204,25 +203,25 @@ import { DsTabs } from '../components/ds-tabs/ds-tabs';
         <div class="demo-card">
           <h3>Variants</h3>
           <div class="chip-row">
-            <ds-chip>Default</ds-chip>
-            <ds-chip color="primary">Primary</ds-chip>
-            <ds-chip color="success">Success</ds-chip>
-            <ds-chip color="warning">Warning</ds-chip>
-            <ds-chip color="error">Error</ds-chip>
+            <ds-chip [label]="'Default'">Default</ds-chip>
+            <ds-chip [label]="'Primary'" color="primary">Primary</ds-chip>
+            <ds-chip [label]="'Success'" color="success">Success</ds-chip>
+            <ds-chip [label]="'Warning'" color="warning">Warning</ds-chip>
+            <ds-chip [label]="'Error'" color="error">Error</ds-chip>
           </div>
 
           <h3>Outlined</h3>
           <div class="chip-row">
-            <ds-chip variant="outlined">Default</ds-chip>
-            <ds-chip variant="outlined" color="primary">Primary</ds-chip>
-            <ds-chip variant="outlined" color="success">Success</ds-chip>
+            <ds-chip [label]="'Default'"  variant="outlined">Default</ds-chip>
+            <ds-chip [label]="'Primary'"  variant="outlined" color="primary">Primary</ds-chip>
+            <ds-chip [label]="'Success'"  variant="outlined" color="success">Success</ds-chip>
           </div>
 
           <h3>Removable</h3>
           <div class="chip-row">
-            <ds-chip [removable]="true">Removable</ds-chip>
-            <ds-chip [removable]="true" color="primary">Primary</ds-chip>
-            <ds-chip [removable]="true" color="error">Error</ds-chip>
+            <ds-chip [label]="'Removable'"  [removable]="true">Removable</ds-chip>
+            <ds-chip [label]="'Primary'"  [removable]="true" color="primary">Primary</ds-chip>
+            <ds-chip [label]="'Error'"  [removable]="true" color="error">Error</ds-chip>
           </div>
 
           <div class="interaction-hint">
@@ -238,27 +237,25 @@ import { DsTabs } from '../components/ds-tabs/ds-tabs';
         <p class="section-desc">Indicateur anime, transitions smooth, navigation clavier</p>
 
         <div class="demo-card">
-          <ds-tabs>
-            <ds-tabs [tabs]="tabItems" [(activeTabId)]="activeTab">
-              @if (activeTab === 'overview') {
-                <div class="tab-content">
-                  <h4>Vue d'ensemble</h4>
-                  <p>Contenu de l'onglet Overview avec transitions fluides.</p>
-                </div>
-              }
-              @if (activeTab === 'features') {
-                <div class="tab-content">
-                  <h4>Fonctionnalites</h4>
-                  <p>Les tabs supportent la navigation au clavier (fleches, Home, End).</p>
-                </div>
-              }
-              @if (activeTab === 'settings') {
-                <div class="tab-content">
-                  <h4>Parametres</h4>
-                  <p>Focus ring inset pour une meilleure accessibilite.</p>
-                </div>
-              }
-            </ds-tabs>
+          <ds-tabs [tabs]="tabItems" [(activeTabId)]="activeTab">
+            @if (activeTab === 'overview') {
+              <div class="tab-content">
+                <h4>Vue d'ensemble</h4>
+                <p>Contenu de l'onglet Overview avec transitions fluides.</p>
+              </div>
+            }
+            @if (activeTab === 'features') {
+              <div class="tab-content">
+                <h4>Fonctionnalités</h4>
+                <p>Les tabs supportent la navigation au clavier (fleches, Home, End).</p>
+              </div>
+            }
+            @if (activeTab === 'settings') {
+              <div class="tab-content">
+                <h4>Parameters</h4>
+                <p>Focus ring inset pour une meilleure accessibility.</p>
+              </div>
+            }
           </ds-tabs>
 
           <div class="interaction-hint">
@@ -329,8 +326,10 @@ import { DsTabs } from '../components/ds-tabs/ds-tabs';
         </div>
 
         <div class="alerts-stack">
-          <ds-alert type="info" [showIcon]="true" [closable]="true">Information: Bouton close avec effet scale(0.92)</ds-alert>
-          <ds-alert type="success" [showIcon]="true" [closable]="true">Succes: Transitions granulaires sur close</ds-alert>
+          <ds-alert type="info" [showIcon]="true" [closable]="true">Information: Bouton close avec effet scale(0.92)
+          </ds-alert>
+          <ds-alert type="success" [showIcon]="true" [closable]="true">Succes: Transitions granulaires sur close
+          </ds-alert>
           <ds-alert type="warning" [showIcon]="true">Attention: Focus ring double-ring effect</ds-alert>
           <ds-alert type="error" [showIcon]="true">Erreur: Exemple de message d'erreur</ds-alert>
         </div>

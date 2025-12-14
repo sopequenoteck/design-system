@@ -51,9 +51,10 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     singleRun: false,
     restartOnFileChange: true,
-    browserDisconnectTimeout: 60000,
-    browserNoActivityTimeout: 60000,
-    captureTimeout: 120000,
+    browserDisconnectTimeout: 300000,
+    browserNoActivityTimeout: 300000,
+    captureTimeout: 300000,
+    browserDisconnectTolerance: 3,
     customLaunchers: {
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',

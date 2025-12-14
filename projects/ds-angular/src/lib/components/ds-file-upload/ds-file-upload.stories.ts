@@ -3,6 +3,7 @@ import { DsFileUpload } from './ds-file-upload';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
 import { Component } from '@angular/core';
+import { JsonPipe } from '@angular/common';
 
 const meta: Meta<DsFileUpload> = {
   title: 'Form/Upload/DsFileUpload',
@@ -211,7 +212,7 @@ export const OfficeDocuments: Story = {
 @Component({
   selector: 'story-reactive-form',
   standalone: true,
-  imports: [DsFileUpload, ReactiveFormsModule],
+  imports: [DsFileUpload, ReactiveFormsModule, JsonPipe],
   template: `
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <ds-file-upload
