@@ -14,10 +14,10 @@
 .ds-sidebar__backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: var(--z-sidebar-backdrop, 999);
+  background: var(--sidebar-backdrop-bg, rgba(0, 0, 0, 0.5));
+  z-index: var(--z-index-full, 9999);
   opacity: 0;
-  animation: fadeIn var(--sidebar-transition-duration, 200ms) ease forwards;
+  animation: fadeIn var(--sidebar-transition-duration, var(--duration-normal, 200ms)) ease forwards;
 
   @keyframes fadeIn {
     from { opacity: 0; }
@@ -33,20 +33,20 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: var(--sidebar-bg, #ffffff);
-  color: var(--sidebar-text, #1f2937);
-  transition: width var(--sidebar-transition-duration, 200ms) ease,
-              transform var(--sidebar-transition-duration, 200ms) ease;
-  overflow: hidden;
+  background: var(--sidebar-bg, var(--surface-default, #ffffff));
+  color: var(--sidebar-text, var(--text-default, #1f2937));
+  transition: width var(--sidebar-transition-duration, var(--duration-normal, 200ms)) ease,
+              transform var(--sidebar-transition-duration, var(--duration-normal, 200ms)) ease;
+  // Note: pas de overflow:hidden pour permettre les overlays (menus, tooltips)
 
   // ---------- POSITION ----------
 
   &--left {
-    border-right: 1px solid var(--sidebar-border, #e5e7eb);
+    border-right: 1px solid var(--sidebar-border, var(--border-default, #e5e7eb));
   }
 
   &--right {
-    border-left: 1px solid var(--sidebar-border, #e5e7eb);
+    border-left: 1px solid var(--sidebar-border, var(--border-default, #e5e7eb));
   }
 
   // ---------- MODES ----------
@@ -76,8 +76,8 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    z-index: var(--z-sidebar-overlay, 1000);
-    box-shadow: var(--shadow-3, 0 10px 25px rgba(0, 0, 0, 0.1));
+    z-index: var(--z-index-full, 9999);
+    box-shadow: var(--sidebar-shadow, var(--shadow-3, 0 10px 25px rgba(0, 0, 0, 0.1)));
     transform: translateX(-100%);
 
     &.ds-sidebar--left {
@@ -108,10 +108,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-4, 1rem);
-  border-bottom: 1px solid var(--sidebar-border, #e5e7eb);
+  padding: var(--sidebar-header-padding, var(--space-4, 1rem));
+  border-bottom: 1px solid var(--sidebar-border, var(--border-default, #e5e7eb));
   flex-shrink: 0;
   min-height: 60px;
+  position: relative;
+  z-index: 1;
 
   // Content projection styling
   ::ng-deep {
@@ -137,15 +139,15 @@
   height: 32px;
   padding: 0;
   border: none;
-  border-radius: var(--radius-1-5, 6px);
+  border-radius: var(--sidebar-item-radius, var(--radius-1-5, 6px));
   background: transparent;
-  color: var(--sidebar-text, #1f2937);
+  color: var(--sidebar-text, var(--text-default, #1f2937));
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color var(--duration-fast, 0.15s) ease, color var(--duration-fast, 0.15s) ease;
   flex-shrink: 0;
 
   &:hover {
-    background: var(--sidebar-item-hover-bg, rgba(0, 0, 0, 0.05));
+    background: var(--sidebar-item-hover-bg, var(--gray-100, rgba(0, 0, 0, 0.05)));
   }
 
   &:focus-visible {
@@ -162,7 +164,7 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: var(--space-2, 0.5rem);
+  padding: var(--sidebar-body-padding, var(--space-2, 0.5rem));
 
   // Scrollbar styling
   &::-webkit-scrollbar {
@@ -174,11 +176,11 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--gray-300, #d1d5db);
+    background: var(--sidebar-scrollbar-thumb, var(--gray-300, #d1d5db));
     border-radius: 3px;
 
     &:hover {
-      background: var(--gray-400, #9ca3af);
+      background: var(--sidebar-scrollbar-thumb-hover, var(--gray-400, #9ca3af));
     }
   }
 }
@@ -188,8 +190,8 @@
 // ============================================
 
 .ds-sidebar__footer {
-  padding: var(--space-4, 1rem);
-  border-top: 1px solid var(--sidebar-border, #e5e7eb);
+  padding: var(--sidebar-footer-padding, var(--space-4, 1rem));
+  border-top: 1px solid var(--sidebar-border, var(--border-default, #e5e7eb));
   flex-shrink: 0;
 
   &:empty {
@@ -211,7 +213,7 @@
 .ds-sidebar__trigger {
   position: fixed;
   top: var(--space-4, 1rem);
-  z-index: var(--z-sidebar-trigger, 998);
+  z-index: var(--z-index-3, 998);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -220,11 +222,11 @@
   padding: 0;
   border: none;
   border-radius: var(--radius-2, 8px);
-  background: var(--sidebar-bg, #ffffff);
-  color: var(--sidebar-text, #1f2937);
-  box-shadow: var(--shadow-2, 0 4px 12px rgba(0, 0, 0, 0.1));
+  background: var(--sidebar-bg, var(--surface-default, #ffffff));
+  color: var(--sidebar-text, var(--text-default, #1f2937));
+  box-shadow: var(--sidebar-trigger-shadow, var(--shadow-2, 0 4px 12px rgba(0, 0, 0, 0.1)));
   cursor: pointer;
-  transition: background-color 0.15s ease, transform 0.15s ease;
+  transition: background-color var(--duration-fast, 0.15s) ease, transform var(--duration-fast, 0.15s) ease;
 
   &--left {
     left: var(--space-4, 1rem);
@@ -235,7 +237,7 @@
   }
 
   &:hover {
-    background: var(--sidebar-item-hover-bg, rgba(0, 0, 0, 0.05));
+    background: var(--sidebar-item-hover-bg, var(--gray-100, rgba(0, 0, 0, 0.05)));
   }
 
   &:active {
@@ -251,20 +253,23 @@
 // ============================================
 // DARK MODE OVERRIDES
 // ============================================
+// Note: Les styles dark mode sont maintenant gérés via les tokens thématiques
+// définis dans _dark.scss. Cette section n'est conservée que pour
+// compatibilité avec les contextes où les tokens ne sont pas disponibles.
 
 :host-context(.theme-dark) {
   .ds-sidebar {
-    background: var(--sidebar-bg, #1f2937);
-    color: var(--sidebar-text, #f9fafb);
+    background: var(--sidebar-bg, var(--surface-default));
+    color: var(--sidebar-text, var(--text-default));
   }
 
   .ds-sidebar__backdrop {
-    background: rgba(0, 0, 0, 0.7);
+    background: var(--sidebar-backdrop-bg, rgba(0, 0, 0, 0.7));
   }
 
   .ds-sidebar__trigger {
-    background: var(--sidebar-bg, #1f2937);
-    color: var(--sidebar-text, #f9fafb);
+    background: var(--sidebar-bg, var(--surface-default));
+    color: var(--sidebar-text, var(--text-default));
   }
 }
 

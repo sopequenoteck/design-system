@@ -8,7 +8,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faChevronRight,
@@ -326,6 +326,7 @@ export class DsSidebarItemComponent {
 
   // Injection
   private readonly elementRef = inject(ElementRef);
+  private readonly router = inject(Router);
 
   // Computed
   readonly hasChildren = computed(() => {
@@ -360,6 +361,22 @@ export class DsSidebarItemComponent {
     // Si l'item a des enfants et pas de lien, toggle expand
     if (this.hasChildren() && !this.item().routerLink && !this.item().href) {
       this.itemToggle.emit(this.item());
+    }
+
+    // En mode collapsed, naviguer programmatiquement car le <a> n'est pas rendu
+    if (this.mode() === 'collapsed' && this.item().routerLink) {
+      const link = this.item().routerLink;
+      if (Array.isArray(link)) {
+        void this.router.navigate(link);
+      } else {
+        void this.router.navigate([link]);
+      }
+    }
+
+    // Gérer href externe en mode collapsed
+    if (this.mode() === 'collapsed' && this.item().href) {
+      const target = this.item().external ? '_blank' : '_self';
+      window.open(this.item().href, target);
     }
 
     this.itemClick.emit({ item: this.item(), event });

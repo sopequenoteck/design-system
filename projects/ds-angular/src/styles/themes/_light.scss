@@ -941,7 +941,15 @@
   --sidebar-item-hover-bg: var(--gray-100);
   --sidebar-item-active-bg: color-mix(in oklab, var(--color-primary) 10%, var(--white));
   --sidebar-item-active-text: var(--color-primary);
+  --sidebar-item-radius: var(--radius-1-5);
   --sidebar-header-bg: var(--white);
+  --sidebar-header-padding: var(--space-4);
   --sidebar-footer-bg: var(--white);
+  --sidebar-footer-padding: var(--space-4);
+  --sidebar-body-padding: var(--space-2);
   --sidebar-backdrop-bg: rgba(0, 0, 0, 0.5);
+  --sidebar-shadow: var(--shadow-3);
+  --sidebar-trigger-shadow: var(--shadow-2);
+  --sidebar-scrollbar-thumb: var(--gray-300);
+  --sidebar-scrollbar-thumb-hover: var(--gray-400);
 }
