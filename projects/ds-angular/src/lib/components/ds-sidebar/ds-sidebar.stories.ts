@@ -12,7 +12,6 @@ import {
   faCalendar,
   faFolder,
   faFile,
-  faHeart,
   faShoppingCart,
   faCreditCard,
   faTruck,
