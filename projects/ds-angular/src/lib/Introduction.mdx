@@ -5,29 +5,97 @@ import { Meta } from '@storybook/blocks';
 
 # DS-Angular
 
-Bibliothèque de composants Angular 20 accessible et thématisable.
+Bibliothèque de composants Angular moderne, accessible et entièrement thématisable.
 
-## Installation
+---
+
+## Pourquoi DS-Angular ?
+
+<div className="ds-feature-grid">
+
+| Caractéristique | Détail |
+|-----------------|--------|
+| **47 composants** | Formulaires, navigation, feedback, overlays, data display |
+| **Accessibilité WCAG 2.1 AA** | Navigation clavier complète, rôles ARIA, focus management |
+| **3 thèmes** | Light, Dark, Custom - avec 100+ tokens CSS personnalisables |
+| **Angular 20** | Standalone components, Signals, ControlValueAccessor |
+| **Tree-shaking optimisé** | Import uniquement ce dont vous avez besoin (~150KB gzipped total) |
+| **TypeScript strict** | Types complets pour l'autocomplétion IDE |
+
+</div>
+
+---
+
+## Architecture
+
+DS-Angular s'articule autour de **3 couches** :
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    VOTRE APPLICATION                     │
+├─────────────────────────────────────────────────────────┤
+│   47 Composants DS (DsButton, DsModal, DsTable...)      │
+│   ├── Logique métier                                    │
+│   ├── ControlValueAccessor (formulaires)                │
+│   └── CDK Overlay (popups, modals)                      │
+├─────────────────────────────────────────────────────────┤
+│   7 Primitives (PrimitiveButton, PrimitiveInput...)     │
+│   └── Briques atomiques stylisées via CSS custom props  │
+├─────────────────────────────────────────────────────────┤
+│   Tokens CSS (100+ variables)                           │
+│   ├── Couleurs, espacements, typographie                │
+│   └── 3 thèmes : Light / Dark / Custom                  │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Les couches en détail
+
+| Couche | Fichiers | Rôle |
+|--------|----------|------|
+| **Primitives** | `primitive-button`, `primitive-input`, etc. | Éléments HTML stylisés sans logique, base pour les composants DS |
+| **Composants DS** | `ds-button`, `ds-modal`, `ds-table`, etc. | Composants complets avec états, validation, accessibilité |
+| **Tokens** | `_tokens.scss`, `_light.scss`, `_dark.scss` | Variables CSS pour personnalisation globale |
+
+---
+
+## Installation rapide
+
+### 1. Installer le package
 
 ```bash
 npm install @kksdev/ds-angular @angular/cdk @fortawesome/angular-fontawesome @fortawesome/free-solid-svg-icons
 ```
 
-## Configuration
+### 2. Importer les styles
 
-**1. Importer les styles** dans `src/styles.scss` :
+Dans `src/styles.scss` :
 
 ```scss
 @use '@kksdev/ds-angular/styles';
 ```
 
-**2. Activer un thème** dans `app.component.ts` :
+### 3. Activer un thème
+
+Dans votre `app.component.ts` :
 
 ```typescript
-document.documentElement.className = 'theme-light'; // ou 'theme-dark'
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  template: `<router-outlet />`
+})
+export class AppComponent implements OnInit {
+  ngOnInit() {
+    // Choisir le thème au démarrage
+    document.documentElement.className = 'theme-light';
+    // Ou 'theme-dark' pour le mode sombre
+  }
+}
 ```
 
-## Exemple
+### 4. Utiliser un composant
 
 ```typescript
 import { Component } from '@angular/core';
@@ -37,101 +105,208 @@ import { DsButton, DsInputField } from '@kksdev/ds-angular';
   standalone: true,
   imports: [DsButton, DsInputField],
   template: `
-    <ds-input-field label="Email" placeholder="email@exemple.com" />
-    <ds-button variant="primary" (clicked)="submit()">Envoyer</ds-button>
-  `
-})
-export class MyComponent {
-  submit() { console.log('Envoyé !'); }
-}
-```
-
-## Composants v1.6.0
-
-La version 1.6.0 introduit 3 nouveaux composants :
-
-### DsInputNumber
-
-Champ de saisie numérique avec boutons d'incrémentation/décrémentation :
-
-```typescript
-import { DsInputNumber } from '@kksdev/ds-angular';
-
-@Component({
-  standalone: true,
-  imports: [DsInputNumber],
-  template: `
-    <ds-input-number
-      [(ngModel)]="quantity"
-      [min]="0"
-      [max]="100"
-      [step]="1"
-      size="md"
-      label="Quantité"
+    <ds-input-field
+      label="Votre email"
+      placeholder="email@exemple.com"
+      [(ngModel)]="email"
     />
+    <button ds-button variant="primary" (click)="submit()">
+      Envoyer
+    </button>
   `
 })
-export class MyComponent {
-  quantity = 0;
-}
-```
+export class ContactFormComponent {
+  email = '';
 
-### DsSegmentedControl
-
-Groupe de boutons radio visuels pour sélection exclusive :
-
-```typescript
-import { DsSegmentedControl } from '@kksdev/ds-angular';
-
-@Component({
-  standalone: true,
-  imports: [DsSegmentedControl],
-  template: `
-    <ds-segmented-control
-      [(ngModel)]="view"
-      [options]="viewOptions"
-      size="md"
-    />
-  `
-})
-export class MyComponent {
-  view = 'grid';
-  viewOptions = [
-    { value: 'grid', label: 'Grille', icon: 'grid' },
-    { value: 'list', label: 'Liste', icon: 'list' },
-    { value: 'table', label: 'Tableau', icon: 'table' }
-  ];
-}
-```
-
-### DsColorPicker
-
-Sélecteur de couleur complet avec palette, sliders et presets :
-
-```typescript
-import { DsColorPicker } from '@kksdev/ds-angular';
-
-@Component({
-  standalone: true,
-  imports: [DsColorPicker],
-  template: `
-    <ds-color-picker
-      [(ngModel)]="color"
-      [showAlpha]="true"
-      [presets]="colorPresets"
-      size="md"
-    />
-  `
-})
-export class MyComponent {
-  color = '#3b82f6';
-  colorPresets = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+  submit() {
+    console.log('Email envoyé:', this.email);
+  }
 }
 ```
 
 ---
 
-## Ressources
+## Pour bien démarrer
 
-- **Tokens** : Variables CSS disponibles dans l'onglet "Tokens"
-- **Composants** : Explorez la sidebar pour voir tous les 47 composants disponibles
+Suivez ces étapes dans l'ordre :
+
+| Étape | Durée | Description |
+|-------|-------|-------------|
+| 1. **Installation** | 2 min | Installer les dépendances npm |
+| 2. **Premier composant** | 5 min | Importer et utiliser DsButton |
+| 3. **Thème personnalisé** | 10 min | Créer un thème aux couleurs de votre marque |
+| 4. **Formulaire complet** | 15 min | Utiliser DsInputField, DsSelect avec validation |
+
+### Ressources recommandées
+
+- **[Design Tokens](?path=/docs/customize-design-tokens--docs)** : Toutes les variables CSS disponibles
+- **[Theming](?path=/docs/customize-theming--docs)** : Créer et appliquer un thème custom
+- **[Forms Overview](?path=/docs/forms-overview--docs)** : Composants de formulaire
+- **[Accessibility](?path=/docs/guides-accessibility--docs)** : Bonnes pratiques WCAG
+
+---
+
+## Exemples de composants
+
+### Boutons
+
+```html
+<button ds-button variant="primary">Principal</button>
+<button ds-button variant="secondary">Secondaire</button>
+<button ds-button variant="outline">Contour</button>
+<button ds-button variant="ghost">Ghost</button>
+<button ds-button variant="danger">Danger</button>
+```
+
+### Formulaire avec validation
+
+```typescript
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { DsInputField, DsSelect, DsButton } from '@kksdev/ds-angular';
+
+@Component({
+  standalone: true,
+  imports: [ReactiveFormsModule, DsInputField, DsSelect, DsButton],
+  template: `
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ds-input-field
+        formControlName="name"
+        label="Nom complet"
+        [state]="form.get('name')?.invalid && form.get('name')?.touched ? 'error' : 'default'"
+        errorText="Le nom est requis"
+      />
+
+      <ds-select
+        formControlName="country"
+        label="Pays"
+        [options]="countries"
+        placeholder="Sélectionnez..."
+      />
+
+      <button ds-button
+              variant="primary"
+              type="submit"
+              [disabled]="form.invalid">
+        Valider
+      </button>
+    </form>
+  `
+})
+export class MyFormComponent {
+  form = new FormGroup({
+    name: new FormControl('', Validators.required),
+    country: new FormControl('')
+  });
+
+  countries = [
+    { value: 'fr', label: 'France' },
+    { value: 'be', label: 'Belgique' },
+    { value: 'ch', label: 'Suisse' }
+  ];
+
+  onSubmit() {
+    if (this.form.valid) {
+      console.log(this.form.value);
+    }
+  }
+}
+```
+
+### Modal avec contenu
+
+```typescript
+import { DsModal, DsButton } from '@kksdev/ds-angular';
+
+@Component({
+  standalone: true,
+  imports: [DsModal, DsButton],
+  template: `
+    <button ds-button (click)="showModal = true">Ouvrir</button>
+
+    <ds-modal
+      [isOpen]="showModal"
+      title="Confirmation"
+      (closed)="showModal = false"
+    >
+      <p>Êtes-vous sûr de vouloir continuer ?</p>
+
+      <div slot="footer">
+        <button ds-button variant="ghost" (click)="showModal = false">
+          Annuler
+        </button>
+        <button ds-button variant="primary" (click)="confirm()">
+          Confirmer
+        </button>
+      </div>
+    </ds-modal>
+  `
+})
+export class ConfirmDialogComponent {
+  showModal = false;
+
+  confirm() {
+    console.log('Confirmé !');
+    this.showModal = false;
+  }
+}
+```
+
+---
+
+## Nouveautés v1.6.0
+
+### DsInputNumber
+
+Champ numérique avec boutons +/- :
+
+```html
+<ds-input-number
+  [(ngModel)]="quantity"
+  [min]="0"
+  [max]="100"
+  [step]="1"
+  label="Quantité"
+/>
+```
+
+### DsSegmentedControl
+
+Sélection visuelle exclusive :
+
+```html
+<ds-segmented-control
+  [(ngModel)]="view"
+  [options]="[
+    { value: 'grid', label: 'Grille' },
+    { value: 'list', label: 'Liste' }
+  ]"
+/>
+```
+
+### DsColorPicker
+
+Sélecteur de couleur complet :
+
+```html
+<ds-color-picker
+  [(ngModel)]="color"
+  [showAlpha]="true"
+  [presets]="['#3b82f6', '#10b981', '#f59e0b']"
+/>
+```
+
+---
+
+## Support et contributions
+
+- **Issues** : [GitHub Issues](https://github.com/your-repo/ds-angular/issues)
+- **Discussions** : [GitHub Discussions](https://github.com/your-repo/ds-angular/discussions)
+- **Contributing** : Voir le [guide de contribution](?path=/docs/guides-contributing--docs)
+
+---
+
+<div className="ds-footer-note">
+
+**DS-Angular v1.6.0** • 47 composants • Angular 20 • MIT License
+
+</div>

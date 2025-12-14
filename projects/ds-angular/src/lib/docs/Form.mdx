@@ -3,104 +3,187 @@ import { Meta } from '@storybook/blocks';
 
 <Meta title="Forms/Overview" />
 
-# Form
+# Composants de formulaire
 
-Composants de formulaire pour la saisie et la sélection de données.
+Bibliothèque complète de composants pour la saisie et la sélection de données, avec support complet des Reactive Forms Angular.
 
 ---
 
-## Vue d'ensemble
+## Quand utiliser quoi ?
 
-La catégorie **Form** regroupe tous les composants liés aux formulaires, organisés en sous-catégories logiques.
+Le choix du composant dépend du type de donnée à collecter :
 
-### Inputs
+| Besoin | Composant recommandé | Alternatives |
+|--------|---------------------|--------------|
+| **Texte court** (nom, email) | `DsInputField` | - |
+| **Texte long** (description) | `DsInputTextarea` | - |
+| **Recherche avec filtrage** | `DsSearchInput` | `DsCombobox` |
+| **Choix unique (peu d'options)** | `DsRadioGroup` | `DsSegmentedControl` |
+| **Choix unique (beaucoup d'options)** | `DsSelect` | `DsCombobox` |
+| **Choix multiples** | `DsCheckbox` (groupe) | `DsCombobox` avec multi |
+| **Valeur numérique** | `DsInputNumber` | `DsSlider` |
+| **Valeur dans une plage** | `DsSlider` | `DsInputNumber` |
+| **Oui/Non, On/Off** | `DsToggle` | `DsCheckbox` |
+| **Date** | `DsDatePicker` | - |
+| **Heure** | `DsTimePicker` | - |
+| **Couleur** | `DsColorPicker` | - |
+| **Fichier(s)** | `DsFileUpload` | - |
 
-Champs de saisie texte :
+---
 
-| Composant | Description |
-|-----------|-------------|
-| **DsInputField** | Champ de saisie avec label, helper, états |
-| **DsInputTextarea** | Zone de texte multi-lignes |
-| **DsSearchInput** | Champ de recherche avec debounce |
-| **DsCombobox** | Autocomplete avec filtrage |
+## Vue d'ensemble des composants
 
-### Selection
+### Inputs texte
 
-Composants de sélection :
+| Composant | Description | Cas d'usage |
+|-----------|-------------|-------------|
+| **DsInputField** | Champ de saisie avec label, helper, états | Nom, email, mot de passe |
+| **DsInputTextarea** | Zone de texte multi-lignes | Commentaires, descriptions |
+| **DsSearchInput** | Champ avec debounce et icône | Barres de recherche |
+| **DsCombobox** | Autocomplete avec filtrage | Sélection avec recherche |
 
-| Composant | Description |
-|-----------|-------------|
-| **DsCheckbox** | Case à cocher avec label |
-| **DsRadioGroup** | Groupe de boutons radio |
-| **DsToggle** | Interrupteur on/off |
-| **DsSelect** | Liste déroulante |
-| **DsSlider** | Curseur de valeur |
+### Sélection
+
+| Composant | Description | Cas d'usage |
+|-----------|-------------|-------------|
+| **DsCheckbox** | Case à cocher avec label | Conditions, options multiples |
+| **DsRadioGroup** | Groupe de boutons radio | Choix exclusif (2-5 options) |
+| **DsToggle** | Interrupteur on/off | Paramètres booléens |
+| **DsSelect** | Liste déroulante | Choix parmi une liste |
+| **DsSlider** | Curseur de valeur | Volume, pourcentages |
+| **DsSegmentedControl** | Boutons radio visuels | Vue grille/liste, filtres |
 
 ### Pickers
 
-Sélecteurs de dates et heures :
+| Composant | Description | Cas d'usage |
+|-----------|-------------|-------------|
+| **DsDatePicker** | Calendrier de sélection | Dates de naissance, réservations |
+| **DsTimePicker** | Sélecteur d'heure | Horaires, rappels |
+| **DsColorPicker** | Palette de couleurs | Personnalisation thème |
 
-| Composant | Description |
-|-----------|-------------|
-| **DsDatePicker** | Calendrier de sélection de date |
-| **DsTimePicker** | Sélecteur d'heure (12h/24h) |
+### Valeurs numériques
+
+| Composant | Description | Cas d'usage |
+|-----------|-------------|-------------|
+| **DsInputNumber** | Input avec stepper +/- | Quantités, âge |
+| **DsSlider** | Curseur sur une plage | Volume, prix max |
 
 ### Upload
 
-Téléversement de fichiers :
-
-| Composant | Description |
-|-----------|-------------|
-| **DsFileUpload** | Zone de drag & drop pour fichiers |
+| Composant | Description | Cas d'usage |
+|-----------|-------------|-------------|
+| **DsFileUpload** | Zone drag & drop | Documents, images |
 
 ---
 
 ## Patterns d'utilisation
 
-### Reactive Forms
+### Formulaire avec Reactive Forms
 
-Tous les composants de formulaire implémentent `ControlValueAccessor` :
+Tous les composants implémentent `ControlValueAccessor` pour une intégration native :
 
 ```typescript
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { DsInputField, DsSelect, DsCheckbox, DsButton } from '@kksdev/ds-angular';
 
 @Component({
+  standalone: true,
+  imports: [ReactiveFormsModule, DsInputField, DsSelect, DsCheckbox, DsButton],
   template: `
-    <form [formGroup]="form">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <ds-input-field
         formControlName="email"
         label="Email"
-        [state]="form.get('email')?.invalid ? 'error' : 'default'"
+        type="email"
+        [state]="getFieldState('email')"
+        [errorText]="getFieldError('email')"
       />
+
+      <ds-input-field
+        formControlName="password"
+        label="Mot de passe"
+        type="password"
+        [state]="getFieldState('password')"
+        [errorText]="getFieldError('password')"
+      />
+
       <ds-select
         formControlName="country"
         label="Pays"
         [options]="countries"
+        placeholder="Sélectionnez..."
       />
-      <ds-checkbox formControlName="newsletter">
-        S'inscrire à la newsletter
+
+      <ds-checkbox formControlName="terms">
+        J'accepte les conditions générales
       </ds-checkbox>
+
+      <button ds-button
+              variant="primary"
+              type="submit"
+              [disabled]="form.invalid || form.pending">
+        S'inscrire
+      </button>
     </form>
   `
 })
-export class MyFormComponent {
+export class RegistrationFormComponent {
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    country: new FormControl(''),
-    newsletter: new FormControl(false)
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    country: new FormControl('', Validators.required),
+    terms: new FormControl(false, Validators.requiredTrue)
   });
+
+  countries = [
+    { value: 'fr', label: 'France' },
+    { value: 'be', label: 'Belgique' },
+    { value: 'ch', label: 'Suisse' }
+  ];
+
+  getFieldState(field: string): 'default' | 'error' | 'success' {
+    const control = this.form.get(field);
+    if (!control?.touched) return 'default';
+    return control.invalid ? 'error' : 'success';
+  }
+
+  getFieldError(field: string): string {
+    const control = this.form.get(field);
+    if (!control?.errors) return '';
+
+    if (control.errors['required']) return 'Ce champ est requis';
+    if (control.errors['email']) return 'Email invalide';
+    if (control.errors['minlength']) {
+      return `Minimum ${control.errors['minlength'].requiredLength} caractères`;
+    }
+    return '';
+  }
+
+  onSubmit() {
+    if (this.form.valid) {
+      console.log(this.form.value);
+    }
+  }
 }
 ```
 
-### Validation avec états
+### États de validation
 
-Les composants supportent 4 états de validation :
+Les composants supportent 4 états visuels :
 
 ```html
-<ds-input-field state="default" />  <!-- Neutre -->
-<ds-input-field state="success" />  <!-- Valide -->
-<ds-input-field state="warning" />  <!-- Avertissement -->
-<ds-input-field state="error" />    <!-- Erreur -->
+<!-- État par défaut -->
+<ds-input-field state="default" label="Nom" />
+
+<!-- Succès (validation passée) -->
+<ds-input-field state="success" label="Email" helper="Email valide" />
+
+<!-- Avertissement -->
+<ds-input-field state="warning" label="Mot de passe" helper="Mot de passe faible" />
+
+<!-- Erreur -->
+<ds-input-field state="error" label="Téléphone" errorText="Format invalide" />
 ```
 
 ### Tailles disponibles
@@ -108,9 +191,42 @@ Les composants supportent 4 états de validation :
 Tous les composants de formulaire supportent 3 tailles :
 
 ```html
-<ds-input-field size="sm" />  <!-- Compact -->
-<ds-input-field size="md" />  <!-- Standard (défaut) -->
-<ds-input-field size="lg" />  <!-- Large -->
+<ds-input-field size="sm" label="Small" />
+<ds-input-field size="md" label="Medium (défaut)" />
+<ds-input-field size="lg" label="Large" />
+```
+
+### Groupe de champs avec validation
+
+```typescript
+@Component({
+  template: `
+    <div class="form-group">
+      <ds-radio-group
+        formControlName="paymentMethod"
+        label="Mode de paiement"
+        [options]="paymentOptions"
+        [state]="form.get('paymentMethod')?.touched && form.get('paymentMethod')?.invalid ? 'error' : 'default'"
+      />
+
+      @if (form.get('paymentMethod')?.value === 'card') {
+        <ds-input-field
+          formControlName="cardNumber"
+          label="Numéro de carte"
+          placeholder="1234 5678 9012 3456"
+          [state]="getFieldState('cardNumber')"
+        />
+      }
+    </div>
+  `
+})
+export class PaymentFormComponent {
+  paymentOptions = [
+    { value: 'card', label: 'Carte bancaire' },
+    { value: 'paypal', label: 'PayPal' },
+    { value: 'transfer', label: 'Virement' }
+  ];
+}
 ```
 
 ---
@@ -119,12 +235,33 @@ Tous les composants de formulaire supportent 3 tailles :
 
 ### Labels et descriptions
 
+Tous les composants de formulaire associent automatiquement :
+
 ```html
 <ds-input-field
   label="Adresse email"
   helper="Nous ne partagerons jamais votre email"
   required
 />
+<!-- Génère automatiquement :
+  - <label for="input-xxx">
+  - aria-describedby pour le helper
+  - aria-required="true"
+-->
+```
+
+### États d'erreur accessibles
+
+```html
+<ds-input-field
+  state="error"
+  errorText="Ce champ est requis"
+/>
+<!-- Génère automatiquement :
+  - aria-invalid="true"
+  - aria-describedby lié au message d'erreur
+  - role="alert" sur le message
+-->
 ```
 
 ### Navigation clavier
@@ -132,14 +269,203 @@ Tous les composants de formulaire supportent 3 tailles :
 | Touche | Action |
 |--------|--------|
 | `Tab` | Naviguer entre les champs |
-| `Space` | Cocher/décocher (checkbox, radio) |
-| `Enter` | Valider la sélection |
+| `Space` | Cocher/décocher (checkbox, radio, toggle) |
+| `Enter` | Valider la sélection, soumettre |
 | `Escape` | Fermer les dropdowns |
-| `↑` `↓` | Naviguer dans les options |
+| `↑` `↓` | Naviguer dans les options (select, radio) |
+| `Home` `End` | Première/dernière option |
 
-### ARIA
+---
 
-Tous les composants incluent :
-- `aria-required` pour les champs obligatoires
-- `aria-invalid` pour les champs en erreur
-- `aria-describedby` lié aux messages d'aide/erreur
+## Bonnes pratiques
+
+### Organisation des formulaires
+
+```html
+<!-- ✅ Bon : groupes logiques avec espacement -->
+<form class="form">
+  <fieldset>
+    <legend>Informations personnelles</legend>
+    <ds-input-field label="Prénom" />
+    <ds-input-field label="Nom" />
+  </fieldset>
+
+  <fieldset>
+    <legend>Coordonnées</legend>
+    <ds-input-field label="Email" type="email" />
+    <ds-input-field label="Téléphone" type="tel" />
+  </fieldset>
+</form>
+```
+
+### Messages d'erreur clairs
+
+```typescript
+// ✅ Bon : messages d'erreur spécifiques et actionnables
+getFieldError(field: string): string {
+  const errors = this.form.get(field)?.errors;
+  if (!errors) return '';
+
+  if (errors['required']) return 'Ce champ est obligatoire';
+  if (errors['email']) return 'Entrez une adresse email valide (ex: nom@exemple.com)';
+  if (errors['minlength']) return `Minimum ${errors['minlength'].requiredLength} caractères requis`;
+  if (errors['pattern']) return 'Format invalide';
+  return 'Valeur invalide';
+}
+```
+
+### Validation en temps réel
+
+```typescript
+// ✅ Bon : validation à la saisie pour feedback immédiat
+this.form.get('email')?.valueChanges.pipe(
+  debounceTime(300),
+  distinctUntilChanged()
+).subscribe(value => {
+  // Validation asynchrone (ex: email unique)
+});
+```
+
+---
+
+## Exemples complets
+
+### Formulaire de contact
+
+```typescript
+@Component({
+  template: `
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <ds-input-field
+        formControlName="name"
+        label="Nom complet"
+        required
+      />
+
+      <ds-input-field
+        formControlName="email"
+        label="Email"
+        type="email"
+        required
+      />
+
+      <ds-select
+        formControlName="subject"
+        label="Sujet"
+        [options]="subjects"
+        required
+      />
+
+      <ds-input-textarea
+        formControlName="message"
+        label="Message"
+        [rows]="5"
+        required
+      />
+
+      <ds-checkbox formControlName="newsletter">
+        Recevoir notre newsletter
+      </ds-checkbox>
+
+      <button ds-button variant="primary" type="submit">
+        Envoyer
+      </button>
+    </form>
+  `
+})
+export class ContactFormComponent {
+  subjects = [
+    { value: 'support', label: 'Support technique' },
+    { value: 'sales', label: 'Question commerciale' },
+    { value: 'feedback', label: 'Feedback' }
+  ];
+
+  contactForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    subject: new FormControl('', Validators.required),
+    message: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    newsletter: new FormControl(false)
+  });
+
+  onSubmit() {
+    if (this.contactForm.valid) {
+      console.log(this.contactForm.value);
+    }
+  }
+}
+```
+
+### Formulaire de paramètres
+
+```typescript
+@Component({
+  template: `
+    <form [formGroup]="settingsForm">
+      <ds-segmented-control
+        formControlName="theme"
+        label="Thème"
+        [options]="themeOptions"
+      />
+
+      <ds-slider
+        formControlName="volume"
+        label="Volume des notifications"
+        [min]="0"
+        [max]="100"
+        [showTicks]="true"
+        [step]="10"
+      />
+
+      <ds-toggle
+        formControlName="notifications"
+        label="Notifications push"
+      />
+
+      <ds-toggle
+        formControlName="darkMode"
+        label="Mode sombre"
+      />
+
+      <ds-color-picker
+        formControlName="accentColor"
+        label="Couleur d'accent"
+        [presets]="colorPresets"
+      />
+    </form>
+  `
+})
+export class SettingsFormComponent {
+  themeOptions = [
+    { value: 'light', label: 'Clair' },
+    { value: 'dark', label: 'Sombre' },
+    { value: 'auto', label: 'Auto' }
+  ];
+
+  colorPresets = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+
+  settingsForm = new FormGroup({
+    theme: new FormControl('light'),
+    volume: new FormControl(50),
+    notifications: new FormControl(true),
+    darkMode: new FormControl(false),
+    accentColor: new FormControl('#3b82f6')
+  });
+}
+```
+
+---
+
+<div style={{
+  padding: '24px',
+  background: 'var(--background-secondary)',
+  borderRadius: '12px',
+  textAlign: 'center',
+  marginTop: '32px'
+}}>
+  <div style={{ fontSize: '24px', marginBottom: '8px' }}>📝</div>
+  <strong>13 composants de formulaire</strong>
+  <p style={{ margin: '8px 0 0', fontSize: '14px', color: 'var(--text-muted)' }}>
+    Tous compatibles avec Angular Reactive Forms et accessibles WCAG 2.1 AA.
+  </p>
+</div>

@@ -1,0 +1,482 @@
+{/* FAQ.mdx */}
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Guides/FAQ & Troubleshooting" />
+
+# FAQ & Troubleshooting
+
+Solutions aux problèmes courants rencontrés lors de l'utilisation de DS-Angular.
+
+---
+
+## Installation
+
+### Les styles ne s'appliquent pas
+
+**Problème** : Les composants apparaissent sans style ou avec des styles cassés.
+
+**Solutions** :
+
+1. Vérifiez l'import dans `src/styles.scss` :
+
+```scss
+// ✅ Correct
+@use '@kksdev/ds-angular/styles';
+
+// ❌ Incorrect
+@import '@kksdev/ds-angular/styles'; // Ancienne syntaxe
+```
+
+2. Vérifiez que le fichier `angular.json` inclut les styles :
+
+```json
+{
+  "styles": [
+    "src/styles.scss"
+  ]
+}
+```
+
+3. Redémarrez le serveur de développement après modification.
+
+---
+
+### Erreur : "Cannot find module '@kksdev/ds-angular'"
+
+**Problème** : Le package n'est pas trouvé après installation.
+
+**Solutions** :
+
+1. Vérifiez l'installation :
+
+```bash
+npm list @kksdev/ds-angular
+```
+
+2. Si non installé, exécutez :
+
+```bash
+npm install @kksdev/ds-angular @angular/cdk @fortawesome/angular-fontawesome @fortawesome/free-solid-svg-icons
+```
+
+3. Supprimez `node_modules` et réinstallez :
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+---
+
+### Erreur : "NullInjectorError: No provider for Overlay"
+
+**Problème** : Angular CDK Overlay n'est pas configuré.
+
+**Solution** :
+
+Le package `@angular/cdk` doit être installé. Il est utilisé par les composants overlay (modal, dropdown, tooltip, popover).
+
+```bash
+npm install @angular/cdk
+```
+
+---
+
+## Thèmes
+
+### Le thème ne s'applique pas
+
+**Problème** : Les couleurs ne changent pas quand vous activez un thème.
+
+**Solutions** :
+
+1. Vérifiez l'activation du thème :
+
+```typescript
+// Dans app.component.ts ou main.ts
+document.documentElement.className = 'theme-light';
+// ou
+document.documentElement.className = 'theme-dark';
+// ou
+document.documentElement.className = 'theme-custom';
+```
+
+2. La classe doit être sur `<html>`, pas sur `<body>` :
+
+```html
+<!-- ✅ Correct -->
+<html class="theme-dark">
+
+<!-- ❌ Incorrect -->
+<body class="theme-dark">
+```
+
+3. Vérifiez qu'il n'y a pas de styles inline qui surchargent les tokens.
+
+---
+
+### Comment créer un thème personnalisé ?
+
+**Solution** :
+
+1. Créez un fichier `_custom-theme.scss` :
+
+```scss
+:root.theme-brand {
+  // Couleurs principales
+  --color-primary: #0066cc;
+  --color-secondary: #004d99;
+
+  // Backgrounds
+  --background-main: #ffffff;
+  --background-secondary: #f5f7fa;
+
+  // Textes
+  --text-default: #1a1a1a;
+  --text-muted: #6b7280;
+
+  // Bordures
+  --border-color: #e5e7eb;
+
+  // Composants spécifiques
+  --btn-primary-bg: var(--color-primary);
+  --btn-primary-hover: var(--color-secondary);
+}
+```
+
+2. Importez-le dans `styles.scss` :
+
+```scss
+@use '@kksdev/ds-angular/styles';
+@use './custom-theme';
+```
+
+3. Activez-le :
+
+```typescript
+document.documentElement.className = 'theme-brand';
+```
+
+---
+
+## Composants
+
+### Les icônes ne s'affichent pas
+
+**Problème** : Les icônes FontAwesome dans les composants sont invisibles.
+
+**Solutions** :
+
+1. Vérifiez l'installation :
+
+```bash
+npm install @fortawesome/angular-fontawesome @fortawesome/free-solid-svg-icons
+```
+
+2. Enregistrez les icônes nécessaires dans `app.config.ts` ou un module :
+
+```typescript
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faCheck, faTimes, faExclamationTriangle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+
+// Dans le constructeur ou ngOnInit
+constructor(library: FaIconLibrary) {
+  library.addIcons(faCheck, faTimes, faExclamationTriangle, faInfoCircle);
+}
+```
+
+3. Ou utilisez le `IconRegistryService` de DS-Angular :
+
+```typescript
+import { IconRegistryService } from '@kksdev/ds-angular';
+
+constructor(private iconRegistry: IconRegistryService) {
+  this.iconRegistry.registerAll();
+}
+```
+
+---
+
+### Modal ne ferme pas avec ESC
+
+**Problème** : La touche Escape ne ferme pas la modal.
+
+**Solutions** :
+
+1. Vérifiez que `closable` n'est pas à `false` :
+
+```html
+<!-- ✅ Fermeture ESC activée -->
+<ds-modal [open]="isOpen" [closable]="true">
+
+<!-- ❌ ESC désactivé -->
+<ds-modal [open]="isOpen" [closable]="false">
+```
+
+2. Assurez-vous que le focus est dans la modal. Si le focus est en dehors, ESC ne fonctionnera pas.
+
+3. Vérifiez qu'aucun autre handler n'intercepte l'événement keydown.
+
+---
+
+### Le formulaire ne se soumet pas
+
+**Problème** : Le bouton submit ne déclenche pas `ngSubmit`.
+
+**Solutions** :
+
+1. Vérifiez que le bouton a `type="submit"` :
+
+```html
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- ✅ Correct -->
+  <button ds-button type="submit">Envoyer</button>
+
+  <!-- ❌ Incorrect (type="button" par défaut) -->
+  <button ds-button>Envoyer</button>
+</form>
+```
+
+2. Vérifiez que le formulaire n'a pas d'erreurs de validation bloquantes.
+
+---
+
+### Select : l'option sélectionnée ne s'affiche pas
+
+**Problème** : Après sélection, le select reste vide.
+
+**Solutions** :
+
+1. Vérifiez que la valeur correspond exactement à une option :
+
+```typescript
+// ✅ Correct : la valeur 'fr' existe dans les options
+selectedValue = 'fr';
+options = [
+  { value: 'fr', label: 'France' },
+  { value: 'de', label: 'Allemagne' }
+];
+
+// ❌ Incorrect : 'france' ne correspond à aucune option
+selectedValue = 'france';
+```
+
+2. Pour ngModel, assurez-vous du two-way binding :
+
+```html
+<ds-select [(ngModel)]="selectedValue" [options]="options" />
+```
+
+---
+
+### Tooltip ne s'affiche pas
+
+**Problème** : Le tooltip n'apparaît pas au survol.
+
+**Solutions** :
+
+1. Vérifiez la directive :
+
+```html
+<!-- ✅ Correct -->
+<button dsTooltip="Texte d'aide">Hover me</button>
+
+<!-- ❌ Incorrect : attribut au lieu de directive -->
+<button tooltip="Texte d'aide">Hover me</button>
+```
+
+2. Vérifiez que l'élément parent n'a pas `overflow: hidden` qui masque le tooltip.
+
+3. Vérifiez le z-index : le tooltip peut être derrière d'autres éléments.
+
+---
+
+## Reactive Forms
+
+### "formControlName" ne fonctionne pas
+
+**Problème** : Erreur "No value accessor for form control".
+
+**Solutions** :
+
+1. Importez `ReactiveFormsModule` :
+
+```typescript
+import { ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  standalone: true,
+  imports: [ReactiveFormsModule, DsInputField, DsSelect]
+})
+```
+
+2. Assurez-vous d'être dans un `<form [formGroup]="...">` :
+
+```html
+<form [formGroup]="myForm">
+  <ds-input-field formControlName="email" />
+</form>
+```
+
+---
+
+### Le FormControl ne se met pas à jour
+
+**Problème** : La valeur du composant change mais le FormControl reste à l'ancienne valeur.
+
+**Solutions** :
+
+1. Vérifiez que vous utilisez `formControlName` et non `[value]` :
+
+```html
+<!-- ✅ Correct -->
+<ds-input-field formControlName="email" />
+
+<!-- ❌ Incorrect : binding manuel ne propage pas au FormControl -->
+<ds-input-field [value]="email" (valueChange)="email = $event" />
+```
+
+2. Pour ngModel, importez `FormsModule` :
+
+```typescript
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  imports: [FormsModule, DsInputField]
+})
+```
+
+---
+
+## Performance
+
+### L'application est lente avec beaucoup de composants
+
+**Problème** : Le rendu est lent quand il y a beaucoup de composants DS.
+
+**Solutions** :
+
+1. Utilisez `trackBy` dans les boucles :
+
+```html
+@for (item of items; track item.id) {
+  <ds-card>{{ item.name }}</ds-card>
+}
+```
+
+2. Utilisez `OnPush` change detection :
+
+```typescript
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+```
+
+3. Lazy-load les composants rarement utilisés.
+
+---
+
+### Le bundle est trop gros
+
+**Problème** : La taille du bundle final est importante.
+
+**Solutions** :
+
+1. Importez uniquement les composants nécessaires :
+
+```typescript
+// ✅ Bon : imports sélectifs
+import { DsButton, DsInputField } from '@kksdev/ds-angular';
+
+// ❌ À éviter : import global (si disponible)
+import * as DS from '@kksdev/ds-angular';
+```
+
+2. Vérifiez le tree-shaking avec :
+
+```bash
+npm run build -- --stats-json
+npx webpack-bundle-analyzer dist/your-app/stats.json
+```
+
+3. DS-Angular est configuré avec `sideEffects: false` pour un tree-shaking optimal.
+
+---
+
+## Accessibilité
+
+### Le focus n'est pas visible
+
+**Problème** : L'indicateur de focus clavier n'apparaît pas.
+
+**Solutions** :
+
+1. Ne supprimez pas le outline par défaut :
+
+```scss
+// ❌ À éviter
+* {
+  outline: none !important;
+}
+
+// ✅ DS-Angular gère le focus automatiquement
+```
+
+2. Les composants utilisent `:focus-visible` pour n'afficher le focus que lors de la navigation clavier.
+
+---
+
+### Les lecteurs d'écran n'annoncent pas les erreurs
+
+**Problème** : Les messages d'erreur ne sont pas lus automatiquement.
+
+**Solution** :
+
+Utilisez la prop `errorText` plutôt qu'un élément externe :
+
+```html
+<!-- ✅ Correct : annoncé automatiquement -->
+<ds-input-field
+  [state]="hasError ? 'error' : 'default'"
+  [errorText]="hasError ? 'Email invalide' : ''"
+/>
+
+<!-- ❌ Incorrect : non associé au champ -->
+<ds-input-field [state]="hasError ? 'error' : 'default'" />
+<span class="error">Email invalide</span>
+```
+
+---
+
+## Support
+
+### Où signaler un bug ?
+
+Ouvrez une issue sur GitHub avec :
+- Version de DS-Angular
+- Version d'Angular
+- Description du problème
+- Code minimal pour reproduire
+- Screenshots si pertinent
+
+### Où poser des questions ?
+
+- **GitHub Discussions** : Questions générales
+- **Stack Overflow** : Tag `ds-angular`
+
+---
+
+<div style={{
+  padding: '24px',
+  background: 'var(--info)',
+  color: 'white',
+  borderRadius: '12px',
+  textAlign: 'center',
+  marginTop: '32px'
+}}>
+  <div style={{ fontSize: '24px', marginBottom: '8px' }}>💡</div>
+  <strong>Vous ne trouvez pas votre réponse ?</strong>
+  <p style={{ margin: '8px 0 0', fontSize: '14px', opacity: 0.9 }}>
+    Consultez la documentation des composants ou ouvrez une issue sur GitHub.
+  </p>
+</div>

@@ -672,3 +672,159 @@ Tokens spécifiques au composant **DsColorPicker** :
     ))}
   </div>
 </div>
+
+---
+
+## Récapitulatif des tokens
+
+### Vue d'ensemble par catégorie
+
+| Catégorie | Nombre | Préfixe | Exemple |
+|-----------|--------|---------|---------|
+| **Couleurs principales** | 3 | `--color-*` | `--color-primary` |
+| **Couleurs sémantiques** | 4 | `--success`, `--warning`, `--error`, `--info` | `--success` |
+| **Palette de gris** | 10 | `--gray-*` | `--gray-500` |
+| **Typographie** | 12 | `--font-*` | `--font-size-base` |
+| **Espacements** | 8 | `--space-*` | `--space-4` |
+| **Rayons** | 4 | `--radius-*` | `--radius-2` |
+| **Ombres** | 3 | `--shadow-*` | `--shadow-2` |
+| **Breakpoints** | 6 | `--breakpoint-*` | `--breakpoint-md` |
+| **Thématiques** | 5 | `--background-*`, `--text-*`, `--border-*` | `--background-main` |
+
+### Tokens par composant
+
+Chaque composant DS possède ses propres tokens pour une personnalisation fine :
+
+| Composant | Préfixe | Documentation |
+|-----------|---------|---------------|
+| **Button** | `--btn-*` | `--btn-height-md`, `--btn-padding-md` |
+| **Input** | `--input-*` | `--input-height-md`, `--input-border-radius` |
+| **Modal** | `--modal-*` | `--modal-bg`, `--modal-border-radius` |
+| **Card** | `--card-*` | `--card-bg`, `--card-shadow` |
+| **Alert** | `--alert-*-*` | `--alert-success-bg`, `--alert-error-text` |
+| **Table** | `--table-*` | `--table-header-bg`, `--table-row-hover` |
+| **Select** | `--select-*` | `--select-dropdown-bg`, `--select-option-hover` |
+| **Tabs** | `--tabs-*` | `--tabs-indicator-color`, `--tabs-text` |
+| **Tooltip** | `--tooltip-*` | `--tooltip-bg`, `--tooltip-text` |
+| **Pagination** | `--pagination-*` | `--pagination-btn-size-md` |
+| **Stepper** | `--stepper-*` | `--stepper-indicator-size-md` |
+| **Accordion** | `--accordion-*` | `--accordion-header-bg` |
+| **Chip** | `--chip-*` | `--chip-bg`, `--chip-text` |
+| **Slider** | `--slider-*` | `--slider-track-height`, `--slider-thumb-size` |
+| **File Upload** | `--file-upload-*` | `--file-upload-border`, `--file-upload-bg` |
+| **Input Number** | `--input-number-*` | `--input-number-btn-size-md` |
+| **Segmented Control** | `--segmented-control-*` | `--segmented-control-height-md` |
+| **Color Picker** | `--color-picker-*` | `--color-picker-panel-width` |
+
+---
+
+## Politique de dépréciation
+
+### Cycle de vie des tokens
+
+1. **Stable** : Token utilisé en production, ne sera pas modifié
+2. **Déprécié** : Token conservé pour rétrocompatibilité, sera supprimé dans une version majeure future
+3. **Supprimé** : Token retiré du design system
+
+### Tokens dépréciés
+
+<div style={{
+  padding: '16px',
+  background: 'var(--warning)',
+  color: 'var(--gray-900)',
+  borderRadius: '8px',
+  marginBottom: '24px'
+}}>
+  <strong>⚠️ Attention</strong> : Ces tokens seront supprimés dans la prochaine version majeure.
+</div>
+
+| Token déprécié | Remplacement | Version de suppression |
+|----------------|--------------|------------------------|
+| `--badge-bg-color` | `--badge-bg` | v2.0.0 |
+| `--badge-text-color` | `--badge-text` | v2.0.0 |
+| `--input-border` | `--input-border-color` | v2.0.0 |
+| `--modal-border` | `--modal-border-color` | v2.0.0 |
+
+### Migration
+
+Utilisez les fallbacks CSS pour une migration progressive :
+
+```scss
+// Transition douce : nouveau token avec fallback vers l'ancien
+.my-component {
+  background: var(--badge-bg, var(--badge-bg-color));
+  color: var(--badge-text, var(--badge-text-color));
+}
+```
+
+### Conventions de nommage
+
+Pour garantir la cohérence, tous les tokens suivent ces conventions :
+
+| Pattern | Usage | Exemple |
+|---------|-------|---------|
+| `--{component}-bg` | Couleur de fond | `--card-bg`, `--modal-bg` |
+| `--{component}-text` | Couleur de texte | `--badge-text`, `--tooltip-text` |
+| `--{component}-border-color` | Couleur de bordure | `--input-border-color` |
+| `--{component}-{size}-*` | Variation par taille | `--btn-height-sm`, `--btn-height-lg` |
+| `--{component}-{variant}-*` | Variation par style | `--alert-success-bg` |
+
+---
+
+## Personnalisation avancée
+
+### Créer un thème custom
+
+```scss
+// src/styles/_custom-theme.scss
+:root.theme-brand {
+  // Couleurs principales
+  --color-primary: #your-brand-color;
+  --color-secondary: #your-secondary-color;
+
+  // Backgrounds
+  --background-main: #your-bg-color;
+  --background-secondary: #your-secondary-bg;
+
+  // Textes
+  --text-default: #your-text-color;
+  --text-muted: #your-muted-color;
+
+  // Composants spécifiques
+  --btn-primary-bg: var(--color-primary);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+```
+
+### Activer le thème
+
+```typescript
+// Dans votre composant ou service
+setTheme(theme: 'light' | 'dark' | 'brand') {
+  document.documentElement.className = `theme-${theme}`;
+}
+```
+
+### Utiliser les tokens dans Angular
+
+```typescript
+// Accéder aux tokens depuis TypeScript
+const primaryColor = getComputedStyle(document.documentElement)
+  .getPropertyValue('--color-primary').trim();
+```
+
+---
+
+<div style={{
+  padding: '24px',
+  background: 'var(--background-secondary)',
+  borderRadius: '12px',
+  textAlign: 'center',
+  marginTop: '32px'
+}}>
+  <div style={{ fontSize: '24px', marginBottom: '8px' }}>🎨</div>
+  <strong>100+ tokens CSS</strong>
+  <p style={{ margin: '8px 0 0', fontSize: '14px', color: 'var(--text-muted)' }}>
+    Tous personnalisables via CSS custom properties pour une thématisation complète.
+  </p>
+</div>

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { within, expect, userEvent } from '@storybook/test';
 import { DsAlert } from './ds-alert';
 
 const meta: Meta<DsAlert> = {
@@ -342,6 +343,173 @@ export const Themed: Story = {
     docs: {
       description: {
         story: 'Affiche le composant dans les 3 thèmes (Light, Dark, Custom) pour vérifier la thématisation.',
+      },
+    },
+  },
+};
+
+export const Accessibility: Story = {
+  render: () => ({
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; max-width: 600px;">
+        <ds-alert type="error" [closable]="true" data-testid="accessible-alert">
+          <p><strong>Erreur critique !</strong> Veuillez corriger les champs invalides.</p>
+        </ds-alert>
+
+        <ds-alert type="info" [showIcon]="true">
+          <p>Cette alerte utilise <code>role="alert"</code> pour les lecteurs d'écran.</p>
+        </ds-alert>
+      </div>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+## Accessibilité WCAG 2.1 AA
+
+### Rôles ARIA
+
+| Type | Rôle | Description |
+|------|------|-------------|
+| \`error\` | \`role="alert"\` | Annonce immédiate pour les erreurs critiques |
+| \`warning\` | \`role="alert"\` | Annonce pour les avertissements importants |
+| \`success\` | \`role="status"\` | Feedback non-intrusif de succès |
+| \`info\` | \`role="status"\` | Information générale non-urgente |
+
+### Navigation clavier
+
+| Touche | Action |
+|--------|--------|
+| \`Tab\` | Focus le bouton de fermeture (si closable) |
+| \`Enter\` | Ferme l'alerte |
+| \`Space\` | Ferme l'alerte |
+| \`Escape\` | Ferme l'alerte (focus dans l'alerte) |
+
+### Bonnes pratiques
+
+- Utilisez \`type="error"\` pour les erreurs critiques uniquement
+- Le contenu doit être explicite et actionnable
+- Évitez les alertes auto-dismiss pour les messages importants
+- Les alertes closable gardent le focus après fermeture
+        `,
+      },
+    },
+  },
+};
+
+export const WithInteractionTest: Story = {
+  args: {
+    type: 'warning',
+    closable: true,
+    showIcon: true,
+  },
+  render: (args) => ({
+    props: {
+      ...args,
+      alertClosed: false,
+      onClosed: function() {
+        this['alertClosed'] = true;
+      },
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        @if (!alertClosed) {
+          <ds-alert
+            [type]="type"
+            [closable]="closable"
+            [showIcon]="showIcon"
+            (closed)="onClosed()"
+            data-testid="interactive-alert"
+          >
+            <p><strong>Test d'interaction</strong> : Cliquez sur la croix ou utilisez le clavier pour fermer.</p>
+          </ds-alert>
+        }
+        @if (alertClosed) {
+          <p style="color: var(--success); font-weight: 500;" data-testid="closed-message">
+            ✓ Alerte fermée avec succès !
+          </p>
+        }
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // 1. Vérifier que l'alerte est présente
+    const alert = canvasElement.querySelector('[data-testid="interactive-alert"]');
+    await expect(alert).toBeInTheDocument();
+
+    // 2. Vérifier le rôle ARIA
+    await expect(alert).toHaveAttribute('role');
+
+    // 3. Trouver et cliquer sur le bouton de fermeture
+    const closeButton = canvas.getByRole('button');
+    await expect(closeButton).toBeInTheDocument();
+
+    // 4. Tester le focus clavier
+    await userEvent.tab();
+
+    // 5. Fermer avec Enter
+    await userEvent.keyboard('{Enter}');
+
+    // 6. Vérifier que l'alerte est fermée
+    const closedMessage = canvasElement.querySelector('[data-testid="closed-message"]');
+    await expect(closedMessage).toBeInTheDocument();
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Story avec test d\'interaction automatisé. Le test vérifie : présence de l\'alerte, rôle ARIA, bouton de fermeture, navigation clavier et fermeture effective.',
+      },
+    },
+  },
+};
+
+export const KeyboardNavigation: Story = {
+  render: () => ({
+    props: {
+      alerts: [
+        { id: 1, type: 'success' as const, visible: true },
+        { id: 2, type: 'warning' as const, visible: true },
+        { id: 3, type: 'error' as const, visible: true },
+      ],
+      closeAlert: function(id: number) {
+        const alert = this['alerts'].find((a: { id: number }) => a.id === id);
+        if (alert) alert.visible = false;
+      },
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="margin-bottom: 8px; font-size: 14px; color: var(--text-muted);">
+          Utilisez <kbd style="padding: 2px 6px; background: var(--gray-100); border-radius: 4px;">Tab</kbd>
+          pour naviguer et
+          <kbd style="padding: 2px 6px; background: var(--gray-100); border-radius: 4px;">Enter</kbd>
+          pour fermer
+        </p>
+
+        @for (alert of alerts; track alert.id) {
+          @if (alert.visible) {
+            <ds-alert [type]="alert.type" [closable]="true" (closed)="closeAlert(alert.id)">
+              <p>Alerte {{ alert.id }} - Fermez-moi avec le clavier !</p>
+            </ds-alert>
+          }
+        }
+
+        @if (alerts | json; as alertsJson) {
+          @if (!alerts[0].visible && !alerts[1].visible && !alerts[2].visible) {
+            <p style="color: var(--success); text-align: center; font-weight: 500;">
+              🎉 Toutes les alertes ont été fermées au clavier !
+            </p>
+          }
+        }
+      </div>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Démonstration de la navigation clavier. Utilisez Tab pour naviguer entre les boutons de fermeture et Enter/Space pour fermer chaque alerte.',
       },
     },
   },
