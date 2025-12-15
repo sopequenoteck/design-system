@@ -332,3 +332,23 @@ export type {
   CheckboxListItemChangeEvent,
   CheckboxListChangeEvent,
 } from './ds-checkbox-list/ds-checkbox-list.types';
+
+export { DsListItem } from './ds-list-item/ds-list-item';
+
+export type {
+  ListItemSize,
+  ListItemIndicator,
+  ListItemIndicatorColor,
+  ListItemClickEvent,
+  ListItemCheckEvent,
+} from './ds-list-item/ds-list-item.types';
+
+export { DsList } from './ds-list/ds-list';
+
+export type {
+  ListVariant,
+  ListSize,
+  ListDragEvent,
+  ListSelectionChangeEvent,
+  ListEmptyConfig,
+} from './ds-list/ds-list.types';

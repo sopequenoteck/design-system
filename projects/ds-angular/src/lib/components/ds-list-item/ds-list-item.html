@@ -1,0 +1,54 @@
+<div
+  [class]="itemClasses()"
+  [attr.role]="role()"
+  [attr.tabindex]="tabindex()"
+  [attr.aria-disabled]="disabled() || null"
+  [attr.aria-selected]="selected() || null"
+  (click)="handleClick($event)"
+  (keydown)="handleKeyDown($event)"
+>
+  <!-- Indicateur de priorité/statut -->
+  @if (showIndicator()) {
+    <span
+      class="ds-list-item__indicator"
+      [class.ds-list-item__indicator--bar]="isBarIndicator()"
+      [class.ds-list-item__indicator--dot]="isDotIndicator()"
+      [style.--indicator-color]="resolveIndicatorColor()"
+      aria-hidden="true"
+    ></span>
+  }
+
+  <!-- Checkbox -->
+  @if (checkable()) {
+    <ds-checkbox
+      class="ds-list-item__checkbox"
+      [checked]="checked()"
+      [indeterminate]="indeterminate()"
+      [disabled]="disabled()"
+      (checkedChange)="handleCheckedChange($event)"
+      (click)="$event.stopPropagation()"
+    />
+  }
+
+  <!-- Contenu principal -->
+  <div class="ds-list-item__content">
+    <span class="ds-list-item__title">{{ title() }}</span>
+
+    @if (subtitle()) {
+      <span class="ds-list-item__subtitle">{{ subtitle() }}</span>
+    }
+
+    <!-- Slot pour contenu additionnel inline (tags, badges) -->
+    <ng-content select="[inline]" />
+  </div>
+
+  <!-- Zone de métadonnées (time, duration, etc.) -->
+  <div class="ds-list-item__meta">
+    <ng-content select="[meta]" />
+  </div>
+
+  <!-- Actions (boutons, menus) - visibles au hover -->
+  <div class="ds-list-item__actions">
+    <ng-content select="[actions]" />
+  </div>
+</div>

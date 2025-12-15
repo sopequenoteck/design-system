@@ -1,0 +1,169 @@
+/**
+ * DsList - Conteneur de liste avec support loading, empty, drag & drop, virtualisation
+ */
+
+:host {
+  display: block;
+}
+
+.ds-list {
+  display: flex;
+  flex-direction: column;
+
+  // === Variantes ===
+  &--default {
+    // Pas de style particulier
+  }
+
+  &--divided {
+    ::ng-deep ds-list-item:not(:last-child),
+    ::ng-deep ds-list-group:not(:last-child) {
+      border-bottom: 1px solid var(--border-default, #374151);
+    }
+  }
+
+  &--card {
+    background: var(--background-surface, #1f2937);
+    border: 1px solid var(--border-default, #374151);
+    border-radius: var(--radius-2, 8px);
+    overflow: hidden;
+  }
+
+  // === Tailles (affectent les skeletons) ===
+  &--sm {
+    .ds-list__skeleton {
+      height: 32px;
+    }
+  }
+
+  &--md {
+    .ds-list__skeleton {
+      height: 40px;
+    }
+  }
+
+  &--lg {
+    .ds-list__skeleton {
+      height: 48px;
+    }
+  }
+
+  // === Skeleton ===
+  &__skeleton {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3, 12px);
+    padding: var(--space-2, 8px) var(--space-3, 12px);
+  }
+
+  &__skeleton-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1, 4px);
+  }
+
+  // === Virtualisation ===
+  &__viewport {
+    width: 100%;
+
+    // Assure que le contenu virtuel prend toute la largeur
+    ::ng-deep .cdk-virtual-scroll-content-wrapper {
+      width: 100%;
+    }
+  }
+
+  // === Drag & Drop ===
+  &__drop-zone {
+    min-height: 50px;
+  }
+
+  // Mode draggable
+  &--draggable {
+    ::ng-deep ds-list-item {
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+}
+
+// === CDK Drag & Drop global styles ===
+
+// Preview pendant le drag
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: var(--radius-1, 4px);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.3),
+    0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  background: var(--background-surface, #1f2937);
+  opacity: 0.95;
+
+  // Le contenu garde ses styles
+  ds-list-item {
+    background: transparent;
+  }
+}
+
+// Placeholder (espace laissé par l'item)
+.cdk-drag-placeholder {
+  opacity: 0.3;
+  background: var(--background-hover, rgba(255, 255, 255, 0.05));
+  border-radius: var(--radius-1, 4px);
+  border: 2px dashed var(--border-default, #374151);
+}
+
+// Animation de retour
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+// Animation des autres items pendant le drag
+.ds-list__drop-zone.cdk-drop-list-dragging {
+  ::ng-deep ds-list-item:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+// Handle de drag (optionnel)
+.ds-list-drag-handle {
+  cursor: grab;
+  color: var(--text-muted, #9ca3af);
+  padding: var(--space-1, 4px);
+  margin-right: var(--space-1, 4px);
+
+  &:hover {
+    color: var(--text-default, #f3f4f6);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+// === Mode virtualisé ===
+.ds-list--virtual {
+  .ds-list__viewport {
+    // Scrollbar personnalisée
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--background-tertiary, rgba(255, 255, 255, 0.05));
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--border-default, #374151);
+      border-radius: 4px;
+
+      &:hover {
+        background: var(--text-muted, #6b7280);
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<div [class]="listClasses()" role="list">
+  @if (loading()) {
+    <!-- État de chargement -->
+    @for (i of skeletonArray(); track i) {
+      <div class="ds-list__skeleton">
+        <ds-skeleton variant="circle" [size]="skeletonSize()" />
+        <div class="ds-list__skeleton-content">
+          <ds-skeleton variant="text" width="60%" />
+          <ds-skeleton variant="text" width="40%" />
+        </div>
+      </div>
+    }
+  } @else if (empty()) {
+    <!-- État vide -->
+    <ds-empty
+      [title]="emptyTitle()"
+      [description]="emptyDescription()"
+      [icon]="emptyIcon()"
+      [size]="size()"
+    />
+  } @else if (virtual()) {
+    <!-- Mode virtualisé -->
+    <cdk-virtual-scroll-viewport
+      [itemSize]="itemSize()"
+      [style]="viewportStyle()"
+      class="ds-list__viewport"
+    >
+      <ng-content />
+    </cdk-virtual-scroll-viewport>
+  } @else if (draggable()) {
+    <!-- Mode Drag & Drop -->
+    <div
+      cdkDropList
+      [cdkDropListData]="dragData()"
+      [cdkDropListDisabled]="dragDisabled()"
+      (cdkDropListDropped)="onDrop($event)"
+      class="ds-list__drop-zone"
+    >
+      <ng-content />
+    </div>
+  } @else {
+    <!-- Mode standard -->
+    <ng-content />
+  }
+</div>

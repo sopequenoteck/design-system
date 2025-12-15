@@ -1,0 +1,215 @@
+/**
+ * DsListItem - Style minimaliste type TickTick/Todoist
+ * Ligne fine avec hover subtil et indicateur de priorité
+ */
+
+:host {
+  display: block;
+}
+
+.ds-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  padding: 0 var(--space-3, 12px);
+  border-radius: var(--radius-1, 4px);
+  cursor: default;
+  transition: background-color 150ms ease;
+
+  // === Tailles ===
+  &--sm {
+    height: 32px;
+
+    .ds-list-item__title {
+      font-size: var(--font-size-1, 12px);
+    }
+
+    .ds-list-item__subtitle {
+      font-size: var(--font-size-0, 11px);
+    }
+
+    .ds-list-item__indicator--bar {
+      height: 14px;
+    }
+
+    .ds-list-item__indicator--dot {
+      width: 6px;
+      height: 6px;
+    }
+  }
+
+  &--md {
+    height: 40px;
+
+    .ds-list-item__title {
+      font-size: var(--font-size-2, 14px);
+    }
+
+    .ds-list-item__subtitle {
+      font-size: var(--font-size-1, 12px);
+    }
+
+    .ds-list-item__indicator--bar {
+      height: 18px;
+    }
+
+    .ds-list-item__indicator--dot {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  &--lg {
+    height: 48px;
+
+    .ds-list-item__title {
+      font-size: var(--font-size-3, 16px);
+    }
+
+    .ds-list-item__subtitle {
+      font-size: var(--font-size-2, 14px);
+    }
+
+    .ds-list-item__indicator--bar {
+      height: 22px;
+    }
+
+    .ds-list-item__indicator--dot {
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  // === États ===
+  &--clickable {
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--background-hover, rgba(255, 255, 255, 0.08));
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary, #3b82f6);
+      outline-offset: -2px;
+    }
+
+    &:active {
+      background-color: var(--background-active, rgba(255, 255, 255, 0.12));
+    }
+  }
+
+  &--completed {
+    .ds-list-item__title {
+      color: var(--text-muted, #9ca3af);
+      text-decoration: line-through;
+    }
+
+    .ds-list-item__subtitle {
+      text-decoration: line-through;
+    }
+
+    .ds-list-item__meta {
+      opacity: 0.5;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  &--selected {
+    background-color: var(--background-selected, rgba(59, 130, 246, 0.1));
+
+    &:hover {
+      background-color: var(--background-selected-hover, rgba(59, 130, 246, 0.15));
+    }
+  }
+
+  // === Indicateur ===
+  &__indicator {
+    flex-shrink: 0;
+    background-color: var(--indicator-color, var(--color-neutral, #6b7280));
+
+    &--bar {
+      width: 3px;
+      border-radius: 2px;
+    }
+
+    &--dot {
+      border-radius: 50%;
+    }
+  }
+
+  // === Checkbox ===
+  &__checkbox {
+    flex-shrink: 0;
+  }
+
+  // === Contenu ===
+  &__content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, 8px);
+    min-width: 0; // Permet ellipsis
+  }
+
+  &__title {
+    font-weight: var(--font-weight-normal, 400);
+    color: var(--text-default, #f3f4f6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__subtitle {
+    color: var(--text-muted, #9ca3af);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // === Meta & Actions ===
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, 8px);
+    flex-shrink: 0;
+    font-size: var(--font-size-1, 12px);
+    color: var(--text-muted, #9ca3af);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1, 4px);
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
+
+  // Afficher les actions au hover/focus
+  &:hover &__actions,
+  &:focus-within &__actions {
+    opacity: 1;
+  }
+}
+
+// === Styles pour les éléments projetés ===
+::ng-deep {
+  [inline] {
+    flex-shrink: 0;
+  }
+
+  [meta] {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  [actions] {
+    display: inline-flex;
+    align-items: center;
+  }
+}
