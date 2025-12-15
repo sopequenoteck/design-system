@@ -50,7 +50,7 @@ import {
       [attr.data-item-id]="item().id"
       (click)="handleClick($event)"
       (keydown)="handleKeydown($event)"
-      [dsTooltip]="mode() === 'collapsed' ? item().label : ''"
+      [dsTooltip]="mode() === 'collapsed' && showTooltip() ? item().label : ''"
       tooltipPosition="right"
       #itemElement>
 
@@ -128,6 +128,7 @@ import {
             [item]="child"
             [level]="level() + 1"
             [mode]="mode()"
+            [showTooltip]="showTooltip()"
             [expandedItemIds]="expandedItemIds()"
             [activeItemId]="activeItemId()"
             (itemClick)="itemClick.emit($event)"
@@ -303,6 +304,7 @@ export class DsSidebarItemComponent {
   readonly item = input.required<SidebarItem>();
   readonly level = input<number>(0);
   readonly mode = input<SidebarMode>('full');
+  readonly showTooltip = input<boolean>(true);
   readonly expandedItemIds = input<Set<string | number>>(new Set());
   readonly activeItemId = input<string | number | null>(null);
 

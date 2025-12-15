@@ -34,7 +34,7 @@ export {
   type DividerLabelPosition,
 } from './ds-divider/ds-divider';
 
-export { DsDropdown } from './ds-dropdown/ds-dropdown';
+export { DsDropdown, type DropdownPosition } from './ds-dropdown/ds-dropdown';
 
 export {
   type DropdownItem,
@@ -312,3 +312,14 @@ export type {
   SidebarItemExpandEvent,
   FlattenedSidebarItem,
 } from './ds-sidebar/ds-sidebar.types';
+
+export { DsNavList } from './ds-nav-list/ds-nav-list';
+
+export type {
+  NavListItem,
+  NavListGroup,
+  NavListSize,
+  NavListBadgeVariant,
+  NavListItemClickEvent,
+  NavListGroupToggleEvent,
+} from './ds-nav-list/ds-nav-list.types';

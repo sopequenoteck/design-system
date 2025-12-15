@@ -59,6 +59,78 @@ export const DROPDOWN_POSITIONS: ConnectedPosition[] = [
 ];
 
 /**
+ * Positions pour dropdowns s'ouvrant vers le haut (utile dans les footers)
+ *
+ * Stratégie :
+ * 1. Position préférée : centré au-dessus
+ * 2. Fallback : centré en dessous si pas d'espace au-dessus
+ * 3. Fallback : aligné à gauche au-dessus
+ * 4. Fallback : aligné à droite au-dessus
+ */
+export const DROPDOWN_POSITIONS_TOP: ConnectedPosition[] = [
+  {
+    originX: 'center',
+    originY: 'top',
+    overlayX: 'center',
+    overlayY: 'bottom',
+    offsetY: -6,
+  },
+  {
+    originX: 'center',
+    originY: 'bottom',
+    overlayX: 'center',
+    overlayY: 'top',
+    offsetY: 6,
+  },
+  {
+    originX: 'start',
+    originY: 'top',
+    overlayX: 'start',
+    overlayY: 'bottom',
+    offsetY: -6,
+  },
+  {
+    originX: 'end',
+    originY: 'top',
+    overlayX: 'end',
+    overlayY: 'bottom',
+    offsetY: -6,
+  },
+];
+
+/**
+ * Positions pour dropdowns s'ouvrant vers la droite (utile dans les sidebars)
+ *
+ * Stratégie :
+ * 1. Position préférée : à droite, aligné en haut
+ * 2. Fallback : à droite, aligné au centre
+ * 3. Fallback : à gauche si pas d'espace à droite
+ */
+export const DROPDOWN_POSITIONS_RIGHT: ConnectedPosition[] = [
+  {
+    originX: 'end',
+    originY: 'top',
+    overlayX: 'start',
+    overlayY: 'top',
+    offsetX: 6,
+  },
+  {
+    originX: 'end',
+    originY: 'center',
+    overlayX: 'start',
+    overlayY: 'center',
+    offsetX: 6,
+  },
+  {
+    originX: 'start',
+    originY: 'top',
+    overlayX: 'end',
+    overlayY: 'top',
+    offsetX: -6,
+  },
+];
+
+/**
  * Positions standard pour tooltips (infobulles)
  *
  * Stratégie :

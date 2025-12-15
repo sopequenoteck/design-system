@@ -27,7 +27,15 @@ import {
 } from '../../primitives/primitive-button/primitive-button';
 import { DropdownItem } from './model/dropdown-item.model';
 import { Subscription } from 'rxjs';
-import { DROPDOWN_POSITIONS } from '../../utils/overlay-positions';
+import {
+  DROPDOWN_POSITIONS,
+  DROPDOWN_POSITIONS_TOP,
+  DROPDOWN_POSITIONS_RIGHT,
+} from '../../utils/overlay-positions';
+import { ConnectedPosition } from '@angular/cdk/overlay';
+
+/** Direction d'ouverture du dropdown */
+export type DropdownPosition = 'bottom' | 'top' | 'right';
 import { generateId } from '../../utils/id-generator';
 
 @Component({
@@ -83,6 +91,8 @@ export class DsDropdown implements ControlValueAccessor, AfterViewInit, OnDestro
   readonly closeOnSelect = input<boolean>(true);
   /** Classes CSS supplémentaires appliquées au panneau. */
   readonly overlayPanelClass = input<string | string[] | undefined>(undefined);
+  /** Direction d'ouverture du menu (bottom, top, right). */
+  readonly position = input<DropdownPosition>('bottom');
 
   // Outputs
   /** Émis lorsqu'un élément est sélectionné. */
@@ -130,7 +140,18 @@ export class DsDropdown implements ControlValueAccessor, AfterViewInit, OnDestro
 
   }
 
-  readonly overlayPositions = DROPDOWN_POSITIONS;
+  /** Positions de l'overlay selon la prop position */
+  readonly overlayPositions = computed<ConnectedPosition[]>(() => {
+    switch (this.position()) {
+      case 'top':
+        return DROPDOWN_POSITIONS_TOP;
+      case 'right':
+        return DROPDOWN_POSITIONS_RIGHT;
+      case 'bottom':
+      default:
+        return DROPDOWN_POSITIONS;
+    }
+  });
 
   // Computed helpers
   readonly isMenuOpen = computed<boolean>(() => this.menuOpen());

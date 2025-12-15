@@ -104,6 +104,12 @@ export class DsSidebar implements OnInit, AfterViewInit, OnDestroy {
   /** Active le switch automatique vers overlay sur mobile */
   readonly autoCollapseOnMobile = input<boolean>(true);
 
+  /** Affiche les tooltips en mode collapsed (désactivable) */
+  readonly showTooltips = input<boolean>(true);
+
+  /** ID de l'item actif (contrôlé depuis l'extérieur) */
+  readonly initialActiveItemId = input<string | number | null>(null);
+
   // ============ OUTPUTS ============
 
   /** Émis lors du clic sur un item */
@@ -214,6 +220,14 @@ export class DsSidebar implements OnInit, AfterViewInit, OnDestroy {
     // Sync mode input → internalMode
     effect(() => {
       this.internalMode.set(this.mode());
+    });
+
+    // Sync initialActiveItemId input → activeItemId
+    effect(() => {
+      const externalId = this.initialActiveItemId();
+      if (externalId !== null) {
+        this.activeItemId.set(externalId);
+      }
     });
 
     // Initialize expanded state from items

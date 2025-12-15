@@ -1,0 +1,71 @@
+<nav
+  [class]="containerClasses()"
+  [attr.aria-label]="ariaLabel()"
+  role="navigation">
+
+  @for (group of groups(); track group.id; let isFirst = $first) {
+    <!-- Divider avec titre (sauf pour le premier groupe sans titre) -->
+    @if (group.title) {
+      <ds-divider
+        size="sm"
+        [spacing]="isFirst ? 'none' : 'sm'"
+        [class.collapsible]="group.collapsible"
+        (click)="group.collapsible ? toggleGroup(group, $event) : null">
+        <div class="group-header">
+          <span>{{ group.title }}</span>
+          @if (group.collapsible) {
+            <fa-icon
+              [icon]="isGroupCollapsed(group) ? faChevronRight : faChevronDown"
+              class="collapse-icon">
+            </fa-icon>
+          }
+        </div>
+      </ds-divider>
+    }
+
+    <!-- Items du groupe -->
+    @if (!isGroupCollapsed(group)) {
+      <ul class="nav-list-group" role="list">
+        @for (item of group.items; track item.id) {
+          <li
+            [class]="getItemClasses(item)"
+            [attr.aria-current]="isActive(item) ? 'page' : null"
+            [attr.aria-disabled]="item.disabled ? 'true' : null"
+            [tabindex]="item.disabled ? -1 : 0"
+            role="listitem"
+            (click)="handleItemClick(item, group, $event)"
+            (keydown)="handleItemKeydown(item, group, $event)">
+
+            <!-- Partie gauche : icône/emoji + label -->
+            <div class="item-main">
+              @if (item.emoji) {
+                <span class="item-emoji">{{ item.emoji }}</span>
+              } @else if (item.icon) {
+                <fa-icon [icon]="item.icon" class="item-icon"></fa-icon>
+              }
+              <span class="item-label">{{ item.label }}</span>
+            </div>
+
+            <!-- Partie droite : dot + badge -->
+            <div class="item-end">
+              @if (item.dotColor) {
+                <span
+                  class="item-dot"
+                  [style.background-color]="item.dotColor">
+                </span>
+              }
+              @if (item.badge !== undefined && item.badge !== null) {
+                <ds-badge
+                  [type]="item.badgeVariant ?? 'default'"
+                  variant="outline"
+                  size="sm">
+                  {{ item.badge }}
+                </ds-badge>
+              }
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  }
+</nav>
