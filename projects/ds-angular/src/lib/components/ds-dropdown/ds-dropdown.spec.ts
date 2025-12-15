@@ -213,10 +213,10 @@ describe('DsDropdown', () => {
 
     it('should configure overlay with proper CDK positions', () => {
       // Vérifier que les positions de fallback CDK sont correctement configurées
-      expect(component.overlayPositions.length).toBeGreaterThanOrEqual(2);
+      expect(component.overlayPositions().length).toBeGreaterThanOrEqual(2);
 
       // Position primaire : bottom-center
-      const primaryPosition = component.overlayPositions[0];
+      const primaryPosition = component.overlayPositions()[0];
       expect(primaryPosition.originX).toBe('center');
       expect(primaryPosition.originY).toBe('bottom');
       expect(primaryPosition.overlayX).toBe('center');
@@ -224,7 +224,7 @@ describe('DsDropdown', () => {
       expect(primaryPosition.offsetY).toBe(6);
 
       // Position de fallback : top-center
-      const fallbackPosition = component.overlayPositions[1];
+      const fallbackPosition = component.overlayPositions()[1];
       expect(fallbackPosition.originX).toBe('center');
       expect(fallbackPosition.originY).toBe('top');
       expect(fallbackPosition.overlayX).toBe('center');
@@ -255,10 +255,10 @@ describe('DsDropdown', () => {
 
       // Vérifier que le composant expose les positions de fallback
       // qui permettent au CDK de repositionner automatiquement l'overlay
-      expect(component.overlayPositions.length).toBeGreaterThan(1);
+      expect(component.overlayPositions().length).toBeGreaterThan(1);
 
       // Vérifier que la position de fallback est inversée (top au lieu de bottom)
-      const fallback = component.overlayPositions[1];
+      const fallback = component.overlayPositions()[1];
       expect(fallback.originY).toBe('top');
       expect(fallback.overlayY).toBe('bottom');
 
