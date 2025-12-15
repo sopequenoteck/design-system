@@ -22,6 +22,9 @@ La catégorie **Data Display** regroupe les composants dédiés à la présentat
 | **DsRating** | Étoiles de notation |
 | **DsProgressBar** | Barre de progression |
 | **DsSkeleton** | Placeholder de chargement |
+| **DsList** | Liste avec loading, empty, drag & drop, virtualisation |
+| **DsListItem** | Élément de liste avec checkbox, indicateur, slots |
+| **DsListGroup** | Groupe de listes avec en-tête |
 
 ---
 
@@ -166,4 +169,181 @@ La catégorie **Data Display** regroupe les composants dédiés à la présentat
      aria-valuemax="100"
      aria-label="Progression du téléchargement">
 </div>
+```
+
+---
+
+## DsList
+
+Composant conteneur pour afficher une liste d'éléments avec support pour état de chargement, état vide, Drag & Drop, virtualisation et sélection multiple.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `variant` | `'default' \| 'divided' \| 'card'` | `'default'` | Variante visuelle |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille de la liste |
+| `loading` | `boolean` | `false` | Affiche les skeletons |
+| `loadingCount` | `number` | `3` | Nombre de skeletons |
+| `empty` | `boolean` | `false` | Affiche l'état vide |
+| `emptyTitle` | `string` | `'Aucun élément'` | Titre état vide |
+| `emptyDescription` | `string` | `-` | Description état vide |
+| `draggable` | `boolean` | `false` | Active Drag & Drop |
+| `dragDisabled` | `boolean` | `false` | Désactive le drag |
+| `dragData` | `T[]` | `[]` | Données pour le drag |
+| `virtual` | `boolean` | `false` | Active la virtualisation |
+| `itemSize` | `number` | `40` | Hauteur item (px) |
+| `viewportHeight` | `number` | `400` | Hauteur viewport (px) |
+| `selectable` | `boolean` | `false` | Active la sélection |
+| `selectedItems` | `T[]` | `[]` | Items sélectionnés |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `dropped` | `ListDragEvent<T>` | Événement de drop |
+| `selectionChange` | `ListSelectionChangeEvent<T>` | Changement de sélection |
+
+### Exemples
+
+```html
+<!-- Liste basique -->
+<ds-list>
+  <ds-list-item title="Item 1" />
+  <ds-list-item title="Item 2" />
+</ds-list>
+
+<!-- Avec loading et empty -->
+<ds-list
+  [loading]="isLoading()"
+  [empty]="items().length === 0"
+  emptyTitle="Aucun élément"
+>
+  @for (item of items(); track item.id) {
+    <ds-list-item [title]="item.title" />
+  }
+</ds-list>
+
+<!-- Avec Drag & Drop -->
+<ds-list variant="card" [draggable]="true" [dragData]="items()" (dropped)="onDrop($event)">
+  @for (item of items(); track item.id) {
+    <ds-list-item [title]="item.title" [checkable]="true" cdkDrag />
+  }
+</ds-list>
+```
+
+---
+
+## DsListItem
+
+Composant de ligne d'élément de liste interactif, style TickTick/Todoist. Supporte checkbox intégrée, indicateur de priorité, et slots pour métadonnées.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `title` | `string` | **requis** | Titre principal de l'élément |
+| `subtitle` | `string` | `-` | Sous-titre optionnel |
+| `indicator` | `'none' \| 'priority' \| 'dot' \| 'status'` | `'none'` | Type d'indicateur visuel |
+| `indicatorColor` | `'high' \| 'medium' \| 'low' \| 'success' \| 'warning' \| 'error' \| 'info' \| string` | `'medium'` | Couleur de l'indicateur |
+| `checkable` | `boolean` | `false` | Affiche une checkbox |
+| `checked` | `boolean` | `false` | État coché |
+| `indeterminate` | `boolean` | `false` | État indéterminé |
+| `completed` | `boolean` | `false` | Style complété (texte barré) |
+| `disabled` | `boolean` | `false` | Désactive l'interaction |
+| `selected` | `boolean` | `false` | Style de sélection |
+| `clickable` | `boolean` | `true` | Rend l'élément cliquable |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille de l'élément |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `checkedChange` | `ListItemCheckEvent` | Émis lors du changement de la checkbox |
+| `clicked` | `ListItemClickEvent` | Émis lors du clic |
+
+### Slots
+
+| Nom | Description |
+|-----|-------------|
+| `[inline]` | Contenu inline (tags, badges) |
+| `[meta]` | Métadonnées (time, duration) |
+| `[actions]` | Actions (boutons, menus) - visibles au hover |
+
+### Exemples
+
+```html
+<!-- Basique -->
+<ds-list-item title="Ma tâche" />
+
+<!-- Avec checkbox et priorité -->
+<ds-list-item
+  title="Tâche importante"
+  [checkable]="true"
+  [checked]="task.completed"
+  indicator="priority"
+  indicatorColor="high"
+  (checkedChange)="onComplete($event)"
+/>
+
+<!-- Avec métadonnées -->
+<ds-list-item title="Réunion" [checkable]="true">
+  <ds-chip inline size="sm">Travail</ds-chip>
+  <span meta>09:00</span>
+  <span meta>30min</span>
+</ds-list-item>
+```
+
+---
+
+## DsListGroup
+
+Composant de regroupement d'éléments de liste avec header et contenu collapsible. Idéal pour organiser les tâches par date, catégorie ou statut.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `title` | `string` | **requis** | Titre du groupe |
+| `subtitle` | `string` | `-` | Sous-titre optionnel |
+| `count` | `number` | `-` | Nombre d'éléments (badge) |
+| `variant` | `'default' \| 'collapsible'` | `'default'` | Variante du groupe |
+| `expanded` | `boolean` | `true` | État expanded (collapsible) |
+| `sticky` | `boolean` | `false` | Header sticky au scroll |
+| `icon` | `IconDefinition` | `-` | Icône personnalisée |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `expandedChange` | `ListGroupToggleEvent` | Émis lors du toggle |
+
+### Exemples
+
+```html
+<!-- Groupe simple -->
+<ds-list-group title="Aujourd'hui">
+  <ds-list-item title="Tâche 1" />
+  <ds-list-item title="Tâche 2" />
+</ds-list-group>
+
+<!-- Groupe collapsible avec compteur -->
+<ds-list-group
+  title="Cette semaine"
+  [count]="5"
+  variant="collapsible"
+  [expanded]="true"
+>
+  <ds-list-item title="Tâche 1" />
+</ds-list-group>
+
+<!-- Groupes dans une liste -->
+<ds-list>
+  <ds-list-group title="Haute priorité" [count]="3" variant="collapsible">
+    <ds-list-item title="Urgent" indicator="priority" indicatorColor="high" />
+  </ds-list-group>
+  <ds-list-group title="Normale" [count]="5" variant="collapsible">
+    <ds-list-item title="Standard" />
+  </ds-list-group>
+</ds-list>
 ```
