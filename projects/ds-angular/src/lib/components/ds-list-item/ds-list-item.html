@@ -20,11 +20,12 @@
 
   <!-- Checkbox -->
   @if (checkable()) {
-    <ds-checkbox
+    <primitive-checkbox
       class="ds-list-item__checkbox"
       [checked]="checked()"
       [indeterminate]="indeterminate()"
       [disabled]="disabled()"
+      size="sm"
       (checkedChange)="handleCheckedChange($event)"
       (click)="$event.stopPropagation()"
     />

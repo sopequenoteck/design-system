@@ -49,12 +49,12 @@ describe('DsListItem', () => {
       fixture.componentRef.setInput('checkable', true);
       fixture.detectChanges();
 
-      const checkbox = fixture.debugElement.query(By.css('ds-checkbox'));
+      const checkbox = fixture.debugElement.query(By.css('primitive-checkbox'));
       expect(checkbox).toBeTruthy();
     });
 
     it('should not render checkbox when checkable is false', () => {
-      const checkbox = fixture.debugElement.query(By.css('ds-checkbox'));
+      const checkbox = fixture.debugElement.query(By.css('primitive-checkbox'));
       expect(checkbox).toBeFalsy();
     });
 

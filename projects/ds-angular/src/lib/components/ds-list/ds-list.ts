@@ -8,7 +8,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 import { DsSkeleton } from '../ds-skeleton/ds-skeleton';
 import { DsEmpty } from '../ds-empty/ds-empty';
@@ -118,11 +117,6 @@ export class DsList<T = unknown> {
    * Description de l'état vide
    */
   readonly emptyDescription = input<string>();
-
-  /**
-   * Icône de l'état vide
-   */
-  readonly emptyIcon = input<IconDefinition>();
 
   // === Drag & Drop ===
 

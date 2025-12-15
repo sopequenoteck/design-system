@@ -14,8 +14,7 @@
     <!-- État vide -->
     <ds-empty
       [title]="emptyTitle()"
-      [description]="emptyDescription()"
-      [icon]="emptyIcon()"
+      [description]="emptyDescription() ?? ''"
       [size]="size()"
     />
   } @else if (virtual()) {

@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DsCheckbox } from '../ds-checkbox/ds-checkbox';
+import { PrimitiveCheckbox } from '../../primitives/primitive-checkbox/primitive-checkbox';
 import {
   ListItemSize,
   ListItemIndicator,
@@ -67,7 +67,7 @@ const INDICATOR_COLOR_MAP: Record<ListItemIndicatorColor, string> = {
 @Component({
   selector: 'ds-list-item',
   standalone: true,
-  imports: [CommonModule, DsCheckbox],
+  imports: [CommonModule, PrimitiveCheckbox],
   templateUrl: './ds-list-item.html',
   styleUrl: './ds-list-item.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
