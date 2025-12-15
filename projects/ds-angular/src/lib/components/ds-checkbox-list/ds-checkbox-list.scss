@@ -1,0 +1,171 @@
+/* ==========================================================================
+   DS-CHECKBOX-LIST — Liste de checkboxes avec icônes
+   ========================================================================== */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.ds-checkbox-list {
+  display: flex;
+  flex-direction: column;
+
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+/* === SIZES === */
+
+.ds-checkbox-list--sm {
+  --item-padding-y: 0.5rem;
+  --item-padding-x: var(--space-2);
+  --item-font-size: var(--font-size-1, 0.875rem);
+  --item-icon-size: 1rem;
+  --item-emoji-size: 1.1rem;
+  --item-gap: var(--space-2);
+  --item-helper-size: var(--font-size-xs, 0.75rem);
+}
+
+.ds-checkbox-list--md {
+  --item-padding-y: 0.625rem;
+  --item-padding-x: var(--space-3);
+  --item-font-size: var(--font-size-2, 0.9375rem);
+  --item-icon-size: 1.125rem;
+  --item-emoji-size: 1.2rem;
+  --item-gap: var(--space-2);
+  --item-helper-size: var(--font-size-0, 0.8125rem);
+}
+
+.ds-checkbox-list--lg {
+  --item-padding-y: 0.75rem;
+  --item-padding-x: var(--space-3);
+  --item-font-size: var(--font-size-3, 1rem);
+  --item-icon-size: 1.25rem;
+  --item-emoji-size: 1.3rem;
+  --item-gap: var(--space-3);
+  --item-helper-size: var(--font-size-1, 0.875rem);
+}
+
+/* === SELECT ALL === */
+
+.checkbox-list-select-all {
+  padding: var(--item-padding-y) var(--item-padding-x);
+  border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+  margin-bottom: var(--space-1);
+}
+
+/* === ITEMS LIST === */
+
+.checkbox-list-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === CHECKBOX LIST ITEM === */
+
+.checkbox-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--item-gap);
+  padding: var(--item-padding-y) var(--item-padding-x);
+  border-radius: var(--radius-1-5, 6px);
+  transition: background-color var(--duration-fast, 150ms) var(--easing-default, ease);
+
+  &:hover {
+    background-color: var(--hover-bg, rgba(255, 255, 255, 0.08));
+  }
+
+  &--checked {
+    background-color: var(--active-bg, rgba(99, 102, 241, 0.1));
+
+    &:hover {
+      background-color: rgba(99, 102, 241, 0.15);
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+/* === ITEM CHECKBOX === */
+
+.item-checkbox {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* === ITEM CONTENT (label area) === */
+
+.item-content {
+  display: flex;
+  align-items: center;
+  gap: var(--item-gap);
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+
+  &--disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* === ITEM ICON / EMOJI === */
+
+.item-icon {
+  flex-shrink: 0;
+  font-size: var(--item-icon-size);
+  color: var(--text-muted);
+  width: 1.5em;
+  text-align: center;
+
+  .checkbox-list-item--checked & {
+    color: var(--color-primary, #6366f1);
+  }
+}
+
+.item-emoji {
+  flex-shrink: 0;
+  font-size: var(--item-emoji-size);
+  width: 1.5em;
+  text-align: center;
+  line-height: 1;
+}
+
+/* === ITEM TEXT === */
+
+.item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.item-label {
+  font-size: var(--item-font-size);
+  color: var(--text-default);
+  line-height: 1.3;
+
+  .checkbox-list-item--checked & {
+    color: var(--text-default);
+    font-weight: 500;
+  }
+}
+
+.item-helper {
+  font-size: var(--item-helper-size);
+  color: var(--text-muted);
+  line-height: 1.3;
+}

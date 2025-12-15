@@ -1,0 +1,58 @@
+<div
+  [class]="containerClasses()"
+  [attr.aria-label]="ariaLabel()"
+  role="group">
+
+  <!-- Select All -->
+  @if (showSelectAll()) {
+    <div class="checkbox-list-select-all">
+      <primitive-checkbox
+        [checkboxId]="componentId + '-select-all'"
+        [checked]="allChecked()"
+        [indeterminate]="someChecked()"
+        [disabled]="disabled()"
+        [size]="size()"
+        [label]="selectAllLabel()"
+        (checkedChange)="onSelectAllChange($event)">
+      </primitive-checkbox>
+    </div>
+  }
+
+  <!-- Items list -->
+  <ul class="checkbox-list-items" role="list">
+    @for (item of items(); track item.id; let idx = $index) {
+      <li [class]="getItemClasses(item)" role="listitem">
+        <div class="item-checkbox">
+          <primitive-checkbox
+            [checkboxId]="getItemId(item, idx)"
+            [checked]="item.checked"
+            [disabled]="item.disabled || disabled()"
+            [size]="size()"
+            (checkedChange)="onItemCheckedChange(item, $event, idx)">
+          </primitive-checkbox>
+        </div>
+
+        <label
+          [for]="getItemId(item, idx)"
+          class="item-content"
+          [class.item-content--disabled]="item.disabled || disabled()">
+
+          <!-- Icône ou emoji -->
+          @if (item.emoji) {
+            <span class="item-emoji">{{ item.emoji }}</span>
+          } @else if (item.icon) {
+            <fa-icon [icon]="item.icon" class="item-icon"></fa-icon>
+          }
+
+          <!-- Label et helper -->
+          <div class="item-text">
+            <span class="item-label">{{ item.label }}</span>
+            @if (item.helper) {
+              <span class="item-helper">{{ item.helper }}</span>
+            }
+          </div>
+        </label>
+      </li>
+    }
+  </ul>
+</div>
