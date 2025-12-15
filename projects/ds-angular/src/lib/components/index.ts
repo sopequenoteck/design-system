@@ -352,3 +352,10 @@ export type {
   ListSelectionChangeEvent,
   ListEmptyConfig,
 } from './ds-list/ds-list.types';
+
+export { DsListGroup } from './ds-list-group/ds-list-group';
+
+export type {
+  ListGroupVariant,
+  ListGroupToggleEvent,
+} from './ds-list-group/ds-list-group.types';

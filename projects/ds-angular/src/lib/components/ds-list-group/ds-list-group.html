@@ -1,0 +1,51 @@
+<div [class]="groupClasses()">
+  <!-- Header du groupe -->
+  <div
+    class="ds-list-group__header"
+    [attr.role]="isCollapsible() ? 'button' : null"
+    [attr.tabindex]="isCollapsible() ? 0 : null"
+    [attr.aria-expanded]="isCollapsible() ? isExpanded() : null"
+    (click)="toggle()"
+    (keydown)="handleKeyDown($event)"
+  >
+    <!-- Chevron (collapsible uniquement) -->
+    @if (isCollapsible()) {
+      <fa-icon
+        [icon]="chevronIcon()"
+        class="ds-list-group__chevron"
+        [class.ds-list-group__chevron--expanded]="isExpanded()"
+      />
+    }
+
+    <!-- Icône personnalisée -->
+    @if (icon()) {
+      <fa-icon [icon]="icon()!" class="ds-list-group__icon" />
+    }
+
+    <!-- Titre -->
+    <span class="ds-list-group__title">{{ title() }}</span>
+
+    <!-- Sous-titre -->
+    @if (subtitle()) {
+      <span class="ds-list-group__subtitle">{{ subtitle() }}</span>
+    }
+
+    <!-- Compteur (badge) -->
+    @if (showCount()) {
+      <ds-badge type="neutral" size="sm" class="ds-list-group__count">
+        {{ count() }}
+      </ds-badge>
+    }
+  </div>
+
+  <!-- Contenu du groupe -->
+  @if (isExpanded()) {
+    <div
+      class="ds-list-group__content"
+      role="group"
+      [attr.aria-label]="title()"
+    >
+      <ng-content />
+    </div>
+  }
+</div>

@@ -1,0 +1,104 @@
+:host {
+  display: block;
+}
+
+.ds-list-group {
+  // === Header ===
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, 8px);
+    padding: var(--space-2, 8px) var(--space-3, 12px);
+    font-size: var(--font-size-1, 12px);
+    font-weight: var(--font-weight-semibold, 600);
+    color: var(--text-muted, #9ca3af);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    user-select: none;
+  }
+
+  // === Collapsible ===
+  &--collapsible {
+    .ds-list-group__header {
+      cursor: pointer;
+      border-radius: var(--radius-1, 4px);
+      transition: background-color 150ms ease;
+
+      &:hover {
+        background-color: var(--background-hover, rgba(255, 255, 255, 0.05));
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--color-primary, #3b82f6);
+        outline-offset: -2px;
+      }
+    }
+  }
+
+  // === Sticky ===
+  &--sticky {
+    .ds-list-group__header {
+      position: sticky;
+      top: 0;
+      background: var(--background-main, #111827);
+      z-index: 10;
+      border-bottom: 1px solid var(--border-default, #374151);
+    }
+  }
+
+  // === Chevron ===
+  &__chevron {
+    font-size: 10px;
+    color: var(--text-muted, #9ca3af);
+    transition: transform 200ms ease;
+    flex-shrink: 0;
+
+    &--expanded {
+      transform: rotate(0deg);
+    }
+  }
+
+  &--collapsed &__chevron {
+    transform: rotate(0deg);
+  }
+
+  // === Icon ===
+  &__icon {
+    font-size: var(--font-size-2, 14px);
+    color: var(--text-muted, #9ca3af);
+    flex-shrink: 0;
+  }
+
+  // === Title ===
+  &__title {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // === Subtitle ===
+  &__subtitle {
+    font-weight: var(--font-weight-normal, 400);
+    color: var(--text-muted, #6b7280);
+    text-transform: none;
+    letter-spacing: normal;
+  }
+
+  // === Count ===
+  &__count {
+    flex-shrink: 0;
+  }
+
+  // === Content ===
+  &__content {
+    // Animation pour collapse/expand (optionnel)
+  }
+
+  // === Collapsed state ===
+  &--collapsed {
+    .ds-list-group__content {
+      display: none;
+    }
+  }
+}
