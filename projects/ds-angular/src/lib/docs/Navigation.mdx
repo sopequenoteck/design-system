@@ -134,3 +134,252 @@ Tous les composants utilisent les bons rôles ARIA :
 - Focus piégé dans les menus ouverts
 - Focus restauré après fermeture
 - Indicateur de focus visible sur tous les éléments
+
+---
+
+## DsBreadcrumb
+
+Fil d'Ariane pour indiquer la position de l'utilisateur dans la hiérarchie de navigation.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `items` | `BreadcrumbItem[]` | **Requis** | Liste des éléments du fil d'Ariane |
+| `separator` | `string` | `'/'` | Caractère séparateur |
+| `maxItems` | `number` | `undefined` | Nombre max d'items visibles (ellipsis) |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `itemClicked` | `BreadcrumbItem` | Émis lors du clic sur un élément |
+
+### Types
+
+```typescript
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+  disabled?: boolean;
+}
+```
+
+---
+
+## DsMenu
+
+Menu contextuel avec trigger configurable (click ou clic droit) et navigation clavier complète.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `items` | `MenuItem[]` | **Requis** | Liste des items du menu |
+| `size` | `MenuSize` | `'md'` | Taille du menu |
+| `trigger` | `MenuTrigger` | `'click'` | Événement déclencheur |
+| `closeOnSelect` | `boolean` | `true` | Fermer après sélection |
+| `ariaLabel` | `string` | `undefined` | Label ARIA |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `itemSelected` | `MenuItem` | Émis lors de la sélection |
+| `opened` | `void` | Émis à l'ouverture |
+| `closed` | `void` | Émis à la fermeture |
+
+### Types
+
+```typescript
+interface MenuItem {
+  id: string;
+  label: string;
+  icon?: IconDefinition;
+  disabled?: boolean;
+  dividerBefore?: boolean;
+}
+
+type MenuTrigger = 'click' | 'contextmenu';
+type MenuSize = 'sm' | 'md' | 'lg';
+```
+
+---
+
+## DsTabs
+
+Onglets pour navigation entre différentes vues ou sections de contenu.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `tabs` | `TabItem[]` | **Requis** | Liste des onglets |
+| `activeTabId` | `string` | `undefined` | ID de l'onglet actif |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `tabChanged` | `TabItem` | Émis lors du changement d'onglet |
+
+### Types
+
+```typescript
+interface TabItem {
+  id: string;
+  label: string;
+  disabled?: boolean;
+  icon?: string;
+}
+```
+
+---
+
+## DsPagination
+
+Composant de pagination pour naviguer dans un ensemble de données paginées.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `totalItems` | `number` | **Requis** | Nombre total d'éléments |
+| `pageSize` | `number` | `10` | Éléments par page |
+| `currentPage` | `number` | `1` | Page courante (1-indexed) |
+| `size` | `PaginationSize` | `'md'` | Taille du composant |
+| `showFirstLast` | `boolean` | `true` | Boutons première/dernière |
+| `showPageSizeSelector` | `boolean` | `false` | Sélecteur de taille |
+| `pageSizeOptions` | `number[]` | `[10,25,50,100]` | Options de taille |
+| `maxVisiblePages` | `number` | `5` | Max pages affichées |
+| `showInfo` | `boolean` | `true` | Afficher "X - Y sur Z" |
+| `disabled` | `boolean` | `false` | Désactiver le composant |
+| `ariaLabel` | `string` | `'Pagination'` | Label ARIA |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `pageChange` | `PageChangeEvent` | Émis au changement de page |
+| `pageSizeChange` | `number` | Émis au changement de taille |
+
+### Types
+
+```typescript
+type PaginationSize = 'sm' | 'md' | 'lg';
+
+interface PageChangeEvent {
+  page: number;
+  pageSize: number;
+  totalItems: number;
+  totalPages: number;
+}
+```
+
+---
+
+## DsStepper
+
+Guide l'utilisateur à travers un processus multi-étapes (wizard).
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `steps` | `Step[]` | **Requis** | Liste des étapes |
+| `activeStep` | `number` | `0` | Index de l'étape active |
+| `orientation` | `StepperOrientation` | `'horizontal'` | Orientation |
+| `size` | `StepperSize` | `'md'` | Taille du stepper |
+| `clickable` | `boolean` | `true` | Navigation par clic |
+| `linear` | `boolean` | `false` | Navigation séquentielle |
+| `showDescriptions` | `boolean` | `true` | Afficher descriptions |
+| `showConnector` | `boolean` | `true` | Afficher connecteur |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `stepChange` | `StepChangeEvent` | Émis au changement d'étape |
+
+### Types
+
+```typescript
+type StepperOrientation = 'horizontal' | 'vertical';
+type StepState = 'pending' | 'active' | 'completed' | 'error';
+type StepperSize = 'sm' | 'md' | 'lg';
+
+interface Step {
+  label: string;
+  description?: string;
+  state?: StepState;
+  disabled?: boolean;
+  optional?: boolean;
+}
+
+interface StepChangeEvent {
+  previousIndex: number;
+  currentIndex: number;
+  step: Step;
+}
+```
+
+---
+
+## DsTree
+
+Arborescence hiérarchique avec sélection, checkbox et lazy loading.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `data` | `TreeNode[]` | `[]` | Données de l'arbre |
+| `selectable` | `boolean` | `true` | Activer la sélection |
+| `checkable` | `boolean` | `false` | Afficher les checkboxes |
+| `expandAll` | `boolean` | `false` | Tout développer |
+| `showIcon` | `boolean` | `true` | Afficher les icônes |
+| `showLine` | `boolean` | `false` | Afficher les lignes |
+| `draggable` | `boolean` | `false` | Drag and drop |
+| `virtualScroll` | `boolean` | `false` | Scroll virtuel |
+| `size` | `TreeSize` | `'md'` | Taille du composant |
+| `loadChildren` | `(node) => Promise<TreeNode[]>` | `null` | Fonction lazy loading |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `nodeSelect` | `TreeNodeSelectEvent` | Émis à la sélection |
+| `nodeExpand` | `TreeNodeExpandEvent` | Émis à l'expand/collapse |
+| `nodeCheck` | `TreeNodeCheckEvent` | Émis au check/uncheck |
+
+### Types
+
+```typescript
+type TreeSize = 'sm' | 'md' | 'lg';
+
+interface TreeNode {
+  id: string | number;
+  label: string;
+  children?: TreeNode[];
+  icon?: string;
+  disabled?: boolean;
+  expanded?: boolean;
+  checked?: boolean;
+  data?: any;
+}
+
+interface TreeNodeSelectEvent {
+  node: TreeNode;
+  selected: boolean;
+}
+
+interface TreeNodeExpandEvent {
+  node: TreeNode;
+  expanded: boolean;
+}
+
+interface TreeNodeCheckEvent {
+  node: TreeNode;
+  checked: boolean;
+}
+```

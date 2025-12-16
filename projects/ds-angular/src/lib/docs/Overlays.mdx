@@ -19,6 +19,7 @@ La catégorie **Overlays** regroupe les composants qui s'affichent au-dessus du 
 | **DsDrawer** | Panneau latéral coulissant |
 | **DsDropdown** | Menu déroulant |
 | **DsPopover** | Bulle de contenu riche |
+| **DsTransfer** | Transfert d'items entre deux listes |
 
 ---
 
@@ -197,3 +198,436 @@ Tous les overlays piègent le focus à l'intérieur :
 <div class="ds-overlay" aria-hidden="true" />
 <div class="ds-modal" role="dialog">...</div>
 ```
+
+---
+
+## DsModal
+
+Fenêtre modale centrée avec backdrop, focus trap et support des types sémantiques.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `open` | `boolean` | `false` | État d'ouverture |
+| `title` | `string` | `''` | Titre de la modal |
+| `closable` | `boolean` | `true` | Permet la fermeture |
+| `closeOnBackdrop` | `boolean` | `true` | Ferme au clic sur le backdrop |
+| `showIcon` | `boolean` | `false` | Affiche une icône selon le type |
+| `type` | `'success' \| 'warning' \| 'error' \| 'info' \| null` | `null` | Type sémantique |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille de la modal |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `opened` | `void` | Émis à l'ouverture |
+| `closed` | `void` | Émis à la fermeture |
+
+### Exemples
+
+```html
+<!-- Modal simple -->
+<ds-modal
+  [open]="isOpen"
+  title="Confirmation"
+  [closable]="true"
+  (closed)="isOpen = false"
+>
+  <p>Voulez-vous continuer ?</p>
+
+  <ng-template #footer>
+    <button ds-button variant="ghost" (click)="isOpen = false">Annuler</button>
+    <button ds-button variant="primary" (click)="confirm()">Confirmer</button>
+  </ng-template>
+</ds-modal>
+
+<!-- Modal avec type sémantique -->
+<ds-modal
+  [open]="showError"
+  title="Erreur"
+  type="error"
+  [showIcon]="true"
+  (closed)="showError = false"
+>
+  <p>Une erreur est survenue.</p>
+</ds-modal>
+```
+
+---
+
+## DsDrawer
+
+Panneau latéral coulissant avec animation slide-in/out et focus trap.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `visible` | `boolean` | `false` | État de visibilité |
+| `position` | `DrawerPosition` | `'right'` | Position (left/right) |
+| `size` | `DrawerSize` | `'md'` | Taille du drawer |
+| `title` | `string` | `''` | Titre dans le header |
+| `closable` | `boolean` | `true` | Affiche le bouton fermer |
+| `maskClosable` | `boolean` | `true` | Ferme au clic sur le backdrop |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `visibleChange` | `boolean` | Émis au changement de visibilité |
+| `closed` | `void` | Émis à la fermeture |
+
+### Types
+
+```typescript
+type DrawerPosition = 'left' | 'right';
+type DrawerSize = 'sm' | 'md' | 'lg' | 'full';
+```
+
+### Exemples
+
+```html
+<!-- Drawer simple -->
+<ds-drawer
+  [(visible)]="isDrawerOpen"
+  position="right"
+  size="md"
+  title="Filtres"
+  (closed)="onDrawerClose()"
+>
+  <p>Contenu du drawer</p>
+
+  <ng-template #footer>
+    <button ds-button variant="primary">Appliquer</button>
+  </ng-template>
+</ds-drawer>
+
+<!-- Drawer plein écran -->
+<ds-drawer
+  [(visible)]="showFullDrawer"
+  position="left"
+  size="full"
+  title="Détails"
+>
+  <p>Contenu plein écran</p>
+</ds-drawer>
+```
+
+---
+
+## DsDropdown
+
+Menu déroulant avec support ControlValueAccessor et navigation clavier complète.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `id` | `string` | Auto-généré | ID pour l'accessibilité |
+| `type` | `ButtonVariant` | `'primary'` | Variante du bouton trigger |
+| `variant` | `ButtonAppearance` | `'solid'` | Apparence (solid/outline) |
+| `size` | `ButtonSize` | `'md'` | Taille du bouton |
+| `disabled` | `boolean` | `false` | Désactive le dropdown |
+| `loading` | `boolean` | `false` | État de chargement |
+| `block` | `boolean` | `false` | Pleine largeur |
+| `dropdownStartIcon` | `IconDefinition` | `null` | Icône avant le label |
+| `dropdownEndIcon` | `IconDefinition` | `null` | Icône après le label |
+| `dropdownItems` | `DropdownItem[]` | `[]` | Liste des options |
+| `selectedItem` | `string` | `undefined` | Code de l'item sélectionné |
+| `ariaLabel` | `string` | `undefined` | Label ARIA |
+| `closeOnSelect` | `boolean` | `true` | Ferme après sélection |
+| `overlayPanelClass` | `string \| string[]` | `undefined` | Classes CSS du panel |
+| `position` | `DropdownPosition` | `'bottom'` | Direction d'ouverture |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `selectedItemChanged` | `string` | Émis à la sélection |
+| `opened` | `void` | Émis à l'ouverture |
+| `closed` | `void` | Émis à la fermeture |
+
+### Types
+
+```typescript
+interface DropdownItem {
+  code: string;
+  label: string;
+  icon?: IconDefinition;
+  disabled?: boolean;
+}
+
+type DropdownPosition = 'bottom' | 'top' | 'right';
+```
+
+### Exemples
+
+```html
+<!-- Dropdown basique -->
+<ds-dropdown
+  [dropdownItems]="items"
+  [selectedItem]="selectedCode"
+  (selectedItemChanged)="onSelect($event)"
+>
+  Sélectionner
+</ds-dropdown>
+
+<!-- Dropdown avec icônes -->
+<ds-dropdown
+  [dropdownItems]="actionsWithIcons"
+  [dropdownEndIcon]="faChevronDown"
+  type="ghost"
+  (selectedItemChanged)="onAction($event)"
+>
+  Actions
+</ds-dropdown>
+
+<!-- Dropdown intégré à un formulaire -->
+<ds-dropdown
+  formControlName="country"
+  [dropdownItems]="countries"
+  size="sm"
+>
+  Choisir un pays
+</ds-dropdown>
+```
+
+```typescript
+// Dans le composant
+items: DropdownItem[] = [
+  { code: 'edit', label: 'Modifier' },
+  { code: 'duplicate', label: 'Dupliquer' },
+  { code: 'delete', label: 'Supprimer', disabled: true },
+];
+```
+
+---
+
+## DsPopover
+
+Système de popover composé d'une directive `dsPopover` pour le positionnement et d'un composant `DsPopoverComponent` pour le contenu.
+
+### Directive DsPopover
+
+#### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `dsPopover` | `TemplateRef<unknown>` | **Requis** | Template contenant le contenu du popover |
+| `dsPopoverTrigger` | `'click' \| 'hover'` | `'click'` | Mode de déclenchement |
+| `dsPopoverCloseOnBackdrop` | `boolean` | `true` | Ferme au clic extérieur |
+
+### Composant DsPopoverComponent
+
+#### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `header` | `string` | `undefined` | Titre affiché dans le header |
+| `footer` | `string` | `undefined` | Texte affiché dans le footer |
+| `closeable` | `boolean` | `true` | Affiche le bouton de fermeture |
+| `ariaLabel` | `string` | `'Popover'` | Label ARIA (utilisé sans header) |
+| `id` | `string` | Auto-généré | ID unique du popover |
+
+#### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `close` | `void` | Émis au clic sur le bouton fermer |
+
+### Types
+
+```typescript
+type PopoverTrigger = 'click' | 'hover';
+```
+
+### Exemples
+
+```html
+<!-- Popover basique avec header -->
+<ng-template #popoverContent>
+  <ds-popover header="Informations" [closeable]="true">
+    <p>Contenu du popover</p>
+  </ds-popover>
+</ng-template>
+
+<button [dsPopover]="popoverContent">Voir les détails</button>
+
+<!-- Popover au survol -->
+<ng-template #hoverContent>
+  <ds-popover ariaLabel="Aperçu">
+    <p>Aperçu rapide au survol</p>
+  </ds-popover>
+</ng-template>
+
+<button [dsPopover]="hoverContent" dsPopoverTrigger="hover">Survoler</button>
+
+<!-- Popover persistant (ne se ferme pas au clic extérieur) -->
+<ng-template #persistentContent>
+  <ds-popover header="Formulaire" [closeable]="true">
+    <p>Ce popover reste ouvert au clic extérieur.</p>
+  </ds-popover>
+</ng-template>
+
+<button [dsPopover]="persistentContent" [dsPopoverCloseOnBackdrop]="false">
+  Popover persistant
+</button>
+
+<!-- Menu utilisateur -->
+<ng-template #userMenu>
+  <ds-popover header="Marie Martin">
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <button class="menu-item">Mon profil</button>
+      <button class="menu-item">Paramètres</button>
+      <hr>
+      <button class="menu-item menu-item--danger">Déconnexion</button>
+    </div>
+  </ds-popover>
+</ng-template>
+
+<button [dsPopover]="userMenu">Marie Martin</button>
+```
+
+### Accessibilité
+
+| Touche | Action |
+|--------|--------|
+| `Enter`/`Space` | Ouvre le popover (trigger click) |
+| `Escape` | Ferme le popover |
+| `Tab` | Navigation dans le popover |
+
+| Attribut | Description |
+|----------|-------------|
+| `role="dialog"` | Identifie le popover comme dialogue |
+| `aria-modal="true"` | Indique une interaction modale |
+| `aria-labelledby` | Pointe vers le header (si présent) |
+| `aria-label` | Label alternatif (sans header) |
+
+### Stories disponibles
+
+Default, WithoutHeader, WithFooter, HoverTrigger, NoCloseOnBackdrop, UserMenu, InfoPopover, ConfirmAction, SettingsPanel, Themed, Accessibility, MatrixCloseable, MatrixTriggers
+
+---
+
+## DsTransfer
+
+Composant permettant de transférer des items entre deux listes (source et cible) avec recherche, sélection multiple et navigation clavier.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `source` | `TransferItem[]` | `[]` | Items de la liste source |
+| `target` | `TransferItem[]` | `[]` | Items de la liste cible |
+| `sourceTitle` | `string` | `'Source'` | Titre de la liste source |
+| `targetTitle` | `string` | `'Target'` | Titre de la liste cible |
+| `showSearch` | `boolean` | `true` | Affiche les champs de recherche |
+| `showSelectAll` | `boolean` | `true` | Affiche les checkboxes "tout sélectionner" |
+| `disabled` | `boolean` | `false` | Désactive le composant |
+| `size` | `TransferSize` | `'md'` | Taille du composant |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `transferChange` | `TransferChangeEvent` | Émis lors d'un transfert d'items |
+
+### Types
+
+```typescript
+interface TransferItem {
+  key: string;
+  label: string;
+  disabled?: boolean;
+  description?: string;
+}
+
+type TransferDirection = 'left' | 'right';
+type TransferSize = 'sm' | 'md' | 'lg';
+
+interface TransferChangeEvent {
+  source: TransferItem[];
+  target: TransferItem[];
+}
+```
+
+### Exemples
+
+```html
+<!-- Transfer basique -->
+<ds-transfer
+  [source]="sourceItems"
+  [target]="targetItems"
+  sourceTitle="Disponibles"
+  targetTitle="Sélectionnés"
+  (transferChange)="onTransfer($event)"
+/>
+```
+
+```typescript
+// Dans le composant
+sourceItems: TransferItem[] = [
+  { key: '1', label: 'JavaScript', description: 'Langage de programmation' },
+  { key: '2', label: 'TypeScript', description: 'JavaScript avec typage' },
+  { key: '3', label: 'Python', description: 'Langage polyvalent' },
+  { key: '4', label: 'Go', description: 'Langage concurrent', disabled: true },
+];
+
+targetItems: TransferItem[] = [
+  { key: '5', label: 'PHP', description: 'Langage web' },
+];
+
+onTransfer(event: TransferChangeEvent) {
+  this.sourceItems = event.source;
+  this.targetItems = event.target;
+}
+```
+
+```html
+<!-- Transfer sans recherche -->
+<ds-transfer
+  [source]="items"
+  [target]="selected"
+  [showSearch]="false"
+  (transferChange)="onTransfer($event)"
+/>
+
+<!-- Transfer minimal -->
+<ds-transfer
+  [source]="items"
+  [target]="selected"
+  [showSearch]="false"
+  [showSelectAll]="false"
+  size="sm"
+  (transferChange)="onTransfer($event)"
+/>
+
+<!-- Transfer désactivé -->
+<ds-transfer
+  [source]="items"
+  [target]="selected"
+  [disabled]="true"
+/>
+
+<!-- Cas d'usage : Permissions utilisateur -->
+<ds-transfer
+  [source]="availablePermissions"
+  [target]="assignedPermissions"
+  sourceTitle="Permissions disponibles"
+  targetTitle="Permissions assignées"
+  (transferChange)="onPermissionsChange($event)"
+/>
+```
+
+### Accessibilité
+
+| Attribut | Description |
+|----------|-------------|
+| `role="listbox"` | Identifie chaque liste |
+| `aria-label` | Label descriptif incluant le compteur |
+| Items sélectionnables | Accessibles au clavier |
+
+### Stories disponibles
+
+Default, WithCustomTitles, WithoutSearch, WithoutSelectAll, Minimal, Disabled, SmallSize, LargeSize, EmptyLists, WithDisabledItems, LongLabels, UserPermissions, ProductSelection, TeamAssignment

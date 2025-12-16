@@ -17,6 +17,7 @@ La catégorie **Feedback** regroupe les composants qui communiquent des informat
 |-----------|-------------|
 | **DsAlert** | Message contextuel (success, warning, error, info) |
 | **DsToast** | Notification temporaire |
+| **DsNotification** | Notifications riches avec actions et positionnement |
 | **DsEmpty** | État vide avec illustration |
 | **DsTooltip** | Info-bulle au survol |
 
@@ -174,3 +175,358 @@ type ToastPosition =
 2. **Alertes fermables** - Permettre à l'utilisateur de les masquer
 3. **Messages clairs** - Indiquer ce qui s'est passé et quoi faire
 4. **Contraste suffisant** - Respecter WCAG AA (4.5:1)
+
+---
+
+## DsAlert
+
+Bannière de feedback pour afficher des messages de succès, avertissement, erreur ou information.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `type` | `AlertType` | `'info'` | Type de feedback |
+| `size` | `AlertSize` | `'md'` | Taille de l'alerte |
+| `showIcon` | `boolean` | `true` | Affiche une icône selon le type |
+| `closable` | `boolean` | `false` | Permet de fermer l'alerte |
+| `hidden` | `boolean` | `false` | Masque l'alerte |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `closed` | `void` | Émis lors de la fermeture |
+
+### Types
+
+```typescript
+type AlertType = 'success' | 'warning' | 'error' | 'info';
+type AlertSize = 'sm' | 'md' | 'lg';
+```
+
+### Exemples
+
+```html
+<!-- Alerte success -->
+<ds-alert type="success">
+  Votre opération a été effectuée avec succès !
+</ds-alert>
+
+<!-- Alerte error fermable -->
+<ds-alert type="error" [closable]="true" (closed)="onClose()">
+  Une erreur est survenue. Veuillez réessayer.
+</ds-alert>
+
+<!-- Alerte warning sans icône -->
+<ds-alert type="warning" [showIcon]="false">
+  Attention : cette action est irréversible.
+</ds-alert>
+
+<!-- Alerte info petite -->
+<ds-alert type="info" size="sm">
+  Nouvelle fonctionnalité disponible.
+</ds-alert>
+```
+
+---
+
+## DsToast
+
+Service de notifications temporaires avec positionnement et actions configurables.
+
+### Service DsToastService
+
+#### Méthodes
+
+| Méthode | Signature | Description |
+|---------|-----------|-------------|
+| `show()` | `(options: ToastOptions) => string` | Affiche un toast |
+| `dismiss()` | `(id: string) => void` | Ferme un toast par ID |
+| `clear()` | `(position?: ToastPosition) => void` | Ferme tous les toasts |
+| `triggerAction()` | `(id: string) => void` | Déclenche l'action du toast |
+
+### Types
+
+```typescript
+type ToastType = 'success' | 'warning' | 'error' | 'info';
+type ToastPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+
+interface ToastOptions {
+  message: string;
+  type?: ToastType;           // default: 'info'
+  duration?: number;          // default: 3000 (0 = permanent)
+  closable?: boolean;         // default: true
+  position?: ToastPosition;   // default: 'top-right'
+  actionLabel?: string;
+  onAction?: () => void;
+  pauseOnHover?: boolean;     // default: true
+  maxStack?: number;          // default: 4
+}
+
+interface ToastInstance {
+  id: string;
+  message: string;
+  type: ToastType;
+  duration: number;
+  closable: boolean;
+  position: ToastPosition;
+  actionLabel?: string;
+  onAction?: () => void;
+  pauseOnHover: boolean;
+}
+```
+
+### Exemples
+
+```html
+<!-- Container à placer une fois dans l'app (idéalement dans AppComponent) -->
+<ds-toast-container />
+```
+
+```typescript
+// Injection du service
+constructor(private toastService: DsToastService) {}
+
+// Toast simple
+showSuccess() {
+  this.toastService.show({
+    message: 'Modifications enregistrées',
+    type: 'success'
+  });
+}
+
+// Toast avec action
+showWithAction() {
+  this.toastService.show({
+    message: 'Fichier supprimé',
+    type: 'info',
+    actionLabel: 'Annuler',
+    onAction: () => this.undoDelete()
+  });
+}
+
+// Toast permanent
+showPermanent() {
+  this.toastService.show({
+    message: 'Connexion perdue',
+    type: 'error',
+    duration: 0,
+    closable: true
+  });
+}
+
+// Toast avec position personnalisée
+showBottomLeft() {
+  this.toastService.show({
+    message: 'Notification',
+    position: 'bottom-left'
+  });
+}
+```
+
+---
+
+## DsNotification
+
+Système de notifications riches avec service injectable, support des actions, positionnement configurable et stack management.
+
+### Service DsNotificationService
+
+Le service est providedIn: 'root', disponible globalement.
+
+#### Méthodes
+
+| Méthode | Signature | Description |
+|---------|-----------|-------------|
+| `open()` | `(config: NotificationConfig) => string` | Ouvre une notification avec configuration complète |
+| `info()` | `(title: string, message: string, config?) => string` | Notification de type info |
+| `success()` | `(title: string, message: string, config?) => string` | Notification de type success |
+| `warning()` | `(title: string, message: string, config?) => string` | Notification de type warning |
+| `error()` | `(title: string, message: string, config?) => string` | Notification de type error |
+| `close()` | `(id: string) => void` | Ferme une notification par ID |
+| `closeAll()` | `() => void` | Ferme toutes les notifications |
+
+### DsNotificationContainerComponent
+
+#### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `placement` | `NotificationPlacement` | `'topRight'` | Position du container |
+| `maxStack` | `number` | `5` | Nombre max de notifications visibles |
+
+### Types
+
+```typescript
+interface NotificationConfig {
+  id?: string;
+  title: string;
+  message: string;
+  type?: 'info' | 'success' | 'warning' | 'error';
+  duration?: number;        // 0 = persistent, default 4500ms
+  closable?: boolean;
+  icon?: IconDefinition;
+  actions?: NotificationAction[];
+}
+
+interface NotificationAction {
+  label: string;
+  handler: () => void;
+  variant?: 'primary' | 'secondary' | 'ghost';
+}
+
+type NotificationPlacement = 'topRight' | 'topLeft' | 'bottomRight' | 'bottomLeft';
+
+interface NotificationItem extends NotificationConfig {
+  id: string;
+  timestamp: number;
+}
+```
+
+### Exemples
+
+```html
+<!-- Container à placer une fois dans l'app -->
+<ds-notification-container [placement]="'topRight'" [maxStack]="5" />
+```
+
+```typescript
+// Injection du service
+constructor(private notificationService: DsNotificationService) {}
+
+// Notifications simples
+openInfo() {
+  this.notificationService.info('Information', 'Ceci est une notification informative.');
+}
+
+openSuccess() {
+  this.notificationService.success('Succès', 'Opération effectuée avec succès !');
+}
+
+openWarning() {
+  this.notificationService.warning('Attention', 'Cette action nécessite votre attention.');
+}
+
+openError() {
+  this.notificationService.error('Erreur', 'Une erreur est survenue.');
+}
+
+// Notification avec actions
+openWithActions() {
+  this.notificationService.open({
+    title: 'Confirmation requise',
+    message: 'Voulez-vous vraiment effectuer cette action ?',
+    type: 'warning',
+    duration: 0,
+    actions: [
+      {
+        label: 'Confirmer',
+        variant: 'primary',
+        handler: () => console.log('Confirmed')
+      },
+      {
+        label: 'Annuler',
+        variant: 'ghost',
+        handler: () => console.log('Cancelled')
+      }
+    ]
+  });
+}
+
+// Notification persistante
+openPersistent() {
+  this.notificationService.open({
+    title: 'Notification persistante',
+    message: 'Ne se ferme pas automatiquement.',
+    type: 'info',
+    duration: 0
+  });
+}
+```
+
+### Accessibilité
+
+| Attribut | Description |
+|----------|-------------|
+| `role="alert"` | Identifie la notification |
+| `aria-live="polite"` | Annonce au lecteur d'écran |
+| Bouton fermeture | Accessible au clavier |
+
+### Stories disponibles
+
+Default, TopLeft, BottomRight, BottomLeft, LimitedStack, AllTypes, WithActions, PersistentNotification, AutoDismiss, NotClosable, MultipleActions, RealWorldExample
+
+---
+
+## DsTooltip
+
+Directive pour afficher une info-bulle au survol ou focus d'un élément.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `dsTooltip` | `string` | **Requis** | Texte affiché dans le tooltip |
+| `dsTooltipPosition` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Position du tooltip |
+| `dsTooltipDelay` | `number` | `200` | Délai en ms avant affichage |
+
+### Exemples
+
+```html
+<!-- Usage basique -->
+<button dsTooltip="Créer un nouvel élément">Nouveau</button>
+
+<!-- Avec position -->
+<button dsTooltip="Position basse" dsTooltipPosition="bottom">Bottom</button>
+
+<!-- Avec délai personnalisé -->
+<button dsTooltip="Apparition lente" [dsTooltipDelay]="500">Hover me</button>
+
+<!-- Sur un texte (terme technique) -->
+<p>
+  Survolez ce
+  <span dsTooltip="Application Programming Interface" style="text-decoration: underline; cursor: help;">
+    terme API
+  </span>
+  pour voir l'explication.
+</p>
+
+<!-- Sur des icônes (essentiel pour l'accessibilité) -->
+<button dsTooltip="Ouvrir les paramètres">⚙️</button>
+<button dsTooltip="3 nouvelles notifications">🔔</button>
+
+<!-- Bouton désactivé (wrapper requis) -->
+<span dsTooltip="Vous devez être administrateur pour cette action">
+  <button [disabled]="true">Action restreinte</button>
+</span>
+
+<!-- Toolbar avec raccourcis clavier -->
+<button dsTooltip="Gras (Ctrl+B)">B</button>
+<button dsTooltip="Italique (Ctrl+I)">I</button>
+```
+
+### Accessibilité
+
+| Touche/Action | Comportement |
+|---------------|--------------|
+| Hover | Affiche le tooltip |
+| Focus | Affiche le tooltip (éléments focusables) |
+| Mouse leave | Masque le tooltip après délai (150ms) |
+| Blur | Masque le tooltip immédiatement |
+
+| Attribut | Description |
+|----------|-------------|
+| `role="tooltip"` | Identifie le tooltip |
+| `aria-describedby` | Lie l'élément hôte au tooltip |
+
+### Bonnes pratiques
+
+1. **Texte court et informatif** - Le tooltip complète, ne remplace pas
+2. **Essentiel pour les boutons icon-only** - Accessibilité obligatoire
+3. **Délai configurable** - Éviter de gêner la navigation
+4. **Wrapper pour éléments désactivés** - Les éléments disabled ne reçoivent pas les events
+
+### Stories disponibles
+
+Default, Positions, DelayVariations, OnText, OnIcons, LongText, WithButtons, DisabledButton, FormHelp, Toolbar, Themed, Accessibility

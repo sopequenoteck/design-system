@@ -15,6 +15,7 @@ La catégorie **Data Display** regroupe les composants dédiés à la présentat
 
 | Composant | Description |
 |-----------|-------------|
+| **DsAccordion** | Panneau expansible pour organiser le contenu |
 | **DsTable** | Tableau de données avec tri et sélection |
 | **DsAvatar** | Avatar utilisateur (image/initiales) |
 | **DsBadge** | Badge pour indicateurs et compteurs |
@@ -25,6 +26,9 @@ La catégorie **Data Display** regroupe les composants dédiés à la présentat
 | **DsList** | Liste avec loading, empty, drag & drop, virtualisation |
 | **DsListItem** | Élément de liste avec checkbox, indicateur, slots |
 | **DsListGroup** | Groupe de listes avec en-tête |
+| **DsCalendar** | Calendrier mensuel/annuel avec événements |
+| **DsCarousel** | Carrousel d'images avec autoplay et swipe |
+| **DsTimeline** | Timeline verticale d'événements |
 
 ---
 
@@ -170,6 +174,126 @@ La catégorie **Data Display** regroupe les composants dédiés à la présentat
      aria-label="Progression du téléchargement">
 </div>
 ```
+
+---
+
+## DsAccordion
+
+Composant accordion pour afficher/masquer des sections de contenu expansibles avec animations fluides.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `items` | `AccordionItem[]` | **requis** | Liste des items de l'accordion |
+| `multiple` | `boolean` | `false` | Permettre l'expansion de plusieurs items simultanément |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du composant |
+| `variant` | `'default' \| 'bordered' \| 'separated'` | `'default'` | Variant de style |
+| `expandedIds` | `string[]` | `[]` | IDs des items initialement ouverts |
+| `disabled` | `boolean` | `false` | Désactiver tout l'accordion |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `itemChange` | `AccordionChangeEvent` | Événement émis lors du changement d'état d'un item |
+
+### Types
+
+```typescript
+interface AccordionItem {
+  id: string;
+  header: string;
+  content: string;
+  disabled?: boolean;
+}
+
+interface AccordionChangeEvent {
+  itemId: string;
+  expanded: boolean;
+  expandedItems: string[];
+}
+```
+
+### Exemples
+
+```html
+<!-- Usage basique -->
+<ds-accordion
+  [items]="items"
+  [multiple]="false"
+  size="md"
+  variant="bordered"
+  (itemChange)="onItemChange($event)"
+/>
+```
+
+```typescript
+items: AccordionItem[] = [
+  { id: '1', header: 'Section 1', content: 'Contenu de la section 1' },
+  { id: '2', header: 'Section 2', content: 'Contenu de la section 2' },
+  { id: '3', header: 'Section désactivée', content: '...', disabled: true },
+];
+
+onItemChange(event: AccordionChangeEvent) {
+  console.log(`Item ${event.itemId} is now ${event.expanded ? 'open' : 'closed'}`);
+}
+```
+
+### Variants
+
+```html
+<ds-accordion [items]="items" variant="default" />   <!-- Sans bordures -->
+<ds-accordion [items]="items" variant="bordered" />  <!-- Avec bordures -->
+<ds-accordion [items]="items" variant="separated" /> <!-- Items séparés -->
+```
+
+### Multi-expansion
+
+```html
+<!-- Un seul panneau ouvert à la fois (défaut) -->
+<ds-accordion [items]="items" [multiple]="false" />
+
+<!-- Plusieurs panneaux ouverts simultanément -->
+<ds-accordion [items]="items" [multiple]="true" />
+```
+
+### Contrôle programmatique
+
+```typescript
+@ViewChild(DsAccordion) accordion!: DsAccordion;
+
+expandAll() {
+  this.accordion.expandAll();
+}
+
+collapseAll() {
+  this.accordion.collapseAll();
+}
+```
+
+### Accessibilité
+
+| Touche | Action |
+|--------|--------|
+| `Enter` / `Space` | Ouvre/ferme le panneau |
+| `↑` `↓` | Navigue entre les headers |
+| `Home` | Premier header |
+| `End` | Dernier header |
+
+```html
+<!-- Structure ARIA générée -->
+<button aria-expanded="true" aria-controls="accordion-content-1">
+  Section 1
+</button>
+<div id="accordion-content-1" role="region" aria-labelledby="accordion-header-1">
+  Contenu
+</div>
+```
+
+### Stories disponibles
+
+Default, Multiple, Bordered, Separated, SmallSize, LargeSize, WithInitialExpanded, MultipleExpanded, Disabled, WithDisabledItem, FAQ, LongContent, Themed, Accessibility, WithInteractionTest
 
 ---
 
@@ -347,3 +471,276 @@ Composant de regroupement d'éléments de liste avec header et contenu collapsib
   </ds-list-group>
 </ds-list>
 ```
+
+---
+
+## DsCalendar
+
+Composant calendrier mensuel/annuel avec gestion d'événements, navigation et personnalisation de la locale.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `value` | `Date` | `new Date()` | Date courante affichée |
+| `mode` | `'month' \| 'year'` | `'month'` | Mode d'affichage |
+| `events` | `CalendarEvent[]` | `[]` | Événements à afficher |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du calendrier |
+| `locale` | `string` | `'fr-FR'` | Locale pour les noms de jours/mois |
+| `firstDayOfWeek` | `number` | `1` | Premier jour (0=dimanche, 1=lundi) |
+| `disabledDate` | `(date: Date) => boolean` | `undefined` | Fonction pour désactiver des dates |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `dateSelect` | `Date` | Émis lors de la sélection d'une date |
+| `monthChange` | `Date` | Émis lors du changement de mois |
+| `modeChange` | `CalendarMode` | Émis lors du changement de mode |
+| `eventClick` | `CalendarEvent` | Émis lors du clic sur un événement |
+
+### Types
+
+```typescript
+interface CalendarEvent {
+  id: string;
+  date: Date;
+  title: string;
+  type?: 'default' | 'success' | 'warning' | 'error';
+}
+
+type CalendarMode = 'month' | 'year';
+type CalendarSize = 'sm' | 'md' | 'lg';
+```
+
+### Exemples
+
+```html
+<!-- Calendrier basique -->
+<ds-calendar
+  [value]="currentDate"
+  (dateSelect)="onDateSelect($event)"
+/>
+
+<!-- Avec événements -->
+<ds-calendar
+  [value]="currentDate"
+  [events]="calendarEvents"
+  (eventClick)="onEventClick($event)"
+/>
+
+<!-- Avec dates désactivées -->
+<ds-calendar
+  [value]="currentDate"
+  [disabledDate]="isWeekend"
+/>
+```
+
+```typescript
+calendarEvents: CalendarEvent[] = [
+  { id: '1', date: new Date(), title: 'Réunion', type: 'primary' },
+  { id: '2', date: new Date(), title: 'Deadline', type: 'error' },
+];
+
+isWeekend(date: Date): boolean {
+  return date.getDay() === 0 || date.getDay() === 6;
+}
+```
+
+### Accessibilité
+
+| Touche | Action |
+|--------|--------|
+| `←` `→` | Jour précédent/suivant |
+| `↑` `↓` | Semaine précédente/suivante |
+| `Enter` | Sélectionne la date |
+
+### Stories disponibles
+
+Default, WithEvents, YearMode, SmallSize, LargeSize, WithDisabledDates, French, English, AllSizes, Accessibility
+
+---
+
+## DsCarousel
+
+Carrousel d'images/slides avec autoplay, navigation clavier, touch swipe et effets de transition.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `slides` | `CarouselSlide[]` | `[]` | Liste des slides |
+| `autoplay` | `boolean` | `false` | Active l'autoplay |
+| `autoplaySpeed` | `number` | `3000` | Vitesse d'autoplay en ms |
+| `effect` | `'slide' \| 'fade'` | `'slide'` | Effet de transition |
+| `dots` | `boolean` | `true` | Affiche les indicateurs |
+| `dotsPosition` | `'bottom' \| 'top' \| 'left' \| 'right'` | `'bottom'` | Position des dots |
+| `arrows` | `boolean` | `true` | Affiche les flèches de navigation |
+| `infinite` | `boolean` | `true` | Boucle infinie |
+| `pauseOnHover` | `boolean` | `true` | Pause au survol |
+| `activeIndex` | `number` | `0` | Index du slide actif |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `slideChange` | `{ index: number; slide: CarouselSlide }` | Émis au changement de slide |
+
+### Types
+
+```typescript
+interface CarouselSlide {
+  id: string;
+  image?: string;
+  alt?: string;
+  title?: string;
+  description?: string;
+}
+
+type CarouselEffect = 'slide' | 'fade';
+type CarouselDotsPosition = 'bottom' | 'top' | 'left' | 'right';
+```
+
+### Exemples
+
+```html
+<!-- Carousel basique -->
+<ds-carousel
+  [slides]="slides"
+  (slideChange)="onSlideChange($event)"
+/>
+
+<!-- Avec autoplay -->
+<ds-carousel
+  [slides]="slides"
+  [autoplay]="true"
+  [autoplaySpeed]="5000"
+  [pauseOnHover]="true"
+/>
+
+<!-- Effet fade sans boucle -->
+<ds-carousel
+  [slides]="slides"
+  effect="fade"
+  [infinite]="false"
+/>
+```
+
+```typescript
+slides: CarouselSlide[] = [
+  { id: '1', image: '/img/slide1.jpg', title: 'Titre 1', description: 'Description' },
+  { id: '2', image: '/img/slide2.jpg', title: 'Titre 2' },
+  { id: '3', image: '/img/slide3.jpg', alt: 'Image 3' },
+];
+```
+
+### Accessibilité
+
+| Touche | Action |
+|--------|--------|
+| `←` | Slide précédent |
+| `→` | Slide suivant |
+| `Home` | Premier slide |
+| `End` | Dernier slide |
+
+### Touch gestures
+
+- **Swipe gauche** : Slide suivant
+- **Swipe droite** : Slide précédent
+
+### Stories disponibles
+
+Default, WithAutoplay, FadeEffect, WithoutDots, WithoutArrows, NotInfinite, DotsTop, DotsLeft, AllEffects, Accessibility
+
+---
+
+## DsTimeline
+
+Composant pour afficher une liste d'événements dans un ordre chronologique vertical.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `items` | `TimelineItem[]` | **requis** | Liste des événements |
+| `mode` | `'left' \| 'right' \| 'alternate'` | `'left'` | Mode d'affichage |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du composant |
+| `pending` | `boolean` | `false` | Affiche un indicateur "en cours" |
+| `pendingContent` | `string` | `'En cours...'` | Texte de l'indicateur pending |
+| `reverse` | `boolean` | `false` | Inverse l'ordre (plus récent en haut) |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `itemClick` | `TimelineItemClickEvent` | Émis au clic sur un item |
+
+### Types
+
+```typescript
+interface TimelineItem {
+  content: string;
+  date?: string;
+  icon?: IconDefinition;
+  color?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info';
+  position?: 'left' | 'right';
+}
+
+interface TimelineItemClickEvent {
+  item: TimelineItem;
+  index: number;
+}
+
+type TimelineMode = 'left' | 'right' | 'alternate';
+type TimelineSize = 'sm' | 'md' | 'lg';
+```
+
+### Exemples
+
+```html
+<!-- Timeline basique -->
+<ds-timeline
+  [items]="events"
+  mode="left"
+/>
+
+<!-- Mode alterné avec pending -->
+<ds-timeline
+  [items]="events"
+  mode="alternate"
+  [pending]="true"
+  pendingContent="Prochain événement..."
+/>
+
+<!-- Ordre inversé -->
+<ds-timeline
+  [items]="events"
+  [reverse]="true"
+/>
+```
+
+```typescript
+events: TimelineItem[] = [
+  { content: 'Commande passée', date: '2024-01-15', color: 'success' },
+  { content: 'En préparation', date: '2024-01-16', color: 'primary' },
+  { content: 'Expédié', date: '2024-01-17', color: 'info' },
+];
+```
+
+### Modes d'affichage
+
+| Mode | Description |
+|------|-------------|
+| `left` | Contenu aligné à droite de la ligne |
+| `right` | Contenu aligné à gauche de la ligne |
+| `alternate` | Contenu alterné gauche/droite |
+
+### Accessibilité
+
+- Liste sémantique avec `role="list"` et `role="listitem"`
+- Navigation clavier avec Enter/Space pour interagir
+- Dates et contenus avec attributs ARIA
+
+### Stories disponibles
+
+Default, ModeLeft, ModeRight, ModeAlternate, WithPending, Reversed, WithIcons, WithColors, AllSizes, Accessibility

@@ -456,6 +456,481 @@ export class SettingsFormComponent {
 
 ---
 
+## DsTimePicker
+
+Sélecteur d'heure avec dropdown scrollable, support 12h/24h et intégration formulaires via ControlValueAccessor.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `value` | `string` | `''` | Valeur de l'heure au format HH:mm ou HH:mm:ss |
+| `format` | `'12h' \| '24h'` | `'24h'` | Format d'affichage de l'heure |
+| `showSeconds` | `boolean` | `false` | Afficher les secondes |
+| `minuteStep` | `number` | `1` | Pas d'incrémentation des minutes |
+| `hourStep` | `number` | `1` | Pas d'incrémentation des heures |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du composant |
+| `disabled` | `boolean` | `false` | Désactive le composant |
+| `readonly` | `boolean` | `false` | Mode lecture seule |
+| `placeholder` | `string` | `'Select time'` | Placeholder de l'input |
+| `minTime` | `string \| null` | `null` | Heure minimum sélectionnable |
+| `maxTime` | `string \| null` | `null` | Heure maximum sélectionnable |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `timeChange` | `string` | Émis lorsque l'heure change |
+
+### Types
+
+```typescript
+type TimePickerSize = 'sm' | 'md' | 'lg';
+type TimeFormat = '12h' | '24h';
+
+interface TimeValue {
+  hours: number;
+  minutes: number;
+  seconds?: number;
+}
+```
+
+### Exemples
+
+```html
+<!-- Time picker basique 24h -->
+<ds-time-picker
+  [format]="'24h'"
+  (timeChange)="onTimeChange($event)"
+/>
+
+<!-- Time picker 12h avec secondes -->
+<ds-time-picker
+  [format]="'12h'"
+  [showSeconds]="true"
+  [minuteStep]="5"
+/>
+
+<!-- Avec contraintes min/max -->
+<ds-time-picker
+  [minTime]="'09:00'"
+  [maxTime]="'18:00'"
+  placeholder="Horaires bureau"
+/>
+```
+
+### Accessibilité
+
+| Touche | Action |
+|--------|--------|
+| `Tab` | Navigue vers le champ |
+| `Enter` / `Space` | Ouvre/ferme le panel |
+| `Escape` | Ferme le panel |
+| `↑` `↓` | Incrémente/décrémente dans le panel |
+
+### Stories disponibles
+
+Default, With24HourFormat, With12HourFormat, WithSeconds, WithSeconds12Hour, WithMinuteStep5, WithMinuteStep15, SmallSize, MediumSize, LargeSize, Disabled, Readonly, Midnight, Noon, InReactiveForm, AllSizes, AllFormats, MinuteSteps, Accessibility, WithMinTime, WithMaxTime, WithMinMaxRange, TimeConstraints
+
+---
+
+## DsFileUpload
+
+Composant de téléchargement de fichiers avec support drag & drop, validation, preview et barre de progression.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `accept` | `string` | `'*'` | Types de fichiers acceptés (ex: `'image/*,.pdf'`) |
+| `maxFileSize` | `number` | `10485760` | Taille max d'un fichier en bytes (10 MB) |
+| `maxFiles` | `number` | `1` | Nombre max de fichiers |
+| `multiple` | `boolean` | `false` | Permet la sélection multiple |
+| `disabled` | `boolean` | `false` | Désactive le composant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du composant |
+| `showPreview` | `boolean` | `true` | Affiche une preview pour les images |
+| `label` | `string` | `'Choisir un fichier'` | Label du bouton |
+| `dragHelpText` | `string` | `'ou glisser-déposer ici'` | Texte d'aide pour le drag & drop |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `filesChange` | `File[]` | Émis lors du changement de fichiers |
+| `fileRemoved` | `File` | Émis lors de la suppression d'un fichier |
+| `uploadProgress` | `{ file: File; progress: number }` | Émis lors de la progression de l'upload |
+
+### Types
+
+```typescript
+type FileUploadSize = 'sm' | 'md' | 'lg';
+
+interface UploadFile {
+  file: File;
+  preview?: string;
+  progress: number;
+  error?: string;
+}
+```
+
+### Exemples
+
+```html
+<!-- Upload simple d'image -->
+<ds-file-upload
+  [accept]="'image/*'"
+  [maxFileSize]="5242880"
+  (filesChange)="onFilesChange($event)"
+/>
+
+<!-- Upload multiple avec preview -->
+<ds-file-upload
+  [multiple]="true"
+  [showPreview]="true"
+  [maxFiles]="5"
+  size="lg"
+/>
+
+<!-- Upload de documents -->
+<ds-file-upload
+  [accept]="'.pdf,.doc,.docx'"
+  [maxFileSize]="20971520"
+  label="Télécharger un document"
+/>
+```
+
+### Accessibilité
+
+| Touche | Action |
+|--------|--------|
+| `Tab` | Navigue vers la zone |
+| `Enter` / `Space` | Ouvre le sélecteur de fichiers |
+
+### Stories disponibles
+
+Default, ImagesOnly, WithMaxSize, Multiple, MultipleWithPreview, Disabled, SmallSize, LargeSize, PdfOnly, OfficeDocuments, InReactiveForm, WithProgress, Themed, AllSizes, Accessibility
+
+---
+
+## DsInputNumber
+
+Input numérique avec boutons stepper +/- et navigation clavier complète.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `min` | `number` | `-Infinity` | Valeur minimale |
+| `max` | `number` | `Infinity` | Valeur maximale |
+| `step` | `number` | `1` | Pas d'incrémentation |
+| `disabled` | `boolean` | `false` | Désactive le composant |
+| `readonly` | `boolean` | `false` | Mode lecture seule |
+| `required` | `boolean` | `false` | Champ requis |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du composant |
+| `placeholder` | `string` | `''` | Placeholder de l'input |
+| `prefix` | `string` | `undefined` | Préfixe affiché (ex: €) |
+| `suffix` | `string` | `undefined` | Suffixe affiché (ex: kg) |
+| `precision` | `number` | `0` | Nombre de décimales |
+| `controls` | `boolean` | `true` | Afficher les boutons +/- |
+| `controlsPosition` | `'both' \| 'right'` | `'both'` | Position des boutons |
+| `ariaLabel` | `string` | `undefined` | Label ARIA |
+| `id` | `string` | auto-généré | ID du champ |
+| `name` | `string` | `undefined` | Nom du champ |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `valueChange` | `number` | Émis lorsque la valeur change |
+
+### Types
+
+```typescript
+type InputNumberSize = 'sm' | 'md' | 'lg';
+type InputNumberControlsPosition = 'both' | 'right';
+```
+
+### Exemples
+
+```html
+<!-- Quantité avec limites -->
+<ds-input-number
+  [min]="0"
+  [max]="100"
+  [step]="1"
+  placeholder="Quantité"
+/>
+
+<!-- Prix avec décimales et préfixe -->
+<ds-input-number
+  [min]="0"
+  [precision]="2"
+  prefix="€"
+  [controlsPosition]="'right'"
+/>
+
+<!-- Poids avec suffixe -->
+<ds-input-number
+  [min]="0"
+  [max]="1000"
+  [step]="0.5"
+  [precision]="1"
+  suffix="kg"
+/>
+```
+
+### Accessibilité
+
+| Touche | Action |
+|--------|--------|
+| `↑` | Incrémente la valeur |
+| `↓` | Décrémente la valeur |
+| `Home` | Valeur minimale |
+| `End` | Valeur maximale |
+| `Page Up` | Incrémente × 10 |
+| `Page Down` | Décrémente × 10 |
+
+### Stories disponibles
+
+Default, WithMinMax, WithStep, WithPrecision, WithPrefix, WithSuffix, ControlsRight, NoControls, Disabled, Readonly, AllSizes, InReactiveForm, Accessibility
+
+---
+
+## DsSearchInput
+
+Input de recherche avec icône, bouton clear et debounce configurable.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du composant |
+| `placeholder` | `string` | `'Rechercher...'` | Placeholder du champ |
+| `debounceMs` | `number` | `300` | Délai de debounce en ms |
+| `disabled` | `boolean` | `false` | Désactive le composant |
+| `loading` | `boolean` | `false` | Affiche un indicateur de chargement |
+| `clearable` | `boolean` | `true` | Affiche le bouton clear |
+| `minChars` | `number` | `0` | Caractères minimum avant recherche |
+| `clearLabel` | `string` | `'Effacer la recherche'` | Label ARIA du bouton clear |
+| `ariaLabel` | `string` | `''` | Label ARIA du champ |
+| `ariaDescribedBy` | `string` | `''` | ID de l'élément décrit |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `search` | `string` | Émis après debounce |
+| `searchImmediate` | `string` | Émis immédiatement (touche Entrée) |
+| `cleared` | `void` | Émis lors de l'effacement |
+
+### Types
+
+```typescript
+type SearchInputSize = 'sm' | 'md' | 'lg';
+```
+
+### Exemples
+
+```html
+<!-- Recherche basique -->
+<ds-search-input
+  placeholder="Rechercher un utilisateur..."
+  [debounceMs]="300"
+  (search)="onSearch($event)"
+/>
+
+<!-- Avec loading et minimum de caractères -->
+<ds-search-input
+  [loading]="isSearching"
+  [minChars]="3"
+  (search)="onSearch($event)"
+/>
+
+<!-- Recherche immédiate sur Entrée -->
+<ds-search-input
+  placeholder="Rechercher..."
+  (searchImmediate)="onImmediateSearch($event)"
+/>
+```
+
+### Accessibilité
+
+| Touche | Action |
+|--------|--------|
+| `Enter` | Déclenche searchImmediate |
+| `Escape` | Efface le champ |
+
+### Stories disponibles
+
+Default, WithDebounce, WithMinChars, Loading, Disabled, SmallSize, LargeSize, WithPlaceholder, InReactiveForm, Accessibility
+
+---
+
+## DsCombobox
+
+Autocomplete avec filtrage, support des descriptions et valeurs custom.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `options` | `DsComboboxOption[]` | `[]` | Liste des options |
+| `placeholder` | `string` | `'Rechercher...'` | Placeholder du champ |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du composant |
+| `disabled` | `boolean` | `false` | Désactive le composant |
+| `error` | `string` | `''` | Message d'erreur |
+| `helper` | `string` | `''` | Texte d'aide |
+| `label` | `string` | `''` | Label du champ |
+| `name` | `string` | `''` | Nom du champ |
+| `required` | `boolean` | `false` | Champ requis |
+| `clearable` | `boolean` | `true` | Permet d'effacer la sélection |
+| `allowCustom` | `boolean` | `false` | Permet les valeurs custom |
+| `minChars` | `number` | `0` | Caractères minimum pour filtrer |
+| `maxResults` | `number` | `50` | Nombre max de résultats |
+| `noResultsText` | `string` | `'Aucun résultat'` | Texte quand aucun résultat |
+| `loadingText` | `string` | `'Chargement...'` | Texte pendant le chargement |
+| `loading` | `boolean` | `false` | État de chargement |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `selectionChange` | `DsComboboxOption \| null` | Émis lors de la sélection |
+| `inputChange` | `string` | Émis lors de la saisie |
+| `opened` | `void` | Émis à l'ouverture du dropdown |
+| `closed` | `void` | Émis à la fermeture du dropdown |
+
+### Types
+
+```typescript
+interface DsComboboxOption {
+  value: string | number;
+  label: string;
+  disabled?: boolean;
+  description?: string;
+}
+
+type DsComboboxSize = 'sm' | 'md' | 'lg';
+```
+
+### Exemples
+
+```html
+<!-- Combobox basique -->
+<ds-combobox
+  [options]="countries"
+  label="Pays"
+  placeholder="Sélectionnez un pays..."
+  (selectionChange)="onCountrySelect($event)"
+/>
+
+<!-- Avec descriptions et recherche -->
+<ds-combobox
+  [options]="users"
+  label="Utilisateur"
+  [minChars]="2"
+  [allowCustom]="false"
+/>
+
+<!-- Avec chargement asynchrone -->
+<ds-combobox
+  [options]="filteredOptions"
+  [loading]="isLoading"
+  (inputChange)="onInputChange($event)"
+/>
+```
+
+### Accessibilité
+
+| Touche | Action |
+|--------|--------|
+| `↓` | Ouvre le dropdown / option suivante |
+| `↑` | Option précédente |
+| `Enter` | Sélectionne l'option |
+| `Escape` | Ferme le dropdown |
+| `Tab` | Ferme et passe au champ suivant |
+
+### Stories disponibles
+
+Default, WithOptions, WithDescriptions, AllowCustom, MinChars, Loading, Disabled, WithError, WithHelper, InReactiveForm, AllSizes, Accessibility
+
+---
+
+## DsPasswordStrength
+
+Indicateur visuel de force de mot de passe avec barres de progression et critères de validation.
+
+### Inputs
+
+| Nom | Type | Défaut | Description |
+|-----|------|--------|-------------|
+| `password` | `string` | `''` | Mot de passe à évaluer |
+| `minLength` | `number` | `8` | Longueur minimale requise |
+| `showLabel` | `boolean` | `true` | Affiche le label (Faible/Moyen/Fort) |
+| `showCriteria` | `boolean` | `false` | Affiche les critères détaillés |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du composant |
+
+### Outputs
+
+| Nom | Type | Description |
+|-----|------|-------------|
+| `strengthChange` | `PasswordStrength` | Émis lorsque la force change |
+
+### Types
+
+```typescript
+type PasswordStrength = 'none' | 'weak' | 'medium' | 'strong';
+type PasswordStrengthSize = 'sm' | 'md' | 'lg';
+
+interface PasswordCriterion {
+  key: string;
+  label: string;
+  valid: boolean;
+}
+```
+
+### Exemples
+
+```html
+<!-- Indicateur simple -->
+<ds-input-field
+  type="password"
+  label="Mot de passe"
+  [(ngModel)]="password"
+/>
+<ds-password-strength [password]="password" />
+
+<!-- Avec critères détaillés -->
+<ds-password-strength
+  [password]="password"
+  [minLength]="10"
+  [showLabel]="true"
+  [showCriteria]="true"
+  (strengthChange)="onStrengthChange($event)"
+/>
+```
+
+### Calcul de la force
+
+| Niveau | Critères |
+|--------|----------|
+| `none` | Champ vide |
+| `weak` | Longueur < minLength OU uniquement lettres |
+| `medium` | Longueur ≥ minLength ET (lettres+chiffres OU lettres+spéciaux) |
+| `strong` | Longueur ≥ minLength ET majuscules + minuscules + chiffres + spéciaux |
+
+### Accessibilité
+
+- Attribut `role="status"` pour annoncer les changements
+- Label ARIA dynamique selon la force
+- Couleurs sémantiques (error/warning/success)
+
+### Stories disponibles
+
+Default, WithPassword, Weak, Medium, Strong, WithCriteria, CustomMinLength, AllSizes, InForm, Accessibility
+
+---
+
 <div style={{
   padding: '24px',
   background: 'var(--background-secondary)',
@@ -464,7 +939,7 @@ export class SettingsFormComponent {
   marginTop: '32px'
 }}>
   <div style={{ fontSize: '24px', marginBottom: '8px' }}>📝</div>
-  <strong>13 composants de formulaire</strong>
+  <strong>16 composants de formulaire</strong>
   <p style={{ margin: '8px 0 0', fontSize: '14px', color: 'var(--text-muted)' }}>
     Tous compatibles avec Angular Reactive Forms et accessibles WCAG 2.1 AA.
   </p>
