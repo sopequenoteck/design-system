@@ -57,7 +57,7 @@ const preview: Preview = {
           'Overlays',
           ['Modal', 'Drawer', 'Dropdown', 'Popover', 'Transfer'],
           'Guides',
-          ['Accessibility', 'Contributing', 'FAQ & Troubleshooting', 'Migration', 'Testing']
+          ['Accessibility', 'Contributing', 'Examples', 'FAQ & Troubleshooting', 'Migration', 'Testing']
         ]
       }
     },
