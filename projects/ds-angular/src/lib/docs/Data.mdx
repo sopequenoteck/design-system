@@ -1,30 +1,29 @@
 {/* DataDisplay.mdx */}
 import { Meta } from '@storybook/blocks';
 
-<Meta title="Components/Display" />
+<Meta title="Components/Data" />
 
-# Data Display
+# Data Components
 
-Composants pour afficher et présenter des données.
+Composants pour afficher et organiser des collections de données.
 
 ---
 
 ## Vue d'ensemble
 
-La catégorie **Data Display** regroupe les composants dédiés à la présentation de données.
+La catégorie **Data** regroupe les composants dédiés à l'affichage de données structurées.
 
-| Composant | Description |
-|-----------|-------------|
-| **DsTable** | Tableau de données avec tri et sélection |
-| **DsAvatar** | Avatar utilisateur (image/initiales) |
-| **DsBadge** | Badge pour indicateurs et compteurs |
-| **DsChip** | Tag pour catégorisation et filtres |
-| **DsRating** | Étoiles de notation |
-| **DsProgressBar** | Barre de progression |
-| **DsSkeleton** | Placeholder de chargement |
-| **DsList** | Liste avec loading, empty, drag & drop, virtualisation |
-| **DsListItem** | Élément de liste avec checkbox, indicateur, slots |
-| **DsListGroup** | Groupe de listes avec en-tête |
+| Composant | Description | Catégorie |
+|-----------|-------------|-----------|
+| **DsTable** | Tableau de données avec tri et sélection | Data |
+| **DsList** | Liste avec loading, empty, drag & drop, virtualisation | Data |
+| **DsListItem** | Élément de liste avec checkbox, indicateur, slots | Data |
+| **DsListGroup** | Groupe de listes avec en-tête | Data |
+| **DsCalendar** | Calendrier interactif | Data |
+| **DsCarousel** | Carrousel d'éléments | Data |
+| **DsTimeline** | Chronologie verticale | Data |
+
+> **Note** : Les composants d'affichage (Avatar, Badge, Rating, etc.) sont dans **Components/Display**.
 
 ---
 
@@ -47,61 +46,34 @@ La catégorie **Data Display** regroupe les composants dédiés à la présentat
 />
 ```
 
-### Avatar avec status
+### Liste avec états
 
 ```html
-<ds-avatar
-  [src]="user.avatar"
-  [name]="user.name"
-  size="lg"
-  status="online"
-  shape="circle"
+<ds-list [loading]="isLoading()" [empty]="items().length === 0">
+  @for (item of items(); track item.id) {
+    <ds-list-item [title]="item.title" [checkable]="true" />
+  }
+</ds-list>
+```
+
+### Calendrier
+
+```html
+<ds-calendar
+  [value]="selectedDate"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  (dateChange)="onDateChange($event)"
 />
 ```
 
-### Badges et Chips
+### Timeline
 
 ```html
-<!-- Badge pour compteur -->
-<ds-badge variant="primary" type="count">42</ds-badge>
-
-<!-- Chip pour tags -->
-<ds-chip
-  variant="filled"
-  color="primary"
-  [removable]="true"
-  (remove)="removeTag($event)"
->
-  Angular
-</ds-chip>
-```
-
-### Notation
-
-```html
-<ds-rating
-  [(value)]="rating"
-  [max]="5"
-  [half]="true"
-  size="md"
-/>
-```
-
-### États de chargement
-
-```html
-<!-- Skeleton pour texte -->
-<ds-skeleton variant="text" [lines]="3" />
-
-<!-- Skeleton pour carte -->
-<ds-skeleton variant="card" />
-
-<!-- Progress bar -->
-<ds-progress-bar
-  [value]="progress"
-  [max]="100"
-  variant="success"
-/>
+<ds-timeline>
+  <ds-timeline-item date="2025-01-01" title="Événement 1" />
+  <ds-timeline-item date="2025-02-01" title="Événement 2" />
+</ds-timeline>
 ```
 
 ---
@@ -116,21 +88,12 @@ La catégorie **Data Display** regroupe les composants dédiés à la présentat
 <ds-table variant="bordered" />  <!-- Avec bordures -->
 ```
 
-### Badges
+### Listes
 
 ```html
-<ds-badge variant="primary" />
-<ds-badge variant="success" />
-<ds-badge variant="warning" />
-<ds-badge variant="error" />
-<ds-badge variant="info" />
-```
-
-### Progress
-
-```html
-<ds-progress-bar mode="determinate" [value]="75" />
-<ds-progress-bar mode="indeterminate" />
+<ds-list variant="default" />   <!-- Liste simple -->
+<ds-list variant="divided" />   <!-- Avec séparateurs -->
+<ds-list variant="card" />      <!-- Style carte -->
 ```
 
 ---
@@ -149,26 +112,15 @@ La catégorie **Data Display** regroupe les composants dédiés à la présentat
 </table>
 ```
 
-### Rating
+### Listes
 
 ```html
-<div role="slider"
-     aria-valuemin="0"
-     aria-valuemax="5"
-     aria-valuenow="3"
-     aria-label="Note">
-</div>
-```
-
-### Progress
-
-```html
-<div role="progressbar"
-     aria-valuenow="75"
-     aria-valuemin="0"
-     aria-valuemax="100"
-     aria-label="Progression du téléchargement">
-</div>
+<ul role="list" aria-label="Liste des tâches">
+  <li role="listitem">
+    <input type="checkbox" aria-label="Marquer comme terminé" />
+    Tâche 1
+  </li>
+</ul>
 ```
 
 ---
