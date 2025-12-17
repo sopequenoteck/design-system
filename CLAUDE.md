@@ -48,47 +48,53 @@ projects/ds-angular/src/lib/
 │   ├── ds-badge/
 │   ├── ds-breadcrumb/
 │   ├── ds-button/
+│   ├── ds-calendar/
 │   ├── ds-card/
+│   ├── ds-carousel/
 │   ├── ds-checkbox/
+│   ├── ds-checkbox-list/
+│   ├── ds-chip/
+│   ├── ds-color-picker/
 │   ├── ds-combobox/
 │   ├── ds-container/
 │   ├── ds-date-picker/
 │   ├── ds-divider/
+│   ├── ds-drawer/
 │   ├── ds-dropdown/
+│   ├── ds-empty/
+│   ├── ds-file-upload/
 │   ├── ds-input-field/
+│   ├── ds-input-number/
 │   ├── ds-input-textarea/
+│   ├── ds-list/
+│   ├── ds-list-group/
+│   ├── ds-list-item/
 │   ├── ds-menu/
 │   ├── ds-modal/
+│   ├── ds-nav-list/
+│   ├── ds-notification/
 │   ├── ds-pagination/
+│   ├── ds-password-strength/
 │   ├── ds-popover/
 │   ├── ds-progress-bar/
 │   ├── ds-radio-group/
+│   ├── ds-rating/
 │   ├── ds-search-input/
+│   ├── ds-segmented-control/
 │   ├── ds-select/
+│   ├── ds-sidebar/
 │   ├── ds-skeleton/
+│   ├── ds-slider/
 │   ├── ds-stepper/
 │   ├── ds-table/
 │   ├── ds-tabs/
+│   ├── ds-time-picker/
+│   ├── ds-timeline/
 │   ├── ds-toast/
 │   ├── ds-toggle/
 │   ├── ds-tooltip/
-│   ├── ds-chip/
-│   ├── ds-slider/
-│   ├── ds-file-upload/
-│   ├── ds-empty/
-│   ├── ds-rating/
-│   ├── ds-drawer/
-│   ├── ds-time-picker/
-│   ├── ds-tree/
-│   ├── ds-password-strength/
 │   ├── ds-transfer/
-│   ├── ds-timeline/
-│   ├── ds-notification/
-│   ├── ds-calendar/
-│   ├── ds-carousel/
-│   ├── ds-input-number/
-│   ├── ds-segmented-control/
-│   └── ds-color-picker/
+│   └── ds-tree/
 └── utils/           # Utilitaires partagés (overlay-positions, etc.)
 ```
 
@@ -432,11 +438,39 @@ Les thèmes s'activent via la classe sur `:root` : `document.documentElement.cla
 - ✅ Build réussi : compilation SCSS sans erreurs, cohérence complète des 3 thèmes
 - 📊 Parité thématique : 100% des 47 composants DS couverts dans light/dark/custom
 
+**Composants navigation et listes ÉTAPE 29** (2025-12-17) :
+- ✅ DsSidebar créé : navigation verticale, mode collapsed, items avec icônes, ARIA complet
+- ✅ DsSidebar : 5 fichiers, stories complètes, tests unitaires, corrections audit
+- ✅ DsNavList créé : liste de navigation avec items cliquables, variants
+- ✅ DsCheckboxList créé : liste de checkboxes groupées avec sélection multiple
+- ✅ DsList créé : conteneur liste générique avec styling cohérent
+- ✅ DsListItem créé : item de liste avec actions, utilise PrimitiveCheckbox
+- ✅ DsListGroup créé : groupement de listes avec en-tête
+- ✅ Corrections ds-dropdown : accès Signal dans les tests corrigé
+- ✅ Réorganisation Storybook : sidebar style CoreUI à 3 niveaux
+- ✅ Documentation MDX : amélioration qualité stories et guides
+- 📊 ÉTAPE 29 : 100% complétée — **53 composants DS** + 7 primitives
+
 ---
 
 ## Versions publiées
 
-### v1.6.0 (2025-12-13) - Version actuelle
+### v1.7.0 (2025-12-17) - Version actuelle
+
+Package npm : `@kksdev/ds-angular@1.7.0`
+
+**Nouveautés v1.7.0 :**
+- `feat(components)`: DsSidebar - navigation verticale avec mode collapsed
+- `feat(components)`: DsNavList - liste de navigation
+- `feat(components)`: DsCheckboxList - liste de checkboxes groupées
+- `feat(components)`: DsList, DsListItem, DsListGroup - système de listes complet
+- `refactor(ds-list-item)`: utilisation de PrimitiveCheckbox au lieu de DsCheckbox
+- `fix(ds-dropdown)`: correction accès Signal dans les tests
+- `refactor(storybook)`: réorganisation sidebar style CoreUI à 3 niveaux
+- `docs`: amélioration qualité documentation MDX et stories
+- 📊 Total : 53 composants DS, 7 primitives
+
+### v1.6.0 (2025-12-13)
 
 Package npm : `@kksdev/ds-angular@1.6.0`
 
@@ -503,7 +537,7 @@ Package npm : `@kksdev/ds-angular@1.2.5`
 ### Installation
 
 ```bash
-npm install @kksdev/ds-angular@1.6.0
+npm install @kksdev/ds-angular@1.7.0
 ```
 
 ## Patterns techniques

@@ -80,7 +80,7 @@ const disabledItems: CheckboxListItem[] = [
 // =============================================================================
 
 const meta: Meta<DsCheckboxList> = {
-  title: 'Components/Forms/CheckboxList',
+  title: 'Forms/Input Controls/Checkbox List',
   component: DsCheckboxList,
   tags: ['autodocs'],
   argTypes: {

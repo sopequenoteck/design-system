@@ -105,7 +105,7 @@ const disabledGroups: NavListGroup[] = [
 // =============================================================================
 
 const meta: Meta<DsNavList> = {
-  title: 'Components/Navigation/NavList',
+  title: 'Components/Navigation/Nav List',
   component: DsNavList,
   tags: ['autodocs'],
   argTypes: {
