@@ -7,7 +7,7 @@ import { DsListItem } from '../ds-list-item/ds-list-item';
 import { DsChip } from '../ds-chip/ds-chip';
 
 const meta: Meta<DsList> = {
-  title: 'Components/Data Display/List',
+  title: 'Components/Data/List',
   component: DsList,
   decorators: [
     moduleMetadata({

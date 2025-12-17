@@ -40,7 +40,7 @@ const preview: Preview = {
           ['Container', 'Card', 'Divider', 'Grid'],
           'Forms',
           [
-            'Input Controls', ['Checkbox', 'Radio Group', 'Toggle', 'Segmented Control'],
+            'Input Controls', ['Checkbox', 'Checkbox List', 'Radio Group', 'Toggle', 'Segmented Control'],
             'Text Inputs', ['Input Field', 'Input Textarea', 'Input Number', 'Search Input'],
             'Selection', ['Select', 'Combobox', 'Color Picker', 'Date Picker'],
             'Specialized', ['File Upload', 'Slider', 'Time Picker', 'Password Strength']
@@ -48,9 +48,9 @@ const preview: Preview = {
           'Components',
           [
             'Actions', ['Button', 'Chip', 'Pagination'],
-            'Navigation', ['Breadcrumb', 'Menu', 'Tabs', 'Stepper', 'Tree'],
+            'Navigation', ['Breadcrumb', 'Menu', 'Nav List', 'Sidebar', 'Stepper', 'Tabs', 'Tree'],
             'Display', ['Avatar', 'Badge', 'Empty', 'Progress Bar', 'Rating', 'Skeleton', 'Accordion'],
-            'Data', ['Table', 'Calendar', 'Carousel', 'Timeline']
+            'Data', ['Calendar', 'Carousel', 'List', 'List Group', 'List Item', 'Table', 'Timeline']
           ],
           'Feedback',
           ['Alert', 'Toast', 'Notification', 'Tooltip'],

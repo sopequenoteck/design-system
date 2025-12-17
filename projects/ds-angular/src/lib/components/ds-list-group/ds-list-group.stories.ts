@@ -6,7 +6,7 @@ import { DsListItem } from '../ds-list-item/ds-list-item';
 import { DsChip } from '../ds-chip/ds-chip';
 
 const meta: Meta<DsListGroup> = {
-  title: 'Components/Data Display/ListGroup',
+  title: 'Components/Data/List Group',
   component: DsListGroup,
   decorators: [
     moduleMetadata({

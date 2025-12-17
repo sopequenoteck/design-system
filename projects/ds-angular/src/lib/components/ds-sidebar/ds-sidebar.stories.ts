@@ -24,7 +24,7 @@ import { DsSidebar } from './ds-sidebar';
 import { SidebarItem } from './ds-sidebar.types';
 
 const meta: Meta<DsSidebar> = {
-  title: 'Components/Navigation/DsSidebar',
+  title: 'Components/Navigation/Sidebar',
   component: DsSidebar,
   tags: ['autodocs'],
   decorators: [
