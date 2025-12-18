@@ -1,13 +1,14 @@
-import { Component, input, output, signal, computed, TemplateRef, contentChild } from '@angular/core';
+import { Component, input, output, signal, ViewChild } from '@angular/core';
 import { ThemeSwitcher } from '../theme/theme-switcher';
 import { CodePreview } from './code-preview';
 import { ControlsPanel } from './controls-panel';
+import { FullscreenDemo } from './fullscreen-demo';
 import { ControlConfig, ControlValues } from '../../registry/types';
 
 @Component({
   selector: 'doc-demo-container',
   standalone: true,
-  imports: [ThemeSwitcher, CodePreview, ControlsPanel],
+  imports: [ThemeSwitcher, CodePreview, ControlsPanel, FullscreenDemo],
   template: `
     <div class="demo-container">
       <!-- Toolbar -->
@@ -32,6 +33,15 @@ import { ControlConfig, ControlValues } from '../../registry/types';
         </div>
 
         <div class="demo-container__actions">
+          <button
+            type="button"
+            class="demo-action-btn"
+            title="Plein écran"
+            aria-label="Afficher la démo en plein écran"
+            (click)="openFullscreen()"
+          >
+            ⛶
+          </button>
           <doc-theme-switcher />
         </div>
       </div>
@@ -61,6 +71,11 @@ import { ControlConfig, ControlValues } from '../../registry/types';
         </div>
       }
     </div>
+
+    <!-- Fullscreen overlay -->
+    <doc-fullscreen-demo #fullscreenDemo [title]="'Preview'">
+      <ng-content select="[fullscreen]" />
+    </doc-fullscreen-demo>
   `,
   styles: [`
     .demo-container {
@@ -116,6 +131,29 @@ import { ControlConfig, ControlValues } from '../../registry/types';
       gap: 8px;
     }
 
+    .demo-action-btn {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: none;
+      border-radius: var(--radius-1, 4px);
+      background: transparent;
+      color: var(--text-muted, #6b7280);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background: var(--background-main, #ffffff);
+        color: var(--text-default, #1a1a1a);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--color-primary, #3b82f6);
+        outline-offset: 2px;
+      }
+    }
+
     // ==========================================================================
     // Preview area
     // ==========================================================================
@@ -148,6 +186,8 @@ import { ControlConfig, ControlValues } from '../../registry/types';
   `]
 })
 export class DemoContainer {
+  @ViewChild('fullscreenDemo') fullscreenDemo?: FullscreenDemo;
+
   /** Code source à afficher */
   code = input<string>('');
 
@@ -179,5 +219,10 @@ export class DemoContainer {
 
   onControlChange(values: ControlValues): void {
     this.controlChange.emit(values);
+  }
+
+  /** Ouvre le mode plein écran */
+  openFullscreen(): void {
+    this.fullscreenDemo?.open();
   }
 }

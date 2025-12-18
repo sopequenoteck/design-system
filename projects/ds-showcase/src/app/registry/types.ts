@@ -75,3 +75,14 @@ export interface NavItem {
 
 /** Valeurs des contrôles d'une démo */
 export type ControlValues = Record<string, unknown>;
+
+/** Résultat de recherche globale */
+export interface SearchResult {
+  id: string;
+  label: string;
+  type: 'component' | 'documentation';
+  path: string;
+  category?: string;
+  description?: string;
+  icon?: string;
+}

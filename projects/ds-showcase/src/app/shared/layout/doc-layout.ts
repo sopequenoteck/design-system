@@ -1,12 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeSwitcher } from '../theme/theme-switcher';
+import { GlobalSearch } from '../search/global-search';
+import { DynamicBreadcrumb } from '../breadcrumb/dynamic-breadcrumb';
 import { NavItem } from '../../registry/types';
 
 @Component({
   selector: 'doc-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, ThemeSwitcher],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, ThemeSwitcher, GlobalSearch, DynamicBreadcrumb],
   template: `
     <div class="doc-layout" [class.sidebar-collapsed]="sidebarCollapsed()">
       <!-- Sidebar -->
@@ -119,9 +121,10 @@ import { NavItem } from '../../registry/types';
       <main class="doc-main">
         <header class="doc-header">
           <div class="doc-header__left">
-            <!-- Breadcrumb ou titre de page -->
+            <doc-breadcrumb />
           </div>
           <div class="doc-header__right">
+            <doc-global-search />
             <doc-theme-switcher />
           </div>
         </header>
