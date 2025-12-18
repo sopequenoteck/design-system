@@ -47,5 +47,10 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "references": [
+    {
+      "path": "./projects/ds-showcase/tsconfig.app.json"
+    }
+  ]
 }

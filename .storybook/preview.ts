@@ -56,6 +56,8 @@ const preview: Preview = {
           ['Alert', 'Toast', 'Notification', 'Tooltip'],
           'Overlays',
           ['Modal', 'Drawer', 'Dropdown', 'Popover', 'Transfer'],
+          'Examples',
+          ['Dashboard Admin', 'Form Wizard', 'Mobile App', 'Settings Page'],
           'Guides',
           ['Accessibility', 'Contributing', 'Examples', 'FAQ & Troubleshooting', 'Migration', 'Testing']
         ]

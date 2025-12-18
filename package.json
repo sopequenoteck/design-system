@@ -24,7 +24,9 @@
     "changelog:generate": "node scripts/generate-changelog.js",
     "prepublishOnly": "npm run test:headless && npm run build:lib",
     "publish:lib": "cd dist/ds-angular && npm publish",
-    "publish:lib:dry-run": "cd dist/ds-angular && npm publish --dry-run"
+    "publish:lib:dry-run": "cd dist/ds-angular && npm publish --dry-run",
+    "showcase": "ng serve ds-showcase --port 4200",
+    "showcase:build": "ng build ds-showcase --configuration production"
   },
   "private": true,
   "dependencies": {
@@ -40,12 +42,14 @@
     "@fortawesome/angular-fontawesome": "^3.0.0",
     "@fortawesome/fontawesome-svg-core": "^7.0.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
+    "highlight.js": "^11.11.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^20.3.0",
+    "@angular/build": "^20.3.13",
     "@angular/cli": "^20.3.0",
     "@angular/compiler-cli": "^20.3.0",
     "@playwright/test": "^1.49.0",

@@ -22,10 +22,10 @@ const config: StorybookConfig = {
       directory: '../projects/ds-angular/src/lib/components',
       files: '**/*.stories.@(js|jsx|mjs|ts|tsx)'
     },
-    // General stories
+    // General stories (including examples subdirectory)
     {
       directory: '../projects/ds-angular/src/lib',
-      files: 'stories/*.stories.@(js|jsx|mjs|ts|tsx)'
+      files: 'stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'
     }
   ],
   addons: [

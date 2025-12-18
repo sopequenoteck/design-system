@@ -120,19 +120,17 @@
     background-color: var(--toggle-track-checked-bg);
   }
 
-  &--checked &__thumb {
-    // Déplacement du thumb vers la droite
-    .primitive-toggle--sm & {
-      transform: translateX(calc(var(--toggle-width-sm) - var(--toggle-thumb-size-sm) - 4px));
-    }
+  // Déplacement du thumb vers la droite quand checked
+  &--checked.primitive-toggle--sm &__thumb {
+    transform: translateX(calc(var(--toggle-width-sm) - var(--toggle-thumb-size-sm) - 4px));
+  }
 
-    .primitive-toggle--md & {
-      transform: translateX(calc(var(--toggle-width-md) - var(--toggle-thumb-size-md) - 4px));
-    }
+  &--checked.primitive-toggle--md &__thumb {
+    transform: translateX(calc(var(--toggle-width-md) - var(--toggle-thumb-size-md) - 4px));
+  }
 
-    .primitive-toggle--lg & {
-      transform: translateX(calc(var(--toggle-width-lg) - var(--toggle-thumb-size-lg) - 4px));
-    }
+  &--checked.primitive-toggle--lg &__thumb {
+    transform: translateX(calc(var(--toggle-width-lg) - var(--toggle-thumb-size-lg) - 4px));
   }
 
   // === ÉTAT HOVER ===

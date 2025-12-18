@@ -1,0 +1,74 @@
+// =============================================================================
+// DS-SHOWCASE - Styles globaux
+// =============================================================================
+
+// Import du thème Highlight.js (GitHub Dark)
+@use 'highlight.js/scss/github-dark' as *;
+
+// Variables de documentation
+:root {
+  --doc-sidebar-width: 280px;
+  --doc-sidebar-collapsed-width: 64px;
+  --doc-header-height: 56px;
+  --doc-content-max-width: 1200px;
+  --doc-code-font: 'Fira Code', 'SF Mono', Consolas, monospace;
+}
+
+// Reset minimal
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--font-family-base, system-ui, -apple-system, sans-serif), sans-serif;
+  background-color: var(--background-main, #f8f9fa);
+  color: var(--text-default, #1a1a1a);
+}
+
+// Code preview styles
+.hljs {
+  background: var(--surface-raised, #1e1e1e) !important;
+  border-radius: var(--radius-2, 8px);
+  padding: var(--space-4, 1rem);
+  font-family: var(--doc-code-font), sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-secondary, #f0f0f0);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-400, #9ca3af);
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--gray-500, #6b7280);
+  }
+}
+
+// Utility classes
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
