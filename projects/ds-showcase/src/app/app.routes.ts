@@ -29,6 +29,21 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/docs/examples/examples.page').then(m => m.ExamplesPage),
       },
+      {
+        path: 'docs/getting-started',
+        loadComponent: () =>
+          import('./features/docs/getting-started/getting-started.page').then(m => m.GettingStartedPage),
+      },
+      {
+        path: 'docs/accessibility',
+        loadComponent: () =>
+          import('./features/docs/accessibility/accessibility.page').then(m => m.AccessibilityPage),
+      },
+      {
+        path: 'docs/forms-patterns',
+        loadComponent: () =>
+          import('./features/docs/forms-patterns/forms-patterns.page').then(m => m.FormsPatternsPage),
+      },
       // ==========================================================================
       // Components
       // ==========================================================================

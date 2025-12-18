@@ -384,8 +384,11 @@ export class DocLayout {
       label: 'Documentation',
       icon: '📚',
       children: [
+        { id: 'doc-getting-started', label: 'Getting Started', path: '/docs/getting-started' },
         { id: 'doc-tokens', label: 'Design Tokens', path: '/docs/tokens' },
         { id: 'doc-theming', label: 'Theming', path: '/docs/theming' },
+        { id: 'doc-accessibility', label: 'Accessibility', path: '/docs/accessibility' },
+        { id: 'doc-forms-patterns', label: 'Forms Patterns', path: '/docs/forms-patterns' },
         { id: 'doc-examples', label: 'Examples', path: '/docs/examples' },
       ],
     },
