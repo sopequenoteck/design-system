@@ -357,6 +357,7 @@ export class DocLayout {
 
   /** Groupes ouverts */
   private expandedGroups = signal<Set<string>>(new Set([
+    'documentation',
     'actions',
     'forms',
     'text-inputs',
@@ -377,6 +378,16 @@ export class DocLayout {
       label: 'Accueil',
       icon: '🏠',
       path: '/',
+    },
+    {
+      id: 'documentation',
+      label: 'Documentation',
+      icon: '📚',
+      children: [
+        { id: 'doc-tokens', label: 'Design Tokens', path: '/docs/tokens' },
+        { id: 'doc-theming', label: 'Theming', path: '/docs/theming' },
+        { id: 'doc-examples', label: 'Examples', path: '/docs/examples' },
+      ],
     },
     {
       id: 'actions',

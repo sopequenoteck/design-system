@@ -12,6 +12,24 @@ export const routes: Routes = [
           import('./features/home/home.page').then(m => m.HomePage),
       },
       // ==========================================================================
+      // Documentation
+      // ==========================================================================
+      {
+        path: 'docs/tokens',
+        loadComponent: () =>
+          import('./features/docs/tokens/tokens.page').then(m => m.TokensPage),
+      },
+      {
+        path: 'docs/theming',
+        loadComponent: () =>
+          import('./features/docs/theming/theming.page').then(m => m.ThemingPage),
+      },
+      {
+        path: 'docs/examples',
+        loadComponent: () =>
+          import('./features/docs/examples/examples.page').then(m => m.ExamplesPage),
+      },
+      // ==========================================================================
       // Components
       // ==========================================================================
       {
