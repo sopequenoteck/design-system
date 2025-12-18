@@ -389,7 +389,11 @@ export class DocLayout {
         { id: 'doc-theming', label: 'Theming', path: '/docs/theming' },
         { id: 'doc-accessibility', label: 'Accessibility', path: '/docs/accessibility' },
         { id: 'doc-forms-patterns', label: 'Forms Patterns', path: '/docs/forms-patterns' },
+        { id: 'doc-navigation-patterns', label: 'Navigation Patterns', path: '/docs/navigation-patterns' },
+        { id: 'doc-overlays-patterns', label: 'Overlays Patterns', path: '/docs/overlays-patterns' },
         { id: 'doc-examples', label: 'Examples', path: '/docs/examples' },
+        { id: 'doc-contributing', label: 'Contributing', path: '/docs/contributing' },
+        { id: 'doc-migration', label: 'Migration', path: '/docs/migration' },
       ],
     },
     {

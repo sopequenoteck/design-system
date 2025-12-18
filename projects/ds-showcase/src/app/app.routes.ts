@@ -44,6 +44,26 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/docs/forms-patterns/forms-patterns.page').then(m => m.FormsPatternsPage),
       },
+      {
+        path: 'docs/navigation-patterns',
+        loadComponent: () =>
+          import('./features/docs/navigation-patterns/navigation-patterns.page').then(m => m.NavigationPatternsPage),
+      },
+      {
+        path: 'docs/overlays-patterns',
+        loadComponent: () =>
+          import('./features/docs/overlays-patterns/overlays-patterns.page').then(m => m.OverlaysPatternsPage),
+      },
+      {
+        path: 'docs/contributing',
+        loadComponent: () =>
+          import('./features/docs/contributing/contributing.page').then(m => m.ContributingPage),
+      },
+      {
+        path: 'docs/migration',
+        loadComponent: () =>
+          import('./features/docs/migration/migration.page').then(m => m.MigrationPage),
+      },
       // ==========================================================================
       // Components
       // ==========================================================================
