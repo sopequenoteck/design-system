@@ -12,7 +12,8 @@ export type ComponentCategory =
   | 'data-display'
   | 'feedback'
   | 'overlays'
-  | 'layout';
+  | 'layout'
+  | 'primitives';
 
 /** Types de contrôles pour les démos */
 export type ControlType = 'boolean' | 'select' | 'text' | 'number' | 'color';

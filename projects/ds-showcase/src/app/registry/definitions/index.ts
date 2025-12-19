@@ -1,5 +1,14 @@
 // Export des définitions de composants
 export { DsButtonDefinition } from './ds-button.definition';
+
+// Primitives
+export { PrimitiveBadgeDefinition } from './primitive-badge.definition';
+export { PrimitiveButtonDefinition } from './primitive-button.definition';
+export { PrimitiveCheckboxDefinition } from './primitive-checkbox.definition';
+export { PrimitiveInputDefinition } from './primitive-input.definition';
+export { PrimitiveRadioDefinition } from './primitive-radio.definition';
+export { PrimitiveTextareaDefinition } from './primitive-textarea.definition';
+export { PrimitiveToggleDefinition } from './primitive-toggle.definition';
 export { DsCheckboxDefinition } from './ds-checkbox.definition';
 export { DsCheckboxListDefinition } from './ds-checkbox-list.definition';
 export { DsColorPickerDefinition } from './ds-color-picker.definition';
@@ -121,6 +130,14 @@ import { DsCalendarDefinition } from './ds-calendar.definition';
 import { DsRatingDefinition } from './ds-rating.definition';
 // Forms (nouveaux)
 import { DsTransferDefinition } from './ds-transfer.definition';
+// Primitives
+import { PrimitiveBadgeDefinition } from './primitive-badge.definition';
+import { PrimitiveButtonDefinition } from './primitive-button.definition';
+import { PrimitiveCheckboxDefinition } from './primitive-checkbox.definition';
+import { PrimitiveInputDefinition } from './primitive-input.definition';
+import { PrimitiveRadioDefinition } from './primitive-radio.definition';
+import { PrimitiveTextareaDefinition } from './primitive-textarea.definition';
+import { PrimitiveToggleDefinition } from './primitive-toggle.definition';
 import { ComponentDefinition } from '../types';
 
 /** Toutes les définitions de composants */
@@ -185,4 +202,12 @@ export const ALL_DEFINITIONS: ComponentDefinition[] = [
   DsRatingDefinition,
   // Forms (nouveaux)
   DsTransferDefinition,
+  // Primitives
+  PrimitiveBadgeDefinition,
+  PrimitiveButtonDefinition,
+  PrimitiveCheckboxDefinition,
+  PrimitiveInputDefinition,
+  PrimitiveRadioDefinition,
+  PrimitiveTextareaDefinition,
+  PrimitiveToggleDefinition,
 ];

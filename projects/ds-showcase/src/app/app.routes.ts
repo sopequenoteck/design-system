@@ -366,6 +366,44 @@ export const routes: Routes = [
           import('./features/components/transfer/transfer.page').then(m => m.TransferPage),
       },
       // ==========================================================================
+      // Primitives
+      // ==========================================================================
+      {
+        path: 'primitives/primitive-badge',
+        loadComponent: () =>
+          import('./features/primitives/primitive-badge/primitive-badge.page').then(m => m.PrimitiveBadgePage),
+      },
+      {
+        path: 'primitives/primitive-button',
+        loadComponent: () =>
+          import('./features/primitives/primitive-button/primitive-button.page').then(m => m.PrimitiveButtonPage),
+      },
+      {
+        path: 'primitives/primitive-checkbox',
+        loadComponent: () =>
+          import('./features/primitives/primitive-checkbox/primitive-checkbox.page').then(m => m.PrimitiveCheckboxPage),
+      },
+      {
+        path: 'primitives/primitive-input',
+        loadComponent: () =>
+          import('./features/primitives/primitive-input/primitive-input.page').then(m => m.PrimitiveInputPage),
+      },
+      {
+        path: 'primitives/primitive-radio',
+        loadComponent: () =>
+          import('./features/primitives/primitive-radio/primitive-radio.page').then(m => m.PrimitiveRadioPage),
+      },
+      {
+        path: 'primitives/primitive-textarea',
+        loadComponent: () =>
+          import('./features/primitives/primitive-textarea/primitive-textarea.page').then(m => m.PrimitiveTextareaPage),
+      },
+      {
+        path: 'primitives/primitive-toggle',
+        loadComponent: () =>
+          import('./features/primitives/primitive-toggle/primitive-toggle.page').then(m => m.PrimitiveTogglePage),
+      },
+      // ==========================================================================
       // Fallback pour les autres composants (placeholder)
       // ==========================================================================
       {
