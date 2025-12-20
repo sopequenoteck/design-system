@@ -1,10 +1,10 @@
 # =============================================================================
-# DOCKERFILE - Storybook ds-angular
+# DOCKERFILE - Showcase ds-angular
 # Build multi-stage : Node.js (build) + nginx (serve)
 # =============================================================================
 
 # -----------------------------------------------------------------------------
-# STAGE 1 : Build Storybook
+# STAGE 1 : Build Showcase
 # -----------------------------------------------------------------------------
 FROM node:20-alpine AS builder
 
@@ -18,11 +18,13 @@ RUN npm ci --prefer-offline --no-audit --legacy-peer-deps
 
 # Copier les sources nécessaires
 COPY angular.json tsconfig.json ./
-COPY .storybook/ ./.storybook/
 COPY projects/ ./projects/
 
-# Build Storybook
-RUN npm run build-storybook
+# Build la librairie ds-angular (requise par le Showcase)
+RUN npm run build:lib
+
+# Build Showcase
+RUN npm run showcase:build
 
 # -----------------------------------------------------------------------------
 # STAGE 2 : Serve avec nginx
@@ -32,8 +34,8 @@ FROM nginx:alpine AS production
 # Supprimer la config nginx par défaut
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copier le build Storybook
-COPY --from=builder /app/storybook-static /usr/share/nginx/html
+# Copier le build Showcase
+COPY --from=builder /app/dist/ds-showcase/browser /usr/share/nginx/html
 
 # Configuration nginx personnalisée pour SPA
 RUN echo 'server { \

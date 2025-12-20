@@ -1,20 +1,20 @@
 # =============================================================================
-# DOCKER COMPOSE - Storybook ds-angular
+# DOCKER COMPOSE - Showcase ds-angular
 # Usage: docker compose up -d
 # =============================================================================
 
 services:
-  storybook:
+  showcase:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: ds-angular-storybook
+    container_name: ds-angular-showcase
     ports:
-      - "6006:80"
+      - "4300:80"
     restart: unless-stopped
     labels:
       - "app=ds-angular"
-      - "component=storybook"
+      - "component=showcase"
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/"]
       interval: 30s
@@ -23,16 +23,16 @@ services:
       retries: 3
 
   # Service alternatif : utilise un build pré-existant (plus rapide)
-  storybook-prebuilt:
+  showcase-prebuilt:
     image: nginx:alpine
-    container_name: ds-angular-storybook-prebuilt
+    container_name: ds-angular-showcase-prebuilt
     ports:
-      - "6007:80"
+      - "4301:80"
     volumes:
-      - ./storybook-static:/usr/share/nginx/html:ro
+      - ./dist/ds-showcase/browser:/usr/share/nginx/html:ro
     restart: unless-stopped
     profiles:
       - prebuilt
     labels:
       - "app=ds-angular"
-      - "component=storybook-prebuilt"
+      - "component=showcase-prebuilt"
