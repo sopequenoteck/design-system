@@ -41,7 +41,7 @@ interface Product {
 @Component({
   selector: 'app-table-page',
   standalone: true,
-  imports: [FormsModule, DsTable, DsButton, DsInputField, DsPagination, DsBadge, DsDropdown, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [FormsModule, DsTable, DsButton, DsInputField, DsPagination, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
   template: `
     <div class="component-page">
       <doc-component-page-header

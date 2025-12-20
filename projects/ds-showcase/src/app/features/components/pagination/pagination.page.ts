@@ -41,7 +41,7 @@ interface Product {
 @Component({
   selector: 'app-pagination-page',
   standalone: true,
-  imports: [FormsModule, DecimalPipe, DsPagination, DsButton, DsInputField, DsCard, DsSkeleton, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [FormsModule, DecimalPipe, DsPagination, DsButton, DsInputField, DsSkeleton, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
   template: `
     <div class="component-page">
       <doc-component-page-header

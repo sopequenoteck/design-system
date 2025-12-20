@@ -36,7 +36,7 @@ interface User {
 @Component({
   selector: 'app-tabs-page',
   standalone: true,
-  imports: [FormsModule, DsTabs, DsButton, DsInputField, DsTable, DsModalComponent, DsBadge, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [FormsModule, DsTabs, DsButton, DsInputField, DsModalComponent, DsBadge, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
   template: `
     <div class="component-page">
       <doc-component-page-header

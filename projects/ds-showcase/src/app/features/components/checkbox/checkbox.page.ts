@@ -25,7 +25,7 @@ interface Plan {
 @Component({
   selector: 'app-checkbox-page',
   standalone: true,
-  imports: [FormsModule, DsCheckbox, DsButton, DsCard, DsBadge, PrimitiveCheckbox, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [FormsModule, DsCheckbox, DsButton, DsBadge, PrimitiveCheckbox, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
   template: `
     <div class="component-page">
       <doc-component-page-header
