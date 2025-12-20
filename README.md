@@ -1,7 +1,7 @@
 # DS-Angular Design System
 
 [![CI](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/@kksdev/ds-angular?label=v1.3.0&color=7d4bc0)](https://www.npmjs.com/package/@kksdev/ds-angular)
+[![npm version](https://img.shields.io/npm/v/@kksdev/ds-angular?label=v1.7.1&color=7d4bc0)](https://www.npmjs.com/package/@kksdev/ds-angular)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/@kksdev/ds-angular?label=bundle&color=2dd4bf)](https://bundlephobia.com/package/@kksdev/ds-angular)
 
@@ -54,7 +54,7 @@ export class AppComponent {}
 - `primitive-checkbox`, `primitive-radio`, `primitive-toggle`
 - `primitive-textarea`
 
-### Components (30 composants DS)
+### Components (60 composants DS)
 - **Forms** : `ds-input-field`, `ds-input-textarea`, `ds-checkbox`, `ds-radio-group`, `ds-toggle`, `ds-select`, `ds-combobox`, `ds-search-input`, `ds-date-picker`
 - **Display** : `ds-button`, `ds-badge`, `ds-card`, `ds-alert`, `ds-divider`, `ds-avatar`, `ds-progress-bar`, `ds-skeleton`
 - **Data** : `ds-table`
@@ -92,7 +92,7 @@ npm run test:a11y           # Audit accessibilité
 
 | Script | Description |
 |--------|-------------|
-| `npm run showcase` | Lance Showcase sur http://localhost:4200 |
+| `npm run showcase` | Lance Showcase sur http://localhost:4300 |
 | `npm run build:lib` | Build de la bibliothèque ds-angular |
 | `npm run test:headless` | Tests unitaires headless |
 | `npm run test:coverage` | Tests avec rapport de couverture |
@@ -100,6 +100,7 @@ npm run test:a11y           # Audit accessibilité
 | `npm run test:visual` | Tests visuels de régression |
 | `npm run validate:tokens` | Validation de la cohérence des tokens |
 | `npm run test:a11y` | Audit d'accessibilité WCAG 2.1 AA |
+| `npm run generate:examples` | Génère les exemples dynamiques pour le Showcase |
 
 ## 🎨 Theming
 

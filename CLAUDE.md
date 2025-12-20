@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Projet
 
-Bibliothèque de design system Angular 20 (`@kksdev/ds-angular`) avec 53 composants DS et 7 primitives.
+Bibliothèque de design system Angular 20 (`@kksdev/ds-angular`) avec 60 composants DS et 7 primitives.
 
 **Production** : https://ds-showcase.kkshome.online/
 
@@ -18,6 +18,7 @@ npm run showcase:build         # Build Showcase statique
 
 # Développement
 npm run showcase               # Lance Showcase (port 4300)
+# Note : generate:examples est automatiquement exécuté avant showcase et showcase:build
 
 # Tests
 ng test ds-angular             # Tests interactifs
@@ -45,7 +46,7 @@ docker compose up -d --build   # Build et lance Showcase sur port 4300
 projects/
 ├── ds-angular/src/lib/        # Bibliothèque publiée sur npm
 │   ├── primitives/            # 7 composants atomiques (primitive-button, primitive-input, etc.)
-│   ├── components/            # 53 composants DS (ds-button, ds-modal, ds-table, etc.)
+│   ├── components/            # 60 composants DS (ds-button, ds-modal, ds-table, etc.)
 │   ├── utils/                 # Utilitaires (overlay-positions, i18n)
 │   └── styles/                # Système de tokens et thèmes
 └── ds-showcase/               # Documentation interactive (Angular app)
