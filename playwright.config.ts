@@ -3,11 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * Configuration Playwright pour les tests e2e du design system.
  *
- * Tests des composants critiques :
- * - ds-modal : ouverture/fermeture, focus trap, ESC key
- * - ds-dropdown : navigation clavier, sélection
- * - ds-tabs : sélection, navigation clavier
- * - ds-toast : apparition, disparition, multiples toasts
+ * Tests des composants critiques sur Showcase (Angular app).
  *
  * @see https://playwright.dev/docs/test-configuration
  */
@@ -20,7 +16,7 @@ export default defineConfig({
   reporter: 'html',
 
   use: {
-    baseURL: 'http://localhost:6006',
+    baseURL: 'http://localhost:4200',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
@@ -52,10 +48,10 @@ export default defineConfig({
     },
   ],
 
-  // Run Storybook dev server before tests
+  // Run Showcase dev server before tests
   webServer: {
-    command: 'npm run storybook',
-    url: 'http://localhost:6006',
+    command: 'npm run showcase',
+    url: 'http://localhost:4200',
     reuseExistingServer: !process.env["CI"],
     timeout: 120000,
   },

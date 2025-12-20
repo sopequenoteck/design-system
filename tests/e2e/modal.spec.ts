@@ -3,6 +3,8 @@ import { test, expect } from '@playwright/test';
 /**
  * Tests e2e pour le composant ds-modal
  *
+ * Exécutés sur Showcase (/test/modal)
+ *
  * Scénarios testés :
  * - Ouverture et fermeture de la modal
  * - Focus trap (le focus reste dans la modal)
@@ -14,17 +16,19 @@ import { test, expect } from '@playwright/test';
 
 test.describe('DsModal - Ouverture et fermeture', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/iframe.html?id=components-modal--default');
+    await page.goto('/test/modal');
     await page.waitForLoadState('networkidle');
   });
 
   test('devrait ouvrir la modal au clic sur le bouton trigger', async ({ page }) => {
+    const section = page.locator('[data-testid="modal-default"]');
+    const modal = page.locator('ds-modal .modal[role="dialog"]');
+
     // Vérifier que la modal n'est pas visible initialement
-    const modal = page.locator('.modal[role="dialog"]');
     await expect(modal).not.toBeVisible();
 
     // Cliquer sur le bouton pour ouvrir la modal
-    const openButton = page.locator('button:has-text("Ouvrir la modale")');
+    const openButton = section.locator('ds-button');
     await openButton.click();
 
     // Vérifier que la modal est maintenant visible
@@ -36,9 +40,11 @@ test.describe('DsModal - Ouverture et fermeture', () => {
   });
 
   test('devrait fermer la modal avec le bouton close', async ({ page }) => {
+    const section = page.locator('[data-testid="modal-default"]');
+
     // Ouvrir la modal
-    await page.locator('button:has-text("Ouvrir la modale")').click();
-    const modal = page.locator('.modal[role="dialog"]');
+    await section.locator('ds-button').click();
+    const modal = page.locator('ds-modal .modal[role="dialog"]');
     await expect(modal).toBeVisible();
 
     // Cliquer sur le bouton close (✕)
@@ -50,9 +56,11 @@ test.describe('DsModal - Ouverture et fermeture', () => {
   });
 
   test('devrait fermer la modal avec la touche ESC', async ({ page }) => {
+    const section = page.locator('[data-testid="modal-default"]');
+
     // Ouvrir la modal
-    await page.locator('button:has-text("Ouvrir la modale")').click();
-    const modal = page.locator('.modal[role="dialog"]');
+    await section.locator('ds-button').click();
+    const modal = page.locator('ds-modal .modal[role="dialog"]');
     await expect(modal).toBeVisible();
 
     // Appuyer sur ESC
@@ -63,9 +71,11 @@ test.describe('DsModal - Ouverture et fermeture', () => {
   });
 
   test('devrait fermer la modal avec clic sur backdrop', async ({ page }) => {
+    const section = page.locator('[data-testid="modal-default"]');
+
     // Ouvrir la modal
-    await page.locator('button:has-text("Ouvrir la modale")').click();
-    const modal = page.locator('.modal[role="dialog"]');
+    await section.locator('ds-button').click();
+    const modal = page.locator('ds-modal .modal[role="dialog"]');
     await expect(modal).toBeVisible();
 
     // Cliquer sur l'overlay (backdrop)
@@ -79,14 +89,16 @@ test.describe('DsModal - Ouverture et fermeture', () => {
 
 test.describe('DsModal - Focus trap', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/iframe.html?id=components-modal--form-modal');
+    await page.goto('/test/modal');
     await page.waitForLoadState('networkidle');
   });
 
   test('devrait piéger le focus dans la modal', async ({ page }) => {
+    const section = page.locator('[data-testid="modal-form"]');
+
     // Ouvrir la modal
-    await page.locator('button:has-text("Créer un compte")').click();
-    const modal = page.locator('.modal[role="dialog"]');
+    await section.locator('ds-button').click();
+    const modal = page.locator('ds-modal .modal[role="dialog"]');
     await expect(modal).toBeVisible();
 
     // Récupérer tous les éléments focusables dans la modal
@@ -110,24 +122,25 @@ test.describe('DsModal - Focus trap', () => {
 });
 
 test.describe('DsModal - Tailles', () => {
-  test('devrait afficher la modal en taille small', async ({ page }) => {
-    await page.goto('/iframe.html?id=components-modal--small-size');
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/test/modal');
     await page.waitForLoadState('networkidle');
+  });
 
-    await page.locator('button:has-text("Small Modal")').click();
+  test('devrait afficher la modal en taille small', async ({ page }) => {
+    const section = page.locator('[data-testid="modal-small"]');
+    await section.locator('ds-button').click();
 
-    const modal = page.locator('.modal[role="dialog"]');
+    const modal = page.locator('ds-modal .modal[role="dialog"]');
     await expect(modal).toBeVisible();
     await expect(modal).toHaveClass(/modal-sm/);
   });
 
   test('devrait afficher la modal en taille large', async ({ page }) => {
-    await page.goto('/iframe.html?id=components-modal--large-size');
-    await page.waitForLoadState('networkidle');
+    const section = page.locator('[data-testid="modal-large"]');
+    await section.locator('ds-button').click();
 
-    await page.locator('button:has-text("Large Modal")').click();
-
-    const modal = page.locator('.modal[role="dialog"]');
+    const modal = page.locator('ds-modal .modal[role="dialog"]');
     await expect(modal).toBeVisible();
     await expect(modal).toHaveClass(/modal-lg/);
   });
@@ -135,14 +148,15 @@ test.describe('DsModal - Tailles', () => {
 
 test.describe('DsModal - Accessibilité', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/iframe.html?id=components-modal--default');
+    await page.goto('/test/modal');
     await page.waitForLoadState('networkidle');
   });
 
   test('devrait avoir les attributs ARIA corrects', async ({ page }) => {
-    await page.locator('button:has-text("Ouvrir la modale")').click();
+    const section = page.locator('[data-testid="modal-default"]');
+    await section.locator('ds-button').click();
 
-    const modal = page.locator('.modal[role="dialog"]');
+    const modal = page.locator('ds-modal .modal[role="dialog"]');
     await expect(modal).toBeVisible();
 
     // Vérifier les attributs ARIA
@@ -160,35 +174,34 @@ test.describe('DsModal - Accessibilité', () => {
 });
 
 test.describe('DsModal - Types sémantiques', () => {
-  test('devrait afficher la modal de type success', async ({ page }) => {
-    await page.goto('/iframe.html?id=components-modal--success-with-icon');
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/test/modal');
     await page.waitForLoadState('networkidle');
+  });
 
-    await page.locator('button:has-text("Afficher succès")').click();
+  test('devrait afficher la modal de type success', async ({ page }) => {
+    const section = page.locator('[data-testid="modal-success"]');
+    await section.locator('ds-button').click();
 
-    const modal = page.locator('.modal[role="dialog"]');
+    const modal = page.locator('ds-modal .modal[role="dialog"]');
     await expect(modal).toBeVisible();
     await expect(modal).toHaveClass(/modal-success/);
   });
 
   test('devrait afficher la modal de type error', async ({ page }) => {
-    await page.goto('/iframe.html?id=components-modal--error-with-icon');
-    await page.waitForLoadState('networkidle');
+    const section = page.locator('[data-testid="modal-error"]');
+    await section.locator('ds-button').click();
 
-    await page.locator('button:has-text("Afficher erreur")').click();
-
-    const modal = page.locator('.modal[role="dialog"]');
+    const modal = page.locator('ds-modal .modal[role="dialog"]');
     await expect(modal).toBeVisible();
     await expect(modal).toHaveClass(/modal-error/);
   });
 
   test('devrait afficher la modal de type warning', async ({ page }) => {
-    await page.goto('/iframe.html?id=components-modal--warning-with-icon');
-    await page.waitForLoadState('networkidle');
+    const section = page.locator('[data-testid="modal-warning"]');
+    await section.locator('ds-button').click();
 
-    await page.locator('button:has-text("Afficher avertissement")').click();
-
-    const modal = page.locator('.modal[role="dialog"]');
+    const modal = page.locator('ds-modal .modal[role="dialog"]');
     await expect(modal).toBeVisible();
     await expect(modal).toHaveClass(/modal-warning/);
   });

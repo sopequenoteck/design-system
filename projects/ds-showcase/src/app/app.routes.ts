@@ -404,6 +404,34 @@ export const routes: Routes = [
           import('./features/primitives/primitive-toggle/primitive-toggle.page').then(m => m.PrimitiveTogglePage),
       },
       // ==========================================================================
+      // Test Pages (for e2e Playwright tests)
+      // ==========================================================================
+      {
+        path: 'test/modal',
+        loadComponent: () =>
+          import('./features/test/modal-test.page').then(m => m.ModalTestPage),
+      },
+      {
+        path: 'test/dropdown',
+        loadComponent: () =>
+          import('./features/test/dropdown-test.page').then(m => m.DropdownTestPage),
+      },
+      {
+        path: 'test/tabs',
+        loadComponent: () =>
+          import('./features/test/tabs-test.page').then(m => m.TabsTestPage),
+      },
+      {
+        path: 'test/toast',
+        loadComponent: () =>
+          import('./features/test/toast-test.page').then(m => m.ToastTestPage),
+      },
+      {
+        path: 'test/carousel',
+        loadComponent: () =>
+          import('./features/test/carousel-test.page').then(m => m.CarouselTestPage),
+      },
+      // ==========================================================================
       // Fallback pour les autres composants (placeholder)
       // ==========================================================================
       {

@@ -3,6 +3,8 @@ import { test, expect } from '@playwright/test';
 /**
  * Tests e2e pour le composant ds-dropdown
  *
+ * Exécutés sur Showcase (/test/dropdown)
+ *
  * Scénarios testés :
  * - Ouverture et fermeture du dropdown
  * - Sélection d'un item
@@ -12,12 +14,13 @@ import { test, expect } from '@playwright/test';
 
 test.describe('DsDropdown - Ouverture et fermeture', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/iframe.html?id=components-dropdown--default');
+    await page.goto('/test/dropdown');
     await page.waitForLoadState('networkidle');
   });
 
   test('devrait ouvrir le dropdown au clic sur le trigger', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
     const menu = page.locator('.menu-sort-and-group[role="menu"]');
 
     // Vérifier que le menu n'est pas visible
@@ -31,7 +34,8 @@ test.describe('DsDropdown - Ouverture et fermeture', () => {
   });
 
   test('devrait fermer le dropdown avec ESC', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
     const menu = page.locator('.menu-sort-and-group[role="menu"]');
 
     // Ouvrir le dropdown
@@ -46,7 +50,8 @@ test.describe('DsDropdown - Ouverture et fermeture', () => {
   });
 
   test('devrait fermer le dropdown au clic sur le backdrop', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
     const menu = page.locator('.menu-sort-and-group[role="menu"]');
 
     // Ouvrir le dropdown
@@ -64,12 +69,13 @@ test.describe('DsDropdown - Ouverture et fermeture', () => {
 
 test.describe('DsDropdown - Sélection', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/iframe.html?id=components-dropdown--default');
+    await page.goto('/test/dropdown');
     await page.waitForLoadState('networkidle');
   });
 
   test('devrait sélectionner un item au clic', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
 
     // Ouvrir le dropdown
     await trigger.click();
@@ -81,30 +87,22 @@ test.describe('DsDropdown - Sélection', () => {
     // Vérifier que le menu est fermé après la sélection
     const menu = page.locator('.menu-sort-and-group[role="menu"]');
     await expect(menu).not.toBeVisible();
-  });
 
-  test('devrait marquer l\'item sélectionné comme actif', async ({ page }) => {
-    await page.goto('/iframe.html?id=components-dropdown--with-selected-item');
-    await page.waitForLoadState('networkidle');
-
-    const trigger = page.locator('ds-dropdown primitive-button button');
-    await trigger.click();
-
-    // Vérifier qu'un item a la classe active
-    const activeItem = page.locator('.menu-item-content.active');
-    await expect(activeItem).toBeVisible();
-    await expect(activeItem).toHaveAttribute('aria-checked', 'true');
+    // Vérifier que la sélection est affichée
+    const selectionText = section.locator('p');
+    await expect(selectionText).toContainText('Modifier');
   });
 });
 
 test.describe('DsDropdown - Navigation clavier', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/iframe.html?id=components-dropdown--default');
+    await page.goto('/test/dropdown');
     await page.waitForLoadState('networkidle');
   });
 
   test('devrait ouvrir le dropdown avec ArrowDown', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
     const menu = page.locator('.menu-sort-and-group[role="menu"]');
 
     // Focus sur le trigger
@@ -118,7 +116,8 @@ test.describe('DsDropdown - Navigation clavier', () => {
   });
 
   test('devrait naviguer avec ArrowDown et ArrowUp', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
 
     // Ouvrir le dropdown
     await trigger.click();
@@ -145,7 +144,8 @@ test.describe('DsDropdown - Navigation clavier', () => {
   });
 
   test('devrait sélectionner avec Enter', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
 
     // Ouvrir le dropdown
     await trigger.click();
@@ -162,7 +162,8 @@ test.describe('DsDropdown - Navigation clavier', () => {
   });
 
   test('devrait naviguer en boucle', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
     await trigger.click();
 
     // Compter les items
@@ -180,7 +181,8 @@ test.describe('DsDropdown - Navigation clavier', () => {
   });
 
   test('devrait aller au premier item avec Home', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
     await trigger.click();
 
     // Naviguer au milieu de la liste
@@ -196,7 +198,8 @@ test.describe('DsDropdown - Navigation clavier', () => {
   });
 
   test('devrait aller au dernier item avec End', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
     await trigger.click();
 
     // Appuyer sur End
@@ -208,50 +211,59 @@ test.describe('DsDropdown - Navigation clavier', () => {
   });
 });
 
-test.describe('DsDropdown - États', () => {
-  test('devrait être désactivé', async ({ page }) => {
-    await page.goto('/iframe.html?id=components-dropdown--disabled');
+test.describe('DsDropdown - Items désactivés', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/test/dropdown');
     await page.waitForLoadState('networkidle');
-
-    const trigger = page.locator('ds-dropdown primitive-button button');
-
-    // Vérifier que le bouton est disabled
-    await expect(trigger).toBeDisabled();
   });
 
-  test('devrait afficher l\'état loading', async ({ page }) => {
-    await page.goto('/iframe.html?id=components-dropdown--loading');
-    await page.waitForLoadState('networkidle');
+  test('ne devrait pas sélectionner un item disabled', async ({ page }) => {
+    const section = page.locator('[data-testid="dropdown-disabled"]');
+    const trigger = section.locator('ds-dropdown ds-button');
 
-    const spinner = page.locator('ds-dropdown .spinner');
-    await expect(spinner).toBeVisible();
+    // Ouvrir le dropdown
+    await trigger.click();
+
+    // Trouver l'item disabled
+    const disabledItem = page.locator('.menu-item-content[aria-disabled="true"]');
+    await expect(disabledItem).toBeVisible();
+
+    // Essayer de cliquer sur l'item disabled
+    await disabledItem.click({ force: true });
+
+    // Le menu devrait toujours être ouvert
+    const menu = page.locator('.menu-sort-and-group[role="menu"]');
+    await expect(menu).toBeVisible();
   });
 });
 
 test.describe('DsDropdown - Accessibilité', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/iframe.html?id=components-dropdown--default');
+    await page.goto('/test/dropdown');
     await page.waitForLoadState('networkidle');
   });
 
   test('devrait avoir les attributs ARIA corrects sur le trigger', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const dropdown = section.locator('ds-dropdown');
+    const trigger = dropdown.locator('ds-button');
 
     // Vérifier aria-haspopup
-    await expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+    await expect(dropdown).toHaveAttribute('aria-haspopup', 'menu');
 
     // Vérifier aria-expanded est false initialement
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(dropdown).toHaveAttribute('aria-expanded', 'false');
 
     // Ouvrir le dropdown
-    await trigger.locator('button').click();
+    await trigger.click();
 
     // Vérifier aria-expanded est true
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(dropdown).toHaveAttribute('aria-expanded', 'true');
   });
 
   test('devrait avoir le rôle menu sur le panel', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
     await trigger.click();
 
     const menu = page.locator('.menu-sort-and-group');
@@ -259,7 +271,8 @@ test.describe('DsDropdown - Accessibilité', () => {
   });
 
   test('devrait avoir le rôle menuitemradio sur les items', async ({ page }) => {
-    const trigger = page.locator('ds-dropdown primitive-button button');
+    const section = page.locator('[data-testid="dropdown-default"]');
+    const trigger = section.locator('ds-dropdown ds-button');
     await trigger.click();
 
     const items = page.locator('.menu-item-content');

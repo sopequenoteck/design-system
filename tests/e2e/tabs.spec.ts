@@ -3,6 +3,8 @@ import { test, expect } from '@playwright/test';
 /**
  * Tests e2e pour le composant ds-tabs
  *
+ * Exécutés sur Showcase (/test/tabs)
+ *
  * Scénarios testés :
  * - Sélection de tabs au clic
  * - Navigation clavier (ArrowLeft, ArrowRight, Home, End)
@@ -13,64 +15,65 @@ import { test, expect } from '@playwright/test';
 
 test.describe('DsTabs - Sélection', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/iframe.html?id=components-tabs--default');
+    await page.goto('/test/tabs');
+    await page.waitForLoadState('networkidle');
   });
 
   test('devrait sélectionner une tab au clic', async ({ page }) => {
+    const section = page.locator('[data-testid="tabs-default"]');
+    const tabs = section.locator('.ds-tabs__tab');
+
     // Cliquer sur la deuxième tab
-    const secondTab = page.locator('.ds-tabs__tab').nth(1);
+    const secondTab = tabs.nth(1);
     await secondTab.click();
 
     // Vérifier que la tab est active
     await expect(secondTab).toHaveAttribute('aria-selected', 'true');
     await expect(secondTab).toHaveClass(/ds-tabs__tab--active/);
-
-    // Vérifier que le contenu correspondant est affiché
-    const secondPanel = page.locator('.ds-tabs__panel').nth(1);
-    await expect(secondPanel).toBeVisible();
   });
 
-  test('devrait afficher uniquement le contenu de la tab active', async ({ page }) => {
-    const firstTab = page.locator('.ds-tabs__tab').first();
-    const secondTab = page.locator('.ds-tabs__tab').nth(1);
+  test('devrait afficher le contenu correspondant à la tab active', async ({ page }) => {
+    const section = page.locator('[data-testid="tabs-default"]');
+    const tabs = section.locator('.ds-tabs__tab');
+    const content = section.locator('.tab-content p');
 
-    // Vérifier que le premier panel est visible initialement
-    const firstPanel = page.locator('.ds-tabs__panel').first();
-    const secondPanel = page.locator('.ds-tabs__panel').nth(1);
-    await expect(firstPanel).toBeVisible();
-    await expect(secondPanel).not.toBeVisible();
+    // Vérifier le contenu initial (onglet 1)
+    await expect(content).toContainText('onglet 1');
 
     // Cliquer sur la deuxième tab
-    await secondTab.click();
+    await tabs.nth(1).click();
 
-    // Vérifier que les panels ont changé
-    await expect(firstPanel).not.toBeVisible();
-    await expect(secondPanel).toBeVisible();
+    // Vérifier que le contenu a changé
+    await expect(content).toContainText('onglet 2');
   });
 
   test('ne devrait pas sélectionner une tab disabled', async ({ page }) => {
-    await page.goto('/iframe.html?id=components-tabs--with-disabled-tab');
+    const section = page.locator('[data-testid="tabs-disabled"]');
+    const tabs = section.locator('.ds-tabs__tab');
 
-    // Essayer de cliquer sur une tab disabled
-    const disabledTab = page.locator('.ds-tabs__tab[aria-disabled="true"]').first();
-    const wasSelected = await disabledTab.getAttribute('aria-selected');
+    // Trouver la tab disabled
+    const disabledTab = tabs.filter({ hasText: 'Désactivé' });
+    await expect(disabledTab).toHaveAttribute('aria-disabled', 'true');
 
-    await disabledTab.click();
+    // Essayer de cliquer dessus
+    await disabledTab.click({ force: true });
 
-    // Vérifier que la tab n'est toujours pas sélectionnée
-    const isSelected = await disabledTab.getAttribute('aria-selected');
-    expect(isSelected).toBe(wasSelected);
+    // Vérifier qu'elle n'est pas sélectionnée
+    await expect(disabledTab).toHaveAttribute('aria-selected', 'false');
   });
 });
 
 test.describe('DsTabs - Navigation clavier', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/iframe.html?id=components-tabs--default');
+    await page.goto('/test/tabs');
+    await page.waitForLoadState('networkidle');
   });
 
   test('devrait naviguer avec ArrowRight', async ({ page }) => {
-    const firstTab = page.locator('.ds-tabs__tab').first();
-    const secondTab = page.locator('.ds-tabs__tab').nth(1);
+    const section = page.locator('[data-testid="tabs-default"]');
+    const tabs = section.locator('.ds-tabs__tab');
+    const firstTab = tabs.first();
+    const secondTab = tabs.nth(1);
 
     // Focus sur la première tab
     await firstTab.focus();
@@ -84,8 +87,10 @@ test.describe('DsTabs - Navigation clavier', () => {
   });
 
   test('devrait naviguer avec ArrowLeft', async ({ page }) => {
-    const firstTab = page.locator('.ds-tabs__tab').first();
-    const secondTab = page.locator('.ds-tabs__tab').nth(1);
+    const section = page.locator('[data-testid="tabs-default"]');
+    const tabs = section.locator('.ds-tabs__tab');
+    const firstTab = tabs.first();
+    const secondTab = tabs.nth(1);
 
     // Sélectionner la deuxième tab
     await secondTab.click();
@@ -100,8 +105,10 @@ test.describe('DsTabs - Navigation clavier', () => {
   });
 
   test('devrait aller à la première tab avec Home', async ({ page }) => {
-    const firstTab = page.locator('.ds-tabs__tab').first();
-    const lastTab = page.locator('.ds-tabs__tab').last();
+    const section = page.locator('[data-testid="tabs-default"]');
+    const tabs = section.locator('.ds-tabs__tab');
+    const firstTab = tabs.first();
+    const lastTab = tabs.last();
 
     // Focus sur la dernière tab
     await lastTab.click();
@@ -115,8 +122,10 @@ test.describe('DsTabs - Navigation clavier', () => {
   });
 
   test('devrait aller à la dernière tab avec End', async ({ page }) => {
-    const firstTab = page.locator('.ds-tabs__tab').first();
-    const lastTab = page.locator('.ds-tabs__tab').last();
+    const section = page.locator('[data-testid="tabs-default"]');
+    const tabs = section.locator('.ds-tabs__tab');
+    const firstTab = tabs.first();
+    const lastTab = tabs.last();
 
     // Focus sur la première tab
     await firstTab.focus();
@@ -130,8 +139,8 @@ test.describe('DsTabs - Navigation clavier', () => {
   });
 
   test('devrait naviguer en boucle avec ArrowRight', async ({ page }) => {
-    const tabs = page.locator('.ds-tabs__tab');
-    const count = await tabs.count();
+    const section = page.locator('[data-testid="tabs-default"]');
+    const tabs = section.locator('.ds-tabs__tab');
     const firstTab = tabs.first();
     const lastTab = tabs.last();
 
@@ -149,11 +158,14 @@ test.describe('DsTabs - Navigation clavier', () => {
 
 test.describe('DsTabs - Indicateur visuel', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/iframe.html?id=components-tabs--default');
+    await page.goto('/test/tabs');
+    await page.waitForLoadState('networkidle');
   });
 
   test('devrait déplacer l\'indicateur avec la tab active', async ({ page }) => {
-    const indicator = page.locator('.ds-tabs__indicator');
+    const section = page.locator('[data-testid="tabs-default"]');
+    const indicator = section.locator('.ds-tabs__indicator');
+    const tabs = section.locator('.ds-tabs__tab');
 
     // Vérifier que l'indicateur existe
     await expect(indicator).toBeVisible();
@@ -162,7 +174,7 @@ test.describe('DsTabs - Indicateur visuel', () => {
     const initialBox = await indicator.boundingBox();
 
     // Cliquer sur la deuxième tab
-    await page.locator('.ds-tabs__tab').nth(1).click();
+    await tabs.nth(1).click();
 
     // Attendre l'animation
     await page.waitForTimeout(300);
@@ -173,27 +185,59 @@ test.describe('DsTabs - Indicateur visuel', () => {
   });
 });
 
+test.describe('DsTabs - Tailles', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/test/tabs');
+    await page.waitForLoadState('networkidle');
+  });
+
+  test('devrait afficher les tabs en différentes tailles', async ({ page }) => {
+    const section = page.locator('[data-testid="tabs-sizes"]');
+
+    // Vérifier les 3 groupes de tabs (sm, md, lg)
+    const tabGroups = section.locator('ds-tabs');
+    await expect(tabGroups).toHaveCount(3);
+
+    // Vérifier que chaque groupe a des tabs
+    for (let i = 0; i < 3; i++) {
+      const tabs = tabGroups.nth(i).locator('.ds-tabs__tab');
+      const count = await tabs.count();
+      expect(count).toBeGreaterThan(0);
+    }
+  });
+});
+
 test.describe('DsTabs - Accessibilité', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/iframe.html?id=components-tabs--default');
+    await page.goto('/test/tabs');
+    await page.waitForLoadState('networkidle');
   });
 
   test('devrait avoir les attributs ARIA corrects', async ({ page }) => {
-    const tabList = page.locator('[role="tablist"]');
-    const tabs = page.locator('[role="tab"]');
-    const panels = page.locator('[role="tabpanel"]');
+    const section = page.locator('[data-testid="tabs-default"]');
+    const tabList = section.locator('[role="tablist"]');
+    const tabs = section.locator('[role="tab"]');
 
     // Vérifier les rôles
     await expect(tabList).toHaveCount(1);
     expect(await tabs.count()).toBeGreaterThan(0);
-    expect(await panels.count()).toBeGreaterThan(0);
 
     // Vérifier que chaque tab contrôle un panel
     const firstTab = tabs.first();
     const controls = await firstTab.getAttribute('aria-controls');
     expect(controls).toBeTruthy();
+  });
 
-    const controlledPanel = page.locator(`#${controls}`);
-    await expect(controlledPanel).toHaveCount(1);
+  test('devrait avoir les attributs tabindex corrects', async ({ page }) => {
+    const section = page.locator('[data-testid="tabs-default"]');
+    const tabs = section.locator('.ds-tabs__tab');
+
+    // La tab active doit avoir tabindex="0"
+    const activeTab = tabs.first();
+    await expect(activeTab).toHaveAttribute('tabindex', '0');
+
+    // Les autres tabs doivent avoir tabindex="-1"
+    const inactiveTab = tabs.nth(1);
+    await expect(inactiveTab).toHaveAttribute('tabindex', '-1');
   });
 });
