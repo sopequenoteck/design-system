@@ -1,10 +1,44 @@
-import { Component } from '@angular/core';
-import { DsDivider, DsCard } from 'ds-angular';
+import { Component, signal, computed } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  DsDivider,
+  DsCard,
+  DsSidebar,
+  SidebarItem,
+  SidebarMode,
+  SidebarSize,
+  SidebarItemClickEvent,
+  DsTabs,
+  TabItem,
+  DsBreadcrumb,
+  BreadcrumbItem,
+  DsPagination,
+  PaginationSize,
+  DsStepper,
+  Step,
+  StepperOrientation,
+  StepChangeEvent,
+  DsButton
+} from 'ds-angular';
+import { DemoContainer } from '../../../shared/demo/demo-container';
+import { ControlConfig, ControlValues } from '../../../registry/types';
+import { faHome, faUsers, faChartBar, faCog } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navigation-patterns-page',
   standalone: true,
-  imports: [DsDivider, DsCard],
+  imports: [
+    RouterLink,
+    DsDivider,
+    DsCard,
+    DsSidebar,
+    DsTabs,
+    DsBreadcrumb,
+    DsPagination,
+    DsStepper,
+    DsButton,
+    DemoContainer
+  ],
   template: `
     <div class="doc-page">
       <header class="doc-header">
@@ -15,35 +49,79 @@ import { DsDivider, DsCard } from 'ds-angular';
         </p>
       </header>
 
-      <!-- Section: Sidebar + Content -->
+      <!-- Section 1: Sidebar + Content -->
       <section class="doc-section">
         <h2>1. Sidebar + Content Layout</h2>
         <p class="section-desc">
           Layout classique avec navigation latérale et contenu principal.
         </p>
 
-        <div class="code-block">
-          <pre><code>{{ sidebarLayoutCode }}</code></pre>
-        </div>
+        <doc-demo-container
+          [code]="sidebarLayoutCode"
+          [controls]="sidebarControls"
+          [initialValues]="sidebarValues()"
+          (controlChange)="onSidebarChange($event)"
+        >
+          <div class="sidebar-demo">
+            <ds-sidebar
+              [items]="sidebarItems"
+              [mode]="sidebarMode()"
+              [size]="sidebarSize()"
+              [collapsible]="sidebarCollapsible()"
+              [initialActiveItemId]="activeItem()"
+              (itemClick)="onSidebarItemClick($event)"
+            />
+            <div class="sidebar-content">
+              <h4>Contenu : {{ activeItem() }}</h4>
+              <p>Zone de contenu principal correspondant à l'item sélectionné.</p>
+            </div>
+          </div>
+        </doc-demo-container>
 
-        <h3>Styles recommandés</h3>
-        <div class="code-block">
-          <pre><code>{{ sidebarLayoutStyles }}</code></pre>
-        </div>
+        <ds-card variant="outlined" class="tip-card">
+          <h4>Bonnes pratiques Sidebar</h4>
+          <ul>
+            <li>Utilisez le mode collapsed sur mobile pour économiser l'espace</li>
+            <li>Limitez la profondeur d'imbrication à 2-3 niveaux maximum</li>
+            <li>Ajoutez des badges pour les notifications importantes</li>
+          </ul>
+        </ds-card>
       </section>
 
       <ds-divider spacing="lg" />
 
-      <!-- Section: Tabs Navigation -->
+      <!-- Section 2: Tabs Navigation -->
       <section class="doc-section">
         <h2>2. Tabs Navigation</h2>
         <p class="section-desc">
           Navigation par onglets pour organiser le contenu en sections.
         </p>
 
-        <div class="code-block">
-          <pre><code>{{ tabsNavigationCode }}</code></pre>
-        </div>
+        <doc-demo-container [code]="tabsNavigationCode">
+          <div class="tabs-demo">
+            <ds-tabs
+              [tabs]="tabItems"
+              [activeTabId]="activeTab()"
+              (tabChanged)="onTabChange($event)"
+            />
+            <div class="tabs-content">
+              @switch (activeTab()) {
+                @case ('overview') {
+                  <h4>Vue d'ensemble</h4>
+                  <p>Statistiques et métriques principales du tableau de bord.</p>
+                }
+                @case ('analytics') {
+                  <h4>Analytics</h4>
+                  <p>Graphiques de tendances et analyses détaillées.</p>
+                }
+                @case ('reports') {
+                  <h4>Rapports</h4>
+                  <p>Exports personnalisés et historique des rapports.</p>
+                }
+              }
+            </div>
+          </div>
+        </doc-demo-container>
 
         <ds-card variant="outlined" class="tip-card">
           <h4>Bonnes pratiques Tabs</h4>
@@ -58,105 +136,151 @@ import { DsDivider, DsCard } from 'ds-angular';
 
       <ds-divider spacing="lg" />
 
-      <!-- Section: Breadcrumb + Routing -->
+      <!-- Section 3: Breadcrumb + Routing -->
       <section class="doc-section">
         <h2>3. Breadcrumb avec Routing</h2>
         <p class="section-desc">
-          Fil d'Ariane dynamique basé sur le routeur Angular.
+          Fil d'Ariane dynamique pour la navigation hiérarchique.
         </p>
 
-        <div class="code-block">
-          <pre><code>{{ breadcrumbRoutingCode }}</code></pre>
-        </div>
+        <doc-demo-container
+          [code]="breadcrumbRoutingCode"
+          [controls]="breadcrumbControls"
+          [initialValues]="breadcrumbValues()"
+          (controlChange)="onBreadcrumbChange($event)"
+        >
+          <ds-breadcrumb
+            [items]="breadcrumbItems"
+            [separator]="breadcrumbSeparator()"
+            [maxItems]="breadcrumbMaxItems()"
+            (itemClicked)="onBreadcrumbClick($event)"
+          />
+        </doc-demo-container>
 
         <h3>Configuration des routes</h3>
-        <div class="code-block">
-          <pre><code>{{ breadcrumbRoutesCode }}</code></pre>
-        </div>
+        <doc-demo-container [code]="breadcrumbRoutesCode">
+          <div class="code-example">
+            <p>Le breadcrumb s'alimente automatiquement depuis les data des routes Angular.</p>
+          </div>
+        </doc-demo-container>
       </section>
 
       <ds-divider spacing="lg" />
 
-      <!-- Section: Pagination Data -->
+      <!-- Section 4: Pagination avec données -->
       <section class="doc-section">
         <h2>4. Pagination avec données</h2>
         <p class="section-desc">
           Intégration de la pagination avec une liste de données.
         </p>
 
-        <div class="code-block">
-          <pre><code>{{ paginationDataCode }}</code></pre>
-        </div>
+        <doc-demo-container
+          [code]="paginationDataCode"
+          [controls]="paginationControls"
+          [initialValues]="paginationValues()"
+          (controlChange)="onPaginationChange($event)"
+        >
+          <div class="pagination-demo">
+            <ul class="user-list">
+              @for (user of paginatedUsers(); track user.id) {
+                <li class="user-item">
+                  <span class="user-name">{{ user.name }}</span>
+                  <span class="user-status" [class]="'status--' + user.status.toLowerCase()">
+                    {{ user.status }}
+                  </span>
+                </li>
+              }
+            </ul>
+            <ds-pagination
+              [totalItems]="allUsers.length"
+              [pageSize]="paginationPageSize()"
+              [currentPage]="currentPage()"
+              [size]="paginationSize()"
+              [showInfo]="paginationShowInfo()"
+              (pageChange)="onPageChange($event)"
+            />
+          </div>
+        </doc-demo-container>
       </section>
 
       <ds-divider spacing="lg" />
 
-      <!-- Section: Stepper Wizard -->
+      <!-- Section 5: Stepper Wizard -->
       <section class="doc-section">
         <h2>5. Stepper Wizard</h2>
         <p class="section-desc">
           Navigation multi-étapes pour les processus complexes.
         </p>
 
-        <div class="code-block">
-          <pre><code>{{ stepperWizardCode }}</code></pre>
-        </div>
+        <doc-demo-container
+          [code]="stepperWizardCode"
+          [controls]="stepperControls"
+          [initialValues]="stepperValues()"
+          (controlChange)="onStepperChange($event)"
+        >
+          <div class="stepper-demo" [class.stepper-demo--vertical]="stepperOrientation() === 'vertical'">
+            <ds-stepper
+              [steps]="steps"
+              [activeStep]="activeStep()"
+              [orientation]="stepperOrientation()"
+              [linear]="stepperLinear()"
+              (stepChange)="onStepChange($event)"
+            />
+            <div class="stepper-content">
+              @switch (activeStep()) {
+                @case (0) {
+                  <h4>Étape 1 : Informations</h4>
+                  <p>Renseignez vos données personnelles.</p>
+                }
+                @case (1) {
+                  <h4>Étape 2 : Vérification</h4>
+                  <p>Vérifiez les informations saisies.</p>
+                }
+                @case (2) {
+                  <h4>Étape 3 : Confirmation</h4>
+                  <p>Validez pour terminer le processus.</p>
+                }
+              }
+            </div>
+            <div class="stepper-actions">
+              <ds-button
+                variant="ghost"
+                [disabled]="activeStep() === 0"
+                (clicked)="previousStep()"
+              >Précédent</ds-button>
+              @if (activeStep() < steps.length - 1) {
+                <ds-button
+                  variant="primary"
+                  (clicked)="nextStep()"
+                >Suivant</ds-button>
+              } @else {
+                <ds-button
+                  variant="primary"
+                  appearance="solid"
+                  (clicked)="finishWizard()"
+                >Terminer</ds-button>
+              }
+            </div>
+          </div>
+        </doc-demo-container>
       </section>
 
       <ds-divider spacing="lg" />
 
-      <!-- Section: Composants navigation -->
+      <!-- Section 6: Composants navigation -->
       <section class="doc-section">
         <h2>Composants de navigation disponibles</h2>
 
         <div class="components-grid">
-          <ds-card variant="outlined">
-            <h4>ds-sidebar</h4>
-            <p>Navigation verticale avec mode collapsed, groupes et badges.</p>
-            <code>/components/navigation/ds-sidebar</code>
-          </ds-card>
-
-          <ds-card variant="outlined">
-            <h4>ds-tabs</h4>
-            <p>Onglets horizontaux avec indicateur animé.</p>
-            <code>/components/navigation/ds-tabs</code>
-          </ds-card>
-
-          <ds-card variant="outlined">
-            <h4>ds-breadcrumb</h4>
-            <p>Fil d'Ariane avec séparateurs personnalisables.</p>
-            <code>/components/navigation/ds-breadcrumb</code>
-          </ds-card>
-
-          <ds-card variant="outlined">
-            <h4>ds-pagination</h4>
-            <p>Pagination avec tailles de page et navigation rapide.</p>
-            <code>/components/navigation/ds-pagination</code>
-          </ds-card>
-
-          <ds-card variant="outlined">
-            <h4>ds-stepper</h4>
-            <p>Étapes horizontal/vertical avec validation.</p>
-            <code>/components/navigation/ds-stepper</code>
-          </ds-card>
-
-          <ds-card variant="outlined">
-            <h4>ds-accordion</h4>
-            <p>Sections collapsibles avec mode single/multi.</p>
-            <code>/components/navigation/ds-accordion</code>
-          </ds-card>
-
-          <ds-card variant="outlined">
-            <h4>ds-nav-list</h4>
-            <p>Liste de navigation avec groupes et icônes.</p>
-            <code>/components/navigation/ds-nav-list</code>
-          </ds-card>
-
-          <ds-card variant="outlined">
-            <h4>ds-menu</h4>
-            <p>Menu contextuel avec sous-menus et raccourcis.</p>
-            <code>/components/navigation/ds-menu</code>
-          </ds-card>
+          @for (comp of navigationComponents; track comp.id) {
+            <a [routerLink]="comp.path" class="component-link">
+              <ds-card variant="outlined" class="component-card">
+                <h4>{{ comp.selector }}</h4>
+                <p>{{ comp.description }}</p>
+                <span class="component-path">Voir la documentation →</span>
+              </ds-card>
+            </a>
+          }
         </div>
       </section>
     </div>
@@ -221,27 +345,6 @@ import { DsDivider, DsCard } from 'ds-angular';
       color: var(--text-muted, #6b7280);
     }
 
-    .code-block {
-      background: var(--gray-900, #111827);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 16px;
-
-      pre {
-        margin: 0;
-        padding: 16px;
-        overflow-x: auto;
-      }
-
-      code {
-        font-family: 'SF Mono', Monaco, monospace;
-        font-size: 0.8125rem;
-        line-height: 1.6;
-        color: #e5e7eb;
-        white-space: pre;
-      }
-    }
-
     .tip-card {
       margin-top: 16px;
 
@@ -266,6 +369,36 @@ import { DsDivider, DsCard } from 'ds-angular';
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
+    }
+
+    .component-link {
+      text-decoration: none;
+      display: block;
+      border-radius: 8px;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+
+      &:hover {
+        transform: translateY(-2px);
+
+        .component-card {
+          border-color: var(--color-primary, #3b82f6);
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+
+        .component-path {
+          color: var(--color-primary, #3b82f6);
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--color-primary, #3b82f6);
+        outline-offset: 2px;
+      }
+    }
+
+    .component-card {
+      height: 100%;
+      transition: border-color 150ms ease, box-shadow 150ms ease;
 
       h4 {
         margin: 0 0 8px 0;
@@ -278,190 +411,385 @@ import { DsDivider, DsCard } from 'ds-angular';
         font-size: 0.8125rem;
         color: var(--text-muted, #6b7280);
       }
+    }
 
-      code {
-        font-size: 0.6875rem;
-        color: var(--text-muted, #9ca3af);
+    .component-path {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted, #9ca3af);
+      transition: color 150ms ease;
+    }
+
+    // ==========================================================================
+    // Demo containers
+    // ==========================================================================
+
+    .sidebar-demo {
+      display: flex;
+      width: 100%;
+      height: 350px;
+      border: 1px solid var(--border-default, #e5e7eb);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .sidebar-content {
+      flex: 1;
+      padding: 24px;
+      background: var(--background-main, #ffffff);
+
+      h4 {
+        margin: 0 0 8px 0;
+        font-size: 1rem;
+        color: var(--text-default, #1a1a1a);
+        text-transform: capitalize;
       }
+
+      p {
+        margin: 0;
+        font-size: 0.875rem;
+        color: var(--text-muted, #6b7280);
+      }
+    }
+
+    .tabs-demo {
+      width: 100%;
+      border: 1px solid var(--border-default, #e5e7eb);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .tabs-content {
+      padding: 24px;
+      background: var(--background-main, #ffffff);
+
+      h4 {
+        margin: 0 0 8px 0;
+        font-size: 1rem;
+        color: var(--text-default, #1a1a1a);
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.875rem;
+        color: var(--text-muted, #6b7280);
+      }
+    }
+
+    .code-example {
+      padding: 16px;
+      background: var(--background-secondary, #f9fafb);
+      border-radius: 6px;
+
+      p {
+        margin: 0;
+        font-size: 0.875rem;
+        color: var(--text-muted, #6b7280);
+      }
+    }
+
+    .pagination-demo {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .user-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border: 1px solid var(--border-default, #e5e7eb);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .user-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle, #f3f4f6);
+      background: var(--background-main, #ffffff);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .user-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-default, #1a1a1a);
+    }
+
+    .user-status {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 4px;
+
+      &.status--actif {
+        background: var(--success-light, #dcfce7);
+        color: var(--success, #16a34a);
+      }
+
+      &.status--inactif {
+        background: var(--gray-100, #f3f4f6);
+        color: var(--gray-600, #4b5563);
+      }
+
+      &.status--en\ attente {
+        background: var(--warning-light, #fef3c7);
+        color: var(--warning, #d97706);
+      }
+    }
+
+    .stepper-demo {
+      width: 100%;
+      border: 1px solid var(--border-default, #e5e7eb);
+      border-radius: 8px;
+      overflow: hidden;
+
+      &.stepper-demo--vertical {
+        display: flex;
+
+        ds-stepper {
+          width: 280px;
+          border-right: 1px solid var(--border-default, #e5e7eb);
+        }
+
+        .stepper-content {
+          flex: 1;
+        }
+      }
+    }
+
+    .stepper-content {
+      padding: 24px;
+      background: var(--background-main, #ffffff);
+
+      h4 {
+        margin: 0 0 8px 0;
+        font-size: 1rem;
+        color: var(--text-default, #1a1a1a);
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.875rem;
+        color: var(--text-muted, #6b7280);
+      }
+    }
+
+    .stepper-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-default, #e5e7eb);
+      background: var(--background-secondary, #f9fafb);
     }
   `]
 })
 export class NavigationPatternsPage {
-  sidebarLayoutCode = `import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { DsSidebar } from '@kksdev/ds-angular';
+  // ==========================================================================
+  // Navigation Components (Section 6)
+  // ==========================================================================
 
-@Component({
-  standalone: true,
-  imports: [RouterOutlet, DsSidebar],
-  template: \`
-    <div class="app-layout">
-      <ds-sidebar
-        [items]="sidebarItems"
-        [collapsible]="true"
-        [collapsed]="isCollapsed()"
-        [activeItemId]="activeItem()"
-        (itemClick)="onNavigate($event)"
-        (collapsedChange)="isCollapsed.set($event)"
-      />
-
-      <main class="app-content">
-        <router-outlet />
-      </main>
-    </div>
-  \`
-})
-export class AppLayoutComponent {
-  isCollapsed = signal(false);
-  activeItem = signal('dashboard');
-
-  sidebarItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: 'home', path: '/dashboard' },
-    { id: 'users', label: 'Utilisateurs', icon: 'users', path: '/users', badge: 5 },
-    { id: 'settings', label: 'Paramètres', icon: 'cog', path: '/settings' },
+  navigationComponents = [
+    {
+      id: 'ds-sidebar',
+      selector: 'ds-sidebar',
+      description: 'Navigation verticale avec mode collapsed, groupes et badges.',
+      path: '/components/navigation/ds-sidebar'
+    },
+    {
+      id: 'ds-tabs',
+      selector: 'ds-tabs',
+      description: 'Onglets horizontaux avec indicateur animé.',
+      path: '/components/navigation/ds-tabs'
+    },
+    {
+      id: 'ds-breadcrumb',
+      selector: 'ds-breadcrumb',
+      description: "Fil d'Ariane avec séparateurs personnalisables.",
+      path: '/components/navigation/ds-breadcrumb'
+    },
+    {
+      id: 'ds-pagination',
+      selector: 'ds-pagination',
+      description: 'Pagination avec tailles de page et navigation rapide.',
+      path: '/components/navigation/ds-pagination'
+    },
+    {
+      id: 'ds-stepper',
+      selector: 'ds-stepper',
+      description: 'Étapes horizontal/vertical avec validation.',
+      path: '/components/navigation/ds-stepper'
+    },
+    {
+      id: 'ds-accordion',
+      selector: 'ds-accordion',
+      description: 'Sections collapsibles avec mode single/multi.',
+      path: '/components/navigation/ds-accordion'
+    },
+    {
+      id: 'ds-nav-list',
+      selector: 'ds-nav-list',
+      description: 'Liste de navigation avec groupes et icônes.',
+      path: '/components/navigation/ds-nav-list'
+    },
+    {
+      id: 'ds-menu',
+      selector: 'ds-menu',
+      description: 'Menu contextuel avec sous-menus et raccourcis.',
+      path: '/components/navigation/ds-menu'
+    }
   ];
 
-  onNavigate(item: any) {
-    this.activeItem.set(item.id);
-    // router.navigate([item.path]);
+  // ==========================================================================
+  // Section 1: Sidebar
+  // ==========================================================================
+
+  sidebarValues = signal<ControlValues>({
+    mode: 'full',
+    size: 'md',
+    collapsible: true
+  });
+
+  sidebarMode = computed(() => this.sidebarValues()['mode'] as SidebarMode);
+  sidebarSize = computed(() => this.sidebarValues()['size'] as SidebarSize);
+  sidebarCollapsible = computed(() => this.sidebarValues()['collapsible'] as boolean);
+
+  activeItem = signal<string | number>('dashboard');
+
+  sidebarItems: SidebarItem[] = [
+    { id: 'dashboard', label: 'Dashboard', icon: faHome },
+    { id: 'users', label: 'Utilisateurs', icon: faUsers, badge: 5 },
+    { id: 'analytics', label: 'Analytiques', icon: faChartBar },
+    { id: 'settings', label: 'Paramètres', icon: faCog }
+  ];
+
+  sidebarControls: ControlConfig[] = [
+    {
+      name: 'mode',
+      type: 'select',
+      defaultValue: 'full',
+      options: ['full', 'collapsed'],
+      description: "Mode d'affichage de la sidebar"
+    },
+    {
+      name: 'size',
+      type: 'select',
+      defaultValue: 'md',
+      options: ['sm', 'md', 'lg'],
+      description: 'Taille des éléments'
+    },
+    {
+      name: 'collapsible',
+      type: 'boolean',
+      defaultValue: true,
+      description: 'Permet de replier la sidebar'
+    }
+  ];
+
+  sidebarLayoutCode = `<div class="app-layout">
+  <ds-sidebar
+    [items]="sidebarItems"
+    [mode]="'full'"
+    [collapsible]="true"
+    [initialActiveItemId]="'dashboard'"
+    (itemClick)="onNavigate($event)"
+  />
+  <main class="app-content">
+    <router-outlet />
+  </main>
+</div>`;
+
+  onSidebarChange(values: ControlValues): void {
+    this.sidebarValues.set(values);
   }
-}`;
 
-  sidebarLayoutStyles = `.app-layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.app-content {
-  flex: 1;
-  padding: var(--space-6);
-  overflow-y: auto;
-}
-
-/* Responsive: sidebar en overlay sur mobile */
-@media (max-width: 768px) {
-  .app-layout {
-    flex-direction: column;
+  onSidebarItemClick(event: SidebarItemClickEvent): void {
+    this.activeItem.set(event.item.id);
   }
 
-  ds-sidebar {
-    position: fixed;
-    z-index: 100;
-    height: 100vh;
-  }
-}`;
+  // ==========================================================================
+  // Section 2: Tabs
+  // ==========================================================================
 
-  tabsNavigationCode = `import { Component, signal } from '@angular/core';
-import { DsTabs, DsCard } from '@kksdev/ds-angular';
-
-@Component({
-  standalone: true,
-  imports: [DsTabs, DsCard],
-  template: \`
-    <ds-card>
-      <ds-tabs
-        [tabs]="tabs"
-        [activeTabId]="activeTab()"
-        (tabChange)="onTabChange($event)"
-      >
-        <!-- Contenu Overview -->
-        @if (activeTab() === 'overview') {
-          <div class="tab-content">
-            <h3>Vue d'ensemble</h3>
-            <p>Statistiques et métriques principales.</p>
-          </div>
-        }
-
-        <!-- Contenu Analytics -->
-        @if (activeTab() === 'analytics') {
-          <div class="tab-content">
-            <h3>Analytics</h3>
-            <p>Graphiques et tendances.</p>
-          </div>
-        }
-
-        <!-- Contenu Reports -->
-        @if (activeTab() === 'reports') {
-          <div class="tab-content">
-            <h3>Rapports</h3>
-            <p>Exports et historique.</p>
-          </div>
-        }
-      </ds-tabs>
-    </ds-card>
-  \`
-})
-export class DashboardTabsComponent {
   activeTab = signal('overview');
 
-  tabs = [
+  tabItems: TabItem[] = [
     { id: 'overview', label: 'Overview' },
     { id: 'analytics', label: 'Analytics' },
-    { id: 'reports', label: 'Reports' },
+    { id: 'reports', label: 'Reports' }
   ];
 
-  onTabChange(tabId: string) {
-    this.activeTab.set(tabId);
-  }
+  tabsNavigationCode = `<ds-tabs
+  [tabs]="tabs"
+  [activeTabId]="activeTab()"
+  (tabChanged)="onTabChange($event)"
+/>
+
+@switch (activeTab()) {
+  @case ('overview') { <overview-content /> }
+  @case ('analytics') { <analytics-content /> }
+  @case ('reports') { <reports-content /> }
 }`;
 
-  breadcrumbRoutingCode = `import { Component, inject } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { DsBreadcrumb, BreadcrumbItem } from '@kksdev/ds-angular';
-import { filter, map } from 'rxjs/operators';
-
-@Component({
-  standalone: true,
-  imports: [DsBreadcrumb],
-  template: \`
-    <ds-breadcrumb
-      [items]="breadcrumbs()"
-      [separator]="'/'"
-      (itemClick)="onNavigate($event)"
-    />
-  \`
-})
-export class DynamicBreadcrumbComponent {
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-
-  breadcrumbs = signal<BreadcrumbItem[]>([]);
-
-  constructor() {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map(() => this.buildBreadcrumbs(this.route.root))
-    ).subscribe(items => this.breadcrumbs.set(items));
+  onTabChange(tab: TabItem): void {
+    this.activeTab.set(tab.id);
   }
 
-  private buildBreadcrumbs(route: ActivatedRoute, path = ''): BreadcrumbItem[] {
-    const items: BreadcrumbItem[] = [];
+  // ==========================================================================
+  // Section 3: Breadcrumb
+  // ==========================================================================
 
-    while (route) {
-      const routeConfig = route.routeConfig;
-      if (routeConfig?.data?.['breadcrumb']) {
-        path += '/' + routeConfig.path;
-        items.push({
-          label: routeConfig.data['breadcrumb'],
-          path: path,
-          active: !route.firstChild
-        });
-      }
-      route = route.firstChild!;
+  breadcrumbValues = signal<ControlValues>({
+    separator: '/',
+    maxItems: 5
+  });
+
+  breadcrumbSeparator = computed(() => this.breadcrumbValues()['separator'] as string);
+  breadcrumbMaxItems = computed(() => this.breadcrumbValues()['maxItems'] as number);
+
+  breadcrumbItems: BreadcrumbItem[] = [
+    { label: 'Accueil', href: '/' },
+    { label: 'Produits', href: '/products' },
+    { label: 'Catégorie', href: '/products/category' },
+    { label: 'Sous-catégorie', href: '/products/category/sub' },
+    { label: 'Article actuel' }
+  ];
+
+  breadcrumbControls: ControlConfig[] = [
+    {
+      name: 'separator',
+      type: 'select',
+      defaultValue: '/',
+      options: ['/', '>', '|', '→'],
+      description: 'Séparateur entre les items'
+    },
+    {
+      name: 'maxItems',
+      type: 'number',
+      defaultValue: 5,
+      min: 2,
+      max: 6,
+      description: "Nombre maximum d'items affichés"
     }
+  ];
 
-    return [{ label: 'Accueil', path: '/' }, ...items];
-  }
-
-  onNavigate(item: BreadcrumbItem) {
-    if (!item.active) {
-      this.router.navigate([item.path]);
-    }
-  }
-}`;
+  breadcrumbRoutingCode = `<ds-breadcrumb
+  [items]="breadcrumbs()"
+  [separator]="'/'"
+  [maxItems]="4"
+  (itemClicked)="onNavigate($event)"
+/>`;
 
   breadcrumbRoutesCode = `// app.routes.ts
-export const routes: Routes = [
+const routes: Routes = [
   {
     path: 'products',
     data: { breadcrumb: 'Produits' },
@@ -470,173 +798,179 @@ export const routes: Routes = [
         path: ':id',
         data: { breadcrumb: 'Détail produit' },
         component: ProductDetailComponent
-      },
-      {
-        path: ':id/edit',
-        data: { breadcrumb: 'Modifier' },
-        component: ProductEditComponent
       }
     ]
   }
 ];
 
-// Résultat: Accueil / Produits / Détail produit / Modifier`;
+// Résultat: Accueil / Produits / Détail produit`;
 
-  paginationDataCode = `import { Component, signal, computed } from '@angular/core';
-import { DsPagination, DsTable } from '@kksdev/ds-angular';
+  onBreadcrumbChange(values: ControlValues): void {
+    this.breadcrumbValues.set(values);
+  }
 
-@Component({
-  standalone: true,
-  imports: [DsPagination, DsTable],
-  template: \`
-    <ds-table
-      [columns]="columns"
-      [data]="paginatedData()"
-      [loading]="loading()"
-    />
+  onBreadcrumbClick(item: BreadcrumbItem): void {
+    console.log('Navigate to:', item.href);
+  }
 
-    <ds-pagination
-      [page]="currentPage()"
-      [pageSize]="pageSize()"
-      [total]="totalItems()"
-      [pageSizeOptions]="[10, 25, 50, 100]"
-      (pageChange)="onPageChange($event)"
-      (pageSizeChange)="onPageSizeChange($event)"
-    />
-  \`
-})
-export class PaginatedTableComponent {
-  // État
-  currentPage = signal(1);
-  pageSize = signal(10);
-  totalItems = signal(0);
-  loading = signal(false);
-  allData = signal<any[]>([]);
+  // ==========================================================================
+  // Section 4: Pagination
+  // ==========================================================================
 
-  // Données paginées (computed)
-  paginatedData = computed(() => {
-    const start = (this.currentPage() - 1) * this.pageSize();
-    const end = start + this.pageSize();
-    return this.allData().slice(start, end);
+  paginationValues = signal<ControlValues>({
+    pageSize: 5,
+    size: 'md',
+    showInfo: true
   });
 
-  columns = [
-    { key: 'id', label: 'ID' },
-    { key: 'name', label: 'Nom' },
-    { key: 'email', label: 'Email' },
-    { key: 'status', label: 'Statut' }
+  paginationPageSize = computed(() => this.paginationValues()['pageSize'] as number);
+  paginationSize = computed(() => this.paginationValues()['size'] as PaginationSize);
+  paginationShowInfo = computed(() => this.paginationValues()['showInfo'] as boolean);
+
+  currentPage = signal(1);
+
+  allUsers = Array.from({ length: 25 }, (_, i) => ({
+    id: i + 1,
+    name: ['Alice Martin', 'Bob Dupont', 'Claire Bernard', 'David Petit', 'Emma Robert'][i % 5],
+    status: ['Actif', 'Inactif', 'En attente'][i % 3]
+  }));
+
+  paginatedUsers = computed(() => {
+    const start = (this.currentPage() - 1) * this.paginationPageSize();
+    return this.allUsers.slice(start, start + this.paginationPageSize());
+  });
+
+  paginationControls: ControlConfig[] = [
+    {
+      name: 'pageSize',
+      type: 'select',
+      defaultValue: '5',
+      options: ['5', '10', '25'],
+      description: 'Éléments par page'
+    },
+    {
+      name: 'size',
+      type: 'select',
+      defaultValue: 'md',
+      options: ['sm', 'md', 'lg'],
+      description: 'Taille du composant'
+    },
+    {
+      name: 'showInfo',
+      type: 'boolean',
+      defaultValue: true,
+      description: 'Affiche les informations de pagination'
+    }
   ];
 
-  onPageChange(page: number) {
-    this.currentPage.set(page);
-    // Si données serveur: this.loadData(page);
+  paginationDataCode = `<ul class="user-list">
+  @for (user of paginatedUsers(); track user.id) {
+    <li>{{ user.name }} - {{ user.status }}</li>
+  }
+</ul>
+
+<ds-pagination
+  [totalItems]="allUsers.length"
+  [pageSize]="10"
+  [currentPage]="currentPage()"
+  (pageChange)="onPageChange($event)"
+/>`;
+
+  onPaginationChange(values: ControlValues): void {
+    // Convert pageSize string to number
+    const newValues = {
+      ...values,
+      pageSize: typeof values['pageSize'] === 'string'
+        ? parseInt(values['pageSize'] as string, 10)
+        : values['pageSize']
+    };
+    this.paginationValues.set(newValues);
+    this.currentPage.set(1); // Reset to page 1 when changing settings
   }
 
-  onPageSizeChange(size: number) {
-    this.pageSize.set(size);
-    this.currentPage.set(1); // Reset à la première page
+  onPageChange(event: { page: number }): void {
+    this.currentPage.set(event.page);
   }
 
-  // Chargement initial
-  ngOnInit() {
-    this.loadData();
-  }
+  // ==========================================================================
+  // Section 5: Stepper
+  // ==========================================================================
 
-  private loadData() {
-    this.loading.set(true);
-    // API call...
-    this.allData.set([/* data */]);
-    this.totalItems.set(this.allData().length);
-    this.loading.set(false);
-  }
-}`;
+  stepperValues = signal<ControlValues>({
+    orientation: 'horizontal',
+    linear: false
+  });
 
-  stepperWizardCode = `import { Component, signal, computed } from '@angular/core';
-import { DsStepper, DsCard, DsButton } from '@kksdev/ds-angular';
+  stepperOrientation = computed(() => this.stepperValues()['orientation'] as StepperOrientation);
+  stepperLinear = computed(() => this.stepperValues()['linear'] as boolean);
 
-@Component({
-  standalone: true,
-  imports: [DsStepper, DsCard, DsButton],
-  template: \`
-    <ds-card>
-      <ds-stepper
-        [steps]="steps"
-        [activeStep]="currentStep()"
-        [linear]="true"
-        orientation="horizontal"
-      />
+  activeStep = signal(0);
 
-      <div class="step-content">
-        @switch (currentStep()) {
-          @case (0) {
-            <h3>Étape 1 : Informations</h3>
-            <!-- Formulaire étape 1 -->
-          }
-          @case (1) {
-            <h3>Étape 2 : Vérification</h3>
-            <!-- Formulaire étape 2 -->
-          }
-          @case (2) {
-            <h3>Étape 3 : Confirmation</h3>
-            <!-- Récapitulatif -->
-          }
-        }
-      </div>
-
-      <footer class="step-actions">
-        @if (currentStep() > 0) {
-          <ds-button variant="secondary" (click)="previousStep()">
-            Précédent
-          </ds-button>
-        }
-
-        @if (currentStep() < steps.length - 1) {
-          <ds-button
-            variant="primary"
-            [disabled]="!isStepValid()"
-            (click)="nextStep()"
-          >
-            Suivant
-          </ds-button>
-        } @else {
-          <ds-button variant="success" (click)="submit()">
-            Terminer
-          </ds-button>
-        }
-      </footer>
-    </ds-card>
-  \`
-})
-export class WizardComponent {
-  currentStep = signal(0);
-
-  steps = [
-    { label: 'Informations', description: 'Données de base' },
+  steps: Step[] = [
+    { label: 'Informations', description: 'Données personnelles' },
     { label: 'Vérification', description: 'Contrôle des données' },
     { label: 'Confirmation', description: 'Validation finale' }
   ];
 
-  // Validation par étape
-  stepValidation = signal([false, false, true]);
+  stepperControls: ControlConfig[] = [
+    {
+      name: 'orientation',
+      type: 'select',
+      defaultValue: 'horizontal',
+      options: ['horizontal', 'vertical'],
+      description: 'Orientation du stepper'
+    },
+    {
+      name: 'linear',
+      type: 'boolean',
+      defaultValue: false,
+      description: 'Navigation linéaire obligatoire'
+    }
+  ];
 
-  isStepValid(): boolean {
-    return this.stepValidation()[this.currentStep()];
+  stepperWizardCode = `<ds-stepper
+  [steps]="steps"
+  [activeStep]="activeStep()"
+  [orientation]="'horizontal'"
+  [linear]="true"
+  (stepChange)="onStepChange($event)"
+/>
+
+<div class="step-content">
+  @switch (activeStep()) {
+    @case (0) { <step-1-form /> }
+    @case (1) { <step-2-verify /> }
+    @case (2) { <step-3-confirm /> }
+  }
+</div>
+
+<footer>
+  <ds-button (clicked)="previousStep()">Précédent</ds-button>
+  <ds-button (clicked)="nextStep()">Suivant</ds-button>
+</footer>`;
+
+  onStepperChange(values: ControlValues): void {
+    this.stepperValues.set(values);
   }
 
-  nextStep() {
-    if (this.isStepValid() && this.currentStep() < this.steps.length - 1) {
-      this.currentStep.update(s => s + 1);
+  onStepChange(event: StepChangeEvent): void {
+    this.activeStep.set(event.currentIndex);
+  }
+
+  previousStep(): void {
+    if (this.activeStep() > 0) {
+      this.activeStep.update(s => s - 1);
     }
   }
 
-  previousStep() {
-    if (this.currentStep() > 0) {
-      this.currentStep.update(s => s - 1);
+  nextStep(): void {
+    if (this.activeStep() < this.steps.length - 1) {
+      this.activeStep.update(s => s + 1);
     }
   }
 
-  submit() {
+  finishWizard(): void {
     console.log('Wizard completed!');
+    this.activeStep.set(0);
   }
-}`;
 }
