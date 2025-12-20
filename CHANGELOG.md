@@ -7,10 +7,12 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 
 ---
 
-## [En cours] - 2025-12-14
+## [1.7.1] - 2025-12-20
 
 ### ✨ Nouvelles fonctionnalités
 
+- **ds-sidebar**: ajout composant ds-sidebar-footer-item ([8bede77])
+- **ds-sidebar**: mode réduit avec popover et améliorations header ([e443d10])
 - **ds-time-picker**: implement minTime/maxTime validation with tests and stories ([8b9ef85])
 - **components**: add ds-color-picker component ([016ead7])
 - **components**: add DsSegmentedControl component ([19dffe6])
