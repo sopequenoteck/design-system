@@ -54,7 +54,7 @@ export class AppComponent {}
 - `primitive-checkbox`, `primitive-radio`, `primitive-toggle`
 - `primitive-textarea`
 
-### Components (60 composants DS)
+### Components (53 composants DS)
 - **Forms** : `ds-input-field`, `ds-input-textarea`, `ds-checkbox`, `ds-radio-group`, `ds-toggle`, `ds-select`, `ds-combobox`, `ds-search-input`, `ds-date-picker`
 - **Display** : `ds-button`, `ds-badge`, `ds-card`, `ds-alert`, `ds-divider`, `ds-avatar`, `ds-progress-bar`, `ds-skeleton`
 - **Data** : `ds-table`
