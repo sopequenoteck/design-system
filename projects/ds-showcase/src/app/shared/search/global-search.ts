@@ -14,11 +14,12 @@ import { FormsModule } from '@angular/forms';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { SearchService } from './search.service';
 import { SearchResult } from '../../registry/types';
+import { DocIcon } from '../icon/doc-icon';
 
 @Component({
   selector: 'doc-global-search',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, DocIcon],
   template: `
     <!-- Trigger button -->
     <button
@@ -27,9 +28,11 @@ import { SearchResult } from '../../registry/types';
       (click)="open()"
       aria-label="Ouvrir la recherche"
     >
-      <span class="search-trigger__icon">🔍</span>
+      <doc-icon name="search" size="sm" />
       <span class="search-trigger__text">Rechercher...</span>
-      <kbd class="search-trigger__kbd">⌘K</kbd>
+      <kbd class="search-trigger__kbd">
+        <span class="search-trigger__kbd-symbol">&#8984;</span>K
+      </kbd>
     </button>
 
     <!-- Modal overlay -->
@@ -44,7 +47,7 @@ import { SearchResult } from '../../registry/types';
         <div class="search-modal" (click)="$event.stopPropagation()">
           <!-- Search input -->
           <div class="search-input-wrapper">
-            <span class="search-input__icon">🔍</span>
+            <doc-icon name="search" size="md" class="search-input__icon" />
             <input
               #searchInput
               type="text"
@@ -62,7 +65,7 @@ import { SearchResult } from '../../registry/types';
                 (click)="clearQuery()"
                 aria-label="Effacer la recherche"
               >
-                ✕
+                <doc-icon name="close" size="xs" />
               </button>
             }
           </div>
@@ -71,7 +74,7 @@ import { SearchResult } from '../../registry/types';
           <div class="search-results">
             @if (query() && results().length === 0) {
               <div class="search-empty">
-                <span class="search-empty__icon">🔍</span>
+                <doc-icon name="search" size="xl" class="search-empty__icon" />
                 <p>Aucun résultat pour "{{ query() }}"</p>
               </div>
             }
@@ -80,7 +83,10 @@ import { SearchResult } from '../../registry/types';
               <!-- Composants -->
               @if (componentResults().length > 0) {
                 <div class="search-group">
-                  <div class="search-group__header">Composants</div>
+                  <div class="search-group__header">
+                    <doc-icon name="components" size="xs" />
+                    Composants
+                  </div>
                   @for (result of componentResults(); track result.id; let i = $index) {
                     <a
                       class="search-result"
@@ -89,12 +95,14 @@ import { SearchResult } from '../../registry/types';
                       (click)="selectResult(result)"
                       (mouseenter)="selectedIndex.set(i)"
                     >
-                      <span class="search-result__icon">{{ result.icon }}</span>
+                      <div class="search-result__icon">
+                        <doc-icon name="components" size="sm" />
+                      </div>
                       <div class="search-result__content">
                         <span class="search-result__label">{{ result.label }}</span>
                         <span class="search-result__category">{{ result.category }}</span>
                       </div>
-                      <span class="search-result__type">↵</span>
+                      <doc-icon name="arrow-right" size="sm" class="search-result__arrow" />
                     </a>
                   }
                 </div>
@@ -103,7 +111,10 @@ import { SearchResult } from '../../registry/types';
               <!-- Documentation -->
               @if (docResults().length > 0) {
                 <div class="search-group">
-                  <div class="search-group__header">Documentation</div>
+                  <div class="search-group__header">
+                    <doc-icon name="book" size="xs" />
+                    Documentation
+                  </div>
                   @for (result of docResults(); track result.id; let i = $index) {
                     <a
                       class="search-result"
@@ -112,12 +123,14 @@ import { SearchResult } from '../../registry/types';
                       (click)="selectResult(result)"
                       (mouseenter)="selectedIndex.set(componentResults().length + i)"
                     >
-                      <span class="search-result__icon">{{ result.icon }}</span>
+                      <div class="search-result__icon">
+                        <doc-icon name="book" size="sm" />
+                      </div>
                       <div class="search-result__content">
                         <span class="search-result__label">{{ result.label }}</span>
                         <span class="search-result__desc">{{ result.description }}</span>
                       </div>
-                      <span class="search-result__type">↵</span>
+                      <doc-icon name="arrow-right" size="sm" class="search-result__arrow" />
                     </a>
                   }
                 </div>
@@ -126,11 +139,12 @@ import { SearchResult } from '../../registry/types';
 
             @if (!query()) {
               <div class="search-hints">
+                <doc-icon name="info" size="lg" class="search-hints__icon" />
                 <p>Tapez pour rechercher dans les composants et la documentation</p>
                 <div class="search-hints__keys">
-                  <span><kbd>↑↓</kbd> pour naviguer</span>
-                  <span><kbd>↵</kbd> pour sélectionner</span>
-                  <span><kbd>esc</kbd> pour fermer</span>
+                  <span><kbd>&#8593;&#8595;</kbd> naviguer</span>
+                  <span><kbd>&#8629;</kbd> sélectionner</span>
+                  <span><kbd>esc</kbd> fermer</span>
                 </div>
               </div>
             }
@@ -146,25 +160,28 @@ import { SearchResult } from '../../registry/types';
     .search-trigger {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border: 1px solid var(--border-default, #e5e7eb);
-      border-radius: var(--radius-2, 8px);
-      background: var(--background-secondary, #f3f4f6);
-      color: var(--text-muted, #6b7280);
+      gap: var(--doc-space-sm, 8px);
+      padding: var(--doc-space-sm, 8px) var(--doc-space-md, 16px);
+      border: 1px solid var(--doc-border-default, #e2e8f0);
+      border-radius: var(--doc-radius-md, 10px);
+      background: var(--doc-surface-elevated, #ffffff);
+      color: var(--doc-text-tertiary, #94a3b8);
       font-size: 0.875rem;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all var(--doc-transition-fast, 150ms);
       min-width: 200px;
 
       &:hover {
-        background: var(--background-main, #ffffff);
-        border-color: var(--border-hover, #d1d5db);
+        background: var(--doc-surface-sunken, #f1f5f9);
+        border-color: var(--doc-border-strong, #cbd5e1);
+        color: var(--doc-text-secondary, #475569);
       }
-    }
 
-    .search-trigger__icon {
-      font-size: 0.875rem;
+      &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--doc-accent-primary-light, #eef2ff),
+                    0 0 0 4px var(--doc-accent-primary, #6366f1);
+      }
     }
 
     .search-trigger__text {
@@ -173,13 +190,21 @@ import { SearchResult } from '../../registry/types';
     }
 
     .search-trigger__kbd {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
       padding: 2px 6px;
-      font-size: 0.75rem;
+      font-size: 0.6875rem;
       font-family: inherit;
-      background: var(--background-main, #ffffff);
-      border: 1px solid var(--border-default, #e5e7eb);
-      border-radius: 4px;
-      color: var(--text-muted, #9ca3af);
+      font-weight: 500;
+      background: var(--doc-surface-sunken, #f1f5f9);
+      border: 1px solid var(--doc-border-subtle, #e2e8f0);
+      border-radius: var(--doc-radius-sm, 6px);
+      color: var(--doc-text-tertiary, #94a3b8);
+    }
+
+    .search-trigger__kbd-symbol {
+      font-size: 0.8125rem;
     }
 
     // ==========================================================================
@@ -188,39 +213,25 @@ import { SearchResult } from '../../registry/types';
     .search-overlay {
       position: fixed;
       inset: 0;
-      z-index: 9999;
-      background: rgba(0, 0, 0, 0.5);
+      z-index: var(--doc-z-modal, 400);
+      background: var(--doc-surface-overlay, rgba(0, 0, 0, 0.5));
       display: flex;
       align-items: flex-start;
       justify-content: center;
       padding-top: 10vh;
-      animation: fadeIn 0.15s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      animation: doc-fade-in 150ms ease-out;
+      backdrop-filter: blur(4px);
     }
 
     .search-modal {
       width: 100%;
       max-width: 600px;
-      background: var(--background-panel, #ffffff);
-      border-radius: var(--radius-3, 12px);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      margin: 0 var(--doc-space-md, 16px);
+      background: var(--doc-surface-elevated, #ffffff);
+      border-radius: var(--doc-radius-xl, 20px);
+      box-shadow: var(--doc-shadow-xl);
       overflow: hidden;
-      animation: slideDown 0.2s ease;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      animation: doc-scale-in 200ms ease-out;
     }
 
     // ==========================================================================
@@ -229,14 +240,14 @@ import { SearchResult } from '../../registry/types';
     .search-input-wrapper {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border-default, #e5e7eb);
+      gap: var(--doc-space-md, 16px);
+      padding: var(--doc-space-lg, 24px);
+      border-bottom: 1px solid var(--doc-border-default, #e2e8f0);
     }
 
     .search-input__icon {
-      font-size: 1.25rem;
-      color: var(--text-muted, #9ca3af);
+      color: var(--doc-text-tertiary, #94a3b8);
+      flex-shrink: 0;
     }
 
     .search-input {
@@ -244,28 +255,31 @@ import { SearchResult } from '../../registry/types';
       border: none;
       background: transparent;
       font-size: 1.125rem;
-      color: var(--text-default, #1a1a1a);
+      color: var(--doc-text-primary, #0f172a);
       outline: none;
 
       &::placeholder {
-        color: var(--text-muted, #9ca3af);
+        color: var(--doc-text-tertiary, #94a3b8);
       }
     }
 
     .search-input__clear {
-      width: 24px;
-      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
       padding: 0;
       border: none;
-      border-radius: 4px;
-      background: var(--background-secondary, #f3f4f6);
-      color: var(--text-muted, #6b7280);
-      font-size: 0.75rem;
+      border-radius: var(--doc-radius-sm, 6px);
+      background: var(--doc-surface-sunken, #f1f5f9);
+      color: var(--doc-text-tertiary, #94a3b8);
       cursor: pointer;
+      transition: all var(--doc-transition-fast, 150ms);
 
       &:hover {
-        background: var(--background-main, #e5e7eb);
-        color: var(--text-default, #1a1a1a);
+        background: var(--doc-border-default, #e2e8f0);
+        color: var(--doc-text-primary, #0f172a);
       }
     }
 
@@ -281,65 +295,73 @@ import { SearchResult } from '../../registry/types';
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
-      padding: 48px 24px;
-      color: var(--text-muted, #9ca3af);
+      gap: var(--doc-space-md, 16px);
+      padding: var(--doc-space-2xl, 48px) var(--doc-space-lg, 24px);
+      color: var(--doc-text-tertiary, #94a3b8);
 
       .search-empty__icon {
-        font-size: 2rem;
-        opacity: 0.5;
+        opacity: 0.4;
       }
 
       p {
         margin: 0;
-        font-size: 0.875rem;
+        font-size: 0.9375rem;
       }
     }
 
     .search-group {
-      padding: 8px 0;
+      padding: var(--doc-space-sm, 8px) 0;
     }
 
     .search-group__header {
-      padding: 8px 20px;
-      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: var(--doc-space-xs, 4px);
+      padding: var(--doc-space-sm, 8px) var(--doc-space-lg, 24px);
+      font-size: 0.6875rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: var(--text-muted, #9ca3af);
+      color: var(--doc-text-tertiary, #94a3b8);
     }
 
     .search-result {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 12px 20px;
+      gap: var(--doc-space-md, 16px);
+      padding: var(--doc-space-sm, 8px) var(--doc-space-lg, 24px);
       text-decoration: none;
-      color: var(--text-default, #1a1a1a);
+      color: var(--doc-text-primary, #0f172a);
       cursor: pointer;
-      transition: background 0.1s ease;
+      transition: all var(--doc-transition-fast, 150ms);
 
       &:hover,
       &.selected {
-        background: var(--background-secondary, #f3f4f6);
-      }
+        background: var(--doc-accent-primary-light, #eef2ff);
 
-      &.selected {
-        .search-result__type {
+        .search-result__icon {
+          background: var(--doc-accent-primary, #6366f1);
+          color: white;
+        }
+
+        .search-result__arrow {
           opacity: 1;
+          transform: translateX(0);
         }
       }
     }
 
     .search-result__icon {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
-      background: var(--background-secondary, #f3f4f6);
-      border-radius: var(--radius-1, 4px);
+      background: var(--doc-surface-sunken, #f1f5f9);
+      color: var(--doc-text-secondary, #475569);
+      border-radius: var(--doc-radius-md, 10px);
+      transition: all var(--doc-transition-fast, 150ms);
+      flex-shrink: 0;
     }
 
     .search-result__content {
@@ -352,50 +374,80 @@ import { SearchResult } from '../../registry/types';
 
     .search-result__label {
       font-weight: 500;
+      font-size: 0.9375rem;
     }
 
     .search-result__category,
     .search-result__desc {
       font-size: 0.75rem;
-      color: var(--text-muted, #9ca3af);
+      color: var(--doc-text-tertiary, #94a3b8);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .search-result__type {
-      font-size: 0.875rem;
-      color: var(--text-muted, #9ca3af);
+    .search-result__arrow {
+      color: var(--doc-accent-primary, #6366f1);
       opacity: 0;
-      transition: opacity 0.1s ease;
+      transform: translateX(-4px);
+      transition: all var(--doc-transition-fast, 150ms);
     }
 
     // ==========================================================================
     // Hints
     // ==========================================================================
     .search-hints {
-      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--doc-space-md, 16px);
+      padding: var(--doc-space-2xl, 48px) var(--doc-space-lg, 24px);
       text-align: center;
-      color: var(--text-muted, #9ca3af);
+      color: var(--doc-text-tertiary, #94a3b8);
+
+      .search-hints__icon {
+        opacity: 0.4;
+      }
 
       p {
-        margin: 0 0 16px 0;
-        font-size: 0.875rem;
+        margin: 0;
+        font-size: 0.9375rem;
+        max-width: 280px;
       }
     }
 
     .search-hints__keys {
       display: flex;
       justify-content: center;
-      gap: 24px;
+      gap: var(--doc-space-lg, 24px);
       font-size: 0.75rem;
 
       kbd {
-        padding: 2px 6px;
-        background: var(--background-secondary, #f3f4f6);
-        border: 1px solid var(--border-default, #e5e7eb);
-        border-radius: 4px;
+        padding: 4px 8px;
+        background: var(--doc-surface-sunken, #f1f5f9);
+        border: 1px solid var(--doc-border-subtle, #e2e8f0);
+        border-radius: var(--doc-radius-sm, 6px);
         font-family: inherit;
+        font-weight: 500;
+      }
+    }
+
+    // ==========================================================================
+    // Responsive
+    // ==========================================================================
+    @media (max-width: 640px) {
+      .search-trigger__text {
+        display: none;
+      }
+
+      .search-trigger {
+        min-width: auto;
+        padding: var(--doc-space-sm, 8px);
+      }
+
+      .search-modal {
+        margin-top: var(--doc-space-md, 16px);
+        border-radius: var(--doc-radius-lg, 14px);
       }
     }
   `],

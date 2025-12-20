@@ -1,17 +1,106 @@
 // =============================================================================
-// DS-SHOWCASE - Styles globaux
+// DS-SHOWCASE - Styles globaux (refonte UX v2)
 // =============================================================================
 
 // Import du thème Highlight.js (GitHub Dark)
 @use 'highlight.js/scss/github-dark' as *;
 
-// Variables de documentation
+// =============================================================================
+// VARIABLES CSS - Documentation
+// =============================================================================
 :root {
+  // Layout
   --doc-sidebar-width: 280px;
-  --doc-sidebar-collapsed-width: 64px;
-  --doc-header-height: 56px;
+  --doc-sidebar-collapsed-width: 72px;
+  --doc-header-height: 60px;
   --doc-content-max-width: 1200px;
-  --doc-code-font: 'Fira Code', 'SF Mono', Consolas, monospace;
+
+  // Typography
+  --doc-code-font: 'Fira Code', 'SF Mono', 'Monaco', Consolas, monospace;
+  --doc-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+  // Spacing system
+  --doc-space-xs: 4px;
+  --doc-space-sm: 8px;
+  --doc-space-md: 16px;
+  --doc-space-lg: 24px;
+  --doc-space-xl: 32px;
+  --doc-space-2xl: 48px;
+  --doc-space-3xl: 64px;
+
+  // Border radius
+  --doc-radius-sm: 6px;
+  --doc-radius-md: 10px;
+  --doc-radius-lg: 14px;
+  --doc-radius-xl: 20px;
+  --doc-radius-full: 9999px;
+
+  // Shadows
+  --doc-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --doc-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --doc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --doc-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --doc-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+
+  // Colors - Accents
+  --doc-accent-primary: #6366f1;
+  --doc-accent-primary-light: #eef2ff;
+  --doc-accent-primary-dark: #4f46e5;
+  --doc-accent-success: #10b981;
+  --doc-accent-warning: #f59e0b;
+  --doc-accent-error: #ef4444;
+  --doc-accent-info: #3b82f6;
+
+  // Colors - Surfaces (light mode)
+  --doc-surface-page: #f8fafc;
+  --doc-surface-elevated: #ffffff;
+  --doc-surface-sunken: #f1f5f9;
+  --doc-surface-overlay: rgba(0, 0, 0, 0.5);
+
+  // Colors - Text
+  --doc-text-primary: #0f172a;
+  --doc-text-secondary: #475569;
+  --doc-text-tertiary: #94a3b8;
+  --doc-text-inverse: #ffffff;
+
+  // Colors - Borders
+  --doc-border-default: #e2e8f0;
+  --doc-border-subtle: #f1f5f9;
+  --doc-border-strong: #cbd5e1;
+
+  // Animation
+  --doc-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --doc-transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --doc-transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --doc-transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  // Z-index layers
+  --doc-z-dropdown: 100;
+  --doc-z-sticky: 200;
+  --doc-z-overlay: 300;
+  --doc-z-modal: 400;
+  --doc-z-toast: 500;
+}
+
+// Dark mode overrides
+.theme-dark {
+  --doc-surface-page: #0f172a;
+  --doc-surface-elevated: #1e293b;
+  --doc-surface-sunken: #0c1322;
+
+  --doc-text-primary: #f8fafc;
+  --doc-text-secondary: #94a3b8;
+  --doc-text-tertiary: #64748b;
+
+  --doc-border-default: #334155;
+  --doc-border-subtle: #1e293b;
+  --doc-border-strong: #475569;
+
+  --doc-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --doc-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.25);
+  --doc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --doc-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --doc-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
 }
 
 // Reset minimal
@@ -76,4 +165,302 @@ body {
 // Fullscreen mode - disable body scroll
 body.fullscreen-open {
   overflow: hidden;
+}
+
+// =============================================================================
+// KEYFRAMES - Animations
+// =============================================================================
+
+@keyframes doc-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes doc-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes doc-fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes doc-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes doc-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes doc-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes doc-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes doc-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes doc-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes doc-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes doc-copy-success {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+@keyframes doc-checkmark {
+  0% { stroke-dashoffset: 24; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes doc-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes doc-success-flash {
+  0% { background-color: transparent; }
+  50% { background-color: var(--doc-accent-success, #10b981); }
+  100% { background-color: transparent; }
+}
+
+// =============================================================================
+// ANIMATION UTILITIES
+// =============================================================================
+
+.doc-animate-fade-in {
+  animation: doc-fade-in var(--doc-transition-base) ease-out;
+}
+
+.doc-animate-fade-in-up {
+  animation: doc-fade-in-up var(--doc-transition-slow) ease-out;
+}
+
+.doc-animate-fade-in-down {
+  animation: doc-fade-in-down var(--doc-transition-slow) ease-out;
+}
+
+.doc-animate-scale-in {
+  animation: doc-scale-in var(--doc-transition-spring) ease-out;
+}
+
+.doc-animate-slide-in-left {
+  animation: doc-slide-in-left var(--doc-transition-slow) ease-out;
+}
+
+.doc-animate-slide-in-right {
+  animation: doc-slide-in-right var(--doc-transition-slow) ease-out;
+}
+
+// Staggered animations
+@for $i from 1 through 10 {
+  .doc-animate-delay-#{$i} {
+    animation-delay: #{$i * 50}ms;
+    animation-fill-mode: both;
+  }
+}
+
+.doc-animate-copy-success {
+  animation: doc-copy-success 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.doc-animate-checkmark {
+  animation: doc-checkmark 300ms ease-out forwards;
+}
+
+.doc-animate-ripple {
+  animation: doc-ripple 600ms ease-out;
+}
+
+// =============================================================================
+// INTERACTIVE STATES
+// =============================================================================
+
+.doc-interactive {
+  cursor: pointer;
+  transition: all var(--doc-transition-fast);
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.doc-hover-lift {
+  transition: transform var(--doc-transition-fast), box-shadow var(--doc-transition-fast);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--doc-shadow-md);
+  }
+}
+
+.doc-hover-glow {
+  transition: box-shadow var(--doc-transition-fast);
+
+  &:hover {
+    box-shadow: 0 0 0 3px var(--doc-accent-primary-light);
+  }
+}
+
+.doc-hover-shine {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 600ms ease;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+.doc-hover-scale {
+  transition: transform var(--doc-transition-fast);
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Copy button success state
+.doc-copy-btn {
+  position: relative;
+
+  &.copied {
+    color: var(--doc-accent-success, #10b981) !important;
+
+    .doc-copy-btn__icon {
+      animation: doc-copy-success 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  }
+}
+
+// Card hover with border highlight
+.doc-card-interactive {
+  border: 1px solid var(--doc-border-default, #e2e8f0);
+  transition: all var(--doc-transition-fast);
+
+  &:hover {
+    border-color: var(--doc-accent-primary, #6366f1);
+    box-shadow: var(--doc-shadow-md),
+                0 0 0 1px var(--doc-accent-primary-light, #eef2ff);
+  }
+}
+
+// =============================================================================
+// FOCUS STATES
+// =============================================================================
+
+.doc-focus-ring {
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--doc-accent-primary-light),
+                0 0 0 1px var(--doc-accent-primary);
+  }
+}
+
+// =============================================================================
+// GRADIENTS
+// =============================================================================
+
+.doc-gradient-text {
+  background: linear-gradient(135deg, var(--doc-accent-primary), var(--doc-accent-info));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.doc-gradient-bg {
+  background: linear-gradient(135deg, var(--doc-accent-primary-light) 0%, transparent 50%);
+}
+
+// =============================================================================
+// GLASS EFFECT
+// =============================================================================
+
+.doc-glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  .theme-dark & {
+    background: rgba(30, 41, 59, 0.8);
+  }
 }

@@ -1,7 +1,10 @@
 import { Component, signal, computed } from '@angular/core';
-import { DsInputField } from 'ds-angular';
+import { FormsModule } from '@angular/forms';
+import { DsInputField, DsButton } from 'ds-angular';
 import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
+import { ComponentPageHeader } from '../../../shared/page/component-page-header';
+import { DocIcon } from '../../../shared/icon/doc-icon';
 import { DsInputFieldDefinition } from '../../../registry/definitions/ds-input-field.definition';
 import { ControlValues } from '../../../registry/types';
 
@@ -10,88 +13,235 @@ type InputSize = 'sm' | 'md' | 'lg';
 @Component({
   selector: 'app-input-field-page',
   standalone: true,
-  imports: [DsInputField, DemoContainer, PropsTable],
+  imports: [FormsModule, DsInputField, DsButton, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
   template: `
     <div class="component-page">
-      <header class="component-header">
-        <div class="component-header__meta">
-          <span class="component-badge">{{ definition.category }}</span>
-        </div>
-        <h1 class="component-title">{{ definition.name }}</h1>
-        <p class="component-desc">{{ definition.description }}</p>
-        <code class="component-selector">&lt;{{ definition.selector }}&gt;</code>
-      </header>
+      <doc-component-page-header
+        category="forms"
+        [name]="definition.name"
+        [description]="definition.description"
+        [selector]="definition.selector"
+        version="1.7.0"
+        status="stable"
+        sourceLink="https://github.com/anthropics/design-system/tree/main/projects/ds-angular/src/lib/components/ds-input-field"
+      />
 
-      <!-- Demo 1: Default avec controls -->
-      <section class="component-section">
-        <h2>Exemples</h2>
-
-        <div class="demo-block">
-          <h3 class="demo-block__title">Default</h3>
-          <p class="demo-block__desc">Champ de saisie par défaut avec contrôles interactifs.</p>
-
-          <doc-demo-container
-            [code]="definition.demos[0].code"
-            [controls]="definition.demos[0].controls"
-            [initialValues]="defaultValues()"
-            (controlChange)="onDefaultChange($event)"
-          >
-            <ds-input-field
-              [label]="demoLabel()"
-              [placeholder]="demoPlaceholder()"
-              [size]="demoSize()"
-              [disabled]="demoDisabled()"
-              [required]="demoRequired()"
-            />
-          </doc-demo-container>
+      <!-- Section 1: Playground -->
+      <section class="page-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <doc-icon name="eye" size="sm" />
+            Playground
+          </h2>
+          <p class="section-desc">Explorez les différentes options du composant de manière interactive.</p>
         </div>
 
-        <!-- Demo 2: Sizes -->
-        <div class="demo-block">
-          <h3 class="demo-block__title">Sizes</h3>
-          <p class="demo-block__desc">Les trois tailles disponibles.</p>
+        <doc-demo-container
+          [code]="definition.demos[0].code"
+          [controls]="definition.demos[0].controls"
+          [initialValues]="defaultValues()"
+          (controlChange)="onDefaultChange($event)"
+        >
+          <ds-input-field
+            [label]="demoLabel()"
+            [placeholder]="demoPlaceholder()"
+            [size]="demoSize()"
+            [disabled]="demoDisabled()"
+            [required]="demoRequired()"
+          />
+        </doc-demo-container>
+      </section>
 
-          <doc-demo-container [code]="definition.demos[1].code">
+      <!-- Section 2: Tailles -->
+      <section class="page-section">
+        <div class="section-header">
+          <h2 class="section-title">Tailles</h2>
+          <p class="section-desc">Trois tailles disponibles pour s'adapter à différents contextes.</p>
+        </div>
+
+        <doc-demo-container [code]="definition.demos[1].code">
+          <div class="demo-column">
+            <ds-input-field label="Small" size="sm" placeholder="Placeholder" />
+            <ds-input-field label="Medium" size="md" placeholder="Placeholder" />
+            <ds-input-field label="Large" size="lg" placeholder="Placeholder" />
+          </div>
+        </doc-demo-container>
+      </section>
+
+      <!-- Section 3: États -->
+      <section class="page-section">
+        <div class="section-header">
+          <h2 class="section-title">États</h2>
+          <p class="section-desc">Différents états visuels : disabled, readonly, error.</p>
+        </div>
+
+        <doc-demo-container [code]="definition.demos[2].code">
+          <div class="demo-column">
+            <ds-input-field label="Disabled" [disabled]="true" placeholder="Non modifiable" />
+            <ds-input-field label="Readonly" [readonly]="true" value="Valeur fixe" />
+            <ds-input-field label="Error" error="Ce champ est invalide" />
+          </div>
+        </doc-demo-container>
+      </section>
+
+      <!-- Section 4: Avec aide -->
+      <section class="page-section">
+        <div class="section-header">
+          <h2 class="section-title">Avec aide</h2>
+          <p class="section-desc">Message d'aide pour guider l'utilisateur.</p>
+        </div>
+
+        <doc-demo-container [code]="definition.demos[3].code">
+          <ds-input-field
+            label="Mot de passe"
+            type="password"
+            hint="Minimum 8 caractères"
+          />
+        </doc-demo-container>
+      </section>
+
+      <!-- Section 5: Use Cases -->
+      <section class="page-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <doc-icon name="zap" size="sm" />
+            Use Cases
+          </h2>
+          <p class="section-desc">Scénarios d'utilisation concrets dans une application.</p>
+        </div>
+
+        <!-- Use Case 1: Login Form -->
+        <div class="use-case">
+          <h3 class="use-case__title">Formulaire de connexion</h3>
+          <p class="use-case__desc">Champs email et mot de passe avec validation.</p>
+          <doc-demo-container [code]="loginFormCode">
             <div class="demo-column">
-              <ds-input-field label="Small" size="sm" placeholder="Placeholder" />
-              <ds-input-field label="Medium" size="md" placeholder="Placeholder" />
-              <ds-input-field label="Large" size="lg" placeholder="Placeholder" />
+              <ds-input-field
+                label="Email"
+                type="email"
+                placeholder="nom@exemple.com"
+                [required]="true"
+              />
+              <ds-input-field
+                label="Mot de passe"
+                type="password"
+                placeholder="Entrez votre mot de passe"
+                [required]="true"
+                hint="8 caractères minimum"
+              />
+              <ds-button variant="primary" [fullWidth]="true">Se connecter</ds-button>
             </div>
           </doc-demo-container>
         </div>
 
-        <!-- Demo 3: States -->
-        <div class="demo-block">
-          <h3 class="demo-block__title">States</h3>
-          <p class="demo-block__desc">États disabled, readonly et error.</p>
-
-          <doc-demo-container [code]="definition.demos[2].code">
-            <div class="demo-column">
-              <ds-input-field label="Disabled" [disabled]="true" placeholder="Non modifiable" />
-              <ds-input-field label="Readonly" [readonly]="true" value="Valeur fixe" />
-              <ds-input-field label="Error" error="Ce champ est invalide" />
+        <!-- Use Case 2: Search -->
+        <div class="use-case">
+          <h3 class="use-case__title">Recherche temps réel</h3>
+          <p class="use-case__desc">Champ de recherche avec feedback instantané.</p>
+          <doc-demo-container [code]="searchCode">
+            <div class="demo-row">
+              <ds-input-field
+                label="Rechercher un produit"
+                placeholder="Ex: iPhone, MacBook..."
+                [(ngModel)]="searchValue"
+              />
             </div>
+            @if (searchValue()) {
+              <p class="search-feedback">Recherche : "{{ searchValue() }}"</p>
+            }
           </doc-demo-container>
         </div>
 
-        <!-- Demo 4: With Hint -->
-        <div class="demo-block">
-          <h3 class="demo-block__title">With Hint</h3>
-          <p class="demo-block__desc">Champ avec message d'aide.</p>
-
-          <doc-demo-container [code]="definition.demos[3].code">
-            <ds-input-field
-              label="Mot de passe"
-              type="password"
-              hint="Minimum 8 caractères"
-            />
+        <!-- Use Case 3: Validation inline -->
+        <div class="use-case">
+          <h3 class="use-case__title">Validation inline</h3>
+          <p class="use-case__desc">Validation en temps réel avec messages d'erreur.</p>
+          <doc-demo-container [code]="validationCode">
+            <div class="demo-column">
+              <ds-input-field
+                label="Nom d'utilisateur"
+                placeholder="3-20 caractères"
+                [(ngModel)]="username"
+                [error]="usernameError()"
+              />
+              <ds-input-field
+                label="Email"
+                type="email"
+                placeholder="nom@exemple.com"
+                [(ngModel)]="email"
+                [error]="emailError()"
+              />
+            </div>
           </doc-demo-container>
         </div>
       </section>
 
-      <!-- API Reference -->
-      <section class="component-section">
-        <h2>API Reference</h2>
+      <!-- Section 6: Composition -->
+      <section class="page-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <doc-icon name="grid" size="sm" />
+            Composition
+          </h2>
+          <p class="section-desc">Combinaisons avec d'autres composants du Design System.</p>
+        </div>
+
+        <!-- Composition 1: Form complet -->
+        <div class="use-case">
+          <h3 class="use-case__title">Formulaire de contact</h3>
+          <p class="use-case__desc">Input combiné avec label, hint, error et bouton.</p>
+          <doc-demo-container [code]="formCode">
+            <div class="composition-form">
+              <ds-input-field
+                label="Nom complet"
+                placeholder="Jean Dupont"
+                [required]="true"
+              />
+              <ds-input-field
+                label="Email"
+                type="email"
+                placeholder="jean@exemple.com"
+                [required]="true"
+                hint="Nous ne partagerons jamais votre email"
+              />
+              <ds-input-field
+                label="Sujet"
+                placeholder="Objet de votre message"
+              />
+              <div class="form-actions">
+                <ds-button variant="ghost">Annuler</ds-button>
+                <ds-button variant="primary">Envoyer</ds-button>
+              </div>
+            </div>
+          </doc-demo-container>
+        </div>
+
+        <!-- Composition 2: Search avec bouton -->
+        <div class="use-case">
+          <h3 class="use-case__title">Recherche avec action</h3>
+          <p class="use-case__desc">Input associé à un bouton de recherche.</p>
+          <doc-demo-container [code]="searchButtonCode">
+            <div class="search-group">
+              <ds-input-field
+                placeholder="Rechercher..."
+                size="md"
+              />
+              <ds-button variant="primary">Rechercher</ds-button>
+            </div>
+          </doc-demo-container>
+        </div>
+      </section>
+
+      <!-- Section 7: API Reference -->
+      <section class="page-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <doc-icon name="code" size="sm" />
+            API Reference
+          </h2>
+          <p class="section-desc">Documentation complète des propriétés et événements.</p>
+        </div>
+
         <doc-props-table [props]="definition.props" />
       </section>
     </div>
@@ -101,91 +251,117 @@ type InputSize = 'sm' | 'md' | 'lg';
       max-width: 900px;
     }
 
-    .component-header {
-      margin-bottom: 48px;
+    .page-section {
+      margin-bottom: var(--doc-space-2xl, 48px);
+      animation: doc-fade-in-up 300ms ease-out;
+      animation-fill-mode: both;
+
+      &:nth-child(2) { animation-delay: 50ms; }
+      &:nth-child(3) { animation-delay: 100ms; }
+      &:nth-child(4) { animation-delay: 150ms; }
+      &:nth-child(5) { animation-delay: 200ms; }
+      &:nth-child(6) { animation-delay: 250ms; }
+      &:nth-child(7) { animation-delay: 300ms; }
+      &:nth-child(8) { animation-delay: 350ms; }
     }
 
-    .component-header__meta {
-      margin-bottom: 12px;
+    .section-header {
+      margin-bottom: var(--doc-space-lg, 24px);
     }
 
-    .component-badge {
-      display: inline-block;
-      padding: 4px 10px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      background: var(--color-primary-light, #eff6ff);
-      color: var(--color-primary, #3b82f6);
-      border-radius: 4px;
-    }
-
-    .component-title {
-      margin: 0 0 12px 0;
-      font-size: 2rem;
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: var(--doc-space-sm, 8px);
+      margin: 0 0 var(--doc-space-sm, 8px) 0;
+      font-size: 1.25rem;
       font-weight: 700;
-      color: var(--text-default, #1a1a1a);
+      color: var(--doc-text-primary, #0f172a);
     }
 
-    .component-desc {
-      margin: 0 0 16px 0;
-      font-size: 1.125rem;
-      color: var(--text-muted, #6b7280);
+    .section-desc {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--doc-text-secondary, #475569);
       line-height: 1.6;
-    }
-
-    .component-selector {
-      display: inline-block;
-      padding: 6px 12px;
-      font-family: var(--doc-code-font, monospace);
-      font-size: 0.875rem;
-      background: var(--background-secondary, #f3f4f6);
-      color: var(--text-default, #374151);
-      border-radius: 4px;
-    }
-
-    .component-section {
-      margin-bottom: 48px;
-
-      h2 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: var(--text-default, #1a1a1a);
-        margin: 0 0 24px 0;
-        padding-bottom: 12px;
-        border-bottom: 1px solid var(--border-default, #e5e7eb);
-      }
-    }
-
-    .demo-block {
-      margin-bottom: 32px;
-    }
-
-    .demo-block__title {
-      margin: 0 0 8px 0;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-default, #1a1a1a);
-    }
-
-    .demo-block__desc {
-      margin: 0 0 16px 0;
-      font-size: 0.875rem;
-      color: var(--text-muted, #6b7280);
     }
 
     .demo-column {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: var(--doc-space-md, 16px);
       max-width: 320px;
+    }
+
+    .demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--doc-space-md, 16px);
+      align-items: flex-end;
+    }
+
+    /* Use Cases */
+    .use-case {
+      margin-bottom: var(--doc-space-xl, 32px);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .use-case__title {
+      margin: 0 0 var(--doc-space-xs, 4px) 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--doc-text-primary, #0f172a);
+    }
+
+    .use-case__desc {
+      margin: 0 0 var(--doc-space-md, 16px) 0;
+      font-size: 0.875rem;
+      color: var(--doc-text-secondary, #64748b);
+    }
+
+    /* Composition styles */
+    .composition-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--doc-space-md, 16px);
+      max-width: 400px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: var(--doc-space-sm, 8px);
+      justify-content: flex-end;
+      margin-top: var(--doc-space-sm, 8px);
+    }
+
+    .search-group {
+      display: flex;
+      gap: var(--doc-space-sm, 8px);
+      align-items: flex-end;
+      max-width: 400px;
+
+      ds-input-field {
+        flex: 1;
+      }
+    }
+
+    .search-feedback {
+      margin: var(--doc-space-md, 16px) 0 0 0;
+      padding: var(--doc-space-sm, 8px) var(--doc-space-md, 16px);
+      background: var(--doc-surface-elevated, #f8fafc);
+      border-radius: var(--doc-radius-md, 8px);
+      font-size: 0.875rem;
+      color: var(--doc-text-secondary, #64748b);
     }
   `]
 })
 export class InputFieldPage {
   definition = DsInputFieldDefinition;
 
+  // Playground values
   defaultValues = signal<ControlValues>({
     label: 'Email',
     placeholder: 'Entrez votre email',
@@ -203,4 +379,93 @@ export class InputFieldPage {
   onDefaultChange(values: ControlValues): void {
     this.defaultValues.set(values);
   }
+
+  // Use Case: Search
+  searchValue = signal('');
+
+  // Use Case: Validation
+  username = signal('');
+  email = signal('');
+
+  usernameError = computed(() => {
+    const value = this.username();
+    if (!value) return '';
+    if (value.length < 3) return 'Minimum 3 caractères';
+    if (value.length > 20) return 'Maximum 20 caractères';
+    if (!/^[a-zA-Z0-9_]+$/.test(value)) return 'Lettres, chiffres et _ uniquement';
+    return '';
+  });
+
+  emailError = computed(() => {
+    const value = this.email();
+    if (!value) return '';
+    if (!value.includes('@')) return 'Email invalide';
+    return '';
+  });
+
+  // Code snippets
+  loginFormCode = `<ds-input-field
+  label="Email"
+  type="email"
+  placeholder="nom@exemple.com"
+  [required]="true"
+/>
+<ds-input-field
+  label="Mot de passe"
+  type="password"
+  placeholder="Entrez votre mot de passe"
+  [required]="true"
+  hint="8 caractères minimum"
+/>
+<ds-button variant="primary" [fullWidth]="true">Se connecter</ds-button>`;
+
+  searchCode = `<ds-input-field
+  label="Rechercher un produit"
+  placeholder="Ex: iPhone, MacBook..."
+  [(ngModel)]="searchValue"
+/>`;
+
+  validationCode = `// Composant
+username = signal('');
+email = signal('');
+
+usernameError = computed(() => {
+  const value = this.username();
+  if (!value) return '';
+  if (value.length < 3) return 'Minimum 3 caractères';
+  return '';
+});
+
+// Template
+<ds-input-field
+  label="Nom d'utilisateur"
+  [(ngModel)]="username"
+  [error]="usernameError()"
+/>`;
+
+  formCode = `<ds-input-field
+  label="Nom complet"
+  placeholder="Jean Dupont"
+  [required]="true"
+/>
+<ds-input-field
+  label="Email"
+  type="email"
+  placeholder="jean@exemple.com"
+  [required]="true"
+  hint="Nous ne partagerons jamais votre email"
+/>
+<ds-input-field
+  label="Sujet"
+  placeholder="Objet de votre message"
+/>
+<div class="form-actions">
+  <ds-button variant="ghost">Annuler</ds-button>
+  <ds-button variant="primary">Envoyer</ds-button>
+</div>`;
+
+  searchButtonCode = `<div class="search-group">
+  <ds-input-field placeholder="Rechercher..." size="md" />
+  <ds-button variant="primary">Rechercher</ds-button>
+</div>`;
 }

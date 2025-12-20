@@ -1,21 +1,24 @@
 import { Component, inject } from '@angular/core';
 import { ThemeService, Theme } from '../../core/theme.service';
+import { DocIcon, DocIconName } from '../icon/doc-icon';
+import { DsTooltip } from 'ds-angular';
 
 @Component({
   selector: 'doc-theme-switcher',
   standalone: true,
+  imports: [DocIcon, DsTooltip],
   template: `
-    <div class="theme-switcher">
+    <div class="theme-switcher" role="radiogroup" aria-label="Sélection du thème">
       @for (theme of themes; track theme.value) {
         <button
           type="button"
           class="theme-switcher__btn"
           [class.active]="themeService.currentTheme() === theme.value"
           [attr.aria-pressed]="themeService.currentTheme() === theme.value"
-          [attr.title]="theme.label"
+          [dsTooltip]="theme.label"
           (click)="themeService.setTheme(theme.value)"
         >
-          <span class="theme-switcher__icon">{{ theme.icon }}</span>
+          <doc-icon [name]="theme.icon" size="sm" />
           <span class="sr-only">{{ theme.label }}</span>
         </button>
       }
@@ -24,10 +27,11 @@ import { ThemeService, Theme } from '../../core/theme.service';
   styles: [`
     .theme-switcher {
       display: inline-flex;
-      gap: 4px;
-      padding: 4px;
-      background: var(--background-secondary, #f0f0f0);
-      border-radius: var(--radius-2, 8px);
+      gap: 2px;
+      padding: var(--doc-space-xs, 4px);
+      background: var(--doc-surface-elevated, #ffffff);
+      border: 1px solid var(--doc-border-subtle, #f1f5f9);
+      border-radius: var(--doc-radius-md, 10px);
     }
 
     .theme-switcher__btn {
@@ -38,26 +42,27 @@ import { ThemeService, Theme } from '../../core/theme.service';
       height: 32px;
       padding: 0;
       border: none;
-      border-radius: var(--radius-1, 4px);
+      border-radius: var(--doc-radius-sm, 6px);
       background: transparent;
-      color: var(--text-muted, #6b7280);
+      color: var(--doc-text-tertiary, #94a3b8);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all var(--doc-transition-fast, 150ms);
 
-      &:hover {
-        background: var(--background-main, #ffffff);
-        color: var(--text-default, #1a1a1a);
+      &:hover:not(.active) {
+        background: var(--doc-surface-sunken, #f1f5f9);
+        color: var(--doc-text-secondary, #475569);
       }
 
       &.active {
-        background: var(--background-main, #ffffff);
-        color: var(--color-primary, #3b82f6);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        background: var(--doc-accent-primary-light, #eef2ff);
+        color: var(--doc-accent-primary, #6366f1);
       }
-    }
 
-    .theme-switcher__icon {
-      font-size: 16px;
+      &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--doc-accent-primary-light, #eef2ff),
+                    0 0 0 4px var(--doc-accent-primary, #6366f1);
+      }
     }
 
     .sr-only {
@@ -75,9 +80,9 @@ import { ThemeService, Theme } from '../../core/theme.service';
 export class ThemeSwitcher {
   protected readonly themeService = inject(ThemeService);
 
-  protected readonly themes: { value: Theme; label: string; icon: string }[] = [
-    { value: 'light', label: 'Thème clair', icon: '☀️' },
-    { value: 'dark', label: 'Thème sombre', icon: '🌙' },
-    { value: 'custom', label: 'Thème personnalisé', icon: '🎨' },
+  protected readonly themes: { value: Theme; label: string; icon: DocIconName }[] = [
+    { value: 'light', label: 'Thème clair', icon: 'sun' },
+    { value: 'dark', label: 'Thème sombre', icon: 'moon' },
+    { value: 'custom', label: 'Thème personnalisé', icon: 'palette' },
   ];
 }
