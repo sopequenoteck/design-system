@@ -308,6 +308,7 @@ export type {
   SidebarSize,
   SidebarPosition,
   SidebarBadgeVariant,
+  SidebarCollapsedTrigger,
   SidebarItemClickEvent,
   SidebarItemExpandEvent,
   FlattenedSidebarItem,

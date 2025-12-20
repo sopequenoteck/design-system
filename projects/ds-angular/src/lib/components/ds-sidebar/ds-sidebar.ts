@@ -25,6 +25,7 @@ import {
   SidebarMode,
   SidebarSize,
   SidebarPosition,
+  SidebarCollapsedTrigger,
   SidebarItemClickEvent,
   SidebarItemExpandEvent,
   FlattenedSidebarItem,
@@ -106,6 +107,9 @@ export class DsSidebar implements OnInit, AfterViewInit, OnDestroy {
 
   /** Affiche les tooltips en mode collapsed (désactivable) */
   readonly showTooltips = input<boolean>(true);
+
+  /** Trigger pour ouvrir le popover des sous-menus en mode collapsed */
+  readonly collapsedTrigger = input<SidebarCollapsedTrigger>('hover');
 
   /** ID de l'item actif (contrôlé depuis l'extérieur) */
   readonly initialActiveItemId = input<string | number | null>(null);

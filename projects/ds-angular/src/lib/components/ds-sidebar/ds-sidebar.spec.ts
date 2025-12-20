@@ -737,4 +737,61 @@ describe('DsSidebar', () => {
       expect(component.visibleItemCount()).toBe(2);
     });
   });
+
+  // ============ COLLAPSED MODE POPOVER ============
+
+  describe('Collapsed mode popover', () => {
+    it('should not show children inline in collapsed mode', () => {
+      host.items = [
+        { id: '1', label: 'Parent', icon: faHome, expanded: true, children: [
+          { id: '1-1', label: 'Child 1' },
+          { id: '1-2', label: 'Child 2' },
+        ]},
+      ];
+      host.mode = 'collapsed';
+      fixture.detectChanges();
+
+      // Les enfants ne doivent pas être affichés inline
+      const childrenContainer = fixture.debugElement.query(By.css('.ds-sidebar-item__children'));
+      expect(childrenContainer).toBeFalsy();
+    });
+
+    it('should have aria-haspopup on parent items in collapsed mode', () => {
+      host.items = [
+        { id: '1', label: 'Parent', icon: faHome, children: [
+          { id: '1-1', label: 'Child' },
+        ]},
+      ];
+      host.mode = 'collapsed';
+      fixture.detectChanges();
+
+      const parentItem = fixture.debugElement.query(By.css('.ds-sidebar-item--has-children'));
+      expect(parentItem.nativeElement.getAttribute('aria-haspopup')).toBe('menu');
+    });
+
+    it('should pass sidebarPosition to items', () => {
+      host.items = [
+        { id: '1', label: 'Item 1', icon: faHome },
+      ];
+      host.position = 'right';
+      fixture.detectChanges();
+
+      const itemComponent = fixture.debugElement.query(By.directive(DsSidebarItemComponent));
+      expect(itemComponent.componentInstance.sidebarPosition()).toBe('right');
+    });
+
+    it('should not show tooltip for items with children in collapsed mode', () => {
+      host.items = [
+        { id: '1', label: 'Parent', icon: faHome, children: [
+          { id: '1-1', label: 'Child' },
+        ]},
+      ];
+      host.mode = 'collapsed';
+      fixture.detectChanges();
+
+      const parentItem = fixture.debugElement.query(By.css('.ds-sidebar-item--has-children'));
+      // Le tooltip ne doit pas être affiché pour les items avec enfants
+      expect(parentItem.nativeElement.getAttribute('dstooltip')).toBeFalsy();
+    });
+  });
 });

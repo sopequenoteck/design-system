@@ -51,6 +51,20 @@ export const DsSidebarDefinition: ComponentDefinition = {
       description: 'Mode overlay automatique sur mobile',
     },
     {
+      name: 'showTooltips',
+      kind: 'input',
+      type: 'boolean',
+      defaultValue: 'true',
+      description: 'Affiche les tooltips en mode collapsed',
+    },
+    {
+      name: 'collapsedTrigger',
+      kind: 'input',
+      type: "'hover' | 'click'",
+      defaultValue: "'hover'",
+      description: 'Trigger pour ouvrir le popover des sous-menus en mode collapsed',
+    },
+    {
       name: 'itemClick',
       kind: 'output',
       type: 'EventEmitter<SidebarItemClickEvent>',
@@ -95,21 +109,29 @@ export const DsSidebarDefinition: ComponentDefinition = {
     {
       id: 'collapsed',
       name: 'Collapsed Mode',
-      description: 'Mode icônes uniquement.',
-      controls: [],
+      description: 'Mode icônes uniquement. Les items avec enfants affichent un popover au hover ou au clic.',
+      controls: [
+        { name: 'collapsedTrigger', type: 'select', defaultValue: 'hover', options: ['hover', 'click'] },
+      ],
       code: `<ds-sidebar
-  [items]="sidebarItems"
+  [items]="groupedSidebarItems"
   mode="collapsed"
+  [collapsedTrigger]="collapsedTrigger"
 />`,
     },
     {
       id: 'with-header-footer',
       name: 'With Header/Footer',
-      description: 'Slots header et footer.',
-      controls: [],
-      code: `<ds-sidebar [items]="sidebarItems">
+      description: 'Slots header et footer. En mode collapsed, utilisez les classes .ds-sidebar-logo-icon et .ds-sidebar-logo-text pour un affichage adaptatif.',
+      controls: [
+        { name: 'mode', type: 'select', defaultValue: 'full', options: ['full', 'collapsed'] },
+      ],
+      code: `<ds-sidebar [items]="sidebarItems" [mode]="mode">
   <ng-container sidebar-header>
-    <img src="logo.svg" alt="Logo" />
+    <div class="sidebar-logo">
+      <span class="ds-sidebar-logo-icon">🚀</span>
+      <span class="ds-sidebar-logo-text">Mon App</span>
+    </div>
   </ng-container>
   <ng-container sidebar-footer>
     <button>Déconnexion</button>

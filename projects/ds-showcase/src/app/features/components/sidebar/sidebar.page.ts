@@ -1,8 +1,8 @@
 import { Component, signal, computed } from '@angular/core';
-import { DsSidebar, SidebarItem, SidebarMode, SidebarSize } from 'ds-angular';
+import { DsSidebar, SidebarItem, SidebarMode, SidebarSize, SidebarCollapsedTrigger } from 'ds-angular';
 import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
-import { DsSidebarDefinition } from '../../../registry/definitions/ds-sidebar.definition';
+import { DsSidebarDefinition } from '../../../registry/definitions';
 import { ControlValues } from '../../../registry/types';
 import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar } from '@fortawesome/free-solid-svg-icons';
 
@@ -54,6 +54,7 @@ import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar } f
               <ds-sidebar
                 [items]="groupedSidebarItems"
                 (itemClick)="onItemClick($event)"
+                [collapsedTrigger]="demoCollapsedTrigger()"
               />
             </div>
           </doc-demo-container>
@@ -61,12 +62,19 @@ import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar } f
 
         <div class="demo-block">
           <h3 class="demo-block__title">Collapsed Mode</h3>
-          <p class="demo-block__desc">Mode icônes uniquement.</p>
-          <doc-demo-container [code]="definition.demos[2].code">
+          <p class="demo-block__desc">Mode icônes uniquement. Les items avec enfants affichent un popover au hover ou au clic.</p>
+          <doc-demo-container
+            [code]="definition.demos[2].code"
+            [controls]="definition.demos[2].controls"
+            [initialValues]="collapsedValues()"
+            (controlChange)="onCollapsedChange($event)"
+          >
             <div class="sidebar-container sidebar-container--collapsed">
               <ds-sidebar
-                [items]="sidebarItems"
-                mode="collapsed"
+                [items]="groupedSidebarItems"
+                [mode]="'collapsed'"
+                [size]="demoSize()"
+                [collapsedTrigger]="demoCollapsedTrigger()"
               />
             </div>
           </doc-demo-container>
@@ -74,14 +82,19 @@ import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar } f
 
         <div class="demo-block">
           <h3 class="demo-block__title">With Header/Footer</h3>
-          <p class="demo-block__desc">Slots header et footer.</p>
-          <doc-demo-container [code]="definition.demos[3].code">
-            <div class="sidebar-container">
-              <ds-sidebar [items]="sidebarItems">
+          <p class="demo-block__desc">Slots header et footer. En mode collapsed, seule l'icône du logo est visible.</p>
+          <doc-demo-container
+            [code]="definition.demos[3].code"
+            [controls]="definition.demos[3].controls"
+            [initialValues]="headerFooterValues()"
+            (controlChange)="onHeaderFooterChange($event)"
+          >
+            <div class="sidebar-container" [class.sidebar-container--collapsed]="headerFooterMode() === 'collapsed'">
+              <ds-sidebar [items]="sidebarItems" [mode]="headerFooterMode()">
                 <ng-container sidebar-header>
                   <div class="sidebar-logo">
-                    <span class="logo-icon">🚀</span>
-                    <span class="logo-text">Mon App</span>
+                    <span class="ds-sidebar-logo-icon">🚀</span>
+                    <span class="ds-sidebar-logo-text">Mon App</span>
                   </div>
                 </ng-container>
                 <ng-container sidebar-footer>
@@ -111,7 +124,7 @@ import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar } f
     .component-title { margin: 0 0 12px 0; font-size: 2rem; font-weight: 700; color: var(--text-default, #1a1a1a); }
     .component-desc { margin: 0 0 16px 0; font-size: 1.125rem; color: var(--text-muted, #6b7280); line-height: 1.6; }
     .component-selector {
-      display: inline-block; padding: 6px 12px; font-family: var(--doc-code-font, monospace); font-size: 0.875rem;
+      display: inline-block; padding: 6px 12px; font-family: var(--doc-code-font, monospace),sans-serif; font-size: 0.875rem;
       background: var(--background-secondary, #f3f4f6); color: var(--text-default, #374151); border-radius: 4px;
     }
     .component-section {
@@ -193,12 +206,30 @@ export class SidebarPage {
     collapsible: true,
   });
 
+  collapsedValues = signal<ControlValues>({
+    collapsedTrigger: 'hover',
+  });
+
+  headerFooterValues = signal<ControlValues>({
+    mode: 'full',
+  });
+
   demoMode = computed(() => this.defaultValues()['mode'] as SidebarMode);
   demoSize = computed(() => this.defaultValues()['size'] as SidebarSize);
   demoCollapsible = computed(() => this.defaultValues()['collapsible'] as boolean);
+  demoCollapsedTrigger = computed(() => this.collapsedValues()['collapsedTrigger'] as SidebarCollapsedTrigger);
+  headerFooterMode = computed(() => this.headerFooterValues()['mode'] as SidebarMode);
 
   onDefaultChange(values: ControlValues): void {
     this.defaultValues.set(values);
+  }
+
+  onCollapsedChange(values: ControlValues): void {
+    this.collapsedValues.set(values);
+  }
+
+  onHeaderFooterChange(values: ControlValues): void {
+    this.headerFooterValues.set(values);
   }
 
   onItemClick(event: any): void {

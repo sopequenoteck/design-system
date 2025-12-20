@@ -342,3 +342,43 @@
     display: none !important;
   }
 }
+
+// ============================================
+// CDK OVERLAY STYLES (popover mode collapsed)
+// ============================================
+// Note: Ces styles doivent être globaux car le CDK overlay
+// est rendu dans un container séparé du DOM
+
+::ng-deep .ds-sidebar-popover-backdrop {
+  background: transparent; // Backdrop invisible pour le hover
+}
+
+::ng-deep .ds-sidebar-popover-panel {
+  z-index: var(--z-index-3, 1000);
+}
+
+// ============================================
+// COLLAPSED MODE - CONTENU PROJETÉ
+// ============================================
+// Note: ::ng-deep est nécessaire pour cibler le contenu projeté via ng-content
+// Ces styles s'appliquent quand la sidebar est en mode collapsed
+
+:host ::ng-deep .ds-sidebar--collapsed .ds-sidebar__header {
+  // Cacher le texte du logo
+  .ds-sidebar-logo-text,
+  .logo-text {
+    display: none;
+  }
+
+  // Centrer l'icône du logo
+  .ds-sidebar-logo-icon,
+  .logo-icon {
+    margin: 0 auto;
+  }
+
+  // Réduire le padding du conteneur logo
+  .sidebar-logo {
+    padding: 0;
+    justify-content: center;
+  }
+}

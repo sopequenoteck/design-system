@@ -22,6 +22,13 @@ export type SidebarSize = 'sm' | 'md' | 'lg';
 export type SidebarPosition = 'left' | 'right';
 
 /**
+ * Trigger pour ouvrir le popover en mode collapsed.
+ * - `hover` : Ouvre au survol de la souris
+ * - `click` : Ouvre au clic
+ */
+export type SidebarCollapsedTrigger = 'hover' | 'click';
+
+/**
  * Variante de couleur pour les badges.
  */
 export type SidebarBadgeVariant = 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info';

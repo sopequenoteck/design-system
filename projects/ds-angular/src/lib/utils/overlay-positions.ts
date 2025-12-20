@@ -249,3 +249,43 @@ export const AUTOCOMPLETE_POSITIONS: ConnectedPosition[] = [
     offsetY: -4,
   },
 ];
+
+/**
+ * Positions pour popover sidebar (sidebar à gauche → popover à droite)
+ *
+ * Utilise DROPDOWN_POSITIONS_RIGHT existant.
+ * Alias exporté pour clarté sémantique.
+ */
+export const SIDEBAR_POPOVER_POSITIONS_RIGHT = DROPDOWN_POSITIONS_RIGHT;
+
+/**
+ * Positions pour popover sidebar (sidebar à droite → popover à gauche)
+ *
+ * Stratégie :
+ * 1. Position préférée : à gauche, aligné en haut
+ * 2. Fallback : à gauche, aligné au centre
+ * 3. Fallback : à droite si pas d'espace à gauche
+ */
+export const SIDEBAR_POPOVER_POSITIONS_LEFT: ConnectedPosition[] = [
+  {
+    originX: 'start',
+    originY: 'top',
+    overlayX: 'end',
+    overlayY: 'top',
+    offsetX: -6,
+  },
+  {
+    originX: 'start',
+    originY: 'center',
+    overlayX: 'end',
+    overlayY: 'center',
+    offsetX: -6,
+  },
+  {
+    originX: 'end',
+    originY: 'top',
+    overlayX: 'start',
+    overlayY: 'top',
+    offsetX: 6,
+  },
+];
