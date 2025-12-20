@@ -4,7 +4,9 @@
 
 // Variables avec fallbacks
 :host {
-  display: block;
+  display: flex;
+  position: relative; // Pour le positionnement du bouton expand
+  height: 100%; // Prend la hauteur du parent (100vh si pas de parent contraint)
 }
 
 // ============================================
@@ -32,12 +34,13 @@
 .ds-sidebar {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
+  position: relative; // Pour le positionnement du bouton expand
+  overflow: hidden; // Empêche le débordement du contenu
   background: var(--sidebar-bg, var(--surface-default, #ffffff));
   color: var(--sidebar-text, var(--text-default, #1f2937));
   transition: width var(--sidebar-transition-duration, var(--duration-normal, 200ms)) ease,
               transform var(--sidebar-transition-duration, var(--duration-normal, 200ms)) ease;
-  // Note: pas de overflow:hidden pour permettre les overlays (menus, tooltips)
 
   // ---------- POSITION ----------
 
@@ -67,8 +70,10 @@
       justify-content: center;
     }
 
+    // Cacher le toggle button du header en mode collapsed
+    // (remplacé par le bouton expand sur le bord)
     .ds-sidebar__toggle-btn {
-      margin: 0 auto;
+      display: none;
     }
   }
 
@@ -272,6 +277,50 @@
 }
 
 // ============================================
+// EXPAND BUTTON (MODE COLLAPSED)
+// ============================================
+
+.ds-sidebar__expand-btn {
+  // Positionné par rapport au :host (position: relative)
+  position: absolute;
+  top: 50%;
+  // Collé au bord droit de la sidebar (largeur collapsed = 64px)
+  left: var(--sidebar-width-collapsed, 64px);
+  transform: translateY(-50%) translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 48px;
+  padding: 0;
+  border: none;
+  border-radius: 0 var(--sidebar-item-radius, var(--radius-1-5, 6px)) var(--sidebar-item-radius, var(--radius-1-5, 6px)) 0;
+  background: var(--sidebar-bg, var(--surface-default, #ffffff));
+  color: var(--sidebar-text, var(--text-default, #1f2937));
+  cursor: pointer;
+  box-shadow: var(--shadow-2, 0 4px 12px rgba(0, 0, 0, 0.1));
+  z-index: 2;
+  transition: background-color var(--duration-fast, 0.15s) ease;
+
+  &:hover {
+    background: var(--sidebar-item-hover-bg, var(--gray-100, rgba(0, 0, 0, 0.05)));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary, #3b82f6);
+    outline-offset: 2px;
+  }
+
+  // Position gauche (quand sidebar à droite)
+  &--left {
+    left: auto;
+    right: var(--sidebar-width-collapsed, 64px);
+    transform: translateY(-50%) translateX(50%);
+    border-radius: var(--sidebar-item-radius, var(--radius-1-5, 6px)) 0 0 var(--sidebar-item-radius, var(--radius-1-5, 6px));
+  }
+}
+
+// ============================================
 // DARK MODE OVERRIDES
 // ============================================
 // Note: Les styles dark mode sont maintenant gérés via les tokens thématiques
@@ -288,7 +337,8 @@
     background: var(--sidebar-backdrop-bg, rgba(0, 0, 0, 0.7));
   }
 
-  .ds-sidebar__trigger {
+  .ds-sidebar__trigger,
+  .ds-sidebar__expand-btn {
     background: var(--sidebar-bg, var(--surface-default));
     color: var(--sidebar-text, var(--text-default));
   }

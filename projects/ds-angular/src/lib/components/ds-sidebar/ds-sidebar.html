@@ -67,6 +67,18 @@
   </div>
 </nav>
 
+<!-- Bouton expand (mode collapsed uniquement) - à l'extérieur du nav pour éviter overflow:hidden -->
+@if (collapsible() && internalMode() === 'collapsed') {
+  <button
+    type="button"
+    class="ds-sidebar__expand-btn"
+    [class.ds-sidebar__expand-btn--left]="position() === 'right'"
+    aria-label="Développer la sidebar"
+    (click)="toggleMode()">
+    <fa-icon [icon]="expandIcon" />
+  </button>
+}
+
 <!-- Trigger button (overlay mode, quand fermé) -->
 @if (internalMode() === 'overlay' && !isOverlayOpen()) {
   <button

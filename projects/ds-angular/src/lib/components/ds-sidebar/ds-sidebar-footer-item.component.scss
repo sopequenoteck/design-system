@@ -1,0 +1,50 @@
+// ============================================
+// DS-SIDEBAR-FOOTER-ITEM STYLES
+// ============================================
+
+.ds-sidebar-footer-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  width: 100%;
+  padding: var(--space-3, 0.75rem);
+  border: none;
+  border-radius: var(--sidebar-item-radius, var(--radius-1-5, 6px));
+  background: transparent;
+  color: var(--sidebar-text, var(--text-default, #1f2937));
+  font-size: var(--font-size-sm, 0.875rem);
+  cursor: pointer;
+  transition: background-color var(--duration-fast, 0.15s) ease;
+
+  &:hover {
+    background: var(--sidebar-item-hover-bg, var(--gray-100, rgba(0, 0, 0, 0.05)));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary, #3b82f6);
+    outline-offset: 2px;
+  }
+
+  // Mode collapsed : icône seule, centrée
+  &--collapsed {
+    justify-content: center;
+    padding: var(--space-2, 0.5rem);
+  }
+
+  // Variant danger (ex: déconnexion)
+  &--danger {
+    background: var(--color-error, #ef4444);
+    color: white;
+
+    &:hover {
+      background: var(--color-error-hover, #dc2626);
+    }
+  }
+
+  // Label
+  &__label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

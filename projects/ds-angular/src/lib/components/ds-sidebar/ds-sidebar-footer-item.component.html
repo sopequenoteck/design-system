@@ -1,0 +1,13 @@
+<button
+  type="button"
+  class="ds-sidebar-footer-item"
+  [class.ds-sidebar-footer-item--collapsed]="isCollapsed()"
+  [class.ds-sidebar-footer-item--danger]="variant() === 'danger'"
+  [attr.aria-label]="label()"
+  [attr.title]="isCollapsed() ? label() : null"
+  (click)="clicked.emit()">
+  <fa-icon [icon]="icon()" />
+  @if (!isCollapsed()) {
+    <span class="ds-sidebar-footer-item__label">{{ label() }}</span>
+  }
+</button>

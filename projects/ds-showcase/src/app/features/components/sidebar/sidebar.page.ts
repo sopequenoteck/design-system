@@ -1,15 +1,15 @@
 import { Component, signal, computed } from '@angular/core';
-import { DsSidebar, SidebarItem, SidebarMode, SidebarSize, SidebarCollapsedTrigger } from 'ds-angular';
+import { DsSidebar, DsSidebarFooterItemComponent, SidebarItem, SidebarMode, SidebarSize, SidebarCollapsedTrigger } from 'ds-angular';
 import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
 import { DsSidebarDefinition } from '../../../registry/definitions';
 import { ControlValues } from '../../../registry/types';
-import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidebar-page',
   standalone: true,
-  imports: [DsSidebar, DemoContainer, PropsTable],
+  imports: [DsSidebar, DsSidebarFooterItemComponent, DemoContainer, PropsTable],
   template: `
     <div class="component-page">
       <header class="component-header">
@@ -98,7 +98,13 @@ import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar } f
                   </div>
                 </ng-container>
                 <ng-container sidebar-footer>
-                  <button class="sidebar-logout-btn">Déconnexion</button>
+                  <ds-sidebar-footer-item
+                    [icon]="faRightFromBracket"
+                    label="Déconnexion"
+                    [mode]="headerFooterMode()"
+                    variant="danger"
+                    (clicked)="onLogout()"
+                  />
                 </ng-container>
               </ds-sidebar>
             </div>
@@ -135,14 +141,23 @@ import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar } f
     .demo-block__title { margin: 0 0 8px 0; font-size: 1rem; font-weight: 600; color: var(--text-default, #1a1a1a); }
     .demo-block__desc { margin: 0 0 16px 0; font-size: 0.875rem; color: var(--text-muted, #6b7280); }
     .sidebar-container {
+      display: flex;
       height: 400px;
       border: 1px solid var(--border-default, #e5e7eb);
       border-radius: 8px;
-      overflow: hidden;
       position: relative;
+      background: var(--surface-secondary, #f9fafb);
+
+      // Forcer la sidebar à respecter la hauteur du conteneur
+      ::ng-deep ds-sidebar,
+      ::ng-deep .ds-sidebar {
+        height: 100% !important;
+        max-height: 400px;
+      }
     }
     .sidebar-container--collapsed {
-      width: 80px;
+      width: fit-content;
+      padding-right: 16px;
     }
     .sidebar-logo {
       display: flex;
@@ -152,20 +167,11 @@ import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar } f
       .logo-icon { font-size: 24px; }
       .logo-text { font-weight: 600; font-size: 1.125rem; }
     }
-    .sidebar-logout-btn {
-      width: 100%;
-      padding: 12px 16px;
-      border: none;
-      background: var(--error, #ef4444);
-      color: white;
-      cursor: pointer;
-      font-size: 0.875rem;
-      &:hover { opacity: 0.9; }
-    }
   `]
 })
 export class SidebarPage {
   definition = DsSidebarDefinition;
+  faRightFromBracket = faRightFromBracket;
 
   sidebarItems: SidebarItem[] = [
     { id: 'home', label: 'Accueil', icon: faHome },
@@ -238,5 +244,9 @@ export class SidebarPage {
 
   onModeChange(mode: SidebarMode): void {
     console.log('Mode changed:', mode);
+  }
+
+  onLogout(): void {
+    console.log('Logout clicked');
   }
 }

@@ -302,6 +302,8 @@ export { DsSidebar } from './ds-sidebar/ds-sidebar';
 
 export { DsSidebarItemComponent } from './ds-sidebar/ds-sidebar-item.component';
 
+export { DsSidebarFooterItemComponent } from './ds-sidebar/ds-sidebar-footer-item.component';
+
 export type {
   SidebarItem,
   SidebarMode,
