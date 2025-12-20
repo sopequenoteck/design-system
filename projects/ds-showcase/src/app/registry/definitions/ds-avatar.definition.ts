@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsAvatarDefinition: ComponentDefinition = {
   id: 'ds-avatar',
@@ -63,6 +64,8 @@ export const DsAvatarDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Avatar avec contrôles interactifs.',
+      examplePath: 'ds-avatar/default',
+      sources: getExampleSources('ds-avatar', 'default'),
       controls: [
         { name: 'shape', type: 'select', defaultValue: 'circle', options: ['circle', 'rounded', 'square'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg', 'xl'] },

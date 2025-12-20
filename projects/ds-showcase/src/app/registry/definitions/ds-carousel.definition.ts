@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsCarouselDefinition: ComponentDefinition = {
   id: 'ds-carousel',
@@ -90,6 +91,8 @@ export const DsCarouselDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Carousel avec contrôles interactifs.',
+      examplePath: 'ds-carousel/default',
+      sources: getExampleSources('ds-carousel', 'default'),
       controls: [
         { name: 'effect', type: 'select', defaultValue: 'slide', options: ['slide', 'fade'] },
         { name: 'autoplay', type: 'boolean', defaultValue: false },

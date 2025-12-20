@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsListItemDefinition: ComponentDefinition = {
   id: 'ds-list-item',
@@ -87,6 +88,8 @@ export const DsListItemDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'List item avec contrôles interactifs.',
+      examplePath: 'ds-list-item/default',
+      sources: getExampleSources('ds-list-item', 'default'),
       controls: [
         { name: 'checkable', type: 'boolean', defaultValue: false },
         { name: 'indicator', type: 'select', defaultValue: 'none', options: ['none', 'priority', 'dot', 'status'] },

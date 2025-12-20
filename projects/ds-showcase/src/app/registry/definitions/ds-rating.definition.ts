@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsRatingDefinition: ComponentDefinition = {
   id: 'ds-rating',
@@ -20,6 +21,8 @@ export const DsRatingDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Rating interactif basique.',
+      examplePath: 'ds-rating/default',
+      sources: getExampleSources('ds-rating', 'default'),
       controls: [
         { name: 'value', type: 'number', defaultValue: 3, min: 0, max: 5, step: 0.5 },
       ],

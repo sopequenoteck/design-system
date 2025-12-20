@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsEmptyDefinition: ComponentDefinition = {
   id: 'ds-empty',
@@ -49,6 +50,8 @@ export const DsEmptyDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'État vide avec contrôles interactifs.',
+      examplePath: 'ds-empty/default',
+      sources: getExampleSources('ds-empty', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
       ],

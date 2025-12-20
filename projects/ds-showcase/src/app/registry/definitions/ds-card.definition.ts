@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsCardDefinition: ComponentDefinition = {
   id: 'ds-card',
@@ -42,6 +43,8 @@ export const DsCardDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Card avec contrôles interactifs.',
+      examplePath: 'ds-card/default',
+      sources: getExampleSources('ds-card', 'default'),
       controls: [
         { name: 'variant', type: 'select', defaultValue: 'default', options: ['default', 'elevated', 'outlined'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },

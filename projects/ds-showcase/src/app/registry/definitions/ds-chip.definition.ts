@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsChipDefinition: ComponentDefinition = {
   id: 'ds-chip',
@@ -81,6 +82,8 @@ export const DsChipDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Chip avec contrôles interactifs.',
+      examplePath: 'ds-chip/default',
+      sources: getExampleSources('ds-chip', 'default'),
       controls: [
         { name: 'variant', type: 'select', defaultValue: 'filled', options: ['filled', 'outlined'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },

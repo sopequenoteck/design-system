@@ -4,6 +4,44 @@
 import { CodeSource } from '../app/registry/types';
 
 export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
+  "ds-avatar": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-avatar\n  [name]=\"name()\"\n  [shape]=\"shape()\"\n  [size]=\"size()\"\n  [autoColor]=\"autoColor()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsAvatar } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-avatar-default',\n  standalone: true,\n  imports: [DsAvatar],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsAvatarDefaultExample {\n  name = input<string>('John Doe');\n  shape = input<'circle' | 'rounded' | 'square'>('circle');\n  size = input<'sm' | 'md' | 'lg' | 'xl'>('md');\n  autoColor = input<boolean>(false);\n}\n"
+      }
+    ]
+  },
+  "ds-badge": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-badge\n  [type]=\"type()\"\n  [size]=\"size()\"\n  [variant]=\"variant()\"\n  [shape]=\"shape()\"\n>\n  Badge\n</ds-badge>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsBadge } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-badge-default',\n  standalone: true,\n  imports: [DsBadge],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsBadgeDefaultExample {\n  type = input<'default' | 'primary' | 'success' | 'warning' | 'error' | 'info'>('default');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  variant = input<'solid' | 'outline'>('solid');\n  shape = input<'default' | 'pill' | 'square'>('default');\n}\n"
+      }
+    ]
+  },
   "ds-button": {
     "default": [
       {
@@ -20,6 +58,44 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input } from '@angular/core';\nimport { DsButton, ButtonVariant, ButtonAppearance, ButtonSize } from 'ds-angular';\n\n@Component({\n  selector: 'example-button-default',\n  standalone: true,\n  imports: [DsButton],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class ButtonDefaultExample {\n  variant = input<ButtonVariant>('primary');\n  appearance = input<ButtonAppearance>('solid');\n  size = input<ButtonSize>('md');\n  disabled = input<boolean>(false);\n  loading = input<boolean>(false);\n}\n"
+      }
+    ]
+  },
+  "ds-card": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-card\n  [variant]=\"variant()\"\n  [size]=\"size()\"\n  [clickable]=\"clickable()\"\n  [disabled]=\"disabled()\"\n>\n  <div header>Titre de la carte</div>\n  <p>Contenu principal de la carte.</p>\n  <div footer>Actions</div>\n</ds-card>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n  max-width: 400px;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsCard } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-card-default',\n  standalone: true,\n  imports: [DsCard],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsCardDefaultExample {\n  variant = input<'default' | 'elevated' | 'outlined'>('default');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  clickable = input<boolean>(false);\n  disabled = input<boolean>(false);\n}\n"
+      }
+    ]
+  },
+  "ds-carousel": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-carousel\n  [slides]=\"slides\"\n  [autoplay]=\"autoplay()\"\n  [arrows]=\"arrows()\"\n  [dots]=\"dots()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n  max-width: 500px;\n}\n\n.slide {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 200px;\n  color: white;\n  font-size: 1.5rem;\n  font-weight: 600;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsCarousel, CarouselSlide } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-carousel-default',\n  standalone: true,\n  imports: [DsCarousel],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsCarouselDefaultExample {\n  autoplay = input<boolean>(false);\n  arrows = input<boolean>(true);\n  dots = input<boolean>(true);\n\n  slides: CarouselSlide[] = [\n    { id: '1', image: 'https://picsum.photos/800/400?random=1', alt: 'Slide 1', title: 'First Slide' },\n    { id: '2', image: 'https://picsum.photos/800/400?random=2', alt: 'Slide 2', title: 'Second Slide' },\n    { id: '3', image: 'https://picsum.photos/800/400?random=3', alt: 'Slide 3', title: 'Third Slide' }\n  ];\n}\n"
       }
     ]
   },
@@ -58,6 +134,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input, signal } from '@angular/core';\nimport { DsCheckboxList } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-checkbox-list-default',\n  standalone: true,\n  imports: [DsCheckboxList],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsCheckboxListDefaultExample {\n  size = input<'sm' | 'md' | 'lg'>('md');\n  showSelectAll = input<boolean>(false);\n  disabled = input<boolean>(false);\n\n  items = signal([\n    { id: '1', label: 'Option A', checked: false },\n    { id: '2', label: 'Option B', checked: true },\n    { id: '3', label: 'Option C', checked: false }\n  ]);\n}\n"
+      }
+    ]
+  },
+  "ds-chip": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-chip\n  label=\"Chip\"\n  [variant]=\"variant()\"\n  [size]=\"size()\"\n  [color]=\"color()\"\n  [removable]=\"removable()\"\n  [clickable]=\"clickable()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsChip } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-chip-default',\n  standalone: true,\n  imports: [DsChip],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsChipDefaultExample {\n  variant = input<'filled' | 'outlined'>('filled');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  color = input<'default' | 'primary' | 'success' | 'warning' | 'error'>('default');\n  removable = input<boolean>(false);\n  clickable = input<boolean>(false);\n}\n"
       }
     ]
   },
@@ -115,6 +210,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input, signal } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DsDatePicker } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-date-picker-default',\n  standalone: true,\n  imports: [DsDatePicker, FormsModule],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsDatePickerDefaultExample {\n  size = input<'sm' | 'md' | 'lg'>('md');\n  showTodayButton = input<boolean>(true);\n  showClearButton = input<boolean>(true);\n  disabled = input<boolean>(false);\n\n  date = signal<Date | null>(null);\n}\n"
+      }
+    ]
+  },
+  "ds-empty": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-empty\n  [title]=\"title()\"\n  [description]=\"description()\"\n  [size]=\"size()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsEmpty } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-empty-default',\n  standalone: true,\n  imports: [DsEmpty],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsEmptyDefaultExample {\n  title = input<string>('Aucun résultat');\n  description = input<string>('Aucune donnée à afficher pour le moment.');\n  size = input<'sm' | 'md' | 'lg'>('md');\n}\n"
       }
     ]
   },
@@ -194,6 +308,63 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
       }
     ]
   },
+  "ds-list": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-list [variant]=\"variant()\" [size]=\"size()\">\n  <ds-list-item title=\"Premier élément\" />\n  <ds-list-item title=\"Deuxième élément\" />\n  <ds-list-item title=\"Troisième élément\" />\n</ds-list>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n  max-width: 400px;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsList, DsListItem } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-list-default',\n  standalone: true,\n  imports: [DsList, DsListItem],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsListDefaultExample {\n  variant = input<'default' | 'divided' | 'card'>('default');\n  size = input<'sm' | 'md' | 'lg'>('md');\n}\n"
+      }
+    ]
+  },
+  "ds-list-group": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-list-group\n  title=\"Aujourd'hui\"\n  [variant]=\"variant()\"\n  [sticky]=\"sticky()\"\n>\n  <ds-list-item title=\"Réunion d'équipe\" />\n  <ds-list-item title=\"Revue de code\" />\n</ds-list-group>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n  max-width: 400px;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsListGroup, DsListItem } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-list-group-default',\n  standalone: true,\n  imports: [DsListGroup, DsListItem],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsListGroupDefaultExample {\n  variant = input<'default' | 'collapsible'>('default');\n  sticky = input<boolean>(false);\n}\n"
+      }
+    ]
+  },
+  "ds-list-item": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-list-item\n  title=\"Ma tâche\"\n  [checkable]=\"checkable()\"\n  [size]=\"size()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n  max-width: 400px;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsListItem } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-list-item-default',\n  standalone: true,\n  imports: [DsListItem],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsListItemDefaultExample {\n  checkable = input<boolean>(false);\n  size = input<'sm' | 'md' | 'lg'>('md');\n}\n"
+      }
+    ]
+  },
   "ds-password-strength": {
     "default": [
       {
@@ -229,6 +400,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input } from '@angular/core';\nimport { DsRadioGroup } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-radio-group-default',\n  standalone: true,\n  imports: [DsRadioGroup],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsRadioGroupDefaultExample {\n  label = input<string>('Choisissez une option');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  layout = input<'vertical' | 'horizontal'>('vertical');\n  disabled = input<boolean>(false);\n  required = input<boolean>(false);\n\n  options = [\n    { label: 'Option A', value: 'a' },\n    { label: 'Option B', value: 'b' },\n    { label: 'Option C', value: 'c' }\n  ];\n}\n"
+      }
+    ]
+  },
+  "ds-rating": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-rating\n  [(ngModel)]=\"value\"\n  [size]=\"size()\"\n  [readonly]=\"readonly()\"\n  [disabled]=\"disabled()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input, signal } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DsRating } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-rating-default',\n  standalone: true,\n  imports: [DsRating, FormsModule],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsRatingDefaultExample {\n  size = input<'sm' | 'md' | 'lg'>('md');\n  readonly = input<boolean>(false);\n  disabled = input<boolean>(false);\n\n  value = signal(3);\n}\n"
       }
     ]
   },
@@ -289,6 +479,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
       }
     ]
   },
+  "ds-skeleton": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-skeleton\n  [variant]=\"variant()\"\n  [size]=\"size()\"\n  [lines]=\"lines()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n  width: 200px;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsSkeleton } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-skeleton-default',\n  standalone: true,\n  imports: [DsSkeleton],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsSkeletonDefaultExample {\n  variant = input<'text' | 'circle' | 'rectangle' | 'card'>('text');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  lines = input<number>(1);\n}\n"
+      }
+    ]
+  },
   "ds-slider": {
     "default": [
       {
@@ -308,6 +517,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
       }
     ]
   },
+  "ds-table": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-table\n  [columns]=\"columns\"\n  [data]=\"data\"\n  [variant]=\"variant()\"\n  [size]=\"size()\"\n  [hoverable]=\"hoverable()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsTable, DsTableColumn } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-table-default',\n  standalone: true,\n  imports: [DsTable],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsTableDefaultExample {\n  variant = input<'default' | 'striped' | 'bordered'>('default');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  hoverable = input<boolean>(true);\n\n  columns: DsTableColumn[] = [\n    { key: 'name', label: 'Nom' },\n    { key: 'email', label: 'Email' },\n    { key: 'role', label: 'Rôle' }\n  ];\n\n  data = [\n    { name: 'Alice Martin', email: 'alice@example.com', role: 'Admin' },\n    { name: 'Bob Dupont', email: 'bob@example.com', role: 'User' },\n    { name: 'Claire Bernard', email: 'claire@example.com', role: 'Editor' }\n  ];\n}\n"
+      }
+    ]
+  },
   "ds-time-picker": {
     "default": [
       {
@@ -324,6 +552,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input, signal } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DsTimePicker } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-time-picker-default',\n  standalone: true,\n  imports: [DsTimePicker, FormsModule],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsTimePickerDefaultExample {\n  size = input<'sm' | 'md' | 'lg'>('md');\n  showSeconds = input<boolean>(false);\n  disabled = input<boolean>(false);\n\n  time = signal('');\n}\n"
+      }
+    ]
+  },
+  "ds-timeline": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-timeline\n  [items]=\"items\"\n  [mode]=\"mode()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsTimeline, TimelineItem } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-timeline-default',\n  standalone: true,\n  imports: [DsTimeline],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsTimelineDefaultExample {\n  mode = input<'left' | 'right' | 'alternate'>('left');\n\n  items: TimelineItem[] = [\n    { content: 'Commande passée', date: '10:00' },\n    { content: 'Paiement confirmé', date: '10:05' },\n    { content: 'En préparation', date: '10:30' },\n    { content: 'Expédié', date: '14:00' }\n  ];\n}\n"
       }
     ]
   },
@@ -362,6 +609,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input } from '@angular/core';\nimport { DsTransfer, TransferItem } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-transfer-default',\n  standalone: true,\n  imports: [DsTransfer],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsTransferDefaultExample {\n  size = input<'sm' | 'md' | 'lg'>('md');\n  showSearch = input<boolean>(true);\n  disabled = input<boolean>(false);\n\n  sourceItems: TransferItem[] = [\n    { key: '1', label: 'Élément 1' },\n    { key: '2', label: 'Élément 2' },\n    { key: '3', label: 'Élément 3' },\n    { key: '4', label: 'Élément 4' },\n    { key: '5', label: 'Élément 5' }\n  ];\n\n  targetItems: TransferItem[] = [];\n}\n"
+      }
+    ]
+  },
+  "ds-tree": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-tree\n  [data]=\"treeData\"\n  [checkable]=\"checkable()\"\n  [showLine]=\"showLine()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n  max-width: 300px;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsTree, TreeNode } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-tree-default',\n  standalone: true,\n  imports: [DsTree],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsTreeDefaultExample {\n  checkable = input<boolean>(false);\n  showLine = input<boolean>(false);\n\n  treeData: TreeNode[] = [\n    {\n      id: 1,\n      label: 'Documents',\n      children: [\n        { id: 2, label: 'Projets' },\n        { id: 3, label: 'Images' }\n      ]\n    },\n    {\n      id: 4,\n      label: 'Paramètres',\n      children: [\n        { id: 5, label: 'Général' },\n        { id: 6, label: 'Sécurité' }\n      ]\n    }\n  ];\n}\n"
       }
     ]
   },

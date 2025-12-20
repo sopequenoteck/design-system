@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsTreeDefinition: ComponentDefinition = {
   id: 'ds-tree',
@@ -81,6 +82,8 @@ export const DsTreeDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Arbre avec contrôles interactifs.',
+      examplePath: 'ds-tree/default',
+      sources: getExampleSources('ds-tree', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'checkable', type: 'boolean', defaultValue: false },

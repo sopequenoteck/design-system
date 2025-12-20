@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsTableDefinition: ComponentDefinition = {
   id: 'ds-table',
@@ -95,6 +96,8 @@ export const DsTableDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Tableau avec contrôles interactifs.',
+      examplePath: 'ds-table/default',
+      sources: getExampleSources('ds-table', 'default'),
       controls: [
         { name: 'variant', type: 'select', defaultValue: 'default', options: ['default', 'striped', 'bordered'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },

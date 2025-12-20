@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsSkeletonDefinition: ComponentDefinition = {
   id: 'ds-skeleton',
@@ -61,6 +62,8 @@ export const DsSkeletonDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Skeleton avec contrôles.',
+      examplePath: 'ds-skeleton/default',
+      sources: getExampleSources('ds-skeleton', 'default'),
       controls: [
         { name: 'variant', type: 'select', defaultValue: 'text', options: ['text', 'circle', 'rectangle', 'card'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },

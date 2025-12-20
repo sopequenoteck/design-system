@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsListGroupDefinition: ComponentDefinition = {
   id: 'ds-list-group',
@@ -59,6 +60,8 @@ export const DsListGroupDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Groupe de liste simple.',
+      examplePath: 'ds-list-group/default',
+      sources: getExampleSources('ds-list-group', 'default'),
       controls: [
         { name: 'variant', type: 'select', defaultValue: 'default', options: ['default', 'collapsible'] },
         { name: 'sticky', type: 'boolean', defaultValue: false },

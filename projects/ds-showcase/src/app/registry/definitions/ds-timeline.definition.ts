@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsTimelineDefinition: ComponentDefinition = {
   id: 'ds-timeline',
@@ -61,6 +62,8 @@ export const DsTimelineDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Timeline avec contrôles interactifs.',
+      examplePath: 'ds-timeline/default',
+      sources: getExampleSources('ds-timeline', 'default'),
       controls: [
         { name: 'mode', type: 'select', defaultValue: 'left', options: ['left', 'right', 'alternate'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },

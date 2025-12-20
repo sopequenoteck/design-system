@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsBadgeDefinition: ComponentDefinition = {
   id: 'ds-badge',
@@ -63,6 +64,8 @@ export const DsBadgeDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Badge avec contrôles interactifs.',
+      examplePath: 'ds-badge/default',
+      sources: getExampleSources('ds-badge', 'default'),
       controls: [
         { name: 'type', type: 'select', defaultValue: 'default', options: ['default', 'primary', 'success', 'warning', 'error', 'info'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },

@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsListDefinition: ComponentDefinition = {
   id: 'ds-list',
@@ -89,6 +90,8 @@ export const DsListDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Liste simple avec items.',
+      examplePath: 'ds-list/default',
+      sources: getExampleSources('ds-list', 'default'),
       controls: [
         { name: 'variant', type: 'select', defaultValue: 'default', options: ['default', 'bordered', 'separated'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
