@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const PrimitiveToggleDefinition: ComponentDefinition = {
   id: 'primitive-toggle',
@@ -92,12 +93,8 @@ export const PrimitiveToggleDefinition: ComponentDefinition = {
           description: 'Désactivé',
         },
       ],
-      code: `<primitive-toggle
-  label="Activer la fonctionnalité"
-  labelPosition="right"
-  size="md"
-  [disabled]="false"
-/>`,
+      examplePath: 'primitive-toggle/default',
+      sources: getExampleSources('primitive-toggle', 'default'),
     },
     {
       id: 'states',

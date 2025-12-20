@@ -22,6 +22,139 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "content": "import { Component, input } from '@angular/core';\nimport { DsButton, ButtonVariant, ButtonAppearance, ButtonSize } from 'ds-angular';\n\n@Component({\n  selector: 'example-button-default',\n  standalone: true,\n  imports: [DsButton],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class ButtonDefaultExample {\n  variant = input<ButtonVariant>('primary');\n  appearance = input<ButtonAppearance>('solid');\n  size = input<ButtonSize>('md');\n  disabled = input<boolean>(false);\n  loading = input<boolean>(false);\n}\n"
       }
     ]
+  },
+  "primitive-badge": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<primitive-badge\n  [variant]=\"variant()\"\n  [size]=\"size()\"\n  [shape]=\"shape()\"\n  [appearance]=\"appearance()\"\n>\n  Badge\n</primitive-badge>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: inline-block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { PrimitiveBadge } from 'ds-angular';\n\n@Component({\n  selector: 'example-primitive-badge-default',\n  standalone: true,\n  imports: [PrimitiveBadge],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class PrimitiveBadgeDefaultExample {\n  variant = input<'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'neutral'>('primary');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  shape = input<'rounded' | 'pill'>('rounded');\n  appearance = input<'solid' | 'outline'>('solid');\n}\n"
+      }
+    ]
+  },
+  "primitive-button": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<primitive-button\n  [variant]=\"variant()\"\n  [size]=\"size()\"\n  [appearance]=\"appearance()\"\n  [disabled]=\"disabled()\"\n  [block]=\"block()\"\n>\n  Cliquez ici\n</primitive-button>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: inline-block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { PrimitiveButton, ButtonVariant, ButtonSize, ButtonAppearance } from 'ds-angular';\n\n@Component({\n  selector: 'example-primitive-button-default',\n  standalone: true,\n  imports: [PrimitiveButton],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class PrimitiveButtonDefaultExample {\n  variant = input<ButtonVariant>('primary');\n  size = input<ButtonSize>('md');\n  appearance = input<ButtonAppearance>('solid');\n  disabled = input<boolean>(false);\n  block = input<boolean>(false);\n}\n"
+      }
+    ]
+  },
+  "primitive-checkbox": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<primitive-checkbox\n  [label]=\"label()\"\n  [size]=\"size()\"\n  [disabled]=\"disabled()\"\n  [indeterminate]=\"indeterminate()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { PrimitiveCheckbox } from 'ds-angular';\n\n@Component({\n  selector: 'example-primitive-checkbox-default',\n  standalone: true,\n  imports: [PrimitiveCheckbox],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class PrimitiveCheckboxDefaultExample {\n  label = input<string>(\"J'accepte les conditions\");\n  size = input<'sm' | 'md' | 'lg'>('md');\n  disabled = input<boolean>(false);\n  indeterminate = input<boolean>(false);\n}\n"
+      }
+    ]
+  },
+  "primitive-input": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<primitive-input\n  [type]=\"type()\"\n  [state]=\"state()\"\n  [size]=\"size()\"\n  placeholder=\"Entrez du texte...\"\n  [disabled]=\"disabled()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { PrimitiveInput } from 'ds-angular';\n\n@Component({\n  selector: 'example-primitive-input-default',\n  standalone: true,\n  imports: [PrimitiveInput],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class PrimitiveInputDefaultExample {\n  type = input<'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'search' | 'date'>('text');\n  state = input<'default' | 'success' | 'warning' | 'error'>('default');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  disabled = input<boolean>(false);\n}\n"
+      }
+    ]
+  },
+  "primitive-radio": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<primitive-radio\n  [label]=\"label()\"\n  [size]=\"size()\"\n  [disabled]=\"disabled()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { PrimitiveRadio } from 'ds-angular';\n\n@Component({\n  selector: 'example-primitive-radio-default',\n  standalone: true,\n  imports: [PrimitiveRadio],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class PrimitiveRadioDefaultExample {\n  label = input<string>('Option A');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  disabled = input<boolean>(false);\n}\n"
+      }
+    ]
+  },
+  "primitive-textarea": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<primitive-textarea\n  [state]=\"state()\"\n  [size]=\"size()\"\n  [resize]=\"resize()\"\n  placeholder=\"Saisissez votre commentaire...\"\n  [disabled]=\"disabled()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { PrimitiveTextarea } from 'ds-angular';\n\n@Component({\n  selector: 'example-primitive-textarea-default',\n  standalone: true,\n  imports: [PrimitiveTextarea],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class PrimitiveTextareaDefaultExample {\n  state = input<'default' | 'success' | 'warning' | 'error'>('default');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  resize = input<'none' | 'vertical' | 'horizontal' | 'both'>('vertical');\n  disabled = input<boolean>(false);\n}\n"
+      }
+    ]
+  },
+  "primitive-toggle": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<primitive-toggle\n  [label]=\"label()\"\n  [labelPosition]=\"labelPosition()\"\n  [size]=\"size()\"\n  [disabled]=\"disabled()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { PrimitiveToggle } from 'ds-angular';\n\n@Component({\n  selector: 'example-primitive-toggle-default',\n  standalone: true,\n  imports: [PrimitiveToggle],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class PrimitiveToggleDefaultExample {\n  label = input<string>('Activer la fonctionnalité');\n  labelPosition = input<'left' | 'right'>('right');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  disabled = input<boolean>(false);\n}\n"
+      }
+    ]
   }
 };
 

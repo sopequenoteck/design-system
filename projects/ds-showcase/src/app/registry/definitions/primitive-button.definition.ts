@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const PrimitiveButtonDefinition: ComponentDefinition = {
   id: 'primitive-button',
@@ -113,14 +114,8 @@ export const PrimitiveButtonDefinition: ComponentDefinition = {
           description: 'Pleine largeur',
         },
       ],
-      code: `<primitive-button
-  variant="primary"
-  size="md"
-  appearance="solid"
-  [disabled]="false"
-  [block]="false">
-  Cliquez ici
-</primitive-button>`,
+      examplePath: 'primitive-button/default',
+      sources: getExampleSources('primitive-button', 'default'),
     },
     {
       id: 'variants',

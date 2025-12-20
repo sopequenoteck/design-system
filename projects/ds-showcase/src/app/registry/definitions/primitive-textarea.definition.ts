@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const PrimitiveTextareaDefinition: ComponentDefinition = {
   id: 'primitive-textarea',
@@ -140,13 +141,8 @@ export const PrimitiveTextareaDefinition: ComponentDefinition = {
           description: 'Désactivé',
         },
       ],
-      code: `<primitive-textarea
-  state="default"
-  size="md"
-  resize="vertical"
-  placeholder="Saisissez votre commentaire..."
-  [disabled]="false"
-/>`,
+      examplePath: 'primitive-textarea/default',
+      sources: getExampleSources('primitive-textarea', 'default'),
     },
     {
       id: 'states',

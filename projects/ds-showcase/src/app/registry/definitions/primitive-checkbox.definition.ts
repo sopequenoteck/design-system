@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const PrimitiveCheckboxDefinition: ComponentDefinition = {
   id: 'primitive-checkbox',
@@ -91,12 +92,8 @@ export const PrimitiveCheckboxDefinition: ComponentDefinition = {
           description: 'Indéterminé',
         },
       ],
-      code: `<primitive-checkbox
-  label="J'accepte les conditions"
-  size="md"
-  [disabled]="false"
-  [indeterminate]="false"
-/>`,
+      examplePath: 'primitive-checkbox/default',
+      sources: getExampleSources('primitive-checkbox', 'default'),
     },
     {
       id: 'states',

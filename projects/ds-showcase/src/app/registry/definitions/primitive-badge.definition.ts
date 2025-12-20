@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const PrimitiveBadgeDefinition: ComponentDefinition = {
   id: 'primitive-badge',
@@ -102,13 +103,8 @@ export const PrimitiveBadgeDefinition: ComponentDefinition = {
           description: 'Apparence',
         },
       ],
-      code: `<primitive-badge
-  variant="primary"
-  size="md"
-  shape="rounded"
-  appearance="solid">
-  Badge
-</primitive-badge>`,
+      examplePath: 'primitive-badge/default',
+      sources: getExampleSources('primitive-badge', 'default'),
     },
     {
       id: 'variants',

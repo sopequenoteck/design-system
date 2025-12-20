@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const PrimitiveRadioDefinition: ComponentDefinition = {
   id: 'primitive-radio',
@@ -92,11 +93,8 @@ export const PrimitiveRadioDefinition: ComponentDefinition = {
           description: 'Désactivé',
         },
       ],
-      code: `<primitive-radio
-  label="Option A"
-  size="md"
-  [disabled]="false"
-/>`,
+      examplePath: 'primitive-radio/default',
+      sources: getExampleSources('primitive-radio', 'default'),
     },
     {
       id: 'states',

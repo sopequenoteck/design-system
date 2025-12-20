@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const PrimitiveInputDefinition: ComponentDefinition = {
   id: 'primitive-input',
@@ -147,13 +148,8 @@ export const PrimitiveInputDefinition: ComponentDefinition = {
           description: 'Désactivé',
         },
       ],
-      code: `<primitive-input
-  type="text"
-  state="default"
-  size="md"
-  placeholder="Entrez du texte..."
-  [disabled]="false"
-/>`,
+      examplePath: 'primitive-input/default',
+      sources: getExampleSources('primitive-input', 'default'),
     },
     {
       id: 'types',
