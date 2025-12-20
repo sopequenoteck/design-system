@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsDividerDefinition: ComponentDefinition = {
   id: 'ds-divider',
@@ -18,6 +19,8 @@ export const DsDividerDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Divider horizontal basique.',
+      examplePath: 'ds-divider/default',
+      sources: getExampleSources('ds-divider', 'default'),
       controls: [],
       code: `<ds-divider />`,
     },

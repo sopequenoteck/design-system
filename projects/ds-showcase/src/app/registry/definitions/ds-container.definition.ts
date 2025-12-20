@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsContainerDefinition: ComponentDefinition = {
   id: 'ds-container',
@@ -18,6 +19,8 @@ export const DsContainerDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Conteneur avec largeur par défaut (lg = 960px).',
+      examplePath: 'ds-container/default',
+      sources: getExampleSources('ds-container', 'default'),
       controls: [],
       code: `<ds-container>
   <p>Contenu centré avec max-width 960px</p>

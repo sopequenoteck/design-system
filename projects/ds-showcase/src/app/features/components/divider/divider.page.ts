@@ -25,7 +25,7 @@ import { DsDividerDefinition } from '../../../registry/definitions/ds-divider.de
         <div class="demo-block">
           <h3 class="demo-block__title">Default</h3>
           <p class="demo-block__desc">Divider horizontal basique.</p>
-          <doc-demo-container [code]="definition.demos[0].code">
+          <doc-demo-container [sources]="definition.demos[0].sources ?? []" [code]="definition.demos[0].code">
             <div class="demo-box">
               <p>Contenu au-dessus</p>
               <ds-divider />

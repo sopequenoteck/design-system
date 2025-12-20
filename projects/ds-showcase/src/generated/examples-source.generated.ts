@@ -251,6 +251,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
       }
     ]
   },
+  "ds-container": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-container>\n  <div class=\"demo-content\">\n    Contenu centré avec max-width 960px\n  </div>\n</ds-container>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ".demo-content {\n  padding: 16px;\n  background: var(--background-secondary, #f3f4f6);\n  border: 1px dashed var(--border-default, #e5e7eb);\n  border-radius: 4px;\n  text-align: center;\n  font-size: 0.875rem;\n  color: var(--text-muted, #6b7280);\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component } from '@angular/core';\nimport { DsContainer } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-container-default',\n  standalone: true,\n  imports: [DsContainer],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsContainerDefaultExample {}\n"
+      }
+    ]
+  },
   "ds-date-picker": {
     "default": [
       {
@@ -267,6 +286,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input, signal } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DsDatePicker } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-date-picker-default',\n  standalone: true,\n  imports: [DsDatePicker, FormsModule],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsDatePickerDefaultExample {\n  size = input<'sm' | 'md' | 'lg'>('md');\n  showTodayButton = input<boolean>(true);\n  showClearButton = input<boolean>(true);\n  disabled = input<boolean>(false);\n\n  date = signal<Date | null>(null);\n}\n"
+      }
+    ]
+  },
+  "ds-divider": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<div class=\"demo-box\">\n  <p>Contenu au-dessus</p>\n  <ds-divider />\n  <p>Contenu en-dessous</p>\n</div>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ".demo-box {\n  padding: 16px;\n  background: var(--background-panel, #ffffff);\n  border: 1px solid var(--border-default, #e5e7eb);\n  border-radius: 8px;\n\n  p {\n    margin: 8px 0;\n    color: var(--text-muted, #6b7280);\n  }\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component } from '@angular/core';\nimport { DsDivider } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-divider-default',\n  standalone: true,\n  imports: [DsDivider],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsDividerDefaultExample {}\n"
       }
     ]
   },

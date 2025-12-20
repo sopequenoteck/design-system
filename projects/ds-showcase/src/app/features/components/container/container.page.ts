@@ -25,7 +25,7 @@ import { DsContainerDefinition } from '../../../registry/definitions/ds-containe
         <div class="demo-block">
           <h3 class="demo-block__title">Default</h3>
           <p class="demo-block__desc">Conteneur avec largeur par défaut (lg = 960px).</p>
-          <doc-demo-container [code]="definition.demos[0].code">
+          <doc-demo-container [sources]="definition.demos[0].sources ?? []" [code]="definition.demos[0].code">
             <ds-container>
               <div class="demo-content">
                 Contenu centré avec max-width 960px

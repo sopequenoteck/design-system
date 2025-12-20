@@ -1,0 +1,11 @@
+.demo-box {
+  padding: 16px;
+  background: var(--background-panel, #ffffff);
+  border: 1px solid var(--border-default, #e5e7eb);
+  border-radius: 8px;
+
+  p {
+    margin: 8px 0;
+    color: var(--text-muted, #6b7280);
+  }
+}
