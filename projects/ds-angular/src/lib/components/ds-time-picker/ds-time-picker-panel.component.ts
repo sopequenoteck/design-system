@@ -296,7 +296,7 @@ export class DsTimePickerPanelComponent implements AfterViewInit {
       const val = this.value();
       const fmt = this.format();
       this.parseAndSetValue(val, fmt);
-    }, { allowSignalWrites: true });
+    });
   }
 
   ngAfterViewInit(): void {

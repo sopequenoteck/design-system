@@ -303,7 +303,6 @@ export class DsCalendar {
         const value = this.value();
         this.displayDate.set(new Date(value));
       },
-      { allowSignalWrites: true }
     );
 
     // Synchroniser currentMode avec mode
@@ -311,7 +310,6 @@ export class DsCalendar {
       () => {
         this.currentMode.set(this.mode());
       },
-      { allowSignalWrites: true }
     );
   }
 

@@ -297,10 +297,13 @@ describe('DsStepper', () => {
 
   describe('Keyboard navigation', () => {
     it('should focus next step on ArrowRight (horizontal)', () => {
+      const steps = compiled.querySelectorAll('.ds-stepper__step') as NodeListOf<HTMLElement>;
+      const focusSpy = spyOn(steps[1], 'focus');
+
       const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
       component.onKeydown(event, 0);
-      // Focus is handled via DOM, we just verify no errors
-      expect(true).toBe(true);
+
+      expect(focusSpy).toHaveBeenCalled();
     });
 
     it('should navigate on Enter', () => {
