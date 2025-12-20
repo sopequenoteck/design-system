@@ -44,13 +44,25 @@ export interface PropDefinition {
   deprecated?: boolean;
 }
 
+/** Source de code pour un exemple */
+export interface CodeSource {
+  language: 'typescript' | 'html' | 'scss';
+  filename: string;
+  content: string;
+}
+
 /** Configuration d'une démo */
 export interface DemoConfig {
   id: string;
   name: string;
   description: string;
   controls: ControlConfig[];
-  code: string;
+  /** @deprecated Utiliser `sources` à la place */
+  code?: string;
+  /** Sources de code (HTML, TS, SCSS) */
+  sources?: CodeSource[];
+  /** Chemin relatif vers le dossier d'exemple (pour génération) */
+  examplePath?: string;
 }
 
 /** Définition complète d'un composant */

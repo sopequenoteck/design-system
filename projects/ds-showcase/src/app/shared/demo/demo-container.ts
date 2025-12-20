@@ -1,16 +1,17 @@
 import { Component, input, output, signal, ViewChild, computed, ElementRef, AfterViewInit } from '@angular/core';
 import { ThemeSwitcher } from '../theme/theme-switcher';
 import { CodePreview } from './code-preview';
+import { CodeTabs } from './code-tabs';
 import { ControlsPanel } from './controls-panel';
 import { FullscreenDemo } from './fullscreen-demo';
 import { DocIcon } from '../icon/doc-icon';
-import { ControlConfig, ControlValues } from '../../registry/types';
+import { ControlConfig, ControlValues, CodeSource } from '../../registry/types';
 import { DsButton, DsTooltip, DsBadge } from 'ds-angular';
 
 @Component({
   selector: 'doc-demo-container',
   standalone: true,
-  imports: [ThemeSwitcher, CodePreview, ControlsPanel, FullscreenDemo, DocIcon, DsButton, DsTooltip, DsBadge],
+  imports: [ThemeSwitcher, CodePreview, CodeTabs, ControlsPanel, FullscreenDemo, DocIcon, DsButton, DsTooltip, DsBadge],
   template: `
     <div class="demo-container" [class.demo-container--with-controls]="controls().length > 0">
       <!-- Toolbar -->
@@ -100,7 +101,11 @@ import { DsButton, DsTooltip, DsBadge } from 'ds-angular';
       <!-- Code area -->
       @if (activeTab() === 'code') {
         <div class="demo-code" role="tabpanel">
-          <doc-code-preview [code]="code()" [language]="language()" />
+          @if (sources().length > 0) {
+            <doc-code-tabs [sources]="sources()" />
+          } @else if (code()) {
+            <doc-code-preview [code]="code()!" [language]="language()" />
+          }
         </div>
       }
     </div>
@@ -291,11 +296,14 @@ export class DemoContainer implements AfterViewInit {
   @ViewChild('previewTab') previewTab?: ElementRef<HTMLButtonElement>;
   @ViewChild('codeTab') codeTab?: ElementRef<HTMLButtonElement>;
 
-  /** Code source à afficher */
-  code = input<string>('');
+  /** Code source à afficher (format simple, déprécié) */
+  code = input<string | undefined>('');
 
   /** Langage du code */
   language = input<'typescript' | 'html' | 'scss'>('html');
+
+  /** Sources de code multiples (HTML, TS, SCSS) */
+  sources = input<CodeSource[]>([]);
 
   /** Configuration des contrôles */
   controls = input<ControlConfig[]>([]);
@@ -361,8 +369,19 @@ export class DemoContainer implements AfterViewInit {
 
   /** Copie le code dans le presse-papier */
   copyCode(): void {
-    navigator.clipboard.writeText(this.code());
+    const codeToCopy = this.getCodeToCopy();
+    navigator.clipboard.writeText(codeToCopy);
     this.copied.set(true);
     setTimeout(() => this.copied.set(false), 2000);
+  }
+
+  /** Récupère le code à copier (HTML en priorité, sinon première source) */
+  private getCodeToCopy(): string {
+    const sourcesValue = this.sources();
+    if (sourcesValue.length > 0) {
+      const htmlSource = sourcesValue.find(s => s.language === 'html');
+      return htmlSource?.content ?? sourcesValue[0]?.content ?? '';
+    }
+    return this.code() ?? '';
   }
 }

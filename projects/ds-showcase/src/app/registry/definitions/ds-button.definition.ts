@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsButtonDefinition: ComponentDefinition = {
   id: 'ds-button',
@@ -105,15 +106,8 @@ export const DsButtonDefinition: ComponentDefinition = {
           description: 'État loading',
         },
       ],
-      code: `<ds-button
-  variant="primary"
-  appearance="solid"
-  size="md"
-  [disabled]="false"
-  [loading]="false"
->
-  Click me
-</ds-button>`,
+      examplePath: 'ds-button/default',
+      sources: getExampleSources('ds-button', 'default'),
     },
     {
       id: 'variants',

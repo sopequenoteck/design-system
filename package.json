@@ -20,11 +20,12 @@
     "analyze:bundle": "node scripts/analyze-bundle.js",
     "perf:benchmark": "node scripts/perf-benchmark.js",
     "changelog:generate": "node scripts/generate-changelog.js",
+    "generate:examples": "node scripts/generate-examples.js",
     "prepublishOnly": "npm run test:headless && npm run build:lib",
     "publish:lib": "cd dist/ds-angular && npm publish",
     "publish:lib:dry-run": "cd dist/ds-angular && npm publish --dry-run",
-    "showcase": "ng serve ds-showcase --port 4300",
-    "showcase:build": "ng build ds-showcase --configuration production"
+    "showcase": "npm run generate:examples && ng serve ds-showcase --port 4300",
+    "showcase:build": "npm run generate:examples && ng build ds-showcase --configuration production"
   },
   "private": true,
   "dependencies": {
