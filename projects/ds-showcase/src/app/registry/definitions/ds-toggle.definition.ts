@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsToggleDefinition: ComponentDefinition = {
   id: 'ds-toggle',
@@ -58,6 +59,8 @@ export const DsToggleDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Toggle avec contrôles interactifs.',
+      examplePath: 'ds-toggle/default',
+      sources: getExampleSources('ds-toggle', 'default'),
       controls: [
         {
           name: 'label',

@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsComboboxDefinition: ComponentDefinition = {
   id: 'ds-combobox',
@@ -103,6 +104,8 @@ export const DsComboboxDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Combobox avec contrôles interactifs.',
+      examplePath: 'ds-combobox/default',
+      sources: getExampleSources('ds-combobox', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'clearable', type: 'boolean', defaultValue: true },

@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsSegmentedControlDefinition: ComponentDefinition = {
   id: 'ds-segmented-control',
@@ -62,6 +63,8 @@ export const DsSegmentedControlDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Segmented control avec contrôles interactifs.',
+      examplePath: 'ds-segmented-control/default',
+      sources: getExampleSources('ds-segmented-control', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'fullWidth', type: 'boolean', defaultValue: false },

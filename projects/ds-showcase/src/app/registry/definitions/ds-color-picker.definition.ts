@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsColorPickerDefinition: ComponentDefinition = {
   id: 'ds-color-picker',
@@ -83,6 +84,8 @@ export const DsColorPickerDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Color picker avec contrôles interactifs.',
+      examplePath: 'ds-color-picker/default',
+      sources: getExampleSources('ds-color-picker', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'showAlpha', type: 'boolean', defaultValue: false },

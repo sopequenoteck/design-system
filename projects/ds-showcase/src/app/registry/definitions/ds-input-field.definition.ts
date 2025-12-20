@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsInputFieldDefinition: ComponentDefinition = {
   id: 'ds-input-field',
@@ -80,6 +81,8 @@ export const DsInputFieldDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Champ de saisie par défaut avec contrôles.',
+      examplePath: 'ds-input-field/default',
+      sources: getExampleSources('ds-input-field', 'default'),
       controls: [
         { name: 'label', type: 'text', defaultValue: 'Email', description: 'Label du champ' },
         { name: 'placeholder', type: 'text', defaultValue: 'Entrez votre email', description: 'Placeholder' },

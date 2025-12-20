@@ -25,7 +25,10 @@ import { DsTransferDefinition } from '../../../registry/definitions/ds-transfer.
         <div class="demo-block">
           <h3 class="demo-block__title">Default</h3>
           <p class="demo-block__desc">Transfer basique avec recherche.</p>
-          <doc-demo-container [code]="definition.demos[0].code">
+          <doc-demo-container
+            [sources]="definition.demos[0].sources ?? []"
+            [code]="definition.demos[0].code"
+          >
             <ds-transfer
               [source]="sourceItems()"
               [target]="targetItems()"

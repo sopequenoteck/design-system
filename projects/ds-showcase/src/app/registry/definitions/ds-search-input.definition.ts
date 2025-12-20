@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsSearchInputDefinition: ComponentDefinition = {
   id: 'ds-search-input',
@@ -83,6 +84,8 @@ export const DsSearchInputDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Search input avec contrôles interactifs.',
+      examplePath: 'ds-search-input/default',
+      sources: getExampleSources('ds-search-input', 'default'),
       controls: [
         {
           name: 'placeholder',

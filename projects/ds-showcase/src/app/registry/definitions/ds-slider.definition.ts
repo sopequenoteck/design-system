@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsSliderDefinition: ComponentDefinition = {
   id: 'ds-slider',
@@ -83,6 +84,8 @@ export const DsSliderDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Slider avec contrôles interactifs.',
+      examplePath: 'ds-slider/default',
+      sources: getExampleSources('ds-slider', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'showLabels', type: 'boolean', defaultValue: false },

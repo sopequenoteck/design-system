@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsPasswordStrengthDefinition: ComponentDefinition = {
   id: 'ds-password-strength',
@@ -55,6 +56,8 @@ export const DsPasswordStrengthDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Password strength avec contrôles interactifs.',
+      examplePath: 'ds-password-strength/default',
+      sources: getExampleSources('ds-password-strength', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'showLabel', type: 'boolean', defaultValue: true },

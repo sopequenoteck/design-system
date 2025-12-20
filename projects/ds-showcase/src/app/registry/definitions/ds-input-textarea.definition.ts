@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsInputTextareaDefinition: ComponentDefinition = {
   id: 'ds-input-textarea',
@@ -106,6 +107,8 @@ export const DsInputTextareaDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Textarea avec contrôles interactifs.',
+      examplePath: 'ds-input-textarea/default',
+      sources: getExampleSources('ds-input-textarea', 'default'),
       controls: [
         {
           name: 'label',

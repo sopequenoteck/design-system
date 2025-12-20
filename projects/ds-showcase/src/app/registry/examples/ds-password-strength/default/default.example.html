@@ -1,0 +1,12 @@
+<ds-input-field
+  label="Mot de passe"
+  type="password"
+  [(ngModel)]="password"
+  placeholder="Entrez un mot de passe..."
+/>
+<ds-password-strength
+  [password]="password()"
+  [size]="size()"
+  [showLabel]="showLabel()"
+  [showCriteria]="showCriteria()"
+/>

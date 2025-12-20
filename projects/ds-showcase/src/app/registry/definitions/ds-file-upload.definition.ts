@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsFileUploadDefinition: ComponentDefinition = {
   id: 'ds-file-upload',
@@ -82,6 +83,8 @@ export const DsFileUploadDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'File upload avec contrôles interactifs.',
+      examplePath: 'ds-file-upload/default',
+      sources: getExampleSources('ds-file-upload', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'multiple', type: 'boolean', defaultValue: false },

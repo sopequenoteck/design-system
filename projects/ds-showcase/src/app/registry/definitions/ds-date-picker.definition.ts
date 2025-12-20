@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsDatePickerDefinition: ComponentDefinition = {
   id: 'ds-date-picker',
@@ -89,6 +90,8 @@ export const DsDatePickerDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Date picker avec contrôles interactifs.',
+      examplePath: 'ds-date-picker/default',
+      sources: getExampleSources('ds-date-picker', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'showTodayButton', type: 'boolean', defaultValue: true },

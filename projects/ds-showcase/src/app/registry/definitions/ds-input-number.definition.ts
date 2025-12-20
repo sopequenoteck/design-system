@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsInputNumberDefinition: ComponentDefinition = {
   id: 'ds-input-number',
@@ -106,6 +107,8 @@ export const DsInputNumberDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Input number avec contrôles interactifs.',
+      examplePath: 'ds-input-number/default',
+      sources: getExampleSources('ds-input-number', 'default'),
       controls: [
         {
           name: 'min',

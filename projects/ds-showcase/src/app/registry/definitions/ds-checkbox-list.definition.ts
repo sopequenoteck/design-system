@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsCheckboxListDefinition: ComponentDefinition = {
   id: 'ds-checkbox-list',
@@ -68,6 +69,8 @@ export const DsCheckboxListDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Liste de checkboxes avec contrôles interactifs.',
+      examplePath: 'ds-checkbox-list/default',
+      sources: getExampleSources('ds-checkbox-list', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'showSelectAll', type: 'boolean', defaultValue: false },

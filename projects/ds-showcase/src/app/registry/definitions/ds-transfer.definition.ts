@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsTransferDefinition: ComponentDefinition = {
   id: 'ds-transfer',
@@ -22,6 +23,8 @@ export const DsTransferDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Transfer basique avec recherche.',
+      examplePath: 'ds-transfer/default',
+      sources: getExampleSources('ds-transfer', 'default'),
       controls: [],
       code: `<ds-transfer
   [source]="sourceItems"

@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsRadioGroupDefinition: ComponentDefinition = {
   id: 'ds-radio-group',
@@ -72,6 +73,8 @@ export const DsRadioGroupDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Radio group avec contrôles interactifs.',
+      examplePath: 'ds-radio-group/default',
+      sources: getExampleSources('ds-radio-group', 'default'),
       controls: [
         {
           name: 'label',

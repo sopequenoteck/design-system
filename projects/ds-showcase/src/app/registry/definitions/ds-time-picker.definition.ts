@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsTimePickerDefinition: ComponentDefinition = {
   id: 'ds-time-picker',
@@ -76,6 +77,8 @@ export const DsTimePickerDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Time picker avec contrôles interactifs.',
+      examplePath: 'ds-time-picker/default',
+      sources: getExampleSources('ds-time-picker', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'showSeconds', type: 'boolean', defaultValue: false },

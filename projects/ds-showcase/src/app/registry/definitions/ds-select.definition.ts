@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsSelectDefinition: ComponentDefinition = {
   id: 'ds-select',
@@ -75,6 +76,8 @@ export const DsSelectDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Select par défaut avec options.',
+      examplePath: 'ds-select/default',
+      sources: getExampleSources('ds-select', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'searchable', type: 'boolean', defaultValue: false },
