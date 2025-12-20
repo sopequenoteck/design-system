@@ -155,10 +155,12 @@ export class DsTreeNodeComponent {
   readonly nodeIcon = computed(() => {
     const node = this.node();
 
-    // Custom icon
+    // Custom icon with optional expanded variant
     if (node.icon) {
-      // TODO: support custom icons
-      return this.fileIcon;
+      if (this.hasChildren() && this.isExpanded() && node.expandedIcon) {
+        return node.expandedIcon;
+      }
+      return node.icon;
     }
 
     // Default folder/file icons

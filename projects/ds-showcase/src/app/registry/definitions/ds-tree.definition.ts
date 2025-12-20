@@ -137,5 +137,28 @@ export const DsTreeDefinition: ComponentDefinition = {
 //   ]}
 // ]`,
     },
+    {
+      id: 'custom-icons',
+      name: 'Custom Icons',
+      description: 'Arbre avec icônes personnalisées FontAwesome.',
+      controls: [],
+      code: `import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons';
+
+// Dans le composant:
+treeData: TreeNode[] = [
+  {
+    id: 1,
+    label: 'Settings',
+    icon: faCog,
+    children: [
+      { id: 2, label: 'Profile', icon: faUser },
+      { id: 3, label: 'Home', icon: faHome },
+    ],
+  },
+];
+
+// Template:
+<ds-tree [data]="treeData" [showIcon]="true" />`,
+    },
   ],
 };

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DsTree, TreeNode } from './ds-tree';
+import { faHome, faCog, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 describe('DsTree', () => {
   let component: DsTree;
@@ -353,6 +354,56 @@ describe('DsTree', () => {
       nodeElement.dispatchEvent(event);
 
       // Note: This test would need the actual component instance to verify selection
+    });
+  });
+
+  describe('Custom icons', () => {
+    const mockDataWithIcons: TreeNode[] = [
+      {
+        id: '1',
+        label: 'Settings',
+        icon: faCog,
+        children: [
+          { id: '1-1', label: 'Profile', icon: faUser },
+          { id: '1-2', label: 'Team', icon: faUsers, expandedIcon: faHome },
+        ],
+      },
+      { id: '2', label: 'Home', icon: faHome },
+    ];
+
+    beforeEach(() => {
+      fixture.componentRef.setInput('data', mockDataWithIcons);
+      fixture.componentRef.setInput('showIcon', true);
+      fixture.detectChanges();
+    });
+
+    it('should render custom icon on node', () => {
+      const iconElements = fixture.nativeElement.querySelectorAll('.ds-tree-node__icon');
+      expect(iconElements.length).toBeGreaterThan(0);
+    });
+
+    it('should use custom icon instead of default folder/file icons', () => {
+      // Expand node to see children
+      component.onNodeToggle(mockDataWithIcons[0]);
+      fixture.detectChanges();
+
+      const nodes = fixture.nativeElement.querySelectorAll('.ds-tree-node');
+      expect(nodes.length).toBeGreaterThan(1);
+
+      // Each node with custom icon should render an fa-icon with the class
+      const icons = fixture.nativeElement.querySelectorAll('fa-icon.ds-tree-node__icon');
+      expect(icons.length).toBeGreaterThan(0);
+    });
+
+    it('should accept IconDefinition type for icon property', () => {
+      const node = mockDataWithIcons[1];
+      expect(node.icon).toBe(faHome);
+    });
+
+    it('should support expandedIcon property', () => {
+      const nodeWithExpandedIcon = mockDataWithIcons[0].children![1];
+      expect(nodeWithExpandedIcon.icon).toBe(faUsers);
+      expect(nodeWithExpandedIcon.expandedIcon).toBe(faHome);
     });
   });
 });

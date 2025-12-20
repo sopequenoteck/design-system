@@ -8,6 +8,7 @@ import {
   effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { DsTreeNodeComponent } from './ds-tree-node.component';
 
 export type TreeSize = 'sm' | 'md' | 'lg';
@@ -16,7 +17,8 @@ export interface TreeNode {
   id: string | number;
   label: string;
   children?: TreeNode[];
-  icon?: string;
+  icon?: IconDefinition;
+  expandedIcon?: IconDefinition;
   disabled?: boolean;
   expanded?: boolean;
   checked?: boolean;
