@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsNotificationDefinition: ComponentDefinition = {
   id: 'ds-notification',
@@ -54,6 +55,8 @@ export const DsNotificationDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Notification via le service.',
+      examplePath: 'ds-notification/default',
+      sources: getExampleSources('ds-notification', 'default'),
       controls: [
         { name: 'type', type: 'select', defaultValue: 'info', options: ['info', 'success', 'warning', 'error'] },
         { name: 'duration', type: 'number', defaultValue: 4500 },

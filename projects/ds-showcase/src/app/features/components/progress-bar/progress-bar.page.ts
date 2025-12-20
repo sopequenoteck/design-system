@@ -30,6 +30,7 @@ type SizeType = 'sm' | 'md' | 'lg';
           <h3 class="demo-block__title">Default</h3>
           <p class="demo-block__desc">Barre de progression avec contrôles.</p>
           <doc-demo-container
+            [sources]="definition.demos[0].sources ?? []"
             [code]="definition.demos[0].code"
             [controls]="definition.demos[0].controls"
             [initialValues]="defaultValues()"

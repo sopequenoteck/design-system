@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsAlertDefinition: ComponentDefinition = {
   id: 'ds-alert',
@@ -55,6 +56,8 @@ export const DsAlertDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Alerte avec contrôles interactifs.',
+      examplePath: 'ds-alert/default',
+      sources: getExampleSources('ds-alert', 'default'),
       controls: [
         { name: 'type', type: 'select', defaultValue: 'info', options: ['success', 'warning', 'error', 'info'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },

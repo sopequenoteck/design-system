@@ -29,6 +29,7 @@ type NotificationType = 'info' | 'success' | 'warning' | 'error';
           <h3 class="demo-block__title">Default</h3>
           <p class="demo-block__desc">Notification via le service.</p>
           <doc-demo-container
+            [sources]="definition.demos[0].sources ?? []"
             [code]="definition.demos[0].code"
             [controls]="definition.demos[0].controls"
             [initialValues]="defaultValues()"

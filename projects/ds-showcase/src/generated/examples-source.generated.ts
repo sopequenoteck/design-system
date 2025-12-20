@@ -23,6 +23,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
       }
     ]
   },
+  "ds-alert": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-alert\n  [type]=\"type()\"\n  [size]=\"size()\"\n  [showIcon]=\"showIcon()\"\n  [closable]=\"closable()\"\n  (closed)=\"onClose()\"\n>\n  Ceci est un message d'alerte avec du contenu informatif.\n</ds-alert>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": "/* Alert example styles */\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsAlert } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-alert-default',\n  standalone: true,\n  imports: [DsAlert],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsAlertDefaultExample {\n  type = input<'success' | 'warning' | 'error' | 'info'>('info');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  showIcon = input<boolean>(true);\n  closable = input<boolean>(false);\n\n  onClose(): void {\n    console.log('Alert closed');\n  }\n}\n"
+      }
+    ]
+  },
   "ds-avatar": {
     "default": [
       {
@@ -441,6 +460,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
       }
     ]
   },
+  "ds-notification": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<button class=\"demo-btn\" (click)=\"showNotification()\">\n  Afficher une notification\n</button>\n\n<ds-notification-container />\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ".demo-btn {\n  padding: 8px 16px;\n  border: none;\n  border-radius: 4px;\n  background: var(--color-primary, #3b82f6);\n  color: white;\n  cursor: pointer;\n  font-size: 0.875rem;\n\n  &:hover {\n    opacity: 0.9;\n  }\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input, inject } from '@angular/core';\nimport { DsNotificationContainerComponent, DsNotificationService } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-notification-default',\n  standalone: true,\n  imports: [DsNotificationContainerComponent],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsNotificationDefaultExample {\n  type = input<'info' | 'success' | 'warning' | 'error'>('info');\n  duration = input<number>(4500);\n\n  private notificationService = inject(DsNotificationService);\n\n  showNotification(): void {\n    this.notificationService.open({\n      title: 'Notification',\n      message: 'Ceci est un message de notification.',\n      type: this.type(),\n      duration: this.duration(),\n    });\n  }\n}\n"
+      }
+    ]
+  },
   "ds-pagination": {
     "default": [
       {
@@ -476,6 +514,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input, signal } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DsPasswordStrength, DsInputField } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-password-strength-default',\n  standalone: true,\n  imports: [DsPasswordStrength, DsInputField, FormsModule],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsPasswordStrengthDefaultExample {\n  size = input<'sm' | 'md' | 'lg'>('md');\n  showLabel = input<boolean>(true);\n  showCriteria = input<boolean>(false);\n\n  password = signal('');\n}\n"
+      }
+    ]
+  },
+  "ds-progress-bar": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-progress-bar\n  [value]=\"value()\"\n  [variant]=\"variant()\"\n  [size]=\"size()\"\n  [showLabel]=\"showLabel()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": "/* Progress bar example styles */\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsProgressBar } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-progress-bar-default',\n  standalone: true,\n  imports: [DsProgressBar],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsProgressBarDefaultExample {\n  value = input<number>(50);\n  variant = input<'default' | 'success' | 'warning' | 'error'>('default');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  showLabel = input<boolean>(false);\n}\n"
       }
     ]
   },
@@ -723,6 +780,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input } from '@angular/core';\nimport { DsTimeline, TimelineItem } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-timeline-default',\n  standalone: true,\n  imports: [DsTimeline],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsTimelineDefaultExample {\n  mode = input<'left' | 'right' | 'alternate'>('left');\n\n  items: TimelineItem[] = [\n    { content: 'Commande passée', date: '10:00' },\n    { content: 'Paiement confirmé', date: '10:05' },\n    { content: 'En préparation', date: '10:30' },\n    { content: 'Expédié', date: '14:00' }\n  ];\n}\n"
+      }
+    ]
+  },
+  "ds-toast": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<button class=\"demo-btn\" (click)=\"showToast()\">\n  Afficher un toast\n</button>\n\n<ds-toast-container />\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ".demo-btn {\n  padding: 8px 16px;\n  border: none;\n  border-radius: 4px;\n  background: var(--color-primary, #3b82f6);\n  color: white;\n  cursor: pointer;\n  font-size: 0.875rem;\n\n  &:hover {\n    opacity: 0.9;\n  }\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input, inject } from '@angular/core';\nimport { DsToastContainerComponent, DsToastService, ToastType, ToastPosition } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-toast-default',\n  standalone: true,\n  imports: [DsToastContainerComponent],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsToastDefaultExample {\n  type = input<ToastType>('info');\n  position = input<ToastPosition>('top-right');\n  duration = input<number>(3000);\n\n  private toastService = inject(DsToastService);\n\n  showToast(): void {\n    this.toastService.show({\n      message: 'Action effectuée avec succès',\n      type: this.type(),\n      position: this.position(),\n      duration: this.duration(),\n    });\n  }\n}\n"
       }
     ]
   },

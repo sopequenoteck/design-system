@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsProgressBarDefinition: ComponentDefinition = {
   id: 'ds-progress-bar',
@@ -55,6 +56,8 @@ export const DsProgressBarDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Barre de progression avec contrôles.',
+      examplePath: 'ds-progress-bar/default',
+      sources: getExampleSources('ds-progress-bar', 'default'),
       controls: [
         { name: 'value', type: 'number', defaultValue: 50, min: 0, max: 100 },
         { name: 'variant', type: 'select', defaultValue: 'default', options: ['default', 'success', 'warning', 'error'] },

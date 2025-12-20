@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsToastDefinition: ComponentDefinition = {
   id: 'ds-toast',
@@ -68,6 +69,8 @@ export const DsToastDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Toast via le service.',
+      examplePath: 'ds-toast/default',
+      sources: getExampleSources('ds-toast', 'default'),
       controls: [
         { name: 'type', type: 'select', defaultValue: 'info', options: ['success', 'warning', 'error', 'info'] },
         { name: 'position', type: 'select', defaultValue: 'top-right', options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'] },
