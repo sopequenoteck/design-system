@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsSidebarDefinition: ComponentDefinition = {
   id: 'ds-sidebar',
@@ -82,6 +83,8 @@ export const DsSidebarDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Sidebar avec contrôles interactifs.',
+      examplePath: 'ds-sidebar/default',
+      sources: getExampleSources('ds-sidebar', 'default'),
       controls: [
         { name: 'mode', type: 'select', defaultValue: 'full', options: ['full', 'collapsed', 'overlay'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },

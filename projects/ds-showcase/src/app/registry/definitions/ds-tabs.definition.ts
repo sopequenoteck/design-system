@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsTabsDefinition: ComponentDefinition = {
   id: 'ds-tabs',
@@ -34,6 +35,8 @@ export const DsTabsDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Onglets par défaut avec navigation clavier.',
+      examplePath: 'ds-tabs/default',
+      sources: getExampleSources('ds-tabs', 'default'),
       controls: [],
       code: `<ds-tabs
   [tabs]="[

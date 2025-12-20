@@ -59,7 +59,7 @@ interface User {
           <p class="section-desc">Explorez les différentes options du composant de manière interactive.</p>
         </div>
 
-        <doc-demo-container [code]="definition.demos[0].code">
+        <doc-demo-container [sources]="definition.demos[0].sources ?? []" [code]="definition.demos[0].code">
           <ds-tabs
             [tabs]="playgroundTabs"
             [activeTabId]="activePlayground()"

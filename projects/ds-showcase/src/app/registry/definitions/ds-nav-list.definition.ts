@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsNavListDefinition: ComponentDefinition = {
   id: 'ds-nav-list',
@@ -54,6 +55,8 @@ export const DsNavListDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Liste de navigation simple.',
+      examplePath: 'ds-nav-list/default',
+      sources: getExampleSources('ds-nav-list', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
       ],

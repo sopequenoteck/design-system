@@ -4,6 +4,25 @@
 import { CodeSource } from '../app/registry/types';
 
 export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
+  "ds-accordion": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-accordion\n  [items]=\"items\"\n  [multiple]=\"multiple()\"\n  [size]=\"size()\"\n  [variant]=\"variant()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsAccordion, AccordionItem } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-accordion-default',\n  standalone: true,\n  imports: [DsAccordion],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsAccordionDefaultExample {\n  multiple = input<boolean>(false);\n  size = input<'sm' | 'md' | 'lg'>('md');\n  variant = input<'default' | 'bordered' | 'separated'>('default');\n\n  items: AccordionItem[] = [\n    { id: 'item-1', header: 'Section 1', content: 'Contenu de la section 1. Lorem ipsum dolor sit amet.' },\n    { id: 'item-2', header: 'Section 2', content: 'Contenu de la section 2. Sed do eiusmod tempor incididunt.' },\n    { id: 'item-3', header: 'Section 3', content: 'Contenu de la section 3. Ut enim ad minim veniam.' }\n  ];\n}\n"
+      }
+    ]
+  },
   "ds-avatar": {
     "default": [
       {
@@ -39,6 +58,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input } from '@angular/core';\nimport { DsBadge } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-badge-default',\n  standalone: true,\n  imports: [DsBadge],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsBadgeDefaultExample {\n  type = input<'default' | 'primary' | 'success' | 'warning' | 'error' | 'info'>('default');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  variant = input<'solid' | 'outline'>('solid');\n  shape = input<'default' | 'pill' | 'square'>('default');\n}\n"
+      }
+    ]
+  },
+  "ds-breadcrumb": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-breadcrumb\n  [items]=\"items\"\n  [separator]=\"separator()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsBreadcrumb, BreadcrumbItem } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-breadcrumb-default',\n  standalone: true,\n  imports: [DsBreadcrumb],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsBreadcrumbDefaultExample {\n  separator = input<string>('/');\n\n  items: BreadcrumbItem[] = [\n    { label: 'Accueil' },\n    { label: 'Produits' },\n    { label: 'Catégorie' }\n  ];\n}\n"
       }
     ]
   },
@@ -365,6 +403,63 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
       }
     ]
   },
+  "ds-menu": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-menu\n  [items]=\"items\"\n  [size]=\"size()\"\n  [trigger]=\"trigger()\"\n>\n  <button class=\"trigger-btn\">Ouvrir le menu</button>\n</ds-menu>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n\n.trigger-btn {\n  padding: 8px 16px;\n  border: none;\n  border-radius: 4px;\n  background: var(--color-primary, #3b82f6);\n  color: white;\n  cursor: pointer;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsMenu, MenuItem } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-menu-default',\n  standalone: true,\n  imports: [DsMenu],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsMenuDefaultExample {\n  size = input<'sm' | 'md' | 'lg'>('md');\n  trigger = input<'click' | 'contextmenu'>('click');\n\n  items: MenuItem[] = [\n    { id: 'edit', label: 'Modifier' },\n    { id: 'duplicate', label: 'Dupliquer' },\n    { id: 'delete', label: 'Supprimer' }\n  ];\n}\n"
+      }
+    ]
+  },
+  "ds-nav-list": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-nav-list\n  [groups]=\"groups\"\n  [size]=\"size()\"\n  activeItemId=\"all\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n  max-width: 280px;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsNavList, NavListGroup } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-nav-list-default',\n  standalone: true,\n  imports: [DsNavList],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsNavListDefaultExample {\n  size = input<'sm' | 'md' | 'lg'>('md');\n\n  groups: NavListGroup[] = [\n    {\n      id: 'main',\n      title: 'Navigation',\n      items: [\n        { id: 'all', label: 'Tous' },\n        { id: 'active', label: 'Actifs' },\n        { id: 'archived', label: 'Archivés' }\n      ]\n    }\n  ];\n}\n"
+      }
+    ]
+  },
+  "ds-pagination": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-pagination\n  [totalItems]=\"totalItems()\"\n  [pageSize]=\"pageSize()\"\n  [currentPage]=\"currentPage\"\n  [size]=\"size()\"\n  [showInfo]=\"showInfo()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsPagination } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-pagination-default',\n  standalone: true,\n  imports: [DsPagination],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsPaginationDefaultExample {\n  totalItems = input<number>(100);\n  pageSize = input<number>(10);\n  size = input<'sm' | 'md' | 'lg'>('md');\n  showInfo = input<boolean>(true);\n\n  currentPage = 1;\n}\n"
+      }
+    ]
+  },
   "ds-password-strength": {
     "default": [
       {
@@ -479,6 +574,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
       }
     ]
   },
+  "ds-sidebar": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-sidebar\n  [items]=\"items\"\n  [mode]=\"mode()\"\n  [size]=\"size()\"\n  [collapsible]=\"collapsible()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n  height: 300px;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsSidebar, SidebarItem } from 'ds-angular';\nimport { faHome, faUser, faCog } from '@fortawesome/free-solid-svg-icons';\n\n@Component({\n  selector: 'example-ds-sidebar-default',\n  standalone: true,\n  imports: [DsSidebar],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsSidebarDefaultExample {\n  mode = input<'full' | 'collapsed'>('full');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  collapsible = input<boolean>(true);\n\n  items: SidebarItem[] = [\n    { id: 'home', label: 'Accueil', icon: faHome },\n    { id: 'profile', label: 'Profil', icon: faUser },\n    { id: 'settings', label: 'Paramètres', icon: faCog }\n  ];\n}\n"
+      }
+    ]
+  },
   "ds-skeleton": {
     "default": [
       {
@@ -517,6 +631,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
       }
     ]
   },
+  "ds-stepper": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-stepper\n  [steps]=\"steps\"\n  [activeStep]=\"1\"\n  [orientation]=\"orientation()\"\n  [size]=\"size()\"\n  [clickable]=\"clickable()\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsStepper, Step } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-stepper-default',\n  standalone: true,\n  imports: [DsStepper],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsStepperDefaultExample {\n  orientation = input<'horizontal' | 'vertical'>('horizontal');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  clickable = input<boolean>(true);\n\n  steps: Step[] = [\n    { label: 'Information' },\n    { label: 'Paiement' },\n    { label: 'Confirmation' }\n  ];\n}\n"
+      }
+    ]
+  },
   "ds-table": {
     "default": [
       {
@@ -533,6 +666,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input } from '@angular/core';\nimport { DsTable, DsTableColumn } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-table-default',\n  standalone: true,\n  imports: [DsTable],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsTableDefaultExample {\n  variant = input<'default' | 'striped' | 'bordered'>('default');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  hoverable = input<boolean>(true);\n\n  columns: DsTableColumn[] = [\n    { key: 'name', label: 'Nom' },\n    { key: 'email', label: 'Email' },\n    { key: 'role', label: 'Rôle' }\n  ];\n\n  data = [\n    { name: 'Alice Martin', email: 'alice@example.com', role: 'Admin' },\n    { name: 'Bob Dupont', email: 'bob@example.com', role: 'User' },\n    { name: 'Claire Bernard', email: 'claire@example.com', role: 'Editor' }\n  ];\n}\n"
+      }
+    ]
+  },
+  "ds-tabs": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-tabs\n  [tabs]=\"tabs\"\n  [activeTabId]=\"activeTab()\"\n  (tabChanged)=\"onTabChange($event)\"\n/>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ":host {\n  display: block;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input, signal } from '@angular/core';\nimport { DsTabs, TabItem } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-tabs-default',\n  standalone: true,\n  imports: [DsTabs],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsTabsDefaultExample {\n  activeTab = signal('tab1');\n\n  tabs: TabItem[] = [\n    { id: 'tab1', label: 'Général' },\n    { id: 'tab2', label: 'Préférences' },\n    { id: 'tab3', label: 'Avancé' }\n  ];\n\n  onTabChange(tab: TabItem): void {\n    this.activeTab.set(tab.id);\n  }\n}\n"
       }
     ]
   },

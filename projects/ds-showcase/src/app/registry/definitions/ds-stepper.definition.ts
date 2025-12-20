@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsStepperDefinition: ComponentDefinition = {
   id: 'ds-stepper',
@@ -69,6 +70,8 @@ export const DsStepperDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Stepper avec contrôles interactifs.',
+      examplePath: 'ds-stepper/default',
+      sources: getExampleSources('ds-stepper', 'default'),
       controls: [
         { name: 'orientation', type: 'select', defaultValue: 'horizontal', options: ['horizontal', 'vertical'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },

@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsBreadcrumbDefinition: ComponentDefinition = {
   id: 'ds-breadcrumb',
@@ -40,6 +41,8 @@ export const DsBreadcrumbDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: "Fil d'Ariane simple.",
+      examplePath: 'ds-breadcrumb/default',
+      sources: getExampleSources('ds-breadcrumb', 'default'),
       controls: [
         { name: 'separator', type: 'text', defaultValue: '/' },
       ],

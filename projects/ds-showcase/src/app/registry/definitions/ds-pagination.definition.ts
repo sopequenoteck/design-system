@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsPaginationDefinition: ComponentDefinition = {
   id: 'ds-pagination',
@@ -82,6 +83,8 @@ export const DsPaginationDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Pagination avec contrôles.',
+      examplePath: 'ds-pagination/default',
+      sources: getExampleSources('ds-pagination', 'default'),
       controls: [
         { name: 'totalItems', type: 'number', defaultValue: 100 },
         { name: 'pageSize', type: 'number', defaultValue: 10 },

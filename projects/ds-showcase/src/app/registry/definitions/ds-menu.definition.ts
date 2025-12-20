@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsMenuDefinition: ComponentDefinition = {
   id: 'ds-menu',
@@ -66,6 +67,8 @@ export const DsMenuDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Menu avec contrôles interactifs.',
+      examplePath: 'ds-menu/default',
+      sources: getExampleSources('ds-menu', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'trigger', type: 'select', defaultValue: 'click', options: ['click', 'contextmenu'] },

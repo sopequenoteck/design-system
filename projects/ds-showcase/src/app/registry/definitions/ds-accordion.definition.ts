@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsAccordionDefinition: ComponentDefinition = {
   id: 'ds-accordion',
@@ -62,6 +63,8 @@ export const DsAccordionDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Accordion avec contrôles interactifs.',
+      examplePath: 'ds-accordion/default',
+      sources: getExampleSources('ds-accordion', 'default'),
       controls: [
         { name: 'multiple', type: 'boolean', defaultValue: false },
         { name: 'variant', type: 'select', defaultValue: 'default', options: ['default', 'bordered', 'separated'] },
