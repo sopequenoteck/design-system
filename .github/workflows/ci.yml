@@ -100,20 +100,18 @@ jobs:
         run: npm run validate:tokens --if-present || echo "Token validation skipped"
         continue-on-error: true
 
-      - name: Build Storybook
-        run: npm run build-storybook
-        continue-on-error: true
+      - name: Build Showcase
+        run: npm run showcase:build
 
-      - name: Install Storybook test runner dependencies
+      - name: Install Playwright dependencies
         run: npx playwright install --with-deps chromium
-        continue-on-error: true
 
-      - name: Serve Storybook and run tests
+      - name: Run e2e tests
         run: |
-          npx http-server storybook-static --port 6006 --silent &
+          npx http-server dist/ds-showcase/browser --port 4200 --silent &
           HTTP_SERVER_PID=$!
           sleep 5
-          npm run test:storybook
+          npm run test:e2e -- --reporter=github
           kill $HTTP_SERVER_PID
         continue-on-error: true
 

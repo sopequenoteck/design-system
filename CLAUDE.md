@@ -17,10 +17,12 @@ npm run build:lib:watch        # Build en mode watch
 ng test ds-angular             # Tests interactifs
 npm run test:headless          # Tests headless (CI)
 npm run test:coverage          # Tests avec couverture
+npm run test:e2e               # Tests e2e Playwright
+npm run test:visual            # Tests visuels Playwright
 
-# Storybook
-npm run storybook              # Lance Storybook (port 6006)
-npm run build-storybook        # Build Storybook statique
+# Showcase (documentation interactive)
+npm run showcase               # Lance Showcase (port 4200)
+npm run showcase:build         # Build Showcase statique
 
 # Publication
 npm run publish:lib:dry-run    # Simulation de publication

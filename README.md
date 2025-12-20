@@ -33,7 +33,7 @@ export class AppComponent {}
 
 ## 📚 Documentation
 
-- **Storybook** : `npm run storybook` pour lancer la documentation interactive
+- **Showcase** : `npm run showcase` pour lancer la documentation interactive
 - **API Docs** : Documentation TypeDoc générée automatiquement
 - **Guides** : Contributing, Patterns, Integration
 
@@ -45,7 +45,7 @@ export class AppComponent {}
 - ✅ **TypeScript strict** : Types complets et inférés
 - ✅ **Tree-shakable** : Optimisé pour les bundles de production
 - ✅ **Reactive Forms** : Intégration ControlValueAccessor
-- ✅ **Storybook** : 50+ stories documentées
+- ✅ **Showcase** : Documentation interactive avec exemples
 
 ## 🧩 Composants
 
@@ -68,17 +68,20 @@ export class AppComponent {}
 # Installation
 npm install
 
-# Storybook (développement)
-npm run storybook
+# Showcase (documentation interactive)
+npm run showcase
 
 # Tests
 npm test                    # Tests interactifs
 npm run test:headless       # Tests headless (CI)
 npm run test:coverage       # Avec couverture
+npm run test:e2e            # Tests e2e Playwright
+npm run test:visual         # Tests visuels Playwright
 
 # Build
 npm run build:lib           # Build de la bibliothèque
 npm run build:lib:watch     # Build en mode watch
+npm run showcase:build      # Build du Showcase
 
 # Validation
 npm run validate:tokens     # Cohérence des tokens
@@ -89,10 +92,12 @@ npm run test:a11y           # Audit accessibilité
 
 | Script | Description |
 |--------|-------------|
-| `npm run storybook` | Lance Storybook sur http://localhost:6006 |
+| `npm run showcase` | Lance Showcase sur http://localhost:4200 |
 | `npm run build:lib` | Build de la bibliothèque ds-angular |
 | `npm run test:headless` | Tests unitaires headless |
 | `npm run test:coverage` | Tests avec rapport de couverture |
+| `npm run test:e2e` | Tests e2e Playwright |
+| `npm run test:visual` | Tests visuels de régression |
 | `npm run validate:tokens` | Validation de la cohérence des tokens |
 | `npm run test:a11y` | Audit d'accessibilité WCAG 2.1 AA |
 
@@ -171,7 +176,7 @@ MIT © 2025
 
 ## 🤝 Contribution
 
-Consultez [CONTRIBUTING.md](./projects/ds-angular/src/lib/Contributing.mdx) pour les guidelines de contribution.
+Les guidelines de contribution sont disponibles dans le Showcase : `npm run showcase` → Documentation → Contributing.
 
 1. Fork le projet
 2. Créez une branche (`git checkout -b feat/amazing-feature`)

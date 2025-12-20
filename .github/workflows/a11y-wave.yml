@@ -21,14 +21,14 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
-      - name: Build Storybook
-        run: npm run build-storybook
+      - name: Build Showcase
+        run: npm run showcase:build
 
-      - name: Start Storybook server
+      - name: Start Showcase server
         run: |
-          npx http-server storybook-static -p 6006 &
+          npx http-server dist/ds-showcase/browser -p 4200 &
           sleep 10
 
       - name: Install Pa11y
@@ -48,11 +48,11 @@ jobs:
               }
             },
             "urls": [
-              "http://localhost:6006/iframe.html?id=components-dsbutton--default",
-              "http://localhost:6006/iframe.html?id=components-dsmodal--default",
-              "http://localhost:6006/iframe.html?id=components-dsinputfield--default",
-              "http://localhost:6006/iframe.html?id=components-dstable--default",
-              "http://localhost:6006/iframe.html?id=components-dsdropdown--default"
+              "http://localhost:4200/components/actions/ds-button",
+              "http://localhost:4200/components/feedback/ds-modal",
+              "http://localhost:4200/components/form/ds-input-field",
+              "http://localhost:4200/components/data/ds-table",
+              "http://localhost:4200/components/actions/ds-dropdown"
             ]
           }
           EOF
@@ -64,9 +64,9 @@ jobs:
       - name: Run Axe audit
         run: |
           npm install -g @axe-core/cli
-          axe http://localhost:6006/iframe.html?id=components-dsbutton--default \
-              http://localhost:6006/iframe.html?id=components-dsmodal--default \
-              http://localhost:6006/iframe.html?id=components-dsinputfield--default \
+          axe http://localhost:4200/components/actions/ds-button \
+              http://localhost:4200/components/feedback/ds-modal \
+              http://localhost:4200/components/form/ds-input-field \
               --exit || true
 
       - name: Generate report

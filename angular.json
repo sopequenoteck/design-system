@@ -34,30 +34,6 @@
               "zone.js/testing"
             ]
           }
-        },
-        "storybook": {
-          "builder": "@storybook/angular:start-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "ds-angular:build",
-            "compodoc": false,
-            "port": 6006,
-            "styles": [
-              "projects/ds-angular/src/styles/storybook.scss"
-            ]
-          }
-        },
-        "build-storybook": {
-          "builder": "@storybook/angular:build-storybook",
-          "options": {
-            "configDir": ".storybook",
-            "browserTarget": "ds-angular:build",
-            "compodoc": false,
-            "outputDir": "storybook-static",
-            "styles": [
-              "projects/ds-angular/src/styles/storybook.scss"
-            ]
-          }
         }
       }
     },

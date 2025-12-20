@@ -12,7 +12,7 @@
     "signals",
     "accessibility",
     "wcag",
-    "storybook"
+    "showcase"
   ],
   "author": "KKSDEV Team",
   "license": "MIT",

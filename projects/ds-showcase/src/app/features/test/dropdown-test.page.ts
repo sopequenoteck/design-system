@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { DsDropdown, DsButton } from 'ds-angular';
+import { DsDropdown } from 'ds-angular';
 
 /**
  * Page de test isolée pour ds-dropdown.
@@ -8,7 +8,7 @@ import { DsDropdown, DsButton } from 'ds-angular';
 @Component({
   selector: 'app-dropdown-test',
   standalone: true,
-  imports: [DsDropdown, DsButton],
+  imports: [DsDropdown],
   template: `
     <!-- Test: Default Dropdown -->
     <div class="test-section" data-testid="dropdown-default">

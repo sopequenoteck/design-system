@@ -51,12 +51,7 @@ import { DsDivider, DsCard, DsAlert } from 'ds-angular';
           <pre><code>{{ testTemplateCode }}</code></pre>
         </div>
 
-        <h3>Étape 4 : Créer les stories</h3>
-        <div class="code-block">
-          <pre><code>{{ storiesTemplateCode }}</code></pre>
-        </div>
-
-        <h3>Étape 5 : Exporter le composant</h3>
+        <h3>Étape 4 : Exporter le composant</h3>
         <div class="code-block">
           <pre><code>{{ exportCode }}</code></pre>
         </div>
@@ -222,7 +217,7 @@ import { DsDivider, DsCard, DsAlert } from 'ds-angular';
           </label>
           <label class="checklist-item">
             <input type="checkbox" disabled />
-            <span>Créé les stories Storybook</span>
+            <span>Ajouté une page Showcase (optionnel)</span>
           </label>
           <label class="checklist-item">
             <input type="checkbox" disabled />
@@ -267,16 +262,16 @@ import { DsDivider, DsCard, DsAlert } from 'ds-angular';
                 <td>Tests avec couverture</td>
               </tr>
               <tr>
-                <td><code>npm run storybook</code></td>
-                <td>Lancer Storybook (port 6006)</td>
-              </tr>
-              <tr>
                 <td><code>npm run lint</code></td>
                 <td>Linter le code</td>
               </tr>
               <tr>
                 <td><code>npm run showcase</code></td>
-                <td>Lancer ds-showcase (port 4200)</td>
+                <td>Lancer Showcase (port 4200)</td>
+              </tr>
+              <tr>
+                <td><code>npm run test:e2e</code></td>
+                <td>Tests e2e Playwright</td>
               </tr>
             </tbody>
           </table>
@@ -510,8 +505,7 @@ export class ContributingPage {
 │   │   ├── ds-button.ts
 │   │   ├── ds-button.html
 │   │   ├── ds-button.scss
-│   │   ├── ds-button.spec.ts
-│   │   └── ds-button.stories.ts
+│   │   └── ds-button.spec.ts
 │   ├── ds-modal/
 │   └── ...
 ├── utils/                   # Utilitaires partagés
@@ -533,8 +527,7 @@ mkdir -p projects/ds-angular/src/lib/components/ds-my-component
 touch ds-my-component.ts
 touch ds-my-component.html
 touch ds-my-component.scss
-touch ds-my-component.spec.ts
-touch ds-my-component.stories.ts`;
+touch ds-my-component.spec.ts`;
 
   componentTemplateCode = `// ds-my-component.ts
 import { Component, input, output } from '@angular/core';
@@ -596,55 +589,20 @@ describe('DsMyComponent', () => {
   });
 
   it('should emit clicked when not disabled', () => {
-    const spy = jest.spyOn(component.clicked, 'emit');
+    const spy = jasmine.createSpy('clicked');
+    component.clicked.subscribe(spy);
     component.onClick();
     expect(spy).toHaveBeenCalled();
   });
 
   it('should not emit clicked when disabled', () => {
     fixture.componentRef.setInput('disabled', true);
-    const spy = jest.spyOn(component.clicked, 'emit');
+    const spy = jasmine.createSpy('clicked');
+    component.clicked.subscribe(spy);
     component.onClick();
     expect(spy).not.toHaveBeenCalled();
   });
 });`;
-
-  storiesTemplateCode = `// ds-my-component.stories.ts
-import type { Meta, StoryObj } from '@storybook/angular';
-import { DsMyComponent } from './ds-my-component';
-
-const meta: Meta<DsMyComponent> = {
-  title: 'Components/MyComponent',
-  component: DsMyComponent,
-  tags: ['autodocs'],
-  argTypes: {
-    size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg']
-    },
-    variant: {
-      control: 'select',
-      options: ['default', 'primary', 'secondary']
-    }
-  }
-};
-
-export default meta;
-type Story = StoryObj<DsMyComponent>;
-
-export const Default: Story = {};
-
-export const Primary: Story = {
-  args: { variant: 'primary' }
-};
-
-export const Small: Story = {
-  args: { size: 'sm' }
-};
-
-export const Disabled: Story = {
-  args: { disabled: true }
-};`;
 
   exportCode = `// components/index.ts
 export * from './ds-my-component/ds-my-component';

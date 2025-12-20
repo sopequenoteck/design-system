@@ -1,101 +1,132 @@
-# Tests visuels de régression avec Chromatic
+# Tests visuels de régression avec Playwright
 
 Guide de configuration et d'utilisation des tests visuels de régression pour le design system.
 
-## Qu'est-ce que Chromatic ?
+## Qu'est-ce que Playwright Visual Testing ?
 
-[Chromatic](https://www.chromatic.com/) est un service de tests visuels de régression pour Storybook. Il capture des snapshots de vos composants et détecte automatiquement les changements visuels entre les versions.
+[Playwright](https://playwright.dev/) permet de capturer des screenshots de vos composants et de les comparer automatiquement pour détecter les régressions visuelles.
 
-## Pourquoi utiliser Chromatic ?
+## Pourquoi utiliser Playwright ?
 
-- ✅ **Détection automatique** des régressions visuelles
-- ✅ **Review collaborative** des changements UI
-- ✅ **Historique visuel** de l'évolution des composants
-- ✅ **Intégration CI/CD** avec GitHub Actions
-- ✅ **Gratuit** pour les projets open-source (5000 snapshots/mois)
+- **Gratuit et open-source** : Pas de limite de snapshots
+- **Intégré aux tests e2e** : Même framework pour tests fonctionnels et visuels
+- **Multi-navigateurs** : Chrome, Firefox, Safari
+- **CI/CD** : Intégration native avec GitHub Actions
+- **Rapide** : Exécution parallèle
 
-## Configuration (optionnelle)
+## Configuration
 
-### Prérequis
-
-1. Compte Chromatic (gratuit pour open-source)
-2. Token de projet Chromatic
-3. Accès aux secrets GitHub du repository
-
-### Étapes de configuration
-
-#### 1. Créer un projet Chromatic
+### Installation
 
 ```bash
-# Se connecter à Chromatic
-npx chromatic --project-token=<votre-token>
-
-# Ou via l'interface web
-# https://www.chromatic.com/start
+npm install -D @playwright/test
+npx playwright install chromium
 ```
 
-#### 2. Ajouter le secret GitHub
+### Structure des tests
 
-1. Aller dans **Settings** > **Secrets and variables** > **Actions**
-2. Créer un nouveau secret : `CHROMATIC_PROJECT_TOKEN`
-3. Coller le token obtenu depuis Chromatic
-
-#### 3. Configurer le projet
-
-Mettre à jour `.chromatic.json` :
-```json
-{
-  "projectId": "VOTRE_PROJECT_ID",
-  "buildScriptName": "build-storybook",
-  "storybookBuildDir": "storybook-static",
-  "autoAcceptChanges": "master",
-  "exitZeroOnChanges": false
-}
+```
+tests/
+├── e2e/              # Tests fonctionnels
+│   ├── modal.spec.ts
+│   ├── dropdown.spec.ts
+│   └── ...
+└── visual/           # Tests visuels
+    └── components.spec.ts
 ```
 
-#### 4. Activer le workflow GitHub
+### Configuration Playwright
 
-```bash
-# Renommer le fichier example
-mv .github/workflows/chromatic.yml.example .github/workflows/chromatic.yml
+```typescript
+// playwright.config.ts
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests',
+  fullyParallel: true,
+  reporter: 'html',
+  use: {
+    baseURL: 'http://localhost:4200',
+    trace: 'on-first-retry',
+  },
+  webServer: {
+    command: 'npm run showcase',
+    url: 'http://localhost:4200',
+    reuseExistingServer: !process.env.CI,
+  },
+  // Visual regression settings
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixels: 100,
+    },
+  },
+});
 ```
 
 ## Utilisation
 
-### En local
+### Écrire un test visuel
+
+```typescript
+// tests/visual/components.spec.ts
+import { test, expect } from '@playwright/test';
+
+test('ds-button visual', async ({ page }) => {
+  await page.goto('/components/actions/ds-button');
+  await page.waitForSelector('ds-button');
+  await expect(page).toHaveScreenshot('ds-button.png', {
+    fullPage: false,
+    maxDiffPixels: 100,
+  });
+});
+```
+
+### Commandes npm
 
 ```bash
 # Lancer les tests visuels
 npm run test:visual
 
-# Avec auto-accept des changements
-npx chromatic --auto-accept-changes
+# Mettre à jour les snapshots (après changement intentionnel)
+npm run test:visual:update
+
+# Lancer les tests e2e
+npm run test:e2e
+
+# Ouvrir le rapport HTML
+npx playwright show-report
+```
+
+### En local
+
+```bash
+# Build du Showcase
+npm run showcase:build
+
+# Lancer les tests visuels
+npm run test:visual
 ```
 
 ### Dans la CI
 
-Le workflow `.github/workflows/chromatic.yml` s'exécute automatiquement sur :
-- **Pull Requests** : détecte les changements visuels, demande review
-- **Push sur master** : accepte automatiquement comme baseline
+Le workflow `.github/workflows/chromatic.yml` (renommé pour la rétrocompatibilité) :
 
-### Review des changements
-
-1. Le workflow publie un commentaire avec le lien Chromatic
-2. Cliquer sur le lien pour voir les changements détectés
-3. Accepter ou rejeter les changements visuels
-4. Les changements acceptés deviennent la nouvelle baseline
+1. Build le Showcase
+2. Lance les tests visuels Playwright
+3. Upload les snapshots comme artifacts
+4. Commente la PR en cas de différences
 
 ## Workflow typique
 
 ```mermaid
 graph LR
     A[Modifier composant] --> B[Commit & Push]
-    B --> C[CI lance Chromatic]
-    C --> D{Changements détectés?}
-    D -->|Oui| E[Review visuelle]
-    D -->|Non| F[Tests passent ✅]
-    E --> G{Approuver?}
-    G -->|Oui| H[Nouvelle baseline]
+    B --> C[CI lance Playwright]
+    C --> D{Différences détectées?}
+    D -->|Oui| E[Review snapshots]
+    D -->|Non| F[Tests passent]
+    E --> G{Changements intentionnels?}
+    G -->|Oui| H[npm run test:visual:update]
     G -->|Non| I[Corriger le code]
     H --> F
     I --> A
@@ -103,94 +134,99 @@ graph LR
 
 ## Bonnes pratiques
 
-### 1. Ignorer les changements intentionnels
+### 1. Données stables
 
-Si vous modifiez intentionnellement l'apparence d'un composant :
-1. Review et accepter les changements dans Chromatic
-2. Documenter le changement dans le CHANGELOG
-3. Considérer si c'est un breaking change
-
-### 2. Gérer les faux positifs
-
-Certains éléments peuvent causer des faux positifs :
-- Dates/timestamps
-- Données aléatoires
-- Animations en cours
-
-**Solutions** :
-```typescript
-// Dans vos stories, utiliser des données fixes
-export const Default: Story = {
-  args: {
-    timestamp: new Date('2025-01-01').toISOString(),
-    random: 0.5, // Valeur fixe au lieu de Math.random()
-  },
-};
-```
-
-### 3. Optimiser les snapshots
-
-```json
-// .chromatic.json
-{
-  "onlyChanged": true,  // Ne teste que les composants modifiés
-  "externals": [
-    "projects/ds-angular/src/styles/**/*.scss"  // Ignore les fichiers externes
-  ],
-  "skip": "dependabot/**"  // Skip les PRs automatiques
-}
-```
-
-## Alternatives à Chromatic
-
-Si Chromatic n'est pas adapté à votre projet, voici des alternatives :
-
-### Percy (Browserstack)
-
-```bash
-npm install --save-dev @percy/cli @percy/storybook
-
-# Dans package.json
-"test:visual": "percy storybook ./storybook-static"
-```
-
-### Playwright visual comparisons
+Utilisez des données fixes pour éviter les faux positifs :
 
 ```typescript
-// tests/visual/button.spec.ts
-test('ds-button should match snapshot', async ({ page }) => {
-  await page.goto('/iframe.html?id=components-button--primary');
+// Page de test avec données fixes
+defaultSlides = [
+  { id: 'slide-1', image: 'https://picsum.photos/800/400?random=1', ... },
+];
+```
+
+### 2. Attendre le chargement
+
+```typescript
+test('component visual', async ({ page }) => {
+  await page.goto('/components/...');
+  await page.waitForLoadState('networkidle');
+  await page.waitForSelector('.ds-component');
   await expect(page).toHaveScreenshot();
 });
 ```
 
-### Backstop.js (gratuit, local)
+### 3. Masquer les éléments dynamiques
 
-```bash
-npm install --save-dev backstopjs
-
-# Dans package.json
-"test:visual": "backstop test"
+```typescript
+await page.evaluate(() => {
+  document.querySelectorAll('.animated').forEach(el => {
+    el.style.animation = 'none';
+  });
+});
 ```
 
-## Coûts
+### 4. Tester plusieurs états
 
-| Outil | Gratuit | Payant |
-|-------|---------|--------|
-| **Chromatic** | 5000 snapshots/mois (open-source) | À partir de $149/mois |
-| **Percy** | 5000 snapshots/mois (open-source) | À partir de $399/mois |
-| **Playwright** | ✅ Illimité | - |
-| **Backstop.js** | ✅ Illimité | - |
+```typescript
+test.describe('ds-button visual states', () => {
+  test('default state', async ({ page }) => {
+    await page.goto('/test/button');
+    await expect(page.locator('[data-testid="button-default"]'))
+      .toHaveScreenshot('button-default.png');
+  });
+
+  test('hover state', async ({ page }) => {
+    await page.goto('/test/button');
+    await page.hover('[data-testid="button-default"] button');
+    await expect(page.locator('[data-testid="button-default"]'))
+      .toHaveScreenshot('button-hover.png');
+  });
+});
+```
+
+## Gestion des snapshots
+
+### Structure des fichiers
+
+```
+tests/visual/
+├── components.spec.ts
+└── components.spec.ts-snapshots/
+    ├── ds-button-chromium-linux.png
+    ├── ds-button-chromium-darwin.png
+    └── ...
+```
+
+### Mettre à jour après changement intentionnel
+
+```bash
+# Après modification volontaire de l'apparence
+npm run test:visual:update
+
+# Vérifier les changements
+git diff tests/visual/
+
+# Commit les nouveaux snapshots
+git add tests/visual/*.png
+git commit -m "chore: update visual snapshots for ds-button redesign"
+```
+
+### Cross-platform
+
+Les snapshots peuvent différer entre OS. Options :
+1. Utiliser `maxDiffPixels` pour tolérance
+2. Générer snapshots dans CI (Linux)
+3. Utiliser Docker localement
 
 ## Ressources
 
-- [Documentation Chromatic](https://www.chromatic.com/docs/)
-- [Chromatic GitHub Action](https://github.com/chromaui/action)
-- [Storybook Visual Testing](https://storybook.js.org/docs/writing-tests/visual-testing)
-- [Percy for Storybook](https://docs.percy.io/docs/storybook)
+- [Playwright Visual Comparisons](https://playwright.dev/docs/test-snapshots)
+- [Playwright Configuration](https://playwright.dev/docs/test-configuration)
+- [GitHub Actions Setup](https://playwright.dev/docs/ci-intro)
 
 ## Support
 
-Pour toute question sur la configuration des tests visuels :
-- Ouvrir une issue : [GitHub Issues](https://github.com/votre-org/design-system/issues)
+Pour toute question sur les tests visuels :
+- Ouvrir une issue : [GitHub Issues](https://github.com/sopequenoteck/design-system/issues)
 - Documentation : [CLAUDE.md](./CLAUDE.md)
