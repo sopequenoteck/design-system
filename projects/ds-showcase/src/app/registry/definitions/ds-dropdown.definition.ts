@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsDropdownDefinition: ComponentDefinition = {
   id: 'ds-dropdown',
@@ -94,6 +95,8 @@ export const DsDropdownDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Dropdown avec contrôles interactifs.',
+      examplePath: 'ds-dropdown/default',
+      sources: getExampleSources('ds-dropdown', 'default'),
       controls: [
         { name: 'type', type: 'select', defaultValue: 'primary', options: ['primary', 'secondary', 'success', 'warning', 'error'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },

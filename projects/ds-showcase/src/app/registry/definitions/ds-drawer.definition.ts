@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsDrawerDefinition: ComponentDefinition = {
   id: 'ds-drawer',
@@ -67,6 +68,8 @@ export const DsDrawerDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Drawer avec contrôles interactifs.',
+      examplePath: 'ds-drawer/default',
+      sources: getExampleSources('ds-drawer', 'default'),
       controls: [
         { name: 'position', type: 'select', defaultValue: 'right', options: ['left', 'right'] },
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg', 'full'] },

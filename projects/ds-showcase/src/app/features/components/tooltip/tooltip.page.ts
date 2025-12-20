@@ -27,7 +27,7 @@ import { faEdit, faTrash, faDownload, faInfoCircle } from '@fortawesome/free-sol
         <div class="demo-block">
           <h3 class="demo-block__title">Default</h3>
           <p class="demo-block__desc">Tooltip basique au survol.</p>
-          <doc-demo-container [code]="definition.demos[0].code">
+          <doc-demo-container [sources]="definition.demos[0].sources ?? []" [code]="definition.demos[0].code">
             <button class="demo-btn" dsTooltip="Cliquez pour enregistrer">
               Enregistrer
             </button>

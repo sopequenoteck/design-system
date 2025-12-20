@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsModalDefinition: ComponentDefinition = {
   id: 'ds-modal',
@@ -76,6 +77,8 @@ export const DsModalDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Modale par défaut.',
+      examplePath: 'ds-modal/default',
+      sources: getExampleSources('ds-modal', 'default'),
       controls: [
         { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
         { name: 'closable', type: 'boolean', defaultValue: true },

@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsTooltipDefinition: ComponentDefinition = {
   id: 'ds-tooltip',
@@ -21,6 +22,8 @@ export const DsTooltipDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Tooltip basique au survol.',
+      examplePath: 'ds-tooltip/default',
+      sources: getExampleSources('ds-tooltip', 'default'),
       controls: [],
       code: `<button dsTooltip="Cliquez pour enregistrer">
   Enregistrer

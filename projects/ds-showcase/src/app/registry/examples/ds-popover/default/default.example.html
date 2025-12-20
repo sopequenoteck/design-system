@@ -1,0 +1,14 @@
+<ng-template #popoverContent>
+  <ds-popover header="Informations">
+    <p>Contenu du popover avec des détails supplémentaires.</p>
+  </ds-popover>
+</ng-template>
+
+<button
+  class="demo-btn"
+  [dsPopover]="popoverContent"
+  [dsPopoverTrigger]="trigger()"
+  [dsPopoverCloseOnBackdrop]="closeOnBackdrop()"
+>
+  Ouvrir le popover
+</button>

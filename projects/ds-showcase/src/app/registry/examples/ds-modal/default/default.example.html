@@ -1,0 +1,16 @@
+<ds-button (clicked)="open()">Ouvrir la modale</ds-button>
+
+<ds-modal
+  [open]="isOpen()"
+  title="Titre de la modale"
+  [size]="size()"
+  [closable]="closable()"
+  [closeOnBackdrop]="closeOnBackdrop()"
+  (closed)="close()"
+>
+  <p>Contenu de la modale. Vous pouvez mettre n'importe quel contenu ici.</p>
+  <div class="modal-actions">
+    <ds-button variant="ghost" (clicked)="close()">Annuler</ds-button>
+    <ds-button variant="primary" (clicked)="close()">Confirmer</ds-button>
+  </div>
+</ds-modal>

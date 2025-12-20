@@ -1,4 +1,5 @@
 import { ComponentDefinition } from '../types';
+import { getExampleSources } from '../../../generated/examples-source.generated';
 
 export const DsPopoverDefinition: ComponentDefinition = {
   id: 'ds-popover',
@@ -35,6 +36,8 @@ export const DsPopoverDefinition: ComponentDefinition = {
       id: 'default',
       name: 'Default',
       description: 'Popover au clic.',
+      examplePath: 'ds-popover/default',
+      sources: getExampleSources('ds-popover', 'default'),
       controls: [
         { name: 'dsPopoverTrigger', type: 'select', defaultValue: 'click', options: ['click', 'hover'] },
         { name: 'dsPopoverCloseOnBackdrop', type: 'boolean', defaultValue: true },

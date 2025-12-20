@@ -1,0 +1,12 @@
+<ds-button variant="primary" (clicked)="open()">Ouvrir le drawer</ds-button>
+
+<ds-drawer
+  [visible]="isOpen"
+  [position]="position()"
+  [size]="size()"
+  [closable]="closable()"
+  title="Détails"
+  (closed)="close()"
+>
+  <p>Contenu du drawer. Lorem ipsum dolor sit amet.</p>
+</ds-drawer>

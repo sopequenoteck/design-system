@@ -35,6 +35,7 @@ import { faEdit, faTrash, faDownload, faUser, faCog, faSignOutAlt, faEllipsisV, 
         </div>
 
         <doc-demo-container
+          [sources]="definition.demos[0].sources ?? []"
           [code]="definition.demos[0].code"
           [controls]="definition.demos[0].controls"
           [initialValues]="defaultValues()"

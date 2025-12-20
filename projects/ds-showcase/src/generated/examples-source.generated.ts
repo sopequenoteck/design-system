@@ -270,6 +270,44 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
       }
     ]
   },
+  "ds-drawer": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-button variant=\"primary\" (clicked)=\"open()\">Ouvrir le drawer</ds-button>\n\n<ds-drawer\n  [visible]=\"isOpen\"\n  [position]=\"position()\"\n  [size]=\"size()\"\n  [closable]=\"closable()\"\n  title=\"Détails\"\n  (closed)=\"close()\"\n>\n  <p>Contenu du drawer. Lorem ipsum dolor sit amet.</p>\n</ds-drawer>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": "/* Drawer example styles */\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsDrawer, DsButton } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-drawer-default',\n  standalone: true,\n  imports: [DsDrawer, DsButton],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsDrawerDefaultExample {\n  position = input<'left' | 'right'>('right');\n  size = input<'sm' | 'md' | 'lg' | 'full'>('md');\n  closable = input<boolean>(true);\n\n  isOpen = false;\n\n  open(): void {\n    this.isOpen = true;\n  }\n\n  close(): void {\n    this.isOpen = false;\n  }\n}\n"
+      }
+    ]
+  },
+  "ds-dropdown": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-dropdown\n  [dropdownItems]=\"items\"\n  [type]=\"type()\"\n  [size]=\"size()\"\n  [position]=\"position()\"\n  (selectedItemChanged)=\"onSelect($event)\"\n>\n  Sélectionner\n</ds-dropdown>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": "/* Dropdown example styles */\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsDropdown, DropdownItem, ButtonVariant, ButtonSize, DropdownPosition } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-dropdown-default',\n  standalone: true,\n  imports: [DsDropdown],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsDropdownDefaultExample {\n  type = input<ButtonVariant>('primary');\n  size = input<ButtonSize>('md');\n  position = input<DropdownPosition>('bottom');\n\n  items: DropdownItem[] = [\n    { code: 'option1', label: 'Option 1' },\n    { code: 'option2', label: 'Option 2' },\n    { code: 'option3', label: 'Option 3' },\n  ];\n\n  onSelect(code: string): void {\n    console.log('Selected:', code);\n  }\n}\n"
+      }
+    ]
+  },
   "ds-empty": {
     "default": [
       {
@@ -441,6 +479,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
       }
     ]
   },
+  "ds-modal": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ds-button (clicked)=\"open()\">Ouvrir la modale</ds-button>\n\n<ds-modal\n  [open]=\"isOpen()\"\n  title=\"Titre de la modale\"\n  [size]=\"size()\"\n  [closable]=\"closable()\"\n  [closeOnBackdrop]=\"closeOnBackdrop()\"\n  (closed)=\"close()\"\n>\n  <p>Contenu de la modale. Vous pouvez mettre n'importe quel contenu ici.</p>\n  <div class=\"modal-actions\">\n    <ds-button variant=\"ghost\" (clicked)=\"close()\">Annuler</ds-button>\n    <ds-button variant=\"primary\" (clicked)=\"close()\">Confirmer</ds-button>\n  </div>\n</ds-modal>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ".modal-actions {\n  margin-top: 24px;\n  display: flex;\n  gap: 8px;\n  justify-content: flex-end;\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input, signal } from '@angular/core';\nimport { DsModalComponent, DsButton } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-modal-default',\n  standalone: true,\n  imports: [DsModalComponent, DsButton],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsModalDefaultExample {\n  size = input<'sm' | 'md' | 'lg'>('md');\n  closable = input<boolean>(true);\n  closeOnBackdrop = input<boolean>(true);\n\n  isOpen = signal(false);\n\n  open(): void {\n    this.isOpen.set(true);\n  }\n\n  close(): void {\n    this.isOpen.set(false);\n  }\n}\n"
+      }
+    ]
+  },
   "ds-nav-list": {
     "default": [
       {
@@ -514,6 +571,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input, signal } from '@angular/core';\nimport { FormsModule } from '@angular/forms';\nimport { DsPasswordStrength, DsInputField } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-password-strength-default',\n  standalone: true,\n  imports: [DsPasswordStrength, DsInputField, FormsModule],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsPasswordStrengthDefaultExample {\n  size = input<'sm' | 'md' | 'lg'>('md');\n  showLabel = input<boolean>(true);\n  showCriteria = input<boolean>(false);\n\n  password = signal('');\n}\n"
+      }
+    ]
+  },
+  "ds-popover": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<ng-template #popoverContent>\n  <ds-popover header=\"Informations\">\n    <p>Contenu du popover avec des détails supplémentaires.</p>\n  </ds-popover>\n</ng-template>\n\n<button\n  class=\"demo-btn\"\n  [dsPopover]=\"popoverContent\"\n  [dsPopoverTrigger]=\"trigger()\"\n  [dsPopoverCloseOnBackdrop]=\"closeOnBackdrop()\"\n>\n  Ouvrir le popover\n</button>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ".demo-btn {\n  padding: 8px 16px;\n  border: none;\n  border-radius: 4px;\n  background: var(--color-primary, #3b82f6);\n  color: white;\n  cursor: pointer;\n  font-size: 0.875rem;\n\n  &:hover {\n    opacity: 0.9;\n  }\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component, input } from '@angular/core';\nimport { DsPopover, DsPopoverComponent, PopoverTrigger } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-popover-default',\n  standalone: true,\n  imports: [DsPopover, DsPopoverComponent],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsPopoverDefaultExample {\n  trigger = input<PopoverTrigger>('click');\n  closeOnBackdrop = input<boolean>(true);\n}\n"
       }
     ]
   },
@@ -818,6 +894,25 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "language": "typescript",
         "filename": "default.example.ts",
         "content": "import { Component, input } from '@angular/core';\nimport { DsToggle } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-toggle-default',\n  standalone: true,\n  imports: [DsToggle],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsToggleDefaultExample {\n  label = input<string>('Activer la fonctionnalité');\n  labelPosition = input<'left' | 'right'>('right');\n  size = input<'sm' | 'md' | 'lg'>('md');\n  disabled = input<boolean>(false);\n}\n"
+      }
+    ]
+  },
+  "ds-tooltip": {
+    "default": [
+      {
+        "language": "html",
+        "filename": "default.example.html",
+        "content": "<button class=\"demo-btn\" dsTooltip=\"Cliquez pour enregistrer\">\n  Enregistrer\n</button>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "default.example.scss",
+        "content": ".demo-btn {\n  padding: 8px 16px;\n  border: none;\n  border-radius: 4px;\n  background: var(--color-primary, #3b82f6);\n  color: white;\n  cursor: pointer;\n  font-size: 0.875rem;\n\n  &:hover {\n    opacity: 0.9;\n  }\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "default.example.ts",
+        "content": "import { Component } from '@angular/core';\nimport { DsTooltip } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-tooltip-default',\n  standalone: true,\n  imports: [DsTooltip],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsTooltipDefaultExample {}\n"
       }
     ]
   },
