@@ -1,6 +1,6 @@
 import { Component, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DsCheckbox, CheckboxSize, DsButton, DsCard, DsBadge } from 'ds-angular';
+import { DsCheckbox, CheckboxSize, DsButton, DsCard, DsBadge, PrimitiveCheckbox } from 'ds-angular';
 import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
 import { ComponentPageHeader } from '../../../shared/page/component-page-header';
@@ -25,7 +25,7 @@ interface Plan {
 @Component({
   selector: 'app-checkbox-page',
   standalone: true,
-  imports: [FormsModule, DsCheckbox, DsButton, DsCard, DsBadge, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [FormsModule, DsCheckbox, DsButton, DsCard, DsBadge, PrimitiveCheckbox, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
   template: `
     <div class="component-page">
       <doc-component-page-header
@@ -90,7 +90,7 @@ interface Plan {
         <doc-demo-container [code]="statesCode">
           <div class="demo-column">
             <ds-checkbox label="Non coché" />
-            <ds-checkbox [checked]="true" label="Coché" />
+            <ds-checkbox [(ngModel)]="checkedDemo" label="Coché" />
             <ds-checkbox [indeterminate]="true" label="Indéterminé" />
             <ds-checkbox [disabled]="true" label="Disabled" />
             <ds-checkbox
@@ -162,12 +162,12 @@ interface Plan {
             <div class="todo-list">
               <div class="todo-header">
                 <span class="todo-title">Tâches du jour</span>
-                <ds-badge [variant]="allTasksCompleted() ? 'success' : 'secondary'">
+                <ds-badge [type]="allTasksCompleted() ? 'success' : 'default'">
                   {{ completedCount() }}/{{ tasks().length }}
                 </ds-badge>
               </div>
               @for (task of tasks(); track task.id) {
-                <ds-checkbox
+                <primitive-checkbox
                   [label]="task.label"
                   [checked]="task.completed"
                   (checkedChange)="toggleTask(task.id)"
@@ -193,7 +193,7 @@ interface Plan {
                 </button>
               </div>
               @for (category of categories(); track category.id) {
-                <ds-checkbox
+                <primitive-checkbox
                   [label]="category.label"
                   [checked]="category.selected"
                   (checkedChange)="toggleCategory(category.id)"
@@ -224,7 +224,7 @@ interface Plan {
           <doc-demo-container [code]="listCode">
             <div class="selectable-list">
               <div class="list-header">
-                <ds-checkbox
+                <primitive-checkbox
                   label="Tout sélectionner"
                   [checked]="allItemsSelected()"
                   [indeterminate]="someItemsSelected()"
@@ -238,7 +238,7 @@ interface Plan {
               </div>
               @for (item of listItems(); track item.id) {
                 <div class="list-item" [class.list-item--selected]="item.selected">
-                  <ds-checkbox
+                  <primitive-checkbox
                     [label]="item.name"
                     [checked]="item.selected"
                     (checkedChange)="toggleItem(item.id)"
@@ -263,7 +263,7 @@ interface Plan {
                   (click)="selectPlan(plan.id)"
                 >
                   <div class="plan-card__header">
-                    <ds-checkbox
+                    <primitive-checkbox
                       [checked]="plan.selected"
                       (checkedChange)="selectPlan(plan.id)"
                     />
@@ -549,6 +549,9 @@ interface Plan {
 })
 export class CheckboxPage {
   definition = DsCheckboxDefinition;
+
+  // État coché demo
+  checkedDemo = signal(true);
 
   // Playground state
   defaultValues = signal<ControlValues>({

@@ -193,10 +193,10 @@ type SelectSize = 'sm' | 'md' | 'lg';
               <div class="active-filters">
                 Filtres actifs :
                 @if (statusFilter()) {
-                  <ds-badge variant="primary">{{ statusFilter() }}</ds-badge>
+                  <ds-badge type="primary">{{ statusFilter() }}</ds-badge>
                 }
                 @if (categoryFilter()) {
-                  <ds-badge variant="secondary">{{ categoryFilter() }}</ds-badge>
+                  <ds-badge type="info">{{ categoryFilter() }}</ds-badge>
                 }
               </div>
             }

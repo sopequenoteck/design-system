@@ -1,5 +1,6 @@
 import { Component, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DecimalPipe } from '@angular/common';
 import { DsPagination, PaginationSize, PageChangeEvent, DsButton, DsInputField, DsCard, DsSkeleton } from 'ds-angular';
 import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
@@ -40,7 +41,7 @@ interface Product {
 @Component({
   selector: 'app-pagination-page',
   standalone: true,
-  imports: [FormsModule, DsPagination, DsButton, DsInputField, DsCard, DsSkeleton, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [FormsModule, DecimalPipe, DsPagination, DsButton, DsInputField, DsCard, DsSkeleton, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
   template: `
     <div class="component-page">
       <doc-component-page-header

@@ -1,6 +1,6 @@
 import { Component, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DsTable, DsTableColumn, DsButton, DsInputField, DsPagination, DsBadge, DsDropdown, PageChangeEvent } from 'ds-angular';
+import { DsTable, DsTableColumn, DsButton, DsInputField, DsPagination, DsBadge, DsDropdown, PageChangeEvent, SortEvent, SortDirection } from 'ds-angular';
 import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
 import { ComponentPageHeader } from '../../../shared/page/component-page-header';
@@ -217,7 +217,7 @@ interface Product {
                 <div class="bulk-actions">
                   <span>{{ selectedUsersList().length }} sélectionné(s)</span>
                   <ds-button variant="ghost" size="sm">Exporter</ds-button>
-                  <ds-button variant="danger" size="sm">Supprimer</ds-button>
+                  <ds-button variant="error" size="sm">Supprimer</ds-button>
                 </div>
               }
             </div>
@@ -672,11 +672,11 @@ export class TablePage {
 <ds-table [data]="users" [columns]="columns" size="lg" />`;
 
   // Sortable
-  currentSort = signal<{ column: string; direction: 'asc' | 'desc' } | null>(null);
+  currentSort = signal<SortEvent | null>(null);
 
   sortedUsers = computed(() => {
     const sort = this.currentSort();
-    if (!sort) return this.users;
+    if (!sort || !sort.direction) return this.users;
 
     return [...this.users].sort((a, b) => {
       const aVal = String(a[sort.column] ?? '');
@@ -687,7 +687,7 @@ export class TablePage {
     });
   });
 
-  onSort(event: { column: string; direction: 'asc' | 'desc' }): void {
+  onSort(event: SortEvent): void {
     this.currentSort.set(event);
   }
 

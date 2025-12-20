@@ -5,7 +5,7 @@ import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
 import { ComponentPageHeader } from '../../../shared/page/component-page-header';
 import { DocIcon } from '../../../shared/icon/doc-icon';
-import { DsToastDefinition } from '../../../registry/definitions/ds-toast.definition';
+import { DsToastDefinition } from '../../../registry/definitions';
 import { ControlValues } from '../../../registry/types';
 
 interface Task {
@@ -717,7 +717,7 @@ export class ToastPage {
   }
 
   clearAll(): void {
-    this.toastService.clearAll();
+    this.toastService.clear();
   }
 
   // Use Case: Newsletter

@@ -1,4 +1,5 @@
 import { Component, signal, computed } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { DsCard, CardVariant, CardSize, DsButton, DsAvatar, DsBadge } from 'ds-angular';
 import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
@@ -34,7 +35,7 @@ interface StatCard {
 @Component({
   selector: 'app-card-page',
   standalone: true,
-  imports: [DsCard, DsButton, DsAvatar, DsBadge, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [DecimalPipe, DsCard, DsButton, DsAvatar, DsBadge, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
   template: `
     <div class="component-page">
       <doc-component-page-header
@@ -209,7 +210,7 @@ interface StatCard {
                 <ds-card variant="default" [clickable]="true">
                   <div class="product-image">{{ product.image }}</div>
                   <div class="product-details">
-                    <ds-badge variant="info" size="sm">{{ product.category }}</ds-badge>
+                    <ds-badge type="info" size="sm">{{ product.category }}</ds-badge>
                     <h4 class="product-name">{{ product.name }}</h4>
                     <div class="product-rating">
                       @for (star of [1, 2, 3, 4, 5]; track star) {
@@ -219,7 +220,7 @@ interface StatCard {
                     <span class="product-price">{{ product.price | number:'1.2-2' }} €</span>
                   </div>
                   <div footer>
-                    <ds-button variant="primary" [fullWidth]="true">Ajouter au panier</ds-button>
+                    <ds-button variant="primary" >Ajouter au panier</ds-button>
                   </div>
                 </ds-card>
               }
@@ -273,7 +274,7 @@ interface StatCard {
                       <h5>{{ member.name }}</h5>
                       <p>{{ member.role }}</p>
                     </div>
-                    <ds-badge [variant]="member.status === 'En ligne' ? 'success' : 'warning'">
+                    <ds-badge [type]="member.status === 'En ligne' ? 'success' : 'warning'">
                       {{ member.status }}
                     </ds-badge>
                   </div>
@@ -779,7 +780,7 @@ export class CardPage {
     <span class="product-price">{{ product.price }} €</span>
   </div>
   <div footer>
-    <ds-button variant="primary" [fullWidth]="true">
+    <ds-button variant="primary" >
       Ajouter au panier
     </ds-button>
   </div>
@@ -817,7 +818,7 @@ export class CardPage {
       <h5>{{ member.name }}</h5>
       <p>{{ member.role }}</p>
     </div>
-    <ds-badge [variant]="member.online ? 'success' : 'warning'">
+    <ds-badge [type]="member.online ? 'success' : 'warning'">
       {{ member.status }}
     </ds-badge>
   </div>

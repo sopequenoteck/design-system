@@ -222,7 +222,7 @@ interface TeamMember {
             <div class="participants-demo">
               <div class="participants-header">
                 <h4 class="participants-title">Participants ({{ participants.length }})</h4>
-                <ds-button variant="outline" size="sm">Inviter</ds-button>
+                <ds-button variant="secondary" size="sm">Inviter</ds-button>
               </div>
               <div class="participants-list">
                 @for (participant of participants; track participant.id) {
@@ -253,7 +253,7 @@ interface TeamMember {
           <p class="use-case__desc">Avatars dans une section de commentaires.</p>
           <doc-demo-container [code]="commentsCode">
             <div class="comments-demo">
-              @for (comment of comments; track comment.id) {
+              @for (comment of comments(); track comment.id) {
                 <div class="comment">
                   <ds-avatar
                     [src]="comment.avatar"
@@ -408,7 +408,7 @@ interface TeamMember {
                       <span class="stat__label">Équipes</span>
                     </div>
                   </div>
-                  <ds-button variant="primary" [fullWidth]="true">Voir profil</ds-button>
+                  <ds-button variant="primary">Voir profil</ds-button>
                 </div>
               </ds-card>
 
@@ -439,7 +439,7 @@ interface TeamMember {
                       <span class="stat__label">Équipes</span>
                     </div>
                   </div>
-                  <ds-button variant="outline" [fullWidth]="true">Contacter</ds-button>
+                  <ds-button variant="secondary">Contacter</ds-button>
                 </div>
               </ds-card>
             </div>
@@ -1091,7 +1091,7 @@ export class AvatarPage {
       </div>
       ...
     </div>
-    <ds-button variant="primary" [fullWidth]="true">Voir profil</ds-button>
+    <ds-button variant="primary">Voir profil</ds-button>
   </div>
 </ds-card>`;
 }

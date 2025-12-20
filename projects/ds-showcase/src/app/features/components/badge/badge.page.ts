@@ -275,7 +275,7 @@ interface MenuItem {
                   [(ngModel)]="newTagLabel"
                   (keyup.enter)="addTag()"
                 />
-                <ds-button variant="outline" size="sm" (click)="addTag()">
+                <ds-button variant="secondary" size="sm" (click)="addTag()">
                   Ajouter
                 </ds-button>
               </div>

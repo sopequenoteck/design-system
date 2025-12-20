@@ -129,7 +129,7 @@ type InputSize = 'sm' | 'md' | 'lg';
                 [required]="true"
                 hint="8 caractères minimum"
               />
-              <ds-button variant="primary" [fullWidth]="true">Se connecter</ds-button>
+              <ds-button variant="primary" class="w-full">Se connecter</ds-button>
             </div>
           </doc-demo-container>
         </div>
@@ -417,7 +417,7 @@ export class InputFieldPage {
   [required]="true"
   hint="8 caractères minimum"
 />
-<ds-button variant="primary" [fullWidth]="true">Se connecter</ds-button>`;
+<ds-button variant="primary" class="w-full">Se connecter</ds-button>`;
 
   searchCode = `<ds-input-field
   label="Rechercher un produit"

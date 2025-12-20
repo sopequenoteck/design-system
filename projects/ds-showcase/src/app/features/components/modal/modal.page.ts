@@ -339,7 +339,7 @@ type ModalType = 'success' | 'warning' | 'error' | 'info';
               <div class="stepper-modal-content">
                 <ds-stepper
                   [steps]="registrationSteps"
-                  [currentStep]="currentRegistrationStep()"
+                  [activeStep]="currentRegistrationStep()"
                   orientation="horizontal"
                 />
                 <div class="stepper-step-content">

@@ -241,7 +241,7 @@ interface FilterCategory {
               </nav>
               <ng-template #footer>
                 <div class="mobile-nav-footer">
-                  <ds-button variant="ghost" [fullWidth]="true" (click)="closeMobileNav()">
+                  <ds-button variant="ghost" class="w-full" (click)="closeMobileNav()">
                     Déconnexion
                   </ds-button>
                 </div>
@@ -452,8 +452,8 @@ interface FilterCategory {
                     <div class="quick-view__price">{{ selectedProduct.price }} €</div>
                     <p class="quick-view__desc">{{ selectedProduct.description }}</p>
                     <div class="quick-view__tags">
-                      <ds-badge variant="success">En stock</ds-badge>
-                      <ds-badge variant="info">Livraison gratuite</ds-badge>
+                      <ds-badge type="success">En stock</ds-badge>
+                      <ds-badge type="info">Livraison gratuite</ds-badge>
                     </div>
                     <div class="quick-view__quantity">
                       <span>Quantité :</span>

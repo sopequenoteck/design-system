@@ -1,6 +1,6 @@
 import { Component, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DsTabs, TabItem, DsButton, DsInputField, DsTable, DsModal, DsBadge } from 'ds-angular';
+import { DsTabs, TabItem, DsButton, DsInputField, DsTable, DsModalComponent, DsBadge } from 'ds-angular';
 import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
 import { ComponentPageHeader } from '../../../shared/page/component-page-header';
@@ -36,7 +36,7 @@ interface User {
 @Component({
   selector: 'app-tabs-page',
   standalone: true,
-  imports: [FormsModule, DsTabs, DsButton, DsInputField, DsTable, DsModal, DsBadge, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [FormsModule, DsTabs, DsButton, DsInputField, DsTable, DsModalComponent, DsBadge, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
   template: `
     <div class="component-page">
       <doc-component-page-header
@@ -345,7 +345,7 @@ interface User {
                           <td>{{ user.email }}</td>
                           <td>{{ user.role }}</td>
                           <td>
-                            <ds-badge [variant]="getStatusVariant(user.status)">{{ user.status }}</ds-badge>
+                            <ds-badge [type]="getStatusVariant(user.status)">{{ user.status }}</ds-badge>
                           </td>
                         </tr>
                       }
@@ -1137,7 +1137,7 @@ wizardTabs = computed(() =>
   @for (user of filteredUsers(); track user.id) {
     <tr>
       <td>{{ user.name }}</td>
-      <td><ds-badge [variant]="getStatusVariant(user.status)">{{ user.status }}</ds-badge></td>
+      <td><ds-badge [type]="getStatusVariant(user.status)">{{ user.status }}</ds-badge></td>
     </tr>
   }
 </table>`;
