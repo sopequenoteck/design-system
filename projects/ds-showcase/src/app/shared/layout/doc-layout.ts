@@ -702,6 +702,7 @@ export class DocLayout {
             { id: 'demo-dashboard', label: 'Dashboard', path: '/demos/data/dashboard' },
             { id: 'demo-table-advanced', label: 'Table Advanced', path: '/demos/data/table-advanced' },
             { id: 'demo-cards-grid', label: 'Cards Grid', path: '/demos/data/cards-grid' },
+            { id: 'demo-task-list', label: 'Task List', path: '/demos/data/task-list' },
           ],
         },
         {

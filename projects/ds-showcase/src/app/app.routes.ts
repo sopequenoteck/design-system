@@ -110,6 +110,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/demos/data/cards-grid.page').then(m => m.CardsGridDemoPage),
       },
+      {
+        path: 'demos/data/task-list',
+        loadComponent: () =>
+          import('./features/demos/data/task-list.page').then(m => m.TaskListDemoPage),
+      },
       // Feedback
       {
         path: 'demos/feedback/notifications',

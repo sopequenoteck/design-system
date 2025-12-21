@@ -7,7 +7,7 @@
   (click)="handleClick($event)"
   (keydown)="handleKeyDown($event)"
 >
-  <!-- Indicateur de priorité/statut -->
+  <!-- Indicateur de priorité/statut (toute la hauteur) -->
   @if (showIndicator()) {
     <span
       class="ds-list-item__indicator"
@@ -18,38 +18,49 @@
     ></span>
   }
 
-  <!-- Checkbox -->
-  @if (checkable()) {
-    <primitive-checkbox
-      class="ds-list-item__checkbox"
-      [checked]="checked()"
-      [indeterminate]="indeterminate()"
-      [disabled]="disabled()"
-      size="sm"
-      (checkedChange)="handleCheckedChange($event)"
-      (click)="$event.stopPropagation()"
-    />
-  }
+  <!-- Wrapper des lignes -->
+  <div class="ds-list-item__wrapper">
+    <!-- Ligne 1 : Checkbox + Titre + Meta + Actions -->
+    <div class="ds-list-item__row ds-list-item__row--primary">
+      <!-- Checkbox -->
+      @if (checkable()) {
+        <primitive-checkbox
+          class="ds-list-item__checkbox"
+          [checked]="checked()"
+          [indeterminate]="indeterminate()"
+          [disabled]="disabled()"
+          size="sm"
+          (checkedChange)="handleCheckedChange($event)"
+          (click)="$event.stopPropagation()"
+        />
+      }
 
-  <!-- Contenu principal -->
-  <div class="ds-list-item__content">
-    <span class="ds-list-item__title">{{ title() }}</span>
+      <!-- Contenu principal -->
+      <div class="ds-list-item__content">
+        <span class="ds-list-item__title">{{ title() }}</span>
 
-    @if (subtitle()) {
-      <span class="ds-list-item__subtitle">{{ subtitle() }}</span>
-    }
+        @if (subtitle()) {
+          <span class="ds-list-item__subtitle">{{ subtitle() }}</span>
+        }
 
-    <!-- Slot pour contenu additionnel inline (tags, badges) -->
-    <ng-content select="[inline]" />
-  </div>
+        <!-- Slot pour contenu additionnel inline (tags, badges) -->
+        <ng-content select="[inline]" />
+      </div>
 
-  <!-- Zone de métadonnées (time, duration, etc.) -->
-  <div class="ds-list-item__meta">
-    <ng-content select="[meta]" />
-  </div>
+      <!-- Zone de métadonnées (time, duration, etc.) -->
+      <div class="ds-list-item__meta">
+        <ng-content select="[meta]" />
+      </div>
 
-  <!-- Actions (boutons, menus) - visibles au hover -->
-  <div class="ds-list-item__actions">
-    <ng-content select="[actions]" />
+      <!-- Actions (boutons, menus) - visibles au hover -->
+      <div class="ds-list-item__actions">
+        <ng-content select="[actions]" />
+      </div>
+    </div>
+
+    <!-- Ligne 2 : Contenu secondaire (optionnel) -->
+    <div class="ds-list-item__row ds-list-item__row--secondary">
+      <ng-content select="[secondary]" />
+    </div>
   </div>
 </div>

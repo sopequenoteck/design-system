@@ -24,6 +24,7 @@ export const DEMOS: DemoInfo[] = [
   { id: 'dashboard', label: 'Dashboard', path: '/demos/data/dashboard', category: 'data' },
   { id: 'table-advanced', label: 'Table Advanced', path: '/demos/data/table-advanced', category: 'data' },
   { id: 'cards-grid', label: 'Cards Grid', path: '/demos/data/cards-grid', category: 'data' },
+  { id: 'task-list', label: 'Task List', path: '/demos/data/task-list', category: 'data' },
   // Feedback
   { id: 'notifications', label: 'Notifications', path: '/demos/feedback/notifications', category: 'feedback' },
   { id: 'loading-states', label: 'Loading States', path: '/demos/feedback/loading-states', category: 'feedback' },
@@ -47,7 +48,9 @@ export const COMPONENT_TO_DEMOS: Record<string, string[]> = {
   'ds-select': ['settings'],
 
   // Data Display
-  'ds-card': ['login', 'contact', 'settings', 'dashboard', 'cards-grid', 'loading-states'],
+  'ds-card': ['login', 'contact', 'settings', 'dashboard', 'cards-grid', 'task-list', 'loading-states'],
+  'ds-list-item': ['task-list'],
+  'ds-chip': ['task-list'],
   'ds-avatar': ['header', 'cards-grid'],
   'ds-badge': ['dashboard', 'table-advanced', 'cards-grid'],
   'ds-table': ['table-advanced'],

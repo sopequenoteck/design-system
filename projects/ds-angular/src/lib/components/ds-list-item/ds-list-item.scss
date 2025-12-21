@@ -1,6 +1,7 @@
 /**
  * DsListItem - Style minimaliste type TickTick/Todoist
  * Ligne fine avec hover subtil et indicateur de priorité
+ * Supporte une ligne secondaire optionnelle
  */
 
 :host {
@@ -9,16 +10,54 @@
 
 .ds-list-item {
   display: flex;
-  align-items: center;
+  align-items: stretch; // Indicateur sur toute la hauteur
   gap: var(--space-2, 8px);
   padding: 0 var(--space-3, 12px);
   border-radius: var(--radius-1, 4px);
   cursor: default;
   transition: background-color 150ms ease;
 
+  // === Wrapper des lignes ===
+  &__wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    padding: var(--space-2, 8px) 0;
+  }
+
+  // === Lignes ===
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, 8px);
+
+    &--primary {
+      min-height: 24px; // Hauteur minimale ligne principale
+    }
+
+    &--secondary {
+      // Aligné avec le contenu (après checkbox)
+      padding-left: calc(16px + var(--space-2, 8px));
+      padding-top: var(--space-1, 4px);
+
+      // Masquer si vide
+      &:empty {
+        display: none;
+      }
+    }
+  }
+
   // === Tailles ===
   &--sm {
-    height: 32px;
+    .ds-list-item__wrapper {
+      padding: var(--space-1, 4px) 0;
+    }
+
+    .ds-list-item__row--primary {
+      min-height: 20px;
+    }
 
     .ds-list-item__title {
       font-size: var(--font-size-1, 12px);
@@ -29,17 +68,24 @@
     }
 
     .ds-list-item__indicator--bar {
-      height: 14px;
+      width: 3px;
+      align-self: stretch;
     }
 
     .ds-list-item__indicator--dot {
       width: 6px;
       height: 6px;
     }
+
+    .ds-list-item__row--secondary {
+      padding-left: calc(14px + var(--space-1, 4px));
+    }
   }
 
   &--md {
-    height: 40px;
+    .ds-list-item__row--primary {
+      min-height: 24px;
+    }
 
     .ds-list-item__title {
       font-size: var(--font-size-2, 14px);
@@ -50,7 +96,8 @@
     }
 
     .ds-list-item__indicator--bar {
-      height: 18px;
+      width: 3px;
+      align-self: stretch;
     }
 
     .ds-list-item__indicator--dot {
@@ -60,7 +107,13 @@
   }
 
   &--lg {
-    height: 48px;
+    .ds-list-item__wrapper {
+      padding: var(--space-3, 12px) 0;
+    }
+
+    .ds-list-item__row--primary {
+      min-height: 28px;
+    }
 
     .ds-list-item__title {
       font-size: var(--font-size-3, 16px);
@@ -71,12 +124,17 @@
     }
 
     .ds-list-item__indicator--bar {
-      height: 22px;
+      width: 4px;
+      align-self: stretch;
     }
 
     .ds-list-item__indicator--dot {
       width: 10px;
       height: 10px;
+    }
+
+    .ds-list-item__row--secondary {
+      padding-left: calc(18px + var(--space-2, 8px));
     }
   }
 
@@ -135,10 +193,12 @@
     &--bar {
       width: 3px;
       border-radius: 2px;
+      align-self: stretch;
     }
 
     &--dot {
       border-radius: 50%;
+      align-self: center;
     }
   }
 
@@ -211,5 +271,12 @@
   [actions] {
     display: inline-flex;
     align-items: center;
+  }
+
+  [secondary] {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1, 4px);
+    flex-wrap: wrap;
   }
 }
