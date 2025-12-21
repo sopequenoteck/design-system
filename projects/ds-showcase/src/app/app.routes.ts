@@ -65,6 +65,63 @@ export const routes: Routes = [
           import('./features/docs/migration/migration.page').then(m => m.MigrationPage),
       },
       // ==========================================================================
+      // Demos
+      // ==========================================================================
+      // Forms
+      {
+        path: 'demos/forms/login',
+        loadComponent: () =>
+          import('./features/demos/forms/login.page').then(m => m.LoginDemoPage),
+      },
+      {
+        path: 'demos/forms/contact',
+        loadComponent: () =>
+          import('./features/demos/forms/contact.page').then(m => m.ContactDemoPage),
+      },
+      {
+        path: 'demos/forms/settings',
+        loadComponent: () =>
+          import('./features/demos/forms/settings.page').then(m => m.SettingsDemoPage),
+      },
+      // Navigation
+      {
+        path: 'demos/navigation/sidebar-layout',
+        loadComponent: () =>
+          import('./features/demos/navigation/sidebar-layout.page').then(m => m.SidebarLayoutDemoPage),
+      },
+      {
+        path: 'demos/navigation/header',
+        loadComponent: () =>
+          import('./features/demos/navigation/header.page').then(m => m.HeaderDemoPage),
+      },
+      // Data Display
+      {
+        path: 'demos/data/dashboard',
+        loadComponent: () =>
+          import('./features/demos/data/dashboard.page').then(m => m.DashboardDemoPage),
+      },
+      {
+        path: 'demos/data/table-advanced',
+        loadComponent: () =>
+          import('./features/demos/data/table-advanced.page').then(m => m.TableAdvancedDemoPage),
+      },
+      {
+        path: 'demos/data/cards-grid',
+        loadComponent: () =>
+          import('./features/demos/data/cards-grid.page').then(m => m.CardsGridDemoPage),
+      },
+      // Feedback
+      {
+        path: 'demos/feedback/notifications',
+        loadComponent: () =>
+          import('./features/demos/feedback/notifications.page').then(m => m.NotificationsDemoPage),
+      },
+      {
+        path: 'demos/feedback/loading-states',
+        loadComponent: () =>
+          import('./features/demos/feedback/loading-states.page').then(m => m.LoadingStatesDemoPage),
+      },
+      // ==========================================================================
       // Components
       // ==========================================================================
       {
