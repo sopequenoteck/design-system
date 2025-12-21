@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DsInputField, DsButton, DsCard, DsToggle, DsSelect, DsDivider } from 'ds-angular';
+import { DemoContainer } from '../../../shared/demo/demo-container';
+import { CodeSource } from '../../../registry/types';
 
 interface UsedComponent {
   id: string;
@@ -11,7 +13,7 @@ interface UsedComponent {
 @Component({
   selector: 'demo-settings-page',
   standalone: true,
-  imports: [RouterLink, DsInputField, DsButton, DsCard, DsToggle, DsSelect, DsDivider],
+  imports: [RouterLink, DsInputField, DsButton, DsCard, DsToggle, DsSelect, DsDivider, DemoContainer],
   template: `
     <div class="demo-page">
       <header class="demo-header">
@@ -19,8 +21,8 @@ interface UsedComponent {
         <p class="demo-description">Page de paramètres avec différents types de contrôles.</p>
       </header>
 
-      <section class="demo-preview">
-        <div class="demo-preview__container">
+      <section class="demo-section">
+        <doc-demo-container [sources]="sources">
           <ds-card class="settings-card">
             <h2>Préférences</h2>
 
@@ -57,7 +59,7 @@ interface UsedComponent {
               <ds-button variant="primary">Sauvegarder</ds-button>
             </div>
           </ds-card>
-        </div>
+        </doc-demo-container>
       </section>
 
       <section class="demo-components">
@@ -75,8 +77,7 @@ interface UsedComponent {
     .demo-header { margin-bottom: 32px; }
     .demo-header h1 { font-size: 2rem; font-weight: 700; margin: 0 0 8px; }
     .demo-description { font-size: 1.125rem; color: var(--doc-text-secondary); margin: 0; }
-    .demo-preview { background: var(--doc-surface-sunken); border-radius: 12px; padding: 32px; margin-bottom: 32px; }
-    .demo-preview__container { display: flex; justify-content: center; }
+    .demo-section { margin-bottom: 32px; }
     .settings-card { width: 100%; max-width: 600px; padding: 32px; }
     .settings-card h2 { margin: 0 0 24px; font-size: 1.5rem; }
     .settings-card h3 { margin: 0 0 16px; font-size: 1rem; font-weight: 600; color: var(--doc-text-secondary); }
@@ -109,5 +110,136 @@ export class SettingsDemoPage {
     { id: 'ds-select', label: 'Select', path: '/components/forms/pickers/ds-select' },
     { id: 'ds-divider', label: 'Divider', path: '/components/layout/ds-divider' },
     { id: 'ds-button', label: 'Button', path: '/components/actions/ds-button' },
+  ];
+
+  sources: CodeSource[] = [
+    {
+      language: 'html',
+      filename: 'settings.component.html',
+      content: `<ds-card class="settings-card">
+  <h2>Préférences</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="settings-section" formGroupName="profile">
+      <h3>Profil</h3>
+      <ds-input-field label="Nom d'affichage" formControlName="displayName" />
+      <ds-input-field label="Email" type="email" formControlName="email" />
+    </div>
+
+    <ds-divider />
+
+    <div class="settings-section" formGroupName="notifications">
+      <h3>Notifications</h3>
+      <div class="setting-row">
+        <span>Notifications email</span>
+        <ds-toggle formControlName="email" />
+      </div>
+      <div class="setting-row">
+        <span>Notifications push</span>
+        <ds-toggle formControlName="push" />
+      </div>
+    </div>
+
+    <ds-divider />
+
+    <div class="settings-section" formGroupName="appearance">
+      <h3>Apparence</h3>
+      <ds-select label="Thème" formControlName="theme" [options]="themeOptions" />
+      <ds-select label="Langue" formControlName="language" [options]="langOptions" />
+    </div>
+
+    <div class="settings-actions">
+      <ds-button variant="secondary" type="button" (click)="onCancel()">Annuler</ds-button>
+      <ds-button variant="primary" type="submit" [loading]="isSaving">Sauvegarder</ds-button>
+    </div>
+  </form>
+</ds-card>`
+    },
+    {
+      language: 'typescript',
+      filename: 'settings.component.ts',
+      content: `import { Component } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { DsInputField, DsButton, DsCard, DsToggle, DsSelect, DsDivider } from 'ds-angular';
+
+@Component({
+  selector: 'app-settings',
+  standalone: true,
+  imports: [ReactiveFormsModule, DsInputField, DsButton, DsCard, DsToggle, DsSelect, DsDivider],
+  templateUrl: './settings.component.html',
+  styleUrl: './settings.component.scss'
+})
+export class SettingsComponent {
+  themeOptions = [
+    { value: 'light', label: 'Clair' },
+    { value: 'dark', label: 'Sombre' },
+    { value: 'system', label: 'Système' }
+  ];
+  langOptions = [
+    { value: 'fr', label: 'Français' },
+    { value: 'en', label: 'English' }
+  ];
+
+  form = this.fb.group({
+    profile: this.fb.group({
+      displayName: ['John Doe'],
+      email: ['john@example.com']
+    }),
+    notifications: this.fb.group({
+      email: [true],
+      push: [false]
+    }),
+    appearance: this.fb.group({
+      theme: ['system'],
+      language: ['fr']
+    })
+  });
+
+  isSaving = false;
+
+  constructor(private fb: FormBuilder) {}
+
+  onSubmit() {
+    this.isSaving = true;
+    // Save settings...
+  }
+
+  onCancel() {
+    this.form.reset();
+  }
+}`
+    },
+    {
+      language: 'scss',
+      filename: 'settings.component.scss',
+      content: `.settings-card {
+  width: 100%;
+  max-width: 600px;
+  padding: var(--space-8);
+}
+
+h2 { margin: 0 0 var(--space-6); }
+h3 { margin: 0 0 var(--space-4); color: var(--text-secondary); }
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}`
+    }
   ];
 }

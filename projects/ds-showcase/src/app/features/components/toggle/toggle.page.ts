@@ -5,10 +5,11 @@ import { PropsTable } from '../../../shared/props/props-table';
 import { DsToggleDefinition } from '../../../registry/definitions/ds-toggle.definition';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 @Component({
   selector: 'app-toggle-page',
   standalone: true,
-  imports: [DsToggle, DemoContainer, PropsTable],
+  imports: [DsToggle, DemoContainer, PropsTable, UsedInSection],
   template: `
     <div class="component-page">
       <header class="component-header">
@@ -105,6 +106,9 @@ import { ControlValues } from '../../../registry/types';
         <h2>API Reference</h2>
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

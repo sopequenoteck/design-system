@@ -6,10 +6,11 @@ import { DsNavListDefinition } from '../../../registry/definitions/ds-nav-list.d
 import { ControlValues } from '../../../registry/types';
 import { faHome, faUser, faCog, faEnvelope, faFile } from '@fortawesome/free-solid-svg-icons';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 @Component({
   selector: 'app-nav-list-page',
   standalone: true,
-  imports: [DsNavList, DemoContainer, PropsTable],
+  imports: [DsNavList, DemoContainer, PropsTable, UsedInSection],
   template: `
     <div class="component-page">
       <header class="component-header">
@@ -91,6 +92,9 @@ import { faHome, faUser, faCog, faEnvelope, faFile } from '@fortawesome/free-sol
         <h2>API Reference</h2>
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

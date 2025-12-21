@@ -5,13 +5,14 @@ import { PropsTable } from '../../../shared/props/props-table';
 import { DsProgressBarDefinition } from '../../../registry/definitions/ds-progress-bar.definition';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 type ProgressBarVariant = 'default' | 'success' | 'warning' | 'error';
 type SizeType = 'sm' | 'md' | 'lg';
 
 @Component({
   selector: 'app-progress-bar-page',
   standalone: true,
-  imports: [DsProgressBar, DemoContainer, PropsTable],
+  imports: [DsProgressBar, DemoContainer, PropsTable, UsedInSection],
   template: `
     <div class="component-page">
       <header class="component-header">
@@ -79,6 +80,9 @@ type SizeType = 'sm' | 'md' | 'lg';
         <h2>API Reference</h2>
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

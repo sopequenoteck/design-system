@@ -4,10 +4,11 @@ import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
 import { DsDividerDefinition } from '../../../registry/definitions/ds-divider.definition';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 @Component({
   selector: 'app-divider-page',
   standalone: true,
-  imports: [DsDivider, DemoContainer, PropsTable],
+  imports: [DsDivider, DemoContainer, PropsTable, UsedInSection],
   template: `
     <div class="component-page">
       <header class="component-header">
@@ -89,6 +90,9 @@ import { DsDividerDefinition } from '../../../registry/definitions/ds-divider.de
         <h2>API Reference</h2>
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

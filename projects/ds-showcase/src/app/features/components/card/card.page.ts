@@ -8,6 +8,7 @@ import { DocIcon } from '../../../shared/icon/doc-icon';
 import { DsCardDefinition } from '../../../registry/definitions/ds-card.definition';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 interface UserProfile {
   id: number;
   name: string;
@@ -35,7 +36,7 @@ interface StatCard {
 @Component({
   selector: 'app-card-page',
   standalone: true,
-  imports: [DecimalPipe, DsCard, DsButton, DsAvatar, DsBadge, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [DecimalPipe, DsCard, DsButton, DsAvatar, DsBadge, DemoContainer, PropsTable, ComponentPageHeader, DocIcon, UsedInSection],
   template: `
     <div class="component-page">
       <doc-component-page-header
@@ -344,6 +345,9 @@ interface StatCard {
 
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

@@ -7,6 +7,7 @@ import { DocIcon } from '../../../shared/icon/doc-icon';
 import { DsAvatarDefinition } from '../../../registry/definitions/ds-avatar.definition';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 interface User {
   id: number;
   name: string;
@@ -40,7 +41,7 @@ interface TeamMember {
 @Component({
   selector: 'app-avatar-page',
   standalone: true,
-  imports: [DsAvatar, DsBadge, DsButton, DsCard, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [DsAvatar, DsBadge, DsButton, DsCard, DemoContainer, PropsTable, ComponentPageHeader, DocIcon, UsedInSection],
   template: `
     <div class="component-page">
       <doc-component-page-header
@@ -460,6 +461,9 @@ interface TeamMember {
 
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

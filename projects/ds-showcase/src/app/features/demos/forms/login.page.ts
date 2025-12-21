@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DsInputField, DsButton, DsCard, DsCheckbox, DsDivider } from 'ds-angular';
+import { DemoContainer } from '../../../shared/demo/demo-container';
+import { CodeSource } from '../../../registry/types';
 
 interface UsedComponent {
   id: string;
@@ -18,6 +20,7 @@ interface UsedComponent {
     DsCard,
     DsCheckbox,
     DsDivider,
+    DemoContainer,
   ],
   template: `
     <div class="demo-page">
@@ -28,9 +31,9 @@ interface UsedComponent {
         </p>
       </header>
 
-      <!-- Démo visuelle -->
-      <section class="demo-preview">
-        <div class="demo-preview__container">
+      <!-- Démo avec code -->
+      <section class="demo-section">
+        <doc-demo-container [sources]="sources">
           <ds-card class="login-card">
             <div class="login-header">
               <h2>Connexion</h2>
@@ -70,7 +73,7 @@ interface UsedComponent {
               <p>Pas encore de compte ? <a href="#">Créer un compte</a></p>
             </div>
           </ds-card>
-        </div>
+        </doc-demo-container>
       </section>
 
       <!-- Composants utilisés -->
@@ -109,18 +112,8 @@ interface UsedComponent {
       }
     }
 
-    .demo-preview {
-      background: var(--doc-surface-sunken);
-      border-radius: var(--doc-radius-lg, 12px);
-      padding: var(--doc-space-xl, 32px);
+    .demo-section {
       margin-bottom: var(--doc-space-xl, 32px);
-    }
-
-    .demo-preview__container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 400px;
     }
 
     .login-card {
@@ -224,5 +217,125 @@ export class LoginDemoPage {
     { id: 'ds-button', label: 'Button', path: '/components/actions/ds-button' },
     { id: 'ds-checkbox', label: 'Checkbox', path: '/components/forms/selection/ds-checkbox' },
     { id: 'ds-divider', label: 'Divider', path: '/components/layout/ds-divider' },
+  ];
+
+  sources: CodeSource[] = [
+    {
+      language: 'html',
+      filename: 'login.component.html',
+      content: `<ds-card class="login-card">
+  <div class="login-header">
+    <h2>Connexion</h2>
+    <p>Entrez vos identifiants pour accéder à votre compte</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ds-input-field
+      label="Email"
+      type="email"
+      formControlName="email"
+      placeholder="nom@exemple.com"
+    />
+
+    <ds-input-field
+      label="Mot de passe"
+      type="password"
+      formControlName="password"
+      placeholder="••••••••"
+    />
+
+    <div class="login-options">
+      <ds-checkbox label="Se souvenir de moi" formControlName="rememberMe" />
+      <a routerLink="/forgot-password">Mot de passe oublié ?</a>
+    </div>
+
+    <ds-button variant="primary" [block]="true" type="submit" [loading]="isSubmitting">
+      Se connecter
+    </ds-button>
+
+    <ds-divider label="ou" />
+
+    <ds-button variant="secondary" [block]="true" (click)="loginWithGoogle()">
+      Continuer avec Google
+    </ds-button>
+  </form>
+
+  <div class="login-footer">
+    <p>Pas encore de compte ? <a routerLink="/register">Créer un compte</a></p>
+  </div>
+</ds-card>`
+    },
+    {
+      language: 'typescript',
+      filename: 'login.component.ts',
+      content: `import { Component } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DsInputField, DsButton, DsCard, DsCheckbox, DsDivider } from 'ds-angular';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [ReactiveFormsModule, DsInputField, DsButton, DsCard, DsCheckbox, DsDivider],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss'
+})
+export class LoginComponent {
+  form = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    rememberMe: [false]
+  });
+
+  isSubmitting = false;
+
+  constructor(private fb: FormBuilder) {}
+
+  onSubmit() {
+    if (this.form.valid) {
+      this.isSubmitting = true;
+      // Appel API...
+    }
+  }
+
+  loginWithGoogle() {
+    // OAuth flow...
+  }
+}`
+    },
+    {
+      language: 'scss',
+      filename: 'login.component.scss',
+      content: `.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--space-8);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: var(--space-6);
+
+  h2 { margin: 0 0 var(--space-1); }
+  p { color: var(--text-secondary); margin: 0; }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-footer {
+  margin-top: var(--space-6);
+  text-align: center;
+  font-size: 0.875rem;
+}`
+    }
   ];
 }

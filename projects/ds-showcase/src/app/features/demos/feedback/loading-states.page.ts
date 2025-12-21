@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DsButton, DsSkeleton, DsProgressBar, DsCard } from 'ds-angular';
+import { DemoContainer } from '../../../shared/demo/demo-container';
+import { CodeSource } from '../../../registry/types';
 
 interface UsedComponent {
   id: string;
@@ -11,7 +13,7 @@ interface UsedComponent {
 @Component({
   selector: 'demo-loading-states-page',
   standalone: true,
-  imports: [RouterLink, DsButton, DsSkeleton, DsProgressBar, DsCard],
+  imports: [RouterLink, DsButton, DsSkeleton, DsProgressBar, DsCard, DemoContainer],
   template: `
     <div class="demo-page">
       <header class="demo-header">
@@ -19,8 +21,8 @@ interface UsedComponent {
         <p class="demo-description">Différents états de chargement : skeletons, progress bars et boutons loading.</p>
       </header>
 
-      <section class="demo-preview">
-        <div class="demo-preview__container">
+      <section class="demo-section">
+        <doc-demo-container [sources]="sources">
           <div class="loading-demo">
             <div class="demo-section">
               <h3>Skeleton loading</h3>
@@ -59,7 +61,7 @@ interface UsedComponent {
               </div>
             </div>
           </div>
-        </div>
+        </doc-demo-container>
       </section>
 
       <section class="demo-components">
@@ -77,8 +79,7 @@ interface UsedComponent {
     .demo-header { margin-bottom: 32px; }
     .demo-header h1 { font-size: 2rem; font-weight: 700; margin: 0 0 8px; }
     .demo-description { font-size: 1.125rem; color: var(--doc-text-secondary); margin: 0; }
-    .demo-preview { background: var(--doc-surface-sunken); border-radius: 12px; padding: 32px; margin-bottom: 32px; }
-    .demo-preview__container { width: 100%; }
+    .demo-section { margin-bottom: 32px; }
     .loading-demo { display: flex; flex-direction: column; gap: 32px; }
     .demo-section h3 { margin: 0 0 16px; font-size: 1rem; font-weight: 600; }
     .skeleton-card { padding: 20px; max-width: 320px; display: flex; flex-direction: column; gap: 16px; }
@@ -103,5 +104,128 @@ export class LoadingStatesDemoPage {
     { id: 'ds-progress-bar', label: 'Progress Bar', path: '/components/feedback/ds-progress-bar' },
     { id: 'ds-button', label: 'Button', path: '/components/actions/ds-button' },
     { id: 'ds-card', label: 'Card', path: '/components/data-display/ds-card' },
+  ];
+
+  sources: CodeSource[] = [
+    {
+      language: 'html',
+      filename: 'loading-demo.component.html',
+      content: `<!-- Skeleton loading pour une carte -->
+<ds-card class="skeleton-card">
+  <div class="skeleton-header">
+    <ds-skeleton variant="circle" width="48px" height="48px" />
+    <div class="skeleton-text">
+      <ds-skeleton width="120px" height="16px" />
+      <ds-skeleton width="80px" height="12px" />
+    </div>
+  </div>
+  <ds-skeleton height="100px" />
+  <ds-skeleton width="60%" height="14px" />
+</ds-card>
+
+<!-- Progress indicators -->
+<div class="progress-stack">
+  <div class="progress-item">
+    <span>Téléchargement...</span>
+    <ds-progress-bar [value]="downloadProgress" />
+  </div>
+  <div class="progress-item">
+    <span>Installation...</span>
+    <ds-progress-bar [value]="installProgress" variant="success" />
+  </div>
+</div>
+
+<!-- Button loading states -->
+<div class="buttons-row">
+  <ds-button variant="primary" [loading]="isSaving" (click)="save()">
+    {{ isSaving ? 'Enregistrement...' : 'Enregistrer' }}
+  </ds-button>
+  <ds-button variant="secondary" [loading]="isLoading" (click)="load()">
+    {{ isLoading ? 'Chargement...' : 'Charger plus' }}
+  </ds-button>
+</div>`
+    },
+    {
+      language: 'typescript',
+      filename: 'loading-demo.component.ts',
+      content: `import { Component, signal } from '@angular/core';
+import { DsButton, DsSkeleton, DsProgressBar, DsCard } from 'ds-angular';
+
+@Component({
+  selector: 'app-loading-demo',
+  standalone: true,
+  imports: [DsButton, DsSkeleton, DsProgressBar, DsCard],
+  templateUrl: './loading-demo.component.html',
+  styleUrl: './loading-demo.component.scss'
+})
+export class LoadingDemoComponent {
+  downloadProgress = signal(65);
+  installProgress = signal(30);
+  isSaving = signal(false);
+  isLoading = signal(false);
+
+  async save() {
+    this.isSaving.set(true);
+    await this.delay(2000);
+    this.isSaving.set(false);
+  }
+
+  async load() {
+    this.isLoading.set(true);
+    await this.delay(1500);
+    this.isLoading.set(false);
+  }
+
+  private delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+}`
+    },
+    {
+      language: 'scss',
+      filename: 'loading-demo.component.scss',
+      content: `.skeleton-card {
+  padding: var(--space-5);
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.skeleton-header {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.skeleton-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.progress-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 400px;
+}
+
+.progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+
+  span {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+}
+
+.buttons-row {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}`
+    }
   ];
 }

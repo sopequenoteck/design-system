@@ -4,13 +4,14 @@ import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
 import { ComponentPageHeader } from '../../../shared/page/component-page-header';
 import { DocIcon } from '../../../shared/icon/doc-icon';
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 import { DsButtonDefinition } from '../../../registry/definitions/ds-button.definition';
 import { ControlValues } from '../../../registry/types';
 
 @Component({
   selector: 'app-button-page',
   standalone: true,
-  imports: [DsButton, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [DsButton, DemoContainer, PropsTable, ComponentPageHeader, DocIcon, UsedInSection],
   template: `
     <div class="component-page">
       <doc-component-page-header
@@ -131,6 +132,9 @@ import { ControlValues } from '../../../registry/types';
 
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

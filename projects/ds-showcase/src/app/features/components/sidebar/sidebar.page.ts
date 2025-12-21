@@ -6,10 +6,11 @@ import { DsSidebarDefinition } from '../../../registry/definitions';
 import { ControlValues } from '../../../registry/types';
 import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 @Component({
   selector: 'app-sidebar-page',
   standalone: true,
-  imports: [DsSidebar, DsSidebarFooterItemComponent, DemoContainer, PropsTable],
+  imports: [DsSidebar, DsSidebarFooterItemComponent, DemoContainer, PropsTable, UsedInSection],
   template: `
     <div class="component-page">
       <header class="component-header">
@@ -117,6 +118,9 @@ import { faHome, faUser, faCog, faEnvelope, faChartBar, faFolder, faCalendar, fa
         <h2>API Reference</h2>
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

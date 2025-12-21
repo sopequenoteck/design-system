@@ -5,12 +5,13 @@ import { PropsTable } from '../../../shared/props/props-table';
 import { DsNotificationDefinition } from '../../../registry/definitions/ds-notification.definition';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 type NotificationType = 'info' | 'success' | 'warning' | 'error';
 
 @Component({
   selector: 'app-notification-page',
   standalone: true,
-  imports: [DsNotificationContainerComponent, DemoContainer, PropsTable],
+  imports: [DsNotificationContainerComponent, DemoContainer, PropsTable, UsedInSection],
   template: `
     <div class="component-page">
       <header class="component-header">
@@ -79,6 +80,9 @@ type NotificationType = 'info' | 'success' | 'warning' | 'error';
         <h2>API Reference</h2>
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
 
     <ds-notification-container />

@@ -5,13 +5,14 @@ import { PropsTable } from '../../../shared/props/props-table';
 import { DsSkeletonDefinition } from '../../../registry/definitions/ds-skeleton.definition';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 type SkeletonVariant = 'text' | 'circle' | 'rectangle' | 'card';
 type SizeType = 'sm' | 'md' | 'lg';
 
 @Component({
   selector: 'app-skeleton-page',
   standalone: true,
-  imports: [DsSkeleton, DemoContainer, PropsTable],
+  imports: [DsSkeleton, DemoContainer, PropsTable, UsedInSection],
   template: `
     <div class="component-page">
       <header class="component-header">
@@ -99,6 +100,9 @@ type SizeType = 'sm' | 'md' | 'lg';
         <h2>API Reference</h2>
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

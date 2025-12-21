@@ -5,12 +5,13 @@ import { map } from 'rxjs';
 import { ComponentRegistry } from '../../registry/component.registry';
 import { DemoContainer } from '../../shared/demo/demo-container';
 import { PropsTable } from '../../shared/props/props-table';
+import { UsedInSection } from '../../shared/used-in/used-in-section';
 import { ControlValues, DemoConfig } from '../../registry/types';
 
 @Component({
   selector: 'app-component-page',
   standalone: true,
-  imports: [DemoContainer, PropsTable],
+  imports: [DemoContainer, PropsTable, UsedInSection],
   template: `
     <div class="component-page">
       @if (definition()) {
@@ -60,6 +61,9 @@ import { ControlValues, DemoConfig } from '../../registry/types';
           <h2>API Reference</h2>
           <doc-props-table [props]="definition()!.props" />
         </section>
+
+        <!-- Utilisé dans -->
+        <doc-used-in-section [componentId]="definition()!.id" />
       } @else {
         <div class="not-found">
           <h1>Composant non trouvé</h1>

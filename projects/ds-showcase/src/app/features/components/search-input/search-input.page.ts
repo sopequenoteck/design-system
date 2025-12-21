@@ -5,10 +5,11 @@ import { PropsTable } from '../../../shared/props/props-table';
 import { DsSearchInputDefinition } from '../../../registry/definitions/ds-search-input.definition';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 @Component({
   selector: 'app-search-input-page',
   standalone: true,
-  imports: [DsSearchInput, DemoContainer, PropsTable],
+  imports: [DsSearchInput, DemoContainer, PropsTable, UsedInSection],
   template: `
     <div class="component-page">
       <header class="component-header">
@@ -92,6 +93,9 @@ import { ControlValues } from '../../../registry/types';
         <h2>API Reference</h2>
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

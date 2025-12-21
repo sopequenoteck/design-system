@@ -8,6 +8,7 @@ import { DocIcon } from '../../../shared/icon/doc-icon';
 import { DsToastDefinition } from '../../../registry/definitions';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 interface Task {
   id: string;
   name: string;
@@ -17,7 +18,7 @@ interface Task {
 @Component({
   selector: 'app-toast-page',
   standalone: true,
-  imports: [FormsModule, DsToastContainerComponent, DsButton, DsInputField, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [FormsModule, DsToastContainerComponent, DsButton, DsInputField, DemoContainer, PropsTable, ComponentPageHeader, DocIcon, UsedInSection],
   template: `
     <div class="component-page">
       <doc-component-page-header
@@ -338,6 +339,9 @@ interface Task {
 
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
 
     <ds-toast-container />

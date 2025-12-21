@@ -5,10 +5,11 @@ import { PropsTable } from '../../../shared/props/props-table';
 import { DsInputTextareaDefinition } from '../../../registry/definitions/ds-input-textarea.definition';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 @Component({
   selector: 'app-input-textarea-page',
   standalone: true,
-  imports: [DsInputTextarea, DemoContainer, PropsTable],
+  imports: [DsInputTextarea, DemoContainer, PropsTable, UsedInSection],
   template: `
     <div class="component-page">
       <header class="component-header">
@@ -98,6 +99,9 @@ import { ControlValues } from '../../../registry/types';
         <h2>API Reference</h2>
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

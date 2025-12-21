@@ -93,7 +93,7 @@ export type ControlValues = Record<string, unknown>;
 export interface SearchResult {
   id: string;
   label: string;
-  type: 'component' | 'documentation';
+  type: 'component' | 'demo' | 'documentation';
   path: string;
   category?: string;
   description?: string;

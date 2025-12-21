@@ -8,6 +8,7 @@ import { DocIcon } from '../../../shared/icon/doc-icon';
 import { DsCheckboxDefinition } from '../../../registry/definitions/ds-checkbox.definition';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 interface Task {
   id: string;
   label: string;
@@ -25,7 +26,7 @@ interface Plan {
 @Component({
   selector: 'app-checkbox-page',
   standalone: true,
-  imports: [FormsModule, DsCheckbox, DsButton, DsBadge, PrimitiveCheckbox, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [FormsModule, DsCheckbox, DsButton, DsBadge, PrimitiveCheckbox, DemoContainer, PropsTable, ComponentPageHeader, DocIcon, UsedInSection],
   template: `
     <div class="component-page">
       <doc-component-page-header
@@ -295,6 +296,9 @@ interface Plan {
 
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DsCard, DsProgressBar, DsTable, DsBadge } from 'ds-angular';
+import { DemoContainer } from '../../../shared/demo/demo-container';
+import { CodeSource } from '../../../registry/types';
 
 interface UsedComponent {
   id: string;
@@ -11,7 +13,7 @@ interface UsedComponent {
 @Component({
   selector: 'demo-dashboard-page',
   standalone: true,
-  imports: [RouterLink, DsCard, DsProgressBar, DsBadge],
+  imports: [RouterLink, DsCard, DsProgressBar, DsBadge, DemoContainer],
   template: `
     <div class="demo-page">
       <header class="demo-header">
@@ -19,8 +21,8 @@ interface UsedComponent {
         <p class="demo-description">Tableau de bord avec métriques, graphiques et données.</p>
       </header>
 
-      <section class="demo-preview">
-        <div class="demo-preview__container">
+      <section class="demo-section">
+        <doc-demo-container [sources]="sources">
           <div class="dashboard-demo">
             <div class="stats-row">
               <ds-card class="stat-card">
@@ -56,7 +58,7 @@ interface UsedComponent {
               </div>
             </ds-card>
           </div>
-        </div>
+        </doc-demo-container>
       </section>
 
       <section class="demo-components">
@@ -74,8 +76,7 @@ interface UsedComponent {
     .demo-header { margin-bottom: 32px; }
     .demo-header h1 { font-size: 2rem; font-weight: 700; margin: 0 0 8px; }
     .demo-description { font-size: 1.125rem; color: var(--doc-text-secondary); margin: 0; }
-    .demo-preview { background: var(--doc-surface-sunken); border-radius: 12px; padding: 32px; margin-bottom: 32px; }
-    .demo-preview__container { display: flex; justify-content: center; width: 100%; }
+    .demo-section { margin-bottom: 32px; }
     .dashboard-demo { width: 100%; display: flex; flex-direction: column; gap: 24px; }
     .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .stat-card { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
@@ -99,5 +100,142 @@ export class DashboardDemoPage {
     { id: 'ds-card', label: 'Card', path: '/components/data-display/ds-card' },
     { id: 'ds-badge', label: 'Badge', path: '/components/data-display/ds-badge' },
     { id: 'ds-progress-bar', label: 'Progress Bar', path: '/components/feedback/ds-progress-bar' },
+  ];
+
+  sources: CodeSource[] = [
+    {
+      language: 'html',
+      filename: 'dashboard.component.html',
+      content: `<div class="dashboard">
+  <div class="stats-row">
+    <ds-card class="stat-card">
+      <span class="stat-label">Utilisateurs</span>
+      <span class="stat-value">{{ stats.users | number }}</span>
+      <ds-badge [type]="stats.usersChange > 0 ? 'success' : 'error'">
+        {{ stats.usersChange > 0 ? '+' : '' }}{{ stats.usersChange }}%
+      </ds-badge>
+    </ds-card>
+    <ds-card class="stat-card">
+      <span class="stat-label">Revenus</span>
+      <span class="stat-value">{{ stats.revenue | currency:'EUR' }}</span>
+      <ds-badge [type]="stats.revenueChange > 0 ? 'success' : 'error'">
+        {{ stats.revenueChange > 0 ? '+' : '' }}{{ stats.revenueChange }}%
+      </ds-badge>
+    </ds-card>
+    <ds-card class="stat-card">
+      <span class="stat-label">Commandes</span>
+      <span class="stat-value">{{ stats.orders | number }}</span>
+      <ds-badge [type]="stats.ordersChange > 0 ? 'success' : 'warning'">
+        {{ stats.ordersChange > 0 ? '+' : '' }}{{ stats.ordersChange }}%
+      </ds-badge>
+    </ds-card>
+  </div>
+
+  <ds-card class="progress-card">
+    <h3>Objectifs mensuels</h3>
+    @for (goal of goals; track goal.id) {
+      <div class="progress-item">
+        <span>{{ goal.label }}</span>
+        <ds-progress-bar [value]="goal.progress" />
+      </div>
+    }
+  </ds-card>
+</div>`
+    },
+    {
+      language: 'typescript',
+      filename: 'dashboard.component.ts',
+      content: `import { Component, signal } from '@angular/core';
+import { DsCard, DsProgressBar, DsBadge } from 'ds-angular';
+
+interface Stats {
+  users: number;
+  usersChange: number;
+  revenue: number;
+  revenueChange: number;
+  orders: number;
+  ordersChange: number;
+}
+
+interface Goal {
+  id: string;
+  label: string;
+  progress: number;
+}
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [DsCard, DsProgressBar, DsBadge],
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss'
+})
+export class DashboardComponent {
+  stats: Stats = {
+    users: 12453,
+    usersChange: 12,
+    revenue: 45231,
+    revenueChange: 8,
+    orders: 1234,
+    ordersChange: -3
+  };
+
+  goals: Goal[] = [
+    { id: 'sales', label: 'Ventes', progress: 75 },
+    { id: 'leads', label: 'Leads', progress: 45 },
+    { id: 'support', label: 'Support', progress: 90 }
+  ];
+}`
+    },
+    {
+      language: 'scss',
+      filename: 'dashboard.component.scss',
+      content: `.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.stat-card {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.progress-card {
+  padding: var(--space-6);
+
+  h3 {
+    margin: 0 0 var(--space-5);
+    font-size: 1.125rem;
+  }
+}
+
+.progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+
+  span { font-size: 0.875rem; color: var(--text-secondary); }
+}`
+    }
   ];
 }

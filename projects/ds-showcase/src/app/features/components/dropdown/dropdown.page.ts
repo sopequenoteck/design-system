@@ -8,10 +8,11 @@ import { DsDropdownDefinition } from '../../../registry/definitions/ds-dropdown.
 import { ControlValues } from '../../../registry/types';
 import { faEdit, faTrash, faDownload, faUser, faCog, faSignOutAlt, faEllipsisV, faCopy, faShare, faArchive, faBell, faShield, faPalette, faLanguage, faStar, faFlag, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 @Component({
   selector: 'app-dropdown-page',
   standalone: true,
-  imports: [DsDropdown, DsButton, DsAvatar, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [DsDropdown, DsButton, DsAvatar, DemoContainer, PropsTable, ComponentPageHeader, DocIcon, UsedInSection],
   template: `
     <div class="component-page">
       <doc-component-page-header
@@ -368,6 +369,9 @@ import { faEdit, faTrash, faDownload, faUser, faCog, faSignOutAlt, faEllipsisV, 
 
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

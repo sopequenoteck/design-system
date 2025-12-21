@@ -8,6 +8,7 @@ import { DocIcon } from '../../../shared/icon/doc-icon';
 import { DsBadgeDefinition } from '../../../registry/definitions/ds-badge.definition';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 type BadgeType = 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info';
 type BadgeSize = 'sm' | 'md' | 'lg';
 type BadgeVariant = 'solid' | 'outline';
@@ -51,7 +52,7 @@ interface MenuItem {
 @Component({
   selector: 'app-badge-page',
   standalone: true,
-  imports: [FormsModule, DsBadge, DsButton, DsAvatar, DsCard, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [FormsModule, DsBadge, DsButton, DsAvatar, DsCard, DemoContainer, PropsTable, ComponentPageHeader, DocIcon, UsedInSection],
   template: `
     <div class="component-page">
       <doc-component-page-header
@@ -417,6 +418,9 @@ interface MenuItem {
 
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

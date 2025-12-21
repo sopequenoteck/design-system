@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ComponentRegistry } from '../../registry/component.registry';
 import { SearchResult } from '../../registry/types';
+import { DEMOS } from '../../registry/demos.registry';
 
 @Injectable({ providedIn: 'root' })
 export class SearchService {
@@ -40,58 +41,21 @@ export class SearchService {
       icon: '♿',
       description: 'WCAG 2.1 AA, navigation clavier, ARIA',
     },
-    {
-      id: 'doc-forms-patterns',
-      label: 'Forms Patterns',
-      type: 'documentation',
-      path: '/docs/forms-patterns',
-      icon: '📝',
-      description: 'Patterns de formulaires réactifs',
-    },
-    {
-      id: 'doc-navigation-patterns',
-      label: 'Navigation Patterns',
-      type: 'documentation',
-      path: '/docs/navigation-patterns',
-      icon: '🧭',
-      description: 'Patterns de navigation et layout',
-    },
-    {
-      id: 'doc-overlays-patterns',
-      label: 'Overlays Patterns',
-      type: 'documentation',
-      path: '/docs/overlays-patterns',
-      icon: '🪟',
-      description: 'Patterns de modals, drawers, tooltips',
-    },
-    {
-      id: 'doc-examples',
-      label: 'Examples',
-      type: 'documentation',
-      path: '/docs/examples',
-      icon: '💡',
-      description: 'Exemples de compositions complètes',
-    },
-    {
-      id: 'doc-contributing',
-      label: 'Contributing',
-      type: 'documentation',
-      path: '/docs/contributing',
-      icon: '🤝',
-      description: 'Guide de contribution au projet',
-    },
-    {
-      id: 'doc-migration',
-      label: 'Migration',
-      type: 'documentation',
-      path: '/docs/migration',
-      icon: '📦',
-      description: 'Guide de migration entre versions',
-    },
   ];
 
+  /** Démos disponibles */
+  private readonly demoPages: SearchResult[] = DEMOS.map(demo => ({
+    id: `demo-${demo.id}`,
+    label: demo.label,
+    type: 'demo' as const,
+    path: demo.path,
+    icon: this.getDemoCategoryIcon(demo.category),
+    category: demo.category,
+    description: this.getDemoDescription(demo.id),
+  }));
+
   /**
-   * Recherche unifiée dans les composants et la documentation
+   * Recherche unifiée dans les composants, démos et documentation
    */
   search(query: string): SearchResult[] {
     if (!query || query.trim().length < 2) {
@@ -115,6 +79,17 @@ export class SearchService {
       });
     }
 
+    // Recherche dans les démos
+    for (const demo of this.demoPages) {
+      if (
+        demo.label.toLowerCase().includes(lowerQuery) ||
+        demo.description?.toLowerCase().includes(lowerQuery) ||
+        demo.category?.toLowerCase().includes(lowerQuery)
+      ) {
+        results.push(demo);
+      }
+    }
+
     // Recherche dans les pages de documentation
     for (const doc of this.docPages) {
       if (
@@ -125,17 +100,20 @@ export class SearchService {
       }
     }
 
-    // Trier : composants d'abord, puis documentation
+    // Trier : composants d'abord, puis démos, puis documentation
     return results.sort((a, b) => {
-      if (a.type === b.type) {
-        return a.label.localeCompare(b.label);
+      const typeOrder = { component: 0, demo: 1, documentation: 2 };
+      const orderA = typeOrder[a.type as keyof typeof typeOrder] ?? 3;
+      const orderB = typeOrder[b.type as keyof typeof typeOrder] ?? 3;
+      if (orderA !== orderB) {
+        return orderA - orderB;
       }
-      return a.type === 'component' ? -1 : 1;
+      return a.label.localeCompare(b.label);
     });
   }
 
   /**
-   * Retourne l'icône correspondant à une catégorie
+   * Retourne l'icône correspondant à une catégorie de composant
    */
   private getCategoryIcon(category: string): string {
     const icons: Record<string, string> = {
@@ -148,5 +126,37 @@ export class SearchService {
       layout: '📐',
     };
     return icons[category] || '📦';
+  }
+
+  /**
+   * Retourne l'icône correspondant à une catégorie de démo
+   */
+  private getDemoCategoryIcon(category: string): string {
+    const icons: Record<string, string> = {
+      forms: '📝',
+      navigation: '🧭',
+      data: '📊',
+      feedback: '🔔',
+    };
+    return icons[category] || '💡';
+  }
+
+  /**
+   * Retourne la description d'une démo
+   */
+  private getDemoDescription(demoId: string): string {
+    const descriptions: Record<string, string> = {
+      'login': 'Formulaire de connexion complet',
+      'contact': 'Formulaire de contact',
+      'settings': 'Page de paramètres utilisateur',
+      'sidebar-layout': 'Layout avec sidebar de navigation',
+      'header': 'En-tête d\'application',
+      'dashboard': 'Tableau de bord avec métriques',
+      'table-advanced': 'Table avec recherche et pagination',
+      'cards-grid': 'Grille de cartes',
+      'notifications': 'Alertes et toasts',
+      'loading-states': 'États de chargement',
+    };
+    return descriptions[demoId] || 'Démo interactive';
   }
 }

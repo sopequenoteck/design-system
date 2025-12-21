@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DsButton } from 'ds-angular';
+import { DemoContainer } from '../../../shared/demo/demo-container';
+import { CodeSource } from '../../../registry/types';
 
 interface UsedComponent {
   id: string;
@@ -11,7 +13,7 @@ interface UsedComponent {
 @Component({
   selector: 'demo-sidebar-layout-page',
   standalone: true,
-  imports: [RouterLink, DsButton],
+  imports: [RouterLink, DsButton, DemoContainer],
   template: `
     <div class="demo-page">
       <header class="demo-header">
@@ -19,8 +21,8 @@ interface UsedComponent {
         <p class="demo-description">Layout avec sidebar de navigation et contenu principal.</p>
       </header>
 
-      <section class="demo-preview">
-        <div class="demo-preview__container">
+      <section class="demo-section">
+        <doc-demo-container [sources]="sources">
           <div class="layout-demo">
             <aside class="demo-sidebar">
               <div class="sidebar-header">
@@ -43,7 +45,7 @@ interface UsedComponent {
               </div>
             </main>
           </div>
-        </div>
+        </doc-demo-container>
       </section>
 
       <section class="demo-components">
@@ -61,8 +63,7 @@ interface UsedComponent {
     .demo-header { margin-bottom: 32px; }
     .demo-header h1 { font-size: 2rem; font-weight: 700; margin: 0 0 8px; }
     .demo-description { font-size: 1.125rem; color: var(--doc-text-secondary); margin: 0; }
-    .demo-preview { background: var(--doc-surface-sunken); border-radius: 12px; padding: 32px; margin-bottom: 32px; }
-    .demo-preview__container { display: flex; justify-content: center; }
+    .demo-section { margin-bottom: 32px; }
     .layout-demo {
       display: flex; width: 100%; max-width: 900px; height: 500px;
       border: 1px solid var(--doc-border-default); border-radius: 8px; overflow: hidden;
@@ -102,5 +103,137 @@ export class SidebarLayoutDemoPage {
     { id: 'ds-sidebar', label: 'Sidebar', path: '/components/navigation/ds-sidebar' },
     { id: 'ds-nav-list', label: 'Nav List', path: '/components/navigation/ds-nav-list' },
     { id: 'ds-button', label: 'Button', path: '/components/actions/ds-button' },
+  ];
+
+  sources: CodeSource[] = [
+    {
+      language: 'html',
+      filename: 'app-layout.component.html',
+      content: `<div class="app-layout">
+  <ds-sidebar [collapsed]="sidebarCollapsed" (collapsedChange)="sidebarCollapsed = $event">
+    <div class="sidebar-header">
+      <img src="/logo.svg" alt="Logo" />
+      <span>Mon App</span>
+    </div>
+
+    <ds-nav-list [groups]="navGroups" [(activeId)]="activeNavId" />
+
+    <div class="sidebar-footer">
+      <ds-button variant="ghost" size="sm" (click)="logout()">
+        Déconnexion
+      </ds-button>
+    </div>
+  </ds-sidebar>
+
+  <main class="app-main">
+    <header class="app-topbar">
+      <ds-button variant="ghost" size="sm" (click)="sidebarCollapsed = !sidebarCollapsed">
+        <fa-icon [icon]="faMenu" />
+      </ds-button>
+      <h1>{{ pageTitle }}</h1>
+      <ds-button variant="primary">Nouvelle action</ds-button>
+    </header>
+
+    <div class="app-content">
+      <router-outlet />
+    </div>
+  </main>
+</div>`
+    },
+    {
+      language: 'typescript',
+      filename: 'app-layout.component.ts',
+      content: `import { Component, signal } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { DsSidebar, DsNavList, DsButton, NavGroup } from 'ds-angular';
+
+@Component({
+  selector: 'app-layout',
+  standalone: true,
+  imports: [RouterOutlet, DsSidebar, DsNavList, DsButton],
+  templateUrl: './app-layout.component.html',
+  styleUrl: './app-layout.component.scss'
+})
+export class AppLayoutComponent {
+  sidebarCollapsed = false;
+  activeNavId = 'dashboard';
+  pageTitle = 'Dashboard';
+
+  navGroups: NavGroup[] = [
+    {
+      id: 'main',
+      items: [
+        { id: 'dashboard', label: 'Dashboard', icon: 'home', path: '/dashboard' },
+        { id: 'projects', label: 'Projets', icon: 'folder', path: '/projects' },
+        { id: 'team', label: 'Équipe', icon: 'users', path: '/team' }
+      ]
+    },
+    {
+      id: 'settings',
+      label: 'Configuration',
+      items: [
+        { id: 'settings', label: 'Paramètres', icon: 'cog', path: '/settings' }
+      ]
+    }
+  ];
+
+  logout() {
+    // Logout logic...
+  }
+}`
+    },
+    {
+      language: 'scss',
+      filename: 'app-layout.component.scss',
+      content: `.app-layout {
+  display: flex;
+  height: 100vh;
+  background: var(--surface-page);
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.app-topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-default);
+  background: var(--surface-elevated);
+
+  h1 {
+    flex: 1;
+    margin: 0;
+    font-size: 1.25rem;
+  }
+}
+
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-6);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+
+  img { width: 32px; height: 32px; }
+  span { font-weight: 600; }
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: var(--space-4);
+  border-top: 1px solid var(--border-default);
+}`
+    }
   ];
 }

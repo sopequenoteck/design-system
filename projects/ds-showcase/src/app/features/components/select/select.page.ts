@@ -8,12 +8,13 @@ import { DocIcon } from '../../../shared/icon/doc-icon';
 import { DsSelectDefinition } from '../../../registry/definitions/ds-select.definition';
 import { ControlValues } from '../../../registry/types';
 
+import { UsedInSection } from '../../../shared/used-in/used-in-section';
 type SelectSize = 'sm' | 'md' | 'lg';
 
 @Component({
   selector: 'app-select-page',
   standalone: true,
-  imports: [FormsModule, DsSelect, DsButton, DsAvatar, DsBadge, DemoContainer, PropsTable, ComponentPageHeader, DocIcon],
+  imports: [FormsModule, DsSelect, DsButton, DsAvatar, DsBadge, DemoContainer, PropsTable, ComponentPageHeader, DocIcon, UsedInSection],
   template: `
     <div class="component-page">
       <doc-component-page-header
@@ -310,6 +311,9 @@ type SelectSize = 'sm' | 'md' | 'lg';
 
         <doc-props-table [props]="definition.props" />
       </section>
+
+      <!-- Utilisé dans -->
+      <doc-used-in-section [componentId]="definition.id" />
     </div>
   `,
   styles: [`

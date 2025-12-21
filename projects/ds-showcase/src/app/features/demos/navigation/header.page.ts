@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DsButton, DsAvatar } from 'ds-angular';
+import { DemoContainer } from '../../../shared/demo/demo-container';
+import { CodeSource } from '../../../registry/types';
 
 interface UsedComponent {
   id: string;
@@ -11,7 +13,7 @@ interface UsedComponent {
 @Component({
   selector: 'demo-header-page',
   standalone: true,
-  imports: [RouterLink, DsButton, DsAvatar],
+  imports: [RouterLink, DsButton, DsAvatar, DemoContainer],
   template: `
     <div class="demo-page">
       <header class="demo-header">
@@ -19,8 +21,8 @@ interface UsedComponent {
         <p class="demo-description">En-tête d'application avec navigation, recherche et profil utilisateur.</p>
       </header>
 
-      <section class="demo-preview">
-        <div class="demo-preview__container">
+      <section class="demo-section">
+        <doc-demo-container [sources]="sources">
           <div class="header-demo">
             <div class="header-left">
               <span class="header-logo">MyApp</span>
@@ -36,7 +38,7 @@ interface UsedComponent {
               <ds-avatar initials="JD" size="sm" />
             </div>
           </div>
-        </div>
+        </doc-demo-container>
       </section>
 
       <section class="demo-components">
@@ -54,8 +56,7 @@ interface UsedComponent {
     .demo-header { margin-bottom: 32px; }
     .demo-header h1 { font-size: 2rem; font-weight: 700; margin: 0 0 8px; }
     .demo-description { font-size: 1.125rem; color: var(--doc-text-secondary); margin: 0; }
-    .demo-preview { background: var(--doc-surface-sunken); border-radius: 12px; padding: 32px; margin-bottom: 32px; }
-    .demo-preview__container { display: flex; justify-content: center; }
+    .demo-section { margin-bottom: 32px; }
     .header-demo {
       display: flex; justify-content: space-between; align-items: center; width: 100%;
       padding: 12px 24px; background: var(--doc-surface-elevated);
@@ -81,5 +82,154 @@ export class HeaderDemoPage {
     { id: 'ds-button', label: 'Button', path: '/components/actions/ds-button' },
     { id: 'ds-avatar', label: 'Avatar', path: '/components/data-display/ds-avatar' },
     { id: 'ds-dropdown', label: 'Dropdown', path: '/components/overlays/ds-dropdown' },
+  ];
+
+  sources: CodeSource[] = [
+    {
+      language: 'html',
+      filename: 'app-header.component.html',
+      content: `<header class="app-header">
+  <div class="header-left">
+    <a routerLink="/" class="header-logo">
+      <img src="/assets/logo.svg" alt="Logo" />
+      <span>MyApp</span>
+    </a>
+    <nav class="header-nav">
+      @for (item of navItems; track item.path) {
+        <a [routerLink]="item.path" routerLinkActive="active">
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+  </div>
+
+  <div class="header-right">
+    <ds-button variant="ghost" size="sm" (click)="openSearch()">
+      <fa-icon [icon]="faSearch" />
+      Rechercher
+    </ds-button>
+
+    <ds-dropdown [trigger]="userTrigger" [items]="userMenuItems">
+      <ng-template #userTrigger>
+        <button class="user-button">
+          <ds-avatar [initials]="user.initials" size="sm" />
+          <span>{{ user.name }}</span>
+        </button>
+      </ng-template>
+    </ds-dropdown>
+  </div>
+</header>`
+    },
+    {
+      language: 'typescript',
+      filename: 'app-header.component.ts',
+      content: `import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { DsButton, DsAvatar, DsDropdown, DropdownItem } from 'ds-angular';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
+interface NavItem {
+  label: string;
+  path: string;
+}
+
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive, DsButton, DsAvatar, DsDropdown, FaIconComponent],
+  templateUrl: './app-header.component.html',
+  styleUrl: './app-header.component.scss'
+})
+export class AppHeaderComponent {
+  faSearch = faSearch;
+
+  user = {
+    name: 'John Doe',
+    initials: 'JD',
+    email: 'john@example.com'
+  };
+
+  navItems: NavItem[] = [
+    { label: 'Accueil', path: '/' },
+    { label: 'Produits', path: '/products' },
+    { label: 'À propos', path: '/about' },
+    { label: 'Contact', path: '/contact' }
+  ];
+
+  userMenuItems: DropdownItem[] = [
+    { id: 'profile', label: 'Mon profil', icon: 'user' },
+    { id: 'settings', label: 'Paramètres', icon: 'cog' },
+    { id: 'divider', type: 'divider' },
+    { id: 'logout', label: 'Déconnexion', icon: 'sign-out-alt' }
+  ];
+
+  openSearch() {
+    // Open search modal...
+  }
+}`
+    },
+    {
+      language: 'scss',
+      filename: 'app-header.component.scss',
+      content: `.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-6);
+  background: var(--surface-elevated);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+
+  img { width: 32px; height: 32px; }
+  span { font-weight: 700; font-size: 1.25rem; color: var(--text-primary); }
+}
+
+.header-nav {
+  display: flex;
+  gap: var(--space-6);
+
+  a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 150ms;
+
+    &:hover, &.active { color: var(--text-primary); }
+  }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.user-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+
+  &:hover { background: var(--surface-sunken); }
+  span { font-size: 0.875rem; }
+}`
+    }
   ];
 }

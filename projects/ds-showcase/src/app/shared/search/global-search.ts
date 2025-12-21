@@ -108,6 +108,34 @@ import { DocIcon } from '../icon/doc-icon';
                 </div>
               }
 
+              <!-- Démos -->
+              @if (demoResults().length > 0) {
+                <div class="search-group">
+                  <div class="search-group__header">
+                    <doc-icon name="eye" size="xs" />
+                    Démos
+                  </div>
+                  @for (result of demoResults(); track result.id; let i = $index) {
+                    <a
+                      class="search-result"
+                      [class.selected]="componentResults().length + i === selectedIndex()"
+                      [routerLink]="result.path"
+                      (click)="selectResult(result)"
+                      (mouseenter)="selectedIndex.set(componentResults().length + i)"
+                    >
+                      <div class="search-result__icon">
+                        <doc-icon name="eye" size="sm" />
+                      </div>
+                      <div class="search-result__content">
+                        <span class="search-result__label">{{ result.label }}</span>
+                        <span class="search-result__category">{{ result.category }}</span>
+                      </div>
+                      <doc-icon name="arrow-right" size="sm" class="search-result__arrow" />
+                    </a>
+                  }
+                </div>
+              }
+
               <!-- Documentation -->
               @if (docResults().length > 0) {
                 <div class="search-group">
@@ -118,10 +146,10 @@ import { DocIcon } from '../icon/doc-icon';
                   @for (result of docResults(); track result.id; let i = $index) {
                     <a
                       class="search-result"
-                      [class.selected]="componentResults().length + i === selectedIndex()"
+                      [class.selected]="componentResults().length + demoResults().length + i === selectedIndex()"
                       [routerLink]="result.path"
                       (click)="selectResult(result)"
-                      (mouseenter)="selectedIndex.set(componentResults().length + i)"
+                      (mouseenter)="selectedIndex.set(componentResults().length + demoResults().length + i)"
                     >
                       <div class="search-result__icon">
                         <doc-icon name="book" size="sm" />
@@ -469,6 +497,10 @@ export class GlobalSearch implements OnInit, OnDestroy {
   /** Résultats filtrés par type */
   componentResults = computed(() =>
     this.results().filter(r => r.type === 'component')
+  );
+
+  demoResults = computed(() =>
+    this.results().filter(r => r.type === 'demo')
   );
 
   docResults = computed(() =>
