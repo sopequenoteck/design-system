@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Projet
 
-Bibliothèque de design system Angular 20 (`@kksdev/ds-angular`) avec 53 composants DS et 7 primitives.
+Bibliothèque de design system Angular 20 (`@kksdev/ds-angular`) avec 60 composants DS et 7 primitives.
 
 **Production** : https://ds-showcase.kkshome.online/
 
@@ -46,7 +46,7 @@ docker compose up -d --build   # Build et lance Showcase sur port 4300
 projects/
 ├── ds-angular/src/lib/        # Bibliothèque publiée sur npm
 │   ├── primitives/            # 7 composants atomiques (primitive-button, primitive-input, etc.)
-│   ├── components/            # 53 composants DS (ds-button, ds-modal, ds-table, etc.)
+│   ├── components/            # 60 composants DS (ds-button, ds-modal, ds-table, etc.)
 │   ├── utils/                 # Utilitaires (overlay-positions, i18n)
 │   └── styles/                # Système de tokens et thèmes
 └── ds-showcase/               # Documentation interactive (Angular app)
@@ -99,3 +99,5 @@ Activation thème : `document.documentElement.className = 'theme-light'`
 3. **Tokens thématiques** : Tout nouveau composant doit avoir ses tokens dans `_light.scss`, `_dark.scss` ET `_custom.scss`
 
 4. **Tests signals** : Utiliser `component.mySignal.set(value)` au lieu de `ng-reflect-*` (les signals ne sont pas reflétés)
+
+5. **Device Switcher** : Le Showcase permet de prévisualiser les démos en Desktop (100%), Tablet (768px) et Mobile (375px) via le composant `DeviceSwitcher`

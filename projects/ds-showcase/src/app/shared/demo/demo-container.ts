@@ -1,9 +1,9 @@
-import { Component, input, output, signal, ViewChild, computed, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, input, output, signal, ViewChild, computed, ElementRef, AfterViewInit, HostListener } from '@angular/core';
 import { ThemeSwitcher } from '../theme/theme-switcher';
 import { CodePreview } from './code-preview';
 import { CodeTabs } from './code-tabs';
 import { ControlsPanel } from './controls-panel';
-import { FullscreenDemo } from './fullscreen-demo';
+import { DeviceSwitcher, DeviceType } from './device-switcher';
 import { DocIcon } from '../icon/doc-icon';
 import { ControlConfig, ControlValues, CodeSource } from '../../registry/types';
 import { DsButton, DsTooltip, DsBadge } from 'ds-angular';
@@ -11,9 +11,9 @@ import { DsButton, DsTooltip, DsBadge } from 'ds-angular';
 @Component({
   selector: 'doc-demo-container',
   standalone: true,
-  imports: [ThemeSwitcher, CodePreview, CodeTabs, ControlsPanel, FullscreenDemo, DocIcon, DsButton, DsTooltip, DsBadge],
+  imports: [ThemeSwitcher, CodePreview, CodeTabs, ControlsPanel, DeviceSwitcher, DocIcon, DsButton, DsTooltip, DsBadge],
   template: `
-    <div class="demo-container" [class.demo-container--with-controls]="controls().length > 0">
+    <div class="demo-container" [class.demo-container--with-controls]="controls().length > 0" [class.demo-container--fullscreen]="isFullscreen()">
       <!-- Toolbar -->
       <div class="demo-toolbar">
         <div class="demo-tabs" role="tablist">
@@ -49,6 +49,10 @@ import { DsButton, DsTooltip, DsBadge } from 'ds-angular';
         </div>
 
         <div class="demo-actions">
+          @if (activeTab() === 'preview') {
+            <doc-device-switcher [(selectedDevice)]="selectedDevice" />
+            <div class="demo-separator"></div>
+          }
           @if (activeTab() === 'code') {
             <ds-button
               variant="ghost"
@@ -63,11 +67,11 @@ import { DsButton, DsTooltip, DsBadge } from 'ds-angular';
           <ds-button
             variant="ghost"
             size="sm"
-            [dsTooltip]="'Plein écran'"
-            (click)="openFullscreen()"
+            [dsTooltip]="isFullscreen() ? 'Quitter le plein écran' : 'Plein écran'"
+            (click)="toggleFullscreen()"
             class="demo-action-btn"
           >
-            <doc-icon name="fullscreen" size="sm" />
+            <doc-icon [name]="isFullscreen() ? 'close' : 'fullscreen'" size="sm" />
           </ds-button>
           <div class="demo-separator"></div>
           <doc-theme-switcher />
@@ -76,8 +80,19 @@ import { DsButton, DsTooltip, DsBadge } from 'ds-angular';
 
       <!-- Preview area -->
       @if (activeTab() === 'preview') {
-        <div class="demo-preview" role="tabpanel">
-          <ng-content />
+        <div
+          class="demo-preview"
+          [class.demo-preview--device-mode]="selectedDevice() !== 'desktop'"
+          role="tabpanel"
+        >
+          <div
+            class="demo-preview__viewport"
+            [class.demo-preview__viewport--tablet]="selectedDevice() === 'tablet'"
+            [class.demo-preview__viewport--mobile]="selectedDevice() === 'mobile'"
+            [style.maxWidth.px]="previewWidth()"
+          >
+            <ng-content />
+          </div>
         </div>
 
         <!-- Controls panel -->
@@ -109,11 +124,6 @@ import { DsButton, DsTooltip, DsBadge } from 'ds-angular';
         </div>
       }
     </div>
-
-    <!-- Fullscreen overlay -->
-    <doc-fullscreen-demo #fullscreenDemo [title]="'Preview'">
-      <ng-content select="[fullscreen]" />
-    </doc-fullscreen-demo>
   `,
   styles: [`
     .demo-container {
@@ -125,6 +135,45 @@ import { DsButton, DsTooltip, DsBadge } from 'ds-angular';
 
       &:hover {
         box-shadow: var(--doc-shadow-sm);
+      }
+
+      // Mode fullscreen
+      &--fullscreen {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        border-radius: 0;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        animation: fullscreenFadeIn 0.2s ease;
+
+        .demo-toolbar {
+          flex-shrink: 0;
+        }
+
+        .demo-preview {
+          flex: 1;
+          padding: var(--doc-space-2xl, 48px);
+          overflow: auto;
+        }
+
+        .demo-controls {
+          flex-shrink: 0;
+          max-height: 40vh;
+          overflow: auto;
+        }
+      }
+    }
+
+    @keyframes fullscreenFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
       }
     }
 
@@ -244,6 +293,60 @@ import { DsButton, DsTooltip, DsBadge } from 'ds-angular';
       flex-wrap: wrap;
       background: var(--doc-surface-elevated, #ffffff);
       animation: doc-fade-in 200ms ease-out;
+
+      // Mode device actif (tablet ou mobile)
+      &--device-mode {
+        background: var(--doc-surface-sunken, #f8fafc);
+        background-image: radial-gradient(
+          circle,
+          var(--doc-border-subtle, #e2e8f0) 1px,
+          transparent 1px
+        );
+        background-size: 16px 16px;
+        padding: var(--doc-space-xl, 32px);
+      }
+    }
+
+    // Viewport qui contient le composant
+    .demo-preview__viewport {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--doc-space-md, 16px);
+      flex-wrap: wrap;
+      transition: all var(--doc-transition-base, 200ms) ease;
+
+      &--tablet,
+      &--mobile {
+        background: var(--doc-surface-elevated, #ffffff);
+        border-radius: var(--doc-radius-lg, 14px);
+        box-shadow: var(--doc-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+        padding: var(--doc-space-xl, 32px);
+        animation: deviceViewportIn 0.3s ease-out;
+      }
+
+      &--tablet {
+        border: 3px solid #1a1a1a;
+        border-radius: 20px;
+      }
+
+      &--mobile {
+        border: 4px solid #1a1a1a;
+        border-radius: 32px;
+        padding: var(--doc-space-lg, 24px);
+      }
+    }
+
+    @keyframes deviceViewportIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     // ==========================================================================
@@ -292,7 +395,6 @@ import { DsButton, DsTooltip, DsBadge } from 'ds-angular';
   `]
 })
 export class DemoContainer implements AfterViewInit {
-  @ViewChild('fullscreenDemo') fullscreenDemo?: FullscreenDemo;
   @ViewChild('previewTab') previewTab?: ElementRef<HTMLButtonElement>;
   @ViewChild('codeTab') codeTab?: ElementRef<HTMLButtonElement>;
 
@@ -316,6 +418,22 @@ export class DemoContainer implements AfterViewInit {
 
   /** Onglet actif */
   activeTab = signal<'preview' | 'code'>('preview');
+
+  /** Mode plein écran */
+  isFullscreen = signal(false);
+
+  /** Device sélectionné pour la preview */
+  selectedDevice = signal<DeviceType>('desktop');
+
+  /** Largeur de la preview selon le device */
+  readonly previewWidth = computed(() => {
+    const widths: Record<DeviceType, number | null> = {
+      desktop: null,
+      tablet: 768,
+      mobile: 375
+    };
+    return widths[this.selectedDevice()];
+  });
 
   /** Code copié */
   copied = signal(false);
@@ -362,9 +480,33 @@ export class DemoContainer implements AfterViewInit {
     this.controlChange.emit(values);
   }
 
+  /** Fermeture via Escape */
+  @HostListener('document:keydown.escape')
+  handleEscape(): void {
+    if (this.isFullscreen()) {
+      this.closeFullscreen();
+    }
+  }
+
+  /** Bascule le mode plein écran */
+  toggleFullscreen(): void {
+    if (this.isFullscreen()) {
+      this.closeFullscreen();
+    } else {
+      this.openFullscreen();
+    }
+  }
+
   /** Ouvre le mode plein écran */
-  openFullscreen(): void {
-    this.fullscreenDemo?.open();
+  private openFullscreen(): void {
+    this.isFullscreen.set(true);
+    document.body.classList.add('fullscreen-open');
+  }
+
+  /** Ferme le mode plein écran */
+  private closeFullscreen(): void {
+    this.isFullscreen.set(false);
+    document.body.classList.remove('fullscreen-open');
   }
 
   /** Copie le code dans le presse-papier */
