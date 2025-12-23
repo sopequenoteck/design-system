@@ -1,7 +1,7 @@
 # DS-Angular Design System
 
 [![CI](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/sopequeno-tech/design-system/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/@kksdev/ds-angular?label=v1.7.1&color=7d4bc0)](https://www.npmjs.com/package/@kksdev/ds-angular)
+[![npm version](https://img.shields.io/npm/v/@kksdev/ds-angular?label=v1.8.0&color=7d4bc0)](https://www.npmjs.com/package/@kksdev/ds-angular)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/@kksdev/ds-angular?label=bundle&color=2dd4bf)](https://bundlephobia.com/package/@kksdev/ds-angular)
 
@@ -54,8 +54,8 @@ export class AppComponent {}
 - `primitive-checkbox`, `primitive-radio`, `primitive-toggle`
 - `primitive-textarea`
 
-### Components (60 composants DS)
-- **Forms** : `ds-input-field`, `ds-input-textarea`, `ds-checkbox`, `ds-radio-group`, `ds-toggle`, `ds-select`, `ds-combobox`, `ds-search-input`, `ds-date-picker`
+### Components (55 composants DS)
+- **Forms** : `ds-input-field`, `ds-input-textarea`, `ds-checkbox`, `ds-radio-group`, `ds-toggle`, `ds-select`, `ds-combobox`, `ds-search-input`, `ds-date-picker`, `ds-entity-picker`
 - **Display** : `ds-button`, `ds-badge`, `ds-card`, `ds-alert`, `ds-divider`, `ds-avatar`, `ds-progress-bar`, `ds-skeleton`
 - **Data** : `ds-table`
 - **Navigation** : `ds-breadcrumb`, `ds-tabs`, `ds-pagination`, `ds-stepper`, `ds-accordion`, `ds-menu`

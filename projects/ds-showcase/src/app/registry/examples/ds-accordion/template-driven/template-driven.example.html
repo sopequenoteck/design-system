@@ -1,0 +1,18 @@
+<ds-accordion [multiple]="multiple()" [size]="size()" [variant]="variant()">
+  @for (group of groupedItems(); track group.key) {
+    <ds-accordion-item [header]="group.label" [badge]="group.items.length" [id]="group.key">
+      <div class="task-list">
+        @for (task of group.items; track task.id) {
+          <div class="task-item" [class.task-item--completed]="task.status === 'completed'">
+            <ds-chip
+              [label]="task.status === 'completed' ? 'Done' : 'Pending'"
+              [color]="task.status === 'completed' ? 'success' : 'warning'"
+              size="sm"
+            />
+            <span class="task-name">{{ task.name }}</span>
+          </div>
+        }
+      </div>
+    </ds-accordion-item>
+  }
+</ds-accordion>

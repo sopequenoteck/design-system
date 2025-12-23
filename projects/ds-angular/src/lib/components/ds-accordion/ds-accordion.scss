@@ -67,6 +67,13 @@
     }
   }
 
+  // Badge (mode template-driven)
+  &__badge {
+    margin-left: var(--space-2);
+    margin-right: var(--space-2);
+    flex-shrink: 0;
+  }
+
   // Contenu
   &__content {
     max-height: 0;

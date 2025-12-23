@@ -1,37 +1,84 @@
 <div [ngClass]="containerClasses()">
-  @for (item of items(); track item.id; let i = $index) {
-    <div [ngClass]="getItemClasses(item)">
-      <!-- Header -->
-      <button
-        type="button"
-        class="ds-accordion__header"
-        [id]="getHeaderId(item)"
-        [attr.aria-expanded]="isExpanded(item.id)"
-        [attr.aria-controls]="getContentId(item)"
-        [disabled]="disabled() || item.disabled"
-        (click)="toggleItem(item)"
-        (keydown)="onKeydown($event, item, i)">
-        <span class="ds-accordion__title">{{ item.header }}</span>
-        <fa-icon
-          class="ds-accordion__icon"
-          [icon]="faChevronDown"
-          [class.ds-accordion__icon--rotated]="isExpanded(item.id)"
-          aria-hidden="true">
-        </fa-icon>
-      </button>
+  <!-- Mode data-driven (rétrocompatible) -->
+  @if (mode() === 'data') {
+    @for (item of items(); track item.id; let i = $index) {
+      <div [ngClass]="getItemClasses(item)">
+        <!-- Header -->
+        <button
+          type="button"
+          class="ds-accordion__header"
+          [id]="getHeaderId(item)"
+          [attr.aria-expanded]="isExpanded(item.id)"
+          [attr.aria-controls]="getContentId(item)"
+          [disabled]="disabled() || item.disabled"
+          (click)="toggleItem(item)"
+          (keydown)="onKeydown($event, item, i)">
+          <span class="ds-accordion__title">{{ item.header }}</span>
+          <fa-icon
+            class="ds-accordion__icon"
+            [icon]="faChevronDown"
+            [class.ds-accordion__icon--rotated]="isExpanded(item.id)"
+            aria-hidden="true">
+          </fa-icon>
+        </button>
 
-      <!-- Contenu -->
-      <div
-        class="ds-accordion__content"
-        [id]="getContentId(item)"
-        role="region"
-        [attr.aria-labelledby]="getHeaderId(item)"
-        [attr.aria-hidden]="!isExpanded(item.id)"
-        [class.ds-accordion__content--expanded]="isExpanded(item.id)">
-        <div class="ds-accordion__body">
-          {{ item.content }}
+        <!-- Contenu -->
+        <div
+          class="ds-accordion__content"
+          [id]="getContentId(item)"
+          role="region"
+          [attr.aria-labelledby]="getHeaderId(item)"
+          [attr.aria-hidden]="!isExpanded(item.id)"
+          [class.ds-accordion__content--expanded]="isExpanded(item.id)">
+          <div class="ds-accordion__body">
+            {{ item.content }}
+          </div>
         </div>
       </div>
-    </div>
+    }
+  }
+
+  <!-- Mode template-driven (contenu riche) -->
+  @if (mode() === 'template') {
+    @for (item of accordionItems(); track item.id(); let i = $index) {
+      <div [ngClass]="getTemplateItemClasses(item)">
+        <!-- Header -->
+        <button
+          type="button"
+          class="ds-accordion__header"
+          [id]="'accordion-header-' + item.id()"
+          [attr.aria-expanded]="isExpanded(item.id())"
+          [attr.aria-controls]="'accordion-content-' + item.id()"
+          [disabled]="disabled() || item.disabled()"
+          (click)="toggleTemplateItem(item)"
+          (keydown)="onTemplateKeydown($event, item, i)">
+          <span class="ds-accordion__title">{{ item.header() }}</span>
+          @if (item.badge() !== undefined) {
+            <ds-badge class="ds-accordion__badge" size="sm" type="neutral">
+              {{ item.badge() }}
+            </ds-badge>
+          }
+          <fa-icon
+            class="ds-accordion__icon"
+            [icon]="faChevronDown"
+            [class.ds-accordion__icon--rotated]="isExpanded(item.id())"
+            aria-hidden="true">
+          </fa-icon>
+        </button>
+
+        <!-- Contenu -->
+        <div
+          class="ds-accordion__content"
+          [id]="'accordion-content-' + item.id()"
+          role="region"
+          [attr.aria-labelledby]="'accordion-header-' + item.id()"
+          [attr.aria-hidden]="!isExpanded(item.id())"
+          [class.ds-accordion__content--expanded]="isExpanded(item.id())">
+          <div class="ds-accordion__body">
+            <ng-container *ngTemplateOutlet="item.contentTemplate" />
+          </div>
+        </div>
+      </div>
+    }
   }
 </div>

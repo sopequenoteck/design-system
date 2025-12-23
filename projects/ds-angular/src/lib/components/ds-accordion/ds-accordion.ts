@@ -1,7 +1,17 @@
-import { Component, input, output, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  input,
+  output,
+  computed,
+  signal,
+  contentChildren,
+  AfterContentInit,
+} from '@angular/core';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { DsAccordionItem } from './ds-accordion-item';
+import { DsBadge } from '../ds-badge/ds-badge';
 
 /**
  * Taille de l'accordion.
@@ -57,18 +67,20 @@ export interface AccordionChangeEvent {
  */
 @Component({
   selector: 'ds-accordion',
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, NgTemplateOutlet, DsBadge],
   templateUrl: './ds-accordion.html',
   styleUrl: './ds-accordion.scss',
 })
-export class DsAccordion {
+export class DsAccordion implements AfterContentInit {
   // Icône FontAwesome
   readonly faChevronDown = faChevronDown;
 
   /**
-   * Liste des items de l'accordion.
+   * Liste des items de l'accordion (mode data-driven).
+   * Laisser vide pour utiliser le mode template-driven avec <ds-accordion-item>.
+   * @default []
    */
-  items = input.required<AccordionItem[]>();
+  items = input<AccordionItem[]>([]);
 
   /**
    * Permettre l'expansion de plusieurs items simultanément.
@@ -104,6 +116,21 @@ export class DsAccordion {
    * Événement émis lors du changement d'état d'un item.
    */
   itemChange = output<AccordionChangeEvent>();
+
+  /**
+   * Items enfants en mode template-driven.
+   * @internal
+   */
+  readonly accordionItems = contentChildren(DsAccordionItem);
+
+  /**
+   * Mode de fonctionnement (auto-détecté).
+   * - 'data' : si [items] est fourni et non vide
+   * - 'template' : si des <ds-accordion-item> enfants sont présents
+   */
+  readonly mode = computed(() => {
+    return this.items().length > 0 ? 'data' : 'template';
+  });
 
   /**
    * État interne des items ouverts.
@@ -260,5 +287,107 @@ export class DsAccordion {
    */
   getContentId(item: AccordionItem): string {
     return `accordion-content-${item.id}`;
+  }
+
+  // ==========================================
+  // Mode template-driven
+  // ==========================================
+
+  /**
+   * Initialiser les index des items enfants.
+   */
+  ngAfterContentInit(): void {
+    this.updateTemplateItemsIndex();
+  }
+
+  /**
+   * Mettre à jour les index des items template.
+   */
+  private updateTemplateItemsIndex(): void {
+    this.accordionItems().forEach((item, index) => {
+      item._index.set(index);
+    });
+  }
+
+  /**
+   * Toggle un item en mode template-driven.
+   */
+  toggleTemplateItem(item: DsAccordionItem): void {
+    if (this.disabled() || item.disabled()) return;
+
+    const itemId = item.id();
+    const isCurrentlyExpanded = this.isExpanded(itemId);
+
+    if (isCurrentlyExpanded) {
+      this._expandedIds.update((set) => {
+        const newSet = new Set(set);
+        newSet.delete(itemId);
+        return newSet;
+      });
+    } else {
+      if (!this.multiple()) {
+        this._expandedIds.set(new Set([itemId]));
+      } else {
+        this._expandedIds.update((set) => {
+          const newSet = new Set(set);
+          newSet.add(itemId);
+          return newSet;
+        });
+      }
+    }
+
+    item._expanded.set(!isCurrentlyExpanded);
+
+    this.itemChange.emit({
+      itemId,
+      expanded: !isCurrentlyExpanded,
+      expandedItems: Array.from(this._expandedIds()),
+    });
+  }
+
+  /**
+   * Gestion du clavier en mode template-driven.
+   */
+  onTemplateKeydown(
+    event: KeyboardEvent,
+    item: DsAccordionItem,
+    index: number
+  ): void {
+    const items = this.accordionItems();
+
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        this.toggleTemplateItem(item);
+        break;
+      case 'ArrowDown':
+        event.preventDefault();
+        this.focusItem(Math.min(index + 1, items.length - 1));
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        this.focusItem(Math.max(index - 1, 0));
+        break;
+      case 'Home':
+        event.preventDefault();
+        this.focusItem(0);
+        break;
+      case 'End':
+        event.preventDefault();
+        this.focusItem(items.length - 1);
+        break;
+    }
+  }
+
+  /**
+   * Classes CSS pour un item template-driven.
+   */
+  getTemplateItemClasses(item: DsAccordionItem): string[] {
+    return [
+      'ds-accordion__item',
+      this.isExpanded(item.id()) ? 'ds-accordion__item--expanded' : '',
+      item.disabled() ? 'ds-accordion__item--disabled' : '',
+    ].filter(Boolean);
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DsTable, DsButton, DsBadge, DsPagination, DsSearchInput } from 'ds-angular';
+import { DsTable, DsButton, DsPagination, DsSearchInput } from 'ds-angular';
 import { DemoContainer } from '../../../shared/demo/demo-container';
 import { CodeSource } from '../../../registry/types';
 

@@ -1,14 +1,26 @@
 import { Component, signal, computed } from '@angular/core';
-import { DsAccordion, AccordionItem, AccordionSize, AccordionVariant } from 'ds-angular';
+import { DsAccordion, DsAccordionItem, AccordionItem, AccordionSize, AccordionVariant, DsChip } from 'ds-angular';
 import { DemoContainer } from '../../../shared/demo/demo-container';
 import { PropsTable } from '../../../shared/props/props-table';
 import { DsAccordionDefinition } from '../../../registry/definitions/ds-accordion.definition';
 import { ControlValues } from '../../../registry/types';
 
+interface TaskItem {
+  id: string;
+  name: string;
+  status: 'pending' | 'completed';
+}
+
+interface TaskGroup {
+  key: string;
+  label: string;
+  items: TaskItem[];
+}
+
 @Component({
   selector: 'app-accordion-page',
   standalone: true,
-  imports: [DsAccordion, DemoContainer, PropsTable],
+  imports: [DsAccordion, DsAccordionItem, DsChip, DemoContainer, PropsTable],
   template: `
     <div class="component-page">
       <header class="component-header">
@@ -76,6 +88,34 @@ import { ControlValues } from '../../../registry/types';
             />
           </doc-demo-container>
         </div>
+
+        <div class="demo-block">
+          <h3 class="demo-block__title">Template-Driven (Rich Content)</h3>
+          <p class="demo-block__desc">Mode template-driven avec contenu riche. Utilise &lt;ds-accordion-item&gt; pour projeter des composants Angular.</p>
+          <doc-demo-container
+            [sources]="definition.demos[4]?.sources ?? []"
+            [code]="definition.demos[4]?.code"
+          >
+            <ds-accordion [multiple]="true" variant="separated">
+              @for (group of taskGroups; track group.key) {
+                <ds-accordion-item [header]="group.label" [badge]="group.items.length" [id]="group.key">
+                  <div class="task-list">
+                    @for (task of group.items; track task.id) {
+                      <div class="task-item" [class.task-item--completed]="task.status === 'completed'">
+                        <ds-chip
+                          [label]="task.status === 'completed' ? 'Done' : 'Pending'"
+                          [color]="task.status === 'completed' ? 'success' : 'warning'"
+                          size="sm"
+                        />
+                        <span class="task-name">{{ task.name }}</span>
+                      </div>
+                    }
+                  </div>
+                </ds-accordion-item>
+              }
+            </ds-accordion>
+          </doc-demo-container>
+        </div>
       </section>
 
       <section class="component-section">
@@ -106,6 +146,14 @@ import { ControlValues } from '../../../registry/types';
     .demo-block { margin-bottom: 32px; }
     .demo-block__title { margin: 0 0 8px 0; font-size: 1rem; font-weight: 600; color: var(--text-default, #1a1a1a); }
     .demo-block__desc { margin: 0 0 16px 0; font-size: 0.875rem; color: var(--text-muted, #6b7280); }
+    .task-list { display: flex; flex-direction: column; gap: 8px; }
+    .task-item {
+      display: flex; align-items: center; gap: 12px; padding: 8px 12px;
+      background: var(--surface-secondary, #f9fafb); border-radius: 6px;
+    }
+    .task-item--completed { opacity: 0.7; }
+    .task-item--completed .task-name { text-decoration: line-through; color: var(--text-muted, #6b7280); }
+    .task-name { font-size: 0.875rem; color: var(--text-default, #374151); }
   `]
 })
 export class AccordionPage {
@@ -115,6 +163,27 @@ export class AccordionPage {
     { id: 'item-1', header: 'Section 1', content: 'Contenu de la section 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
     { id: 'item-2', header: 'Section 2', content: 'Contenu de la section 2. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
     { id: 'item-3', header: 'Section 3', content: 'Contenu de la section 3. Ut enim ad minim veniam, quis nostrud exercitation.' },
+  ];
+
+  // Données pour l'exemple template-driven
+  taskGroups: TaskGroup[] = [
+    {
+      key: 'pending',
+      label: 'En attente',
+      items: [
+        { id: '1', name: 'Revue de code', status: 'pending' },
+        { id: '2', name: 'Tests unitaires', status: 'pending' },
+        { id: '3', name: 'Documentation', status: 'pending' },
+      ],
+    },
+    {
+      key: 'completed',
+      label: 'Terminées',
+      items: [
+        { id: '4', name: 'Setup projet', status: 'completed' },
+        { id: '5', name: 'Design system', status: 'completed' },
+      ],
+    },
   ];
 
   defaultValues = signal<ControlValues>({

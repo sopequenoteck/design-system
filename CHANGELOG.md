@@ -7,6 +7,27 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 
 ---
 
+## [1.8.0] - 2025-12-23
+
+### ✨ Nouvelles fonctionnalités
+
+- **components**: add DsEntityPicker and DsEntityChip components
+  - Sélecteur d'entités riches avec support icônes, couleurs, emojis
+  - Multi-sélection avec affichage en chips ou compteur
+  - CDK Overlay pour positionnement intelligent du dropdown
+  - ScrollIntoView pour navigation clavier fluide
+  - Template createText configurable avec placeholder {query}
+  - Création d'options à la volée (allowCreate)
+  - Intégration ControlValueAccessor (ngModel, FormControl)
+  - Tests exhaustifs (40+ tests)
+
+### 📝 Documentation
+
+- **showcase**: add ds-entity-picker page with 8 interactive demos
+- **registry**: add ds-entity-picker definition
+
+---
+
 ## [1.7.1] - 2025-12-20
 
 ### ✨ Nouvelles fonctionnalités

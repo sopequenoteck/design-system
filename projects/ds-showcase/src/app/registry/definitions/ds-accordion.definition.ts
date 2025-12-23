@@ -7,14 +7,14 @@ export const DsAccordionDefinition: ComponentDefinition = {
   selector: 'ds-accordion',
   category: 'navigation',
   description:
-    "Composant accordion pour afficher/masquer des sections de contenu avec support multi-ouverture et navigation clavier.",
+    "Composant accordion pour afficher/masquer des sections de contenu. Supporte le mode data-driven (texte simple) et template-driven (contenu riche via <ds-accordion-item>).",
   props: [
     {
       name: 'items',
       kind: 'input',
       type: 'AccordionItem[]',
-      description: "Liste des items de l'accordion (requis)",
-      required: true,
+      defaultValue: '[]',
+      description: "Liste des items (mode data-driven). Laisser vide pour utiliser le mode template-driven.",
     },
     {
       name: 'multiple',
@@ -56,6 +56,25 @@ export const DsAccordionDefinition: ComponentDefinition = {
       kind: 'output',
       type: 'EventEmitter<AccordionChangeEvent>',
       description: "Émis lors du changement d'état d'un item",
+    },
+    // DsAccordionItem props (mode template-driven)
+    {
+      name: 'header',
+      kind: 'input',
+      type: 'string',
+      description: '[DsAccordionItem] Texte du header',
+    },
+    {
+      name: 'badge',
+      kind: 'input',
+      type: 'string | number',
+      description: '[DsAccordionItem] Badge optionnel (ex: compteur)',
+    },
+    {
+      name: 'id (item)',
+      kind: 'input',
+      type: 'string',
+      description: "[DsAccordionItem] ID unique de l'item (auto-généré si non fourni)",
     },
   ],
   demos: [
@@ -107,6 +126,28 @@ export const DsAccordionDefinition: ComponentDefinition = {
   [items]="items"
   variant="separated"
 />`,
+    },
+    {
+      id: 'template-driven',
+      name: 'Template-Driven (Rich Content)',
+      description: 'Mode template-driven avec contenu riche via <ds-accordion-item>. Supporte badge et projection de contenu Angular.',
+      examplePath: 'ds-accordion/template-driven',
+      sources: getExampleSources('ds-accordion', 'template-driven'),
+      controls: [
+        { name: 'multiple', type: 'boolean', defaultValue: true },
+        { name: 'variant', type: 'select', defaultValue: 'separated', options: ['default', 'bordered', 'separated'] },
+        { name: 'size', type: 'select', defaultValue: 'md', options: ['sm', 'md', 'lg'] },
+      ],
+      code: `<ds-accordion [multiple]="true" variant="separated">
+  @for (group of groupedItems(); track group.key) {
+    <ds-accordion-item [header]="group.label" [badge]="group.items.length">
+      <!-- Rich content here: components, HTML, etc. -->
+      @for (task of group.items; track task.id) {
+        <div class="task-item">{{ task.name }}</div>
+      }
+    </ds-accordion-item>
+  }
+</ds-accordion>`,
     },
   ],
 };

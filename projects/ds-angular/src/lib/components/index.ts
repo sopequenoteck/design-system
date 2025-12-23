@@ -104,6 +104,8 @@ export {
   type AccordionChangeEvent,
 } from './ds-accordion/ds-accordion';
 
+export { DsAccordionItem } from './ds-accordion/ds-accordion-item';
+
 export {
   DsPagination,
   type PaginationSize,

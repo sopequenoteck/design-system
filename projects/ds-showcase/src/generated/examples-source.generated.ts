@@ -21,6 +21,23 @@ export const EXAMPLES_SOURCE: Record<string, Record<string, CodeSource[]>> = {
         "filename": "default.example.ts",
         "content": "import { Component, input } from '@angular/core';\nimport { DsAccordion, AccordionItem } from 'ds-angular';\n\n@Component({\n  selector: 'example-ds-accordion-default',\n  standalone: true,\n  imports: [DsAccordion],\n  templateUrl: './default.example.html',\n  styleUrl: './default.example.scss'\n})\nexport class DsAccordionDefaultExample {\n  multiple = input<boolean>(false);\n  size = input<'sm' | 'md' | 'lg'>('md');\n  variant = input<'default' | 'bordered' | 'separated'>('default');\n\n  items: AccordionItem[] = [\n    { id: 'item-1', header: 'Section 1', content: 'Contenu de la section 1. Lorem ipsum dolor sit amet.' },\n    { id: 'item-2', header: 'Section 2', content: 'Contenu de la section 2. Sed do eiusmod tempor incididunt.' },\n    { id: 'item-3', header: 'Section 3', content: 'Contenu de la section 3. Ut enim ad minim veniam.' }\n  ];\n}\n"
       }
+    ],
+    "template-driven": [
+      {
+        "language": "html",
+        "filename": "template-driven.example.html",
+        "content": "<ds-accordion [multiple]=\"multiple()\" [size]=\"size()\" [variant]=\"variant()\">\n  @for (group of groupedItems(); track group.key) {\n    <ds-accordion-item [header]=\"group.label\" [badge]=\"group.items.length\" [id]=\"group.key\">\n      <div class=\"task-list\">\n        @for (task of group.items; track task.id) {\n          <div class=\"task-item\" [class.task-item--completed]=\"task.status === 'completed'\">\n            <ds-chip\n              [label]=\"task.status === 'completed' ? 'Done' : 'Pending'\"\n              [color]=\"task.status === 'completed' ? 'success' : 'warning'\"\n              size=\"sm\"\n            />\n            <span class=\"task-name\">{{ task.name }}</span>\n          </div>\n        }\n      </div>\n    </ds-accordion-item>\n  }\n</ds-accordion>\n"
+      },
+      {
+        "language": "scss",
+        "filename": "template-driven.example.scss",
+        "content": ".task-list {\n  display: flex;\n  flex-direction: column;\n  gap: var(--space-2);\n}\n\n.task-item {\n  display: flex;\n  align-items: center;\n  gap: var(--space-3);\n  padding: var(--space-2) var(--space-3);\n  background: var(--surface-secondary);\n  border-radius: var(--radius-2);\n\n  &--completed {\n    opacity: 0.7;\n\n    .task-name {\n      text-decoration: line-through;\n      color: var(--text-muted);\n    }\n  }\n}\n\n.task-name {\n  font-size: var(--font-size-2);\n  color: var(--text-default);\n}\n"
+      },
+      {
+        "language": "typescript",
+        "filename": "template-driven.example.ts",
+        "content": "import { Component, signal, input } from '@angular/core';\nimport { DsAccordion, DsAccordionItem, DsChip } from 'ds-angular';\n\ninterface TaskItem {\n  id: string;\n  name: string;\n  status: 'pending' | 'completed';\n}\n\ninterface TaskGroup {\n  key: string;\n  label: string;\n  items: TaskItem[];\n}\n\n@Component({\n  selector: 'example-ds-accordion-template-driven',\n  standalone: true,\n  imports: [DsAccordion, DsAccordionItem, DsChip],\n  templateUrl: './template-driven.example.html',\n  styleUrl: './template-driven.example.scss',\n})\nexport class DsAccordionTemplateDrivenExample {\n  multiple = input<boolean>(true);\n  size = input<'sm' | 'md' | 'lg'>('md');\n  variant = input<'default' | 'bordered' | 'separated'>('separated');\n\n  readonly groupedItems = signal<TaskGroup[]>([\n    {\n      key: 'pending',\n      label: 'En attente',\n      items: [\n        { id: '1', name: 'Revue de code', status: 'pending' },\n        { id: '2', name: 'Tests unitaires', status: 'pending' },\n        { id: '3', name: 'Documentation', status: 'pending' },\n      ],\n    },\n    {\n      key: 'completed',\n      label: 'Terminées',\n      items: [\n        { id: '4', name: 'Setup projet', status: 'completed' },\n        { id: '5', name: 'Design system', status: 'completed' },\n      ],\n    },\n  ]);\n}\n"
+      }
     ]
   },
   "ds-alert": {

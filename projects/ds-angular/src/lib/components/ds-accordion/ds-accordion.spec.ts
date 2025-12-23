@@ -1,5 +1,7 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DsAccordion, AccordionItem, AccordionChangeEvent } from './ds-accordion';
+import { DsAccordionItem } from './ds-accordion-item';
 
 describe('DsAccordion', () => {
   let component: DsAccordion;
@@ -292,5 +294,132 @@ describe('DsAccordion', () => {
       expect(component.isExpanded('2')).toBe(true);
       expect(component.isExpanded('3')).toBe(false);
     });
+  });
+});
+
+// ============================================
+// Tests mode template-driven
+// ============================================
+describe('DsAccordion (Template-driven mode)', () => {
+  @Component({
+    template: `
+      <ds-accordion [multiple]="multiple">
+        <ds-accordion-item id="item-1" header="Section 1" [badge]="3">
+          <div class="rich-content">Rich content 1</div>
+        </ds-accordion-item>
+        <ds-accordion-item id="item-2" header="Section 2">
+          <p>Paragraph content</p>
+        </ds-accordion-item>
+        <ds-accordion-item id="item-3" header="Section 3" [disabled]="true">
+          <span>Disabled content</span>
+        </ds-accordion-item>
+      </ds-accordion>
+    `,
+    standalone: true,
+    imports: [DsAccordion, DsAccordionItem],
+  })
+  class TestHostComponent {
+    multiple = false;
+  }
+
+  let hostFixture: ComponentFixture<TestHostComponent>;
+  let hostComponent: TestHostComponent;
+  let compiled: HTMLElement;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TestHostComponent],
+    }).compileComponents();
+
+    hostFixture = TestBed.createComponent(TestHostComponent);
+    hostComponent = hostFixture.componentInstance;
+    hostFixture.detectChanges();
+    compiled = hostFixture.nativeElement;
+  });
+
+  it('should render template-driven items', () => {
+    const items = compiled.querySelectorAll('.ds-accordion__item');
+    expect(items.length).toBe(3);
+  });
+
+  it('should render headers with text', () => {
+    const headers = compiled.querySelectorAll('.ds-accordion__header');
+    expect(headers[0].textContent).toContain('Section 1');
+    expect(headers[1].textContent).toContain('Section 2');
+  });
+
+  it('should display badge on header', () => {
+    const badge = compiled.querySelector('.ds-accordion__badge');
+    expect(badge).toBeTruthy();
+    expect(badge?.textContent?.trim()).toBe('3');
+  });
+
+  it('should project rich content when expanded', () => {
+    // Click to expand first item
+    const header = compiled.querySelector('.ds-accordion__header') as HTMLButtonElement;
+    header.click();
+    hostFixture.detectChanges();
+
+    const richContent = compiled.querySelector('.rich-content');
+    expect(richContent).toBeTruthy();
+    expect(richContent?.textContent).toBe('Rich content 1');
+  });
+
+  it('should not toggle disabled item', () => {
+    const headers = compiled.querySelectorAll('.ds-accordion__header');
+    const disabledHeader = headers[2] as HTMLButtonElement;
+
+    expect(disabledHeader.disabled).toBe(true);
+  });
+
+  it('should toggle items on click', () => {
+    const header = compiled.querySelector('.ds-accordion__header') as HTMLButtonElement;
+
+    expect(header.getAttribute('aria-expanded')).toBe('false');
+
+    header.click();
+    hostFixture.detectChanges();
+
+    expect(header.getAttribute('aria-expanded')).toBe('true');
+  });
+
+  it('should close other items in single mode', () => {
+    const headers = compiled.querySelectorAll('.ds-accordion__header') as NodeListOf<HTMLButtonElement>;
+
+    // Open first
+    headers[0].click();
+    hostFixture.detectChanges();
+    expect(headers[0].getAttribute('aria-expanded')).toBe('true');
+
+    // Open second (should close first)
+    headers[1].click();
+    hostFixture.detectChanges();
+    expect(headers[0].getAttribute('aria-expanded')).toBe('false');
+    expect(headers[1].getAttribute('aria-expanded')).toBe('true');
+  });
+
+  it('should allow multiple items open in multiple mode', () => {
+    hostComponent.multiple = true;
+    hostFixture.detectChanges();
+
+    const headers = compiled.querySelectorAll('.ds-accordion__header') as NodeListOf<HTMLButtonElement>;
+
+    headers[0].click();
+    hostFixture.detectChanges();
+
+    headers[1].click();
+    hostFixture.detectChanges();
+
+    expect(headers[0].getAttribute('aria-expanded')).toBe('true');
+    expect(headers[1].getAttribute('aria-expanded')).toBe('true');
+  });
+
+  it('should have proper accessibility attributes', () => {
+    const header = compiled.querySelector('.ds-accordion__header');
+    const content = compiled.querySelector('.ds-accordion__content');
+
+    expect(header?.getAttribute('aria-controls')).toBe(content?.getAttribute('id'));
+    expect(content?.getAttribute('role')).toBe('region');
+    expect(content?.getAttribute('aria-labelledby')).toBe(header?.getAttribute('id'));
   });
 });
