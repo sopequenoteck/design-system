@@ -7,6 +7,28 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 
 ---
 
+## [1.8.1] - 2025-12-24
+
+### ✨ Nouvelles fonctionnalités
+
+- **ds-accordion**: add template-driven mode with DsAccordionItem
+  - Nouveau composant `DsAccordionItem` pour projection de contenu riche
+  - Support badge sur les headers d'accordion
+  - Auto-détection du mode (data-driven vs template-driven)
+  - Tests complets pour les deux modes (+129 lignes)
+
+### 📝 Documentation
+
+- **showcase**: add template-driven demo with task list example
+- **registry**: update ds-accordion definition with new props
+
+### 🔧 Maintenance
+
+- Fix unused DsBadge import in table-advanced.page.ts
+- Correct component count in README/CLAUDE.md (60 → 55)
+
+---
+
 ## [1.8.0] - 2025-12-23
 
 ### ✨ Nouvelles fonctionnalités
