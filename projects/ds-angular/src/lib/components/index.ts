@@ -362,3 +362,17 @@ export type {
   ListGroupVariant,
   ListGroupToggleEvent,
 } from './ds-list-group/ds-list-group.types';
+
+export {
+  DsEntityPicker,
+} from './ds-entity-picker/ds-entity-picker';
+
+export {
+  DsEntityChip,
+} from './ds-entity-picker/ds-entity-chip';
+
+export type {
+  DsEntityOption,
+  DsEntityPickerSize,
+  DsEntityPickerDisplayMode,
+} from './ds-entity-picker/ds-entity-picker.types';

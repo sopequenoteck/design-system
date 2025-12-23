@@ -1,0 +1,186 @@
+<div [ngClass]="containerClasses()">
+  <!-- Label -->
+  @if (label()) {
+    <label class="ds-entity-picker__label" [attr.for]="inputId()">
+      {{ label() }}
+      @if (required()) {
+        <span class="ds-entity-picker__required">*</span>
+      }
+    </label>
+  }
+
+  <!-- Input wrapper -->
+  <div class="ds-entity-picker__wrapper"
+       #triggerOrigin="cdkOverlayOrigin"
+       cdkOverlayOrigin>
+    <!-- Chips (mode multiple) -->
+    @if (multiple() && displayMode() === 'chip') {
+      <div class="ds-entity-picker__chips">
+        @for (option of selectedOptions(); track option.value) {
+          <ds-entity-chip
+            [option]="option"
+            [size]="size()"
+            [removable]="!isDisabled()"
+            [disabled]="isDisabled()"
+            (removed)="removeOption($event)"
+          />
+        }
+      </div>
+    }
+
+    <!-- Count badge (mode count) -->
+    @if (multiple() && displayMode() === 'count' && selectedOptions().length > 0) {
+      <span class="ds-entity-picker__count">
+        {{ countText() }}
+      </span>
+    }
+
+    <!-- Input -->
+    <div class="ds-entity-picker__input-container">
+      <input
+        #inputElement
+        type="text"
+        [id]="inputId()"
+        [ngClass]="inputClasses()"
+        [placeholder]="multiple() ? placeholder() : (displayValue() || placeholder())"
+        [disabled]="isDisabled()"
+        [value]="multiple() ? searchQuery() : (searchQuery() || displayValue())"
+        [attr.aria-expanded]="isOpen()"
+        [attr.aria-autocomplete]="'list'"
+        [attr.aria-controls]="listboxId()"
+        [attr.aria-activedescendant]="focusedIndex() >= 0 ? getOptionId(focusedIndex()) : null"
+        role="combobox"
+        autocomplete="off"
+        (focus)="onInputFocus()"
+        (blur)="onInputBlur()"
+        (input)="onSearchInput($event)"
+      />
+
+      <!-- Icons -->
+      <span class="ds-entity-picker__icons">
+        @if (clearable() && (selectedOptions().length > 0 || searchQuery())) {
+          <button
+            type="button"
+            class="ds-entity-picker__clear"
+            aria-label="Effacer"
+            tabindex="-1"
+            (mousedown)="clear($event)"
+          >
+            <fa-icon [icon]="iconClear" />
+          </button>
+        }
+        <span class="ds-entity-picker__arrow" [class.ds-entity-picker__arrow--open]="isOpen()">
+          <fa-icon [icon]="iconChevron" />
+        </span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Dropdown (CDK Overlay) -->
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="triggerOrigin"
+    [cdkConnectedOverlayOpen]="shouldShowDropdown()"
+    [cdkConnectedOverlayPositions]="overlayPositions"
+    [cdkConnectedOverlayWidth]="triggerOrigin.elementRef.nativeElement.offsetWidth"
+    [cdkConnectedOverlayHasBackdrop]="false"
+    [cdkConnectedOverlayPanelClass]="'ds-entity-picker-overlay'">
+    <div class="ds-entity-picker__dropdown" role="presentation">
+      <ul
+        #listbox
+        [id]="listboxId()"
+        class="ds-entity-picker__listbox"
+        role="listbox"
+        [attr.aria-label]="label() || 'Options'"
+        [attr.aria-multiselectable]="multiple()"
+      >
+        @for (option of filteredOptions(); track trackOption($index, option); let i = $index) {
+          <li
+            [id]="getOptionId(i)"
+            class="ds-entity-picker__option"
+            [class.ds-entity-picker__option--focused]="isOptionFocused(i)"
+            [class.ds-entity-picker__option--selected]="isOptionSelected(option)"
+            [class.ds-entity-picker__option--disabled]="option.disabled || maxReached()"
+            [style.--option-color]="option.color || 'var(--gray-400)'"
+            role="option"
+            [attr.aria-selected]="isOptionSelected(option)"
+            [attr.aria-disabled]="option.disabled || maxReached()"
+            (mousedown)="selectOption(option)"
+          >
+            <!-- Indicateur de couleur -->
+            @if (option.color) {
+              <span
+                class="ds-entity-picker__option-indicator"
+                [style.background-color]="option.color"
+              ></span>
+            }
+
+            <!-- Emoji ou icône -->
+            @if (option.emoji) {
+              <span class="ds-entity-picker__option-emoji">{{ option.emoji }}</span>
+            } @else if (option.icon) {
+              <fa-icon
+                class="ds-entity-picker__option-icon"
+                [icon]="option.icon"
+                [style.color]="option.color"
+              />
+            }
+
+            <!-- Contenu texte -->
+            <span class="ds-entity-picker__option-content">
+              <span class="ds-entity-picker__option-label">{{ option.label }}</span>
+              @if (option.description) {
+                <span class="ds-entity-picker__option-description">{{ option.description }}</span>
+              }
+            </span>
+
+            <!-- Check si sélectionné -->
+            @if (isOptionSelected(option)) {
+              <svg
+                class="ds-entity-picker__check"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            }
+          </li>
+        } @empty {
+          @if (!canCreate()) {
+            <li class="ds-entity-picker__empty" role="option" aria-disabled="true">
+              {{ noResultsText() }}
+            </li>
+          }
+        }
+
+        <!-- Option de création -->
+        @if (canCreate()) {
+          <li
+            class="ds-entity-picker__option ds-entity-picker__option--create"
+            [class.ds-entity-picker__option--focused]="isCreateFocused()"
+            role="option"
+            (mousedown)="requestCreate()"
+          >
+            <fa-icon class="ds-entity-picker__option-icon" [icon]="iconPlus" />
+            <span class="ds-entity-picker__option-content">
+              <span class="ds-entity-picker__option-label">
+                {{ formattedCreateText() }}
+              </span>
+            </span>
+          </li>
+        }
+      </ul>
+    </div>
+  </ng-template>
+
+  <!-- Helper / Error -->
+  @if (error()) {
+    <span class="ds-entity-picker__error" role="alert">{{ error() }}</span>
+  } @else if (helper()) {
+    <span class="ds-entity-picker__helper">{{ helper() }}</span>
+  }
+</div>

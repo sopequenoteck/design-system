@@ -214,6 +214,11 @@ export const routes: Routes = [
           import('./features/components/combobox/combobox.page').then(m => m.ComboboxPage),
       },
       {
+        path: 'components/forms/pickers/ds-entity-picker',
+        loadComponent: () =>
+          import('./features/components/entity-picker/entity-picker.page').then(m => m.EntityPickerPage),
+      },
+      {
         path: 'components/forms/pickers/ds-date-picker',
         loadComponent: () =>
           import('./features/components/date-picker/date-picker.page').then(m => m.DatePickerPage),
