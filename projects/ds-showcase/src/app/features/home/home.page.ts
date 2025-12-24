@@ -1,7 +1,8 @@
-import { Component, inject, signal, AfterViewInit, WritableSignal } from '@angular/core';
+import { Component, inject, signal, AfterViewInit, WritableSignal, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ComponentRegistry } from '../../registry/component.registry';
 import { DocIcon } from '../../shared/icon/doc-icon';
+import { DS_VERSION, DS_THEMES_COUNT, DS_TESTS_COUNT } from '../../config/version';
 
 interface FeatureItem {
   icon: string;
@@ -30,7 +31,7 @@ interface ComponentCard {
         <div class="hero__content">
           <span class="hero__badge doc-animate-fade-in-up">
             <doc-icon name="zap" size="xs" />
-            v1.7.0 - 53 composants
+            {{ heroBadge() }}
           </span>
           <h1 class="hero__title doc-animate-fade-in-up doc-animate-delay-1">
             <span class="hero__title-line">Design System</span>
@@ -78,7 +79,7 @@ interface ComponentCard {
       <section class="section">
         <h2 class="section__title">Fonctionnalités</h2>
         <div class="features">
-          @for (feature of features; track feature.title; let i = $index) {
+          @for (feature of features(); track feature.title; let i = $index) {
             <div class="feature-card doc-animate-fade-in-up" [style.animation-delay.ms]="i * 80">
               <div class="feature-card__icon" [attr.data-icon]="feature.icon">
                 <doc-icon [name]="getIconName(feature.icon)" size="lg" />
@@ -125,7 +126,7 @@ interface ComponentCard {
       <!-- Stats -->
       <section class="section section--stats">
         <div class="stats-grid">
-          @for (stat of stats; track stat.label; let i = $index) {
+          @for (stat of stats(); track stat.label; let i = $index) {
             <div class="stat-card doc-animate-scale-in" [style.animation-delay.ms]="i * 100">
               <span class="stat-card__value">{{ stat.displayValue() }}</span>
               <span class="stat-card__label">{{ stat.label }}</span>
@@ -668,18 +669,24 @@ interface ComponentCard {
 export class HomePage implements AfterViewInit {
   private registry = inject(ComponentRegistry);
 
+  // Computed values dynamiques
+  readonly componentCount = computed(() => this.registry.getComponentsCount());
+  readonly primitiveCount = computed(() => this.registry.getPrimitivesCount());
+  readonly totalCount = computed(() => this.registry.getTotalCount());
+  readonly heroBadge = computed(() => `v${DS_VERSION} - ${this.totalCount()} composants`);
+
   quickStartSteps = [
     { number: 1, title: 'Installation', code: 'npm install @kksdev/ds-angular' },
     { number: 2, title: 'Import des styles', code: "@import '@kksdev/ds-angular/styles';" },
     { number: 3, title: 'Utilisation', code: '<ds-button>Click me</ds-button>' },
   ];
 
-  features: FeatureItem[] = [
-    { icon: 'components', title: '53+ Composants', description: 'Une collection complète de composants UI prêts à l\'emploi.' },
-    { icon: 'sun', title: '3 Thèmes', description: 'Light, Dark et Custom avec personnalisation complète.' },
+  readonly features = computed<FeatureItem[]>(() => [
+    { icon: 'components', title: `${this.totalCount()}+ Composants`, description: 'Une collection complète de composants UI prêts à l\'emploi.' },
+    { icon: 'sun', title: `${DS_THEMES_COUNT} Thèmes`, description: 'Light, Dark et Custom avec personnalisation complète.' },
     { icon: 'check', title: 'Accessible', description: 'Conformité WCAG 2.1 AA pour une expérience inclusive.' },
     { icon: 'zap', title: 'Performant', description: 'Tree-shakable et optimisé pour des bundles légers.' },
-  ];
+  ]);
 
   popularComponents: ComponentCard[] = [
     { id: 'ds-button', name: 'Button', category: 'Actions', categoryPath: 'actions', description: 'Bouton d\'action avec variantes et états.', icon: 'zap' },
@@ -690,16 +697,17 @@ export class HomePage implements AfterViewInit {
     { id: 'ds-toast', name: 'Toast', category: 'Feedback', categoryPath: 'feedback', description: 'Notifications temporaires contextuelles.', icon: 'feedback' },
   ];
 
-  stats = [
-    { value: 53, label: 'Composants', displayValue: signal(0) },
-    { value: 7, label: 'Primitives', displayValue: signal(0) },
-    { value: 3, label: 'Thèmes', displayValue: signal(0) },
-    { value: 2300, label: 'Tests', displayValue: signal(0) },
-  ];
+  // Stats avec valeurs dynamiques depuis le registry
+  readonly stats = computed(() => [
+    { value: this.componentCount(), label: 'Composants', displayValue: signal(0) },
+    { value: this.primitiveCount(), label: 'Primitives', displayValue: signal(0) },
+    { value: DS_THEMES_COUNT, label: 'Thèmes', displayValue: signal(0) },
+    { value: DS_TESTS_COUNT, label: 'Tests', displayValue: signal(0) },
+  ]);
 
   ngAfterViewInit(): void {
     // Animate stats counters
-    this.stats.forEach((stat, index) => {
+    this.stats().forEach((stat, index) => {
       setTimeout(() => this.animateValue(stat.displayValue, stat.value), index * 150);
     });
   }

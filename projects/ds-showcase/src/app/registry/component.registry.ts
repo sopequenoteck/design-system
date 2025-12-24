@@ -88,4 +88,25 @@ export class ComponentRegistry {
         def.description.toLowerCase().includes(lowerQuery)
     );
   }
+
+  /**
+   * Compte les composants DS (hors primitives)
+   */
+  getComponentsCount(): number {
+    return this.getAll().filter(c => c.category !== 'primitives').length;
+  }
+
+  /**
+   * Compte les primitives
+   */
+  getPrimitivesCount(): number {
+    return this.getAll().filter(c => c.category === 'primitives').length;
+  }
+
+  /**
+   * Compte tous les éléments (composants + primitives)
+   */
+  getTotalCount(): number {
+    return this.getAll().length;
+  }
 }

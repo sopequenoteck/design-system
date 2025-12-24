@@ -2,7 +2,7 @@
   <!-- Mode data-driven (rétrocompatible) -->
   @if (mode() === 'data') {
     @for (item of items(); track item.id; let i = $index) {
-      <div [ngClass]="getItemClasses(item)">
+      <div [ngClass]="getItemClasses(item)" [style.--accordion-expanded-border-color]="expandedBorderColor()">
         <!-- Header -->
         <button
           type="button"
@@ -41,7 +41,7 @@
   <!-- Mode template-driven (contenu riche) -->
   @if (mode() === 'template') {
     @for (item of accordionItems(); track item.id(); let i = $index) {
-      <div [ngClass]="getTemplateItemClasses(item)">
+      <div [ngClass]="getTemplateItemClasses(item)" [style.--accordion-expanded-border-color]="expandedBorderColor()">
         <!-- Header -->
         <button
           type="button"

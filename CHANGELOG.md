@@ -7,7 +7,7 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 
 ---
 
-## [1.8.1] - 2025-12-24
+## [1.8.2] - 2025-12-24
 
 ### ✨ Nouvelles fonctionnalités
 
@@ -16,16 +16,39 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
   - Support badge sur les headers d'accordion
   - Auto-détection du mode (data-driven vs template-driven)
   - Tests complets pour les deux modes (+129 lignes)
+- **ds-accordion**: add `expandedBorderColor` input for separated variant
+  - Permet de personnaliser la couleur de bordure des items ouverts
+  - Fallback automatique sur `--color-primary`
+  - Accepte valeurs CSS (hex, var(), etc.)
+
+### 🐛 Corrections de bugs
+
+- **ds-accordion**: fix expandedIds items cannot be closed
+  - Les items définis dans expandedIds ne pouvaient plus être refermés
+  - Correction via effet Angular pour initialisation unique de l'état interne
+- **ds-accordion**: fix content height not adapting to any size
+  - Remplace `max-height: 500px` par CSS Grid `grid-template-rows: 0fr/1fr`
+  - Animation fluide vers hauteur naturelle du contenu
+- **ds-accordion**: fix content visible when closed
+  - Ajout `min-height: 0` sur body pour masquage correct
+  - Padding conditionnel appliqué seulement quand expanded
+- **ds-accordion**: add transition on border-color for separated variant
+  - Transition smooth sur changement de couleur de bordure
 
 ### 📝 Documentation
 
 - **showcase**: add template-driven demo with task list example
-- **registry**: update ds-accordion definition with new props
+- **showcase**: add task-planner demo page (DsAccordion + DsList + DsListItem)
+- **showcase**: make homepage stats dynamic from ComponentRegistry
+  - Version, component count, primitive count calculés dynamiquement
+  - Fichier config/version.ts pour centraliser version et constantes
+- **registry**: update ds-accordion definition with expandedBorderColor prop
 
 ### 🔧 Maintenance
 
 - Fix unused DsBadge import in table-advanced.page.ts
 - Correct component count in README/CLAUDE.md (60 → 55)
+- Add counting methods to ComponentRegistry (getComponentsCount, getPrimitivesCount)
 
 ---
 

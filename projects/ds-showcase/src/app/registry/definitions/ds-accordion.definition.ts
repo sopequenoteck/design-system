@@ -52,6 +52,13 @@ export const DsAccordionDefinition: ComponentDefinition = {
       description: "Désactiver tout l'accordion",
     },
     {
+      name: 'expandedBorderColor',
+      kind: 'input',
+      type: 'string',
+      defaultValue: 'undefined',
+      description: "Couleur de bordure quand un item est ouvert (variant separated). Fallback: --color-primary",
+    },
+    {
       name: 'itemChange',
       kind: 'output',
       type: 'EventEmitter<AccordionChangeEvent>',

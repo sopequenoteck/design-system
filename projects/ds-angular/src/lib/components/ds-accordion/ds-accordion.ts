@@ -6,6 +6,8 @@ import {
   signal,
   contentChildren,
   AfterContentInit,
+  effect,
+  untracked,
 } from '@angular/core';
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -113,6 +115,13 @@ export class DsAccordion implements AfterContentInit {
   disabled = input<boolean>(false);
 
   /**
+   * Couleur de bordure quand un item est ouvert (variant separated).
+   * Accepte une couleur CSS (ex: '#22c55e', 'var(--color-success)').
+   * @default undefined (utilise --color-primary comme fallback)
+   */
+  expandedBorderColor = input<string | undefined>(undefined);
+
+  /**
    * Événement émis lors du changement d'état d'un item.
    */
   itemChange = output<AccordionChangeEvent>();
@@ -138,23 +147,26 @@ export class DsAccordion implements AfterContentInit {
   private readonly _expandedIds = signal<Set<string>>(new Set());
 
   /**
-   * Initialiser les items ouverts à partir de l'input.
+   * Initialiser les items ouverts à partir de l'input expandedIds.
+   * L'effet synchronise expandedIds vers l'état interne.
    */
   constructor() {
-    // Note: L'initialisation réactive se fait via effect() si nécessaire
+    effect(() => {
+      const inputIds = this.expandedIds();
+      // Synchroniser vers l'état interne quand expandedIds change
+      untracked(() => {
+        if (inputIds.length > 0) {
+          this._expandedIds.set(new Set(inputIds));
+        }
+      });
+    }, { allowSignalWrites: true });
   }
 
   /**
    * IDs des items actuellement ouverts.
+   * Utilise uniquement l'état interne (géré par l'effet d'initialisation).
    */
-  readonly currentExpandedIds = computed(() => {
-    const inputIds = this.expandedIds();
-    const internalIds = this._expandedIds();
-
-    // Fusionner les deux sources
-    const merged = new Set([...inputIds, ...internalIds]);
-    return merged;
-  });
+  readonly currentExpandedIds = computed(() => this._expandedIds());
 
   /**
    * Vérifier si un item est ouvert.

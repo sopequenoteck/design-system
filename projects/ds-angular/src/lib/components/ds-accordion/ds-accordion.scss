@@ -74,22 +74,28 @@
     flex-shrink: 0;
   }
 
-  // Contenu
+  // Contenu - utilise CSS Grid pour une animation fluide vers la hauteur naturelle
   &__content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height var(--duration-normal) var(--easing-default);
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--duration-normal) var(--easing-default);
 
     &--expanded {
-      max-height: var(--accordion-content-max-height);
+      grid-template-rows: 1fr;
     }
   }
 
   &__body {
-    padding: var(--accordion-body-padding-md, var(--space-4));
+    min-height: 0;
+    overflow: hidden;
     color: var(--accordion-body-text, var(--text-muted));
     font-size: var(--accordion-body-font-size-md, var(--font-size-2));
     line-height: var(--line-height-relaxed);
+  }
+
+  // Padding interne pour éviter qu'il soit visible en mode fermé
+  &__content--expanded &__body {
+    padding: var(--accordion-body-padding-md, var(--space-4));
   }
 
   // Variant: default
@@ -125,6 +131,7 @@
       border: var(--accordion-border-width) solid var(--accordion-border-color, var(--border-color));
       border-radius: var(--accordion-radius, var(--radius-2));
       overflow: hidden;
+      transition: border-color var(--duration-fast) var(--easing-default);
 
       &:last-child {
         margin-bottom: 0;
@@ -144,8 +151,11 @@
     }
 
     .ds-accordion__body {
-      padding: var(--accordion-body-padding-sm, var(--space-2) var(--space-3));
       font-size: var(--accordion-body-font-size-sm, var(--font-size-1));
+    }
+
+    .ds-accordion__content--expanded .ds-accordion__body {
+      padding: var(--accordion-body-padding-sm, var(--space-2) var(--space-3));
     }
   }
 
@@ -157,8 +167,11 @@
     }
 
     .ds-accordion__body {
-      padding: var(--accordion-body-padding-lg, var(--space-5) var(--space-6));
       font-size: var(--accordion-body-font-size-lg, var(--font-size-3));
+    }
+
+    .ds-accordion__content--expanded .ds-accordion__body {
+      padding: var(--accordion-body-padding-lg, var(--space-5) var(--space-6));
     }
   }
 

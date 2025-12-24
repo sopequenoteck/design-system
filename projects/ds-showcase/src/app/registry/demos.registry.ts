@@ -25,6 +25,7 @@ export const DEMOS: DemoInfo[] = [
   { id: 'table-advanced', label: 'Table Advanced', path: '/demos/data/table-advanced', category: 'data' },
   { id: 'cards-grid', label: 'Cards Grid', path: '/demos/data/cards-grid', category: 'data' },
   { id: 'task-list', label: 'Task List', path: '/demos/data/task-list', category: 'data' },
+  { id: 'task-planner', label: 'Task Planner', path: '/demos/data/task-planner', category: 'data' },
   // Feedback
   { id: 'notifications', label: 'Notifications', path: '/demos/feedback/notifications', category: 'feedback' },
   { id: 'loading-states', label: 'Loading States', path: '/demos/feedback/loading-states', category: 'feedback' },
@@ -35,7 +36,7 @@ export const DEMOS: DemoInfo[] = [
  */
 export const COMPONENT_TO_DEMOS: Record<string, string[]> = {
   // Actions
-  'ds-button': ['login', 'contact', 'settings', 'sidebar-layout', 'header', 'table-advanced', 'cards-grid', 'notifications', 'loading-states'],
+  'ds-button': ['login', 'contact', 'settings', 'sidebar-layout', 'header', 'table-advanced', 'cards-grid', 'task-planner', 'notifications', 'loading-states'],
 
   // Forms - Text inputs
   'ds-input-field': ['login', 'contact', 'settings'],
@@ -44,13 +45,16 @@ export const COMPONENT_TO_DEMOS: Record<string, string[]> = {
 
   // Forms - Selection
   'ds-checkbox': ['login'],
-  'ds-toggle': ['settings'],
+  'ds-toggle': ['settings', 'task-planner'],
   'ds-select': ['settings'],
 
   // Data Display
-  'ds-card': ['login', 'contact', 'settings', 'dashboard', 'cards-grid', 'task-list', 'loading-states'],
-  'ds-list-item': ['task-list'],
-  'ds-chip': ['task-list'],
+  'ds-card': ['login', 'contact', 'settings', 'dashboard', 'cards-grid', 'task-list', 'task-planner', 'loading-states'],
+  'ds-list': ['task-planner'],
+  'ds-list-item': ['task-list', 'task-planner'],
+  'ds-chip': ['task-list', 'task-planner'],
+  'ds-empty': ['task-planner'],
+  'ds-accordion': ['task-planner'],
   'ds-avatar': ['header', 'cards-grid'],
   'ds-badge': ['dashboard', 'table-advanced', 'cards-grid'],
   'ds-table': ['table-advanced'],

@@ -115,6 +115,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/demos/data/task-list.page').then(m => m.TaskListDemoPage),
       },
+      {
+        path: 'demos/data/task-planner',
+        loadComponent: () =>
+          import('./features/demos/data/task-planner.page').then(m => m.TaskPlannerDemoPage),
+      },
       // Feedback
       {
         path: 'demos/feedback/notifications',
