@@ -325,8 +325,10 @@ export type {
   NavListGroup,
   NavListSize,
   NavListBadgeVariant,
+  NavListHeaderAction,
   NavListItemClickEvent,
   NavListGroupToggleEvent,
+  NavListGroupActionEvent,
 } from './ds-nav-list/ds-nav-list.types';
 
 export { DsCheckboxList } from './ds-checkbox-list/ds-checkbox-list';

@@ -1,5 +1,8 @@
 <ds-nav-list
   [groups]="groups"
   [size]="size()"
-  activeItemId="all"
+  [activeItemId]="activeItemId()"
+  (itemClick)="onItemClick($event)"
+  (groupToggle)="onGroupToggle($event)"
+  (groupAction)="onGroupAction($event)"
 />

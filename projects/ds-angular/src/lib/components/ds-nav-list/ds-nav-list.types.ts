@@ -48,6 +48,20 @@ export interface NavListItem {
 }
 
 /**
+ * Action dans le header d'un groupe (bouton icône).
+ */
+export interface NavListHeaderAction {
+  /** Icône FontAwesome du bouton */
+  icon: IconDefinition;
+
+  /** Label d'accessibilité (aria-label) */
+  ariaLabel: string;
+
+  /** Tooltip au survol */
+  tooltip?: string;
+}
+
+/**
  * Groupe d'items avec titre optionnel.
  * Permet d'organiser les items en sections (Sources, Filtres, etc.)
  */
@@ -66,6 +80,9 @@ export interface NavListGroup {
 
   /** État initial replié (si collapsible) */
   collapsed?: boolean;
+
+  /** Action dans le header (bouton icône) */
+  headerAction?: NavListHeaderAction;
 }
 
 /**
@@ -91,4 +108,15 @@ export interface NavListGroupToggleEvent {
 
   /** Nouvel état (true = collapsed) */
   collapsed: boolean;
+}
+
+/**
+ * Événement émis lors du clic sur l'action d'un groupe.
+ */
+export interface NavListGroupActionEvent {
+  /** Groupe concerné */
+  group: NavListGroup;
+
+  /** Événement souris original */
+  event: MouseEvent;
 }

@@ -7,6 +7,27 @@ et ce projet adhère au [Semantic Versioning](https://semver.org/lang/fr/).
 
 ---
 
+## [1.9.0] - 2025-12-24
+
+### ✨ Nouvelles fonctionnalités
+
+- **ds-nav-list**: add collapsible groups with header actions
+  - Groupes repliables avec état initial configurable (collapsed)
+  - Action de groupe via headerAction (bouton icône dans le header)
+  - Support icônes FontAwesome ET emojis (mutually exclusive)
+  - Badges avec variantes de couleur (default, primary, success, warning, error, info)
+  - Indicateurs dot colorés
+  - Navigation clavier complète (Enter, Space)
+  - Accessibilité WCAG 2.1 AA (aria-current, aria-disabled)
+  - 3 tailles (sm, md, lg)
+  - 26 tests unitaires
+
+### 📝 Documentation
+
+- **showcase**: enhance ds-nav-list example with all features
+
+---
+
 ## [1.8.2] - 2025-12-24
 
 ### ✨ Nouvelles fonctionnalités

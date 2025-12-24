@@ -254,4 +254,20 @@ describe('DsNavList', () => {
       expect(itemWithVariant.badgeVariant).toBe('error');
     });
   });
+
+  describe('Group Header Action', () => {
+    it('should emit groupAction event on action click', () => {
+      const spy = spyOn(component.groupAction, 'emit');
+      const event = new MouseEvent('click');
+      const stopPropagation = spyOn(event, 'stopPropagation');
+
+      component.handleGroupAction(mockGroups[0], event);
+
+      expect(stopPropagation).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith({
+        group: mockGroups[0],
+        event,
+      });
+    });
+  });
 });

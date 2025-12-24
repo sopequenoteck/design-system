@@ -19,6 +19,7 @@ import {
   NavListSize,
   NavListItemClickEvent,
   NavListGroupToggleEvent,
+  NavListGroupActionEvent,
 } from './ds-nav-list.types';
 
 /**
@@ -88,6 +89,9 @@ export class DsNavList {
 
   /** Émis lors du toggle d'un groupe */
   readonly groupToggle = output<NavListGroupToggleEvent>();
+
+  /** Émis lors du clic sur l'action d'un groupe */
+  readonly groupAction = output<NavListGroupActionEvent>();
 
   // ============ ICONS ============
 
@@ -211,5 +215,13 @@ export class DsNavList {
     }
 
     return classes.join(' ');
+  }
+
+  /**
+   * Gère le clic sur l'action d'un groupe
+   */
+  handleGroupAction(group: NavListGroup, event: MouseEvent): void {
+    event.stopPropagation();
+    this.groupAction.emit({ group, event });
   }
 }

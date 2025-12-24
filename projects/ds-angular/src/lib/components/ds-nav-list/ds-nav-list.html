@@ -13,12 +13,24 @@
         (click)="group.collapsible ? toggleGroup(group, $event) : null">
         <div class="group-header">
           <span>{{ group.title }}</span>
-          @if (group.collapsible) {
-            <fa-icon
-              [icon]="isGroupCollapsed(group) ? faChevronRight : faChevronDown"
-              class="collapse-icon">
-            </fa-icon>
-          }
+          <div class="group-header-end">
+            @if (group.headerAction) {
+              <button
+                type="button"
+                class="group-action-btn"
+                [attr.aria-label]="group.headerAction.ariaLabel"
+                [title]="group.headerAction.tooltip || group.headerAction.ariaLabel"
+                (click)="handleGroupAction(group, $event)">
+                <fa-icon [icon]="group.headerAction.icon" />
+              </button>
+            }
+            @if (group.collapsible) {
+              <fa-icon
+                [icon]="isGroupCollapsed(group) ? faChevronRight : faChevronDown"
+                class="collapse-icon">
+              </fa-icon>
+            }
+          </div>
         </div>
       </ds-divider>
     }
