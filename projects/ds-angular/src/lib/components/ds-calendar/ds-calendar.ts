@@ -20,6 +20,8 @@ export interface CalendarEvent {
   date: Date;
   title: string;
   type?: 'default' | 'success' | 'warning' | 'error';
+  /** Couleur custom (hex, rgb, etc.) - prioritaire sur type */
+  color?: string;
 }
 
 /**

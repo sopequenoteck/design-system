@@ -105,7 +105,10 @@
                     role="button"
                     [attr.aria-label]="event.title"
                   >
-                    <span class="ds-calendar__event-dot"></span>
+                    <span
+                      class="ds-calendar__event-dot"
+                      [style.background]="event.color || null"
+                    ></span>
                     @if (size() === 'lg') {
                       <span class="ds-calendar__event-title">{{ event.title }}</span>
                     }
