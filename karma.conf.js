@@ -58,7 +58,14 @@ module.exports = function (config) {
     customLaunchers: {
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',
-        flags: ['--no-sandbox', '--disable-gpu']
+        flags: [
+          '--no-sandbox',
+          '--disable-gpu',
+          '--disable-dev-shm-usage',
+          '--js-flags=--expose-gc --max-old-space-size=4096',
+          '--disable-extensions',
+          '--disable-background-networking'
+        ]
       }
     }
   });

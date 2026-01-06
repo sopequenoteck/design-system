@@ -41,6 +41,16 @@ describe('DsPopover', () => {
     buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
   });
 
+  afterEach(() => {
+    // Clean up any popovers/overlays left in the DOM to prevent memory leaks
+    document.querySelectorAll('.ds-popover').forEach((el) => el.remove());
+    document.querySelectorAll('.ds-popover-backdrop').forEach((el) => el.remove());
+    document.querySelectorAll('.cdk-overlay-container').forEach((el) => {
+      el.innerHTML = '';
+    });
+    fixture?.destroy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -162,6 +172,10 @@ describe('DsPopoverComponent', () => {
     fixture = TestBed.createComponent(DsPopoverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture?.destroy();
   });
 
   it('should create', () => {

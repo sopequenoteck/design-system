@@ -18,6 +18,14 @@ describe('DsColorPicker', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    // Clean up any overlays left in the DOM to prevent memory leaks
+    document.querySelectorAll('.cdk-overlay-container').forEach((el) => {
+      el.innerHTML = '';
+    });
+    fixture?.destroy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });

@@ -20,6 +20,10 @@ describe('DsInputField', () => {
     inputElement = fixture.debugElement.query(By.css('input'));
   });
 
+  afterEach(() => {
+    fixture?.destroy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });

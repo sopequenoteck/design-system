@@ -67,6 +67,10 @@ describe('DsDatePicker', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    fixture?.destroy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -463,6 +467,10 @@ describe('DsDatePicker with FormControl', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    fixture?.destroy();
+  });
+
   it('should work with FormControl', () => {
     expect(component).toBeTruthy();
   });
@@ -501,6 +509,10 @@ describe('DsDatePicker standalone', () => {
     fixture = TestBed.createComponent(DsDatePicker);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture?.destroy();
   });
 
   it('should create standalone', () => {

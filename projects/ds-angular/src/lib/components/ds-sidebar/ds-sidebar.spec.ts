@@ -62,6 +62,14 @@ describe('DsSidebar', () => {
     host = fixture.componentInstance;
   });
 
+  afterEach(() => {
+    // Clean up any overlays left in the DOM to prevent memory leaks
+    document.querySelectorAll('.cdk-overlay-container').forEach((el) => {
+      el.innerHTML = '';
+    });
+    fixture?.destroy();
+  });
+
   // ============ CRÉATION ET RENDU ============
 
   describe('Création et rendu', () => {

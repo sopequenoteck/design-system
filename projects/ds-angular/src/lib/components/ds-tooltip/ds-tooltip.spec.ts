@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Overlay } from '@angular/cdk/overlay';
@@ -32,87 +32,94 @@ describe('DsTooltip', () => {
     buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
   });
 
+  afterEach(() => {
+    // Clean up any tooltips left in the DOM
+    document.querySelectorAll('.ds-tooltip').forEach((el) => el.remove());
+    document.querySelectorAll('.ds-tooltip-overlay').forEach((el) => el.remove());
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show tooltip on mouseenter', (done) => {
+  it('should show tooltip on mouseenter', fakeAsync(() => {
     buttonElement.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
+    tick();
 
-    setTimeout(() => {
-      const tooltip = document.querySelector('.ds-tooltip');
-      expect(tooltip).toBeTruthy();
-      done();
-    }, 100);
-  });
+    const tooltip = document.querySelector('.ds-tooltip');
+    expect(tooltip).toBeTruthy();
 
-  it('should hide tooltip on mouseleave', (done) => {
+    flush();
+  }));
+
+  it('should hide tooltip on mouseleave', fakeAsync(() => {
     buttonElement.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
+    tick();
 
-    setTimeout(() => {
-      let tooltip = document.querySelector('.ds-tooltip');
-      expect(tooltip).toBeTruthy();
+    let tooltip = document.querySelector('.ds-tooltip');
+    expect(tooltip).toBeTruthy();
 
-      buttonElement.dispatchEvent(new MouseEvent('mouseleave'));
-      fixture.detectChanges();
+    buttonElement.dispatchEvent(new MouseEvent('mouseleave'));
+    fixture.detectChanges();
+    tick(200); // hideWithDelay uses 150ms
 
-      setTimeout(() => {
-        tooltip = document.querySelector('.ds-tooltip');
-        expect(tooltip).toBeFalsy();
-        done();
-      }, 200);
-    }, 100);
-  });
+    tooltip = document.querySelector('.ds-tooltip');
+    expect(tooltip).toBeFalsy();
 
-  it('should show tooltip on focus', (done) => {
+    flush();
+  }));
+
+  it('should show tooltip on focus', fakeAsync(() => {
     buttonElement.dispatchEvent(new FocusEvent('focus'));
     fixture.detectChanges();
+    tick();
 
-    setTimeout(() => {
-      const tooltip = document.querySelector('.ds-tooltip');
-      expect(tooltip).toBeTruthy();
-      done();
-    }, 100);
-  });
+    const tooltip = document.querySelector('.ds-tooltip');
+    expect(tooltip).toBeTruthy();
 
-  it('should hide tooltip on blur', (done) => {
+    flush();
+  }));
+
+  it('should hide tooltip on blur', fakeAsync(() => {
     buttonElement.dispatchEvent(new FocusEvent('focus'));
     fixture.detectChanges();
+    tick();
 
-    setTimeout(() => {
-      buttonElement.dispatchEvent(new FocusEvent('blur'));
-      fixture.detectChanges();
+    buttonElement.dispatchEvent(new FocusEvent('blur'));
+    fixture.detectChanges();
+    tick();
 
-      setTimeout(() => {
-        const tooltip = document.querySelector('.ds-tooltip');
-        expect(tooltip).toBeFalsy();
-        done();
-      }, 100);
-    }, 100);
-  });
+    const tooltip = document.querySelector('.ds-tooltip');
+    expect(tooltip).toBeFalsy();
 
-  it('should set aria-describedby on host element when tooltip is shown', (done) => {
+    flush();
+  }));
+
+  it('should set aria-describedby on host element when tooltip is shown', fakeAsync(() => {
     buttonElement.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
+    tick();
 
-    setTimeout(() => {
-      const ariaDescribedBy = buttonElement.getAttribute('aria-describedby');
-      expect(ariaDescribedBy).toBeTruthy();
-      expect(ariaDescribedBy).toContain('tooltip-');
-      done();
-    }, 100);
-  });
+    const ariaDescribedBy = buttonElement.getAttribute('aria-describedby');
+    expect(ariaDescribedBy).toBeTruthy();
+    expect(ariaDescribedBy).toContain('tooltip-');
 
-  it('should not show tooltip if text is empty', () => {
+    flush();
+  }));
+
+  it('should not show tooltip if text is empty', fakeAsync(() => {
     component.tooltipText = '';
     fixture.detectChanges();
 
     buttonElement.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
+    tick();
 
     const tooltip = document.querySelector('.ds-tooltip');
     expect(tooltip).toBeFalsy();
-  });
+
+    flush();
+  }));
 });
