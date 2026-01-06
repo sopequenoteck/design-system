@@ -8,37 +8,11 @@ import {
   effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { DsTreeNodeComponent } from './ds-tree-node.component';
 
-export type TreeSize = 'sm' | 'md' | 'lg';
-
-export interface TreeNode {
-  id: string | number;
-  label: string;
-  children?: TreeNode[];
-  icon?: IconDefinition;
-  expandedIcon?: IconDefinition;
-  disabled?: boolean;
-  expanded?: boolean;
-  checked?: boolean;
-  data?: any;
-}
-
-export interface TreeNodeSelectEvent {
-  node: TreeNode;
-  selected: boolean;
-}
-
-export interface TreeNodeExpandEvent {
-  node: TreeNode;
-  expanded: boolean;
-}
-
-export interface TreeNodeCheckEvent {
-  node: TreeNode;
-  checked: boolean;
-}
+// Re-export des types depuis le fichier dédié
+export type { TreeSize, TreeNode, TreeNodeSelectEvent, TreeNodeExpandEvent, TreeNodeCheckEvent } from './ds-tree.types';
+import type { TreeSize, TreeNode, TreeNodeSelectEvent, TreeNodeExpandEvent, TreeNodeCheckEvent } from './ds-tree.types';
 
 /**
  * DsTree - Composant d'affichage hiérarchique

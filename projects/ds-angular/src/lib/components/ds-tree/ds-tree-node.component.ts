@@ -15,7 +15,7 @@ import {
   faFile,
   faFolderOpen,
 } from '@fortawesome/free-solid-svg-icons';
-import type { TreeNode } from './ds-tree';
+import type { TreeNode } from './ds-tree.types';
 
 @Component({
   selector: 'ds-tree-node',
@@ -26,6 +26,8 @@ import type { TreeNode } from './ds-tree';
       class="ds-tree-node"
       [class.ds-tree-node--selected]="isSelected()"
       [class.ds-tree-node--disabled]="node().disabled"
+      [class.ds-tree-node--with-line]="showLine()"
+      [class.ds-tree-node--last]="isLast()"
       [attr.role]="'treeitem'"
       [attr.aria-selected]="isSelected()"
       [attr.aria-expanded]="hasChildren() ? isExpanded() : null"
@@ -38,6 +40,11 @@ import type { TreeNode } from './ds-tree';
       (keydown.arrowLeft)="handleArrowLeft($event)">
 
       <div class="ds-tree-node__content" [style.padding-left.px]="level() * 20">
+        <!-- Ligne horizontale (si showLine et niveau > 0) -->
+        @if (showLine() && level() > 0) {
+          <span class="ds-tree-node__line-horizontal"></span>
+        }
+
         <!-- Expand/collapse toggle -->
         @if (hasChildren()) {
           <button
@@ -82,14 +89,16 @@ import type { TreeNode } from './ds-tree';
 
     <!-- Children (recursive) -->
     @if (hasChildren() && isExpanded()) {
-      <div class="ds-tree-node__children" role="group">
-        @for (child of node().children; track child.id) {
+      <div class="ds-tree-node__children" [class.ds-tree-node__children--with-line]="showLine()" role="group">
+        @for (child of node().children; track child.id; let last = $last) {
           <ds-tree-node
             [node]="child"
             [level]="level() + 1"
             [selectable]="selectable()"
             [checkable]="checkable()"
             [showIcon]="showIcon()"
+            [showLine]="showLine()"
+            [isLast]="last"
             [selectedNodeId]="selectedNodeId()"
             [expandedNodeIds]="expandedNodeIds()"
             [checkedNodeIds]="checkedNodeIds()"
@@ -112,6 +121,8 @@ export class DsTreeNodeComponent {
   readonly selectable = input(true);
   readonly checkable = input(false);
   readonly showIcon = input(true);
+  readonly showLine = input(false);
+  readonly isLast = input(false);
   readonly selectedNodeId = input<string | number | null>(null);
   readonly expandedNodeIds = input<Set<string | number>>(new Set());
   readonly checkedNodeIds = input<Set<string | number>>(new Set());

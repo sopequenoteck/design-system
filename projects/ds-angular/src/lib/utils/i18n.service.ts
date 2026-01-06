@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, isDevMode } from '@angular/core';
 
 /**
  * Locales supportées.
@@ -367,7 +367,9 @@ export class DsI18nService {
     if (LABELS_MAP[locale]) {
       this._locale.set(locale);
     } else {
-      console.warn(`[DsI18nService] Locale '${locale}' not supported. Using 'fr'.`);
+      if (isDevMode()) {
+        console.warn(`[DsI18nService] Locale '${locale}' not supported. Using 'fr'.`);
+      }
       this._locale.set('fr');
     }
   }

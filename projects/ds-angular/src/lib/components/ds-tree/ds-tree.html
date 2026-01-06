@@ -4,13 +4,15 @@
       <p>No data available</p>
     </div>
   } @else {
-    @for (node of processedData(); track node.id) {
+    @for (node of processedData(); track node.id; let last = $last) {
       <ds-tree-node
         [node]="node"
         [level]="0"
         [selectable]="selectable()"
         [checkable]="checkable()"
         [showIcon]="showIcon()"
+        [showLine]="showLine()"
+        [isLast]="last"
         [selectedNodeId]="selectedNodeId()"
         [expandedNodeIds]="expandedNodeIds()"
         [checkedNodeIds]="checkedNodeIds()"

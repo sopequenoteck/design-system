@@ -95,5 +95,53 @@
 
   &__children {
     margin-left: 0;
+
+    // Mode avec lignes
+    &--with-line {
+      position: relative;
+      margin-left: var(--tree-indent, 20px);
+    }
+  }
+
+  // Mode avec lignes
+  &--with-line {
+    position: relative;
+
+    .ds-tree-node__content {
+      position: relative;
+    }
+
+    // Ligne horizontale (connecte au noeud)
+    .ds-tree-node__line-horizontal {
+      position: absolute;
+      left: calc(var(--tree-indent, 20px) * -1);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: var(--tree-line-width, 1px);
+      background-color: var(--tree-line-color, var(--gray-300));
+    }
+
+    // Ligne verticale (pseudo-element sur chaque noeud enfant)
+    &::before {
+      content: '';
+      position: absolute;
+      left: calc(var(--tree-indent, 20px) * -1);
+      top: 0;
+      bottom: 0;
+      width: var(--tree-line-width, 1px);
+      background-color: var(--tree-line-color, var(--gray-300));
+    }
+  }
+
+  // Dernier element : la ligne verticale s'arrete au milieu du noeud
+  &--with-line.ds-tree-node--last::before {
+    bottom: auto;
+    height: 50%;
+  }
+
+  // Premier niveau (level 0) : pas de ligne verticale ni horizontale
+  &--with-line:not(.ds-tree-node__children--with-line > &)::before {
+    display: none;
   }
 }

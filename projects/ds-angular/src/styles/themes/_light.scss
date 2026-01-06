@@ -742,6 +742,9 @@
   --tree-toggle-color: var(--text-muted);
   --tree-toggle-hover-color: var(--text-default);
   --tree-icon-color: var(--text-muted);
+  --tree-line-color: var(--gray-300);
+  --tree-line-width: 1px;
+  --tree-indent: 20px;
 
   /* ==========================================================================
    * SÉMANTIQUES DS PASSWORD STRENGTH

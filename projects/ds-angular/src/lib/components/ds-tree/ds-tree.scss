@@ -28,9 +28,12 @@
     padding: var(--space-3);
   }
 
-  // Lines variant
+  // Lines variant - styles definis dans ds-tree-node.component.scss
   &--with-lines {
-    // TODO: implement tree lines
+    // Les lignes de connexion sont gerees par les classes:
+    // - .ds-tree-node--with-line
+    // - .ds-tree-node__children--with-line
+    // - .ds-tree-node__line-horizontal
   }
 
   // Scrollbar styling
