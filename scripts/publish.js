@@ -27,6 +27,26 @@ const readline = require('readline');
 
 // Paths
 const ROOT_DIR = path.resolve(__dirname, '..');
+const ENV_PATH = path.join(ROOT_DIR, '.env');
+
+// Load .env file
+function loadEnv() {
+  if (fs.existsSync(ENV_PATH)) {
+    const content = fs.readFileSync(ENV_PATH, 'utf8');
+    content.split('\n').forEach((line) => {
+      const match = line.match(/^([^#=]+)=(.*)$/);
+      if (match) {
+        const key = match[1].trim();
+        const value = match[2].trim();
+        if (!process.env[key]) {
+          process.env[key] = value;
+        }
+      }
+    });
+  }
+}
+
+loadEnv();
 const LIB_PACKAGE_PATH = path.join(ROOT_DIR, 'projects/ds-angular/package.json');
 const DIST_DIR = path.join(ROOT_DIR, 'dist/ds-angular');
 const DIST_PACKAGE_PATH = path.join(DIST_DIR, 'package.json');
