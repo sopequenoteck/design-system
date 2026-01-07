@@ -19,6 +19,7 @@ RUN npm ci --prefer-offline --no-audit --legacy-peer-deps
 # Copier les sources nécessaires
 COPY angular.json tsconfig.json ./
 COPY projects/ ./projects/
+COPY scripts/ ./scripts/
 
 # Build la librairie ds-angular (requise par le Showcase)
 RUN npm run build:lib

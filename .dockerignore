@@ -44,8 +44,9 @@ DS_TODO.md
 MIGRATION.md
 VISUAL-TESTING.md
 
-# Scripts non nécessaires
-scripts/
+# Scripts non nécessaires (sauf generate-examples requis pour le build)
+scripts/*
+!scripts/generate-examples.js
 
 # Exemples et starter-kit
 examples/
