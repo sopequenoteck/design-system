@@ -1,63 +1,66 @@
-# DsAngular
+# @kksdev/ds-angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
+Angular 20 Design System - Bibliothèque de composants standalone avec signals.
 
-## Code scaffolding
+## Features
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- 55 composants UI (Button, Modal, Table, Form, etc.)
+- 7 primitives (Button, Input, Checkbox, Radio, Textarea, Toggle, Badge)
+- 3 thèmes (Light, Dark, Custom)
+- Support i18n
+- Accessible (WCAG 2.1 AA)
+- Standalone components avec signals
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the library, run:
+## Installation
 
 ```bash
-ng build ds-angular
+npm install @kksdev/ds-angular
 ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
-
-### Publishing the Library
-
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/ds-angular
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Peer Dependencies
 
 ```bash
-ng test
+npm install @angular/cdk @fortawesome/angular-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
 ```
 
-## Running end-to-end tests
+## Usage
 
-For end-to-end (e2e) testing, run:
+```typescript
+import { DsButton, DsModal, DsInputField } from '@kksdev/ds-angular';
 
-```bash
-ng e2e
+@Component({
+  imports: [DsButton, DsModal, DsInputField],
+  template: `
+    <ds-button variant="primary" (clicked)="onSave()">
+      Enregistrer
+    </ds-button>
+  `
+})
+export class MyComponent {}
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Thèmes
 
-## Additional Resources
+Activez un thème en ajoutant la classe sur le document :
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```typescript
+document.documentElement.className = 'theme-light'; // ou 'theme-dark', 'theme-custom'
+```
+
+## Documentation
+
+Documentation complète et démos interactives :
+
+**https://ds-showcase.kkshome.online/**
+
+## Composants disponibles
+
+### Primitives
+`PrimitiveButton` `PrimitiveInput` `PrimitiveCheckbox` `PrimitiveRadio` `PrimitiveTextarea` `PrimitiveToggle` `PrimitiveBadge`
+
+### Composants
+`DsButton` `DsModal` `DsTable` `DsInputField` `DsSelect` `DsCheckbox` `DsRadio` `DsTextarea` `DsToggle` `DsAlert` `DsToast` `DsBadge` `DsCard` `DsTabs` `DsAccordion` `DsDropdown` `DsTooltip` `DsPopover` `DsProgress` `DsSpinner` `DsSkeleton` `DsAvatar` `DsBreadcrumb` `DsPagination` `DsDatePicker` `DsTimePicker` `DsSlider` `DsRating` `DsFileUpload` `DsAutocomplete` ...et plus
+
+## License
+
+MIT

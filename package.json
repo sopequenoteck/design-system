@@ -25,7 +25,12 @@
     "publish:lib": "cd dist/ds-angular && npm publish",
     "publish:lib:dry-run": "cd dist/ds-angular && npm publish --dry-run",
     "showcase": "npm run generate:examples && ng serve ds-showcase --port 4300",
-    "showcase:build": "npm run generate:examples && ng build ds-showcase --configuration production"
+    "showcase:build": "npm run generate:examples && ng build ds-showcase --configuration production",
+    "release": "node scripts/publish.js",
+    "release:dry-run": "node scripts/publish.js --dry-run",
+    "release:patch": "node scripts/publish.js --patch",
+    "release:minor": "node scripts/publish.js --minor",
+    "release:major": "node scripts/publish.js --major"
   },
   "private": true,
   "dependencies": {

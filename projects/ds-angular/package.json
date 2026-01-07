@@ -36,5 +36,8 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": ["*.scss", "*.css"]
+  "sideEffects": [
+    "*.scss",
+    "*.css"
+  ]
 }
