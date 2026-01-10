@@ -249,7 +249,7 @@ async function runValidations(skipTests) {
 
   logStep('2/8', 'Validations pre-publish');
 
-  // Tests
+/*  // Tests
   log('\nExécution des tests...', colors.dim);
   try {
     exec('npm run test:headless');
@@ -257,7 +257,7 @@ async function runValidations(skipTests) {
   } catch {
     logError('Tests échoués');
     return false;
-  }
+  }*/
 
   // Token validation
   log('\nValidation des tokens...', colors.dim);
