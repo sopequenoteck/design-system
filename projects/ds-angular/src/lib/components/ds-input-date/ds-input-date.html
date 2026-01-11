@@ -1,0 +1,98 @@
+<div [class]="containerClasses()">
+  <!-- Label -->
+  @if (label()) {
+    <label class="ds-input-date__label" [attr.for]="panelId + '-input'">
+      {{ label() }}
+    </label>
+  }
+
+  <!-- Input container -->
+  <div
+    class="ds-input-date__wrapper"
+    #triggerOrigin="cdkOverlayOrigin"
+    cdkOverlayOrigin>
+
+    <input
+      #inputElement
+      type="text"
+      class="ds-input-date__input"
+      [id]="panelId + '-input'"
+      [value]="displayValue()"
+      [placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [readonly]="readonly()"
+      [attr.aria-haspopup]="'dialog'"
+      [attr.aria-expanded]="isOpen()"
+      [attr.aria-controls]="isOpen() ? panelId : null"
+      [attr.aria-invalid]="inputState() === 'error'"
+      (input)="onInputChange($event)"
+      (focus)="onInputFocus()"
+      (blur)="onInputBlur()"
+      (keydown)="onInputKeydown($event)">
+
+    <!-- Icons zone -->
+    <div class="ds-input-date__icons">
+      <!-- Clear button -->
+      @if (showClearButton()) {
+        <button
+          type="button"
+          class="ds-input-date__clear"
+          tabindex="-1"
+          aria-label="Effacer la date"
+          (click)="clearValue($event)">
+          <fa-icon [icon]="clearIcon" aria-hidden="true"></fa-icon>
+        </button>
+      }
+
+      <!-- Calendar icon -->
+      <button
+        type="button"
+        class="ds-input-date__calendar-btn"
+        [disabled]="isDisabled()"
+        tabindex="-1"
+        aria-label="Ouvrir le calendrier"
+        (click)="onCalendarIconClick($event)">
+        <fa-icon [icon]="calendarIcon" aria-hidden="true"></fa-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Helper / Error message -->
+  @if (error() || hasParseError()) {
+    <div class="ds-input-date__error">
+      <fa-icon [icon]="errorIcon" aria-hidden="true"></fa-icon>
+      <span>{{ error() || 'Format de date invalide' }}</span>
+    </div>
+  } @else if (helper()) {
+    <div class="ds-input-date__helper">{{ helper() }}</div>
+  }
+</div>
+
+<!-- Date Picker Overlay -->
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="triggerOrigin"
+  [cdkConnectedOverlayOpen]="isOpen()"
+  [cdkConnectedOverlayPositions]="overlayPositions"
+  [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+  [cdkConnectedOverlayPanelClass]="'ds-input-date-overlay'"
+  (backdropClick)="onBackdropClick()"
+  (overlayKeydown)="onOverlayKeydown($event)">
+
+  <div
+    class="ds-input-date__popup"
+    [id]="panelId"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Sélectionner une date">
+    <ds-date-picker
+      [mode]="'single'"
+      [minDate]="effectiveMinDate()"
+      [maxDate]="effectiveMaxDate()"
+      [showTodayButton]="true"
+      [showClearButton]="false"
+      (dateChange)="onDateSelected($event)">
+    </ds-date-picker>
+  </div>
+</ng-template>

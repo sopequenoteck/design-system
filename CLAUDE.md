@@ -304,3 +304,10 @@ export {
 
 - ❌ `component.variant = 'x'` → ✅ `fixture.componentRef.setInput('variant', 'x')`
 - ❌ `ng-reflect-*` checks → ✅ `component.signal()` assertions
+
+## Active Technologies
+- TypeScript 5.8 / Angular 20 + @angular/cdk (Overlay), @fortawesome/angular-fontawesome, DsDatePicker (interne) (001-ds-input-date)
+- N/A (composant UI stateless) (001-ds-input-date)
+
+## Recent Changes
+- 001-ds-input-date: Added TypeScript 5.8 / Angular 20 + @angular/cdk (Overlay), @fortawesome/angular-fontawesome, DsDatePicker (interne)
