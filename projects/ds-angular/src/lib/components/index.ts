@@ -380,3 +380,9 @@ export type {
   DsEntityPickerSize,
   DsEntityPickerDisplayMode,
 } from './ds-entity-picker/ds-entity-picker.types';
+
+export {
+  DsInputDate,
+  type InputDateSize,
+  type DateParseResult,
+} from './ds-input-date/ds-input-date';

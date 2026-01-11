@@ -238,6 +238,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/components/color-picker/color-picker.page').then(m => m.ColorPickerPage),
       },
+      {
+        path: 'components/forms/pickers/ds-input-date',
+        loadComponent: () =>
+          import('./features/components/input-date/input-date.page').then(m => m.InputDatePage),
+      },
       // ==========================================================================
       // Forms > Advanced
       // ==========================================================================

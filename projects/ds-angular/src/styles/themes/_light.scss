@@ -955,4 +955,20 @@
   --sidebar-trigger-shadow: var(--shadow-2);
   --sidebar-scrollbar-thumb: var(--gray-300);
   --sidebar-scrollbar-thumb-hover: var(--gray-400);
+
+  /* ==========================================================================
+   * SÉMANTIQUES DS INPUT DATE
+   * ======================================================================== */
+  --ds-input-date-bg: var(--input-bg);
+  --ds-input-date-border: var(--input-border);
+  --ds-input-date-border-focus: var(--input-focus-border);
+  --ds-input-date-border-error: var(--input-error-border);
+  --ds-input-date-text: var(--input-text);
+  --ds-input-date-placeholder: var(--input-placeholder);
+  --ds-input-date-icon: var(--input-icon);
+  --ds-input-date-icon-hover: var(--color-primary);
+  --ds-input-date-popup-bg: var(--surface-default);
+  --ds-input-date-popup-shadow: var(--shadow-3);
+  --ds-input-date-popup-border: var(--border-color);
+  --ds-input-date-icon-zone-width: 72px;
 }
